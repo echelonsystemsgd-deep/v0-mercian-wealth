@@ -1,20 +1,24 @@
 # Construction & High-Ticket Trades Strategic Pivot & Portfolio Integration Plan
 
-**Target Niche:** UK Construction, Renovation Contractors, Roofers, Joiners, Fit-Out Specialists & High-Ticket Local Service Businesses  
+**Primary Umbrella Market:** UK Local Businesses  
+**Flagship Highlighted Vertical:** UK Construction, Renovation Contractors, Roofers, Joiners & High-Ticket Trade Specialists  
+**Supporting Local Verticals:** Bespoke Local Services, Ateliers, Caterers, and Independent Local Retail  
 **Agency:** Mercian Wealth  
 **Date:** August 2026  
-**Status:** Completed & Validated
+**Status:** Completed, Validated & Verified (0 TypeScript / 0 Build Errors)
 
 ---
 
-## 1. Strategic Objective
+## 1. Unified Market Positioning
 
-Pivot the core messaging, pain points, interactive simulations, and portfolio prototypes from low-ticket retail (e.g., bakeries) to **high-ticket UK Construction, Renovation & Trade Businesses**, while preserving the broader authority for **UK Local Businesses**.
+* **Universal Market:** **UK Local Businesses** who rely on appointments, phone enquiries, upfront deposits, and local Google search rank.
+* **Flagship Featured Vertical:** **Construction & High-Ticket Trade Businesses** (Apex Luxury Construction prototype, £18.5k–£24k extension quote demo, £150–£350 site survey deposits).
+* **Supporting Verticals:** Artisan local businesses, bespoke bakeries, joiners, and catering services.
 
-### Why This Pivot Multiplies Value:
-* In retail, a missed call is a £40 cake. In construction, a missed call is a **£5,000 to £50,000+ home extension, roofing overhaul, or commercial fit-out**.
-* The **"On-Site Contractor Problem"** (power tools running, up on ladders/scaffolding, driving the van) makes phone availability during business hours nearly impossible.
-* Homeowners calling local builders call 2–3 firms on Google; the contractor with a **sub-1-second mobile website, instant automated quote intake, and sub-60s WhatsApp response** wins the job every time.
+### Why This Positioning Converts:
+* In high-ticket construction, a missed call is a **£5,000 to £50,000+ extension, roofing job, or renovation**.
+* The **"On-Site Builder Problem"** (power tools running, scaffolding, driving the van) makes phone availability during working hours impossible.
+* Homeowners calling local trades call 2–3 firms on Google; the contractor with a **sub-1-second mobile website, instant automated quote intake, and sub-60s WhatsApp response** captures the contract.
 
 ---
 
@@ -30,20 +34,21 @@ Pivot the core messaging, pain points, interactive simulations, and portfolio pr
 
 ---
 
-## 3. Core System & Copy Updates
+## 3. Core System & Copy Standard
 
 ### A. Hero Section & Pain Points
 * **Hero Headline:** *"You're on the scaffolding or driving the van—your competitors are answering your missed calls."*
-* **Core Problem:** 80% of high-ticket renovation inquiries are lost when calls go to voicemail during working hours.
+* **Core Problem:** 80% of high-ticket quote inquiries are lost when calls go to voicemail during working hours.
 * **Tagline:** 24/7 AI Quote & Site-Survey Capture, Instant Van WhatsApp Alerts & Automated Survey Deposits for UK Construction & Trade Specialists.
+* **Live WhatsApp Preview:** Demonstrates real-time intake for a £24,000 2-storey extension in Solihull with £250 survey deposit lock and instant van dispatch.
 
-### B. Interactive 3-Tap Phone Sandbox (`InteractivePhoneDemo`)
-* **Niche 1 (Construction & Renovation):**
-  * Step 1: Select High-Ticket Project Scope (£18,500 Full Loft Conversion, £12,000 Kitchen & Extension, £4,500 Complete Roof Replacement).
+### B. Interactive 3-Tap Phone Sandbox (`InteractivePhoneDemo` & `FieldSalesDemo`)
+* **Construction & Renovation (Featured):**
+  * Step 1: Select High-Ticket Project Scope (£18,500 Full Loft Conversion, £24,000 2-Storey Extension, £6,800 Complete Roof Overhaul).
   * Step 2: Site Survey & Consultation Calendar Selection.
   * Step 3: Upfront Survey Deposit / Consultation Lock-in (£150–£350) $\rightarrow$ Triggers real-time WhatsApp alert to the contractor's smartphone on site.
-* **Niche 2 (Commercial & Local Trade Services):**
-  * Emergency Callout, Commercial HVAC/Electrical, Bespoke Architectural Joinery.
+* **Local Business / Artisan Retail Packages:**
+  * Custom celebration orders, event catering, bespoke local service packages.
 
 ### C. Financial ROI & Latency Revenue Calculator
 * Standardized to **GBP (£)**.
@@ -61,8 +66,20 @@ Pivot the core messaging, pain points, interactive simulations, and portfolio pr
 
 ---
 
-## 4. Mobile Responsiveness & Strict Zero-Error Standard
+## 4. Terminal & Dependency Notes
+
+* **Package Manager:** The repository is managed with `pnpm` (see `pnpm-lock.yaml`).
+* **Running Commands:**
+  * To install dependencies: `pnpm install` (or `npm install --legacy-peer-deps`).
+  * To start dev server: `npm run dev` or `pnpm dev`.
+  * To run typecheck: `npx tsc --noEmit`.
+  * To test production build: `npm run build`.
+
+---
+
+## 5. Mobile Responsiveness & Strict Zero-Error Standard
 
 * Fluid typography, responsive touch targets (minimum 44px), and `overflow-x-hidden` safety on all containers.
-* Zero TypeScript compilation errors (`tsc --noEmit`).
+* **0 TypeScript Errors:** Verified with `npx tsc --noEmit`.
+* **0 Build Errors:** Verified with `npm run build` across all 65 routes.
 * WCAG AAA compliant gold/navy contrast standards.

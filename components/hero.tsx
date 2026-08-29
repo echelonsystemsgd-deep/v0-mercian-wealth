@@ -127,7 +127,7 @@ export function Hero() {
             {/* Customer Message */}
             <div className="flex justify-end">
               <div className="bg-emerald-950/80 border border-emerald-800/60 text-emerald-100 p-3 rounded-2xl rounded-tr-none max-w-[85%] sm:max-w-[70%]">
-                <p className="font-medium">Hi! Can I order a 2-tier chocolate cake for Saturday afternoon?</p>
+                <p className="font-medium">Hi! Can we book a site survey for a 2-storey extension in Solihull this Thursday or Saturday?</p>
                 <span className="text-[9px] text-emerald-400/70 block text-right mt-1 font-mono">11:42 PM</span>
               </div>
             </div>
@@ -135,19 +135,19 @@ export function Hero() {
             {/* Instant Automated Bot Reply */}
             <div className="flex justify-start">
               <div className="bg-slate-800/90 border border-slate-700 text-slate-200 p-3 rounded-2xl rounded-tl-none max-w-[90%] sm:max-w-[80%] space-y-2">
-                <p className="font-semibold text-white">🍰 Absolutely! We have Saturday slots open for pickup.</p>
+                <p className="font-semibold text-white">🏗️ Absolutely! We have Thursday 2:00 PM and Saturday 10:00 AM survey slots available.</p>
                 <div className="bg-slate-900/80 p-2.5 rounded-lg border border-slate-700/60 text-xs space-y-1">
                   <div className="flex justify-between text-slate-300">
-                    <span>2-Tier Chocolate Fudge</span>
-                    <span className="font-bold text-white">£65.00</span>
+                    <span>2-Storey Extension & Refit</span>
+                    <span className="font-bold text-white">£24,000 est.</span>
                   </div>
                   <div className="flex justify-between text-emerald-400 font-mono text-[11px]">
-                    <span>Required Deposit (50%):</span>
-                    <span>£32.50</span>
+                    <span>Survey Deposit (Reserved):</span>
+                    <span>£250.00</span>
                   </div>
                 </div>
                 <div className="pt-1 flex items-center justify-between text-[11px] text-amber-400 font-mono font-medium">
-                  <span>⚡ Stripe Deposit Secured Automatically</span>
+                  <span>⚡ Instant Van WhatsApp Dispatch & Stripe Lock-In</span>
                   <span>11:42 PM</span>
                 </div>
               </div>

@@ -43,7 +43,7 @@ export function LocalHero() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="font-serif text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-[1.15] tracking-tight mb-6 max-w-4xl"
         >
-          Stop Losing Cake & Catering Orders During the <span className="bg-gradient-to-r from-accent-gold via-amber-200 to-accent-gold bg-clip-text text-transparent italic">Morning Rush.</span>
+          Stop Losing High-Ticket Quotes & Bookings While You Are <span className="bg-gradient-to-r from-accent-gold via-amber-200 to-accent-gold bg-clip-text text-transparent italic">Working on Site.</span>
         </motion.h1>
 
         {/* Subheadline - Plain English */}
@@ -53,7 +53,7 @@ export function LocalHero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="font-sans text-base sm:text-lg md:text-xl text-white/85 max-w-2xl leading-relaxed mb-8"
         >
-          When customers want custom cakes, platter catering, or weekend pickups, they don't want to wait hours for a reply. We give local bakeries & food businesses an automated online ordering storefront that takes deposits and dings your phone instantly.
+          From construction, renovation, and high-ticket trade specialists to bespoke local services, caterers, and bakeries, customers won't wait hours for a callback. We build automated mobile engines that qualify scopes, collect deposits, and ding your phone instantly.
         </motion.p>
 
         {/* Trust Points */}

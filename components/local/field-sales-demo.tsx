@@ -2,18 +2,20 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Smartphone, CheckCircle, Send, Cake, Calendar, CreditCard, Sparkles, MessageCircle, AlertCircle } from "lucide-react"
+import { Smartphone, CheckCircle, Send, HardHat, Cake, Calendar, CreditCard, Sparkles, MessageCircle, AlertCircle } from "lucide-react"
 
-const cakeTypes = [
-  { id: "artisan-sponge", name: "2-Tier Victoria Sponge", price: 65, deposit: 32.5 },
-  { id: "custom-chocolate", name: "Deluxe Chocolate Fudge", price: 85, deposit: 42.5 },
-  { id: "artisan-cupcakes", name: "24 Artisan Cupcake Platter", price: 50, deposit: 25.0 },
+const demoServices = [
+  { id: "loft-conversion", category: "Construction", name: "Full Loft Conversion & Dormer", price: 18500, deposit: 250.0, subtitle: "2 Bed + Ensuite · Site Survey Lock" },
+  { id: "kitchen-extension", category: "Construction", name: "2-Storey Extension & Refit", price: 24000, deposit: 350.0, subtitle: "Full Architectural Build · Survey Lock" },
+  { id: "roof-overhaul", category: "Construction", name: "Complete Slate Roof Overhaul", price: 6800, deposit: 150.0, subtitle: "Emergency / Replacement · Survey Lock" },
+  { id: "artisan-catering", category: "Local Retail", name: "Artisan Platter & Event Catering", price: 280, deposit: 140.0, subtitle: "Weekend Event · 50% Deposit Lock" },
+  { id: "custom-bakery", category: "Local Retail", name: "3-Tier Custom Celebration Order", price: 220, deposit: 110.0, subtitle: "Artisan Cake & Delivery · 50% Deposit" },
 ]
 
 export function FieldSalesDemo() {
-  const [selectedCake, setSelectedCake] = useState(cakeTypes[0])
-  const [pickupDate, setPickupDate] = useState("Saturday, 11:00 AM")
-  const [customerName, setCustomerName] = useState("Sarah Jenkins")
+  const [selectedService, setSelectedService] = useState(demoServices[0])
+  const [pickupDate, setPickupDate] = useState("Saturday, 10:00 AM")
+  const [customerName, setCustomerName] = useState("David Harrison")
   const [isSimulating, setIsSimulating] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
 
@@ -24,7 +26,7 @@ export function FieldSalesDemo() {
     setTimeout(() => {
       setIsSimulating(false)
       setShowNotification(true)
-    }, 1200)
+    }, 1000)
   }
 
   return (
@@ -38,10 +40,10 @@ export function FieldSalesDemo() {
             <span>Interactive Mobile Demo — Try It On Your Phone</span>
           </div>
           <h2 className="font-serif text-2xl sm:text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">
-            See How Orders Reach Your Phone in 2 Seconds
+            See How High-Ticket Leads Reach Your Phone in 2 Seconds
           </h2>
           <p className="text-sm sm:text-base text-text-secondary">
-            Tap through this 30-second demo below to see what your customer experiences and how the instant WhatsApp alert dings on your phone.
+            Tap through this demo below to see what your customer experiences and how the instant WhatsApp alert dings on your smartphone while you work on site.
           </p>
         </div>
 
@@ -52,26 +54,26 @@ export function FieldSalesDemo() {
           <div className="lg:col-span-7 bg-[#07050B] p-5 sm:p-7 rounded-3xl border border-accent-gold/30 shadow-[0_0_30px_rgba(212,175,55,0.1)] relative">
             <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
               <div className="flex items-center gap-2">
-                <Cake className="text-accent-gold" size={20} />
-                <span className="font-serif font-bold text-white text-base">Sweet Artisan Bakery</span>
+                <HardHat className="text-accent-gold" size={20} />
+                <span className="font-serif font-bold text-white text-base">Vanguard Construction & Trade Engine</span>
               </div>
               <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
                 LIVE DEMO STOREFRONT
               </span>
             </div>
 
-            {/* Cake Selection */}
+            {/* Service Selection */}
             <div className="space-y-4 mb-6">
               <label className="text-xs font-mono font-bold text-accent-gold uppercase tracking-wider flex items-center gap-1.5">
-                <span>1. Select Custom Order:</span>
+                <span>1. Select Project / Service Package:</span>
               </label>
               <div className="grid grid-cols-1 gap-2.5">
-                {cakeTypes.map((cake) => {
-                  const active = selectedCake.id === cake.id
+                {demoServices.map((svc) => {
+                  const active = selectedService.id === svc.id
                   return (
                     <button
-                      key={cake.id}
-                      onClick={() => setSelectedCake(cake)}
+                      key={svc.id}
+                      onClick={() => setSelectedService(svc)}
                       className={`flex items-center justify-between p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
                         active
                           ? "bg-accent-gold/15 border-accent-gold text-white font-semibold shadow-md"
@@ -82,11 +84,14 @@ export function FieldSalesDemo() {
                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${active ? "border-accent-gold bg-accent-gold text-black" : "border-white/30"}`}>
                           {active && <CheckCircle size={12} />}
                         </div>
-                        <span className="text-sm font-sans">{cake.name}</span>
+                        <div>
+                          <span className="text-sm font-sans block">{svc.name}</span>
+                          <span className="text-[10px] text-text-secondary font-mono">{svc.subtitle}</span>
+                        </div>
                       </div>
                       <div className="text-right">
-                        <span className="text-sm font-mono font-bold text-accent-gold">£{cake.price}</span>
-                        <span className="text-[10px] block text-text-secondary">£{cake.deposit} deposit</span>
+                        <span className="text-sm font-mono font-bold text-accent-gold">£{svc.price.toLocaleString()}</span>
+                        <span className="text-[10px] block text-emerald-400 font-mono">£{svc.deposit} deposit</span>
                       </div>
                     </button>
                   )
@@ -94,26 +99,26 @@ export function FieldSalesDemo() {
               </div>
             </div>
 
-            {/* Pickup Date & Customer Info */}
+            {/* Date & Customer Info */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
               <div>
                 <label className="text-xs font-mono font-bold text-accent-gold uppercase tracking-wider block mb-2">
-                  2. Requested Pickup:
+                  2. Requested Date / Slot:
                 </label>
                 <select
                   value={pickupDate}
                   onChange={(e) => setPickupDate(e.target.value)}
                   className="w-full bg-white/[0.04] border border-white/15 rounded-xl p-3 text-xs text-white outline-none focus:border-accent-gold"
                 >
-                  <option value="Friday, 3:00 PM" className="bg-bg-secondary text-white">Friday, 3:00 PM</option>
-                  <option value="Saturday, 11:00 AM" className="bg-bg-secondary text-white">Saturday, 11:00 AM</option>
-                  <option value="Saturday, 2:00 PM" className="bg-bg-secondary text-white">Saturday, 2:00 PM</option>
+                  <option value="Thursday, 2:00 PM" className="bg-bg-secondary text-white">Thursday, 2:00 PM</option>
+                  <option value="Saturday, 10:00 AM" className="bg-bg-secondary text-white">Saturday, 10:00 AM</option>
+                  <option value="Next Tuesday, 9:00 AM" className="bg-bg-secondary text-white">Next Tuesday, 9:00 AM</option>
                 </select>
               </div>
 
               <div>
                 <label className="text-xs font-mono font-bold text-accent-gold uppercase tracking-wider block mb-2">
-                  3. Customer Name:
+                  3. Customer / Client Name:
                 </label>
                 <input
                   type="text"
@@ -128,9 +133,9 @@ export function FieldSalesDemo() {
             {/* Deposit Summary & Simulate Action Button */}
             <div className="p-4 rounded-2xl bg-accent-gold/5 border border-accent-gold/25 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
-                <span className="text-xs text-text-secondary block">Total Upfront Deposit:</span>
-                <span className="text-2xl font-mono font-bold text-accent-gold">£{selectedCake.deposit.toFixed(2)}</span>
-                <span className="text-[10px] text-white/50 block">Remaining £{(selectedCake.price - selectedCake.deposit).toFixed(2)} on pickup</span>
+                <span className="text-xs text-text-secondary block">Upfront Survey Fee / Deposit:</span>
+                <span className="text-2xl font-mono font-bold text-accent-gold">£{selectedService.deposit.toFixed(2)}</span>
+                <span className="text-[10px] text-white/50 block">Project Total: £{selectedService.price.toLocaleString()}</span>
               </div>
 
               <button
@@ -139,11 +144,11 @@ export function FieldSalesDemo() {
                 className="w-full sm:w-auto px-6 py-3.5 font-bold text-xs sm:text-sm bg-accent-gold text-black hover:bg-amber-300 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 {isSimulating ? (
-                  <span>Routing Order...</span>
+                  <span>Routing Lead...</span>
                 ) : (
                   <>
                     <Send size={16} />
-                    <span>Simulate Order Submit</span>
+                    <span>Simulate Lead Submit</span>
                   </>
                 )}
               </button>
@@ -179,28 +184,28 @@ export function FieldSalesDemo() {
                       <div className="flex items-center justify-between border-b border-white/20 pb-2">
                         <div className="flex items-center gap-2">
                           <MessageCircle size={18} className="text-emerald-300" />
-                          <span className="font-bold text-xs text-emerald-200">NEW ONLINE ORDER RECEIVED</span>
+                          <span className="font-bold text-xs text-emerald-200">NEW HIGH-TICKET LEAD</span>
                         </div>
                         <span className="text-[10px] text-white/60">Just now</span>
                       </div>
 
                       <div className="text-xs space-y-1 pt-1">
-                        <p><strong className="text-accent-gold">Customer:</strong> {customerName}</p>
-                        <p><strong className="text-accent-gold">Item:</strong> {selectedCake.name}</p>
-                        <p><strong className="text-accent-gold">Pickup:</strong> {pickupDate}</p>
-                        <p><strong className="text-emerald-300">Deposit Paid:</strong> £{selectedCake.deposit.toFixed(2)} (via Stripe)</p>
+                        <p><strong className="text-accent-gold">Client:</strong> {customerName}</p>
+                        <p><strong className="text-accent-gold">Project:</strong> {selectedService.name}</p>
+                        <p><strong className="text-accent-gold">Survey Slot:</strong> {pickupDate}</p>
+                        <p><strong className="text-emerald-300">Deposit Paid:</strong> £{selectedService.deposit.toFixed(2)} (via Stripe)</p>
                       </div>
 
                       <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[10px] text-white/70">
                         <span>Status: Auto-Confirmed</span>
-                        <span className="text-accent-gold font-bold">Ref: #SWT-{Math.floor(1000 + Math.random() * 9000)}</span>
+                        <span className="text-accent-gold font-bold">Ref: #MW-{Math.floor(1000 + Math.random() * 9000)}</span>
                       </div>
                     </motion.div>
                   ) : (
                     <div className="text-center p-6 border border-dashed border-white/20 rounded-2xl">
                       <Smartphone size={32} className="mx-auto text-white/30 mb-2" />
                       <p className="text-xs text-white/60 font-sans">
-                        Tap <span className="text-accent-gold font-bold">"Simulate Order Submit"</span> to watch the WhatsApp alert arrive here in 2 seconds.
+                        Tap <span className="text-accent-gold font-bold">"Simulate Lead Submit"</span> to watch the WhatsApp alert arrive here in 2 seconds.
                       </p>
                     </div>
                   )}

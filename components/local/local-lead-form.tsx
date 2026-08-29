@@ -199,7 +199,7 @@ export function LocalLeadForm() {
                     onChange={(e) => setFormData({ ...formData, packageChoice: e.target.value })}
                     className="w-full bg-white/[0.04] border border-white/15 rounded-xl p-3.5 text-xs text-white outline-none focus:border-accent-gold font-sans"
                   >
-                    <option value="Catering & Order Engine (£895 setup)" className="bg-bg-secondary text-white">Catering & Order Engine (£895 setup - Recommended)</option>
+                    <option value="Pro Quote & Deposit Engine (£895 setup)" className="bg-bg-secondary text-white">Pro Quote & Deposit Engine (£895 setup - Recommended)</option>
                     <option value="Local Storefront (£495 setup)" className="bg-bg-secondary text-white">Local Storefront (£495 setup)</option>
                     <option value="Full Local Domination (£1,495 setup)" className="bg-bg-secondary text-white">Full Local Domination (£1,495 setup)</option>
                   </select>
@@ -215,7 +215,7 @@ export function LocalLeadForm() {
                   rows={3}
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  placeholder="e.g. We need custom cake order deposits and weekend pickup scheduling."
+                  placeholder="e.g. We need 24/7 site survey bookings, instant WhatsApp alerts on site, and Stripe deposit collection."
                   className="w-full bg-white/[0.04] border border-white/15 rounded-xl p-3.5 text-sm text-white outline-none focus:border-accent-gold transition-colors font-sans resize-none"
                 />
               </div>

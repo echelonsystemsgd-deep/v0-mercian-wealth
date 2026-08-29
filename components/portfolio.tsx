@@ -21,13 +21,13 @@ type PortfolioItem = {
 
 const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   {
-    title: "Apex Luxury Construction & Fit-Outs",
-    category: "Construction & Bespoke Renovations · Interactive Sandbox",
+    title: "Vanguard Construction & Extensions",
+    category: "House Extensions & Loft Conversions · Interactive Sandbox",
     gradient: "from-amber-500/20 to-yellow-600/20",
     href: "https://premium-local-construction-business.vercel.app/",
-    image: null,
+    image: "/vanguard-construction-preview.png",
     underConstruction: false,
-    metric: "Sub-Second Load · Instant Quote Engine",
+    metric: "Fixed-Price Certainty · Instant Quote Builder",
   },
   {
     title: "Stamp Valuation App",
@@ -59,7 +59,7 @@ const DEFAULT_PORTFOLIO: PortfolioItem[] = [
 ]
 
 function PremiumMockup({ item }: { item: PortfolioItem }) {
-  if (item.title.includes("Apex") || item.title.includes("Construction")) {
+  if (item.title.includes("Vanguard") || item.title.includes("Apex") || item.title.includes("Construction")) {
     return (
       <div className="absolute inset-2 sm:inset-4 bg-[#050C1A] rounded-xl border border-[#DAA640]/40 overflow-hidden shadow-2xl flex flex-col font-sans">
         <div className="flex items-center justify-between px-3 py-2 bg-[#0A162E] border-b border-[#DAA640]/25 shrink-0">
@@ -76,29 +76,29 @@ function PremiumMockup({ item }: { item: PortfolioItem }) {
         <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#07153B] to-[#020E28]">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">APEX BUILD & RENOVATION</span>
-              <span className="text-[6px] font-bold uppercase tracking-widest text-[#DAA640] bg-[#DAA640]/10 border border-[#DAA640]/30 px-1.5 py-0.5 rounded-full">UK CONTRACTOR</span>
+              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">VANGUARD CONSTRUCTION</span>
+              <span className="text-[6px] font-bold uppercase tracking-widest text-[#DAA640] bg-[#DAA640]/10 border border-[#DAA640]/30 px-1.5 py-0.5 rounded-full">SURREY & LONDON</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="text-[6px] text-emerald-400 font-bold">★ 5.0 Rated · Licensed</span>
+              <span className="text-[6px] text-emerald-400 font-bold">★ 14+ Yrs Craftsmanship</span>
             </div>
           </div>
           <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-white leading-tight">High-End Architectural Renovations, Extensions & Fit-Outs</h4>
-            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Sub-second quote engine, automated site survey reservations & 24/7 client dispatch for premium UK homeowners.</p>
+            <h4 className="text-[11px] font-bold text-white leading-tight">Architectural House Extensions & Loft Conversions</h4>
+            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Built with fixed-price certainty, sub-second quote engine & turnkey structural project delivery.</p>
           </div>
           <div className="grid grid-cols-3 gap-1">
             <div className="bg-[#0C1D4D] border border-white/5 rounded p-1 text-center">
               <span className="text-[6px] text-slate-400 block font-mono">Extensions</span>
-              <span className="text-[8px] font-serif font-bold text-[#DAA640]">From £18.5k</span>
+              <span className="text-[8px] font-serif font-bold text-[#DAA640]">Single & Double</span>
             </div>
             <div className="bg-[#0C1D4D] border border-[#DAA640]/40 rounded p-1 text-center bg-[#DAA640]/10">
-              <span className="text-[6px] text-[#DAA640] block font-mono font-bold">Survey Deposit</span>
-              <span className="text-[8px] font-serif font-bold text-white">£150 Lock-In</span>
+              <span className="text-[6px] text-[#DAA640] block font-mono font-bold">Insurance</span>
+              <span className="text-[8px] font-serif font-bold text-white">£5M All-Risk</span>
             </div>
             <div className="bg-[#0C1D4D] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Loft Conversions</span>
-              <span className="text-[8px] font-serif font-bold text-[#DAA640]">From £12.5k</span>
+              <span className="text-[6px] text-slate-400 block font-mono">Loft Suites</span>
+              <span className="text-[8px] font-serif font-bold text-[#DAA640]">Dormer & Mansard</span>
             </div>
           </div>
         </div>

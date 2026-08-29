@@ -20,7 +20,7 @@ interface TestimonialRecord {
 const STATIC_FALLBACK_TESTIMONIALS: TestimonialRecord[] = [
   {
     client_name: "David R., Managing Director",
-    company: "Apex Build & Renovation Group · West Midlands",
+    company: "Vanguard Construction & Extensions · Surrey",
     testimonial: "We used to miss 3–4 high-ticket extension enquiries every week because our project managers were on scaffolding or driving between jobs. Mercian deployed a 24/7 mobile quote engine with instant WhatsApp alerts. We captured £140,000 in verified quotes in our first 60 days and now collect survey deposits upfront.",
     badge: "+£140k Verified Quotes",
   },
