@@ -7,20 +7,20 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 export function LatencyCalculator() {
-  const [monthlyLeads, setMonthlyLeads] = useState<number>(60)
-  const [avgDealValue, setAvgDealValue] = useState<number>(8500)
+  const [monthlyLeads, setMonthlyLeads] = useState<number>(35)
+  const [avgDealValue, setAvgDealValue] = useState<number>(12500)
 
   // Calculations
-  // Manual lead delay loses approx 38% of actionable pipeline revenue
+  // Manual lead delay loses approx 35% of actionable pipeline revenue
   const annualPipelinePotential = monthlyLeads * avgDealValue * 12
-  const estimatedAnnualLeak = Math.round(annualPipelinePotential * 0.38)
+  const estimatedAnnualLeak = Math.round(annualPipelinePotential * 0.35)
   const hoursReclaimedPerYear = Math.round(monthlyLeads * 2.5 * 12)
   const speedToLeadIncrease = "14.4x"
 
   const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("en-GB", {
       style: "currency",
-      currency: "USD",
+      currency: "GBP",
       maximumFractionDigits: 0,
     }).format(val)
   }
@@ -46,7 +46,7 @@ export function LatencyCalculator() {
             Calculate Your <span className="bg-gradient-to-r from-accent-gold via-amber-200 to-accent-gold bg-clip-text text-transparent">Latency Revenue Deficit</span>
           </h2>
           <p className="font-sans text-sm sm:text-base text-text-primary opacity-75 leading-relaxed mt-4">
-            Slow response speeds and manual data entry bleed high-ticket pipeline revenue. Move the sliders to calculate your live estimated annual leak.
+            Slow response speeds and missed calls while on site bleed high-ticket project revenue. Move the sliders to calculate your live estimated annual leak.
           </p>
         </div>
 
@@ -62,7 +62,7 @@ export function LatencyCalculator() {
                 <div className="flex flex-row justify-between items-baseline gap-2 min-w-0 flex-wrap sm:flex-nowrap">
                   <label className="font-sans text-xs sm:text-sm font-semibold text-white uppercase tracking-wider flex items-center gap-2 min-w-0 flex-1">
                     <Zap size={16} className="text-accent-gold shrink-0" />
-                    <span className="truncate">Monthly Inbound Leads</span>
+                    <span className="truncate">Monthly Inbound Project Leads</span>
                   </label>
                   <span className="font-mono text-lg sm:text-xl lg:text-2xl font-bold text-accent-gold whitespace-nowrap shrink-0">
                     {monthlyLeads} <span className="text-xs text-text-secondary font-normal">leads/mo</span>
@@ -70,17 +70,17 @@ export function LatencyCalculator() {
                 </div>
                 <input
                   type="range"
-                  min="10"
-                  max="300"
+                  min="5"
+                  max="120"
                   step="5"
                   value={monthlyLeads}
                   onChange={(e) => setMonthlyLeads(Number(e.target.value))}
                   className="w-full h-2.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-accent-gold min-w-0"
                 />
                 <div className="flex justify-between text-[10px] text-text-secondary font-mono">
-                  <span>10 leads</span>
-                  <span>150 leads</span>
-                  <span>300 leads</span>
+                  <span>5 leads</span>
+                  <span>60 leads</span>
+                  <span>120 leads</span>
                 </div>
               </div>
 
@@ -89,7 +89,7 @@ export function LatencyCalculator() {
                 <div className="flex flex-row justify-between items-baseline gap-2 min-w-0 flex-wrap sm:flex-nowrap">
                   <label className="font-sans text-xs sm:text-sm font-semibold text-white uppercase tracking-wider flex items-center gap-2 min-w-0 flex-1">
                     <DollarSign size={16} className="text-accent-gold shrink-0" />
-                    <span className="truncate">Average Deal / Client Value</span>
+                    <span className="truncate">Average Job / Project Value</span>
                   </label>
                   <span className="font-mono text-lg sm:text-xl lg:text-2xl font-bold text-accent-gold whitespace-nowrap shrink-0">
                     {formatCurrency(avgDealValue)}
@@ -97,17 +97,17 @@ export function LatencyCalculator() {
                 </div>
                 <input
                   type="range"
-                  min="1000"
-                  max="50000"
-                  step="500"
+                  min="2000"
+                  max="60000"
+                  step="1000"
                   value={avgDealValue}
                   onChange={(e) => setAvgDealValue(Number(e.target.value))}
                   className="w-full h-2.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-accent-gold min-w-0"
                 />
                 <div className="flex justify-between text-[10px] text-text-secondary font-mono">
-                  <span>$1,000</span>
-                  <span>$25,000</span>
-                  <span>$50,000</span>
+                  <span>£2,000</span>
+                  <span>£30,000</span>
+                  <span>£60,000+</span>
                 </div>
               </div>
 

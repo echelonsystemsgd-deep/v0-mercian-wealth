@@ -7,14 +7,14 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 export function InteractiveRoiCalculator() {
-  const [weeklyHours, setWeeklyHours] = useState(12)
-  const [monthlyRevenue, setMonthlyRevenue] = useState(6500)
+  const [weeklyHours, setWeeklyHours] = useState(14)
+  const [monthlyRevenue, setMonthlyRevenue] = useState(28000)
 
   // Calculations
-  const hourlyValuation = 25 // £25/hr estimate for artisan/owner manual labor
+  const hourlyValuation = 45 // £45/hr contractor/director operational rate
   const annualHoursSaved = Math.round(weeklyHours * 0.8 * 52) // 80% admin automated
   const annualTimeValue = annualHoursSaved * hourlyValuation
-  const annualRevenueCaptured = Math.round(monthlyRevenue * 12 * 0.18) // 18% extra orders captured via 24/7 storefront & deposits
+  const annualRevenueCaptured = Math.round(monthlyRevenue * 12 * 0.15) // 15% extra high-ticket quotes captured via 24/7 quote engine
   const totalAnnualValue = annualTimeValue + annualRevenueCaptured
 
   return (
@@ -31,7 +31,7 @@ export function InteractiveRoiCalculator() {
             Calculate Your Saved Time & Extra Revenue
           </h2>
           <p className="text-slate-300 text-sm sm:text-base md:text-lg">
-            See how eliminating manual order notes and automated deposit collection impacts your bottom line.
+            See how eliminating missed calls while on site and automating quote qualification impacts your annual profit.
           </p>
         </div>
 
@@ -44,7 +44,7 @@ export function InteractiveRoiCalculator() {
                 <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-2 mb-3">
                   <label className="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
                     <Clock className="w-4 h-4 text-[#DAA640] shrink-0" />
-                    <span>Weekly Manual Admin Hours</span>
+                    <span>Weekly Manual Admin & Voicemail Hours</span>
                   </label>
                   <span className="self-start xs:self-auto text-sm sm:text-base font-bold font-mono text-[#DAA640] bg-[#DAA640]/10 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-lg border border-[#DAA640]/25">
                     {weeklyHours} hrs/week
@@ -52,17 +52,17 @@ export function InteractiveRoiCalculator() {
                 </div>
                 <input
                   type="range"
-                  min="4"
-                  max="35"
+                  min="5"
+                  max="40"
                   step="1"
                   value={weeklyHours}
                   onChange={(e) => setWeeklyHours(Number(e.target.value))}
                   className="w-full h-2 bg-[#020E28] rounded-lg appearance-none cursor-pointer accent-[#DAA640]"
                 />
                 <div className="flex justify-between text-[10px] sm:text-[11px] text-slate-400 font-mono mt-2">
-                  <span>4 hrs (Light)</span>
-                  <span>18 hrs (Moderate)</span>
-                  <span>35 hrs (Heavy)</span>
+                  <span>5 hrs (Light)</span>
+                  <span>20 hrs (Moderate)</span>
+                  <span>40 hrs (Heavy)</span>
                 </div>
               </div>
 
@@ -71,7 +71,7 @@ export function InteractiveRoiCalculator() {
                 <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-2 mb-3">
                   <label className="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-[#DAA640] shrink-0" />
-                    <span>Estimated Monthly Revenue (£)</span>
+                    <span>Estimated Monthly Turnover (£)</span>
                   </label>
                   <span className="self-start xs:self-auto text-sm sm:text-base font-bold font-mono text-[#DAA640] bg-[#DAA640]/10 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-lg border border-[#DAA640]/25">
                     £{monthlyRevenue.toLocaleString()} / mo
@@ -79,24 +79,24 @@ export function InteractiveRoiCalculator() {
                 </div>
                 <input
                   type="range"
-                  min="2000"
-                  max="25000"
-                  step="500"
+                  min="5000"
+                  max="100000"
+                  step="2500"
                   value={monthlyRevenue}
                   onChange={(e) => setMonthlyRevenue(Number(e.target.value))}
                   className="w-full h-2 bg-[#020E28] rounded-lg appearance-none cursor-pointer accent-[#DAA640]"
                 />
                 <div className="flex justify-between text-[10px] sm:text-[11px] text-slate-400 font-mono mt-2">
-                  <span>£2,000</span>
-                  <span>£12,000</span>
-                  <span>£25,000+</span>
+                  <span>£5,000</span>
+                  <span>£50,000</span>
+                  <span>£100,000+</span>
                 </div>
               </div>
             </div>
 
             <div className="mt-6 sm:mt-8 pt-5 border-t border-[#DAA640]/15 flex items-center gap-2.5 text-xs text-slate-300">
               <ShieldCheck className="w-4 h-4 text-[#DAA640] shrink-0" />
-              <span>Guaranteed 24/7 order capture with zero contract lock-in</span>
+              <span>Guaranteed 24/7 lead capture with zero contract lock-in</span>
             </div>
           </div>
 

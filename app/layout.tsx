@@ -66,7 +66,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: SITE_COPY.metadata.layout.defaultTitle,
-    description: "Automated storefronts, instant WhatsApp alerts & 24/7 deposit capture for bakeries, caterers & local UK businesses. Stop losing bookings to missed calls.",
+    description: SITE_COPY.metadata.layout.description,
     url: 'https://mercianwealth.com',
     siteName: 'Mercian Wealth',
     images: [
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'Mercian Wealth | Websites & Automation for Bakeries & Local Businesses',
+        alt: 'Mercian Wealth | AI Websites & Automation for UK Builders & Trades',
       },
     ],
     locale: 'en_GB',
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: SITE_COPY.metadata.layout.defaultTitle,
-    description: "Automated storefronts, instant WhatsApp alerts & 24/7 deposit capture for bakeries, caterers & local UK businesses. Stop losing bookings to missed calls.",
+    description: SITE_COPY.metadata.layout.description,
     images: ['/twitter-image.png'],
     creator: '@mercianwealth',
   },

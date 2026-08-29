@@ -16,7 +16,7 @@ function StepGraphic({ step }: { step: number }) {
             <div className="w-3 h-3 rounded-full bg-red-500/80" />
             <div className="w-3 h-3 rounded-full bg-amber-500/80" />
             <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-            <span className="text-[11px] font-mono text-slate-400 ml-1">bakery.storefront.app</span>
+            <span className="text-[11px] font-mono text-slate-400 ml-1">apexbuild.storefront.app</span>
           </div>
           <span className="text-[10px] font-mono font-bold bg-sky-500/20 text-sky-400 border border-sky-500/30 px-2 py-0.5 rounded">
             ⚡ SUB-1-SECOND
@@ -25,25 +25,25 @@ function StepGraphic({ step }: { step: number }) {
 
         <div className="space-y-3">
           <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
-            <span className="text-[10px] uppercase font-mono font-bold text-amber-400">Selected Package</span>
-            <p className="text-sm font-bold text-white">Custom 3-Tier Celebration Cake</p>
-            <p className="text-xs text-slate-400 font-sans">Vanilla Bean • Gold Leaf • Event Date: Sat 18 Oct</p>
+            <span className="text-[10px] uppercase font-mono font-bold text-amber-400">Selected Project</span>
+            <p className="text-sm font-bold text-white">Full Loft Conversion & Dormer</p>
+            <p className="text-xs text-slate-400 font-sans">2 Bedrooms + En-Suite • Survey Date: Sat 18 Oct</p>
           </div>
 
           <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
             <div className="flex justify-between text-xs">
-              <span className="text-slate-400">Total Quote:</span>
-              <span className="text-white font-mono font-bold">£250.00</span>
+              <span className="text-slate-400">Estimated Project Value:</span>
+              <span className="text-white font-mono font-bold">£18,500.00</span>
             </div>
             <div className="flex justify-between text-xs font-bold text-emerald-400 pt-1 border-t border-slate-800">
-              <span>Upfront Deposit (50%):</span>
-              <span className="font-mono">£125.00</span>
+              <span>Site Survey Deposit:</span>
+              <span className="font-mono">£250.00</span>
             </div>
           </div>
 
           <button className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 font-bold text-xs text-slate-950 flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
             <CheckCircle2 className="w-4 h-4 text-slate-950" />
-            <span>Pay £125.00 Deposit & Lock Date</span>
+            <span>Pay £250.00 Deposit & Reserve Survey</span>
           </button>
         </div>
       </div>
@@ -59,8 +59,8 @@ function StepGraphic({ step }: { step: number }) {
               WA
             </div>
             <div>
-              <p className="text-xs font-bold text-white">WhatsApp Webhook Alert</p>
-              <p className="text-[10px] text-emerald-400 font-mono">Instant Phone Alert</p>
+              <p className="text-xs font-bold text-white">WhatsApp Contractor Alert</p>
+              <p className="text-[10px] text-emerald-400 font-mono">Instant Van / On-Site Alert</p>
             </div>
           </div>
           <span className="text-[10px] font-mono text-slate-500">Just Now</span>
@@ -68,14 +68,14 @@ function StepGraphic({ step }: { step: number }) {
 
         <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/30 space-y-2">
           <div className="flex items-center gap-1.5 text-emerald-400 font-mono text-xs font-bold">
-            <span>⚡ NEW ORDER & DEPOSIT CONFIRMED</span>
+            <span>⚡ NEW HIGH-TICKET LEAD & SURVEY PAID</span>
           </div>
           <div className="text-xs font-sans text-slate-200 space-y-1.5 pt-1">
-            <p><strong className="text-slate-400">Customer:</strong> Sarah Jenkins</p>
-            <p><strong className="text-slate-400">Phone:</strong> +44 7700 900123</p>
-            <p><strong className="text-slate-400">Order:</strong> 3-Tier Celebration Cake (£250)</p>
-            <p><strong className="text-slate-400">Deposit Paid:</strong> <span className="text-emerald-400 font-mono font-bold">£125.00 via Stripe</span></p>
-            <p><strong className="text-slate-400">Date:</strong> Sat 18 Oct 2026</p>
+            <p><strong className="text-slate-400">Client:</strong> David Harrison (Solihull, B91)</p>
+            <p><strong className="text-slate-400">Phone:</strong> +44 7700 900456</p>
+            <p><strong className="text-slate-400">Project:</strong> Full Loft Conversion (£18.5k est.)</p>
+            <p><strong className="text-slate-400">Survey Paid:</strong> <span className="text-emerald-400 font-mono font-bold">£250.00 via Stripe</span></p>
+            <p><strong className="text-slate-400">Survey Slot:</strong> Sat 18 Oct · 10:00 AM</p>
           </div>
         </div>
       </div>
@@ -87,7 +87,7 @@ function StepGraphic({ step }: { step: number }) {
       <div className="w-full max-w-[420px] rounded-2xl border border-sky-500/30 bg-slate-950 p-5 shadow-2xl space-y-3">
         <div className="flex items-center justify-between border-b border-slate-800 pb-2">
           <span className="text-xs font-mono font-bold text-sky-400 uppercase tracking-wider">
-            CRM Autopilot Database Log
+            Trade CRM & Xero Auto-Sync
           </span>
           <span className="text-[10px] font-mono bg-sky-500/10 text-sky-400 px-2 py-0.5 rounded border border-sky-500/30">
             Live Feed
@@ -97,31 +97,31 @@ function StepGraphic({ step }: { step: number }) {
         <div className="space-y-2 font-mono text-xs">
           <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 flex justify-between items-center">
             <div>
-              <p className="font-bold text-white text-[11px]">Sarah Jenkins</p>
-              <p className="text-[10px] text-slate-400">Cake Order • Sat 18 Oct</p>
+              <p className="font-bold text-white text-[11px]">David Harrison (Solihull)</p>
+              <p className="text-[10px] text-slate-400">Loft Conversion • Sat 18 Oct</p>
             </div>
             <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">
-              £125 Deposit Paid
+              £250 Survey Paid
             </span>
           </div>
 
           <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800/80 flex justify-between items-center">
             <div>
-              <p className="font-bold text-white text-[11px]">David Miller</p>
-              <p className="text-[10px] text-slate-400">Catering • Fri 24 Oct</p>
+              <p className="font-bold text-white text-[11px]">Mark Evans (Harborne)</p>
+              <p className="text-[10px] text-slate-400">Rear Extension • Fri 24 Oct</p>
             </div>
             <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">
-              £450 Deposit Paid
+              £350 Survey Paid
             </span>
           </div>
 
           <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-800/50 flex justify-between items-center">
             <div>
-              <p className="font-bold text-white text-[11px]">Elena Rostova</p>
-              <p className="text-[10px] text-slate-400">Pastry Box • Sun 26 Oct</p>
+              <p className="font-bold text-white text-[11px]">Rachel Bennett (Sutton)</p>
+              <p className="text-[10px] text-slate-400">Roof Replacement • Completed</p>
             </div>
             <span className="text-[10px] bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded font-bold">
-              Review Queued
+              5★ Review Dispatched
             </span>
           </div>
         </div>
@@ -133,26 +133,26 @@ function StepGraphic({ step }: { step: number }) {
     <div className="w-full max-w-[420px] rounded-2xl border border-amber-500/30 bg-slate-950 p-5 shadow-2xl space-y-4">
       <div className="flex items-center justify-between border-b border-slate-800 pb-3">
         <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
-          Weekly Recovery Metric
+          Contractor Weekly Impact
         </span>
         <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
-          +100% Upfront Deposits
+          Zero Lost Leads
         </span>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-center">
-          <p className="text-2xl font-extrabold text-white font-mono">10.5h</p>
+          <p className="text-2xl font-extrabold text-white font-mono">12.5h</p>
           <p className="text-[10px] text-slate-400 uppercase font-sans font-semibold">Admin Saved / Wk</p>
         </div>
         <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-center">
           <p className="text-2xl font-extrabold text-emerald-400 font-mono">£0</p>
-          <p className="text-[10px] text-slate-400 uppercase font-sans font-semibold">Unpaid Appointments</p>
+          <p className="text-[10px] text-slate-400 uppercase font-sans font-semibold">No-Show Survey Cost</p>
         </div>
       </div>
 
       <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-center text-xs text-amber-300 font-sans font-medium">
-        ✨ Zero paper scrawls at 6 AM. Your automated storefront locks deposit revenue while you work or rest.
+        ✨ While you're on scaffolding or driving the van, your automated quote engine captures £10k–£50k jobs and locks survey deposits.
       </div>
     </div>
   )
@@ -164,30 +164,30 @@ export function StickmanWorkflow() {
   const steps = [
     {
       id: 0,
-      title: "1. Customer Orders Online (24/7)",
-      subtitle: "Your sub-second mobile storefront takes custom cake specs or service requests and collects 50% upfront deposits while you bake or sleep.",
-      badge: "24/7 Lead Capture & Deposits",
+      title: "1. Homeowner Requests Quote & Survey Online (24/7)",
+      subtitle: "Your sub-second mobile website collects project dimensions, specifications, and non-refundable survey deposits while you are on site or driving.",
+      badge: "24/7 Quote Intake & Survey Lock",
       icon: Zap,
     },
     {
       id: 1,
-      title: "2. Instant WhatsApp Alert Pings Your Phone",
-      subtitle: "Triggered instantly via automated cloud webhooks. Complete customer order summary delivered to the phone you already use every day.",
-      badge: "Instant WhatsApp Webhook",
+      title: "2. Instant WhatsApp Alert Hits Your Phone On Site",
+      subtitle: "Triggered instantly via automated cloud webhooks. Complete project summary, client phone number, and address delivered straight to your pocket.",
+      badge: "Instant Van / Mobile Alert",
       icon: MessageSquare,
     },
     {
       id: 2,
-      title: "3. Secure CRM Database Logs the Lead",
-      subtitle: "Zero lost notes or lost WhatsApp messages. All customer details, order specs, and invoice records are automatically saved in your CRM.",
-      badge: "Secure CRM Autopilot",
+      title: "3. Trade CRM & Xero Sync the Client Automatically",
+      subtitle: "Zero lost scrap paper notes or forgotten voicemails. All customer details, blueprints, and deposit invoices are automatically recorded.",
+      badge: "Trade CRM & Accounting Sync",
       icon: Database,
     },
     {
       id: 3,
-      title: "4. You Reclaim 10+ Hours Every Single Week",
-      subtitle: "No more scrawling order specs on scrap paper at 6 AM or chasing bank transfers over text. Focus on your craft while automation does the work.",
-      badge: "Saved Admin Time & Freedom",
+      title: "4. You Reclaim 12+ Hours Every Single Week",
+      subtitle: "No more spending evenings playing phone tag or chasing tire-kickers. Focus on building and managing job sites while automation runs the front desk.",
+      badge: "Saved Admin Time & Profit Lift",
       icon: Clock,
     },
   ]

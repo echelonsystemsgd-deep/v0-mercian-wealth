@@ -19,16 +19,16 @@ interface TestimonialRecord {
 
 const STATIC_FALLBACK_TESTIMONIALS: TestimonialRecord[] = [
   {
-    client_name: "Sarah M., Founder",
-    company: "The Artisan Patisserie Group · London",
-    testimonial: "We used to lose 4–5 bespoke orders every weekend due to missed calls and delayed replies. Mercian deployed an automated 24/7 storefront with WhatsApp notifications. We now capture 50% non-refundable deposits upfront before any job hits our calendar.",
-    badge: "+38% Revenue Lift",
+    client_name: "David R., Managing Director",
+    company: "Apex Build & Renovation Group · West Midlands",
+    testimonial: "We used to miss 3–4 high-ticket extension enquiries every week because our project managers were on scaffolding or driving between jobs. Mercian deployed a 24/7 mobile quote engine with instant WhatsApp alerts. We captured £140,000 in verified quotes in our first 60 days and now collect survey deposits upfront.",
+    badge: "+£140k Verified Quotes",
   },
   {
-    client_name: "Marcus T., Managing Director",
-    company: "Gourmet Events & Hospitality · Berkshire",
-    testimonial: "The automated quote engine and instant phone dispatch completely eliminated our late-night quote chasing. Setup was completed in 6 business days and paid for itself within the first 3 weeks of operations.",
-    badge: "14.5 Hrs Saved / Wk",
+    client_name: "Marcus T., Director",
+    company: "Prestige Roofing & Architectural Cladding · Surrey",
+    testimonial: "The automated quote intake and survey calendar sync completely eliminated our evening voicemail scramble. We went from losing high-value replacement quotes to rivals to booking qualified site surveys in under 60 seconds with automated 5-star Google review collection.",
+    badge: "15.5 Hrs Saved / Wk",
   },
 ]
 

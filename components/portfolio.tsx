@@ -21,6 +21,15 @@ type PortfolioItem = {
 
 const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   {
+    title: "Apex Luxury Construction & Fit-Outs",
+    category: "Construction & Bespoke Renovations · Interactive Sandbox",
+    gradient: "from-amber-500/20 to-yellow-600/20",
+    href: "https://premium-local-construction-business.vercel.app/",
+    image: null,
+    underConstruction: false,
+    metric: "Sub-Second Load · Instant Quote Engine",
+  },
+  {
     title: "Stamp Valuation App",
     category: "AI Computer Vision · Case Study",
     gradient: "from-blue-500/20 to-cyan-500/20",
@@ -50,6 +59,53 @@ const DEFAULT_PORTFOLIO: PortfolioItem[] = [
 ]
 
 function PremiumMockup({ item }: { item: PortfolioItem }) {
+  if (item.title.includes("Apex") || item.title.includes("Construction")) {
+    return (
+      <div className="absolute inset-2 sm:inset-4 bg-[#050C1A] rounded-xl border border-[#DAA640]/40 overflow-hidden shadow-2xl flex flex-col font-sans">
+        <div className="flex items-center justify-between px-3 py-2 bg-[#0A162E] border-b border-[#DAA640]/25 shrink-0">
+          <div className="flex gap-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
+          </div>
+          <div className="h-3.5 bg-[#020E28] border border-[#DAA640]/30 rounded-full px-3 text-[7px] text-[#DAA640] flex items-center justify-center font-mono">
+            premium-local-construction-business.vercel.app
+          </div>
+          <div className="w-4" />
+        </div>
+        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#07153B] to-[#020E28]">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">APEX BUILD & RENOVATION</span>
+              <span className="text-[6px] font-bold uppercase tracking-widest text-[#DAA640] bg-[#DAA640]/10 border border-[#DAA640]/30 px-1.5 py-0.5 rounded-full">UK CONTRACTOR</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-[6px] text-emerald-400 font-bold">★ 5.0 Rated · Licensed</span>
+            </div>
+          </div>
+          <div className="space-y-1">
+            <h4 className="text-[11px] font-bold text-white leading-tight">High-End Architectural Renovations, Extensions & Fit-Outs</h4>
+            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Sub-second quote engine, automated site survey reservations & 24/7 client dispatch for premium UK homeowners.</p>
+          </div>
+          <div className="grid grid-cols-3 gap-1">
+            <div className="bg-[#0C1D4D] border border-white/5 rounded p-1 text-center">
+              <span className="text-[6px] text-slate-400 block font-mono">Extensions</span>
+              <span className="text-[8px] font-serif font-bold text-[#DAA640]">From £18.5k</span>
+            </div>
+            <div className="bg-[#0C1D4D] border border-[#DAA640]/40 rounded p-1 text-center bg-[#DAA640]/10">
+              <span className="text-[6px] text-[#DAA640] block font-mono font-bold">Survey Deposit</span>
+              <span className="text-[8px] font-serif font-bold text-white">£150 Lock-In</span>
+            </div>
+            <div className="bg-[#0C1D4D] border border-white/5 rounded p-1 text-center">
+              <span className="text-[6px] text-slate-400 block font-mono">Loft Conversions</span>
+              <span className="text-[8px] font-serif font-bold text-[#DAA640]">From £12.5k</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   if (item.title === "Caker St. London Bakery" || item.title.includes("Caker St")) {
     return (
       <div className="absolute inset-2 sm:inset-4 bg-[#140608] rounded-xl border border-rose-950/60 overflow-hidden shadow-2xl flex flex-col font-sans">
@@ -396,10 +452,16 @@ function PrototypePreviewModal({ item, onClose }: { item: PortfolioItem; onClose
             </div>
           </div>
 
-          {/* Prototype Banner */}
-          <div className="bg-emerald-500/10 border-b border-emerald-500/20 text-emerald-400 py-2 px-4 text-center text-[10px] md:text-xs font-semibold font-sans flex items-center justify-center gap-1.5 tracking-wider uppercase">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Interactive Demo · Sandbox Preview Mode</span>
+          {/* Prototype Banner & Form Notice */}
+          <div className="bg-emerald-950/80 border-b border-emerald-500/30 text-emerald-300 py-2.5 px-4 text-center text-[10px] sm:text-xs font-semibold font-sans flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 tracking-wide">
+            <div className="flex items-center gap-1.5 uppercase font-mono font-bold text-emerald-400">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Interactive Sandbox Prototype</span>
+            </div>
+            <span className="hidden sm:inline text-emerald-500/60">•</span>
+            <span className="text-emerald-200/80 text-[10px] sm:text-xs">
+              Feel free to test all interactive tools and forms. Submissions are safely simulated for demo purposes (no live data is dispatched).
+            </span>
           </div>
 
           {/* Interactive Frame or Showcase Box */}

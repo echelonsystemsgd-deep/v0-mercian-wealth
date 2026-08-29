@@ -51,7 +51,7 @@ export default async function Home() {
                 "@id": "https://mercianwealth.com/#website",
                 "url": "https://mercianwealth.com",
                 "name": "Mercian Wealth",
-                "description": "Automated storefronts, instant WhatsApp alerts & 24/7 deposit capture for bakeries, caterers & local UK businesses. Stop losing bookings to missed calls.",
+                "description": "24/7 AI quote intake, instant WhatsApp alerts & automated site-survey deposits for UK construction, renovation contractors & local trade businesses. Stop losing £10k+ jobs to missed calls.",
                 "publisher": {
                   "@id": "https://mercianwealth.com/#organization"
                 }
@@ -60,14 +60,14 @@ export default async function Home() {
                 "@type": "WebPage",
                 "@id": "https://mercianwealth.com/#webpage",
                 "url": "https://mercianwealth.com",
-                "name": "Mercian Wealth | Websites & Automation for Bakeries & Local Businesses",
+                "name": "Mercian Wealth | AI Websites & Automation for UK Builders & Trades",
                 "isPartOf": {
                   "@id": "https://mercianwealth.com/#website"
                 },
                 "about": {
                   "@id": "https://mercianwealth.com/#organization"
                 },
-                "description": "Automated storefronts, instant WhatsApp alerts & 24/7 deposit capture for bakeries, caterers & local UK businesses. Stop losing bookings to missed calls."
+                "description": "24/7 AI quote intake, instant WhatsApp alerts & automated site-survey deposits for UK construction, renovation contractors & local trade businesses. Stop losing £10k+ jobs to missed calls."
               }
             ]
           })
@@ -83,18 +83,18 @@ export default async function Home() {
       <SectionDivider id="chapter-divider-II" chapter="II" title="How Automation Works" />
       <StickmanWorkflow />
 
-      <SectionDivider id="chapter-divider-III" chapter="III" title="Interactive 3-Tap Phone Demo" />
+      <SectionDivider id="chapter-divider-III" chapter="III" title="Interactive 3-Tap Quote Demo" />
       <div id="demo" className="scroll-mt-28">
         <InteractivePhoneDemo />
       </div>
 
-      <SectionDivider id="chapter-divider-IV" chapter="IV" title="Order Engine vs Manual Drag" />
+      <SectionDivider id="chapter-divider-IV" chapter="IV" title="Quote Engine vs Manual Drag" />
       <DivergenceComparison />
 
       <SectionDivider id="chapter-divider-V" chapter="V" title="Calculate Saved Hours & Revenue" />
       <InteractiveRoiCalculator />
 
-      <SectionDivider id="chapter-divider-VI" chapter="VI" title="Built for Bakeries & Local Services" />
+      <SectionDivider id="chapter-divider-VI" chapter="VI" title="Built for Builders & Trade Specialists" />
       <WhyMercianWealth />
       <SystemBlueprint />
 
