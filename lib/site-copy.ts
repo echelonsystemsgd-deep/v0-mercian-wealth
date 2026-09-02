@@ -80,9 +80,9 @@ export const SITE_COPY = {
 
     // 1. Hero Section
     hero: {
-      eyebrow: "STOREFRONTS · AUTOMATION · LEVERAGE",
-      headline: "The fastest response captures the order. Eliminate friction and dominate your local market.",
-      subheadline: "We engineer sub-second mobile storefronts, 3-tap order builders, instant WhatsApp dispatch alerts, and automated Google review systems for bakeries, caterers, food artisans, and premier local businesses across Berkshire & the UK.",
+      eyebrow: "MOBILE STOREFRONTS · ORDER AUTOMATION · LOCAL GROWTH",
+      headline: "We Build Fast Mobile Storefronts & AI Automations That Capture Orders, Collect Deposits, and Scale Local Businesses 24/7.",
+      subheadline: "Stop losing orders in unread Instagram DMs and manual phone tag. We engineer sub-second mobile storefronts, 3-tap order builders, instant WhatsApp kitchen dispatch alerts, and automated Google review engines for bakeries, caterers, food artisans, and premier local businesses across Berkshire & the UK.",
       primaryCtaText: "Message on WhatsApp",
       primaryCtaHref: "https://wa.me/447851055929",
       secondaryCtaText: "Book a 15-Min Audit",
