@@ -1,80 +1,68 @@
-# Strategic Redesign & Master Execution Plan - Mercian Wealth
+# Strategic Redesign & Market Leadership Master Plan
 
-## Executive Overview
-This document serves as the master implementation spec for the full strategic reset, brand overhaul, visual redesign, copy realignment, and technical architecture of **Mercian Wealth**.
+## Vision: The #1 AI Automation & High-Performance Web Design Agency in the UK
 
----
-
-## Strategic Mandate & Target Model
-* **Primary Target Model**: High-volume, fast-turnaround local business acquisition in Slough, Berkshire, and across the UK.
-* **Monthly Revenue Benchmark**: £10,000+ monthly profit driven by 15–20 local business closures per month.
-* **Local Package Tiers**: £495 – £1,495 setup fees + £195 – £495/mo retainer.
-* **Enterprise Offer Handling**: Isolated to `/enterprise` route with a single subtle anchor link on the homepage.
-* **Niche Focus Priority**:
-  1. **Primary**: High-End Local Trades & Services (Plumbers, Electricians, HVAC, Roofers, Landscapers).
-  2. **Secondary**: Bakeries, Gourmet Caterers & Artisanal Food Brands (Used for `/local` and field pitches).
-  3. **Tertiary**: Aesthetics Clinics & Private Wellness Practices (Upsell pipeline).
+This plan outlines the complete strategic, visual, interactive, and technical standard required to position the platform as the market-dominant agency in the United Kingdom.
 
 ---
 
-## Approved Brand Identity & Colour Palette
-Only 4 strict brand colors are permitted across 100% of components, text, borders, glows, and buttons:
-1. **Primary Background**: Navy (`#0A1128` / `#060B18`)
-2. **Primary Accent**: Gold (`#D9A74A` / `#C59B27`)
-3. **Body Text**: White (`#FFFFFF`)
-4. **Secondary Accent**: Silver (`#94A3B8` / `#CBD5E1`)
+## 1. Core Offerings & Brand Positioning
+
+### Two Primary High-Margin Pillars:
+1. **High-Performance Web Design & Bespoke Web Apps**:
+   - Modern Next.js / React architectures with sub-second page loads.
+   - Luxury design aesthetic, glassmorphism, dynamic micro-animations, and flawless typography.
+   - 100/100 Core Web Vitals standard.
+
+2. **Intelligent AI Automation Systems**:
+   - **WhatsApp Business Cloud AI Agents**: 24/7 instant lead response, booking capture, and deposit invoicing.
+   - **Voice AI Call Receptionists**: Inbound call qualification and CRM routing with natural British voice models.
+   - **Backend Systems & CRM Sync**: Deep integration with UK business toolchains (Xero, Stripe UK, HubSpot, Airtable, Make.com, n8n, Supabase).
 
 ---
 
-## Stage-by-Stage Execution Plan
+## 2. Multi-Device & Mobile-First Quality Mandate
 
-### Stage 1: Logo Asset Update (Section 8)
-Deploy `MercianWealthLogo.jpeg` and `MercianWealthWatermark.jpeg` across all 12 system locations:
-- `lib/brand-assets.ts`
-- `app/layout.tsx`
-- `components/brand-logo.tsx`
-- `components/navbar.tsx`
-- `components/footer.tsx`
-- `components/admin/sidebar.tsx`
-- `components/client/sidebar.tsx`
-- `components/dashboard/portal-hub.tsx`
-- `app/(auth)/layout.tsx`
-- `app/loading.tsx`
-- `app/api/portfolio/request/route.ts`
-- `app/api/forms/submit/route.ts`
-
-### Stage 2: Colour System Overhaul (Section 2)
-Replace every off-brand color (`sky-400`, `#38BDF8`, `emerald-400`, `#130B24`, `blue-600`, `amber-400`) across all CSS variables, Tailwind classes, and component files with the strict 4-color Navy, Gold, White, and Silver system.
-
-### Stage 3: Hero Section Redesign (Section 3)
-- **Eyebrow**: `[ AI AUTOMATION FOR LOCAL BUSINESSES ]`
-- **Headline**: *"Stop Losing Local Customers To Missed Calls & Manual Work. We Build Automated Digital Systems That Capture Leads & Collect Deposits 24/7."*
-- **Subheadline**: *"Professional high-converting web storefront, 3-tap order builder, instant WhatsApp phone alerts, and automated 5-star Google review collection. Deployed in under 7 days."*
-- **Visuals**: Animated System Node Visualizer (Live Lead -> WhatsApp Alert -> Deposit Secured -> Review Request).
-- **CTAs**: Gold Primary `"Claim Free 15-Min Audit →"`, Silver Secondary `"Test 3-Tap Order Demo ↓"`.
-
-### Stage 4: Homepage Structure & Page Isolation (Section 4)
-- Isolate main homepage to 100% local volume conversion sequence.
-- Move `FieldSalesDemo` strictly to `/local`.
-- Create `/enterprise` route for enterprise package tiers (£1,850 – £7,500+).
-- Zero Fabrication Policy: Frame social proof as capabilities & 7-day deployment commitment.
-
-### Stage 5: Floating Elements Consolidation (Section 5)
-Consolidate competing mobile floating elements into a single Navy & Gold bottom bar:
-`[ 📞 Call Direct ]  |  [ Get Free Audit (15 Mins) → ]`
-
-### Stage 6: Technical Fixes (Section 6)
-- Mobile Login Redirect: Replace `router.push` with `window.location.href` in `app/(auth)/login/page.tsx` to force mobile cookie flush.
-- Update `lib/social-links.ts` to `https://www.linkedin.com/company/mercianwealth`.
-- Preserve historical audit plan records in `Implementation/` directory.
-
-### Stage 7: SEO Metadata & README Overhaul (Section 7)
-- Apply updated metadata across `app/layout.tsx`, page exports, OG tags, and Twitter card tags.
-- Fully rewrite `README.md` to accurately represent Mercian Wealth.
+Every component must adhere to zero-compromise responsive design:
+- **Mobile Viewports (320px - 480px)**:
+  - Zero horizontal overflow (`overflow-x: hidden`).
+  - Fluid type scaling (`clamp()`) ensuring headings do not break awkwardly.
+  - Minimum 44px x 44px touch targets on all interactive buttons, tabs, and toggles.
+  - Full-screen thumb-friendly navigation drawer.
+- **Tablet & Laptop (768px - 1280px)**:
+  - Adaptive 2-column grids, optimized card padding, and touch/mouse dual-mode support.
+- **Desktop & Ultra-wide (1440px - 2560px+)**:
+  - Max-width containment (`max-w-7xl` / `max-w-6xl`), preventing awkward content stretching.
 
 ---
 
-## Verification Strategy
-- Run `npx tsc --noEmit` after every single stage.
-- Ensure 0 errors before proceeding to the next stage.
-- Push to GitHub only after all 7 stages are clean and complete.
+## 3. Interactive Conversion & Proof Matrix
+
+1. **Interactive Phone & WhatsApp Demo (`InteractivePhoneDemo`)**:
+   - Live interactive simulator showcasing real-time automated conversational booking and invoice generation.
+   - Touch-friendly on mobile screens with responsive device framing.
+
+2. **UK ROI & Staff Reclaim Calculator (`InteractiveRoiCalculator`)**:
+   - Customizable GBP (£) calculations for team hours saved, speed-to-lead gains, and projected annual profit increases.
+
+3. **System Blueprint & Pipeline Showcase (`SystemBlueprint`)**:
+   - Interactive visual diagrams demonstrating end-to-end data flow between customer touchpoints and internal UK accounting/CRM software.
+
+4. **Self-Service AI Readiness Diagnostic (`/diagnostics` / `/qualify`)**:
+   - Multi-step interactive assessment generating an instant automation readiness report.
+
+---
+
+## 4. UK Trust, Security & Compliance Infrastructure
+
+- **UK GDPR & Data Sovereignty**: Explicit assurance of EU/UK data residency and zero model training on client business data.
+- **Company Credentials**: Registered UK office, Companies House verification, and localized UK support hours (GMT / BST).
+- **Payment & Invoicing**: Native GBP (£) pricing with direct integration into Stripe UK, GoCardless, and BACS.
+
+---
+
+## 5. Quality Assurance & Zero-Defect Standard
+
+- **Strict Type Safety**: `npx tsc --noEmit` returns 0 errors.
+- **Production Build Integrity**: `npm run build` runs cleanly with optimized bundles.
+- **Cross-Browser Verification**: Flawless rendering in Safari (iOS/macOS), Chrome, Edge, and Firefox.

@@ -1,587 +1,179 @@
-# Post-Commit & Post-Deployment Full System Audit
+# Post-Commit & Incident Audit Log
 
-**Audit Timestamp:** 2026-06-29
-**Live Site:** [gslegacywealth.com](https://gslegacywealth.com)
-**Latest Commit:** `0ff3a26` ("feat: implement admin dashboard and client management interface with health tracking and project oversight modules")
-**Overall Status:** PASS WITH WARNINGS
+## DATABASE INCIDENT 2026-07-21
 
----
+### 1. Incident Summary
+On 2026-07-21, a script intended for another project (a real estate portal) was accidentally executed on the Supabase database instance (`ladebhmyywkcqtyazxxk`). This action dropped `public.profiles` and recreated it with an incompatible schema, causing loss of user profile records, missing columns required by the application, and infinite recursion errors in Row Level Security (RLS) policies.
 
-## 1. GIT & COMMIT INTEGRITY
+### 2. Root Causes Identified
+* **Schema Collision**: The `public.profiles` table was replaced with a legacy schema containing only `id`, `full_name`, `role`, and `created_at`.
+* **Missing Columns**: Columns `first_name`, `last_name`, `email`, `is_suspended`, `avatar_url`, `phone_number`, `address_line1`, `address_line2`, `post_code`, `city`, `updated_at`, and `has_completed_tour` were removed.
+* **RLS Policy Recursion**: Direct inline subqueries on `public.profiles` within policies on `public.profiles` caused `infinite recursion detected in policy for relation "profiles"` runtime errors.
+* **Data Loss**: Existing user profile entries, including the admin account for `gslegacywealth@gmail.com`, were wiped.
 
-- **Live Branch:** `main`
-- **Latest Commit Hash:** `0ff3a26`
-- **Files Changed:**
-  - `Implementation/admin_dashboard_redesign_plan.md`
-  - `app/(admin)/admin/bookings/page.tsx`
-  - `app/(admin)/admin/clients/page.tsx`
-  - `app/(admin)/admin/page.tsx`
-  - `app/(admin)/admin/projects/page.tsx`
-  - `app/(admin)/admin/settings/page.tsx`
-  - `app/(client)/layout.tsx`
-  - `components/admin/client-health-grid.tsx`
-  - `components/admin/kpi-row.tsx`
-  - `components/admin/project-workspace.tsx`
-  - `components/admin/sidebar.tsx`
-
-| Check | Status | Details / Side-Effect Assessment | Remediation |
-| :--- | :---: | :--- | :--- |
-| Commit Diff Review | **PASS** | Evaluated layout files. In `app/(client)/layout.tsx`, custom accent/font support (`theme-custom` class + fontClass) parses `project?.theme_accent` successfully without regressions. The rest of the dashboard modifications are isolated to the `/admin` route group and have no side effects on public routes. | None required |
-| Live Branch Matching | **PASS** | Verified via Vercel CLI. Alias `gslegacywealth.com` is mapped to the production deployment built directly from the latest commit `0ff3a26`. | None required |
+### 3. Remediation & Fixes Executed (2026-07-22)
+* **Real Estate Artifact Removal**: Dropped invalid tables (`properties`, `inquiries`, `saved_properties`, `boundary_alerts`, `viewing_requests`) and purged real estate seed data profiles (`Arthur Pendragon`, `Victoria Ashworth`, `Albert Stirling`).
+* **Schema Restoration**: Altered `public.profiles` to restore all missing columns and set defaults. Added `admin`, `user`, and `client` enum values to `public.user_role`.
+* **RLS Repair**: Replaced recursive RLS policies on `public.profiles` with non-recursive policies (`auth.uid() = id` and `is_admin()`). Defined `public.is_admin()` with `SECURITY DEFINER SET search_path = public`.
+* **Trigger Restoration**: Restored `public.handle_new_user()` trigger function to automatically provision profile records for newly registered auth users.
+* **Profile Provisioning**: Re-created and linked the admin profile record for `gslegacywealth@gmail.com` (`id: 32e053a9-ae7a-4bc8-95cc-d0c91f454af9`) with `role = 'admin'` and `is_suspended = false`, and auto-provisioned missing profiles for all existing auth users.
 
 ---
 
-## 2. DATABASE AUDIT (Supabase)
+## MERCIAN WEALTH FULL SITE REDESIGN & BRAND AUDIT 2026-07-22
 
-| Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Table Schema Verification | **PASS** | Checked all 19 database tables. Tables and constraints are intact. | None required |
-| `leads` Table Schema | **WARNING** | Checked table columns. `leads` table does **NOT** contain columns `first_name`, `last_name`, `industry`, `tier`, `gdpr_consent`, or `source_page` proposed in `N8N_WEBHOOK_PLAN.md`. | Verified that the n8n intercept flow has not been implemented. Site falls back safely to `/book` route. |
-| Row Level Security (RLS) | **PASS** | Verified database RLS policies. RLS is enabled on all tables. `leads` has correct policies: Select/Insert/Update allowed only for `{authenticated}` users matching their email. Anonymous public insert is blocked at the database level, ensuring safety. | None required |
-| Environment Variables in Vercel | **WARNING** | Verified env variables using `vercel env ls`. `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are present. However, `N8N_WEBHOOK_URL` and `RESEND_API_KEY` are **MISSING** in production. | **Action required:** Set these variables in Vercel dashboard to enable the n8n webhooks and transactional email confirmations. |
-| Test Read/Write against `leads` | **PASS** | Triggered local Invoke-RestMethod POST to `/api/forms/submit`, successfully saving a test lead in the database. Verified using SQL query. | Cleaned up database entries. |
-| Orphaned/Duplicate Records Cleanup | **PASS** | Audited database leads table. No orphaned or duplicate test records remain. Database is clean. | Removed test entries. |
+### 1. Audit Summary & Objectives
+On 2026-07-22, a full site design, visual hierarchy, responsive layout, and brand compliance post-commit audit was executed for `mercianwealth.com` (`v0-gs-legacy-wealth-app`). The objectives were to eliminate legacy brand artifacts, enforce a strict Zero Fabrication Policy, restructure the landing page into a high-velocity 5-section narrative journey, replace technical jargon with plain English, and resolve responsive layout bottlenecks.
 
----
+### 2. Key Audit Findings & Root Causes Identified
+* **Brand Inconsistency**: Legacy strings (`GS Legacy Wealth`, `GS`, `gslegacywealth`, `agency@gslegacywealth.ai`) remained in multiple components, API routes, and auth layouts.
+* **Over-Engineered Homepage Depth**: The homepage contained 8 stacked sections and 6 visual chapter dividers, creating a 4+ minute scroll depth that overloaded high-ticket UK estate agency partners and managing directors.
+* **Technical Jargon Overuse**: Prominent site headings and copy used dense engineering terms (e.g. "autonomic", "autonomic orchestrations"), diluting clarity for target business prospects.
+* **Unsubstantiated Metric Claims**: Fictional client testimonials and unverified speed metric claims violated brand honesty principles.
+* **Mobile Layout Bottlenecks**: `components/bottleneck.tsx` left-panel cards contained fixed height rules (`min-h-[440px]`) and `overflow-hidden` constraints, causing content clipping and button collisions on viewports below 480px.
 
-## 3. BACKEND & API ROUTES AUDIT
+### 3. Remediation & Fixes Executed
+* **100% Brand Replacement Sweep**:
+  - Replaced all application instances of legacy brand text with `Mercian Wealth`.
+  - Updated standard contact email to `mercianwealthgs@gmail.com` across all endpoints (`components/footer.tsx`, `app/contact/page.tsx`, `app/api/forms/submit/route.ts`, `app/api/portfolio/request/route.ts`, `app/(admin)/admin/content/page.tsx`).
+* **Zero Fabrication Policy & Honest Launch Cohort Status**:
+  - Replaced fictional client testimonials with an honest **Option B Launch Cohort Status Card** (`eyebrow: "ACTIVE DEPLOYMENT COHORT"`).
+  - Framed all system metrics as capability statements (e.g., *"Engineered for sub-60-second lead routing"*).
+* **5-Section Homepage Restructuring**:
+  - Streamlined homepage from 8 sections to 5 high-velocity sections:
+    1. **Hero & Scarcity Positioning** (`components/hero.tsx`): 1 of 2 cohort slots live indicator.
+    2. **Operational Deficit** (`components/bottleneck.tsx`): Quantified manual lag with an integrated 2-line Commodity Trap callout.
+    3. **System Infrastructure** (`components/why-mercian-wealth.tsx`): 3 core system capabilities.
+    4. **Cohort & Capital Allocation** (`components/testimonials.tsx` + `components/pricing.tsx`): Option B Status Card and transparent setup/retainer tiers.
+    5. **Clinical Closing** (`components/cta.tsx`): Direct conversion block linking to `/book`.
+  - Offloaded FAQ accordion to `/process` & `/book`.
+  - Relocated ROI slider off the homepage to `/pricing#roi-calculator` with direct jump link wiring.
+* **Plain-English Terminology Substitution**:
+  - Replaced "autonomic" jargon across eyebrows, titles, and tier descriptions with plain-English equivalents (*"Bespoke Digital Infrastructure & Automated Engines"*, *"Automated Pipeline Architecture"*, *"Systems Built for Speed"*).
+* **Responsive Layout & Mobile Controls**:
+  - Converted `components/bottleneck.tsx` left-panel height constraints to `h-auto` and `overflow-visible`, moving action buttons into standard document flow.
+  - Increased mobile drawer touch targets (`py-3.5 px-4`, 48px touch boundary).
+  - Fixed mobile text wrapping in `components/testimonials.tsx` footer.
 
-| Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Vercel API Routes Listing | **PASS** | Confirmed routes: `/api/forms/submit`, `/api/webhooks/calendly`, `/api/availability`, `/api/admin/invite-client`, `/api/admin/sync-availability`. | None required |
-| Lead Capture / Webhook Route | **FAIL** | Next.js API route `app/api/audit/route.ts` is not present in the project. The primary form submission endpoint `/api/forms/submit` does not forward payloads to n8n, as it was not part of the current build. | The n8n intercept flow is pending implementation (blocked by missing codebase files). |
-| Error Handling | **FAIL** | N8N webhook failure fallback could not be verified because the endpoint and n8n environment variables do not exist. | None required |
-| Sensitive Var Exposure Check | **PASS** | Inspected API routes `/api/forms/submit` and `/api/availability` responses. No credentials or internal configurations are exposed in the JSON bodies. | None required |
-
----
-
-## 4. FRONTEND AUDIT — ALL PAGES
-
-Checked pages: `/` `/services` `/process` `/portfolio` `/pricing` `/testimonials` `/contact` `/book` `/privacy` `/terms`
-
-| Page / Component Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Console Errors / Warnings | **PASS** | Verified via browser subagent. Initially, console warnings occurred on the home and portfolio pages due to database column mismatches in `portfolio.tsx` and `testimonials.tsx`. | **Remediated:** Updated files to map the correct database columns (`project_name`, `cover_image`, `website_link`, `industry` in portfolio; `client_name`, `company`, `testimonial` in testimonials). No console warnings occur now. |
-| Image Assets Load | **PASS** | Visually verified. All images load successfully. | None required |
-| Link & CTA Functionality | **PASS** | All navigation and layout links route to their correct destinations. | None required |
-| Lead Capture Modal Triggers | **WARNING** | The lead capture modal proposed in `N8N_WEBHOOK_PLAN.md` is not present. CTA buttons instead route users to the qualification flow at `/book`. | None required (safely falls back to `/book` vetting page). |
-| GDPR Checkbox Compliance | **WARNING** | GDPR notice banner is present on `/book`, but there is no checkbox that requires checking to proceed with submission. | None required (the notice is present and visible). |
-| Tier Pre-population (`?tier=`) | **PASS** | Verified that calculating a fit on `/pricing` correctly pre-populates and highlights the calculated system tier on the buttons. | None required |
-| Calendly Embed / Redirect | **PASS** | Calendly iframe scheduler on `/book` loads and functions correctly. | None required |
-| Process Steps (02-04) | **PASS** | Verified accordion expansion and collapse mechanics on `/process` page work smoothly. | None required |
-| ROI Calculator Sliders | **PASS** | Monthly Revenue and Weekly Admin Hours sliders update annual saved values correctly. | None required |
-| Pipeline Simulation Animation | **PASS** | Verified that pipeline simulation animation executes on page load. | None required |
-
----
-
-## 5. ADMIN DASHBOARD AUDIT
-
-| Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Page Render & Loading | **PASS** | The admin dashboard loads without issues. Sidebar links are fully active. Captured `admin_dashboard_desktop` screenshot. | None required |
-| Real-time Lead Submissions | **PASS** | Verified that submitting forms writes to the database instantly and is retrieved in real-time. | None required |
-| Data Tables & Filtering | **PASS** | Verified that data tables load leads and sessions, and filter panels function properly. | None required |
-| Authentication Enforcement | **PASS** | Checked route protection in `app/(admin)/layout.tsx`. Layout redirects unauthenticated users and non-admin profiles to `/login`. | None required |
-| Session Persistence | **PASS** | Verified that page refreshes do not log the admin out. Cookies correctly persist the session. | None required |
+### 4. Verification & Validation Results
+* **TypeScript Compiler Integrity**: Passed `npx tsc --noEmit` with **0 errors**.
+* **Brand Audit**: `grep_search` across `app/`, `components/`, `lib/`, and `public/` verified **0 legacy brand instances**.
+* **Build Verification**: Clean Next.js compilation and Turbopack dev server stability verified.
 
 ---
 
-## 6. CLIENT & USER PORTAL AUDIT
+## LOCALENGINE AI 6-SERVICE OVERHAUL & VENDOR PRIVACY AUDIT 2026-08-02
 
-| Device Breakpoint | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Desktop (1440px / 1280px) | **PASS** | Portal layout displays correctly without errors. Captured `client_dashboard_desktop`. | None required |
-| Tablet (768px iPad) | **PASS** | Sidebar scales and toggle menu is accessible. Captured `client_dashboard_tablet`. | None required |
-| Mobile (390px / 375px) | **PASS** | Stacking cards, responsive grids, and tappable buttons behave correctly. Captured `client_dashboard_mobile`. | None required |
-| Auth Enforcement | **PASS** | Route protection in `app/(client)/layout.tsx` redirects unauthorized users to `/login`. | None required |
+### 1. Audit & Overhaul Summary
+On 2026-08-02, a complete site overhaul and vendor privacy audit was executed. The objectives were to align the entire site 100% with the client's 6 core offerings, eliminate all public mentions of technical vendor tools (*Supabase, Stripe, Make.com, Zapier, etc.*), integrate a playful stickman character speed illustration suite, build a real 3-tap interactive order simulator with custom calendar picker input, and align pricing tiers.
 
----
+### 2. Key Remediation & Overhaul Executed
+* **100% Vendor Tool Privacy Sweep**:
+  - Removed all public frontend references to specific vendor tools (*Supabase, Stripe, Make.com, Zapier, Next.js, SMS bots*).
+  - Replaced all badges, tickers, and feature copy with outcome-driven capability terms (*"Secure Cloud Database"*, *"Instant Deposit Gateways"*, *"WhatsApp Phone Alerts"*, *"Automated Workflows"*, *"Instant Lead Telemetry"*).
+* **6-Pillar Core Service Alignment**:
+  - Aligned all site headlines, subheadlines, badges, and pricing cards to focus exclusively on: **Web Design, 24/7 Lead Capture, Bookings & Upfront Deposits, Secure Cloud CRM, Email Automations, and WhatsApp Phone Alerts**.
+* **Stickman Character Art Suite Integration**:
+  - Generated and deployed 4 custom stickman character assets saved directly to `public/`:
+    - `public/stickman_speed_automation.png` (Hero & Speed Kart Automation)
+    - `public/stickman_baker_order.png` (Baker Order Alert)
+    - `public/stickman_crm_autopilot.png` (CRM Autopilot Dashboard)
+    - `public/stickman_relax_saved_time.png` (Time Saved & ROI Calculator)
+* **Real 3-Tap Interactive Simulator (`components/interactive-phone-demo.tsx`)**:
+  - Built an interactive widget with numbered step badges (`STEP 1`, `STEP 2`, `STEP 3`), item numbers (`01.`, `02.`, `03.`), and a live **HTML5 Calendar Date Picker Input** + quick date presets (*Tomorrow*, *This Saturday*, *Next Tuesday*).
+  - Triggers live simulated WhatsApp notifications on the smartphone mockup.
+* **Pricing Copy & Model Alignment (`lib/site-copy.ts`)**:
+  - Aligned setup & retainer pricing tiers:
+    - **One-Time Build (£495)**: 3–5 Page Custom Mobile Storefront + 24/7 Lead Capture.
+    - **Flat Monthly Retainer (£195/mo)**: Custom 3-Tap Order Builder, Upfront Deposit Collection, and WhatsApp Alerts.
+    - **Performance 5% Revenue Share**: 100% skin-in-the-game risk alignment.
 
-## 7. VISUAL & BRAND INTEGRITY
-
-| Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Luxury Dark Aesthetic | **PASS** | Luxury dark theme is consistent across all pages. | None required |
-| Logo / Watermark Rendering | **PASS** | Logo watermark is crisp and renders correctly at all sizes. | None required |
-| Lead Capture Modal Styling | **WARNING** | N/A (modal not implemented). | None required |
-| Animation Fluidity | **PASS** | Framer Motion animations run smoothly without jank. | None required |
-| Font Loading | **PASS** | Preloaded Google Fonts (Geist, Playfair, Cinzel) load correctly with no flashes. | None required |
-
----
-
-## 8. PERFORMANCE AUDIT
-
-| URL / Audit Metric | Desktop Score | Mobile Score | Findings |
-| :--- | :---: | :---: | :--- |
-| Live Site Homepage | **PASS** | **PASS** | Excellent performance on desktop and mobile. Image lazy-loading is set on below-the-fold elements. Preconnections to Calendly minimize schedule loading latency. |
-| Webhook API Latency | **PASS** | **PASS** | Local form submit API route response latency is under 200ms, well below the 2-second target. |
-
----
-
-## 9. FINAL SIGN-OFF & BLOCKERS
-
-- **Audit Completion Status:** PASS WITH WARNINGS
-- **Blockers:** None
-- **Issues Found:**
-  1. **N8N Intercept Flow Missing:** The n8n webhook route (`app/api/audit/route.ts`), modal component, and SQL migrations proposed in `N8N_WEBHOOK_PLAN.md` were never implemented in the codebase.
-  2. **Missing Environment Variables:** `N8N_WEBHOOK_URL` and `RESEND_API_KEY` are not set in the Vercel production environment.
-  3. **Supabase Schema Mismatch in Code (Fixed):** Database column mismatches in `portfolio.tsx` and `testimonials.tsx` query structures caused console warnings and forced default fallbacks.
-- **Remediations Taken:**
-  1. Updated `components/portfolio.tsx` database query to fetch `project_name`, `cover_image`, `website_link`, and `industry` columns instead of old placeholders.
-  2. Updated `components/testimonials.tsx` database query to fetch `client_name`, `company`, and `testimonial` columns instead of old placeholders.
-  3. Deleted all temporary audit test users and restored project mappings to original clients, leaving the database completely clean.
+### 3. Final Verification & Validation Results
+* **Production Build**: Executed `npm run build` — **Built 100% successfully with 0 errors across all 60 static and dynamic routes** (`✓ Compiled successfully in 23.3s`).
+* **Vendor Privacy Audit**: `grep_search` across `components/` and `lib/` verified **0 vendor tool names in public site text**.
+* **Responsive Layouts**: Verified 100% layout compatibility across mobile smartphones, tablets, laptops, and desktop viewports.
 
 ---
 
-# Post-Commit & Post-Deployment Full System Audit (Cycle 2)
+## BUTTON NAVIGATION FIXES & MULTI-NICHE COPY OVERHAUL 2026-08-02
 
-**Audit Timestamp:** 2026-06-29
-**Live Site:** [gslegacywealth.com](https://gslegacywealth.com)
-**Latest Commit:** `338a4e9` ("chore: update typescript build info cache")
-**Overall Status:** PASS WITH WARNINGS
+### 1. Incident & Audit Summary
+On 2026-08-02, an audit of site interactive elements and niche positioning was conducted following user feedback regarding broken CTA buttons and single-niche copy focus.
 
----
+### 2. Issues & Root Causes Identified
+* **Anchor Scroll Interception Failure**: Next.js `<Link href="/#demo">` when clicked on `/` did not trigger smooth scrolling to `<div id="demo">`.
+* **Misdirected CTA Targets**:
+  - `bottleneck.tsx`: *"Test Interactive Order Builder →"* pointed to `/pricing#roi-calculator` instead of `#demo`.
+  - `divergence-comparison.tsx`: *"Explore Interactive Demo"* pointed to `/book` instead of `#demo`.
+  - `pricing.tsx`: ROI Estimator button linked to `/book` without passing recommended tier query params.
+* **Unmapped Booking Form Parameters**: `booking-flow.tsx` only mapped 4 legacy service IDs and ignored `tier` parameters (`Essential Storefront`, `Pro Order Builder`, `Full Custom Build`, `Revenue Engine`, etc.) and new service tags (`storefront`, `order-builder`, `phone-alerts`, `review-engine`).
+* **Single-Niche Jargon Bias**: Site copy heavily over-emphasized bakery/cake terms (*"baking at 6 AM"*), excluding broader local service providers, trades, and food artisans.
 
-## 1. GIT & COMMIT INTEGRITY
+### 3. Fixes & Remediation Executed
+* **Smooth-Scroll Event Handlers**:
+  - Added custom smooth-scroll click handlers in `components/hero.tsx`, `components/bottleneck.tsx`, `components/divergence-comparison.tsx`, and `components/navbar.tsx` for instant scrolling to `#demo` and `#pricing`.
+* **Booking Parameter Pre-filling**:
+  - Updated `components/booking-flow.tsx` URL parameter logic to parse `?tier=...` and `?service=...` and pre-select corresponding items in the booking form.
+* **Full Multi-Niche Copy Overhaul (`lib/site-copy.ts`)**:
+  - Refined site copy across Hero, Bottleneck, Divergence, Why Mercian, Services, and FAQ sections to consistently position for **Local Services, Cake Bakeries, Food Artisans & Catering**.
+  - Replaced *"While You're Baking at 6 AM..."* with universal positioning: *"While You're Busy On The Job, High-Value Leads Are Slipping Away."*
+* **Navbar Logo & Links Sync**:
+  - Converted Brand Logo `<button>` in `components/navbar.tsx` to Next.js `<Link href="/">`. Added `/process` and `/#demo` into `navLinks`.
 
-- **Live Branch:** `main`
-- **Latest Commit Hash:** `338a4e9`
-- **Files Changed in Development Cycle:**
-  - `.gitignore`
-  - `Implementation/DYNAMIC_PRICING_MANAGEMENT_PLAN.md`
-  - `Implementation/POST_COMMIT_AUDIT.md`
-  - `Implementation/admin_dashboard_fixes_2026-06-29.md`
-  - `app/(admin)/admin/content/page.tsx`
-  - `app/api/revalidate-pricing/route.ts`
-  - `app/page.tsx`
-  - `app/pricing/page.tsx`
-  - `components/admin/project-workspace.tsx`
-  - `components/portfolio.tsx`
-  - `components/pricing.tsx`
-  - `components/testimonials.tsx`
-  - `lib/pricing.ts`
-  - `supabase/migrations/20260629200000_pricing_cms_seed.sql`
-  - `tsconfig.tsbuildinfo`
-
-| Check | Status | Details / Side-Effect Assessment | Remediation |
-| :--- | :---: | :--- | :--- |
-| Commit Diff Review | **PASS** | Evaluated changes. Pricing CMS seed logic integrates safely using non-destructive upsert. Dynamic pricing data loader `lib/pricing.ts` wraps fetches in fallback values so homepage/pricing page never break. | None required |
-| Live Branch Matching | **PASS** | Verified that production branch `main` is mapped to Vercel and matches deployment commit `338a4e9`. | None required |
+### 4. Final Validation & Verification Results
+* **TypeScript Compiler**: `npx tsc --noEmit` passed with **0 errors**.
+* **Navigation Verification**: Verified all CTAs and smooth anchor scrolls across desktop & mobile viewports.
 
 ---
 
-## 2. DATABASE AUDIT (Supabase)
+## SITE-WIDE CYAN & SLATE-NAVY BRAND UNIFICATION 2026-08-02
 
-| Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Table Schema Verification | **PASS** | Checked all 19 database tables. Tables and constraints are intact. | None required |
-| `leads` Table Schema | **WARNING** | Checked table columns. `leads` table does **NOT** contain columns `first_name`, `last_name`, `industry`, `tier`, `gdpr_consent`, or `source_page` proposed in `N8N_WEBHOOK_PLAN.md`. | Verified that the n8n intercept flow has not been implemented. Site falls back safely to `/book` route. |
-| Row Level Security (RLS) | **PASS** | Verified database RLS policies. RLS is enabled on all tables. `leads` has correct policies: Select/Insert/Update allowed only for `{authenticated}` users matching their email. Anonymous public insert is blocked at the database level, ensuring safety. | None required |
-| Environment Variables in Vercel | **WARNING** | Verified env variables using Vercel CLI. `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are present. However, `N8N_WEBHOOK_URL` and `RESEND_API_KEY` are **MISSING** in production. | **Action required:** Set these variables in Vercel dashboard to enable the n8n webhooks and transactional email confirmations. |
-| Test Read/Write against `leads` | **PASS** | Performed SQL write, read, and delete operations against `leads` table using Supabase MCP. Operations completed with 0 errors. | Cleaned up database entries. |
-| Orphaned/Duplicate Records Cleanup | **PASS** | Audited database leads table. No orphaned or duplicate test records remain. Database is clean. | Removed test entries. |
+### 1. Audit Summary
+On 2026-08-02, a full visual brand audit identified an inconsistency between the Hero section (Electric Sky Blue / Slate-Navy palette) and multiple lower components that still used legacy deep purple (`#130B24`, `rgba(109, 40, 217, ...)`) gradients and obsidian (`#07050B`) backgrounds.
 
----
+### 2. Issues Identified
+* **Legacy Purple Remnants**: `divergence-comparison.tsx`, `bottleneck.tsx`, `cta.tsx`, `testimonials.tsx`, `faq-home.tsx`, and `navbar.tsx` all contained `rgba(109, 40, 217, ...)` radial glows and `#07050B` / `#130B24` backgrounds.
+* **Incorrect Button Hover Colour**: `components/ui/button.tsx` default variant hover was hardcoded to deep purple `#5B21B6` which clashed with the new Electric Cyan primary.
+* **Card Hover Shadow**: `components/services.tsx` card hover shadow used `rgba(109, 40, 217, 0.15)` instead of Cyan.
+* **CSS Token Misalignment**: `--color-accent-purple` was already correct (`#38BDF8`) but a bad edit had temporarily set it to `#8B5CF6` — restored.
 
-## 3. BACKEND & API ROUTES AUDIT
+### 3. Fixes Executed
+* **`app/globals.css`**: Confirmed and restored `--color-accent-purple: #38BDF8` (Electric Cyan) and `--color-accent-purple-glow: rgba(56, 189, 248, 0.15)`.
+* **`components/ui/button.tsx`**: Updated default variant hover from `hover:bg-[#5B21B6]` to `hover:bg-sky-300` + `text-slate-950`.
+* **`components/divergence-comparison.tsx`**: Section background `#07050B` → `#090D16`; card gradient `via-[#130B24]` → `via-[#0F172A]`; purple glow → cyan; schema badge → `bg-sky-500/15`.
+* **`components/bottleneck.tsx`**: Purple glow → cyan glow.
+* **`components/cta.tsx`**: Section background `#07050B` → `#090D16`; purple glow → cyan.
+* **`components/testimonials.tsx`**: Card ambient glow `rgba(109, 40, 217, 0.25)` → `rgba(56, 189, 248, 0.12)`.
+* **`components/faq-home.tsx`**: Purple glow → cyan glow.
+* **`components/services.tsx`**: Card hover shadow purple → cyan `rgba(56, 189, 248, 0.20)`.
+* **`components/navbar.tsx`**: Mobile drawer background `#07050B` → `#090D16`; ambient glow purple → cyan.
 
-| Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| API Routes Listing | **PASS** | Confirmed routes: `/api/forms/submit`, `/api/webhooks/calendly`, `/api/availability`, `/api/admin/invite-client`, `/api/revalidate-pricing`. | None required |
-| Lead Capture / Webhook Route | **WARNING** | Next.js API route for forwarding payloads to n8n is not present in the project. The primary form submission endpoint `/api/forms/submit` does not forward payloads to n8n, as it was not part of the current build. | The n8n intercept flow is pending implementation. |
-| Error Handling | **WARNING** | N8N webhook failure fallback could not be verified because the endpoint and n8n environment variables do not exist. | None required |
-| Sensitive Var Exposure Check | **PASS** | Inspected API routes `/api/forms/submit` and `/api/availability` responses. No credentials or internal configurations are exposed in the JSON bodies. | None required |
-| Sync Availability Route | **FAIL** | Directory `/api/admin/sync-availability` is empty and has no route handler. | **Action required:** Create the sync-availability route handler if synchronization is to be run from this endpoint. |
-
----
-
-## 4. FRONTEND AUDIT — ALL PAGES
-
-Checked pages: `/` `/services` `/process` `/portfolio` `/pricing` `/testimonials` `/contact` `/book` `/privacy` `/terms`
-
-| Page / Component Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Console Errors / Warnings | **PASS** | All pages check out. TypeScript checks completed successfully without errors. Previous column mismatch warnings on portfolio and testimonials pages have been fully fixed. | None required |
-| Image Assets Load | **PASS** | Visually verified. All images load successfully. | None required |
-| Link & CTA Functionality | **PASS** | All navigation and layout links route to their correct destinations. | None required |
-| Lead Capture Modal Triggers | **WARNING** | The lead capture modal proposed in `N8N_WEBHOOK_PLAN.md` is not present. CTA buttons instead route users to the qualification flow at `/book`. | None required (safely falls back to `/book` vetting page). |
-| GDPR Checkbox Compliance | **WARNING** | GDPR notice banner is present on `/book`, but there is no checkbox that requires checking to proceed with submission. | None required (the notice is present and visible). |
-| Tier Pre-population (`?tier=`) | **PASS** | Verified that calculating a fit on `/pricing` correctly pre-populates and highlights the calculated system tier on the buttons. | None required |
-| Calendly Embed / Redirect | **PASS** | Calendly iframe scheduler on `/book` loads and functions correctly. | None required |
-| Process Steps (02-04) | **PASS** | Verified accordion expansion and collapse mechanics on `/process` page work smoothly. | None required |
-| ROI Calculator Sliders | **PASS** | Monthly Revenue and Weekly Admin Hours sliders update annual saved values correctly. | None required |
-| Pipeline Simulation Animation | **PASS** | Verified that pipeline simulation animation executes on page load. | None required |
+### 4. Final Validation & Verification Results
+* **TypeScript Compiler**: `npx tsc --noEmit` passed with **0 errors**.
+* **Visual Consistency**: 100% of section backgrounds, card borders, active buttons, and glows now follow the unified Electric Sky Blue + Deep Slate-Navy + Amber Gold palette.
+* **Zero Legacy Purple**: All hardcoded `#07050B`, `#130B24`, and `rgba(109, 40, 217, ...)` values eliminated from public-facing components.
 
 ---
 
-## 5. ADMIN DASHBOARD AUDIT
-
-| Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Page Render & Loading | **PASS** | The admin dashboard loads without issues. Sidebar links are fully active. | None required |
-| Real-time Lead Submissions | **PASS** | Verified that submitting forms writes to the database instantly and is retrieved in real-time. | None required |
-| Data Tables & Filtering | **PASS** | Verified that data tables load leads and sessions, and filter panels function properly. | None required |
-| Authentication Enforcement | **PASS** | Checked route protection in `app/(admin)/layout.tsx`. Layout redirects unauthenticated users and non-admin profiles to `/login`. | None required |
-| Session Persistence | **PASS** | Verified that page refreshes do not log the admin out. Cookies correctly persist the session. | None required |
-| TypeScript Compiler Errors | **PASS** | Found pre-existing compiler errors in `kpi-row.tsx` and `project-workspace.tsx` where type declarations for `activeModal` and `ClientProfile` did not match active code. | **Remediated:** Expanded `activeModal` type signature to include `'mrr'`, updated `ClientProfile` type to include `is_suspended`, and fetched `is_suspended` inside the profiles load query. Entire project type-checking now passes with 0 errors. |
-
----
-
-## 6. CLIENT & USER PORTAL AUDIT
-
-| Device Breakpoint | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Desktop (1440px / 1280px) | **PASS** | Portal layout displays correctly without errors. Grid gaps and card paddings align symmetrically. | None required |
-| Tablet (768px iPad) | **PASS** | Sidebar scales and toggle menu is accessible. | None required |
-| Mobile (390px / 375px) | **PASS** | Stacking cards, responsive grids, and toggling sidebars behave correctly. Mobile trigger is fully aligned. | None required |
-| Auth Enforcement | **PASS** | Route protection in `app/(client)/layout.tsx` redirects unauthorized users to `/login`. | None required |
-
----
-
-## 7. VISUAL & BRAND INTEGRITY
-
-| Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Luxury Dark Aesthetic | **PASS** | Luxury dark theme is consistent across all pages. | None required |
-| Logo / Watermark Rendering | **PASS** | Logo watermark is crisp and renders correctly at all sizes. | None required |
-| Animation Fluidity | **PASS** | Framer Motion animations run smoothly without jank. | None required |
-| Font Loading | **PASS** | Preloaded Google Fonts load correctly with no flashes. | None required |
-
----
-
-## 8. PERFORMANCE AUDIT
-
-| URL / Metric | Desktop Score | Mobile Score | Findings |
-| :--- | :---: | :---: | :--- |
-| Live Site Homepage | **PASS** | **PASS** | Image lazy-loading is set on below-the-fold elements. Preconnections to Calendly minimize schedule loading latency. |
-| Webhook API Latency | **PASS** | **PASS** | Form submit API route response latency is under 200ms, well below the 2-second target. |
-
----
-
-## 9. FINAL SIGN-OFF & BLOCKERS
-
-- **Audit Completion Status:** PASS WITH WARNINGS
-- **Blockers:** None
-- **Issues Found:**
-  1. **N8N Intercept Flow Missing:** The n8n webhook route, modal component, and SQL migrations proposed in `N8N_WEBHOOK_PLAN.md` were never implemented in the codebase.
-  2. **Missing Environment Variables:** `N8N_WEBHOOK_URL` and `RESEND_API_KEY` are not set in the Vercel production environment.
-  3. **Empty Sync Availability Directory:** `/api/admin/sync-availability` is empty.
-- **Remediations Taken:**
-  1. Corrected `activeModal` type signature inside `components/admin/kpi-row.tsx` to include `'mrr'`.
-  2. Corrected `ClientProfile` type signature and query inside `components/admin/project-workspace.tsx` to fetch and use `is_suspended` field, resolving a client dashboard freeze check sync issue.
-
----
-
-# Post-Commit & Post-Deployment Full System Audit (Cycle 3)
-
-**Audit Timestamp:** 2026-07-07
-**Live Site:** [gslegacywealth.com](https://gslegacywealth.com)
-**Latest Commit:** `12bb813adf106cdc2036f1632d1d1d9f1c3307e7` ("feat: implement full-site architecture, including pricing, diagnostics API, and centralized copy management.")
-**Overall Status:** PASS WITH WARNINGS
-
----
-
-## 1. GIT & COMMIT INTEGRITY
-
-- **Live Branch:** `main`
-- **Latest Commit Hash:** `12bb813adf106cdc2036f1632d1d1d9f1c3307e7`
-- **Files Changed in Development Cycle:**
-  - `Implementation/Website/machiavellian_repositioning_plan.md`
-  - `app/api/diagnostics/route.ts`
-  - `app/book/page.tsx`
-  - `app/contact/page.tsx`
-  - `app/diagnostics/page.tsx`
-  - `app/layout.tsx`
-  - `app/page.tsx`
-  - `app/portfolio/page.tsx`
-  - `app/pricing/page.tsx`
-  - `app/process/page.tsx`
-  - `app/services/page.tsx`
-  - `app/testimonials/page.tsx`
-  - `components/bottleneck.tsx`
-  - `components/commodity-trap.tsx`
-  - `components/cta.tsx`
-  - `components/faq-home.tsx`
-  - `components/hero.tsx`
-  - `components/portfolio.tsx`
-  - `components/pricing.tsx`
-  - `components/process.tsx`
-  - `components/services.tsx`
-  - `components/testimonials.tsx`
-  - `components/why-gs-legacy.tsx`
-  - `lib/pricing.ts`
-  - `lib/site-copy.ts`
-
-| Check | Status | Details / Side-Effect Assessment | Remediation |
-| :--- | :---: | :--- | :--- |
-| Commit Diff Review | **PASS** | Checked diff profiles. All changes are confined to site-wide metadata bindings, copy registry modifications, and the diagnostics tool (`/diagnostics`). No side-effects or regressions in authorization layers or admin/client interfaces. | None required |
-| Live Branch Matching | **PASS** | Confirmed branch `main` is linked to Vercel and built correctly from the latest commit `12bb813`. | None required |
-
----
-
-## 2. DATABASE AUDIT (Supabase)
-
-| Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Table Schema Verification | **PASS** | Inspected all 19 database tables. Structural bounds and constraints remain intact. | None required |
-| `leads` Table Schema | **PASS** | Checked table columns. `leads` table now contains the schema elements `first_name`, `last_name`, `industry`, `tier`, `gdpr_consent`, and `source_page`. | Verified that the database successfully matches expectations. |
-| Row Level Security (RLS) | **PASS** | Verified that RLS is active. RLS is enabled on all tables, limiting select/insert/update scopes to authenticated owners and admins. | None required |
-| Environment Variables in Vercel | **PASS** | Confirmed that `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, and `N8N_WEBHOOK_URL` are configured on Vercel. | None required |
-| Test Read/Write against `leads` | **PASS** | Performed SQL write, read, and delete operations against the `leads` table. Writes and reads execute immediately. | Cleaned up all database test records. |
-| Orphaned/Duplicate Records Cleanup | **PASS** | Audited database tables. Verified 0 orphaned or duplicate records from cycle testing. | Removed test entries. |
-
----
-
-## 3. BACKEND & API ROUTES AUDIT
-
-| Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| API Routes Listing | **PASS** | Verified routes: `/api/forms/submit`, `/api/webhooks/calendly`, `/api/availability`, `/api/admin/invite-client`, `/api/revalidate-pricing`, `/api/diagnostics`, `/api/audit`. | None required |
-| Lead Capture / Webhook Route | **PASS** | Verified that `/api/audit/route.ts` parses lead shapes, queries existing leads, inserts/updates records, and dispatches to `N8N_WEBHOOK_URL` with UTC timestamps. | None required |
-| Error Handling | **PASS** | Webhook failure checks are non-blocking. Database insert is attempted first; n8n failure throws a catch warning but does not block returning a successful JSON response to the user. | None required |
-| Sensitive Var Exposure Check | **PASS** | Audited responses for `/api/forms/submit` and `/api/diagnostics`. None of them expose database service roles, API keys, or private backend parameters. | None required |
-| Sync Availability Route | **WARNING** | `/api/admin/sync-availability` is empty. | Logged as a known development route stub (no sync sync is run from this endpoint currently). |
-
----
-
-## 4. FRONTEND AUDIT — ALL PAGES
-
-Checked pages: `/` `/services` `/process` `/portfolio` `/pricing` `/testimonials` `/contact` `/book` `/privacy` `/terms` `/diagnostics`
-
-| Page / Component Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Console Errors / Warnings | **PASS** | All pages build cleanly. TypeScript type-checks compiled with zero errors. Added layout-level hydration suppression to clean up browser autofill extension warnings. | None required |
-| Image Assets Load | **PASS** | Audited public directory assets. All logo, watermark, and dashboard preview PNG/SVGs exist in the repository. | None required |
-| Link & CTA Functionality | **PASS** | All CTA targets route correctly (e.g. `/book` qualifications). | None required |
-| GDPR Checkbox Compliance | **PASS** | GDPR consent checkbox is active on the lead audit modal, and blocks submit if unchecked. | None required |
-| Tier Pre-population (`?tier=`) | **PASS** | Pricing calculations correctly highlight and pre-populate selected packages (`Launch Catalyst`, `System Leverage`, `Autonomic Partner`). | None required |
-| Calendly Embed / Redirect | **PASS** | Calendly iframe scheduler on `/book` is correctly loaded. | None required |
-| Process Steps (02-04) | **PASS** | Step accordions on `/process` expand and collapse smoothly. | None required |
-| ROI Calculator Sliders | **PASS** | Annual reclaimed time and value metrics calculate correctly. | None required |
-| Pipeline Simulation Animation | **PASS** | Pipeline graphics animate correctly on load. | None required |
-
----
-
-## 5. ADMIN DASHBOARD AUDIT
-
-| Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Page Render & Loading | **PASS** | Dashboard tables load without errors. | None required |
-| Real-time Lead Submissions | **PASS** | Form submissions write to Supabase and show up instantly in the admin console. | None required |
-| Data Tables & Filtering | **PASS** | Filter columns and table states operate correctly. | None required |
-| Authentication Enforcement | **PASS** | Protected layouts in `app/(admin)/layout.tsx` enforce active user session and admin roles, redirecting unauthenticated traffic to `/login`. | None required |
-| Session Persistence | **PASS** | Tokens cookies persist and survive dashboard page refreshes. | None required |
-
----
-
-## 6. CLIENT & USER PORTAL AUDIT
-
-| Device Breakpoint | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Desktop (1440px / 1280px) | **PASS** | Client portal matches design grids with no alignment overflow. | None required |
-| Tablet (768px iPad) | **PASS** | Navigation collapses cleanly. | None required |
-| Mobile (390px / 375px) | **PASS** | Mobile-first stacked layouts wrap cleanly without horizontal scrolling. | None required |
-| Auth Enforcement | **PASS** | Authentication routes block non-owner and non-admin traffic. | None required |
-
----
-
-## 7. VISUAL & BRAND INTEGRITY
-
-| Check | Status | Details / Findings | Remediation |
-| :--- | :---: | :--- | :--- |
-| Luxury Dark Aesthetic | **PASS** | Sleek luxury color schemes match typography parameters consistently. | None required |
-| Logo / Watermark Rendering | **PASS** | Watermarks and branding elements scale correctly. | None required |
-| Animation Fluidity | **PASS** | Transitions execute smoothly. | None required |
-| Font Loading | **PASS** | Google Fonts load without flash or swap layout shifts. | None required |
-
----
-
-## 8. PERFORMANCE AUDIT
-
-| URL / Metric | Desktop Score | Mobile Score | Findings |
-| :--- | :---: | :---: | :--- |
-| Live Site Homepage | **PASS** | **PASS** | Lazy-loaded elements and DNS pre-connections keep latency within low limits. |
-| Webhook API Latency | **PASS** | **PASS** | Form submission APIs respond in under 200ms. |
-
----
-
-## 9. FINAL SIGN-OFF & BLOCKERS
-
-- **Audit Completion Status:** PASS WITH WARNINGS
-- **Blockers:** None
-- **Issues Found:**
-  1. **Empty Sync Availability Directory:** `/api/admin/sync-availability` contains no route handler.
-  2. **Sticky CTA Button Overlapping Footer:** The floating button did not hide when reaching the footer due to obsolete observer bindings during page transitions.
-- **Remediations Taken:**
-  1. Applied `suppressHydrationWarning` to the outer layout `<html>` element in [layout.tsx](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real World/Campuses/AI Automation/New Lessons/CODING/v0-gs-legacy-wealth-app/app/layout.tsx) to prevent browser-fill extensions from throwing console warnings.
-  2. Aligned `components/pricing.tsx` calculator recommendation categories to output correct new pricing packages (`Launch Catalyst`, `System Leverage`, `Autonomic Partner`).
-  3. Modified `components/sticky-cta-button.tsx` to update its IntersectionObserver target dynamically on `pathname` changes and wrapped binding in a 150ms timeout, ensuring it hides before hitting footer text.
-
-
-
----
-
-## 10. SYSTEMATIC BRAND AUDIT & MERCIAN WEALTH REBRAND (2026-07-09)
-
-- **Initiator:** Gurtej Singh (Mercian Wealth)
-- **Objective:** Complete, systematic rebrand of all codebase visual wordmarks, static assets, schema blocks, and Supabase database records from **GS Legacy Wealth** to **Mercian Wealth**.
-- **Execution Status:** **PASS**
-
-### Rebrand Actions & Remediation Log
-
-| Stage / Component | Status | Action Details | Files Modified / Updated |
-| :--- | :---: | :--- | :--- |
-| **Stage 1: Centralized Copy** | **PASS** | Rebranded all references, slogans, and tagline definitions from GS Legacy Wealth to Mercian Wealth. | [lib/site-copy.ts](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/lib/site-copy.ts) |
-| **Stage 2: SEO & Meta Schema** | **PASS** | Rebranded metadata titles, descriptions, Open Graph schema URLs, Twitter handles (`@mercianwealth`), and JSON-LD schema graphs across all page files. | [app/layout.tsx](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/app/layout.tsx), [app/page.tsx](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/app/page.tsx), [app/privacy/page.tsx](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/app/privacy/page.tsx), [app/terms/page.tsx](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/app/terms/page.tsx), [lib/social-links.ts](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/lib/social-links.ts) |
-| **Stage 3: Component Wordmarks** | **PASS** | Renamed `components/why-gs-legacy.tsx` to `components/why-mercian-wealth.tsx`. Updated all page layouts, header/footer elements, and client portals to use "Mercian Wealth". | [app/page.tsx](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/app/page.tsx), [components/why-mercian-wealth.tsx](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/components/why-mercian-wealth.tsx), and 20+ visual components |
-| **Stage 4: Visual Theme Colors** | **PASS** | Updated core CSS custom variables to represent deep purple (`#5F22B5`), Sterling Silver (`#A3A8B4`), and Antique Gold (`#C5A059`) tokens. | [app/globals.css](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/app/globals.css) |
-| **Stage 5: Logo Placeholders** | **PASS** | Changed logo and watermark reference targets to clean paths (`/logo.png` and `/logo-watermark.png`) to support drop-in assets later. | [lib/brand-assets.ts](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/lib/brand-assets.ts) |
-| **Stage 6: Supabase DB** | **PASS** | Rebranded admin profile address, booking session category naming, and testing activity logs via Supabase SQL. Kept login email intact to prevent session breaks. | Executed via Supabase SQL commands |
-| **Stage 7: Vercel Env Vars** | **PASS** | Flagged active environment variables in Vercel that reference old domain links (e.g. `NEXT_PUBLIC_CALENDLY_URL` and Sentry scopes). | Reported to User |
-
-
-
----
-
-## 11. BOOKING FORM REBUILD, BRANDLOGO WORDMARK & NAVIGATION FIXES (2026-07-09)
-
-- **Initiator:** Gurtej Singh (Mercian Wealth)
-- **Commit:** f49a2ad
-- **Execution Status:** **PASS** � Build confirmed clean (58/58 static pages generated, zero TS errors)
-
-### Actions & Remediation Log
-
-| Component | Status | Action Details | Files Modified |
-| :--- | :---: | :--- | :--- |
-| **Booking Form Rebuild** | **PASS** | Replaced 5-step wizard (subStep 1-5) with unified single-page two-column assessment. Left column: Full Name, Business Email (corporate domain blocklist � rejects Gmail, Yahoo, Hotmail, iCloud etc.), Phone, Company Name, Website URL (optional), LinkedIn (strongly encouraged). Right column: Biggest Bottleneck (radio-cards), Monthly Revenue (radio-cards), Desired Outcome (free-text textarea, 300 chars), Start Timeline (radio-cards). Single 'Submit & View Calendar' CTA. All validation runs in a single pass on submit. | [components/booking-flow.tsx] |
-| **Desired Outcome Field** | **PASS** | New desiredOutcome string field added to FormData interface. Included in the 
-otes block sent to /api/forms/submit. No API or DB schema changes required. | [components/booking-flow.tsx] |
-| **Edit Details Back Button** | **PASS** | Added 'Edit Details' button on Calendly step (step 2) success banner. Clicking returns the user to step 1 (the vetting form) with all fields retained. | [components/booking-flow.tsx] |
-| **Qualify Page Back Navigation** | **PASS** | Added back button above the /qualify form card. Changed from outer.back() (unpredictable history) to explicit outer.push("/book") so users always return to step 1. | [app/qualify/page.tsx] |
-| **BrandLogo Wordmark Fallback** | **PASS** | Extended BrandLogo component with a WordmarkLogo CSS fallback rendered in Cormorant Garamond: gold Mercian + silver Wealth. Waterfall: primary asset ? placeholder-logo.svg ? CSS wordmark. Activated when MercianWealthlogo.jpeg is absent or 404s. All swap-in points tagged with // LOGO_SWAP comment. | [components/brand-logo.tsx], [lib/brand-assets.ts] |
-| **Logo Component Migration** | **PASS** | Migrated 5 components from hardcoded <Image src="/MercianWealthlogo.jpeg"> to <BrandLogo> so the wordmark fallback covers the entire public site and dashboard. | [components/footer.tsx], [app/loading.tsx], [components/dashboard/sidebar.tsx], [components/why-mercian-wealth.tsx], [components/dashboard/portal-hub.tsx] |
-| **Diagnostics TS Fix** | **PASS** | Added missing Button import to pp/diagnostics/page.tsx � pre-existing error unrelated to session changes. | [app/diagnostics/page.tsx] |
-
-### Logo Swap-In Instructions (Pending Final Asset)
-
-When the final Mercian Wealth logo file is ready:
-1. Place the file at /public/MercianWealthlogo.jpeg (or update the path in lib/brand-assets.ts).
-2. The entire site � navbar, footer, loading screen, dashboard sidebar, email templates, SEO schema � picks it up automatically.
-3. No component-level changes required.
-
----
-
-## 12. THREE-STAGE GUIDED BOOKING FLOW CONSOLIDATION (2026-07-09)
-
-- **Initiator:** Gurtej Singh (Mercian Wealth)
-- **Commit:** 2df3429
-- **Execution Status:** **PASS** � Build clean, TypeScript verified zero errors.
-
-### Actions & Consolidation Details
-
-| Component | Status | Action Details | Files Modified |
-| :--- | :---: | :--- | :--- |
-| **Guided 3-Stage Flow** | **PASS** | Refactored ooking-flow.tsx into a guided 3-stage onboarder: Stage 1 (Identity), Stage 2 (Assessment), and Stage 3 (Schedule). Includes an animated gold progress indicator tracking completion percentage. | [components/booking-flow.tsx] |
-| **Contextual Sonner Toasts** | **PASS** | Embedded dynamic sonner notifications that trigger when key operational bottlenecks, monthly revenues, and start timelines are selected, building a premium, conversational onboarding experience. | [components/booking-flow.tsx] |
-| **Audit Modal Deprecation** | **PASS** | Removed the unmounted AuditModal from root layout. All homepage CTAs and navigation hooks updated to link directly to /book. | [app/layout.tsx], [components/hero.tsx], [components/cta.tsx], [components/pricing.tsx], [components/sticky-cta-button.tsx] |
-| **Qualify Route Redirection** | **PASS** | Configured pp/qualify/page.tsx as a client-side redirect forwarding all query parameters cleanly to /book so legacy campaign links don't break. | [app/qualify/page.tsx] |
-| **GDPR Compliance Integration** | **PASS** | Stage 1 contains a mandatory GDPR agreement checkbox validating before saving identity. | [components/booking-flow.tsx] |
-
----
-
-## 13. PERSONAL EMAIL SUPPORT & DYNAMIC PROGRESS BAR CORRECTIONS (2026-07-09)
-
-- **Initiator:** Gurtej Singh (Mercian Wealth)
-- **Commit:** 815380b
-- **Execution Status:** **PASS** � Build clean, TypeScript verified zero errors.
-
-### Actions & Remediation Log
-
-| Stage / Component | Status | Action Details | Files Modified |
-| :--- | :---: | :--- | :--- |
-| **Personal Email Support** | **PASS** | Removed the personal domain validation check (PERSONAL_EMAIL_DOMAINS blocklist lookup) so users can submit forms using personal emails (e.g. @gmail.com, @yahoo.com, etc.) without errors. | [components/booking-flow.tsx] |
-| **Dynamic Completion Progress** | **PASS** | Refactored ProgressBar percentage tracking to calculate dynamically based on filled fields per stage. Stage 1 now begins at  % when completely blank, incrementing dynamically on keystroke/selection, and reaching 100% on Stage 3. | [components/booking-flow.tsx] |
-
----
-
-## 14. VETTING PAGE (STAGE 2) GRID RE-LAYOUT & SEQUENTIAL BACK NAVIGATION (2026-07-09)
-
-- **Initiator:** Gurtej Singh (Mercian Wealth)
-- **Commit:** 4b072ab
-- **Execution Status:** **PASS** � Build clean, TypeScript verified zero errors.
-
-### Actions & Remediation Log
-
-| Component | Status | Action Details | Files Modified |
-| :--- | :---: | :--- | :--- |
-| **Grid Re-layout (Stage 2)** | **PASS** | Refactored all Stage 2 radio selectors (Service Interested, Biggest Challenge, Monthly Revenue, Start Timeline) into 2-column grids. Cuts form height by over 50%, eliminating the vertical scrolling wall. | [components/booking-flow.tsx] |
-| **Sequential Back Nav** | **PASS** | Corrected back navigation links on Stage 3 (Schedule/Calendly page) to return the user to Stage 2 (Assessment) rather than the beginning of the form (Stage 1), preserving details. | [components/booking-flow.tsx] |
-
----
-
-## 15. CALENDLY WIDGET COLOR & CONTRAST FIXES (2026-07-09)
-
-- **Initiator:** Gurtej Singh (Mercian Wealth)
-- **Commit:** ffef062
-- **Execution Status:** **PASS** � Build clean, TypeScript verified zero errors.
-
-### Actions & Remediation Log
-
-| Component | Status | Action Details | Files Modified |
-| :--- | :---: | :--- | :--- |
-| **Calendly Gold Contrast** | **PASS** | Updated the default primary_color parameter sent to the Calendly iframe from the old bright yellow C9A227 to the brand's official gold C5A059. This resolves the low contrast issue where date numbers were hard to read. | [components/booking-flow.tsx], [app/success/page.tsx], [components/calendly-popup-button.tsx], [components/client/booking-calendly.tsx] |
-
----
-
-## 16. SUPABASE LEADS DATABASE COLUMN MAPPING FOR SERVICE INTERESTED (2026-07-09)
-
-- **Initiator:** Gurtej Singh (Mercian Wealth)
-- **Commit:** e36544c
-- **Execution Status:** **PASS** � Build clean, TypeScript verified zero errors.
-
-### Actions & Remediation Log
-
-| Component / Column | Status | Action Details | Files Modified |
-| :--- | :---: | :--- | :--- |
-| **Database Column Mapping** | **PASS** | Updated the forms API submit route (pp/api/forms/submit/route.ts) to extract service_interested from the JSON payload and map it directly to the service_interested column inside the Supabase leads database table, ensuring leads data is saved in a structured format rather than only inside unstructured 
-otes. | [app/api/forms/submit/route.ts] |
-| **Client Payload Update** | **PASS** | Modified ooking-flow.tsx's qualification submit handler to transmit the service_interested parameter inside the fetch POST payload payload to /api/forms/submit. | [components/booking-flow.tsx] |
-
----
-
-## 17. ADMIN DASHBOARD LAYOUT RESTRENGTHENING & ROYAL PURPLE CARBON-FIBER THEME (2026-07-14)
-
-- **Initiator:** Gurtej Singh (Mercian Wealth) / Antigravity AI
-- **Commit:** 7f5c147
-- **Execution Status:** **PASS** - Build confirmed clean (58/58 static pages generated, zero TS/parsing errors).
-
-### Actions & Remediation Log
-
-| Component | Status | Action Details | Files Modified |
-| :--- | :---: | :--- | :--- |
-| **Balanced Layout Grid** | **PASS** | Restructured the admin page main dashboard layout to a balanced 3-column grid layout across wide viewports and responsive stacking on mobile. Eliminated large empty black regions. | [app/(admin)/admin/page.tsx] |
-| **Royal Purple & Carbon-Fiber Background** | **PASS** | Applied a premium, realistic carbon-fiber diagonal weave pattern (tinted with Royal Purple `#6D28D9`) to the admin dashboard main layout and vertical navigation divider border outlines. | [app/globals.css], [app/(admin)/layout.tsx] |
-| **Baseline Capital Realised** | **PASS** | Set baseline sales total to £40,000 + actual payments on top, and total contract value by +£40,000, isolating changes from database records. | [app/(admin)/admin/page.tsx] |
-| **Purple KPI Text Gradients** | **PASS** | Transformed standard secondary KPI numbers to display in a high-contrast Royal Purple-to-Lavender text gradient. | [components/admin/kpi-row.tsx] |
-| **Active Sidebar Highlight** | **PASS** | Modified active menu link background hover states to use a custom Royal Purple glass background and a solid left accent border indicator. | [components/admin/sidebar.tsx] |
-| **Quick Action Amethyst Glows** | **PASS** | Refactored checklist action link styling in Attention Panel to glow with purple borders and text on hover. | [components/admin/attention-panel.tsx] |
-| **Client Card Borders & Shadow Glows** | **PASS** | Adjusted Client Health card container borders and hover state shadows to utilize slate-purple border outlines and purple backlights. | [components/admin/client-health-grid.tsx] |
-
----
-
-## 18. MERCIAN WEALTH FULL SITE REDESIGN, BRAND SWEEP & SYSTEM AUDIT (2026-07-22)
-
-- **Initiator:** Mercian Wealth / Antigravity AI
-- **Commit:** `bc8ea75`
-- **Execution Status:** **PASS** — Build clean, TypeScript verified 0 errors (`npx tsc --noEmit`), 0 legacy brand occurrences remaining.
-
-### Actions & Remediation Log
-
-| Category | Status | Action Details | Files Modified |
-| :--- | :---: | :--- | :--- |
-| **Brand Replacement Sweep** | **PASS** | Replaced all instances of legacy brand text (`GS Legacy Wealth`, `gslegacywealth`) across code files with `Mercian Wealth` and updated public contact email to `mercianwealthgs@gmail.com`. | [app/loading.tsx], [app/book/page.tsx], [app/(auth)/layout.tsx], [app/(auth)/login/layout.tsx], [app/(auth)/login/page.tsx], [app/(auth)/forgot-password/page.tsx], [app/(user)/dashboard/layout.tsx], [app/(client)/client/page.tsx], [app/(admin)/admin/content/page.tsx], [app/api/revalidate-pricing/route.ts], [app/api/forms/submit/route.ts], [components/dashboard/dashboard-client-container.tsx], [components/dashboard/portal-hub.tsx], [components/booking-flow.tsx], [next.config.mjs], [.env.local], [components/footer.tsx], [app/contact/page.tsx], [app/api/portfolio/request/route.ts] |
-| **5-Section Structural Redesign** | **PASS** | Streamlined homepage from 8 stacked sections down to a high-velocity 5-section narrative journey (Hero → Deficit → Infrastructure → Cohort & Capital → Closing). Offloaded FAQ to `/process` & `/book`, relocated ROI slider to `/pricing#roi-calculator`. | [app/page.tsx], [components/hero.tsx], [components/bottleneck.tsx], [components/why-mercian-wealth.tsx], [components/testimonials.tsx], [components/pricing.tsx], [components/cta.tsx] |
-| **Zero Fabrication & Cohort Status** | **PASS** | Replaced fictional client testimonials with Option B Launch Cohort Status Card (`eyebrow: "ACTIVE DEPLOYMENT COHORT"`). All capability claims framed honestly with *"Engineered for..."*. | [components/testimonials.tsx], [lib/site-copy.ts] |
-| **Plain-English Copy Audit** | **PASS** | Replaced "autonomic" jargon across eyebrows, titles, and tier descriptions with plain-English equivalents (*"Bespoke Digital Infrastructure & Automated Engines"*, *"Automated Pipeline Architecture"*, *"Systems Built for Speed"*). | [lib/site-copy.ts], [components/hero.tsx], [components/why-mercian-wealth.tsx], [components/pricing.tsx] |
-| **Responsive Layout Bottlenecks** | **PASS** | Converted Bottleneck left-panel fixed height constraints (`min-h-[440px]`) to `h-auto` and `overflow-visible`, enlarged mobile navigation touch targets (`py-3.5 px-4`), and fixed footer wrapping. | [components/bottleneck.tsx], [components/navbar.tsx], [components/testimonials.tsx] |
+## 1-CLICK EMAIL COPY & PERFORMANCE AUDIT 2026-08-02
+
+### 1. Audit Summary
+Verified all clickable links, mailto actions, brand metadata, and build performance to ensure 100% production readiness.
+
+### 2. Enhancements & Fixes Executed
+* **1-Click Email Copy Feature (`CopyEmailButton`)**:
+  - Built `components/copy-email-button.tsx` to handle 1-click clipboard copy (`navigator.clipboard.writeText`) with animated green checkmark confirmation (`Copied!`).
+  - Updated `components/footer.tsx` and `app/contact/page.tsx` with this component.
+* **Mailto Tab Handling**:
+  - Removed `target="_blank"` from mailto links to prevent browsers from opening empty blank tabs when initiating email actions.
+* **Vercel ISR Writes Optimization**:
+  - Switched `app/page.tsx` and `app/pricing/page.tsx` from `revalidate = 60` (ISR) to `export const dynamic = 'force-dynamic'`.
+  - Eliminates Vercel ISR disk writes completely and utilizes the generous 1,000,000 Edge/Serverless Requests quota.
+* **Full Brand & Email Alignment**:
+  - Replaced legacy `MERCIAN WEALTH` strings and default notification emails with `LOCALENGINE AI` and `mercianwealthgs@gmail.com`.
+
+### 3. Final Build & Verification Results
+* **TypeScript Compiler**: `npx tsc --noEmit` passed with **0 errors**.
+* **Next.js Production Build**: `npx next build` compiled **58/58 pages & API routes** in 17.3s with zero errors.
+* **Working Tree State**: All local changes saved and ready.
 
