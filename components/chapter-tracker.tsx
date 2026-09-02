@@ -13,10 +13,10 @@ interface Chapter {
 const chapters: Chapter[] = [
   { id: "bottleneck", label: "I", title: "Friction", selectors: ["#chapter-divider-I", "#bottleneck"] },
   { id: "workflow", label: "II", title: "Automation", selectors: ["#chapter-divider-II", "#workflow"] },
-  { id: "demo", label: "III", title: "Interactive", selectors: ["#chapter-divider-III", "#demo"] },
-  { id: "divergence", label: "IV", title: "Divergence", selectors: ["#chapter-divider-IV", "#divergence"] },
+  { id: "demo", label: "III", title: "Live Demo", selectors: ["#chapter-divider-III", "#demo"] },
+  { id: "divergence", label: "IV", title: "Comparison", selectors: ["#chapter-divider-IV", "#divergence"] },
   { id: "roi", label: "V", title: "Saved Hours", selectors: ["#chapter-divider-V", "#roi-calculator"] },
-  { id: "architecture", label: "VI", title: "Architecture", selectors: ["#chapter-divider-VI", "#architecture", "#system-blueprint"] },
+  { id: "architecture", label: "VI", title: "Why Mercian", selectors: ["#chapter-divider-VI", "#architecture", "#system-blueprint"] },
   { id: "pricing", label: "VII", title: "Pricing", selectors: ["#chapter-divider-VII", "#pricing"] },
 ]
 
@@ -98,25 +98,20 @@ export function ChapterTracker() {
     const chapterObj = chapters.find((c) => c.id === id)
     if (!chapterObj) return
 
-    // Find the primary anchor element for this chapter
-    const primarySelector = chapterObj.selectors[0]
-    const el = document.querySelector(primarySelector)
-    if (el) {
-      isClickScrolling.current = true
-      setActiveChapter(id)
+    isClickScrolling.current = true
+    setActiveChapter(id)
 
-      const navbarOffset = 84
-      const bodyRect = document.body.getBoundingClientRect().top
-      const elementRect = el.getBoundingClientRect().top
-      const elementPosition = elementRect - bodyRect
-      const offsetPosition = elementPosition - navbarOffset
+    let targetElement: Element | null = null
+    for (const selector of chapterObj.selectors) {
+      const el = document.querySelector(selector)
+      if (el) {
+        targetElement = el
+        break
+      }
+    }
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      })
-
-      // Re-enable automatic scroll detection after smooth scroll completes
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth", block: "start" })
       setTimeout(() => {
         isClickScrolling.current = false
       }, 800)
@@ -131,12 +126,12 @@ export function ChapterTracker() {
           animate={{ opacity: 1, x: 0, scale: 1 }}
           exit={{ opacity: 0, x: 30, scale: 0.95 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col gap-2 p-3 rounded-2xl bg-[#09070F]/80 border border-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.6)] select-none"
+          className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col gap-2 p-3 rounded-2xl bg-[#111115]/90 border border-slate-800 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.6)] select-none"
         >
           {/* Header Badge */}
-          <div className="flex flex-col items-center gap-1 border-b border-white/10 pb-2.5 px-1">
-            <span className="text-[9px] font-mono text-accent-gold/90 font-bold uppercase tracking-[0.25em]">
-              PROTOCOL
+          <div className="flex flex-col items-center gap-1 border-b border-slate-800 pb-2.5 px-1">
+            <span className="text-[9px] font-mono text-[#DCAE53] font-bold uppercase tracking-[0.25em]">
+              SYSTEMS
             </span>
           </div>
 
@@ -155,7 +150,7 @@ export function ChapterTracker() {
                   {isActive && (
                     <motion.div
                       layoutId="activeChapterBg"
-                      className="absolute inset-0 rounded-xl bg-accent-gold/15 border border-accent-gold/40 shadow-[0_0_15px_rgba(212,175,55,0.15)]"
+                      className="absolute inset-0 rounded-xl bg-[#DCAE53]/15 border border-[#DCAE53]/40 shadow-[0_0_15px_rgba(220,174,83,0.15)]"
                       transition={{ type: "spring", stiffness: 350, damping: 30 }}
                     />
                   )}
@@ -164,8 +159,8 @@ export function ChapterTracker() {
                   <span
                     className={`relative z-10 font-mono text-[11px] font-bold w-6 h-6 rounded-full flex items-center justify-center border transition-all duration-300 ${
                       isActive
-                        ? "border-accent-gold bg-accent-gold text-black shadow-[0_0_10px_rgba(212,175,55,0.5)] scale-105"
-                        : "border-white/20 text-white/50 group-hover:border-white/50 group-hover:text-white/90 group-hover:scale-105"
+                        ? "border-[#DCAE53] bg-[#DCAE53] text-[#09090B] shadow-[0_0_10px_rgba(220,174,83,0.5)] scale-105"
+                        : "border-slate-700 text-slate-400 group-hover:border-slate-500 group-hover:text-slate-200 group-hover:scale-105"
                     }`}
                   >
                     {ch.label}
@@ -175,8 +170,8 @@ export function ChapterTracker() {
                   <span
                     className={`relative z-10 text-[10px] font-sans font-semibold uppercase tracking-wider transition-all duration-300 whitespace-nowrap ${
                       isActive
-                        ? "text-accent-gold font-bold opacity-100 translate-x-0"
-                        : "text-white/40 opacity-0 max-w-0 group-hover:max-w-[120px] group-hover:opacity-80 group-hover:text-white/80 transition-all"
+                        ? "text-[#DCAE53] font-bold opacity-100 translate-x-0"
+                        : "text-slate-500 opacity-0 max-w-0 group-hover:max-w-[120px] group-hover:opacity-80 group-hover:text-slate-300 transition-all"
                     }`}
                   >
                     {ch.title}

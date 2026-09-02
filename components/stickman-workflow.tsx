@@ -7,43 +7,60 @@ import { Sparkles, MessageSquare, Zap, Database, Clock, ArrowRight, CheckCircle2
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
+const stepImages = [
+  "/stickman_baker_order.png",
+  "/stickman_speed_automation.png",
+  "/stickman_crm_autopilot.png",
+  "/stickman_relax_saved_time.png",
+]
+
 function StepGraphic({ step }: { step: number }) {
   if (step === 0) {
     return (
-      <div className="w-full max-w-[420px] rounded-2xl border border-sky-500/30 bg-slate-950 p-5 shadow-2xl space-y-4">
+      <div className="w-full max-w-[420px] rounded-xl border border-slate-800 bg-[#111115] p-5 shadow-2xl space-y-4">
+        {/* Character Illustration Banner */}
+        <div className="relative w-full h-36 rounded-lg overflow-hidden bg-[#18181F] flex items-center justify-center border border-slate-800/80">
+          <Image
+            src={stepImages[0]}
+            alt="Customer Storefront Order"
+            fill
+            className="object-contain p-2"
+          />
+        </div>
+
         <div className="flex items-center justify-between border-b border-slate-800 pb-3">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500/80" />
-            <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-            <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-            <span className="text-[11px] font-mono text-slate-400 ml-1">apexbuild.storefront.app</span>
+            <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+            <span className="text-[11px] font-mono text-slate-400 ml-1">artisan-bakery.storefront.app</span>
           </div>
-          <span className="text-[10px] font-mono font-bold bg-sky-500/20 text-sky-400 border border-sky-500/30 px-2 py-0.5 rounded">
+          <span className="text-[10px] font-mono font-bold bg-[#DCAE53]/10 text-[#DCAE53] border border-[#DCAE53]/30 px-2 py-0.5 rounded">
             ⚡ SUB-1-SECOND
           </span>
         </div>
 
         <div className="space-y-3">
-          <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
-            <span className="text-[10px] uppercase font-mono font-bold text-amber-400">Selected Project</span>
-            <p className="text-sm font-bold text-white">Full Loft Conversion & Dormer</p>
-            <p className="text-xs text-slate-400 font-sans">2 Bedrooms + En-Suite • Survey Date: Sat 18 Oct</p>
+          <div className="p-3 rounded-lg bg-[#18181F] border border-slate-800 space-y-1">
+            <span className="text-[10px] uppercase font-mono font-bold text-[#DCAE53]">Selected Product</span>
+            <p className="text-sm font-bold text-white">Custom 3-Tier Pistachio Cake</p>
+            <p className="text-xs text-slate-400 font-sans">12–16 Portions • Pickup Date: Sat 24 Oct</p>
           </div>
 
-          <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+          <div className="p-3 rounded-lg bg-[#18181F]/80 border border-slate-800 space-y-2">
             <div className="flex justify-between text-xs">
-              <span className="text-slate-400">Estimated Project Value:</span>
-              <span className="text-white font-mono font-bold">£18,500.00</span>
+              <span className="text-slate-400">Total Order Value:</span>
+              <span className="text-white font-mono font-bold">£185.00</span>
             </div>
             <div className="flex justify-between text-xs font-bold text-emerald-400 pt-1 border-t border-slate-800">
-              <span>Site Survey Deposit:</span>
-              <span className="font-mono">£250.00</span>
+              <span>Required Deposit:</span>
+              <span className="font-mono">£50.00</span>
             </div>
           </div>
 
-          <button className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 font-bold text-xs text-slate-950 flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
-            <CheckCircle2 className="w-4 h-4 text-slate-950" />
-            <span>Pay £250.00 Deposit & Reserve Survey</span>
+          <button className="w-full py-2.5 rounded-lg bg-[#DCAE53] font-bold text-xs text-[#09090B] flex items-center justify-center gap-2 shadow-lg shadow-black/40">
+            <CheckCircle2 className="w-4 h-4 text-[#09090B]" />
+            <span>Pay £50.00 Deposit & Reserve Date</span>
           </button>
         </div>
       </div>
@@ -52,30 +69,40 @@ function StepGraphic({ step }: { step: number }) {
 
   if (step === 1) {
     return (
-      <div className="w-full max-w-[420px] rounded-2xl border border-emerald-500/30 bg-slate-950 p-5 shadow-2xl space-y-4">
+      <div className="w-full max-w-[420px] rounded-xl border border-emerald-500/30 bg-[#111115] p-5 shadow-2xl space-y-4">
+        {/* Character Illustration Banner */}
+        <div className="relative w-full h-36 rounded-lg overflow-hidden bg-[#18181F] flex items-center justify-center border border-slate-800/80">
+          <Image
+            src={stepImages[1]}
+            alt="Instant WhatsApp Dispatch"
+            fill
+            className="object-contain p-2"
+          />
+        </div>
+
         <div className="flex items-center justify-between border-b border-slate-800 pb-3">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-xs font-bold font-mono">
+            <div className="w-6 h-6 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-xs font-bold font-mono">
               WA
             </div>
             <div>
-              <p className="text-xs font-bold text-white">WhatsApp Contractor Alert</p>
-              <p className="text-[10px] text-emerald-400 font-mono">Instant Van / On-Site Alert</p>
+              <p className="text-xs font-bold text-white">WhatsApp Kitchen & Team Alert</p>
+              <p className="text-[10px] text-emerald-400 font-mono">Instant Dispatch Latency: 0.4s</p>
             </div>
           </div>
           <span className="text-[10px] font-mono text-slate-500">Just Now</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/30 space-y-2">
+        <div className="p-4 rounded-lg bg-emerald-950/40 border border-emerald-500/30 space-y-2">
           <div className="flex items-center gap-1.5 text-emerald-400 font-mono text-xs font-bold">
-            <span>⚡ NEW HIGH-TICKET LEAD & SURVEY PAID</span>
+            <span>⚡ NEW ORDER & DEPOSIT PAID</span>
           </div>
-          <div className="text-xs font-sans text-slate-200 space-y-1.5 pt-1">
-            <p><strong className="text-slate-400">Client:</strong> David Harrison (Solihull, B91)</p>
-            <p><strong className="text-slate-400">Phone:</strong> +44 7700 900456</p>
-            <p><strong className="text-slate-400">Project:</strong> Full Loft Conversion (£18.5k est.)</p>
-            <p><strong className="text-slate-400">Survey Paid:</strong> <span className="text-emerald-400 font-mono font-bold">£250.00 via Stripe</span></p>
-            <p><strong className="text-slate-400">Survey Slot:</strong> Sat 18 Oct · 10:00 AM</p>
+          <div className="text-xs font-sans text-slate-200 space-y-1 pt-1">
+            <p><strong className="text-slate-400">Customer:</strong> Sophie Taylor (Reading, RG1)</p>
+            <p><strong className="text-slate-400">Phone:</strong> +44 7700 900123</p>
+            <p><strong className="text-slate-400">Item:</strong> 3-Tier Pistachio & Raspberry (£185)</p>
+            <p><strong className="text-slate-400">Deposit Paid:</strong> <span className="text-emerald-400 font-mono font-bold">£50.00 via Apple Pay</span></p>
+            <p><strong className="text-slate-400">Pickup Date:</strong> Sat 24 Oct · 11:30 AM</p>
           </div>
         </div>
       </div>
@@ -84,44 +111,54 @@ function StepGraphic({ step }: { step: number }) {
 
   if (step === 2) {
     return (
-      <div className="w-full max-w-[420px] rounded-2xl border border-sky-500/30 bg-slate-950 p-5 shadow-2xl space-y-3">
+      <div className="w-full max-w-[420px] rounded-xl border border-slate-800 bg-[#111115] p-5 shadow-2xl space-y-3">
+        {/* Character Illustration Banner */}
+        <div className="relative w-full h-36 rounded-lg overflow-hidden bg-[#18181F] flex items-center justify-center border border-slate-800/80">
+          <Image
+            src={stepImages[2]}
+            alt="Customer Database & Accounting Auto-Sync"
+            fill
+            className="object-contain p-2"
+          />
+        </div>
+
         <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-          <span className="text-xs font-mono font-bold text-sky-400 uppercase tracking-wider">
-            Trade CRM & Xero Auto-Sync
+          <span className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider">
+            Orders & CRM Auto-Sync
           </span>
-          <span className="text-[10px] font-mono bg-sky-500/10 text-sky-400 px-2 py-0.5 rounded border border-sky-500/30">
+          <span className="text-[10px] font-mono bg-[#DCAE53]/10 text-[#DCAE53] px-2 py-0.5 rounded border border-[#DCAE53]/30">
             Live Feed
           </span>
         </div>
 
         <div className="space-y-2 font-mono text-xs">
-          <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 flex justify-between items-center">
+          <div className="p-2.5 rounded-lg bg-[#18181F] border border-slate-800 flex justify-between items-center">
             <div>
-              <p className="font-bold text-white text-[11px]">David Harrison (Solihull)</p>
-              <p className="text-[10px] text-slate-400">Loft Conversion • Sat 18 Oct</p>
+              <p className="font-bold text-white text-[11px]">Sophie Taylor (Reading)</p>
+              <p className="text-[10px] text-slate-400">3-Tier Cake • Sat 24 Oct</p>
             </div>
             <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">
-              £250 Survey Paid
+              £50 Deposit Paid
             </span>
           </div>
 
-          <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800/80 flex justify-between items-center">
+          <div className="p-2.5 rounded-lg bg-[#18181F]/70 border border-slate-800/80 flex justify-between items-center">
             <div>
-              <p className="font-bold text-white text-[11px]">Mark Evans (Harborne)</p>
-              <p className="text-[10px] text-slate-400">Rear Extension • Fri 24 Oct</p>
+              <p className="font-bold text-white text-[11px]">James Thornton (Windsor)</p>
+              <p className="text-[10px] text-slate-400">Catering Box • Sun 25 Oct</p>
             </div>
             <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">
-              £350 Survey Paid
+              £120 Deposit Paid
             </span>
           </div>
 
-          <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-800/50 flex justify-between items-center">
+          <div className="p-2.5 rounded-lg bg-[#18181F]/40 border border-slate-800/50 flex justify-between items-center">
             <div>
-              <p className="font-bold text-white text-[11px]">Rachel Bennett (Sutton)</p>
-              <p className="text-[10px] text-slate-400">Roof Replacement • Completed</p>
+              <p className="font-bold text-white text-[11px]">Emma Watson (Maidenhead)</p>
+              <p className="text-[10px] text-slate-400">Celebration Order • Completed</p>
             </div>
-            <span className="text-[10px] bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded font-bold">
-              5★ Review Dispatched
+            <span className="text-[10px] bg-[#DCAE53]/20 text-[#DCAE53] border border-[#DCAE53]/30 px-2 py-0.5 rounded font-bold">
+              5★ Review Collected
             </span>
           </div>
         </div>
@@ -130,29 +167,39 @@ function StepGraphic({ step }: { step: number }) {
   }
 
   return (
-    <div className="w-full max-w-[420px] rounded-2xl border border-amber-500/30 bg-slate-950 p-5 shadow-2xl space-y-4">
+    <div className="w-full max-w-[420px] rounded-xl border border-[#DCAE53]/30 bg-[#111115] p-5 shadow-2xl space-y-4">
+      {/* Character Illustration Banner */}
+      <div className="relative w-full h-36 rounded-lg overflow-hidden bg-[#18181F] flex items-center justify-center border border-slate-800/80">
+        <Image
+          src={stepImages[3]}
+          alt="Saved Hours & Reclaimed Time"
+          fill
+          className="object-contain p-2"
+        />
+      </div>
+
       <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-        <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
-          Contractor Weekly Impact
+        <span className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider">
+          Weekly Operational Impact
         </span>
         <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
-          Zero Lost Leads
+          Zero Lost DMs
         </span>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-center">
-          <p className="text-2xl font-extrabold text-white font-mono">12.5h</p>
+        <div className="p-3 rounded-lg bg-[#18181F] border border-slate-800 text-center">
+          <p className="text-2xl font-extrabold text-white font-mono">10.5h</p>
           <p className="text-[10px] text-slate-400 uppercase font-sans font-semibold">Admin Saved / Wk</p>
         </div>
-        <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-center">
+        <div className="p-3 rounded-lg bg-[#18181F] border border-slate-800 text-center">
           <p className="text-2xl font-extrabold text-emerald-400 font-mono">£0</p>
-          <p className="text-[10px] text-slate-400 uppercase font-sans font-semibold">No-Show Survey Cost</p>
+          <p className="text-[10px] text-slate-400 uppercase font-sans font-semibold">Unpaid Cancellations</p>
         </div>
       </div>
 
-      <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-center text-xs text-amber-300 font-sans font-medium">
-        ✨ While you're on scaffolding or driving the van, your automated quote engine captures £10k–£50k jobs and locks survey deposits.
+      <div className="p-3 rounded-lg bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-center text-xs text-[#DCAE53] font-sans font-medium">
+        ✨ While you focus on prepping and baking, your automated storefront takes orders, collects deposits, and alerts your phone 24/7.
       </div>
     </div>
   )
@@ -164,42 +211,42 @@ export function StickmanWorkflow() {
   const steps = [
     {
       id: 0,
-      title: "1. Homeowner Requests Quote & Survey Online (24/7)",
-      subtitle: "Your sub-second mobile website collects project dimensions, specifications, and non-refundable survey deposits while you are on site or driving.",
-      badge: "24/7 Quote Intake & Survey Lock",
+      title: "1. Customers Configure & Order Online (24/7)",
+      subtitle: "Your sub-second mobile storefront collects sizes, flavors, event dates, and upfront deposits while you are in the kitchen or on a job.",
+      badge: "24/7 Order Intake & Deposits",
       icon: Zap,
     },
     {
       id: 1,
-      title: "2. Instant WhatsApp Alert Hits Your Phone On Site",
-      subtitle: "Triggered instantly via automated cloud webhooks. Complete project summary, client phone number, and address delivered straight to your pocket.",
-      badge: "Instant Van / Mobile Alert",
+      title: "2. Instant WhatsApp Alert Hits Your Phone",
+      subtitle: "Triggered instantly via automated cloud webhooks. Complete order specifications, customer phone, pickup date, and deposit receipt sent straight to your pocket.",
+      badge: "Instant Smartphone WhatsApp Alert",
       icon: MessageSquare,
     },
     {
       id: 2,
-      title: "3. Trade CRM & Xero Sync the Client Automatically",
-      subtitle: "Zero lost scrap paper notes or forgotten voicemails. All customer details, blueprints, and deposit invoices are automatically recorded.",
-      badge: "Trade CRM & Accounting Sync",
+      title: "3. Calendar & Customer Database Auto-Sync",
+      subtitle: "Zero lost DM notes or forgotten voicemails. All customer details, pickup dates, and deposit invoices are automatically logged.",
+      badge: "Database & Accounting Sync",
       icon: Database,
     },
     {
       id: 3,
-      title: "4. You Reclaim 12+ Hours Every Single Week",
-      subtitle: "No more spending evenings playing phone tag or chasing tire-kickers. Focus on building and managing job sites while automation runs the front desk.",
-      badge: "Saved Admin Time & Profit Lift",
+      title: "4. You Reclaim 10+ Hours Every Single Week",
+      subtitle: "No more spending exhausting evenings chasing bank transfers or answering the same flavor questions in DMs. Focus on craft while automation handles the orders.",
+      badge: "Saved Admin Time & Revenue Lift",
       icon: Clock,
     },
   ]
 
   return (
-    <section className="relative py-20 lg:py-28 bg-[#020E28] overflow-hidden border-t border-[#DAA640]/15">
+    <section className="relative py-20 lg:py-28 bg-[#09090B] overflow-hidden border-t border-slate-800/80">
       {/* Background Radial Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#DAA640]/5 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#DCAE53]/5 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#DAA640]/10 border border-[#DAA640]/25 text-[#DAA640] text-xs font-mono font-semibold tracking-wider uppercase mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111115] border border-[#DCAE53]/30 text-[#DCAE53] text-xs font-mono font-semibold tracking-wider uppercase mb-4">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Speed & Automation Win Every Time</span>
           </div>
@@ -221,17 +268,17 @@ export function StickmanWorkflow() {
                 key={step.id}
                 suppressHydrationWarning
                 onClick={() => setActiveStep(idx)}
-                className={`p-3 sm:p-4 rounded-2xl text-left transition-all duration-300 border ${
+                className={`p-3 sm:p-4 rounded-xl text-left transition-all duration-300 border ${
                   isActive
-                    ? "bg-[#07153B] border-[#DAA640] shadow-[0_0_20px_rgba(218,166,64,0.2)] scale-[1.02]"
-                    : "bg-[#07153B]/50 border-slate-800 hover:bg-[#07153B] hover:border-slate-700"
+                    ? "bg-[#18181F] border-[#DCAE53] shadow-[0_0_20px_rgba(220,174,83,0.2)] scale-[1.02]"
+                    : "bg-[#111115]/80 border-slate-800 hover:bg-[#111115] hover:border-slate-700"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <div className={`p-1.5 sm:p-2 rounded-xl ${isActive ? "bg-[#DAA640]/20 text-[#DAA640]" : "bg-slate-800 text-slate-400"}`}>
+                  <div className={`p-1.5 sm:p-2 rounded-lg ${isActive ? "bg-[#DCAE53]/20 text-[#DCAE53]" : "bg-slate-800 text-slate-400"}`}>
                     <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
-                  <span className={`text-[9px] sm:text-[10px] font-mono font-bold uppercase px-1.5 sm:px-2 py-0.5 rounded-full ${isActive ? "bg-[#DAA640]/20 text-[#DAA640]" : "bg-slate-800 text-slate-500"}`}>
+                  <span className={`text-[9px] sm:text-[10px] font-mono font-bold uppercase px-1.5 sm:px-2 py-0.5 rounded-full ${isActive ? "bg-[#DCAE53]/20 text-[#DCAE53]" : "bg-slate-800 text-slate-500"}`}>
                     Step 0{idx + 1}
                   </span>
                 </div>
@@ -244,7 +291,7 @@ export function StickmanWorkflow() {
         </div>
 
         {/* Active Step Showcase Card */}
-        <div className="p-6 sm:p-8 lg:p-12 rounded-3xl bg-[#07153B] border border-[#DAA640]/20 backdrop-blur-xl shadow-2xl">
+        <div className="p-6 sm:p-8 lg:p-12 rounded-2xl bg-[#111115] border border-slate-800/80 backdrop-blur-xl shadow-2xl">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeStep}
@@ -256,7 +303,7 @@ export function StickmanWorkflow() {
             >
               {/* Text Information Column */}
               <div className="lg:col-span-6 space-y-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-mono font-bold uppercase">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[#DCAE53] text-xs font-mono font-bold uppercase">
                   <span>Step 0{activeStep + 1} of 04</span>
                 </div>
 
@@ -272,10 +319,10 @@ export function StickmanWorkflow() {
                   <Button
                     asChild
                     size="lg"
-                    className="bg-gradient-to-r from-sky-400 to-blue-600 hover:from-sky-300 hover:to-blue-500 text-slate-950 font-bold rounded-xl shadow-[0_0_20px_rgba(56,189,248,0.3)]"
+                    className="bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold rounded-lg shadow-md"
                   >
                     <Link href="/book" className="flex items-center gap-2">
-                      <span>Book 15-Min Quick Audit</span>
+                      <span>Book 15-Min Business Audit</span>
                       <ArrowRight size={18} />
                     </Link>
                   </Button>
@@ -283,7 +330,7 @@ export function StickmanWorkflow() {
                   <button
                     suppressHydrationWarning
                     onClick={() => setActiveStep((prev) => (prev + 1) % steps.length)}
-                    className="text-xs text-sky-400 hover:text-sky-300 font-mono font-bold underline underline-offset-4"
+                    className="text-xs text-[#DCAE53] hover:text-[#E5B85C] font-mono font-bold underline underline-offset-4"
                   >
                     Next Step →
                   </button>

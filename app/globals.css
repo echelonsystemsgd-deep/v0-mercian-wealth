@@ -4,18 +4,18 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Design Tokens - Canonical Mercian Wealth Brand Suite Sampled from MercianWealthLogo.jpeg */
-  --color-bg-primary: #020E28;      /* Canonical Midnight Navy Primary Background (Sampled from Logo) */
-  --color-bg-secondary: #07153B;    /* Canonical Navy Card / Section Surface */
-  --color-bg-tertiary: #0C1D4D;     /* Canonical Elevated Navy Card Surface */
-  --color-accent-purple: #DAA640;   /* Deprecated alias mapped to Canonical Gold */
-  --color-accent-purple-glow: rgba(218, 166, 64, 0.15); /* Background Gold Ambient Glow */
-  --color-accent-gold: #DAA640;     /* Canonical Imperial Monogram Gold (Sampled from Logo) */
-  --color-accent-gold-muted: rgba(218, 166, 64, 0.35); /* Muted Gold Border */
+  /* Design Tokens - Mercian Wealth Brand Suite Sampled from Logo1 & Logo2 */
+  --color-bg-primary: #09090B;      /* Modern Dark Charcoal Primary Background */
+  --color-bg-secondary: #111115;    /* Modern Charcoal Card / Section Surface */
+  --color-bg-tertiary: #18181F;     /* Elevated Card Surface */
+  --color-accent-purple: #DCAE53;   /* Backward-compatible alias mapped to Canonical Gold */
+  --color-accent-purple-glow: rgba(220, 174, 83, 0.12); /* Background Gold Ambient Glow */
+  --color-accent-gold: #DCAE53;     /* Geometric MW Monogram Gold (Sampled from Logo) */
+  --color-accent-gold-muted: rgba(220, 174, 83, 0.35); /* Muted Gold Border */
   --color-text-primary: #FFFFFF;    /* Pure White Body / Heading Text */
   --color-text-secondary: #94A3B8;  /* Luminous Slate Silver Accent */
-  --color-text-gold: #EBB755;       /* Highlighted Warm Gold Text */
-  --color-border: rgba(218, 166, 64, 0.20); /* Canonical Gold-Navy Border */
+  --color-text-gold: #E5B85C;       /* Highlighted Warm Gold Text */
+  --color-border: rgba(220, 174, 83, 0.18); /* Canonical Gold-Charcoal Border */
 
   /* Modern High-Tech Theme - Always dark, mapped to Mercian Wealth brand variables */
   --background: var(--color-bg-primary);
@@ -25,13 +25,13 @@
   --popover: var(--color-bg-secondary);
   --popover-foreground: var(--color-text-primary);
   --primary: var(--color-accent-gold);
-  --primary-foreground: #020E28;
+  --primary-foreground: #09090B;
   --secondary: var(--color-bg-secondary);
   --secondary-foreground: var(--color-text-secondary);
   --muted: var(--color-bg-secondary);
   --muted-foreground: var(--color-text-secondary);
   --accent: var(--color-accent-gold);
-  --accent-foreground: #020E28;
+  --accent-foreground: #09090B;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: var(--color-border);
@@ -48,13 +48,13 @@
   --popover: var(--color-bg-secondary);
   --popover-foreground: var(--color-text-primary);
   --primary: var(--color-accent-gold);
-  --primary-foreground: #020E28;
+  --primary-foreground: #09090B;
   --secondary: var(--color-bg-secondary);
   --secondary-foreground: var(--color-text-secondary);
   --muted: var(--color-bg-secondary);
   --muted-foreground: var(--color-text-secondary);
   --accent: var(--color-accent-gold);
-  --accent-foreground: #020E28;
+  --accent-foreground: #09090B;
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
   --border: var(--color-border);
@@ -103,8 +103,8 @@
 
   /* Helper Accent Tokens */
   --color-gold: var(--color-accent-gold);
-  --color-gold-light: #FBBF24;
-  --color-gold-dark: #D97706;
+  --color-gold-light: #E5B85C;
+  --color-gold-dark: #C59A3D;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -187,12 +187,12 @@
   background-clip: text;
 }
 
-/* Glassmorphism with navy backdrop and gold interactive hover glow */
+/* Glassmorphism with charcoal backdrop and gold interactive hover glow */
 .glass {
-  background: rgba(13, 22, 53, 0.85);
+  background: rgba(17, 17, 21, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(217, 167, 74, 0.20);
+  border: 1px solid rgba(220, 174, 83, 0.18);
   position: relative;
   overflow: hidden;
 }
@@ -551,24 +551,24 @@ input[type="range"]::-moz-range-thumb:active {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(2, 14, 40, 0.4);
+  background: rgba(9, 9, 11, 0.6);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(218, 166, 64, 0.28);
+  background: rgba(220, 174, 83, 0.28);
   border-radius: 9999px;
-  border: 1px solid rgba(218, 166, 64, 0.15);
+  border: 1px solid rgba(220, 174, 83, 0.15);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(218, 166, 64, 0.6);
-  box-shadow: 0 0 10px rgba(218, 166, 64, 0.3);
+  background: rgba(220, 174, 83, 0.6);
+  box-shadow: 0 0 10px rgba(220, 174, 83, 0.3);
 }
 
 /* Firefox standard scrollbars */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(218, 166, 64, 0.3) rgba(2, 14, 40, 0.4);
+  scrollbar-color: rgba(220, 174, 83, 0.3) rgba(9, 9, 11, 0.6);
 }
 
 /* Hide scrollbars utility class */

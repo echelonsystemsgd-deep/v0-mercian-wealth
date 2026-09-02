@@ -36,9 +36,9 @@ export function TransactionsFeed({
   const displayPayments = payments.slice(0, 3)
 
   return (
-    <section className="p-4 sm:p-5 glass rounded-2xl border border-purple-500/15 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-purple-600/10 via-transparent to-transparent space-y-4 hover:scale-[1.01] hover:-translate-y-0.5 transition-all duration-300">
-      <h2 className="text-base font-serif font-bold text-foreground flex items-center gap-2">
-        <PoundSterling size={15} className="text-gold" />
+    <section className="p-4 sm:p-5 bg-[#111115] rounded-2xl border border-slate-800 space-y-4 hover:scale-[1.01] hover:-translate-y-0.5 transition-all duration-300 shadow-xl">
+      <h2 className="text-base font-sans font-bold text-white flex items-center gap-2">
+        <PoundSterling size={15} className="text-[#DCAE53]" />
         Recent Sales
       </h2>
 

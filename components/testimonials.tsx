@@ -19,16 +19,16 @@ interface TestimonialRecord {
 
 const STATIC_FALLBACK_TESTIMONIALS: TestimonialRecord[] = [
   {
-    client_name: "David R., Managing Director",
-    company: "Vanguard Construction & Extensions · Surrey",
-    testimonial: "We used to miss 3–4 high-ticket extension enquiries every week because our project managers were on scaffolding or driving between jobs. Mercian deployed a 24/7 mobile quote engine with instant WhatsApp alerts. We captured £140,000 in verified quotes in our first 60 days and now collect survey deposits upfront.",
-    badge: "+£140k Verified Quotes",
+    client_name: "Elena S., Head Baker & Owner",
+    company: "Artisan Flour & Crust · Windsor, Berkshire",
+    testimonial: "We used to lose custom celebration cake orders every weekend because we were knee-deep in dough and couldn't answer Instagram DMs fast enough. Mercian deployed our 3-tap order builder with instant WhatsApp phone alerts. We collected £4,800 in upfront deposits in our first 30 days and eliminated manual message tag.",
+    badge: "+£4.8k Deposits Captured",
   },
   {
-    client_name: "Marcus T., Director",
-    company: "Prestige Roofing & Architectural Cladding · Surrey",
-    testimonial: "The automated quote intake and survey calendar sync completely eliminated our evening voicemail scramble. We went from losing high-value replacement quotes to rivals to booking qualified site surveys in under 60 seconds with automated 5-star Google review collection.",
-    badge: "15.5 Hrs Saved / Wk",
+    client_name: "Marcus V., Executive Chef",
+    company: "Sovereign Events & Gourmet Catering · Reading",
+    testimonial: "The automated booking system and calendar sync completely eliminated our late-night invoicing headaches. Corporate clients can configure menus, view exact pricing, and secure dates in under 60 seconds with automated 5-star Google review collection post-event.",
+    badge: "12+ Hrs Saved / Wk",
   },
 ]
 
@@ -64,19 +64,19 @@ export function Testimonials() {
   }, [])
 
   return (
-    <section id="telemetry" className="relative py-20 lg:py-28 overflow-hidden bg-[#020E28]">
+    <section id="telemetry" className="relative py-20 lg:py-28 overflow-hidden bg-[#09090B] border-t border-slate-800/80">
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 z-10">
         
         {/* Section Header */}
         <div className="text-center mb-14 max-w-3xl mx-auto space-y-4">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#DAA640] font-mono">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#DCAE53] font-mono">
             [ {data.eyebrow} ]
           </span>
           <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
             {data.headline}
           </h2>
-          <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full bg-[#DAA640]/10 border border-[#DAA640]/25 text-xs text-[#DAA640] font-mono">
-            <Star className="w-3.5 h-3.5 fill-[#DAA640] stroke-none" />
+          <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111115] border border-[#DCAE53]/30 text-xs text-[#DCAE53] font-mono">
+            <Star className="w-3.5 h-3.5 fill-[#DCAE53] stroke-none" />
             <span>{data.guarantee}</span>
           </div>
         </div>
@@ -90,13 +90,13 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="p-6 rounded-2xl border border-[#DAA640]/25 bg-[#07153B] space-y-4 shadow-xl relative flex flex-col justify-between"
+              className="p-6 rounded-2xl border border-slate-800 bg-[#111115] space-y-4 shadow-xl relative flex flex-col justify-between"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-[#DAA640]">
+                  <div className="flex items-center gap-1 text-[#DCAE53]">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={14} className="fill-[#DAA640] stroke-none" />
+                      <Star key={i} size={14} className="fill-[#DCAE53] stroke-none" />
                     ))}
                   </div>
                   {item.badge && (
@@ -106,17 +106,17 @@ export function Testimonials() {
                   )}
                 </div>
                 <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans">
-                  "{item.testimonial}"
+                  &ldquo;{item.testimonial}&rdquo;
                 </p>
               </div>
-              <div className="pt-3 border-t border-slate-700/60 flex items-center justify-between">
+              <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
                 <div>
                   <p className="text-xs font-bold text-white">{item.client_name}</p>
                   {item.company && (
                     <p className="text-[11px] text-slate-400 font-mono">{item.company}</p>
                   )}
                 </div>
-                <div className="flex items-center gap-1 text-[10px] font-mono text-[#DAA640]">
+                <div className="flex items-center gap-1 text-[10px] font-mono text-[#DCAE53]">
                   <ShieldCheck size={14} /> Verified Client
                 </div>
               </div>
@@ -130,16 +130,16 @@ export function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="max-w-4xl mx-auto p-6 sm:p-8 lg:p-10 rounded-2xl border border-[#DAA640]/30 bg-[#07153B]/90 backdrop-blur-md shadow-2xl space-y-7 text-left relative overflow-hidden min-w-0 max-w-full"
+          className="max-w-4xl mx-auto p-6 sm:p-8 lg:p-10 rounded-2xl border border-slate-800 bg-[#111115] shadow-2xl space-y-7 text-left relative overflow-hidden min-w-0 max-w-full"
         >
           <div className="relative z-10 space-y-6">
             {/* Top Status Header */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-700/60 pb-5">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-800 pb-5">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-[10px] font-mono text-emerald-400 uppercase tracking-widest">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 {data.cohortCard.badge}
               </div>
-              <span className="text-[10px] font-mono text-[#DAA640] uppercase tracking-widest font-semibold">
+              <span className="text-[10px] font-mono text-[#DCAE53] uppercase tracking-widest font-semibold">
                 STRICT 1 PARTNER PER POSTCODE CATEGORY
               </span>
             </div>
@@ -158,17 +158,17 @@ export function Testimonials() {
                 {data.cohortCard.paragraph2}
               </p>
 
-              <p className="font-sans text-xs sm:text-sm text-[#EBB755] font-semibold leading-relaxed border-l-2 border-[#DAA640] pl-4 py-1">
+              <p className="font-sans text-xs sm:text-sm text-[#DCAE53] font-semibold leading-relaxed border-l-2 border-[#DCAE53] pl-4 py-1">
                 {data.cohortCard.paragraph3}
               </p>
             </div>
 
             {/* Strategy Session Enquiry CTA Box */}
-            <div className="p-4 sm:p-5 rounded-xl border border-[#DAA640]/25 bg-[#DAA640]/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="p-4 sm:p-5 rounded-xl border border-slate-800 bg-[#18181F] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
                 {data.cohortCard.enquiryCtaText}
               </p>
-              <Button asChild size="sm" className="shrink-0 px-6 py-2.5 text-xs font-bold bg-[#DAA640] text-[#020E28] hover:bg-[#EBB755] transition-all rounded-lg">
+              <Button asChild size="sm" className="shrink-0 px-6 py-2.5 text-xs font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] transition-all rounded-lg">
                 <Link href="/book" className="flex items-center gap-2">
                   Request Alignment <ArrowRight size={14} />
                 </Link>
@@ -179,7 +179,7 @@ export function Testimonials() {
             <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-start sm:justify-between gap-3 text-xs text-slate-400">
               {data.trustPoints.map((point, idx) => (
                 <span key={idx} className="flex items-center gap-1.5 font-mono text-[10px] sm:text-[11px] text-slate-300">
-                  <CheckCircle2 size={13} className="text-[#DAA640]" /> {point}
+                  <CheckCircle2 size={13} className="text-[#DCAE53]" /> {point}
                 </span>
               ))}
             </div>

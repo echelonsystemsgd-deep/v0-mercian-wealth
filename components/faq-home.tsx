@@ -10,12 +10,12 @@ export function FAQHome() {
   const data = SITE_COPY.homepage.faq
 
   return (
-    <section id="faq" className="relative py-20 lg:py-28 overflow-hidden bg-[#020E28] border-t border-[#DAA640]/15">
+    <section id="faq" className="relative py-20 lg:py-28 overflow-hidden bg-[#09090B] border-t border-slate-800/80">
       {/* Background Radial Glow */}
       <div 
         className="absolute inset-0 pointer-events-none z-0"
         style={{
-          background: "radial-gradient(circle at 70% 80%, rgba(218, 166, 64, 0.06) 0%, rgba(2, 14, 40, 0) 60%)"
+          background: "radial-gradient(circle at 70% 80%, rgba(220, 174, 83, 0.05) 0%, rgba(9, 9, 11, 0) 60%)"
         }}
       />
 
@@ -23,7 +23,7 @@ export function FAQHome() {
         
         {/* Section Header */}
         <div className="text-center mb-14">
-          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#DAA640]">
+          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#DCAE53]">
             [ {data.eyebrow} ]
           </span>
           <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white mt-3">
@@ -42,7 +42,7 @@ export function FAQHome() {
               <div 
                 key={index} 
                 className={`border rounded-2xl transition-all duration-300 overflow-hidden ${
-                  isOpen ? "border-[#DAA640] bg-[#07153B] shadow-xl" : "border-slate-800 bg-[#07153B]/50 hover:border-slate-700"
+                  isOpen ? "border-[#DCAE53] bg-[#111115] shadow-xl" : "border-slate-800 bg-[#111115]/60 hover:border-slate-700"
                 }`}
               >
                 {/* Header Toggle */}
@@ -51,15 +51,15 @@ export function FAQHome() {
                   className="w-full flex items-center justify-between p-5 sm:p-6 text-left cursor-pointer"
                 >
                   <div className="flex items-center gap-3.5 pr-4">
-                    <HelpCircle size={16} className={isOpen ? "text-[#DAA640]" : "text-slate-400"} />
-                    <span className="font-sans font-bold text-sm sm:text-base text-white hover:text-[#DAA640] transition-colors duration-200">
+                    <HelpCircle size={16} className={isOpen ? "text-[#DCAE53]" : "text-slate-400"} />
+                    <span className="font-sans font-bold text-sm sm:text-base text-white hover:text-[#DCAE53] transition-colors duration-200">
                       {faq.question}
                     </span>
                   </div>
                   <motion.div
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.2 }}
-                    className="text-[#DAA640] shrink-0"
+                    className="text-[#DCAE53] shrink-0"
                   >
                     <ChevronDown size={18} />
                   </motion.div>
@@ -75,7 +75,7 @@ export function FAQHome() {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-0 border-t border-slate-700/60">
+                      <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-0 border-t border-slate-800">
                         <p className="font-sans text-xs sm:text-sm text-slate-200 leading-relaxed pt-4">
                           {faq.answer}
                         </p>

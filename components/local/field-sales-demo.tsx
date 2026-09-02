@@ -5,17 +5,17 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Smartphone, CheckCircle, Send, HardHat, Cake, Calendar, CreditCard, Sparkles, MessageCircle, AlertCircle } from "lucide-react"
 
 const demoServices = [
-  { id: "loft-conversion", category: "Construction", name: "Full Loft Conversion & Dormer", price: 18500, deposit: 250.0, subtitle: "2 Bed + Ensuite · Site Survey Lock" },
-  { id: "kitchen-extension", category: "Construction", name: "2-Storey Extension & Refit", price: 24000, deposit: 350.0, subtitle: "Full Architectural Build · Survey Lock" },
-  { id: "roof-overhaul", category: "Construction", name: "Complete Slate Roof Overhaul", price: 6800, deposit: 150.0, subtitle: "Emergency / Replacement · Survey Lock" },
-  { id: "artisan-catering", category: "Local Retail", name: "Artisan Platter & Event Catering", price: 280, deposit: 140.0, subtitle: "Weekend Event · 50% Deposit Lock" },
-  { id: "custom-bakery", category: "Local Retail", name: "3-Tier Custom Celebration Order", price: 220, deposit: 110.0, subtitle: "Artisan Cake & Delivery · 50% Deposit" },
+  { id: "custom-bakery", category: "Artisan Bakery", name: "Custom 3-Tier Celebration Cake", price: 240, deposit: 120.0, subtitle: "Windsor & Ascot · Handcrafted Atelier" },
+  { id: "sourdough-box", category: "Artisan Bakery", name: "Weekly Sourdough & Pastry Subscription", price: 65, deposit: 65.0, subtitle: "Doorstep Chilled Drop · Batch Baked" },
+  { id: "artisan-catering", category: "Bespoke Catering", name: "Private Dining & Canapé Service (30 Pax)", price: 850, deposit: 250.0, subtitle: "Chef-Prepared Seasonal Menu" },
+  { id: "buffet-event", category: "Bespoke Catering", name: "Gourmet Event Grazing Table & Delivery", price: 480, deposit: 150.0, subtitle: "Local Berkshire & Thames Valley" },
+  { id: "local-service", category: "Local Services", name: "Bespoke Service Booking Package", price: 350, deposit: 100.0, subtitle: "Instant Slot Reservation Lock" },
 ]
 
 export function FieldSalesDemo() {
   const [selectedService, setSelectedService] = useState(demoServices[0])
   const [pickupDate, setPickupDate] = useState("Saturday, 10:00 AM")
-  const [customerName, setCustomerName] = useState("David Harrison")
+  const [customerName, setCustomerName] = useState("Sarah Mitchell")
   const [isSimulating, setIsSimulating] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
 
@@ -30,20 +30,20 @@ export function FieldSalesDemo() {
   }
 
   return (
-    <section id="field-demo" className="py-16 sm:py-24 bg-[#090410] border-y border-accent-gold/20 relative">
+    <section id="field-demo" className="py-16 sm:py-24 bg-[#09090B] border-y border-slate-800 relative">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/30 text-accent-gold text-xs font-mono font-bold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#111115] border border-slate-800 text-[#DCAE53] text-xs font-mono font-bold uppercase tracking-wider mb-4">
             <Smartphone size={14} className="animate-bounce" />
             <span>Interactive Mobile Demo — Try It On Your Phone</span>
           </div>
-          <h2 className="font-serif text-2xl sm:text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">
-            See How High-Ticket Leads Reach Your Phone in 2 Seconds
+          <h2 className="font-sans text-2xl sm:text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+            See How Customer Orders Reach Your WhatsApp in 2 Seconds
           </h2>
-          <p className="text-sm sm:text-base text-text-secondary">
-            Tap through this demo below to see what your customer experiences and how the instant WhatsApp alert dings on your smartphone while you work on site.
+          <p className="text-sm sm:text-base text-slate-300">
+            Tap through this demo below to see what your customer experiences and how the instant WhatsApp alert dings on your smartphone without DM chaos.
           </p>
         </div>
 
@@ -51,11 +51,11 @@ export function FieldSalesDemo() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Step 1 & 2: Customer Ordering App Mockup (7 cols) */}
-          <div className="lg:col-span-7 bg-[#07050B] p-5 sm:p-7 rounded-3xl border border-accent-gold/30 shadow-[0_0_30px_rgba(212,175,55,0.1)] relative">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+          <div className="lg:col-span-7 bg-[#111115] p-5 sm:p-7 rounded-3xl border border-slate-800 shadow-2xl relative">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
               <div className="flex items-center gap-2">
-                <HardHat className="text-accent-gold" size={20} />
-                <span className="font-serif font-bold text-white text-base">Vanguard Construction & Trade Engine</span>
+                <Cake className="text-[#DCAE53]" size={20} />
+                <span className="font-sans font-bold text-white text-base">Artisan Bakery & Local Storefront</span>
               </div>
               <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
                 LIVE DEMO STOREFRONT

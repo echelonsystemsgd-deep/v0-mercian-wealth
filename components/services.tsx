@@ -55,12 +55,12 @@ export function Services({ limit }: { limit?: number }) {
   }, [activeService])
 
   return (
-    <section id="services" className="relative py-20 lg:py-28 overflow-hidden bg-[#020E28]">
+    <section id="services" className="relative py-20 lg:py-28 overflow-hidden bg-[#09090B] border-t border-slate-800/80">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10">
         
         {/* Section Header */}
         <div className="text-center mb-14">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#DAA640] mb-3 font-mono">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#DCAE53] mb-3 font-mono">
             [ Our Services ]
           </p>
           <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-6">
@@ -81,11 +81,11 @@ export function Services({ limit }: { limit?: number }) {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="w-full"
               >
-                <Card className="h-full bg-[#07153B] border border-[#DAA640]/20 hover:border-[#DAA640] hover:shadow-[0_0_25px_rgba(218,166,64,0.18)] transition-all duration-300 rounded-2xl group">
+                <Card className="h-full bg-[#111115] border border-slate-800 hover:border-[#DCAE53]/60 hover:shadow-[0_0_25px_rgba(220,174,83,0.15)] transition-all duration-300 rounded-2xl group">
                   <CardContent className="p-6 sm:p-7 flex flex-col justify-between h-full space-y-6">
                     <div className="space-y-4">
                       {/* Gold icon */}
-                      <div className="inline-flex items-center justify-center p-3 border border-[#DAA640]/30 bg-[#020E28] text-[#DAA640] rounded-xl">
+                      <div className="inline-flex items-center justify-center p-3 border border-slate-800 bg-[#18181F] text-[#DCAE53] rounded-xl">
                         <IconComponent className="w-6 h-6 stroke-[1.5]" />
                       </div>
                       
@@ -101,7 +101,7 @@ export function Services({ limit }: { limit?: number }) {
 
                       {/* Distributed Outcome Stat */}
                       <div className="pt-2">
-                        <span className="font-mono text-xs font-bold text-[#DAA640] uppercase tracking-wider block">
+                        <span className="font-mono text-xs font-bold text-[#DCAE53] uppercase tracking-wider block">
                           {service.outcome}
                         </span>
                       </div>
@@ -111,7 +111,7 @@ export function Services({ limit }: { limit?: number }) {
                     <div>
                       <button
                         onClick={() => setActiveService(index)}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#DAA640] hover:underline transition-all bg-transparent border-none p-0 cursor-pointer focus:outline-none text-left font-mono"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#DCAE53] hover:underline transition-all bg-transparent border-none p-0 cursor-pointer focus:outline-none text-left font-mono"
                       >
                         Learn More <span className="transition-transform group-hover:translate-x-1">→</span>
                       </button>
@@ -128,7 +128,7 @@ export function Services({ limit }: { limit?: number }) {
           <div className="text-center mt-12">
             <Link 
               href="/services" 
-              className="inline-flex items-center gap-2 text-sm font-bold text-[#DAA640] hover:underline"
+              className="inline-flex items-center gap-2 text-sm font-bold text-[#DCAE53] hover:underline"
             >
               View all services <span className="text-lg">→</span>
             </Link>
@@ -154,7 +154,7 @@ export function Services({ limit }: { limit?: number }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setActiveService(null)}
-                className="absolute inset-0 bg-[#020E28]/85 backdrop-blur-md"
+                className="absolute inset-0 bg-black/80 backdrop-blur-md"
               />
 
               {/* Modal Card */}
@@ -163,7 +163,7 @@ export function Services({ limit }: { limit?: number }) {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                 transition={{ type: "spring", duration: 0.4 }}
-                className="relative w-full max-w-2xl bg-[#07153B] border border-[#DAA640]/30 rounded-2xl overflow-hidden shadow-2xl p-6 sm:p-8 md:p-10 z-10 text-white max-h-[90vh] overflow-y-auto"
+                className="relative w-full max-w-2xl bg-[#111115] border border-slate-800 rounded-2xl overflow-hidden shadow-2xl p-6 sm:p-8 md:p-10 z-10 text-white max-h-[90vh] overflow-y-auto"
               >
                 {/* Close Button */}
                 <button
@@ -176,11 +176,11 @@ export function Services({ limit }: { limit?: number }) {
 
                 {/* Service Header */}
                 <div className="flex items-center gap-3.5 mb-6">
-                  <div className="h-12 w-12 rounded-xl bg-[#020E28] border border-[#DAA640]/30 flex items-center justify-center text-[#DAA640]">
+                  <div className="h-12 w-12 rounded-xl bg-[#18181F] border border-slate-800 flex items-center justify-center text-[#DCAE53]">
                     <IconComp className="w-6 h-6 stroke-[1.5]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-[#DAA640] font-bold block font-mono">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-[#DCAE53] font-bold block font-mono">
                       {detail.tagline}
                     </span>
                     <h3 className="font-sans text-xl sm:text-2xl font-bold text-white mt-0.5">
@@ -198,13 +198,13 @@ export function Services({ limit }: { limit?: number }) {
                     </p>
                   </div>
 
-                  <div className="border-t border-slate-700/60 pt-4">
+                  <div className="border-t border-slate-800 pt-4">
                     <h4 className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-4">Key Features</h4>
                     <div className="grid sm:grid-cols-2 gap-4">
                       {detail.features.map((feat, idx) => (
-                        <div key={idx} className="p-3 bg-[#020E28] border border-slate-700/50 rounded-xl space-y-1.5 hover:border-[#DAA640]/30 transition-all duration-300">
+                        <div key={idx} className="p-3 bg-[#18181F] border border-slate-800 rounded-xl space-y-1.5 hover:border-[#DCAE53]/30 transition-all duration-300">
                           <div className="flex items-center gap-1.5">
-                            <span className="text-[#DAA640] text-xs font-bold">✦</span>
+                            <span className="text-[#DCAE53] text-xs font-bold">✦</span>
                             <span className="text-xs font-bold text-white">{feat.name}</span>
                           </div>
                           <p className="text-[11px] text-slate-300 leading-relaxed">
@@ -216,8 +216,8 @@ export function Services({ limit }: { limit?: number }) {
                   </div>
 
                   {/* Call to Action */}
-                  <div className="pt-4 border-t border-slate-700/60 flex flex-col sm:flex-row gap-4 items-center sm:justify-between">
-                    <span className="text-[10px] text-[#DAA640] uppercase tracking-wider font-semibold font-mono">
+                  <div className="pt-4 border-t border-slate-800 flex flex-col sm:flex-row gap-4 items-center sm:justify-between">
+                    <span className="text-[10px] text-[#DCAE53] uppercase tracking-wider font-semibold font-mono">
                       7-day launch protocol
                     </span>
                     <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -229,7 +229,7 @@ export function Services({ limit }: { limit?: number }) {
                       </button>
                       <Button
                         asChild
-                        className="flex-1 sm:flex-none px-5 py-2.5 text-xs font-bold bg-[#DAA640] text-[#020E28] hover:bg-[#EBB755] transition-all rounded-lg"
+                        className="flex-1 sm:flex-none px-5 py-2.5 text-xs font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] transition-all rounded-lg"
                       >
                         <Link href={detail.ctaHref} onClick={() => setActiveService(null)}>
                           {detail.ctaText}

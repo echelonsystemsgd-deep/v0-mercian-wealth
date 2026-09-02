@@ -1,35 +1,47 @@
-# Implementation Plan: Robust Metadata & URL Previews
+# Implementation Plan: Metadata & SEO Architecture (Mercian Wealth)
 
-This plan outlines the steps to implement a complete and robust metadata strategy for the Mercian Wealth website, including rich social media URL previews (Open Graph and Twitter Cards).
+This document outlines the complete metadata strategy, social preview assets, and SEO architecture for the rebuilt Mercian Wealth web platform.
 
 ## Goal
-Replace the current lack of URL previews with a snapshot of the website and establish comprehensive metadata for better SEO and social sharing experiences.
+Establish clean, high-performance metadata, search engine indexing directives, and rich social preview cards (Open Graph & Twitter Cards) centered around **Mercian Wealth: Storefronts, Automation & Growth Systems for Local Businesses**.
 
-## 1. Asset Generation & Placement (URL Previews)
+---
 
-Next.js App Router automatically handles Open Graph and Twitter images if specific files are placed in the `app/` directory.
+## 1. Social Preview Cards & Asset Placement
 
-- **Action:** Generate high-quality preview images.
-- **Files placed in `app/` directory:**
-  - `app/opengraph-image.png` - 1200x630px, used for LinkedIn, Facebook, iMessage, Discord, etc.
-  - `app/twitter-image.png` - 1200x630px, used specifically for X/Twitter previews.
+Next.js 16 App Router handles Open Graph and Twitter share previews via high-resolution assets in the `app/` and `public/` directories:
+
+* **Preview Assets:**
+  * `app/opengraph-image.png` (1200x630px) — Social card for LinkedIn, Facebook, iMessage, WhatsApp, Discord.
+  * `app/twitter-image.png` (1200x630px) — Social card optimized for X/Twitter previews.
+  * `app/icon.jpeg` & `app/apple-icon.jpeg` — PWA and mobile bookmark icons.
+  * `app/favicon.ico` — Standard browser favicon based on `logo1.png`.
+
+---
 
 ## 2. Global Metadata in `app/layout.tsx`
 
-The `metadata` object in `app/layout.tsx` has been updated to include complete Open Graph and Twitter properties, as well as additional SEO fields.
-
-**Target updates implemented in `app/layout.tsx`:**
+The root layout configuration provides unified SEO properties with clean fallbacks:
 
 ```typescript
 export const metadata: Metadata = {
   metadataBase: new URL('https://mercianwealth.com'),
   title: {
-    default: 'Mercian Wealth | Luxury AI-Powered Websites',
-    template: '%s | Mercian Wealth'
+    default: 'Mercian Wealth · Storefronts, Automation & Growth for Local Businesses',
+    template: '%s · Mercian Wealth',
   },
-  description: 'Custom digital systems and automated AI architectures engineered to secure category dominance for market leaders. Vetted partnerships only.',
+  description:
+    'We build sub-second mobile storefronts, 3-tap order builders, instant WhatsApp alerts, and automated Google review systems for bakeries, catering businesses, food artisans, and local services across Berkshire & the UK.',
   applicationName: 'Mercian Wealth',
-  keywords: ['AI Automation', 'Luxury Websites', 'Digital Assets', 'Web Development', 'Business Growth'],
+  keywords: [
+    'Mobile Storefronts',
+    'WhatsApp Order Automation',
+    'Bakery Ordering Systems',
+    'Catering Booking Engine',
+    'Food Artisan Storefronts',
+    'Berkshire Local Business Automation',
+    'Google Review Automation',
+  ],
   authors: [{ name: 'Mercian Wealth' }],
   creator: 'Mercian Wealth',
   publisher: 'Mercian Wealth',
@@ -39,8 +51,9 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: 'Mercian Wealth | Luxury AI-Powered Websites',
-    description: 'Custom digital systems and automated AI architectures engineered to secure category dominance for market leaders. Vetted partnerships only.',
+    title: 'Mercian Wealth · Storefronts, Automation & Growth for Local Businesses',
+    description:
+      'We build sub-second mobile storefronts, 3-tap order builders, instant WhatsApp alerts, and automated Google review systems for bakeries, catering businesses, food artisans, and local services across Berkshire & the UK.',
     url: 'https://mercianwealth.com',
     siteName: 'Mercian Wealth',
     images: [
@@ -48,16 +61,17 @@ export const metadata: Metadata = {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'Mercian Wealth Website Preview',
+        alt: 'Mercian Wealth — Storefronts, Automation & Growth for Local Businesses',
       },
     ],
-    locale: 'en_US',
+    locale: 'en_GB',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Mercian Wealth | Luxury AI-Powered Websites',
-    description: 'Custom digital systems and automated AI architectures engineered to secure category dominance for market leaders. Vetted partnerships only.',
+    title: 'Mercian Wealth · Storefronts, Automation & Growth for Local Businesses',
+    description:
+      'We build sub-second mobile storefronts, 3-tap order builders, instant WhatsApp alerts, and automated Google review systems for local food artisans and service businesses.',
     images: ['/twitter-image.png'],
     creator: '@mercianwealth',
   },
@@ -75,19 +89,22 @@ export const metadata: Metadata = {
 }
 ```
 
-## 3. Metadata for Specific Pages
+---
 
-We define specific `metadata` exports in subroute `page.tsx` files. This allows Next.js to merge the global metadata with page-specific titles and descriptions using `lib/site-copy.ts`.
+## 3. Page-Specific Metadata Hierarchy
 
-## Completed Specifications
+Each subpage dynamically merges with global metadata via [lib/site-copy.ts](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/lib/site-copy.ts):
+- `/services` — What We Build (Mobile Storefronts, 3-Tap Builders, WhatsApp Dispatch, 5-Star Reviews)
+- `/process` — 7-Day Launch Protocol
+- `/portfolio` — Interactive Sandbox Prototypes
+- `/pricing` — Transparent GBP (£495 – £1,450) Tiered Pricing
+- `/contact` — Berkshire Direct Contact & WhatsApp Gateway
+- `/book` — 15-Minute Diagnostic Audit
 
-1. **Production URL:** `https://mercianwealth.com`
-2. **Social Handles:** `@mercianwealth`
-3. **Snapshot Image:** Static `opengraph-image.png` and `twitter-image.png` configured and built in root.
-4. **Plain-English Terminology Audit:** All metadata fields updated to plain-English standard (`automated AI architectures`).
+---
 
-## Final Implementation Status
+## 4. Verification & Status
 
-- ✅ **Metadata Strategy:** 100% implemented across `app/layout.tsx`, `app/page.tsx`, and all subroute `page.tsx` files.
-- ✅ **Open Graph & Twitter Cards:** Configured with `summary_large_image` cards pointing to `https://mercianwealth.com`.
-- ✅ **Build & Compilation:** Verified via `npx tsc --noEmit` with **0 errors**.
+* ✅ **Canonical Palette:** Matte Charcoal (`#09090B`) and Solid Gold (`#DCAE53`).
+* ✅ **Zero 404s & Broken Links:** All navigation, auth routes, and aliases configured in `next.config.mjs`.
+* ✅ **Production Build:** Verified with `npx next build` (65/65 routes compiled with 0 errors).

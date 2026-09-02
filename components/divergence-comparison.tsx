@@ -10,12 +10,12 @@ export function DivergenceComparison() {
   const data = SITE_COPY.homepage.divergenceComparison
 
   return (
-    <section id="divergence" className="relative pt-6 sm:pt-12 lg:pt-20 pb-12 sm:pb-20 lg:pb-24 overflow-hidden bg-[#020E28]">
+    <section id="divergence" className="relative pt-6 sm:pt-12 lg:pt-20 pb-12 sm:pb-20 lg:pb-24 overflow-hidden bg-[#09090B]">
       {/* Ambient Lighting Background */}
       <div 
         className="absolute inset-0 pointer-events-none z-0 opacity-30"
         style={{
-          background: "radial-gradient(circle at 50% 30%, rgba(218, 166, 64, 0.10) 0%, rgba(2, 14, 40, 0) 70%)"
+          background: "radial-gradient(circle at 50% 30%, rgba(220, 174, 83, 0.08) 0%, rgba(9, 9, 11, 0) 70%)"
         }}
       />
 
@@ -26,11 +26,15 @@ export function DivergenceComparison() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#DAA640]/10 border border-[#DAA640]/25 text-[11px] font-mono font-semibold text-[#DAA640] uppercase tracking-[0.25em] mb-4"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#111115] border border-[#DCAE53]/30 text-[11px] font-mono font-semibold text-[#DCAE53] uppercase tracking-[0.25em] mb-4"
         >
-          <span>✦</span>
+          <svg className="w-3 h-3 text-[#DCAE53]" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4 4h16l-8 7.5L4 4zm0 16h16l-8-7.5L4 20z" />
+          </svg>
           <span>{data.eyebrow}</span>
-          <span>✦</span>
+          <svg className="w-3 h-3 text-[#DCAE53]" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4 4h16l-8 7.5L4 4zm0 16h16l-8-7.5L4 20z" />
+          </svg>
         </motion.div>
 
         {/* Headline */}
@@ -64,7 +68,7 @@ export function DivergenceComparison() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col justify-between p-5 sm:p-7 lg:p-9 rounded-2xl border border-red-500/25 bg-red-950/20 backdrop-blur-sm relative overflow-hidden min-w-0 max-w-full"
+            className="flex flex-col justify-between p-5 sm:p-7 lg:p-9 rounded-xl border border-red-500/20 bg-[#18181F] backdrop-blur-sm relative overflow-hidden min-w-0 max-w-full"
           >
             <div className="space-y-5 min-w-0">
               <div className="flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap min-w-0">
@@ -104,11 +108,11 @@ export function DivergenceComparison() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-col justify-between p-5 sm:p-7 lg:p-9 rounded-2xl border-2 border-[#DAA640]/40 bg-gradient-to-b from-[#DAA640]/10 via-[#07153B] to-[#020E28] backdrop-blur-md relative overflow-hidden shadow-[0_0_40px_rgba(218,166,64,0.15)] hover:border-[#DAA640] transition-all duration-300 group min-w-0 max-w-full"
+            className="flex flex-col justify-between p-5 sm:p-7 lg:p-9 rounded-xl border-2 border-[#DCAE53]/40 bg-[#111115] backdrop-blur-md relative overflow-hidden shadow-[0_0_40px_rgba(220,174,83,0.12)] hover:border-[#DCAE53] transition-all duration-300 group min-w-0 max-w-full"
           >
             <div className="space-y-5 relative z-10 min-w-0">
               <div className="flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap min-w-0">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#DAA640]/10 border border-[#DAA640]/30 font-mono text-[10px] font-bold text-[#DAA640] uppercase tracking-wider shadow-sm">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#DCAE53]/10 border border-[#DCAE53]/30 font-mono text-[10px] font-bold text-[#DCAE53] uppercase tracking-wider shadow-sm">
                   {data.pathMercian.badge}
                 </span>
               </div>
@@ -122,12 +126,12 @@ export function DivergenceComparison() {
                 </p>
               </div>
 
-              <div className="h-[1px] w-full bg-[#DAA640]/25" />
+              <div className="h-[1px] w-full bg-[#DCAE53]/25" />
 
               <ul className="space-y-3.5">
                 {data.pathMercian.points.map((point: string, idx: number) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <span className="w-4 h-4 rounded-full bg-[#DAA640]/20 text-[#DAA640] flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold border border-[#DAA640]/40">✓</span>
+                    <span className="w-4 h-4 rounded-full bg-[#DCAE53]/20 text-[#DCAE53] flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold border border-[#DCAE53]/40">✓</span>
                     <span className="text-xs sm:text-sm text-white font-medium">{point}</span>
                   </li>
                 ))}
@@ -135,17 +139,17 @@ export function DivergenceComparison() {
             </div>
 
             {/* Single CTA Button */}
-            <div className="mt-8 pt-6 border-t border-[#DAA640]/20 relative z-10">
+            <div className="mt-8 pt-6 border-t border-slate-800 relative z-10">
               <Button
                 asChild
                 size="lg"
-                className="w-full py-5 sm:py-6 font-bold text-sm md:text-base flex items-center justify-center shadow-lg text-center tracking-normal px-2 sm:px-4 bg-gradient-to-r from-[#DAA640] via-[#EBB755] to-[#B88528] text-[#020E28] hover:from-[#EBB755] hover:to-[#DAA640] rounded-xl border-0"
+                className="w-full py-5 sm:py-6 font-bold text-sm md:text-base flex items-center justify-center shadow-lg text-center tracking-normal px-2 sm:px-4 bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] rounded-lg border-0"
               >
                 <Link
                   href="/book"
                   className="flex items-center justify-center gap-2"
                 >
-                  <span>Book your free 15 minute audit</span>
+                  <span>Book your 15-minute audit</span>
                   <ArrowRight size={18} className="shrink-0" />
                 </Link>
               </Button>

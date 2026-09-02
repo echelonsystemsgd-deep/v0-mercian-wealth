@@ -33,18 +33,18 @@ export default function ForgotPasswordPage() {
 
   if (submitted) {
     return (
-      <div className="glass rounded-2xl border border-gold/15 p-8 text-center space-y-4">
-        <div className="w-14 h-14 rounded-full bg-green-500/10 border border-green-500/25 flex items-center justify-center mx-auto">
-          <CheckCircle2 size={26} className="text-green-400" />
+      <div className="bg-[#111115] rounded-2xl border border-slate-800 p-8 text-center space-y-4 shadow-2xl">
+        <div className="w-14 h-14 rounded-full bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center mx-auto text-emerald-400">
+          <CheckCircle2 size={26} />
         </div>
         <div>
-          <h2 className="font-serif text-xl font-bold text-foreground">Check Your Inbox</h2>
-          <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-            We&apos;ve sent a password reset link to <span className="text-foreground font-medium">{email}</span>.
+          <h2 className="font-sans text-xl font-bold text-white">Check Your Inbox</h2>
+          <p className="text-sm text-slate-300 mt-2 leading-relaxed">
+            We&apos;ve sent a password reset link to <span className="text-white font-medium">{email}</span>.
             Check your email and click the link to set a new password.
           </p>
         </div>
-        <Link href="/login" className="inline-flex items-center gap-2 text-sm text-gold hover:text-gold-light transition-colors">
+        <Link href="/login" className="inline-flex items-center gap-2 text-sm text-[#DCAE53] hover:underline transition-colors font-semibold">
           <ArrowLeft size={14} /> Back to Login
         </Link>
       </div>
@@ -52,18 +52,18 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="glass rounded-2xl border border-gold/15 p-8 space-y-6">
+    <div className="bg-[#111115] rounded-2xl border border-slate-800 p-8 space-y-6 shadow-2xl">
       <div className="space-y-1 text-center">
-        <h2 className="font-serif text-2xl font-bold text-foreground">Reset Password</h2>
-        <p className="text-sm text-muted-foreground">
-          Enter your admin email and we&apos;ll send a reset link.
+        <h2 className="font-sans text-2xl font-bold text-white">Reset Password</h2>
+        <p className="text-sm text-slate-400">
+          Enter your registered email and we&apos;ll send a reset link.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="space-y-1.5">
-          <label htmlFor="email" className="text-sm font-medium text-foreground flex items-center gap-2">
-            <Mail size={13} className="text-gold" /> Email Address
+          <label htmlFor="email" className="text-sm font-medium text-slate-200 flex items-center gap-2">
+            <Mail size={13} className="text-[#DCAE53]" /> Email Address
           </label>
           <input
             id="email"
@@ -72,7 +72,7 @@ export default function ForgotPasswordPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="admin@mercianwealth.com"
-            className="w-full bg-background/60 border border-gold/15 hover:border-gold/30 focus:border-gold/50 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/40 outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+            className="w-full bg-[#18181F] border border-slate-800 hover:border-slate-700 focus:border-[#DCAE53] rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] transition-all"
           />
         </div>
 
@@ -86,13 +86,13 @@ export default function ForgotPasswordPage() {
           type="submit"
           disabled={loading}
           id="forgot-password-submit"
-          className="w-full bg-gradient-to-r from-gold to-gold-light text-background font-bold text-sm py-3.5 rounded-xl hover:shadow-[0_0_20px_rgba(212,175,55,0.35)] transition-all duration-300 disabled:opacity-60 flex items-center justify-center gap-2"
+          className="w-full bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-sm py-3.5 rounded-xl shadow-lg transition-all duration-300 disabled:opacity-60 flex items-center justify-center gap-2 cursor-pointer"
         >
           {loading ? <><Loader2 size={16} className="animate-spin" /> Sending…</> : 'Send Reset Link'}
         </button>
 
-        <div className="text-center">
-          <Link href="/login" className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-gold transition-colors">
+        <div className="text-center pt-2 border-t border-slate-800">
+          <Link href="/login" className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-[#DCAE53] transition-colors">
             <ArrowLeft size={12} /> Back to Login
           </Link>
         </div>

@@ -7,7 +7,7 @@ export function TabRetention() {
     let originalTitle = document.title;
     
     const handleBlur = () => {
-      document.title = "👑 Build Your Legacy...";
+      document.title = "⚡ Mercian Wealth · Storefronts & Automation";
     };
 
     const handleFocus = () => {

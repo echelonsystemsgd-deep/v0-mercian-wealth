@@ -17,8 +17,8 @@ const getResendClient = () => {
 
 // Get absolute logo URL for branded emails
 const getLogoUrl = () => {
-  const prodUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mercianwealth.co.uk'
-  return `${prodUrl}/MercianWealthLogo.jpeg`
+  const prodUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mercianwealth.com'
+  return `${prodUrl}/Logo1.jpeg`
 }
 
 export async function POST(request: Request) {

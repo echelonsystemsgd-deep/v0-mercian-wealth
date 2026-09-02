@@ -151,27 +151,27 @@ export function ClientSidebar() {
         />
       )}
 
-      <aside className={`flex flex-col h-dvh w-64 border-r border-gold/10 bg-[#0A0A0A]/95 backdrop-blur-md fixed inset-y-0 z-40 transition-[left] duration-300 lg:left-auto ${isOpen ? 'left-0' : 'left-[-256px]'} lg:sticky lg:top-0 lg:h-dvh lg:left-0`}>
+      <aside className={`flex flex-col h-dvh w-64 border-r border-slate-800 bg-[#09090B]/95 backdrop-blur-md fixed inset-y-0 z-40 transition-[left] duration-300 lg:left-auto ${isOpen ? 'left-0' : 'left-[-256px]'} lg:sticky lg:top-0 lg:h-dvh lg:left-0`}>
         {/* Logo */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-gold/10 shrink-0">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-800 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="relative h-9 w-9 shrink-0">
+            <div className="relative h-9 w-9 shrink-0 rounded-lg overflow-hidden border border-slate-800">
               <Image
-                src="/MercianWealthLogo.jpeg"
+                src="/Logo1.jpeg"
                 alt="Mercian Wealth"
                 fill
-                className="object-contain mix-blend-screen"
+                className="object-cover"
               />
             </div>
             <div>
-              <p className="font-serif text-sm font-bold text-foreground leading-tight">Mercian</p>
-              <p className="text-xxs text-gold/70 font-semibold uppercase tracking-widest font-sans">Client Portal</p>
+              <p className="font-sans text-sm font-bold text-white leading-tight">Mercian</p>
+              <p className="text-[10px] text-[#DCAE53] font-bold uppercase tracking-widest font-mono">Client Portal</p>
             </div>
           </div>
         </div>
 
         {/* Console Switcher */}
-        <div className="px-4 py-3.5 border-b border-gold/10 relative shrink-0 z-50">
+        <div className="px-4 py-3.5 border-b border-slate-800 relative shrink-0 z-50">
           <button
             onClick={() => setIsSwitcherOpen(!isSwitcherOpen)}
             className="w-full flex items-center justify-between gap-2.5 px-3 py-2 rounded-xl bg-white/[0.02] border border-gold/15 hover:border-gold/30 hover:bg-white/[0.04] transition-all duration-200 text-left cursor-pointer"

@@ -23,9 +23,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/#demo", label: "Demo" },
-  { href: "/portfolio", label: "Portfolio" },
+  { href: "/services", label: "What We Build" },
+  { href: "/portfolio", label: "Prototypes" },
   { href: "/process", label: "Process" },
   { href: "/pricing", label: "Pricing" },
   { href: "/contact", label: "Contact" },
@@ -121,76 +120,42 @@ export function Navbar() {
       if (pathname === "/") {
         e.preventDefault()
         scrollToHashElement(hash)
-        window.history.pushState(null, "", `/#${hash}`)
       } else {
-        // Navigating from another page to /#hash
-        // Let Next.js Link navigate to /, then our pathname useEffect will scroll to the hash
+        router.push(href)
       }
+      return
     }
-  }
 
-  const resolveAvatarUrl = async (pathOrUrl: string | null) => {
-    if (!pathOrUrl) return ""
-    if (pathOrUrl.startsWith("http://") || pathOrUrl.startsWith("https://") || pathOrUrl.startsWith("data:")) {
-      return pathOrUrl
-    }
-    try {
-      const { data, error } = await supabase.storage.from("avatars").createSignedUrl(pathOrUrl, 3600)
-      if (error) {
-        console.error("Error creating signed URL", error)
-        return ""
-      }
-      return data?.signedUrl || ""
-    } catch (err) {
-      console.error("Error resolving avatar path", err)
-      return ""
+    // Case 3: Standard Page Navigation
+    if (href === pathname) {
+      e.preventDefault()
+      window.scrollTo({ top: 0, behavior: "smooth" })
     }
   }
 
   useEffect(() => {
-    const checkUser = async () => {
+    const fetchUserData = async () => {
       try {
-        const projectRef = process.env.NEXT_PUBLIC_SUPABASE_URL?.match(/https:\/\/([^.]+)/)?.[1]
-        const storageKey = projectRef ? `sb-${projectRef}-auth-token` : null
-        if (storageKey) {
-          const raw = localStorage.getItem(storageKey)
-          if (raw) {
-            const parsed = JSON.parse(raw)
-            if (parsed?.user) {
-              setUser(parsed.user)
-              setLoading(false)
-            }
-          }
-        }
-      } catch {}
-
-      try {
-        const { data: { user } } = await supabase.auth.getUser()
-        if (user) {
-          setUser(user)
+        const { data: { session } } = await supabase.auth.getSession()
+        if (session?.user) {
+          setUser(session.user)
           const { data: profileData } = await supabase
             .from("profiles")
             .select("first_name, last_name, avatar_url, role")
-            .eq("id", user.id)
+            .eq("id", session.user.id)
             .single()
           if (profileData) {
-            if (profileData.avatar_url) {
-              profileData.avatar_url = await resolveAvatarUrl(profileData.avatar_url)
-            }
             setProfile(profileData)
           }
-        } else {
-          setUser(null)
-          setProfile(null)
         }
       } catch (err) {
-        console.error("Error fetching user session", err)
+        console.error("Error fetching user data", err)
       } finally {
         setLoading(false)
       }
     }
 
-    checkUser()
+    fetchUserData()
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
@@ -202,9 +167,6 @@ export function Navbar() {
             .eq("id", session.user.id)
             .single()
           if (profileData) {
-            if (profileData.avatar_url) {
-              profileData.avatar_url = await resolveAvatarUrl(profileData.avatar_url)
-            }
             setProfile(profileData)
           }
         } catch (err) {
@@ -225,17 +187,6 @@ export function Navbar() {
   const handleSignOut = async () => {
     try {
       await supabase.auth.signOut()
-    } catch {}
-    try {
-      const projectRef = process.env.NEXT_PUBLIC_SUPABASE_URL?.match(/https:\/\/([^.]+)/)?.[1]
-      if (projectRef) {
-        localStorage.removeItem(`sb-${projectRef}-auth-token`)
-      }
-      Object.keys(localStorage).forEach(key => {
-        if (key.startsWith('sb-') && key.endsWith('-auth-token')) {
-          localStorage.removeItem(key)
-        }
-      })
     } catch {}
     setUser(null)
     setProfile(null)
@@ -275,25 +226,25 @@ export function Navbar() {
       <header
         className={`w-full transition-all duration-300 ${
           isScrolled
-            ? "bg-[#020E28]/95 backdrop-blur-md border-b border-[#DAA640]/20 shadow-2xl py-2.5 sm:py-3"
-            : "bg-[#020E28]/80 backdrop-blur-sm border-b border-[#DAA640]/10 py-3 sm:py-3.5"
+            ? "bg-[#09090B]/95 backdrop-blur-md border-b border-[#DCAE53]/20 shadow-2xl py-2.5 sm:py-3"
+            : "bg-[#09090B]/80 backdrop-blur-sm border-b border-[#DCAE53]/10 py-3 sm:py-3.5"
         }`}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Logo */}
+            {/* Logo Lockup */}
             <Link href="/" onClick={handleLogoClick} className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-              <div className="relative h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 rounded-xl overflow-hidden border border-[#DAA640]/30 shadow-md">
-                <BrandLogo variant="logo" alt="Mercian Wealth" fill className="object-cover transition-transform group-hover:scale-105 duration-300" priority />
+              <div className="relative h-9 w-9 sm:h-10 sm:w-10 rounded-lg overflow-hidden border border-[#DCAE53]/30 shadow-md">
+                <BrandLogo variant="watermark" alt="Mercian Wealth" fill className="object-cover transition-transform group-hover:scale-105 duration-300" priority />
               </div>
-              <span className="font-sans text-base sm:text-lg lg:text-xl font-extrabold tracking-tight text-white flex items-center gap-1.5">
+              <span className="font-sans text-base sm:text-lg lg:text-xl font-extrabold tracking-tight text-white flex items-center gap-1.5 uppercase">
                 <span>Mercian</span>
-                <span className="text-[#DAA640]">Wealth</span>
+                <span className="text-[#DCAE53]">Wealth</span>
               </span>
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-1.5 xl:gap-4">
+            <nav className="hidden lg:flex items-center gap-1.5 xl:gap-3">
               {navLinks.map((link) => {
                 const active = isActive(link.href)
                 return (
@@ -301,9 +252,9 @@ export function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className={`whitespace-nowrap px-2.5 xl:px-3.5 py-1.5 text-xs xl:text-sm font-semibold rounded-lg transition-all duration-200 ${
+                    className={`whitespace-nowrap px-3 py-1.5 text-xs xl:text-sm font-semibold rounded-lg transition-all duration-200 ${
                       active
-                        ? "text-[#DAA640] bg-[#DAA640]/10 font-bold"
+                        ? "text-[#DCAE53] bg-[#DCAE53]/10 font-bold"
                         : "text-slate-300 hover:text-white hover:bg-white/5"
                     }`}
                   >
@@ -313,102 +264,84 @@ export function Navbar() {
               })}
             </nav>
 
-            {/* CTA Button / User Profile Dropdown */}
-            <div className="hidden lg:flex lg:items-center lg:gap-2.5 xl:gap-4">
+            {/* Desktop CTAs */}
+            <div className="hidden lg:flex lg:items-center lg:gap-2.5 xl:gap-3">
+              {/* User Account / Login Button */}
               {user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0 border border-[#DAA640]/30 hover:border-[#DAA640] outline-none focus-visible:ring-0">
-                      <Avatar className="h-9 w-9">
-                        <AvatarImage src={profile?.avatar_url || ""} alt={getFullName()} className="object-cover" />
-                        <AvatarFallback className="bg-[#07153B] text-[#DAA640] text-xs font-bold font-mono">
+                    <button className="flex items-center gap-2 p-1.5 rounded-lg border border-[#DCAE53]/30 bg-[#111115] text-slate-200 hover:text-white hover:border-[#DCAE53] transition-all cursor-pointer">
+                      <Avatar className="h-7 w-7 border border-[#DCAE53]/40">
+                        <AvatarFallback className="bg-[#18181F] text-[#DCAE53] text-[10px] font-bold">
                           {getInitials()}
                         </AvatarFallback>
                       </Avatar>
-                    </Button>
+                      <span className="text-xs font-semibold pr-1 hidden xl:inline max-w-[100px] truncate">{getFullName()}</span>
+                    </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56 bg-[#07153B] border border-[#DAA640]/25 text-white rounded-2xl p-2 shadow-2xl" align="end">
-                    <DropdownMenuLabel className="font-normal px-2 py-1.5">
-                      <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-bold truncate text-white">{getFullName()}</p>
-                        <p className="text-xs text-slate-400 truncate">{user.email || "partner@mercianwealth.com"}</p>
-                        {profile?.role && (
-                          <span className="inline-flex items-center w-fit px-2 py-0.5 mt-1 rounded-full bg-[#DAA640]/10 border border-[#DAA640]/20 text-[9px] font-bold text-[#DAA640] uppercase tracking-wider font-mono">
-                            {profile.role}
-                          </span>
-                        )}
-                      </div>
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator className="bg-[#DAA640]/15" />
-                    
-                    {/* Role-based dashboard links */}
-                    {profile?.role === "admin" && (
-                      <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#DAA640]/15 focus:text-white rounded-xl">
-                        <Link href="/admin" className="flex items-center gap-2">
-                          <LayoutDashboard size={14} className="text-[#DAA640]" />
-                          <span>Admin Control Center</span>
-                        </Link>
-                      </DropdownMenuItem>
-                    )}
-
-                    {profile?.role === "client" && (
-                      <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#DAA640]/15 focus:text-white rounded-xl">
-                        <Link href="/client" className="flex items-center gap-2">
-                          <LayoutDashboard size={14} className="text-[#DAA640]" />
-                          <span>Client Portal</span>
-                        </Link>
-                      </DropdownMenuItem>
-                    )}
-
-                    <DropdownMenuItem asChild className="cursor-pointer focus:bg-[#DAA640]/15 focus:text-white rounded-xl">
-                      <Link href="/dashboard" className="flex items-center gap-2">
-                        <Globe size={14} className="text-[#DAA640]" />
-                        <span>Systems Dashboard</span>
+                  <DropdownMenuContent align="end" className="w-48 bg-[#111115] border border-slate-800 text-slate-200">
+                    <DropdownMenuLabel className="text-xs font-mono text-[#DCAE53] uppercase">Portal Access</DropdownMenuLabel>
+                    <DropdownMenuSeparator className="bg-slate-800" />
+                    <DropdownMenuItem asChild className="cursor-pointer hover:bg-white/5">
+                      <Link href={profile?.role === 'admin' ? '/admin' : '/client'} className="flex items-center gap-2 text-xs">
+                        <LayoutDashboard size={14} className="text-[#DCAE53]" />
+                        <span>Dashboard</span>
                       </Link>
                     </DropdownMenuItem>
-
-                    <DropdownMenuSeparator className="bg-[#DAA640]/15" />
-                    
-                    <DropdownMenuItem
-                      onClick={handleSignOut}
-                      className="text-red-400 focus:bg-red-500/10 focus:text-red-300 cursor-pointer rounded-xl"
-                    >
-                      <LogOut size={14} className="mr-2" />
+                    <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-400 hover:bg-red-500/10 flex items-center gap-2 text-xs">
+                      <LogOut size={14} />
                       <span>Sign Out</span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
-                <div className="flex items-center gap-2 xl:gap-3.5">
-                  <Link
-                    href="/login"
-                    className="text-xs xl:text-sm font-semibold text-slate-300 hover:text-white transition-colors px-2 py-1 whitespace-nowrap"
-                  >
-                    Client Login
-                  </Link>
-
-                  <Button
-                    asChild
-                    size="sm"
-                    className="bg-gradient-to-r from-[#DAA640] via-[#EBB755] to-[#B88528] text-[#020E28] hover:from-[#EBB755] hover:to-[#DAA640] font-bold text-xs shadow-[0_0_20px_rgba(218,166,64,0.25)] rounded-xl px-3.5 xl:px-4 py-2 transition-all duration-300 whitespace-nowrap"
-                  >
-                    <Link href="/book">
-                      <span className="hidden xl:inline">{SITE_COPY.navbar.ctaText}</span>
-                      <span className="inline xl:hidden">Book Free Audit</span>
-                    </Link>
-                  </Button>
-                </div>
+                <Link
+                  href="/login"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-800 bg-[#111115] text-slate-300 hover:text-white hover:border-[#DCAE53]/40 text-xs font-semibold transition-all whitespace-nowrap"
+                >
+                  <User size={13} className="text-[#DCAE53]" />
+                  <span>Login</span>
+                </Link>
               )}
+
+              {/* WhatsApp Link */}
+              <a
+                href={SITE_COPY.navbar.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#DCAE53]/30 bg-[#111115] text-[#DCAE53] hover:bg-[#DCAE53]/10 hover:border-[#DCAE53]/60 text-xs font-bold transition-all whitespace-nowrap"
+              >
+                <span>WhatsApp</span>
+              </a>
+
+              {/* Primary Call / Audit CTA */}
+              <Button
+                asChild
+                size="sm"
+                className="bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] font-bold text-xs rounded-lg px-3.5 xl:px-4 py-2 transition-all duration-200 shadow-md whitespace-nowrap"
+              >
+                <Link href="/book">
+                  <span>{SITE_COPY.navbar.ctaText}</span>
+                </Link>
+              </Button>
             </div>
 
             {/* Mobile Menu Toggle Button */}
             <div className="flex items-center gap-2 lg:hidden">
+              <Link
+                href="/login"
+                className="text-xs font-semibold text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg bg-[#111115] border border-slate-800 flex items-center gap-1"
+                aria-label="Login"
+              >
+                <User size={13} className="text-[#DCAE53]" />
+                <span>Login</span>
+              </Link>
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-white hover:text-[#DAA640] p-2 rounded-xl bg-white/5 border border-[#DAA640]/25 transition-colors cursor-pointer"
+                className="text-white hover:text-[#DCAE53] p-2 rounded-lg bg-white/5 border border-[#DCAE53]/25 transition-colors cursor-pointer"
                 aria-label="Toggle menu"
               >
-                {isMobileMenuOpen ? <X size={22} className="text-[#DAA640]" /> : <Menu size={22} className="text-[#DAA640]" />}
+                {isMobileMenuOpen ? <X size={22} className="text-[#DCAE53]" /> : <Menu size={22} className="text-[#DCAE53]" />}
               </button>
             </div>
           </div>
@@ -424,38 +357,38 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="fixed inset-0 h-[100dvh] bg-[#020E28]/98 backdrop-blur-3xl z-[120] lg:hidden overflow-y-auto overflow-x-hidden flex flex-col justify-between min-w-0 max-w-full"
+            className="fixed inset-0 h-[100dvh] bg-[#09090B]/98 backdrop-blur-3xl z-[120] lg:hidden overflow-y-auto overflow-x-hidden flex flex-col justify-between min-w-0 max-w-full"
           >
             {/* Background Ambient Glow */}
             <div 
               className="absolute inset-0 pointer-events-none z-0 opacity-40 max-w-full"
               style={{
-                background: "radial-gradient(circle at 50% 20%, rgba(218, 166, 64, 0.12) 0%, rgba(2, 14, 40, 0) 75%)"
+                background: "radial-gradient(circle at 50% 20%, rgba(220, 174, 83, 0.12) 0%, rgba(9, 9, 11, 0) 75%)"
               }}
             />
 
             {/* Mobile Drawer Top Header Bar */}
-            <div className="relative z-10 flex items-center justify-between px-4 sm:px-6 py-4 border-b border-[#DAA640]/20 bg-[#020E28]/95 backdrop-blur-md shrink-0 min-w-0 max-w-full">
+            <div className="relative z-10 flex items-center justify-between px-4 sm:px-6 py-4 border-b border-[#DCAE53]/20 bg-[#09090B]/95 backdrop-blur-md shrink-0 min-w-0 max-w-full">
               <Link href="/" onClick={handleLogoClick} className="flex items-center gap-2.5">
-                <div className="relative h-8 w-8 shrink-0 rounded-lg overflow-hidden border border-[#DAA640]/30">
+                <div className="relative h-8 w-8 shrink-0 rounded-lg overflow-hidden border border-[#DCAE53]/30">
                   <BrandLogo
-                    variant="logo"
+                    variant="watermark"
                     alt="Mercian Wealth"
                     fill
                     className="object-cover"
                   />
                 </div>
-                <span className="font-sans text-base font-extrabold text-white flex items-center gap-1">
+                <span className="font-sans text-base font-extrabold text-white flex items-center gap-1 uppercase">
                   <span>Mercian</span>
-                  <span className="text-[#DAA640]">Wealth</span>
+                  <span className="text-[#DCAE53]">Wealth</span>
                 </span>
               </Link>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-white hover:text-[#DAA640] p-2 rounded-full bg-white/5 border border-[#DAA640]/30 transition-all cursor-pointer shrink-0"
+                className="text-white hover:text-[#DCAE53] p-2 rounded-lg bg-white/5 border border-[#DCAE53]/30 transition-all cursor-pointer shrink-0"
                 aria-label="Close menu"
               >
-                <X size={20} className="text-[#DAA640]" />
+                <X size={20} className="text-[#DCAE53]" />
               </button>
             </div>
 
@@ -463,15 +396,15 @@ export function Navbar() {
             <div className="relative z-10 flex-1 px-4 sm:px-6 pt-6 pb-[calc(2.5rem+env(safe-area-inset-bottom,0px))] space-y-6 flex flex-col justify-between min-w-0 max-w-full">
               
               {/* Telemetry Status Pill */}
-              <div className="flex items-center justify-between px-3.5 py-2 rounded-xl bg-[#07153B] border border-[#DAA640]/25 font-mono text-[10px] sm:text-xs">
-                <span className="flex items-center gap-2 text-[#DAA640] font-bold uppercase tracking-wider">
+              <div className="flex items-center justify-between px-3.5 py-2 rounded-lg bg-[#111115] border border-[#DCAE53]/25 font-mono text-[10px] sm:text-xs">
+                <span className="flex items-center gap-2 text-[#DCAE53] font-bold uppercase tracking-wider">
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
                   </span>
-                  LOCAL TERRITORY LOCKOUT
+                  STOREFRONTS · AUTOMATION
                 </span>
-                <span className="text-slate-400 uppercase tracking-widest font-medium">1 PER POSTCODE</span>
+                <span className="text-slate-400 uppercase tracking-widest font-medium">7-DAY LAUNCH</span>
               </div>
 
               {/* Styled Navigation Links */}
@@ -483,82 +416,47 @@ export function Navbar() {
                       key={link.href}
                       href={link.href}
                       onClick={(e) => handleNavClick(e, link.href)}
-                      className={`flex items-center justify-between p-3.5 rounded-xl border transition-all duration-200 group ${
+                      className={`flex items-center justify-between p-3.5 rounded-lg border transition-all duration-200 group ${
                         active
-                          ? "bg-[#DAA640]/15 border-[#DAA640]/40 text-[#DAA640] font-bold shadow-[0_0_15px_rgba(218,166,64,0.15)]"
-                          : "bg-[#07153B]/50 border-slate-800 text-slate-200 hover:text-white hover:bg-[#07153B] hover:border-[#DAA640]/30"
+                          ? "bg-[#DCAE53]/15 border-[#DCAE53]/40 text-[#DCAE53] font-bold shadow-[0_0_15px_rgba(220,174,83,0.15)]"
+                          : "bg-[#111115]/80 border-slate-800/80 text-slate-200 hover:text-white hover:bg-[#111115] hover:border-[#DCAE53]/30"
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <span className={`font-mono text-xs ${active ? "text-[#DAA640]" : "text-slate-500"}`}>
+                        <span className={`font-mono text-xs ${active ? "text-[#DCAE53]" : "text-slate-500"}`}>
                           0{idx + 1}.
                         </span>
                         <span className="font-sans text-base font-bold tracking-tight">{link.label}</span>
                       </div>
-                      <ChevronRight size={16} className={`transition-transform duration-200 ${active ? "text-[#DAA640] translate-x-1" : "text-slate-500 group-hover:text-white group-hover:translate-x-1"}`} />
+                      <ChevronRight size={16} className={`transition-transform duration-200 ${active ? "text-[#DCAE53] translate-x-1" : "text-slate-500 group-hover:text-white group-hover:translate-x-1"}`} />
                     </Link>
                   )
                 })}
               </div>
 
-              {/* Login / Dashboard Access Box */}
-              <div className="pt-2">
-                {user ? (
-                  <div className="p-4 rounded-xl border border-[#DAA640]/25 bg-[#07153B] space-y-3">
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-3 min-w-0">
-                        <Avatar className="h-10 w-10 border border-[#DAA640]/30 shrink-0">
-                          <AvatarImage src={profile?.avatar_url || ""} alt={getFullName()} className="object-cover" />
-                          <AvatarFallback className="bg-[#020E28] text-[#DAA640] font-bold font-mono text-xs">
-                            {getInitials()}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="flex flex-col min-w-0 text-left">
-                          <span className="text-xs font-bold text-white truncate">{getFullName()}</span>
-                          <span className="text-[10px] text-slate-400 truncate">{user?.email || "partner@mercianwealth.com"}</span>
-                        </div>
-                      </div>
-                      <button
-                        onClick={async () => {
-                          await handleSignOut()
-                          setIsMobileMenuOpen(false)
-                        }}
-                        className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 transition-all text-xs flex items-center gap-1.5 shrink-0"
-                        title="Sign Out"
-                      >
-                        <LogOut size={14} />
-                      </button>
-                    </div>
+              {/* Dual Mobile Action CTAs */}
+              <div className="space-y-2.5 pt-2">
+                <Link
+                  href="/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-lg border border-slate-800 bg-[#111115] text-slate-200 hover:text-white hover:border-[#DCAE53]/40 font-bold text-xs transition-all"
+                >
+                  <User size={14} className="text-[#DCAE53]" />
+                  <span>{user ? "Access Client Portal" : "Client & Staff Login"}</span>
+                </Link>
 
-                    <Link
-                      href={profile?.role === "admin" ? "/admin" : profile?.role === "client" ? "/client" : "/dashboard"}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center justify-between w-full p-2.5 rounded-lg bg-[#DAA640]/10 border border-[#DAA640]/20 text-xs font-bold text-[#DAA640] hover:bg-[#DAA640]/20 transition-all"
-                    >
-                      <div className="flex items-center gap-2">
-                        <LayoutDashboard size={14} />
-                        <span>Access Dashboard Portal</span>
-                      </div>
-                      <ChevronRight size={14} />
-                    </Link>
-                  </div>
-                ) : (
-                  <Link
-                    href="/login"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center justify-between p-3.5 rounded-xl border border-slate-800 bg-[#07153B]/70 text-sm text-slate-200 hover:text-[#DAA640] hover:border-[#DAA640]/30 transition-all font-medium"
-                  >
-                    <span>Login / Client Portal Access</span>
-                    <ChevronRight size={16} className="text-slate-400" />
-                  </Link>
-                )}
-              </div>
+                <a
+                  href={SITE_COPY.navbar.whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-3.5 rounded-lg border border-[#DCAE53]/40 bg-[#111115] text-[#DCAE53] hover:bg-[#DCAE53]/10 font-bold text-sm transition-all"
+                >
+                  <span>Message on WhatsApp</span>
+                </a>
 
-              {/* Primary CTA Button */}
-              <div>
                 <Button
                   asChild
-                  className="w-full py-6 text-sm font-bold bg-gradient-to-r from-[#DAA640] via-[#EBB755] to-[#B88528] text-[#020E28] hover:from-[#EBB755] hover:to-[#DAA640] shadow-[0_0_25px_rgba(218,166,64,0.25)] rounded-xl transition-all"
+                  className="w-full py-6 text-sm font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] rounded-lg transition-all"
                 >
                   <Link href="/book" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center gap-2">
                     <span>{SITE_COPY.navbar.ctaText}</span>

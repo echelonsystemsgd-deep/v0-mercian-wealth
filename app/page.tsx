@@ -24,7 +24,7 @@ export const dynamic = 'force-dynamic'
 export default async function Home() {
   const { setupTiers, retainerTiers } = await getPricingTiers()
   return (
-    <main className="min-h-screen bg-bg-primary text-text-primary overflow-x-hidden font-sans">
+    <main className="min-h-screen bg-[#09090B] text-slate-100 overflow-x-hidden font-sans">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -39,7 +39,7 @@ export default async function Home() {
                 "logo": {
                   "@type": "ImageObject",
                   "@id": "https://mercianwealth.com/#logo",
-                  "url": "https://mercianwealth.com/MercianWealthLogo.jpeg",
+                  "url": "https://mercianwealth.com/Logo2.jpeg",
                   "caption": "Mercian Wealth"
                 },
                 "image": {
@@ -51,7 +51,7 @@ export default async function Home() {
                 "@id": "https://mercianwealth.com/#website",
                 "url": "https://mercianwealth.com",
                 "name": "Mercian Wealth",
-                "description": "24/7 AI quote intake, instant WhatsApp alerts & automated site-survey deposits for UK construction, renovation contractors & local trade businesses. Stop losing £10k+ jobs to missed calls.",
+                "description": "Mobile storefronts, 3-tap order builders, instant WhatsApp alerts & automated Google review systems for bakeries, catering businesses, food artisans & local services across Berkshire & the UK.",
                 "publisher": {
                   "@id": "https://mercianwealth.com/#organization"
                 }
@@ -60,14 +60,14 @@ export default async function Home() {
                 "@type": "WebPage",
                 "@id": "https://mercianwealth.com/#webpage",
                 "url": "https://mercianwealth.com",
-                "name": "Mercian Wealth | AI Websites & Automation for UK Builders & Trades",
+                "name": "Mercian Wealth | Storefronts, Automation & Growth for Local Businesses",
                 "isPartOf": {
                   "@id": "https://mercianwealth.com/#website"
                 },
                 "about": {
                   "@id": "https://mercianwealth.com/#organization"
                 },
-                "description": "24/7 AI quote intake, instant WhatsApp alerts & automated site-survey deposits for UK construction, renovation contractors & local trade businesses. Stop losing £10k+ jobs to missed calls."
+                "description": "Mobile storefronts, 3-tap order builders, instant WhatsApp alerts & automated Google review systems for bakeries, catering businesses, food artisans & local services across Berkshire & the UK."
               }
             ]
           })
@@ -83,23 +83,23 @@ export default async function Home() {
       <SectionDivider id="chapter-divider-II" chapter="II" title="How Automation Works" />
       <StickmanWorkflow />
 
-      <SectionDivider id="chapter-divider-III" chapter="III" title="Interactive 3-Tap Quote Demo" />
+      <SectionDivider id="chapter-divider-III" chapter="III" title="Interactive 3-Tap Order Demo" />
       <div id="demo" className="scroll-mt-28">
         <InteractivePhoneDemo />
       </div>
 
-      <SectionDivider id="chapter-divider-IV" chapter="IV" title="Quote Engine vs Manual Drag" />
+      <SectionDivider id="chapter-divider-IV" chapter="IV" title="Automated Storefront vs Manual Drag" />
       <DivergenceComparison />
 
       <SectionDivider id="chapter-divider-V" chapter="V" title="Calculate Saved Hours & Revenue" />
       <InteractiveRoiCalculator />
 
-      <SectionDivider id="chapter-divider-VI" chapter="VI" title="Built for Builders & Trade Specialists" />
+      <SectionDivider id="chapter-divider-VI" chapter="VI" title="Built for Food Artisans & Local Services" />
       <WhyMercianWealth />
       <SystemBlueprint />
 
       <SectionDivider id="chapter-divider-VII" chapter="VII" title="Transparent Pricing & Packages" />
-      <Suspense fallback={<div className="py-20 text-center text-sky-400 font-mono text-sm">Loading Solutions & Pricing...</div>}>
+      <Suspense fallback={<div className="py-20 text-center text-[#DCAE53] font-mono text-sm">Loading Solutions & Pricing...</div>}>
         <Pricing isHomepage={true} setupTiers={setupTiers} retainerTiers={retainerTiers} />
       </Suspense>
 

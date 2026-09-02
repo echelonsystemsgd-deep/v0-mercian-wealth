@@ -236,19 +236,19 @@ export function ClientHealthGrid({
 
   if (clients.length === 0) {
     return (
-      <section className="p-6 glass rounded-2xl border border-purple-500/15 flex flex-col items-center justify-center text-center gap-4 min-h-[200px]">
-        <div className="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/20 flex items-center justify-center">
-          <Users size={22} className="text-gold" />
+      <section className="p-6 bg-[#111115] rounded-2xl border border-slate-800 flex flex-col items-center justify-center text-center gap-4 min-h-[200px] shadow-xl">
+        <div className="w-12 h-12 rounded-2xl bg-[#18181F] border border-slate-800 flex items-center justify-center">
+          <Users size={22} className="text-[#DCAE53]" />
         </div>
         <div>
-          <p className="text-sm font-semibold text-foreground mb-1">No Active Client Mandates</p>
-          <p className="text-xs text-muted-foreground leading-relaxed max-w-xs">
-            Deploy a new project from the Projects page to begin tracking client health.
+          <p className="text-sm font-semibold text-white mb-1 font-sans">No Active Projects</p>
+          <p className="text-xs text-slate-400 leading-relaxed max-w-xs">
+            Deploy a new storefront or automation project from the Projects page to begin tracking.
           </p>
         </div>
         <Link
           href="/admin/projects?create=true&redirect=/admin"
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gold/10 hover:bg-gold/15 border border-gold/25 text-xs font-bold text-gold transition-all duration-200"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-xs font-bold text-[#09090B] transition-all duration-200 cursor-pointer shadow-md"
         >
           <Plus size={12} />
           Deploy New Project
@@ -262,11 +262,11 @@ export function ClientHealthGrid({
       {/* Header */}
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-3">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-            <Users size={13} className="text-gold" />
+          <h2 className="text-sm font-bold uppercase tracking-widest text-slate-400 font-mono flex items-center gap-2">
+            <Users size={13} className="text-[#DCAE53]" />
             Client Health
           </h2>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 font-mono">
             {blockedCount > 0 && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-red-500/10 border border-red-500/25 text-[9px] font-bold text-red-400 uppercase tracking-wide">
                 <AlertTriangle size={8} />
@@ -284,7 +284,7 @@ export function ClientHealthGrid({
               </span>
             )}
             {blockedCount === 0 && attentionCount === 0 && suspendedCount === 0 && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-500/10 border border-green-500/25 text-[9px] font-bold text-green-400 uppercase tracking-wide">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-[9px] font-bold text-emerald-400 uppercase tracking-wide">
                 All clear
               </span>
             )}
@@ -294,7 +294,7 @@ export function ClientHealthGrid({
         {showViewAll && (
           <Link
             href="/admin/clients"
-            className="text-[10px] font-bold uppercase tracking-wider text-gold/60 hover:text-gold transition-colors shrink-0"
+            className="text-[10px] font-bold uppercase tracking-wider text-[#DCAE53] hover:underline transition-colors shrink-0 font-mono"
           >
             View All ({clients.length}) →
           </Link>
@@ -322,7 +322,7 @@ export function ClientHealthGrid({
                   setSelectedProject(project)
                 }
               }}
-              className={`relative p-4 glass rounded-2xl border border-purple-500/15 hover:border-purple-500/30 hover:shadow-[0_0_20px_rgba(139,92,246,0.08)] transition-all duration-300 border-l-[3px] ${healthBorder} group flex flex-col gap-3 text-left w-full cursor-pointer`}
+              className={`relative p-4 bg-[#111115] rounded-2xl border border-slate-800 hover:border-slate-700 hover:shadow-xl transition-all duration-300 border-l-[3px] ${healthBorder} group flex flex-col gap-3 text-left w-full cursor-pointer`}
             >
               {/* Avatar + Name */}
               <div className="flex items-center gap-3">

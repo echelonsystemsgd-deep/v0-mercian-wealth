@@ -29,17 +29,17 @@ function formatTime(isoString: string): string {
 
 export function TodayScheduleStrip({ sessions }: TodayScheduleStripProps) {
   return (
-    <section className="p-4 sm:p-5 glass rounded-2xl border border-gold/10 space-y-4">
+    <section className="p-4 sm:p-5 bg-[#111115] rounded-2xl border border-slate-800 space-y-4 shadow-xl">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-gold/10 pb-3">
+      <div className="flex items-center justify-between border-b border-slate-800 pb-3">
         <div className="flex items-center gap-2">
-          <CalendarClock size={16} className="text-gold shrink-0" />
-          <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-            Today's Briefings
+          <CalendarClock size={16} className="text-[#DCAE53] shrink-0" />
+          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">
+            Today&apos;s Booked Calls
           </h2>
         </div>
         {sessions.length > 0 && (
-          <span className="px-2 py-0.5 rounded-full bg-gold/10 border border-gold/25 text-[9px] font-bold text-gold uppercase tracking-wider">
+          <span className="px-2 py-0.5 rounded-full bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[9px] font-bold text-[#DCAE53] uppercase tracking-wider font-mono">
             {sessions.length} Scheduled
           </span>
         )}
@@ -48,7 +48,7 @@ export function TodayScheduleStrip({ sessions }: TodayScheduleStripProps) {
       {/* Content */}
       {sessions.length === 0 ? (
         <div className="py-6 text-center">
-          <p className="text-xs text-muted-foreground italic">No strategy sessions scheduled for today.</p>
+          <p className="text-xs text-slate-500 italic">No calls scheduled for today.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5">

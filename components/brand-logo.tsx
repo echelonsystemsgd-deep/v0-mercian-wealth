@@ -25,23 +25,21 @@ function WordmarkLogo({ className }: { className?: string }) {
       style={{
         display: "inline-flex",
         alignItems: "center",
-        gap: "0.25em",
+        gap: "0.4em",
         fontFamily: "'Inter', system-ui, sans-serif",
-        letterSpacing: "-0.02em",
+        letterSpacing: "0.08em",
         lineHeight: 1,
         userSelect: "none",
         fontWeight: 800,
+        textTransform: "uppercase",
       }}
     >
       <span style={{ color: "#FFFFFF", fontSize: "inherit" }}>Mercian</span>
       <span
         style={{
-          color: "#DAA640",
-          fontSize: "0.85em",
-          background: "rgba(218, 166, 64, 0.15)",
-          padding: "0.15em 0.4em",
-          borderRadius: "0.3em",
-          border: "1px solid rgba(218, 166, 64, 0.3)",
+          color: "#DCAE53",
+          fontSize: "inherit",
+          fontWeight: 800,
         }}
       >
         Wealth
@@ -52,13 +50,13 @@ function WordmarkLogo({ className }: { className?: string }) {
 
 function ModernBrandBadge({ className }: { className?: string }) {
   return (
-    <div className={`h-full w-full rounded-xl bg-[#020E28] border border-[#DAA640]/40 flex items-center justify-center gap-1.5 px-3 py-1.5 shadow-lg shadow-[#DAA640]/10 ${className || ""}`}>
-      <svg className="w-5 h-5 text-[#DAA640] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        {/* Storefront Awning + Tech Grid lines */}
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-        <polyline points="9 22 9 12 15 12 15 22"/>
+    <div className={`h-full w-full rounded-lg bg-[#111115] border border-[#DCAE53]/40 flex items-center justify-center gap-2 px-3 py-1.5 shadow-lg shadow-black/50 ${className || ""}`}>
+      {/* Geometric Bowtie / Hourglass MW Icon */}
+      <svg className="w-5 h-5 text-[#DCAE53] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M4 4h16l-8 7.5L4 4zm0 16h16l-8-7.5L4 20z" opacity="0.9" />
+        <circle cx="12" cy="11.5" r="1.5" fill="#DCAE53" />
       </svg>
-      <span className="font-mono font-extrabold text-xs tracking-wider text-white">MW</span>
+      <span className="font-sans font-extrabold text-xs tracking-widest text-white uppercase">Mercian Wealth</span>
     </div>
   )
 }

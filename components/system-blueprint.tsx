@@ -130,19 +130,19 @@ export function SystemBlueprint() {
   }, [clearAll])
 
   return (
-    <div id="system-blueprint" ref={containerRef} className="relative py-20 lg:py-28 bg-[#020E28] border-t border-[#DAA640]/15 text-left overflow-hidden max-w-full min-w-0">
+    <div id="system-blueprint" ref={containerRef} className="relative py-20 lg:py-28 bg-[#09090B] border-t border-slate-800/80 text-left overflow-hidden max-w-full min-w-0">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 min-w-0 max-w-full">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 min-w-0">
-          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-[#DAA640]">
-            [ THE 24/7 ORDER & REVENUE ENGINE ]
+          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-[#DCAE53]">
+            [ THE 24/7 ORDER &amp; REVENUE ENGINE ]
           </span>
           <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white mt-3">
-            How Your System Runs <span className="bg-gradient-to-r from-[#DAA640] via-[#EBB755] to-white bg-clip-text text-transparent">On Autopilot</span>
+            How Your System Runs <span className="text-[#DCAE53]">On Autopilot</span>
           </h2>
           <p className="font-sans text-sm sm:text-base text-slate-300 leading-relaxed mt-4">
-            Watch each stage execute automatically from customer inquiry to paid deposit and phone dispatch. Tap any stage to inspect the mechanics.
+            Watch each stage execute automatically from customer enquiry to paid deposit and phone dispatch. Tap any stage to inspect the mechanics.
           </p>
         </div>
 
@@ -161,13 +161,13 @@ export function SystemBlueprint() {
                   suppressHydrationWarning
                   className={`w-full p-4 sm:p-5 rounded-xl border text-left transition-all duration-300 flex items-center justify-between group cursor-pointer focus:outline-none ${
                     isSelected 
-                      ? "bg-[#07153B] border-[#DAA640] shadow-[0_0_20px_rgba(218,166,64,0.18)]" 
-                      : "bg-[#07153B]/50 border-slate-800 hover:border-slate-700 hover:bg-[#07153B]"
+                      ? "bg-[#18181F] border-[#DCAE53] shadow-[0_0_20px_rgba(220,174,83,0.18)]" 
+                      : "bg-[#111115]/80 border-slate-800 hover:border-slate-700 hover:bg-[#111115]"
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <div className={`p-2.5 rounded-lg border transition-colors shrink-0 ${
-                      isSelected ? "bg-[#DAA640]/15 border-[#DAA640] text-[#DAA640]" : "bg-slate-800 border-slate-700 text-slate-300"
+                      isSelected ? "bg-[#DCAE53]/15 border-[#DCAE53] text-[#DCAE53]" : "bg-slate-800 border-slate-700 text-slate-300"
                     }`}>
                       <IconComp size={20} />
                     </div>
@@ -178,14 +178,14 @@ export function SystemBlueprint() {
                   </div>
                   <div className="flex flex-col items-end gap-1.5 shrink-0 ml-2">
                     <span className={`font-mono text-[10px] font-bold px-2 py-1 rounded ${
-                      isSelected ? "bg-[#DAA640]/20 text-[#DAA640]" : "bg-slate-800 text-slate-400"
+                      isSelected ? "bg-[#DCAE53]/20 text-[#DCAE53]" : "bg-slate-800 text-slate-400"
                     }`}>
                       {node.latency}
                     </span>
                     {isSelected && !isPaused && (
                       <div className="w-full h-0.5 bg-slate-800 rounded-full overflow-hidden" style={{ width: "60px" }}>
                         <motion.div
-                          className="h-full bg-[#DAA640] rounded-full"
+                          className="h-full bg-[#DCAE53] rounded-full"
                           style={{ width: `${progress}%` }}
                           transition={{ duration: 0 }}
                         />
@@ -201,7 +201,7 @@ export function SystemBlueprint() {
 
             {/* Auto-cycle status indicator */}
             <div className="flex items-center gap-2 px-1 pt-1">
-              <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isPaused ? "bg-slate-600" : "bg-[#DAA640] animate-pulse"}`} />
+              <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isPaused ? "bg-slate-600" : "bg-[#DCAE53] animate-pulse"}`} />
               <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">
                 {isPaused ? "Paused — resuming in a moment" : "Live automation sequence cycling"}
               </span>
@@ -217,13 +217,13 @@ export function SystemBlueprint() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.3 }}
-                className="bg-[#07153B] border border-[#DAA640]/30 p-6 sm:p-8 rounded-2xl space-y-6 shadow-2xl"
+                className="bg-[#111115] border border-slate-800 p-6 sm:p-8 rounded-2xl space-y-6 shadow-2xl"
               >
                 {/* Header */}
-                <div className="flex items-center justify-between border-b border-slate-700/60 pb-4">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-4">
                   <div className="flex items-center gap-3">
-                    <Activity size={20} className="text-[#DAA640] animate-pulse" />
-                    <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#DAA640]">
+                    <Activity size={20} className="text-[#DCAE53] animate-pulse" />
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#DCAE53]">
                       STAGE SPECIFICATION
                     </span>
                   </div>
@@ -239,14 +239,14 @@ export function SystemBlueprint() {
                 </div>
 
                 {/* Telemetry Metrics */}
-                <div className="grid grid-cols-2 gap-4 bg-[#020E28] border border-slate-700/60 p-4 rounded-xl font-mono text-xs">
+                <div className="grid grid-cols-2 gap-4 bg-[#18181F] border border-slate-800 p-4 rounded-xl font-mono text-xs">
                   <div>
                     <span className="text-[10px] text-slate-400 uppercase block">Response Speed</span>
-                    <span className="text-[#DAA640] font-bold text-base mt-0.5 block">{activeNode.latency}</span>
+                    <span className="text-[#DCAE53] font-bold text-base mt-0.5 block">{activeNode.latency}</span>
                   </div>
                   <div>
                     <span className="text-[10px] text-slate-400 uppercase block">System Capability</span>
-                    <span className="text-[#DAA640] font-bold text-base mt-0.5 block">{activeNode.throughput}</span>
+                    <span className="text-[#DCAE53] font-bold text-base mt-0.5 block">{activeNode.throughput}</span>
                   </div>
                 </div>
 
@@ -259,12 +259,12 @@ export function SystemBlueprint() {
                 </div>
 
                 {/* Sub-Specs List */}
-                <div className="border-t border-slate-700/60 pt-4">
+                <div className="border-t border-slate-800 pt-4">
                   <h4 className="text-xs uppercase tracking-widest font-bold text-slate-400 mb-3">Key Features Included</h4>
                   <div className="grid sm:grid-cols-3 gap-2">
                     {activeNode.specs.map((spec, i) => (
-                      <div key={i} className="p-2.5 bg-[#020E28] border border-slate-800 rounded-lg flex items-center gap-2">
-                        <CheckCircle2 size={14} className="text-[#DAA640] shrink-0" />
+                      <div key={i} className="p-2.5 bg-[#18181F] border border-slate-800 rounded-lg flex items-center gap-2">
+                        <CheckCircle2 size={14} className="text-[#DCAE53] shrink-0" />
                         <span className="text-[11px] font-sans text-slate-200 font-medium">{spec}</span>
                       </div>
                     ))}

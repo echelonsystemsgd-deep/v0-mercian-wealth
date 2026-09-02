@@ -21,22 +21,22 @@ type PortfolioItem = {
 
 const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   {
-    title: "Vanguard Construction & Extensions",
-    category: "House Extensions & Loft Conversions · Interactive Sandbox",
+    title: "Artisan Flour & Crust",
+    category: "Custom Cake & Bakery Storefront · Interactive Sandbox",
     gradient: "from-amber-500/20 to-yellow-600/20",
     href: "https://premium-local-construction-business.vercel.app/",
     image: "/vanguard-construction-preview.png",
     underConstruction: false,
-    metric: "Fixed-Price Certainty · Instant Quote Builder",
+    metric: "3-Tap Order Intake · Instant WhatsApp Alert",
   },
   {
-    title: "Stamp Valuation App",
-    category: "AI Computer Vision · Case Study",
-    gradient: "from-blue-500/20 to-cyan-500/20",
+    title: "Sovereign Events & Catering",
+    category: "Bespoke Event & Canapé Booking · Case Study",
+    gradient: "from-emerald-500/20 to-teal-500/20",
     href: null,
     image: "/stamp-app-preview.png",
     underConstruction: true,
-    metric: "Target Latency: < 1s",
+    metric: "Deposit Collection: Apple Pay / Card",
   },
   {
     title: "Caker St. London Bakery",
@@ -562,16 +562,16 @@ export function Portfolio({ limit }: { limit?: number }) {
 
   return (
     <>
-      <section id="portfolio" className="relative py-24 lg:py-32 overflow-hidden bg-bg-primary">
+      <section id="portfolio" className="relative py-24 lg:py-32 overflow-hidden bg-[#09090B] border-t border-slate-800/80">
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10">
           
           {/* Section Header */}
           <div className="text-center mb-16">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent-gold mb-3">
-              Selected Work
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#DCAE53] mb-3 font-mono">
+              [ Selected Work ]
             </p>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
-              Websites That Mean Business
+            <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
+              Storefronts That Generate Orders
             </h2>
           </div>
 
@@ -584,13 +584,13 @@ export function Portfolio({ limit }: { limit?: number }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-xl border border-[#DAA640]/20 hover:border-[#DAA640] transition-all duration-300 bg-[#07153B] aspect-[16/10] sm:aspect-[16/10]"
+                className="group relative overflow-hidden rounded-2xl border border-slate-800 hover:border-[#DCAE53]/60 transition-all duration-300 bg-[#111115] aspect-[16/10] sm:aspect-[16/10]"
               >
                 {/* Visual Image / Mockup background */}
                 <div className="w-full h-full relative z-10">
                   {item.image ? (
-                    <div className="absolute inset-2 sm:inset-4 rounded-xl border border-slate-700/60 overflow-hidden shadow-2xl flex flex-col bg-[#020E28]">
-                      <div className="flex items-center gap-2 px-3 py-2 bg-[#07153B] border-b border-slate-700/50 shrink-0">
+                    <div className="absolute inset-2 sm:inset-4 rounded-xl border border-slate-800 overflow-hidden shadow-2xl flex flex-col bg-[#18181F]">
+                      <div className="flex items-center gap-2 px-3 py-2 bg-[#111115] border-b border-slate-800 shrink-0">
                         <div className="flex gap-1">
                           <div className="w-2 h-2 rounded-full bg-red-500/70" />
                           <div className="w-2 h-2 rounded-full bg-yellow-500/70" />
@@ -614,10 +614,10 @@ export function Portfolio({ limit }: { limit?: number }) {
                 </div>
 
                 {/* Hover Reveal Slide-Up Overlay — Desktop only */}
-                <div className="absolute inset-0 bg-[#020E28]/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hidden md:flex flex-col justify-center items-center p-8 text-center space-y-4">
+                <div className="absolute inset-0 bg-[#09090B]/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hidden md:flex flex-col justify-center items-center p-8 text-center space-y-4">
                   <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300 space-y-3">
                     <div className="flex items-center justify-center gap-2 flex-wrap">
-                      <p className="text-xs uppercase tracking-widest text-[#DAA640] font-semibold">
+                      <p className="text-xs uppercase tracking-widest text-[#DCAE53] font-semibold">
                         {item.category}
                       </p>
                       {!item.underConstruction ? (
@@ -625,7 +625,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                           Live Interactive Sandbox
                         </span>
                       ) : (
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-[#DAA640] bg-[#DAA640]/10 border border-[#DAA640]/30 px-2.5 py-0.5 rounded-full font-mono">
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-[#DCAE53] bg-[#DCAE53]/10 border border-[#DCAE53]/30 px-2.5 py-0.5 rounded-full font-mono">
                           Architecture Case Study
                         </span>
                       )}
@@ -634,7 +634,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                       {item.title}
                     </h3>
                     {item.metric && (
-                      <p className="text-xs font-mono font-bold text-[#DAA640] uppercase tracking-wider">
+                      <p className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider">
                         Benchmark: {item.metric}
                       </p>
                     )}
@@ -644,7 +644,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                           size="sm"
                           variant="outline"
                           onClick={() => setPreviewPrototype(item)}
-                          className="border-emerald-500/40 text-emerald-300 hover:bg-emerald-500 hover:text-[#020E28] transition-all"
+                          className="border-emerald-500/40 text-emerald-300 hover:bg-emerald-500 hover:text-[#09090B] transition-all"
                         >
                           <span className="text-xs font-bold uppercase tracking-wider">
                             Launch Live Sandbox →
@@ -655,7 +655,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                           size="sm"
                           variant="outline"
                           onClick={() => setRequestSchemaModal(item)}
-                          className="border-[#DAA640]/40 text-white hover:bg-[#DAA640] hover:text-[#020E28] transition-all"
+                          className="border-[#DCAE53]/40 text-white hover:bg-[#DCAE53] hover:text-[#09090B] transition-all"
                         >
                           <span className="text-xs font-bold uppercase tracking-wider">
                             View Blueprint →
@@ -667,10 +667,10 @@ export function Portfolio({ limit }: { limit?: number }) {
                 </div>
 
                 {/* Mobile Bottom Bar — always visible, hidden on desktop */}
-                <div className="absolute bottom-0 left-0 right-0 z-20 flex md:hidden items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 bg-[#020E28]/90 border-t border-[#DAA640]/30 backdrop-blur-sm min-w-0 max-w-full">
+                <div className="absolute bottom-0 left-0 right-0 z-20 flex md:hidden items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 bg-[#09090B]/90 border-t border-slate-800 backdrop-blur-sm min-w-0 max-w-full">
                   <div className="min-w-0 flex-1 pr-2">
                     <div className="flex items-center gap-1.5 mb-0.5 min-w-0 flex-wrap">
-                      <p className="text-[10px] uppercase tracking-widest text-[#DAA640] font-semibold leading-none truncate max-w-full">
+                      <p className="text-[10px] uppercase tracking-widest text-[#DCAE53] font-semibold leading-none truncate max-w-full">
                         {item.category} {item.metric ? `· ${item.metric}` : ''}
                       </p>
                       {!item.underConstruction ? (
@@ -678,7 +678,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                           Live Sandbox
                         </span>
                       ) : (
-                        <span className="shrink-0 text-[8px] font-bold uppercase tracking-wider text-[#DAA640] bg-[#DAA640]/10 border border-[#DAA640]/30 px-1.5 py-0.5 rounded-full font-mono">
+                        <span className="shrink-0 text-[8px] font-bold uppercase tracking-wider text-[#DCAE53] bg-[#DCAE53]/10 border border-[#DCAE53]/30 px-1.5 py-0.5 rounded-full font-mono">
                           Case Study
                         </span>
                       )}
@@ -689,14 +689,14 @@ export function Portfolio({ limit }: { limit?: number }) {
                   </div>
                   {!item.underConstruction ? (
                     <button
-                      className="shrink-0 ml-3 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#020E28] bg-emerald-400 px-3 py-1.5 rounded-lg active:opacity-80 transition-opacity cursor-pointer"
+                      className="shrink-0 ml-3 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#09090B] bg-emerald-400 px-3 py-1.5 rounded-lg active:opacity-80 transition-opacity cursor-pointer"
                       onClick={() => setPreviewPrototype(item)}
                     >
                       Test Sandbox →
                     </button>
                   ) : (
                     <button
-                      className="shrink-0 ml-3 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#020E28] bg-[#DAA640] px-3 py-1.5 rounded-lg active:opacity-80 transition-opacity cursor-pointer"
+                      className="shrink-0 ml-3 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#09090B] bg-[#DCAE53] px-3 py-1.5 rounded-lg active:opacity-80 transition-opacity cursor-pointer"
                       onClick={() => setRequestSchemaModal(item)}
                     >
                       View Blueprint →
@@ -714,7 +714,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                 asChild 
                 size="lg" 
                 variant="outline"
-                className="px-8 py-6 text-sm font-bold tracking-wider uppercase"
+                className="px-8 py-6 text-sm font-bold tracking-wider uppercase bg-[#111115] border-slate-800 text-white hover:border-[#DCAE53]"
               >
                 <Link href="/portfolio" className="flex items-center gap-2">
                   View Full Portfolio

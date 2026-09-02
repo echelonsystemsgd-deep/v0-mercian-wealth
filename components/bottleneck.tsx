@@ -21,12 +21,12 @@ export function Bottleneck() {
   ]
 
   return (
-    <section id="bottleneck" className="relative py-12 sm:py-24 lg:py-32 overflow-hidden bg-[#020E28]">
+    <section id="bottleneck" className="relative py-12 sm:py-24 lg:py-32 overflow-hidden bg-[#09090B]">
       {/* Background radial glow */}
       <div 
         className="absolute inset-0 pointer-events-none z-0"
         style={{
-          background: "radial-gradient(circle at 50% 30%, rgba(218, 166, 64, 0.08) 0%, rgba(2, 14, 40, 0) 60%)"
+          background: "radial-gradient(circle at 50% 30%, rgba(220, 174, 83, 0.08) 0%, rgba(9, 9, 11, 0) 60%)"
         }}
       />
 
@@ -40,16 +40,16 @@ export function Bottleneck() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16 max-w-3xl mx-auto"
         >
-          <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.25em] text-accent-gold/80">
+          <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.25em] text-[#DCAE53]">
             [ {data.eyebrow} ]
           </span>
-          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white mt-4 leading-[1.1] text-balance">
+          <h2 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mt-4 leading-[1.1] text-balance">
             {data.headline}
           </h2>
-          <p className="font-sans text-base text-text-primary opacity-90 leading-relaxed mt-6 max-w-2xl mx-auto">
+          <p className="font-sans text-base text-slate-300 leading-relaxed mt-6 max-w-2xl mx-auto">
             {data.subheadline}
           </p>
-          <p className="font-sans text-sm text-accent-gold font-medium mt-4 max-w-2xl mx-auto">
+          <p className="font-sans text-sm text-[#DCAE53] font-medium mt-4 max-w-2xl mx-auto">
             {data.goldSlogan}
           </p>
         </motion.div>
@@ -165,16 +165,16 @@ export function Bottleneck() {
             className="lg:col-span-7 space-y-5"
           >
             {/* Card 1 */}
-            <div className={`p-6 rounded-xl border transition-all duration-300 ${isOrdered ? "bg-bg-tertiary/30 border-accent-gold/20" : "bg-[#1C1313]/10 border-red-500/15"}`}>
+            <div className={`p-6 rounded-xl border transition-all duration-300 ${isOrdered ? "bg-[#111115] border-[#DCAE53]/30" : "bg-[#18181F] border-red-500/20"}`}>
               <div className="flex items-start gap-4">
-                <div className={`p-2 rounded-lg shrink-0 ${isOrdered ? "text-accent-gold bg-accent-gold/10" : "text-red-500 bg-red-500/10"}`}>
+                <div className={`p-2 rounded-lg shrink-0 ${isOrdered ? "text-[#DCAE53] bg-[#DCAE53]/10" : "text-red-400 bg-red-500/10"}`}>
                   {isOrdered ? <ShieldCheck size={18} /> : <AlertCircle size={18} />}
                 </div>
                 <div className="space-y-2">
                   <h3 className="font-sans font-semibold text-lg text-white">{data.cards[0].title}</h3>
-                  <p className="font-sans text-sm text-text-primary opacity-80 leading-relaxed">
+                  <p className="font-sans text-sm text-slate-300 leading-relaxed">
                     {isOrdered 
-                      ? "Instant mobile booking & deposit collection so customers lock in jobs even while you work."
+                      ? "Instant mobile booking & deposit collection so customers lock in orders even while you work."
                       : data.cards[0].description
                     }
                   </p>
@@ -183,16 +183,16 @@ export function Bottleneck() {
             </div>
 
             {/* Card 2 */}
-            <div className={`p-6 rounded-xl border transition-all duration-300 ${isOrdered ? "bg-bg-tertiary/30 border-accent-gold/20" : "bg-[#1C1313]/10 border-red-500/15"}`}>
+            <div className={`p-6 rounded-xl border transition-all duration-300 ${isOrdered ? "bg-[#111115] border-[#DCAE53]/30" : "bg-[#18181F] border-red-500/20"}`}>
               <div className="flex items-start gap-4">
-                <div className={`p-2 rounded-lg shrink-0 ${isOrdered ? "text-accent-gold bg-accent-gold/10" : "text-red-500 bg-red-500/10"}`}>
+                <div className={`p-2 rounded-lg shrink-0 ${isOrdered ? "text-[#DCAE53] bg-[#DCAE53]/10" : "text-red-400 bg-red-500/10"}`}>
                   {isOrdered ? <ShieldCheck size={18} /> : <AlertCircle size={18} />}
                 </div>
                 <div className="space-y-2">
                   <h3 className="font-sans font-semibold text-lg text-white">{data.cards[1].title}</h3>
-                  <p className="font-sans text-sm text-text-primary opacity-80 leading-relaxed">
+                  <p className="font-sans text-sm text-slate-300 leading-relaxed">
                     {isOrdered 
-                      ? "Instant phone alert arrives the second a deposit is paid, so you know exactly what is booked."
+                      ? "Instant WhatsApp alert arrives the second a deposit is paid, so you know exactly what is booked."
                       : data.cards[1].description
                     }
                   </p>
@@ -201,16 +201,16 @@ export function Bottleneck() {
             </div>
 
             {/* Card 3 */}
-            <div className={`p-6 rounded-xl border transition-all duration-300 ${isOrdered ? "bg-bg-tertiary/30 border-accent-gold/20" : "bg-[#1C1313]/10 border-red-500/15"}`}>
+            <div className={`p-6 rounded-xl border transition-all duration-300 ${isOrdered ? "bg-[#111115] border-[#DCAE53]/30" : "bg-[#18181F] border-red-500/20"}`}>
               <div className="flex items-start gap-4">
-                <div className={`p-2 rounded-lg shrink-0 ${isOrdered ? "text-accent-gold bg-accent-gold/10" : "text-red-500 bg-red-500/10"}`}>
+                <div className={`p-2 rounded-lg shrink-0 ${isOrdered ? "text-[#DCAE53] bg-[#DCAE53]/10" : "text-red-400 bg-red-500/10"}`}>
                   {isOrdered ? <ShieldCheck size={18} /> : <AlertCircle size={18} />}
                 </div>
                 <div className="space-y-2">
                   <h3 className="font-sans font-semibold text-lg text-white">{data.cards[2].title}</h3>
-                  <p className="font-sans text-sm text-text-primary opacity-80 leading-relaxed">
+                  <p className="font-sans text-sm text-slate-300 leading-relaxed">
                     {isOrdered 
-                      ? "Automated review follow-up texts collect 5-star Google reviews from happy clients on autopilot."
+                      ? "Automated review follow-up messages collect 5-star Google reviews from happy clients on autopilot."
                       : data.cards[2].description
                     }
                   </p>
@@ -232,10 +232,10 @@ export function Bottleneck() {
           <Button
             asChild
             size="lg"
-            className="w-full sm:w-auto h-auto py-4 sm:py-5 px-6 sm:px-10 text-sm sm:text-base font-bold bg-accent-gold text-slate-950 hover:bg-amber-300 shadow-[0_0_25px_rgba(212,175,55,0.15)] hover:shadow-accent-gold/25"
+            className="w-full sm:w-auto h-auto py-4 sm:py-5 px-6 sm:px-10 text-sm sm:text-base font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] shadow-lg rounded-lg"
           >
             <Link href="/book" className="flex items-center justify-center gap-2">
-              <span>Book your free 15 minute audit</span>
+              <span>Book your 15-minute audit</span>
               <span className="text-lg shrink-0">→</span>
             </Link>
           </Button>

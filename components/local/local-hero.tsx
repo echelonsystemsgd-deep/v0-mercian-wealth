@@ -15,12 +15,12 @@ export function LocalHero() {
   }, [])
 
   return (
-    <section className="relative pt-32 sm:pt-36 pb-16 sm:pb-24 overflow-hidden bg-[#07050B]">
+    <section className="relative pt-32 sm:pt-36 pb-16 sm:pb-24 overflow-hidden bg-[#09090B]">
       {/* Background Radial Ambient Glow */}
       <div
         className="absolute inset-0 pointer-events-none z-0"
         style={{
-          background: "radial-gradient(circle at center 30%, rgba(212, 175, 55, 0.15) 0%, rgba(7, 5, 11, 0) 75%)",
+          background: "radial-gradient(circle at center 30%, rgba(220, 174, 83, 0.12) 0%, rgba(9, 9, 11, 0) 75%)",
         }}
       />
 
@@ -30,10 +30,10 @@ export function LocalHero() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent-gold/10 border border-accent-gold/30 text-xs sm:text-sm font-mono font-bold text-accent-gold uppercase tracking-wider mb-6 shadow-[0_0_15px_rgba(212,175,55,0.15)]"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111115] border border-slate-800 text-xs sm:text-sm font-mono font-bold text-[#DCAE53] uppercase tracking-wider mb-6 shadow-md"
         >
-          <Sparkles size={14} className="text-accent-gold animate-pulse" />
-          <span>Local Business Growth & Ordering Engine — Berkshire & Slough</span>
+          <Sparkles size={14} className="text-[#DCAE53] animate-pulse" />
+          <span>Local Business Growth & Ordering Engine — Berkshire & Across UK</span>
         </motion.div>
 
         {/* Plain Conversational Headline */}
@@ -41,9 +41,9 @@ export function LocalHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="font-serif text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-[1.15] tracking-tight mb-6 max-w-4xl"
+          className="font-sans text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-[1.15] tracking-tight mb-6 max-w-4xl"
         >
-          Stop Losing High-Ticket Quotes & Bookings While You Are <span className="bg-gradient-to-r from-accent-gold via-amber-200 to-accent-gold bg-clip-text text-transparent italic">Working on Site.</span>
+          Stop Losing Orders & Bookings in DM Messages. We Build <span className="text-[#DCAE53]">Automated Local Engines.</span>
         </motion.h1>
 
         {/* Subheadline - Plain English */}
@@ -51,9 +51,9 @@ export function LocalHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="font-sans text-base sm:text-lg md:text-xl text-white/85 max-w-2xl leading-relaxed mb-8"
+          className="font-sans text-base sm:text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed mb-8"
         >
-          From construction, renovation, and high-ticket trade specialists to bespoke local services, caterers, and bakeries, customers won't wait hours for a callback. We build automated mobile engines that qualify scopes, collect deposits, and ding your phone instantly.
+          For bakeries, caterers, food artisans, and bespoke local service businesses across Berkshire and the UK. Customers order in 3 taps, pay upfront deposits, and send WhatsApp alerts straight to your pocket.
         </motion.p>
 
         {/* Trust Points */}

@@ -3,19 +3,19 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight, ShieldCheck } from "lucide-react"
+import { ArrowRight, ShieldCheck, MessageSquare } from "lucide-react"
 import { SITE_COPY } from "@/lib/site-copy"
 
 export function CTA() {
   const data = SITE_COPY.homepage.cta
 
   return (
-    <section id="cta" className="relative py-24 lg:py-32 overflow-hidden bg-[#020E28]">
+    <section id="cta" className="relative py-24 lg:py-32 overflow-hidden bg-[#09090B]">
       {/* Background Radial Gold Glow */}
       <div 
         className="absolute inset-0 pointer-events-none z-0"
         style={{
-          background: "radial-gradient(circle at center, rgba(218, 166, 64, 0.12) 0%, rgba(2, 14, 40, 0) 70%)"
+          background: "radial-gradient(circle at center, rgba(220, 174, 83, 0.08) 0%, rgba(9, 9, 11, 0) 70%)"
         }}
       />
 
@@ -43,28 +43,43 @@ export function CTA() {
           {data.subheadline}
         </motion.p>
 
-        {/* Action Button */}
+        {/* Action Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="w-full flex flex-col items-center gap-6 pt-2"
+          className="w-full flex flex-col items-center gap-4 pt-2"
         >
-          <Button
-            asChild
-            size="lg"
-            className="w-full sm:w-auto px-8 sm:px-10 py-6 sm:py-7 text-base sm:text-lg font-bold shadow-[0_0_35px_rgba(218,166,64,0.35)] transition-all duration-300 bg-gradient-to-r from-[#DAA640] via-[#EBB755] to-[#B88528] text-[#020E28] hover:from-[#EBB755] hover:to-[#DAA640] border-0 rounded-xl"
-          >
-            <Link href="/book" className="flex items-center gap-3">
-              <span>{data.buttonText}</span>
-              <ArrowRight size={20} />
-            </Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full">
+            {/* Primary WhatsApp */}
+            <a
+              href={SITE_COPY.navbar.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 text-sm sm:text-base font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] rounded-lg transition-all duration-200 shadow-lg shadow-black/40"
+            >
+              <MessageSquare size={18} className="shrink-0" />
+              <span>Message on WhatsApp</span>
+            </a>
+
+            {/* Secondary Book Call */}
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto px-8 py-4 text-sm sm:text-base font-semibold border-slate-800 bg-[#111115] text-slate-200 hover:bg-[#18181F] hover:text-white rounded-lg"
+            >
+              <Link href="/book" className="flex items-center gap-2">
+                <span>{data.buttonText}</span>
+                <ArrowRight size={16} />
+              </Link>
+            </Button>
+          </div>
 
           <div className="pt-2 flex flex-col sm:flex-row items-center gap-4 text-xs font-mono text-slate-400">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#07153B] border border-[#DAA640]/25 text-[10px] text-[#DAA640] uppercase tracking-wider">
-              <ShieldCheck size={12} className="text-[#DAA640]" />
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#111115] border border-slate-800 text-[10px] text-[#DCAE53] uppercase tracking-wider">
+              <ShieldCheck size={12} className="text-[#DCAE53]" />
               15-Minute Telephone Call · Zero High-Pressure Pitch
             </span>
           </div>

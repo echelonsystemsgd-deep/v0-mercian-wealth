@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Inter, Cinzel, Geist_Mono } from 'next/font/google'
+import { Inter, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { CalendlyInit } from '@/components/calendly-init'
 import './globals.css'
@@ -11,21 +11,9 @@ import { Toaster } from '@/components/ui/sonner'
 import { SITE_COPY } from '@/lib/site-copy'
 import { WhatsAppButton } from '@/components/whatsapp-button'
 
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair',
-  display: 'swap',
-})
-
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-  display: 'swap',
-})
-
-const cinzel = Cinzel({
-  subsets: ['latin'],
-  variable: '--font-cinzel',
   display: 'swap',
 })
 
@@ -45,16 +33,16 @@ export const metadata: Metadata = {
   applicationName: 'Mercian Wealth',
   keywords: [
     "AI automation agency UK",
-    "AI automation business UK",
-    "high performance web design UK",
-    "WhatsApp AI automation",
-    "voice AI receptionist UK",
-    "local business AI automation",
+    "mobile storefronts UK",
+    "3-tap order builder",
+    "WhatsApp order alerts",
+    "automated Google review system",
+    "bakery ordering system UK",
+    "catering automation Berkshire",
+    "local business automation UK",
     "custom web design agency UK",
     "automated booking systems UK",
-    "deposit capture systems",
-    "CRM and Xero automation",
-    "Next.js web agency UK"
+    "deposit capture systems"
   ],
   authors: [{ name: 'Mercian Wealth' }],
   creator: 'Mercian Wealth',
@@ -71,10 +59,10 @@ export const metadata: Metadata = {
     siteName: 'Mercian Wealth',
     images: [
       {
-        url: '/opengraph-image.png',
+        url: '/Logo2.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Mercian Wealth | AI Websites & Automation for UK Builders & Trades',
+        alt: 'Mercian Wealth | Storefronts · Automation · Growth for Local Businesses',
       },
     ],
     locale: 'en_GB',
@@ -84,7 +72,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: SITE_COPY.metadata.layout.defaultTitle,
     description: SITE_COPY.metadata.layout.description,
-    images: ['/twitter-image.png'],
+    images: ['/Logo2.jpeg'],
     creator: '@mercianwealth',
   },
   robots: {
@@ -100,11 +88,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/MercianWealthLogo.jpeg', type: 'image/jpeg' },
+      { url: '/Logo1.jpeg', type: 'image/jpeg' },
       { url: '/favicon.ico' },
     ],
-    shortcut: '/MercianWealthLogo.jpeg',
-    apple: '/MercianWealthLogo.jpeg',
+    shortcut: '/Logo1.jpeg',
+    apple: '/Logo1.jpeg',
   },
   // DNS prefetch for Calendly embed (reduces first-load latency by ~150–200 ms)
   other: {
@@ -119,18 +107,18 @@ export const viewport = {
   minimumScale: 1,
   // Do NOT set maximumScale or userScalable — browser default allows pinch-zoom
   viewportFit: 'cover',
-  themeColor: '#020E28',
+  themeColor: '#09090B',
 }
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   name: 'Mercian Wealth',
-  image: 'https://mercianwealth.com/MercianWealthLogo.jpeg',
+  image: 'https://mercianwealth.com/Logo2.jpeg',
   '@id': 'https://mercianwealth.com/#organization',
   url: 'https://mercianwealth.com',
   telephone: '+447851055929',
-  priceRange: '£495 - £2,495',
+  priceRange: '£495 - £1,450',
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'GB',
@@ -154,7 +142,7 @@ const jsonLd = {
     opens: '00:00',
     closes: '23:59'
   },
-  description: 'AI-powered digital storefronts, automated deposit collection, and instant WhatsApp alerts for UK local service businesses and food artisans.',
+  description: 'Mobile storefronts, 3-tap order builders, instant WhatsApp alerts, and automated Google review systems for bakeries, catering businesses, food artisans, and local services across Berkshire & the UK.',
   sameAs: [
     'https://wa.me/447851055929'
   ]
@@ -166,19 +154,19 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable} ${cinzel.variable} ${geistMono.variable} bg-[#020E28]`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${geistMono.variable} bg-[#09090B]`} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="font-sans antialiased bg-[#020E28] text-white">
+      <body className="font-sans antialiased bg-[#09090B] text-white">
           {children}
           <StickyCTAButton />
           <ScrollToTop />
         <Toaster position="top-right" theme="dark" richColors closeButton />
-        <Watermark position="center" opacity={0.20} />
+        <Watermark position="center" opacity={0.15} />
         <TabRetention />
         <WhatsAppButton />
         {process.env.NODE_ENV === 'production' && <Analytics />}

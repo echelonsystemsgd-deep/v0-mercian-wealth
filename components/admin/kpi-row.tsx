@@ -127,33 +127,34 @@ export function AdminKpiRow({
       {/* KPI Cards Row */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5 sm:gap-6">
         {/* Hero: Capital Realised */}
+        {/* Hero: Capital Realised */}
         <button
           onClick={() => togglePanel('sales')}
-          className={`p-3.5 sm:p-6 glass rounded-2xl border transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left hover:scale-[1.02] hover:-translate-y-0.5 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-purple-600/10 via-transparent to-transparent ${
+          className={`p-3.5 sm:p-6 bg-[#111115] rounded-2xl border transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left hover:scale-[1.02] hover:-translate-y-0.5 shadow-xl ${
             expandedPanel === 'sales'
-              ? 'border-gold/40 shadow-[0_0_30px_rgba(139,92,246,0.12)]'
-              : 'border-purple-500/15 hover:border-purple-500/30 hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]'
+              ? 'border-[#DCAE53] shadow-[0_0_25px_rgba(220,174,83,0.15)]'
+              : 'border-slate-800 hover:border-slate-700'
           }`}
         >
           <div className="space-y-1 sm:space-y-1.5 min-w-0">
             <div className="flex items-center gap-1">
-              <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground">
-                Capital Realised
+              <span className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-mono font-bold">
+                Revenue Realized
               </span>
-              <Info size={11} className="text-muted-foreground/45 group-hover:text-gold transition-colors shrink-0" />
+              <Info size={11} className="text-slate-500 group-hover:text-[#DCAE53] transition-colors shrink-0" />
             </div>
-            <p className="text-lg sm:text-2xl font-serif font-bold text-gradient-gold truncate">
+            <p className="text-lg sm:text-2xl font-sans font-bold text-white truncate">
               £{totalSales.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
             </p>
           </div>
           <div className="flex flex-col items-center gap-1 shrink-0">
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gold/10 border border-purple-500/15 flex items-center justify-center group-hover:bg-gold/20 transition-all">
-              <PoundSterling size={18} className="text-gold" />
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#18181F] border border-slate-800 flex items-center justify-center group-hover:border-[#DCAE53] transition-all">
+              <PoundSterling size={18} className="text-[#DCAE53]" />
             </div>
             {expandedPanel === 'sales' ? (
-              <ChevronUp size={10} className="text-gold/60" />
+              <ChevronUp size={10} className="text-[#DCAE53]" />
             ) : (
-              <ChevronDown size={10} className="text-muted-foreground/40" />
+              <ChevronDown size={10} className="text-slate-500" />
             )}
           </div>
         </button>
@@ -161,104 +162,104 @@ export function AdminKpiRow({
         {/* Hero: Pipeline Value */}
         <button
           onClick={() => togglePanel('pipeline')}
-          className={`p-3.5 sm:p-6 glass rounded-2xl border transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left hover:scale-[1.02] hover:-translate-y-0.5 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-purple-600/10 via-transparent to-transparent ${
+          className={`p-3.5 sm:p-6 bg-[#111115] rounded-2xl border transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left hover:scale-[1.02] hover:-translate-y-0.5 shadow-xl ${
             expandedPanel === 'pipeline'
-              ? 'border-gold/40 shadow-[0_0_30px_rgba(139,92,246,0.12)]'
-              : 'border-purple-500/15 hover:border-purple-500/30 hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]'
+              ? 'border-[#DCAE53] shadow-[0_0_25px_rgba(220,174,83,0.15)]'
+              : 'border-slate-800 hover:border-slate-700'
           }`}
         >
           <div className="space-y-1 sm:space-y-1.5 min-w-0">
             <div className="flex items-center gap-1">
-              <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground">
-                Projected Value
+              <span className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-mono font-bold">
+                Pipeline Value
               </span>
-              <Info size={11} className="text-muted-foreground/45 group-hover:text-gold transition-colors shrink-0" />
+              <Info size={11} className="text-slate-500 group-hover:text-[#DCAE53] transition-colors shrink-0" />
             </div>
-            <p className="text-lg sm:text-2xl font-serif font-bold text-gradient-gold truncate">
+            <p className="text-lg sm:text-2xl font-sans font-bold text-white truncate">
               £{totalPipeline.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
             </p>
           </div>
           <div className="flex flex-col items-center gap-1 shrink-0">
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gold/10 border border-purple-500/15 flex items-center justify-center group-hover:bg-gold/20 transition-all">
-              <Sparkles size={18} className="text-gold" />
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#18181F] border border-slate-800 flex items-center justify-center group-hover:border-[#DCAE53] transition-all">
+              <Sparkles size={18} className="text-[#DCAE53]" />
             </div>
             {expandedPanel === 'pipeline' ? (
-              <ChevronUp size={10} className="text-gold/60" />
+              <ChevronUp size={10} className="text-[#DCAE53]" />
             ) : (
-              <ChevronDown size={10} className="text-muted-foreground/40" />
+              <ChevronDown size={10} className="text-slate-500" />
             )}
           </div>
         </button>
 
-        {/* Standard: Inbound Pipelines */}
+        {/* Standard: Inbound Leads */}
         <button
           onClick={() => handleOpenPreviewModal('leads')}
-          className="p-3.5 sm:p-6 glass rounded-2xl border border-purple-500/15 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-purple-600/10 via-transparent to-transparent hover:border-purple-500/20 hover:shadow-[0_0_30px_rgba(139,92,246,0.08)] hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full"
+          className="p-3.5 sm:p-6 bg-[#111115] rounded-2xl border border-slate-800 hover:border-slate-700 hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-xl"
         >
           <div className="space-y-1 sm:space-y-1.5 min-w-0">
-            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground block">
-              Inbound Pipelines
+            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-mono font-bold block">
+              Inbound Leads
             </span>
-            <p className="text-lg sm:text-2xl font-serif font-bold text-foreground truncate">
+            <p className="text-lg sm:text-2xl font-sans font-bold text-white truncate">
               {leadsCount ?? 0}
             </p>
           </div>
-          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gold/10 border border-purple-500/15 flex items-center justify-center shrink-0 group-hover:bg-gold/20 transition-all">
-            <Users size={18} className="text-gold" />
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#18181F] border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-[#DCAE53] transition-all">
+            <Users size={18} className="text-[#DCAE53]" />
           </div>
         </button>
 
-        {/* Standard: Active Mandates */}
+        {/* Standard: Active Projects */}
         <button
           onClick={() => handleOpenPreviewModal('projects')}
-          className="p-3.5 sm:p-6 glass rounded-2xl border border-purple-500/15 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-purple-600/10 via-transparent to-transparent hover:border-purple-500/20 hover:shadow-[0_0_30px_rgba(139,92,246,0.08)] hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full"
+          className="p-3.5 sm:p-6 bg-[#111115] rounded-2xl border border-slate-800 hover:border-slate-700 hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-xl"
         >
           <div className="space-y-1 sm:space-y-1.5 min-w-0">
-            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground block">
-              Active Mandates
+            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-mono font-bold block">
+              Active Projects
             </span>
-            <p className="text-lg sm:text-2xl font-serif font-bold text-foreground truncate">
+            <p className="text-lg sm:text-2xl font-sans font-bold text-white truncate">
               {projectsCount ?? 0}
             </p>
           </div>
-          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gold/10 border border-purple-500/15 flex items-center justify-center shrink-0 group-hover:bg-gold/20 transition-all">
-            <FolderKanban size={18} className="text-gold" />
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#18181F] border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-[#DCAE53] transition-all">
+            <FolderKanban size={18} className="text-[#DCAE53]" />
           </div>
         </button>
 
-        {/* Standard: Scheduled Briefings */}
+        {/* Standard: Booked Audits */}
         <button
           onClick={() => handleOpenPreviewModal('bookings')}
-          className="p-3.5 sm:p-6 glass rounded-2xl border border-purple-500/15 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-purple-600/10 via-transparent to-transparent hover:border-purple-500/20 hover:shadow-[0_0_30px_rgba(139,92,246,0.08)] hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full"
+          className="p-3.5 sm:p-6 bg-[#111115] rounded-2xl border border-slate-800 hover:border-slate-700 hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-xl"
         >
           <div className="space-y-1 sm:space-y-1.5 min-w-0">
-            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground block">
-              Scheduled Briefings
+            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-mono font-bold block">
+              Booked Audits
             </span>
-            <p className="text-lg sm:text-2xl font-serif font-bold text-foreground truncate">
+            <p className="text-lg sm:text-2xl font-sans font-bold text-white truncate">
               {sessionsCount ?? 0}
             </p>
           </div>
-          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gold/10 border border-purple-500/15 flex items-center justify-center shrink-0 group-hover:bg-gold/20 transition-all">
-            <Calendar size={18} className="text-gold" />
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#18181F] border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-[#DCAE53] transition-all">
+            <Calendar size={18} className="text-[#DCAE53]" />
           </div>
         </button>
 
-        {/* Standard: MRR Run Rate */}
+        {/* Standard: Monthly Retainers */}
         <button
           onClick={() => handleOpenPreviewModal('mrr')}
-          className="p-3.5 sm:p-6 glass rounded-2xl border border-purple-500/15 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-purple-600/10 via-transparent to-transparent hover:border-purple-500/20 hover:shadow-[0_0_30px_rgba(139,92,246,0.08)] hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full"
+          className="p-3.5 sm:p-6 bg-[#111115] rounded-2xl border border-slate-800 hover:border-slate-700 hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-xl"
         >
           <div className="space-y-1 sm:space-y-1.5 min-w-0">
-            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground block">
-              MRR Run Rate
+            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-mono font-bold block">
+              Monthly Retainers
             </span>
-            <p className="text-lg sm:text-2xl font-serif font-bold text-gradient-gold truncate">
+            <p className="text-lg sm:text-2xl font-sans font-bold text-[#DCAE53] truncate">
               £{projectedMRR.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
             </p>
           </div>
-          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gold/10 border border-purple-500/15 flex items-center justify-center shrink-0 group-hover:bg-gold/20 transition-all">
-            <TrendingUp size={18} className="text-gold" />
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#18181F] border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-[#DCAE53] transition-all">
+            <TrendingUp size={18} className="text-[#DCAE53]" />
           </div>
         </button>
       </div>

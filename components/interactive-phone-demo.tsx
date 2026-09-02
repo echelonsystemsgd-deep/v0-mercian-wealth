@@ -2,14 +2,14 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { MessageSquare, CheckCircle2, Clock, Sparkles, HardHat, Hammer, Calendar, CreditCard, ArrowRight } from "lucide-react"
+import { MessageSquare, CheckCircle2, Clock, Sparkles, Cake, UtensilsCrossed, Calendar, CreditCard, ArrowRight } from "lucide-react"
 
 export function InteractivePhoneDemo() {
-  const [activeNiche, setActiveNiche] = useState<"construction" | "trades">("construction")
+  const [activeNiche, setActiveNiche] = useState<"bakery" | "catering">("bakery")
   
   // Interactive Order Builder Form States
-  const [selectedOption, setSelectedOption] = useState("Full Loft Conversion (£18,500)")
-  const [selectedDate, setSelectedDate] = useState("This Saturday (10:00 AM)")
+  const [selectedOption, setSelectedOption] = useState("Custom 3-Tier Pistachio Cake (£185)")
+  const [selectedDate, setSelectedDate] = useState("This Saturday (11:30 AM)")
   const [isSimulating, setIsSimulating] = useState(false)
 
   const [notification, setNotification] = useState<{
@@ -19,59 +19,59 @@ export function InteractivePhoneDemo() {
     amount: string
     webhook: string
   }>({
-    title: "New High-Ticket Quote & Survey Booked!",
-    body: "David H. submitted project specs for Full Loft Conversion (£18,500) in Solihull. Site survey confirmed for This Saturday (10:00 AM).",
+    title: "New Custom Order & Deposit Paid!",
+    body: "Sophie T. configured a Custom 3-Tier Pistachio Cake (£185). Pickup confirmed for This Saturday (11:30 AM).",
     time: "Just now",
-    amount: "£250.00 Survey Deposit Paid",
-    webhook: "Make.com Webhook Triggered"
+    amount: "£50.00 Deposit Paid (Apple Pay)",
+    webhook: "Instant Kitchen Webhook Triggered"
   })
 
-  const constructionOptions = [
-    { name: "Full Loft Conversion (£18,500)", deposit: "£250.00 Survey Deposit", price: "£18.5k est." },
-    { name: "Rear Kitchen & Extension (£24,000)", deposit: "£350.00 Survey Deposit", price: "£24.0k est." },
-    { name: "Complete Slate Roof Overhaul (£6,800)", deposit: "£150.00 Survey Deposit", price: "£6.8k est." },
+  const bakeryOptions = [
+    { name: "Custom 3-Tier Pistachio Cake (£185)", deposit: "£50.00 Deposit Paid", price: "£185.00" },
+    { name: "Weekend Artisan Sourdough & Pastry Bundle (£48)", deposit: "Paid in Full", price: "£48.00" },
+    { name: "Corporate Dessert Platter (50 Portions) (£160)", deposit: "£50.00 Deposit Paid", price: "£160.00" },
   ]
 
-  const tradesOptions = [
-    { name: "Commercial Fit-Out & Joinery (£12,500)", deposit: "£200.00 Survey Deposit", price: "£12.5k est." },
-    { name: "Full House Rewire & Smart Setup (£4,200)", deposit: "£120.00 Survey Deposit", price: "£4.2k est." },
-    { name: "Luxury Bathroom Renovation (£8,900)", deposit: "£180.00 Survey Deposit", price: "£8.9k est." },
+  const cateringOptions = [
+    { name: "Private Dining & Canapés (20 Guests) (£650)", deposit: "£150.00 Deposit Paid", price: "£650.00" },
+    { name: "Gourmet Buffet & Grazing Table (£420)", deposit: "£100.00 Deposit Paid", price: "£420.00" },
+    { name: "Weekend Luxury Brunch Delivery Box (£95)", deposit: "Paid in Full", price: "£95.00" },
   ]
 
   const triggerTestSubmit = () => {
     setIsSimulating(true)
     setTimeout(() => {
-      const currentList = activeNiche === "construction" ? constructionOptions : tradesOptions
+      const currentList = activeNiche === "bakery" ? bakeryOptions : cateringOptions
       const match = currentList.find(o => o.name === selectedOption) || currentList[0]
 
       setNotification({
-        title: activeNiche === "construction" ? "New Construction Lead & Survey Paid!" : "New Trade Contract Lead Captured!",
-        body: `Homeowner submitted project specs for ${selectedOption}. Site survey confirmed for ${selectedDate}.`,
+        title: activeNiche === "bakery" ? "New Bakery Order & Deposit Paid!" : "New Catering Booking Confirmed!",
+        body: `Customer submitted bespoke order for ${selectedOption}. Delivery/Pickup locked for ${selectedDate}.`,
         time: "Just now",
         amount: match.deposit,
-        webhook: "Make.com Webhook Triggered"
+        webhook: "Instant Kitchen Webhook Triggered"
       })
       setIsSimulating(false)
     }, 500)
   }
 
   return (
-    <section suppressHydrationWarning className="relative py-24 bg-[#020E28] overflow-hidden border-t border-[#DAA640]/15">
+    <section suppressHydrationWarning className="relative py-24 bg-[#09090B] overflow-hidden border-t border-slate-800/80">
       {/* Background Radial Glows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#DAA640]/5 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-[#EBB755]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#DCAE53]/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-[#DCAE53]/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-mono font-semibold tracking-wider uppercase mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111115] border border-[#DCAE53]/30 text-[#DCAE53] text-xs font-mono font-semibold tracking-wider uppercase mb-4">
             <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-            <span>Interactive 3-Tap Quote & Survey Simulator</span>
+            <span>Interactive 3-Tap Storefront Simulator</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Test The Contractor Quote Engine Yourself
+            Test The 3-Tap Order Engine Yourself
           </h2>
-          <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
-            Select a project package below, click <strong>"Submit Project & Lock Survey"</strong>, and watch the live smartphone on the right receive the instant WhatsApp dispatch while you are on site!
+          <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+            Select an order package below, click <strong>&quot;Submit Order &amp; Pay Deposit&quot;</strong>, and watch the live smartphone mockup receive the instant WhatsApp dispatch in 0.4 seconds!
           </p>
         </div>
 
@@ -80,44 +80,44 @@ export function InteractivePhoneDemo() {
           <button
             suppressHydrationWarning
             onClick={() => {
-              setActiveNiche("construction")
-              setSelectedOption(constructionOptions[0].name)
+              setActiveNiche("bakery")
+              setSelectedOption(bakeryOptions[0].name)
             }}
             className={`flex items-center gap-2 px-4 sm:px-6 py-3 sm:py-3.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 ${
-              activeNiche === "construction"
-                ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-[0_0_25px_rgba(245,158,11,0.35)] scale-105"
-                : "bg-slate-800/80 text-slate-300 hover:bg-slate-800 border border-slate-700/60"
+              activeNiche === "bakery"
+                ? "bg-[#DCAE53] text-[#09090B] shadow-lg scale-105"
+                : "bg-[#111115] text-slate-300 hover:bg-[#18181F] border border-slate-800"
             }`}
           >
-            <HardHat size={16} className="shrink-0" />
-            <span>Construction & Renovation Demo</span>
+            <Cake size={16} className="shrink-0" />
+            <span>Artisan Bakery &amp; Cake Studio Demo</span>
           </button>
 
           <button
             suppressHydrationWarning
             onClick={() => {
-              setActiveNiche("trades")
-              setSelectedOption(tradesOptions[0].name)
+              setActiveNiche("catering")
+              setSelectedOption(cateringOptions[0].name)
             }}
             className={`flex items-center gap-2 px-4 sm:px-6 py-3 sm:py-3.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 ${
-              activeNiche === "trades"
-                ? "bg-gradient-to-r from-sky-400 to-blue-600 text-slate-950 shadow-[0_0_25px_rgba(56,189,248,0.35)] scale-105"
-                : "bg-slate-800/80 text-slate-300 hover:bg-slate-800 border border-slate-700/60"
+              activeNiche === "catering"
+                ? "bg-[#DCAE53] text-[#09090B] shadow-lg scale-105"
+                : "bg-[#111115] text-slate-300 hover:bg-[#18181F] border border-slate-800"
             }`}
           >
-            <Hammer size={16} className="shrink-0" />
-            <span>Specialist Trade & Joinery Demo</span>
+            <UtensilsCrossed size={16} className="shrink-0" />
+            <span>Bespoke Catering &amp; Events Demo</span>
           </button>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Left Column: Interactive 3-Tap Form Controls */}
-          <div className="lg:col-span-6 p-4 sm:p-8 rounded-3xl bg-slate-900/90 border border-slate-800 backdrop-blur-xl shadow-2xl space-y-6 min-w-0 max-w-full">
+          <div className="lg:col-span-6 p-4 sm:p-8 rounded-2xl bg-[#111115] border border-slate-800/80 backdrop-blur-xl shadow-2xl space-y-6 min-w-0 max-w-full">
             <div className="flex items-center justify-between border-b border-slate-800 pb-4">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <span>Client Quote & Survey Widget</span>
+                <span>Customer Mobile Order Builder</span>
               </h3>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded-full border border-emerald-400/20">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#DCAE53] bg-[#DCAE53]/10 px-2.5 py-1 rounded-full border border-[#DCAE53]/20">
                 Live Interactive Widget
               </span>
             </div>
@@ -125,26 +125,26 @@ export function InteractivePhoneDemo() {
             {/* Tap 1: Select Item */}
             <div>
               <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2 mb-2">
-                <span className="w-5 h-5 rounded-full bg-sky-500/20 text-sky-400 font-mono text-[11px] flex items-center justify-center border border-sky-400/40">1</span>
-                <span>STEP 1: SELECT PROJECT SCOPE / PACKAGE</span>
+                <span className="w-5 h-5 rounded-full bg-[#DCAE53]/20 text-[#DCAE53] font-mono text-[11px] flex items-center justify-center border border-[#DCAE53]/40">1</span>
+                <span>STEP 1: SELECT PRODUCT / PACKAGE</span>
               </label>
               <div className="space-y-2">
-                {(activeNiche === "construction" ? constructionOptions : tradesOptions).map((opt, idx) => (
+                {(activeNiche === "bakery" ? bakeryOptions : cateringOptions).map((opt, idx) => (
                   <button
                     suppressHydrationWarning
                     key={opt.name}
                     onClick={() => setSelectedOption(opt.name)}
                     className={`w-full p-3.5 rounded-xl text-left text-xs font-bold flex items-center justify-between transition-all border ${
                       selectedOption === opt.name
-                        ? "bg-sky-500/15 border-sky-400 text-white shadow-[0_0_15px_rgba(56,189,248,0.2)]"
-                        : "bg-slate-800/60 border-slate-700/60 text-slate-400 hover:bg-slate-800"
+                        ? "bg-[#DCAE53]/15 border-[#DCAE53] text-white shadow-[0_0_15px_rgba(220,174,83,0.2)]"
+                        : "bg-[#18181F] border-slate-800 text-slate-400 hover:bg-[#18181F]/80"
                     }`}
                   >
                     <span className="flex items-center gap-2">
                       <span className="font-mono text-[10px] text-slate-500 font-normal">0{idx + 1}.</span>
                       <span>{opt.name}</span>
                     </span>
-                    <span className="text-amber-400 font-mono text-[11px]">{opt.price}</span>
+                    <span className="text-[#DCAE53] font-mono text-[11px]">{opt.price}</span>
                   </button>
                 ))}
               </div>
@@ -153,8 +153,8 @@ export function InteractivePhoneDemo() {
             {/* Tap 2: Custom Date Selector */}
             <div>
               <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2 mb-2">
-                <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-mono text-[11px] flex items-center justify-center border border-amber-400/40">2</span>
-                <span>STEP 2: SELECT SITE SURVEY & CONSULTATION DATE</span>
+                <span className="w-5 h-5 rounded-full bg-[#DCAE53]/20 text-[#DCAE53] font-mono text-[11px] flex items-center justify-center border border-[#DCAE53]/40">2</span>
+                <span>STEP 2: SELECT PICKUP OR EVENT DATE</span>
               </label>
               
               <div className="space-y-2">
@@ -168,16 +168,16 @@ export function InteractivePhoneDemo() {
                       if (e.target.value) {
                         const d = new Date(e.target.value)
                         const formatted = d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })
-                        setSelectedDate(`${formatted} (10:00 AM)`)
+                        setSelectedDate(`${formatted} (11:30 AM)`)
                       }
                     }}
-                    className="w-full p-3 rounded-xl bg-slate-800/80 border border-slate-700/80 text-xs font-bold text-white focus:outline-none focus:border-amber-400 font-mono cursor-pointer"
+                    className="w-full p-3 rounded-lg bg-[#18181F] border border-slate-800 text-xs font-bold text-white focus:outline-none focus:border-[#DCAE53] font-mono cursor-pointer"
                   />
                 </div>
 
                 {/* Quick Presets */}
                 <div className="grid grid-cols-3 gap-2">
-                  {["Tomorrow (14:00)", "This Saturday (10:00 AM)", "Next Tuesday (09:00 AM)"].map((preset) => (
+                  {["Tomorrow (14:00)", "This Saturday (11:30 AM)", "Next Weekend (10:00 AM)"].map((preset) => (
                     <button
                       suppressHydrationWarning
                       key={preset}
@@ -185,8 +185,8 @@ export function InteractivePhoneDemo() {
                       onClick={() => setSelectedDate(preset)}
                       className={`p-2 rounded-lg text-[10px] sm:text-[11px] font-semibold text-center transition-all border truncate ${
                         selectedDate === preset
-                          ? "bg-amber-400/20 border-amber-400 text-amber-300 font-bold"
-                          : "bg-slate-800/40 border-slate-700/40 text-slate-400 hover:bg-slate-800"
+                          ? "bg-[#DCAE53]/20 border-[#DCAE53] text-[#DCAE53] font-bold"
+                          : "bg-[#18181F] border-slate-800 text-slate-400 hover:bg-slate-800"
                       }`}
                     >
                       {preset.split(" ")[0]} {preset.includes("(") ? preset.substring(preset.indexOf("(")) : ""}
@@ -195,8 +195,8 @@ export function InteractivePhoneDemo() {
                 </div>
 
                 {selectedDate && (
-                  <div className="text-[11px] font-mono text-amber-400 flex items-center justify-between px-1">
-                    <span>Selected Survey Slot:</span>
+                  <div className="text-[11px] font-mono text-[#DCAE53] flex items-center justify-between px-1">
+                    <span>Selected Date &amp; Slot:</span>
                     <span className="font-bold underline">{selectedDate}</span>
                   </div>
                 )}
@@ -209,21 +209,21 @@ export function InteractivePhoneDemo() {
                 suppressHydrationWarning
                 onClick={triggerTestSubmit}
                 disabled={isSimulating}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-500 to-sky-500 hover:from-emerald-300 hover:to-sky-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-[0_0_25px_rgba(52,211,153,0.35)] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="w-full py-4 rounded-lg bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-extrabold text-sm uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
-                <span className="w-6 h-6 rounded-full bg-slate-950/30 text-slate-950 font-mono text-xs flex items-center justify-center border border-slate-950/40">3</span>
-                <span>STEP 3: LOCK SURVEY & DISPATCH TO PHONE</span>
+                <span className="w-6 h-6 rounded-full bg-[#09090B]/20 text-[#09090B] font-mono text-xs flex items-center justify-center border border-[#09090B]/30">3</span>
+                <span>STEP 3: SUBMIT ORDER &amp; DISPATCH TO PHONE</span>
                 <ArrowRight size={16} />
               </button>
-              <span className="text-[11px] text-slate-500 text-center block mt-2 font-mono">
-                Clicking above immediately triggers the WhatsApp alert on the contractor's phone mockup →
+              <span className="text-[11px] text-slate-400 text-center block mt-2 font-mono">
+                Clicking above immediately triggers the WhatsApp alert on your phone mockup →
               </span>
             </div>
           </div>
 
           {/* Right Column: Smartphone Mockup */}
           <div className="lg:col-span-6 flex justify-center min-w-0 max-w-full">
-            <div className="relative w-full max-w-[320px] sm:max-w-[350px] min-h-[560px] h-[min(640px,80svh)] bg-slate-950 rounded-[45px] p-4 border-[8px] border-slate-800 shadow-[0_0_50px_rgba(56,189,248,0.2)] flex flex-col justify-between overflow-hidden shrink-0">
+            <div className="relative w-full max-w-[320px] sm:max-w-[350px] min-h-[560px] h-[min(640px,80svh)] bg-[#09090B] rounded-[45px] p-4 border-[8px] border-slate-800 shadow-[0_0_50px_rgba(220,174,83,0.15)] flex flex-col justify-between overflow-hidden shrink-0">
               {/* Phone Notch */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-36 h-6 bg-slate-800 rounded-b-2xl z-30 flex items-center justify-center">
                 <div className="w-12 h-1.5 bg-slate-900 rounded-full" />
@@ -232,7 +232,7 @@ export function InteractivePhoneDemo() {
               {/* Lockscreen Header */}
               <div className="pt-8 px-4 text-center z-10">
                 <div className="text-5xl font-extralight text-white font-mono tracking-tight mb-1">09:41</div>
-                <div className="text-xs font-medium text-slate-400 uppercase tracking-widest">Saturday, October 14</div>
+                <div className="text-xs font-medium text-slate-400 uppercase tracking-widest">Saturday, October 24</div>
               </div>
 
               {/* Animated Notification Card */}
@@ -245,7 +245,7 @@ export function InteractivePhoneDemo() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 20, scale: 0.95 }}
                       transition={{ duration: 0.4, type: "spring", stiffness: 200 }}
-                      className="p-4 rounded-2xl bg-slate-900/95 border border-sky-500/40 shadow-2xl backdrop-blur-xl"
+                      className="p-4 rounded-xl bg-[#111115] border border-emerald-500/40 shadow-2xl backdrop-blur-xl"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
@@ -267,11 +267,11 @@ export function InteractivePhoneDemo() {
                       </p>
 
                       <div className="flex items-center justify-between pt-2 border-t border-slate-800 text-[11px]">
-                        <span className="font-bold text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-full border border-amber-400/20">
+                        <span className="font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
                           {notification.amount}
                         </span>
-                        <span className="text-sky-400 font-mono text-[10px] uppercase font-bold">
-                          [ Instant Lead Telemetry ]
+                        <span className="text-[#DCAE53] font-mono text-[10px] uppercase font-bold">
+                          [ 0.4s Latency ]
                         </span>
                       </div>
                     </motion.div>
@@ -279,8 +279,8 @@ export function InteractivePhoneDemo() {
                 </AnimatePresence>
 
                 {isSimulating && (
-                  <div className="absolute inset-0 bg-slate-950/70 rounded-2xl flex items-center justify-center backdrop-blur-xs">
-                    <div className="flex items-center gap-2 text-sky-400 text-xs font-mono font-bold animate-pulse">
+                  <div className="absolute inset-0 bg-[#09090B]/80 rounded-xl flex items-center justify-center backdrop-blur-xs">
+                    <div className="flex items-center gap-2 text-[#DCAE53] text-xs font-mono font-bold animate-pulse">
                       <Clock className="w-4 h-4 animate-spin" />
                       <span>Processing Instant Webhook...</span>
                     </div>
