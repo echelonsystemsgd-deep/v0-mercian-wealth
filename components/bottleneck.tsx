@@ -174,7 +174,7 @@ export function Bottleneck() {
                   <h3 className="font-sans font-semibold text-lg text-white">{data.cards[0].title}</h3>
                   <p className="font-sans text-sm text-slate-300 leading-relaxed">
                     {isOrdered 
-                      ? "Instant mobile booking & deposit collection so customers lock in orders even while you work."
+                      ? "24/7 Sub-500ms AI Voice Receptionist answers every inbound call, extracts job scope, and qualifies high-intent commercial clients."
                       : data.cards[0].description
                     }
                   </p>
@@ -192,7 +192,7 @@ export function Bottleneck() {
                   <h3 className="font-sans font-semibold text-lg text-white">{data.cards[1].title}</h3>
                   <p className="font-sans text-sm text-slate-300 leading-relaxed">
                     {isOrdered 
-                      ? "Instant WhatsApp alert arrives the second a deposit is paid, so you know exactly what is booked."
+                      ? "Instant spatial fleet geofence routing matches the closest technician and sends full job coordinates via WhatsApp and PWA in under 30 seconds."
                       : data.cards[1].description
                     }
                   </p>
@@ -210,7 +210,7 @@ export function Bottleneck() {
                   <h3 className="font-sans font-semibold text-lg text-white">{data.cards[2].title}</h3>
                   <p className="font-sans text-sm text-slate-300 leading-relaxed">
                     {isOrdered 
-                      ? "Automated review follow-up messages collect 5-star Google reviews from happy clients on autopilot."
+                      ? "Outbound AI speed-to-lead dials new ad inquiries in <45 seconds, locking consultations into your calendar with confirmed deposits."
                       : data.cards[2].description
                     }
                   </p>

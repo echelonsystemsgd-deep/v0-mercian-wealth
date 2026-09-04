@@ -1,25 +1,16 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
-import { Bottleneck } from "@/components/bottleneck"
+import { UnifiedOperationsSandbox } from "@/components/unified-operations-sandbox"
+import { CapabilitiesBento } from "@/components/capabilities-bento"
 import { DivergenceComparison } from "@/components/divergence-comparison"
-import { WhyMercianWealth } from "@/components/why-mercian-wealth"
-import { Testimonials } from "@/components/testimonials"
 import { Pricing } from "@/components/pricing"
 import { CTA } from "@/components/cta"
 import { Footer } from "@/components/footer"
-import { SectionDivider } from "@/components/section-divider"
-import { LiveTelemetryTicker } from "@/components/live-telemetry-ticker"
-import { ChapterTracker } from "@/components/chapter-tracker"
-import { SystemBlueprint } from "@/components/system-blueprint"
-import { LatencyCalculator } from "@/components/latency-calculator"
-import { FieldSalesDemo } from "@/components/local/field-sales-demo"
-import { InteractivePhoneDemo } from "@/components/interactive-phone-demo"
-import { InteractiveRoiCalculator } from "@/components/interactive-roi-calculator"
-import { StickmanWorkflow } from "@/components/stickman-workflow"
+import { FloatingAiConcierge } from "@/components/floating-ai-concierge"
 import { getPricingTiers } from "@/lib/pricing"
 import { Suspense } from "react"
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 export default async function Home() {
   const { setupTiers, retainerTiers } = await getPricingTiers()
@@ -51,7 +42,7 @@ export default async function Home() {
                 "@id": "https://mercianwealth.com/#website",
                 "url": "https://mercianwealth.com",
                 "name": "Mercian Wealth",
-                "description": "Mobile storefronts, 3-tap booking builders, instant WhatsApp alerts & automated Google review systems for premier local businesses & service operators across Berkshire & the UK.",
+                "description": "24/7 Sub-500ms AI Voice Phone Agents, Spatial Fleet Dispatch, 3D Spatial E-Commerce & Multi-Agent Operations Infrastructure for High-Ticket UK Enterprises.",
                 "publisher": {
                   "@id": "https://mercianwealth.com/#organization"
                 }
@@ -60,52 +51,46 @@ export default async function Home() {
                 "@type": "WebPage",
                 "@id": "https://mercianwealth.com/#webpage",
                 "url": "https://mercianwealth.com",
-                "name": "Mercian Wealth | Storefronts, Automation & Growth for Local Businesses",
+                "name": "Mercian Wealth | Autonomous AI Voice, 3D Storefronts & Workflow Operations",
                 "isPartOf": {
                   "@id": "https://mercianwealth.com/#website"
                 },
                 "about": {
                   "@id": "https://mercianwealth.com/#organization"
                 },
-                "description": "Mobile storefronts, 3-tap booking builders, instant WhatsApp alerts & automated Google review systems for premier local businesses & service operators across Berkshire & the UK."
+                "description": "24/7 Sub-500ms AI Voice Phone Agents, Spatial Fleet Dispatch, 3D Spatial E-Commerce & Multi-Agent Operations Infrastructure for High-Ticket UK Enterprises."
               }
             ]
           })
         }}
       />
+      
+      {/* 1. Solid Floating Pill Header */}
       <Navbar />
-      <ChapterTracker />
+
+      {/* 2. Spectacular Hero Section */}
       <Hero />
-      
-      <SectionDivider id="chapter-divider-I" chapter="I" title="Operational Bottlenecks" />
-      <Bottleneck />
-      
-      <SectionDivider id="chapter-divider-II" chapter="II" title="How Automation Works" />
-      <StickmanWorkflow />
 
-      <SectionDivider id="chapter-divider-III" chapter="III" title="Interactive 3-Tap Order Demo" />
-      <div id="demo" className="scroll-mt-28">
-        <InteractivePhoneDemo />
-      </div>
+      {/* 3. Flagship Unified Operations Command Center (Voice Audio, 3D WebGL, Dispatch, ROI) */}
+      <UnifiedOperationsSandbox />
 
-      <SectionDivider id="chapter-divider-IV" chapter="IV" title="Automated Storefront vs Manual Drag" />
+      {/* 4. The 4 Enterprise Operations Pillars (Bento Grid) */}
+      <CapabilitiesBento />
+
+      {/* 5. Autonomous Operations vs Human Lag */}
       <DivergenceComparison />
 
-      <SectionDivider id="chapter-divider-V" chapter="V" title="Calculate Saved Hours & Revenue" />
-      <InteractiveRoiCalculator />
-
-      <SectionDivider id="chapter-divider-VI" chapter="VI" title="Built for Premier Local Businesses" />
-      <WhyMercianWealth />
-      <SystemBlueprint />
-
-      <SectionDivider id="chapter-divider-VII" chapter="VII" title="Transparent Pricing & Packages" />
-      <Suspense fallback={<div className="py-20 text-center text-[#DCAE53] font-mono text-sm">Loading Solutions & Pricing...</div>}>
+      {/* 6. Managed Operations Retainers & Pricing */}
+      <Suspense fallback={<div className="py-20 text-center text-[#DCAE53] font-mono text-sm">Loading Solutions & Retainer Pricing...</div>}>
         <Pricing isHomepage={true} setupTiers={setupTiers} retainerTiers={retainerTiers} />
       </Suspense>
 
-      <SectionDivider id="chapter-divider-VIII" chapter="VIII" title="Book 15-Min Quick Audit" />
+      {/* 7. Diagnostic Voice Audit CTA & Footer */}
       <CTA />
       <Footer />
+
+      {/* Live Floating AI Concierge Drawer */}
+      <FloatingAiConcierge />
     </main>
   )
 }

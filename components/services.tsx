@@ -3,34 +3,27 @@
 import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
-import { Globe, Zap, X, Database, GitMerge } from "lucide-react"
+import { PhoneCall, Navigation, Sparkles, Cpu, X, CheckCircle2, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-
 import { SITE_COPY } from "@/lib/site-copy"
 
-const icons = [Globe, GitMerge, Database, Zap]
-
-const services = SITE_COPY.servicesPage.list.map((item, idx) => ({
-  title: item.title,
-  description: item.description,
-  outcome: item.outcome,
-  icon: icons[idx],
-}))
-
-const serviceDetails = SITE_COPY.servicesPage.list.map((item, idx) => ({
-  title: item.title,
-  tagline: item.tagline,
-  overview: item.overview,
-  features: item.features,
-  ctaText: "Book your free 15 minute audit",
-  ctaHref: "/book",
-  icon: icons[idx],
-}))
+const icons = [PhoneCall, Navigation, Sparkles, Cpu]
 
 export function Services({ limit }: { limit?: number }) {
   const [activeService, setActiveService] = useState<number | null>(null)
-  const displayServices = limit ? services.slice(0, limit) : services
+  
+  const servicesList = SITE_COPY.servicesPage.list.map((item, idx) => ({
+    title: item.title,
+    description: item.description,
+    outcome: item.outcome,
+    tagline: item.tagline,
+    overview: item.overview,
+    features: item.features,
+    icon: icons[idx % icons.length],
+  }))
+
+  const displayServices = limit ? servicesList.slice(0, limit) : servicesList
 
   // Handle escape key to close modal
   useEffect(() => {
@@ -61,11 +54,14 @@ export function Services({ limit }: { limit?: number }) {
         {/* Section Header */}
         <div className="text-center mb-14">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#DCAE53] mb-3 font-mono">
-            [ Our Services ]
+            [ Core AI Infrastructure ]
           </p>
-          <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-6">
-            Automated Systems Built for Local Growth
+          <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4">
+            Autonomous AI &amp; Managed Retainer Solutions
           </h2>
+          <p className="text-slate-300 text-sm sm:text-base max-w-3xl mx-auto">
+            Engineered for high-ticket commercial operators who demand sub-500ms telephony, zero lost contracts, and 24/7 autonomous dispatch.
+          </p>
         </div>
 
         {/* 4-Column Card Grid */}
@@ -81,11 +77,11 @@ export function Services({ limit }: { limit?: number }) {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="w-full"
               >
-                <Card className="h-full bg-[#111115] border border-slate-800 hover:border-[#DCAE53]/60 hover:shadow-[0_0_25px_rgba(220,174,83,0.15)] transition-all duration-300 rounded-2xl group">
+                <Card className="h-full bg-[#111115] border border-slate-800 hover:border-[#DCAE53]/60 hover:shadow-[0_0_25px_rgba(220,174,83,0.15)] transition-all duration-300 rounded-2xl group flex flex-col justify-between">
                   <CardContent className="p-6 sm:p-7 flex flex-col justify-between h-full space-y-6">
                     <div className="space-y-4">
                       {/* Gold icon */}
-                      <div className="inline-flex items-center justify-center p-3 border border-slate-800 bg-[#18181F] text-[#DCAE53] rounded-xl">
+                      <div className="inline-flex items-center justify-center p-3 border border-slate-800 bg-[#18181F] text-[#DCAE53] rounded-xl group-hover:scale-105 transition-transform">
                         <IconComponent className="w-6 h-6 stroke-[1.5]" />
                       </div>
                       
@@ -98,22 +94,22 @@ export function Services({ limit }: { limit?: number }) {
                       <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed min-h-[44px]">
                         {service.description}
                       </p>
-
-                      {/* Distributed Outcome Stat */}
-                      <div className="pt-2">
-                        <span className="font-mono text-xs font-bold text-[#DCAE53] uppercase tracking-wider block">
-                          {service.outcome}
-                        </span>
-                      </div>
                     </div>
 
-                    {/* Learn More Link */}
-                    <div>
+                    <div className="space-y-4 pt-4 border-t border-slate-800/80">
+                      {/* Outcome Badge */}
+                      <div className="bg-[#18181F] p-3 rounded-xl border border-slate-800">
+                        <span className="text-[10px] font-mono uppercase text-slate-400 block mb-1">Guaranteed Latency / SLA</span>
+                        <span className="text-xs font-bold text-emerald-400 font-mono">{service.outcome}</span>
+                      </div>
+
+                      {/* Interactive Inspect Button */}
                       <button
                         onClick={() => setActiveService(index)}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#DCAE53] hover:underline transition-all bg-transparent border-none p-0 cursor-pointer focus:outline-none text-left font-mono"
+                        className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#18181F] hover:bg-[#22222c] border border-slate-700 hover:border-[#DCAE53]/50 text-xs font-bold text-slate-200 hover:text-white transition-all"
                       >
-                        Learn More <span className="transition-transform group-hover:translate-x-1">→</span>
+                        <span>Inspect Architecture</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-[#DCAE53]" />
                       </button>
                     </div>
                   </CardContent>
@@ -123,125 +119,83 @@ export function Services({ limit }: { limit?: number }) {
           })}
         </div>
 
-        {/* View All Services Link */}
-        {limit && (
-          <div className="text-center mt-12">
-            <Link 
-              href="/services" 
-              className="inline-flex items-center gap-2 text-sm font-bold text-[#DCAE53] hover:underline"
-            >
-              View all services <span className="text-lg">→</span>
-            </Link>
-          </div>
-        )}
-
-        {/* Timing Objection Callout */}
-        <p className="text-center text-xs text-slate-400 mt-10 max-w-lg mx-auto leading-relaxed">
-          {SITE_COPY.servicesPage.objectionCallout}
-        </p>
       </div>
 
-      {/* Service Detail Modals */}
+      {/* Interactive Detail Modal */}
       <AnimatePresence>
-        {activeService !== null && (() => {
-          const detail = serviceDetails[activeService]
-          const IconComp = detail.icon
-          return (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-              {/* Backdrop */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+        {activeService !== null && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="relative w-full max-w-2xl bg-[#111115] border border-[#DCAE53]/40 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-y-auto max-h-[90vh]"
+            >
+              <button
                 onClick={() => setActiveService(null)}
-                className="absolute inset-0 bg-black/80 backdrop-blur-md"
-              />
-
-              {/* Modal Card */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                transition={{ type: "spring", duration: 0.4 }}
-                className="relative w-full max-w-2xl bg-[#111115] border border-slate-800 rounded-2xl overflow-hidden shadow-2xl p-6 sm:p-8 md:p-10 z-10 text-white max-h-[90vh] overflow-y-auto"
+                className="absolute top-5 right-5 p-2 rounded-full bg-[#18181F] text-slate-400 hover:text-white border border-slate-800 transition-colors"
+                aria-label="Close modal"
               >
-                {/* Close Button */}
-                <button
-                  onClick={() => setActiveService(null)}
-                  className="absolute top-4 right-4 text-slate-400 hover:text-white p-2 rounded-full hover:bg-white/5 transition-colors"
-                  aria-label="Close modal"
-                >
-                  <X size={20} />
-                </button>
+                <X className="w-5 h-5" />
+              </button>
 
-                {/* Service Header */}
-                <div className="flex items-center gap-3.5 mb-6">
-                  <div className="h-12 w-12 rounded-xl bg-[#18181F] border border-slate-800 flex items-center justify-center text-[#DCAE53]">
-                    <IconComp className="w-6 h-6 stroke-[1.5]" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-[#DCAE53] font-bold block font-mono">
-                      {detail.tagline}
-                    </span>
-                    <h3 className="font-sans text-xl sm:text-2xl font-bold text-white mt-0.5">
-                      {detail.title}
-                    </h3>
-                  </div>
+              <div className="space-y-6">
+                <div>
+                  <span className="font-mono text-xs font-bold text-[#DCAE53] uppercase tracking-wider block mb-1">
+                    [ Architecture Specification ]
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+                    {servicesList[activeService].title}
+                  </h3>
+                  <p className="text-xs sm:text-sm font-mono text-emerald-400 mt-1">
+                    {servicesList[activeService].tagline}
+                  </p>
                 </div>
 
-                {/* Service Body */}
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-2">Overview</h4>
-                    <p className="text-sm text-slate-200 leading-relaxed font-medium">
-                      {detail.overview}
-                    </p>
-                  </div>
+                <p className="text-slate-300 text-sm leading-relaxed">
+                  {servicesList[activeService].overview}
+                </p>
 
-                  <div className="border-t border-slate-800 pt-4">
-                    <h4 className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-4">Key Features</h4>
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      {detail.features.map((feat, idx) => (
-                        <div key={idx} className="p-3 bg-[#18181F] border border-slate-800 rounded-xl space-y-1.5 hover:border-[#DCAE53]/30 transition-all duration-300">
-                          <div className="flex items-center gap-1.5">
-                            <span className="text-[#DCAE53] text-xs font-bold">✦</span>
-                            <span className="text-xs font-bold text-white">{feat.name}</span>
-                          </div>
-                          <p className="text-[11px] text-slate-300 leading-relaxed">
-                            {feat.description}
-                          </p>
+                <div className="space-y-3 pt-2 border-t border-slate-800">
+                  <h4 className="font-bold text-white text-xs font-mono uppercase tracking-wider">
+                    Core Technical Deliverables
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {servicesList[activeService].features.map((f, idx) => (
+                      <div key={idx} className="p-3 rounded-xl bg-[#18181F] border border-slate-800 space-y-1">
+                        <div className="flex items-center gap-1.5 text-xs font-bold text-white">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#DCAE53] shrink-0" />
+                          <span>{f.name}</span>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Call to Action */}
-                  <div className="pt-4 border-t border-slate-800 flex flex-col sm:flex-row gap-4 items-center sm:justify-between">
-                    <span className="text-[10px] text-[#DCAE53] uppercase tracking-wider font-semibold font-mono">
-                      7-day launch protocol
-                    </span>
-                    <div className="flex items-center gap-3 w-full sm:w-auto">
-                      <button
-                        onClick={() => setActiveService(null)}
-                        className="flex-1 sm:flex-none px-4 py-2.5 rounded-lg border border-slate-700 text-xs text-slate-300 hover:text-white hover:border-slate-500 transition-colors"
-                      >
-                        Close
-                      </button>
-                      <Button
-                        asChild
-                        className="flex-1 sm:flex-none px-5 py-2.5 text-xs font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] transition-all rounded-lg"
-                      >
-                        <Link href={detail.ctaHref} onClick={() => setActiveService(null)}>
-                          {detail.ctaText}
-                        </Link>
-                      </Button>
-                    </div>
+                        <p className="text-[11px] text-slate-400 leading-normal pl-5">
+                          {f.description}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </motion.div>
-            </div>
-          )
-        })()}
+
+                <div className="pt-4 border-t border-slate-800 flex flex-col sm:flex-row gap-3">
+                  <Link
+                    href="/book"
+                    onClick={() => setActiveService(null)}
+                    className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-sm transition-all shadow-lg"
+                  >
+                    <span>Book 15-Minute Voice Diagnostic</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <button
+                    onClick={() => setActiveService(null)}
+                    className="py-3 px-6 rounded-xl bg-[#18181F] text-slate-300 hover:text-white border border-slate-800 text-sm font-semibold transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
       </AnimatePresence>
     </section>
   )

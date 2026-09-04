@@ -11,14 +11,28 @@ interface Chapter {
 }
 
 const chapters: Chapter[] = [
-  { id: "bottleneck", label: "I", title: "Friction", selectors: ["#chapter-divider-I", "#bottleneck"] },
-  { id: "workflow", label: "II", title: "Automation", selectors: ["#chapter-divider-II", "#workflow"] },
-  { id: "demo", label: "III", title: "Live Demo", selectors: ["#chapter-divider-III", "#demo"] },
-  { id: "divergence", label: "IV", title: "Comparison", selectors: ["#chapter-divider-IV", "#divergence"] },
-  { id: "roi", label: "V", title: "Saved Hours", selectors: ["#chapter-divider-V", "#roi-calculator"] },
-  { id: "architecture", label: "VI", title: "Why Mercian", selectors: ["#chapter-divider-VI", "#architecture", "#system-blueprint"] },
-  { id: "pricing", label: "VII", title: "Pricing", selectors: ["#chapter-divider-VII", "#pricing"] },
+  { id: "bottleneck", label: "I", title: "Telephony Drag", selectors: ["#chapter-divider-I", "#bottleneck"] },
+  { id: "voice-sandbox", label: "II", title: "Voice Agent", selectors: ["#chapter-divider-II", "#voice-sandbox"] },
+  { id: "spatial-studio", label: "III", title: "3D Meshes", selectors: ["#chapter-divider-III", "#spatial-studio"] },
+  { id: "demo", label: "IV", title: "Dispatch", selectors: ["#chapter-divider-IV", "#demo"] },
+  { id: "divergence", label: "V", title: "Comparison", selectors: ["#chapter-divider-V", "#divergence"] },
+  { id: "roi", label: "VI", title: "ROI Engine", selectors: ["#chapter-divider-VI", "#roi-calculator"] },
+  { id: "architecture", label: "VII", title: "Architecture", selectors: ["#chapter-divider-VII", "#architecture", "#system-blueprint"] },
+  { id: "pricing", label: "VIII", title: "Retainers", selectors: ["#chapter-divider-VIII", "#pricing"] },
+  { id: "cta", label: "IX", title: "Audit Booking", selectors: ["#chapter-divider-IX", "#cta"] },
 ]
+
+function getElement(selector: string): Element | null {
+  if (typeof document === "undefined") return null
+  if (selector.startsWith("#")) {
+    return document.getElementById(selector.slice(1))
+  }
+  try {
+    return document.querySelector(selector)
+  } catch {
+    return null
+  }
+}
 
 export function ChapterTracker() {
   const [activeChapter, setActiveChapter] = useState<string>("bottleneck")
@@ -45,7 +59,7 @@ export function ChapterTracker() {
         let hasElements = false
 
         for (const selector of ch.selectors) {
-          const el = document.querySelector(selector)
+          const el = getElement(selector)
           if (el) {
             hasElements = true
             const rect = el.getBoundingClientRect()
@@ -67,7 +81,7 @@ export function ChapterTracker() {
         }
       }
 
-      if (bestMatchId) {
+      if (bestMatchId && maxOverlap > 50) {
         setActiveChapter(bestMatchId)
       }
     }
@@ -103,7 +117,7 @@ export function ChapterTracker() {
 
     let targetElement: Element | null = null
     for (const selector of chapterObj.selectors) {
-      const el = document.querySelector(selector)
+      const el = getElement(selector)
       if (el) {
         targetElement = el
         break

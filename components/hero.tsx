@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ArrowRight, CheckCircle2, MessageSquare, Zap } from "lucide-react"
+import { ArrowRight, CheckCircle2, MessageSquare, Zap, PhoneCall, Activity, Volume2 } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { SITE_COPY } from "@/lib/site-copy"
@@ -96,7 +96,7 @@ export function Hero() {
           </Button>
         </motion.div>
 
-        {/* Live Product Visual: Interactive Order & WhatsApp Alert Flow */}
+        {/* Live Autonomous AI Voice & Dispatch Terminal Mockup */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -105,47 +105,50 @@ export function Hero() {
         >
           <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-[#2E8B77]/15 border border-[#2E8B77]/30 flex items-center justify-center text-[#34A88E] font-bold text-sm">
-                <Zap size={16} />
+              <div className="w-8 h-8 rounded-lg bg-[#DCAE53]/15 border border-[#DCAE53]/30 flex items-center justify-center text-[#DCAE53] font-bold text-sm">
+                <PhoneCall size={16} />
               </div>
               <div>
-                <h2 className="text-xs sm:text-sm font-bold text-white leading-tight">Mercian Order & WhatsApp Dispatch Engine</h2>
-                <p className="text-[10px] text-[#34A88E] font-mono">Instant Mobile Sync · Sub-1s Webhooks</p>
+                <h2 className="text-xs sm:text-sm font-bold text-white leading-tight">Mercian Autonomous AI Voice &amp; Dispatch Terminal</h2>
+                <p className="text-[10px] text-emerald-400 font-mono">&lt; 420ms Latency · 24/7 SIP Telephony Engine</p>
               </div>
             </div>
-            <span className="text-[10px] font-mono text-[#34A88E] bg-[#2E8B77]/10 border border-[#2E8B77]/30 px-2 py-0.5 rounded font-semibold">● 24/7 ACTIVE</span>
+            <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded font-semibold">● 24/7 ACTIVE</span>
           </div>
 
           <div className="space-y-3 font-sans text-xs sm:text-sm">
-            {/* Customer Storefront Order */}
+            {/* Live Call Telemetry Block */}
             <div className="p-3.5 rounded-lg bg-[#18181F] border border-slate-800/80 space-y-2">
               <div className="flex justify-between items-center text-xs">
-                <span className="font-mono text-slate-400 uppercase text-[10px] font-bold">New Client Booking (Storefront)</span>
-                <span className="font-mono text-[10px] text-[#DCAE53] font-bold">3-TAP CHECKOUT</span>
+                <span className="font-mono text-slate-400 uppercase text-[10px] font-bold flex items-center gap-1.5">
+                  <Activity className="w-3.5 h-3.5 text-[#DCAE53]" />
+                  <span>Inbound AI Voice Answering</span>
+                </span>
+                <span className="font-mono text-[10px] text-[#DCAE53] font-bold">SUB-500MS NEURAL SPEECH</span>
               </div>
               <div className="flex justify-between items-baseline">
                 <div>
-                  <p className="font-bold text-white text-sm">Bespoke Client Project Package</p>
-                  <p className="text-xs text-slate-400">Full Scope Delivery · Scheduled: Sat 24 Oct · Scope: Custom Milestones</p>
+                  <p className="font-bold text-white text-sm">Commercial Emergency HVAC Breakdown</p>
+                  <p className="text-xs text-slate-400">Caller: David Thornton · Slough SL1 · Intent: Tier-1 Server Cooling</p>
                 </div>
                 <div className="text-right">
-                  <span className="font-mono font-bold text-white text-sm">£185.00</span>
-                  <p className="font-mono text-[11px] text-[#34A88E] font-semibold">£50 Deposit Paid (Apple Pay)</p>
+                  <span className="font-mono font-bold text-white text-sm">£3,400 Scope</span>
+                  <p className="font-mono text-[11px] text-emerald-400 font-semibold">£350 Deposit Secured</p>
                 </div>
               </div>
             </div>
 
-            {/* Instant Automated WhatsApp Notification */}
-            <div className="p-3.5 rounded-lg bg-[#2E8B77]/10 border border-[#2E8B77]/30 space-y-1.5 text-slate-200">
-              <div className="flex items-center justify-between text-[#34A88E] font-mono text-[11px] font-bold">
+            {/* Instant Automated Dispatch & Geofence Alert */}
+            <div className="p-3.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 space-y-1.5 text-slate-200">
+              <div className="flex items-center justify-between text-emerald-400 font-mono text-[11px] font-bold">
                 <span className="flex items-center gap-1.5">
                   <MessageSquare size={13} />
-                  <span>WHATSAPP DISPATCH TO YOUR PHONE / TEAM</span>
+                  <span>SPATIAL DISPATCH TO FIELD TECHNICIAN</span>
                 </span>
-                <span className="text-[10px] text-slate-400 font-normal">0.4s Latency</span>
+                <span className="text-[10px] text-slate-400 font-normal">0.4s Alert Latency</span>
               </div>
               <p className="text-xs font-sans text-slate-300">
-                &quot;✨ New Booking Confirmed! Sophie Taylor reserved 24 Oct for Custom Service Package. £50 deposit captured. Contact: +44 7700 900123.&quot;
+                &quot;🚨 [TIER-1 DISPATCH] Technician Marcus routed to Slough SL1. Live GPS ETA: 14 mins. Deposit paid via Stripe Apple Pay.&quot;
               </p>
             </div>
           </div>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react"
 import { motion, AnimatePresence, useInView } from "framer-motion"
-import { Smartphone, CreditCard, MessageSquare, Star, ShieldCheck, Activity, CheckCircle2 } from "lucide-react"
+import { PhoneCall, Cpu, Navigation, MessageSquare, ShieldCheck, Activity, CheckCircle2, Zap } from "lucide-react"
 
 interface NodeSpec {
   id: string
@@ -17,44 +17,44 @@ interface NodeSpec {
 
 const nodes: NodeSpec[] = [
   {
-    id: "storefront",
-    title: "1. Instant Mobile Storefront",
-    subtitle: "Sub-1s Mobile Load Speed & 3-Tap UI",
-    icon: Smartphone,
-    latency: "< 1.0s",
-    throughput: "100% Mobile Ready",
-    mechanism: "High-speed, custom-designed mobile storefront engineered so local customers view your offerings, select specs, and book in seconds without bouncing away.",
-    specs: ["Sub-1s Mobile Speed", "Google Local SEO", "3-Tap Fast Checkout"]
+    id: "telephony",
+    title: "1. SIP Telephony & 24/7 Voice Ingestion",
+    subtitle: "Sub-400ms Low-Latency Audio Streaming",
+    icon: PhoneCall,
+    latency: "< 400ms",
+    throughput: "100% Inbound Capture",
+    mechanism: "Carrier-grade SIP trunk and neural voice streaming engine that answers every inbound call in under half a second with human conversational fidelity.",
+    specs: ["Sub-400ms Neural Audio", "24/7/365 Zero Downtime", "Natural Conversational Flow"]
   },
   {
-    id: "deposit",
-    title: "2. 24/7 Upfront Deposit Capture",
-    subtitle: "Stripe, Apple Pay & Google Pay",
-    icon: CreditCard,
+    id: "subagents",
+    title: "2. Autonomous Subagent Triage",
+    subtitle: "Real-Time Intent Extraction & Qualification",
+    icon: Cpu,
     latency: "Instant",
-    throughput: "50% Upfront Paid",
-    mechanism: "Secures non-refundable deposits automatically before dates are locked into your calendar. Eliminates unpaid no-shows and late-night bank transfer chasing.",
-    specs: ["Card & Apple Pay", "Zero Unpaid No-Shows", "Instant Order Receipt"]
+    throughput: "Zero Scripted Delays",
+    mechanism: "Bespoke LLM subagents classify emergency severity, extract technical requirements, verify patient/client budgets, and structure clean CRM data.",
+    specs: ["Dynamic Qualification", "Custom Business Logic", "Automated CRM Sync"]
+  },
+  {
+    id: "spatial",
+    title: "3. Spatial Matching & Deposit Gateway",
+    subtitle: "Geofence Routing & Upfront Card Capture",
+    icon: Navigation,
+    latency: "< 1.2s",
+    throughput: "Automated Routing",
+    mechanism: "Matches jobs against real-time driver/technician GPS geofences or clinic diaries, capturing mandatory upfront deposits via instant SMS/Apple Pay links.",
+    specs: ["Spatial Fleet Routing", "Stripe & Apple Pay Deposits", "Calendar Slot Locking"]
   },
   {
     id: "dispatch",
-    title: "3. Sub-60s WhatsApp & Phone Alerts",
-    subtitle: "Direct Order Ping to Your Smartphone",
+    title: "4. Instant WhatsApp & PWA Dispatch",
+    subtitle: "Direct Smartphone Alert in < 0.4s",
     icon: MessageSquare,
-    latency: "< 60s",
-    throughput: "Instant Dispatch",
-    mechanism: "Full customer details, custom order specifications, and confirmed deposit amounts arrive straight on your phone the second an order is completed.",
-    specs: ["Instant WhatsApp Alert", "Calendar Auto-Sync", "Zero Lost Enquiries"]
-  },
-  {
-    id: "reviews",
-    title: "4. Automated 5-Star Review Engine",
-    subtitle: "Post-Service Google Review Collection",
-    icon: Star,
-    latency: "Automated",
-    throughput: "5.0★ Local Rank",
-    mechanism: "Dispatches a friendly automated review link directly to satisfied customers after their job is completed, steadily building your Google rankings on autopilot.",
-    specs: ["1-Tap Review Link", "Private Feedback Filter", "Dominates Local Search"]
+    latency: "< 0.4s",
+    throughput: "Zero Enquiry Drag",
+    mechanism: "Full project specifications, client contact details, GPS navigation coordinates, and deposit receipts land on your smartphone before the caller hangs up.",
+    specs: ["Instant WhatsApp Alert", "PWA Driver / Staff Intranet", "Live SMS ETA to Customer"]
   }
 ]
 
@@ -73,7 +73,6 @@ export function SystemBlueprint() {
 
   const activeNode = nodes[selectedIndex]
 
-  // Reset to Node 1 when entering view for the first time
   useEffect(() => {
     if (isInView && !hasStartedView) {
       setHasStartedView(true)
@@ -102,182 +101,151 @@ export function SystemBlueprint() {
   }, [clearAll])
 
   useEffect(() => {
-    if (hasStartedView && !isPaused) {
+    if (isInView && !isPaused) {
       startCycle()
     } else {
       clearAll()
     }
-    return clearAll
-  }, [selectedIndex, isPaused, hasStartedView, startCycle, clearAll])
+    return () => clearAll()
+  }, [selectedIndex, isInView, isPaused, startCycle, clearAll])
 
   const handleManualSelect = (index: number) => {
-    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
     clearAll()
-    setProgress(0)
-    setIsPaused(true)
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
     setSelectedIndex(index)
+    setProgress(100)
+    setIsPaused(true)
 
     resumeTimerRef.current = setTimeout(() => {
       setIsPaused(false)
-    }, 6000)
+    }, 8000)
   }
 
-  useEffect(() => {
-    return () => {
-      clearAll()
-      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
-    }
-  }, [clearAll])
-
   return (
-    <div id="system-blueprint" ref={containerRef} className="relative py-20 lg:py-28 bg-[#09090B] border-t border-slate-800/80 text-left overflow-hidden max-w-full min-w-0">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 min-w-0 max-w-full">
+    <section ref={containerRef} className="relative py-24 bg-[#09090B] overflow-hidden border-t border-slate-800/80">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#DCAE53]/5 rounded-full blur-[160px] pointer-events-none" />
+
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 min-w-0">
-          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-[#DCAE53]">
-            [ THE 24/7 ORDER &amp; REVENUE ENGINE ]
-          </span>
-          <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white mt-3">
-            How Your System Runs <span className="text-[#DCAE53]">On Autopilot</span>
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111115] border border-[#DCAE53]/30 text-[#DCAE53] text-xs font-mono font-semibold tracking-wider uppercase mb-4">
+            <Activity className="w-3.5 h-3.5 animate-pulse text-[#DCAE53]" />
+            <span>Autonomous AI Architecture</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4 text-balance">
+            The 4-Node Autonomous Operations Pipeline
           </h2>
-          <p className="font-sans text-sm sm:text-base text-slate-300 leading-relaxed mt-4">
-            Watch each stage execute automatically from customer enquiry to paid deposit and phone dispatch. Tap any stage to inspect the mechanics.
+          <p className="text-slate-300 text-sm sm:text-base md:text-lg leading-relaxed">
+            Every layer is engineered for sub-second latency, continuous fault tolerance, and zero human drag.
           </p>
         </div>
 
-        {/* Node Blueprint Grid */}
-        <div className="grid md:grid-cols-12 gap-6 lg:gap-8 items-start min-w-0 max-w-full">
-          
-          {/* Node Selector Column (5 cols on md+) */}
-          <div className="md:col-span-5 space-y-3">
-            {nodes.map((node, index) => {
-              const IconComp = node.icon
-              const isSelected = selectedIndex === index
-              return (
-                <button
-                  key={node.id}
-                  onClick={() => handleManualSelect(index)}
-                  suppressHydrationWarning
-                  className={`w-full p-4 sm:p-5 rounded-xl border text-left transition-all duration-300 flex items-center justify-between group cursor-pointer focus:outline-none ${
-                    isSelected 
-                      ? "bg-[#18181F] border-[#DCAE53] shadow-[0_0_20px_rgba(220,174,83,0.18)]" 
-                      : "bg-[#111115]/80 border-slate-800 hover:border-slate-700 hover:bg-[#111115]"
-                  }`}
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className={`p-2.5 rounded-lg border transition-colors shrink-0 ${
-                      isSelected ? "bg-[#DCAE53]/15 border-[#DCAE53] text-[#DCAE53]" : "bg-slate-800 border-slate-700 text-slate-300"
-                    }`}>
-                      <IconComp size={20} />
-                    </div>
-                    <div className="min-w-0">
-                      <h4 className="font-sans font-bold text-sm text-white truncate">{node.title}</h4>
-                      <p className="font-sans text-xs text-slate-400 mt-0.5 truncate">{node.subtitle}</p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-end gap-1.5 shrink-0 ml-2">
-                    <span className={`font-mono text-[10px] font-bold px-2 py-1 rounded ${
-                      isSelected ? "bg-[#DCAE53]/20 text-[#DCAE53]" : "bg-slate-800 text-slate-400"
-                    }`}>
-                      {node.latency}
-                    </span>
-                    {isSelected && !isPaused && (
-                      <div className="w-full h-0.5 bg-slate-800 rounded-full overflow-hidden" style={{ width: "60px" }}>
-                        <motion.div
-                          className="h-full bg-[#DCAE53] rounded-full"
-                          style={{ width: `${progress}%` }}
-                          transition={{ duration: 0 }}
-                        />
-                      </div>
-                    )}
-                    {isSelected && isPaused && (
-                      <span className="text-[8px] font-mono text-slate-500 uppercase tracking-wider">manual</span>
-                    )}
-                  </div>
-                </button>
-              )
-            })}
-
-            {/* Auto-cycle status indicator */}
-            <div className="flex items-center gap-2 px-1 pt-1">
-              <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isPaused ? "bg-slate-600" : "bg-[#DCAE53] animate-pulse"}`} />
-              <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">
-                {isPaused ? "Paused — resuming in a moment" : "Live automation sequence cycling"}
-              </span>
-            </div>
-          </div>
-
-          {/* Active Node Detail Card (7 cols on md+) */}
-          <div className="md:col-span-7">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeNode.id}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
-                className="bg-[#111115] border border-slate-800 p-6 sm:p-8 rounded-2xl space-y-6 shadow-2xl"
+        {/* 4 Node Selector Tabs */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-8">
+          {nodes.map((node, index) => {
+            const Icon = node.icon
+            const isSelected = index === selectedIndex
+            return (
+              <button
+                key={node.id}
+                onClick={() => handleManualSelect(index)}
+                className={`relative flex flex-col p-4 sm:p-5 rounded-2xl border text-left transition-all overflow-hidden ${
+                  isSelected 
+                    ? "bg-[#18181F] border-[#DCAE53] shadow-lg shadow-[#DCAE53]/10" 
+                    : "bg-[#111115] border-slate-800 hover:border-slate-700 text-slate-300"
+                }`}
               >
-                {/* Header */}
-                <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-                  <div className="flex items-center gap-3">
-                    <Activity size={20} className="text-[#DCAE53] animate-pulse" />
-                    <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#DCAE53]">
-                      STAGE SPECIFICATION
-                    </span>
+                {/* Progress bar line for active node */}
+                {isSelected && (
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-[#18181F]">
+                    <div 
+                      className="h-full bg-[#DCAE53] transition-all duration-75 ease-linear"
+                      style={{ width: `${progress}%` }}
+                    />
                   </div>
-                  <span className="font-mono text-xs text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full">
-                    ● ACTIVE
+                )}
+
+                <div className="flex items-center justify-between w-full mb-3">
+                  <div className={`p-2 rounded-lg ${isSelected ? "bg-[#DCAE53] text-[#09090B]" : "bg-[#18181F] text-slate-400"}`}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <span className="font-mono text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                    {node.latency}
                   </span>
                 </div>
 
-                {/* Node Title */}
-                <div>
-                  <h3 className="font-sans text-xl sm:text-2xl font-bold text-white">{activeNode.title}</h3>
-                  <p className="font-sans text-xs text-slate-300 mt-1">{activeNode.subtitle}</p>
+                <div className="font-bold text-white text-xs sm:text-sm mb-1 line-clamp-1">
+                  {node.title}
                 </div>
-
-                {/* Telemetry Metrics */}
-                <div className="grid grid-cols-2 gap-4 bg-[#18181F] border border-slate-800 p-4 rounded-xl font-mono text-xs">
-                  <div>
-                    <span className="text-[10px] text-slate-400 uppercase block">Response Speed</span>
-                    <span className="text-[#DCAE53] font-bold text-base mt-0.5 block">{activeNode.latency}</span>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 uppercase block">System Capability</span>
-                    <span className="text-[#DCAE53] font-bold text-base mt-0.5 block">{activeNode.throughput}</span>
-                  </div>
+                <div className="text-[11px] text-slate-400 font-mono line-clamp-1">
+                  {node.subtitle}
                 </div>
-
-                {/* Core Mechanism */}
-                <div>
-                  <h4 className="text-xs uppercase tracking-widest font-bold text-slate-400 mb-2">How It Works</h4>
-                  <p className="text-sm text-slate-200 leading-relaxed font-medium">
-                    {activeNode.mechanism}
-                  </p>
-                </div>
-
-                {/* Sub-Specs List */}
-                <div className="border-t border-slate-800 pt-4">
-                  <h4 className="text-xs uppercase tracking-widest font-bold text-slate-400 mb-3">Key Features Included</h4>
-                  <div className="grid sm:grid-cols-3 gap-2">
-                    {activeNode.specs.map((spec, i) => (
-                      <div key={i} className="p-2.5 bg-[#18181F] border border-slate-800 rounded-lg flex items-center gap-2">
-                        <CheckCircle2 size={14} className="text-[#DCAE53] shrink-0" />
-                        <span className="text-[11px] font-sans text-slate-200 font-medium">{spec}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
+              </button>
+            )
+          })}
         </div>
 
+        {/* Active Node Deep Dive View */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeNode.id}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.3 }}
+            className="bg-[#111115] border border-slate-800 rounded-2xl p-6 sm:p-8 relative shadow-2xl"
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+              
+              <div className="lg:col-span-8 space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-3 rounded-xl bg-[#DCAE53]/10 text-[#DCAE53] border border-[#DCAE53]/20">
+                    <activeNode.icon className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-extrabold text-white">
+                      {activeNode.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm font-mono text-[#DCAE53]">
+                      {activeNode.subtitle}
+                    </p>
+                  </div>
+                </div>
+
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                  {activeNode.mechanism}
+                </p>
+
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {activeNode.specs.map((spec, i) => (
+                    <div key={i} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#18181F] border border-slate-800 text-xs font-mono text-slate-200">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <span>{spec}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="lg:col-span-4 bg-[#09090B] border border-slate-800/80 rounded-xl p-5 space-y-3 font-mono">
+                <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-800">
+                  <span className="text-slate-400">BENCHMARK LATENCY</span>
+                  <span className="text-[#DCAE53] font-bold">{activeNode.latency}</span>
+                </div>
+                <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-800">
+                  <span className="text-slate-400">SYSTEM RELIABILITY</span>
+                  <span className="text-emerald-400 font-bold">99.98% Uptime SLA</span>
+                </div>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-slate-400">DATA PRIVACY</span>
+                  <span className="text-white font-bold">UK / GDPR Zero-Train</span>
+                </div>
+              </div>
+
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
       </div>
-    </div>
+    </section>
   )
 }

@@ -264,9 +264,10 @@
   animation: scaleUp 0.15s ease-out forwards;
 }
 
-/* Smooth scroll */
+/* Default scroll behavior: auto for instant, crisp page transitions without cross-route scrolling artifacts. 
+   Smooth scroll is applied programmatically for in-page anchors and scroll-to-top actions. */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 /* Responsive, accessibility & touch improvements */

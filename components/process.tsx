@@ -10,7 +10,7 @@ export function Process() {
 
   const data = {
     eyebrow: "Our Process",
-    headline: "7-Day Launch Process",
+    headline: "Rapid Agile Launch Protocol",
     steps: SITE_COPY.processPage.steps
   }
 

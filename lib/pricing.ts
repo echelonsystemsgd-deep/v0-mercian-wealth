@@ -28,6 +28,7 @@ export type PricingTier = {
   cta: string
   featured: boolean
   tag?: string
+  highlight?: string
 }
 
 import { SITE_COPY } from "./site-copy"

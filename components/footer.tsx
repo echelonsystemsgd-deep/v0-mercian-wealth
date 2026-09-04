@@ -10,14 +10,14 @@ import { CopyEmailButton } from "@/components/copy-email-button"
 export function Footer() {
   const { getSection } = useWebsiteContent()
   const data = getSection('footer', {
-    tagline: "Storefronts · Automation · Growth for premier local businesses and service operators across Berkshire, the West Midlands & the UK.",
+    tagline: "Autonomous AI Voice, Spatial Dispatch & 3D Spatial E-Commerce Infrastructure for High-Ticket Commercial Operators Across the UK.",
     email: "mercianwealthgs@gmail.com",
     phone: "+44 7851 055929",
     whatsappLink: "https://wa.me/447851055929?text=Hi%20Mercian%20Wealth,%20I'd%20like%20to%20inquire%20about%20your%20services.",
     instagramLink: "https://www.instagram.com/mercianwealth/",
     linkedinLink: "https://www.linkedin.com/in/gs-legacy-wealth/",
-    ctaDescription: "Book a 15-minute quick audit to see how much manual order admin time we can eliminate for your business.",
-    ctaButtonText: "Book your 15 minute audit"
+    ctaDescription: "Book a 15-minute voice diagnostic audit to calculate your missed call revenue leakage and test live AI prototypes.",
+    ctaButtonText: "Book 15-Minute Voice Audit"
   })
 
   const quickLinks = [

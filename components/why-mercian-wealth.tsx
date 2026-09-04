@@ -45,13 +45,13 @@ export function WhyMercianWealth() {
           <div className="space-y-2 flex-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2E8B77]/10 border border-[#2E8B77]/30 text-[10px] font-mono text-[#34A88E] uppercase tracking-wider font-semibold">
               <span className="w-1.5 h-1.5 rounded-full bg-[#34A88E]" />
-              <span>FOUNDER &amp; AUTOMATION STRATEGIST</span>
+              <span>FOUNDER &amp; AI AUTOMATION ARCHITECT</span>
             </div>
             <h3 className="font-sans text-lg sm:text-xl lg:text-2xl font-extrabold text-white">
-              &quot;I built Mercian Wealth so local business owners never lose high-value project enquiries or custom bookings to buried DMs.&quot;
+              &quot;I built Mercian Wealth so high-ticket operators never lose 5-figure commercial contracts to missed calls and dispatcher lag.&quot;
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
-              Unlike generic web designers who build slow brochures, we specialize strictly in fast mobile storefronts, 3-tap custom booking and order engines, instant WhatsApp alert workflows, and 5-star Google review systems for ambitious local businesses.
+              Unlike traditional web agencies that build static brochure sites, we engineer sub-500ms 24/7 AI voice phone agents, real-time spatial fleet dispatch, 3D e-commerce, and managed operations infrastructure with strict telephony SLAs.
             </p>
           </div>
         </motion.div>
