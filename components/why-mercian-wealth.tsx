@@ -32,7 +32,7 @@ export function WhyMercianWealth() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16 p-6 sm:p-8 rounded-xl border border-slate-800 bg-[#111115] backdrop-blur-md shadow-xl flex flex-col md:flex-row items-center gap-6 md:gap-8 text-left max-w-5xl mx-auto"
+          className="mb-16 p-6 sm:p-8 rounded-xl border border-slate-800/90 border-l-2 border-l-[#34A88E] bg-[#111115] backdrop-blur-md shadow-xl flex flex-col md:flex-row items-center gap-6 md:gap-8 text-left max-w-5xl mx-auto hover:border-slate-700/80 transition-colors"
         >
           <div className="w-18 h-18 sm:w-20 sm:h-20 rounded-xl bg-[#18181F] border border-[#DCAE53]/30 p-1 shrink-0 shadow-lg relative overflow-hidden flex items-center justify-center">
             <BrandLogo 
@@ -43,8 +43,9 @@ export function WhyMercianWealth() {
             />
           </div>
           <div className="space-y-2 flex-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DCAE53]/10 border border-[#DCAE53]/25 text-[10px] font-mono text-[#DCAE53] uppercase tracking-wider font-semibold">
-              <span>FOUNDER & AUTOMATION STRATEGIST</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2E8B77]/10 border border-[#2E8B77]/30 text-[10px] font-mono text-[#34A88E] uppercase tracking-wider font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#34A88E]" />
+              <span>FOUNDER &amp; AUTOMATION STRATEGIST</span>
             </div>
             <h3 className="font-sans text-lg sm:text-xl lg:text-2xl font-extrabold text-white">
               &quot;I built Mercian Wealth so local business owners &amp; food artisans never lose custom orders or high-paying clients to buried DMs.&quot;

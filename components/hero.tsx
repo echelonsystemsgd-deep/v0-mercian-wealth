@@ -105,15 +105,15 @@ export function Hero() {
         >
           <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-sm">
+              <div className="w-8 h-8 rounded-lg bg-[#2E8B77]/15 border border-[#2E8B77]/30 flex items-center justify-center text-[#34A88E] font-bold text-sm">
                 <Zap size={16} />
               </div>
               <div>
                 <h2 className="text-xs sm:text-sm font-bold text-white leading-tight">Mercian Order & WhatsApp Dispatch Engine</h2>
-                <p className="text-[10px] text-emerald-400 font-mono">Instant Mobile Sync · Sub-1s Webhooks</p>
+                <p className="text-[10px] text-[#34A88E] font-mono">Instant Mobile Sync · Sub-1s Webhooks</p>
               </div>
             </div>
-            <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">● 24/7 ACTIVE</span>
+            <span className="text-[10px] font-mono text-[#34A88E] bg-[#2E8B77]/10 border border-[#2E8B77]/30 px-2 py-0.5 rounded font-semibold">● 24/7 ACTIVE</span>
           </div>
 
           <div className="space-y-3 font-sans text-xs sm:text-sm">
@@ -130,14 +130,14 @@ export function Hero() {
                 </div>
                 <div className="text-right">
                   <span className="font-mono font-bold text-white text-sm">£185.00</span>
-                  <p className="font-mono text-[11px] text-emerald-400 font-semibold">£50 Deposit Paid (Apple Pay)</p>
+                  <p className="font-mono text-[11px] text-[#34A88E] font-semibold">£50 Deposit Paid (Apple Pay)</p>
                 </div>
               </div>
             </div>
 
             {/* Instant Automated WhatsApp Notification */}
-            <div className="p-3.5 rounded-lg bg-emerald-950/30 border border-emerald-500/30 space-y-1.5 text-slate-200">
-              <div className="flex items-center justify-between text-emerald-400 font-mono text-[11px] font-bold">
+            <div className="p-3.5 rounded-lg bg-[#2E8B77]/10 border border-[#2E8B77]/30 space-y-1.5 text-slate-200">
+              <div className="flex items-center justify-between text-[#34A88E] font-mono text-[11px] font-bold">
                 <span className="flex items-center gap-1.5">
                   <MessageSquare size={13} />
                   <span>WHATSAPP DISPATCH TO KITCHEN / TEAM</span>

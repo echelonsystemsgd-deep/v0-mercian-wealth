@@ -252,10 +252,10 @@ export function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className={`whitespace-nowrap px-3 py-1.5 text-xs xl:text-sm font-semibold rounded-lg transition-all duration-200 ${
+                    className={`relative whitespace-nowrap px-3 py-1.5 text-xs xl:text-sm font-semibold rounded-lg transition-all duration-200 ${
                       active
                         ? "text-[#DCAE53] bg-[#DCAE53]/10 font-bold"
-                        : "text-slate-300 hover:text-white hover:bg-white/5"
+                        : "text-slate-300 hover:text-[#34A88E] hover:bg-[#34A88E]/5"
                     }`}
                   >
                     {link.label}
@@ -332,14 +332,17 @@ export function Navbar() {
                 href="/login"
                 className="text-xs font-semibold text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg bg-[#111115] border border-slate-800 flex items-center gap-1"
                 aria-label="Login"
+                suppressHydrationWarning
               >
                 <User size={13} className="text-[#DCAE53]" />
                 <span>Login</span>
               </Link>
               <button
+                type="button"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="text-white hover:text-[#DCAE53] p-2 rounded-lg bg-white/5 border border-[#DCAE53]/25 transition-colors cursor-pointer"
                 aria-label="Toggle menu"
+                suppressHydrationWarning
               >
                 {isMobileMenuOpen ? <X size={22} className="text-[#DCAE53]" /> : <Menu size={22} className="text-[#DCAE53]" />}
               </button>
@@ -384,9 +387,11 @@ export function Navbar() {
                 </span>
               </Link>
               <button
+                type="button"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-white hover:text-[#DCAE53] p-2 rounded-lg bg-white/5 border border-[#DCAE53]/30 transition-all cursor-pointer shrink-0"
                 aria-label="Close menu"
+                suppressHydrationWarning
               >
                 <X size={20} className="text-[#DCAE53]" />
               </button>
@@ -399,8 +404,8 @@ export function Navbar() {
               <div className="flex items-center justify-between px-3.5 py-2 rounded-lg bg-[#111115] border border-[#DCAE53]/25 font-mono text-[10px] sm:text-xs">
                 <span className="flex items-center gap-2 text-[#DCAE53] font-bold uppercase tracking-wider">
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#34A88E] opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#34A88E]" />
                   </span>
                   STOREFRONTS · AUTOMATION
                 </span>
@@ -419,7 +424,7 @@ export function Navbar() {
                       className={`flex items-center justify-between p-3.5 rounded-lg border transition-all duration-200 group ${
                         active
                           ? "bg-[#DCAE53]/15 border-[#DCAE53]/40 text-[#DCAE53] font-bold shadow-[0_0_15px_rgba(220,174,83,0.15)]"
-                          : "bg-[#111115]/80 border-slate-800/80 text-slate-200 hover:text-white hover:bg-[#111115] hover:border-[#DCAE53]/30"
+                          : "bg-[#111115]/80 border-slate-800/80 text-slate-200 hover:text-[#34A88E] hover:bg-[#111115] hover:border-[#2E8B77]/40"
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -428,7 +433,7 @@ export function Navbar() {
                         </span>
                         <span className="font-sans text-base font-bold tracking-tight">{link.label}</span>
                       </div>
-                      <ChevronRight size={16} className={`transition-transform duration-200 ${active ? "text-[#DCAE53] translate-x-1" : "text-slate-500 group-hover:text-white group-hover:translate-x-1"}`} />
+                      <ChevronRight size={16} className={`transition-transform duration-200 ${active ? "text-[#DCAE53] translate-x-1" : "text-slate-500 group-hover:text-[#34A88E] group-hover:translate-x-1"}`} />
                     </Link>
                   )
                 })}

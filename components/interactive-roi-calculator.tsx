@@ -57,7 +57,8 @@ export function InteractiveRoiCalculator() {
                   step="1"
                   value={weeklyHours}
                   onChange={(e) => setWeeklyHours(Number(e.target.value))}
-                  className="w-full h-2 bg-[#18181F] rounded-lg appearance-none cursor-pointer accent-[#DCAE53]"
+                  className="w-full mobile-touch-slider h-2.5 bg-[#18181F] rounded-lg appearance-none cursor-pointer accent-[#DCAE53] my-1"
+                  aria-label="Weekly Manual Order Intake Hours"
                 />
                 <div className="flex justify-between text-[10px] sm:text-[11px] text-slate-400 font-mono mt-2">
                   <span>5 hrs (Light)</span>
@@ -84,7 +85,8 @@ export function InteractiveRoiCalculator() {
                   step="1000"
                   value={monthlyRevenue}
                   onChange={(e) => setMonthlyRevenue(Number(e.target.value))}
-                  className="w-full h-2 bg-[#18181F] rounded-lg appearance-none cursor-pointer accent-[#DCAE53]"
+                  className="w-full mobile-touch-slider h-2.5 bg-[#18181F] rounded-lg appearance-none cursor-pointer accent-[#DCAE53] my-1"
+                  aria-label="Estimated Monthly Turnover"
                 />
                 <div className="flex justify-between text-[10px] sm:text-[11px] text-slate-400 font-mono mt-2">
                   <span>£3,000</span>
@@ -126,15 +128,15 @@ export function InteractiveRoiCalculator() {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-800">
-                <span className="text-[10px] sm:text-xs font-bold text-[#DCAE53] uppercase tracking-widest block mb-1">
+              <div className="p-3.5 sm:p-4 rounded-xl bg-[#2E8B77]/10 border border-[#2E8B77]/30 shadow-[0_0_20px_rgba(46,139,119,0.12)]">
+                <span className="text-[10px] sm:text-xs font-bold text-[#34A88E] uppercase tracking-widest block mb-1">
                   Total Annual Value Unlocked
                 </span>
                 <motion.div
                   key={totalAnnualValue}
                   initial={{ scale: 0.96, opacity: 0.8 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  className="text-2xl sm:text-3xl lg:text-4xl font-black text-white font-mono tracking-tight break-words"
+                  className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#34A88E] font-mono tracking-tight break-words drop-shadow-[0_0_15px_rgba(46,139,119,0.25)]"
                 >
                   £{totalAnnualValue.toLocaleString()}
                 </motion.div>
@@ -145,7 +147,7 @@ export function InteractiveRoiCalculator() {
               <Button
                 asChild
                 size="lg"
-                className="w-full py-5 sm:py-6 text-sm sm:text-base font-bold bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] shadow-lg transition-all rounded-lg"
+                className="w-full py-5 sm:py-6 text-sm sm:text-base font-bold bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] shadow-lg transition-all rounded-lg cursor-pointer"
               >
                 <Link href={`/book?roi_revenue=${monthlyRevenue}&roi_hours=${weeklyHours}&roi_value=${totalAnnualValue}`} className="flex items-center justify-center gap-2">
                   <span>Book 15-Min Quick Audit</span>

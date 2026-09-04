@@ -68,7 +68,7 @@ export function LocalDeliverables() {
                     <div className="p-3 rounded-xl bg-accent-gold/10 text-accent-gold border border-accent-gold/30 group-hover:scale-105 transition-transform duration-200">
                       <Icon size={24} />
                     </div>
-                    <span className="text-[11px] font-mono font-bold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span className="text-[11px] font-mono font-bold px-3 py-1 rounded-full bg-[#2E8B77]/10 text-[#34A88E] border border-[#2E8B77]/30">
                       {item.outcome}
                     </span>
                   </div>

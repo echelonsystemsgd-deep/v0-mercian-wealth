@@ -55,16 +55,16 @@ export function FieldSalesDemo() {
             <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
               <div className="flex items-center gap-2">
                 <Cake className="text-[#DCAE53]" size={20} />
-                <span className="font-sans font-bold text-white text-base">Artisan Bakery & Local Storefront</span>
+                <span className="font-sans font-bold text-white text-base">Artisan Bakery &amp; Local Storefront</span>
               </div>
-              <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+              <span className="text-[10px] font-mono text-[#34A88E] bg-[#2E8B77]/10 px-2 py-0.5 rounded-full border border-[#2E8B77]/20 font-semibold">
                 LIVE DEMO STOREFRONT
               </span>
             </div>
 
             {/* Service Selection */}
             <div className="space-y-4 mb-6">
-              <label className="text-xs font-mono font-bold text-accent-gold uppercase tracking-wider flex items-center gap-1.5">
+              <label className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider flex items-center gap-1.5">
                 <span>1. Select Project / Service Package:</span>
               </label>
               <div className="grid grid-cols-1 gap-2.5">
@@ -73,25 +73,26 @@ export function FieldSalesDemo() {
                   return (
                     <button
                       key={svc.id}
+                      type="button"
                       onClick={() => setSelectedService(svc)}
-                      className={`flex items-center justify-between p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
+                      className={`flex items-center justify-between min-h-[48px] p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
                         active
-                          ? "bg-accent-gold/15 border-accent-gold text-white font-semibold shadow-md"
+                          ? "bg-[#DCAE53]/15 border-[#DCAE53] text-white font-semibold shadow-md"
                           : "bg-white/[0.02] border-white/10 text-white/70 hover:bg-white/[0.05]"
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${active ? "border-accent-gold bg-accent-gold text-black" : "border-white/30"}`}>
+                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${active ? "border-[#DCAE53] bg-[#DCAE53] text-black" : "border-white/30"}`}>
                           {active && <CheckCircle size={12} />}
                         </div>
                         <div>
                           <span className="text-sm font-sans block">{svc.name}</span>
-                          <span className="text-[10px] text-text-secondary font-mono">{svc.subtitle}</span>
+                          <span className="text-[10px] text-slate-400 font-mono">{svc.subtitle}</span>
                         </div>
                       </div>
                       <div className="text-right">
-                        <span className="text-sm font-mono font-bold text-accent-gold">£{svc.price.toLocaleString()}</span>
-                        <span className="text-[10px] block text-emerald-400 font-mono">£{svc.deposit} deposit</span>
+                        <span className="text-sm font-mono font-bold text-[#DCAE53]">£{svc.price.toLocaleString()}</span>
+                        <span className="text-[10px] block text-[#34A88E] font-mono font-semibold">£{svc.deposit} deposit</span>
                       </div>
                     </button>
                   )
@@ -102,46 +103,49 @@ export function FieldSalesDemo() {
             {/* Date & Customer Info */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
               <div>
-                <label className="text-xs font-mono font-bold text-accent-gold uppercase tracking-wider block mb-2">
+                <label className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider block mb-2">
                   2. Requested Date / Slot:
                 </label>
                 <select
                   value={pickupDate}
                   onChange={(e) => setPickupDate(e.target.value)}
-                  className="w-full bg-white/[0.04] border border-white/15 rounded-xl p-3 text-xs text-white outline-none focus:border-accent-gold"
+                  className="w-full min-h-[44px] bg-white/[0.04] border border-white/15 rounded-xl p-3 text-xs text-white outline-none focus:border-[#DCAE53] cursor-pointer"
+                  aria-label="Select Date Slot"
                 >
-                  <option value="Thursday, 2:00 PM" className="bg-bg-secondary text-white">Thursday, 2:00 PM</option>
-                  <option value="Saturday, 10:00 AM" className="bg-bg-secondary text-white">Saturday, 10:00 AM</option>
-                  <option value="Next Tuesday, 9:00 AM" className="bg-bg-secondary text-white">Next Tuesday, 9:00 AM</option>
+                  <option value="Thursday, 2:00 PM" className="bg-[#111115] text-white">Thursday, 2:00 PM</option>
+                  <option value="Saturday, 10:00 AM" className="bg-[#111115] text-white">Saturday, 10:00 AM</option>
+                  <option value="Next Tuesday, 9:00 AM" className="bg-[#111115] text-white">Next Tuesday, 9:00 AM</option>
                 </select>
               </div>
 
               <div>
-                <label className="text-xs font-mono font-bold text-accent-gold uppercase tracking-wider block mb-2">
+                <label className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider block mb-2">
                   3. Customer / Client Name:
                 </label>
                 <input
                   type="text"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
-                  className="w-full bg-white/[0.04] border border-white/15 rounded-xl p-3 text-xs text-white outline-none focus:border-accent-gold font-sans"
+                  className="w-full min-h-[44px] bg-white/[0.04] border border-white/15 rounded-xl p-3 text-xs text-white outline-none focus:border-[#DCAE53] font-sans"
                   placeholder="Enter name"
+                  aria-label="Customer Name"
                 />
               </div>
             </div>
 
             {/* Deposit Summary & Simulate Action Button */}
-            <div className="p-4 rounded-2xl bg-accent-gold/5 border border-accent-gold/25 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="p-4 rounded-2xl bg-[#DCAE53]/5 border border-[#DCAE53]/25 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
-                <span className="text-xs text-text-secondary block">Upfront Survey Fee / Deposit:</span>
-                <span className="text-2xl font-mono font-bold text-accent-gold">£{selectedService.deposit.toFixed(2)}</span>
+                <span className="text-xs text-slate-400 block">Upfront Survey Fee / Deposit:</span>
+                <span className="text-2xl font-mono font-bold text-[#DCAE53]">£{selectedService.deposit.toFixed(2)}</span>
                 <span className="text-[10px] text-white/50 block">Project Total: £{selectedService.price.toLocaleString()}</span>
               </div>
 
               <button
+                type="button"
                 onClick={handleSimulateOrder}
                 disabled={isSimulating}
-                className="w-full sm:w-auto px-6 py-3.5 font-bold text-xs sm:text-sm bg-accent-gold text-black hover:bg-amber-300 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="w-full sm:w-auto min-h-[44px] px-6 py-3.5 font-bold text-xs sm:text-sm bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 {isSimulating ? (
                   <span>Routing Lead...</span>
@@ -165,8 +169,8 @@ export function FieldSalesDemo() {
               {/* Status Header */}
               <div className="flex items-center justify-between text-[11px] font-mono text-white/60 px-2 mb-4">
                 <span>WhatsApp Alert</span>
-                <span className="text-emerald-400 font-bold flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[#34A88E] font-bold flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-[#34A88E] animate-pulse" />
                   Live Sync
                 </span>
               </div>
@@ -179,26 +183,26 @@ export function FieldSalesDemo() {
                       initial={{ scale: 0.8, opacity: 0, y: 10 }}
                       animate={{ scale: 1, opacity: 1, y: 0 }}
                       exit={{ scale: 0.8, opacity: 0 }}
-                      className="p-4 rounded-2xl bg-[#075E54]/90 border border-emerald-400/40 text-white shadow-2xl space-y-2 text-left"
+                      className="p-4 rounded-2xl bg-[#111115] border border-[#2E8B77]/40 text-white shadow-[0_0_25px_rgba(46,139,119,0.2)] space-y-2 text-left"
                     >
                       <div className="flex items-center justify-between border-b border-white/20 pb-2">
                         <div className="flex items-center gap-2">
-                          <MessageCircle size={18} className="text-emerald-300" />
-                          <span className="font-bold text-xs text-emerald-200">NEW HIGH-TICKET LEAD</span>
+                          <MessageCircle size={18} className="text-[#34A88E]" />
+                          <span className="font-bold text-xs text-[#34A88E]">NEW HIGH-TICKET LEAD</span>
                         </div>
                         <span className="text-[10px] text-white/60">Just now</span>
                       </div>
 
-                      <div className="text-xs space-y-1 pt-1">
-                        <p><strong className="text-accent-gold">Client:</strong> {customerName}</p>
-                        <p><strong className="text-accent-gold">Project:</strong> {selectedService.name}</p>
-                        <p><strong className="text-accent-gold">Survey Slot:</strong> {pickupDate}</p>
-                        <p><strong className="text-emerald-300">Deposit Paid:</strong> £{selectedService.deposit.toFixed(2)} (via Stripe)</p>
+                      <div className="text-xs space-y-1 pt-1 font-sans">
+                        <p><strong className="text-[#DCAE53]">Client:</strong> {customerName}</p>
+                        <p><strong className="text-[#DCAE53]">Project:</strong> {selectedService.name}</p>
+                        <p><strong className="text-[#DCAE53]">Survey Slot:</strong> {pickupDate}</p>
+                        <p><strong className="text-[#34A88E]">Deposit Paid:</strong> £{selectedService.deposit.toFixed(2)} (via Stripe)</p>
                       </div>
 
                       <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[10px] text-white/70">
                         <span>Status: Auto-Confirmed</span>
-                        <span className="text-accent-gold font-bold">Ref: #MW-{Math.floor(1000 + Math.random() * 9000)}</span>
+                        <span className="text-[#DCAE53] font-bold font-mono">Ref: #MW-{Math.floor(1000 + Math.random() * 9000)}</span>
                       </div>
                     </motion.div>
                   ) : (

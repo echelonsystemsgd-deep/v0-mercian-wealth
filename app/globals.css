@@ -12,9 +12,14 @@
   --color-accent-purple-glow: rgba(220, 174, 83, 0.12); /* Background Gold Ambient Glow */
   --color-accent-gold: #DCAE53;     /* Geometric MW Monogram Gold (Sampled from Logo) */
   --color-accent-gold-muted: rgba(220, 174, 83, 0.35); /* Muted Gold Border */
+  --color-accent-sage: #34A88E;     /* Secondary Accent - Luminous Sea-Green for Success & Accents */
+  --color-accent-sage-muted: #2E8B77; /* Muted Sea-Green for Borders */
+  --color-accent-sage-glow: rgba(46, 139, 119, 0.15); /* Sea-Green Ambient Glow */
+  --color-accent-sage-bg: rgba(46, 139, 119, 0.10); /* Sea-Green Translucent Background */
   --color-text-primary: #FFFFFF;    /* Pure White Body / Heading Text */
   --color-text-secondary: #94A3B8;  /* Luminous Slate Silver Accent */
   --color-text-gold: #E5B85C;       /* Highlighted Warm Gold Text */
+  --color-text-sage: #34A88E;       /* Sea-Green Text Accent */
   --color-border: rgba(220, 174, 83, 0.18); /* Canonical Gold-Charcoal Border */
 
   /* Modern High-Tech Theme - Always dark, mapped to Mercian Wealth brand variables */
@@ -96,15 +101,22 @@
   --color-accent-purple-glow: var(--color-accent-purple-glow);
   --color-accent-gold: var(--color-accent-gold);
   --color-accent-gold-muted: var(--color-accent-gold-muted);
+  --color-accent-sage: var(--color-accent-sage);
+  --color-accent-sage-muted: var(--color-accent-sage-muted);
+  --color-accent-sage-glow: var(--color-accent-sage-glow);
+  --color-accent-sage-bg: var(--color-accent-sage-bg);
   --color-text-primary: var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
   --color-text-gold: var(--color-text-gold);
+  --color-text-sage: var(--color-text-sage);
   --color-border-brand: var(--color-border);
 
   /* Helper Accent Tokens */
   --color-gold: var(--color-accent-gold);
   --color-gold-light: #E5B85C;
   --color-gold-dark: #C59A3D;
+  --color-sage: var(--color-accent-sage);
+  --color-sage-muted: var(--color-accent-sage-muted);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -613,4 +625,31 @@ input[type="range"]::-moz-range-thumb:active {
 
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+/* Mobile-First Range Slider Touch Optimization (44px min touch target) */
+input[type="range"].mobile-touch-slider {
+  touch-action: pan-y;
+  height: 28px;
+  cursor: pointer;
+}
+
+input[type="range"].mobile-touch-slider::-webkit-slider-thumb {
+  height: 28px;
+  width: 28px;
+  border-radius: 9999px;
+  cursor: pointer;
+  background-color: var(--color-accent-gold);
+  border: 2px solid #09090B;
+  box-shadow: 0 0 10px rgba(220, 174, 83, 0.4);
+}
+
+input[type="range"].mobile-touch-slider::-moz-range-thumb {
+  height: 28px;
+  width: 28px;
+  border-radius: 9999px;
+  cursor: pointer;
+  background-color: var(--color-accent-gold);
+  border: 2px solid #09090B;
+  box-shadow: 0 0 10px rgba(220, 174, 83, 0.4);
 }

@@ -52,13 +52,13 @@ function StepGraphic({ step }: { step: number }) {
               <span className="text-slate-400">Total Order Value:</span>
               <span className="text-white font-mono font-bold">£185.00</span>
             </div>
-            <div className="flex justify-between text-xs font-bold text-emerald-400 pt-1 border-t border-slate-800">
+            <div className="flex justify-between text-xs font-bold text-[#34A88E] pt-1 border-t border-slate-800">
               <span>Required Deposit:</span>
               <span className="font-mono">£50.00</span>
             </div>
           </div>
 
-          <button className="w-full py-2.5 rounded-lg bg-[#DCAE53] font-bold text-xs text-[#09090B] flex items-center justify-center gap-2 shadow-lg shadow-black/40">
+          <button className="w-full py-2.5 rounded-lg bg-[#DCAE53] font-bold text-xs text-[#09090B] flex items-center justify-center gap-2 shadow-lg shadow-black/40 cursor-pointer">
             <CheckCircle2 className="w-4 h-4 text-[#09090B]" />
             <span>Pay £50.00 Deposit & Reserve Date</span>
           </button>
@@ -69,7 +69,7 @@ function StepGraphic({ step }: { step: number }) {
 
   if (step === 1) {
     return (
-      <div className="w-full max-w-[420px] rounded-xl border border-emerald-500/30 bg-[#111115] p-5 shadow-2xl space-y-4">
+      <div className="w-full max-w-[420px] rounded-xl border border-[#2E8B77]/30 bg-[#111115] p-5 shadow-2xl space-y-4">
         {/* Character Illustration Banner */}
         <div className="relative w-full h-36 rounded-lg overflow-hidden bg-[#18181F] flex items-center justify-center border border-slate-800/80">
           <Image
@@ -82,26 +82,26 @@ function StepGraphic({ step }: { step: number }) {
 
         <div className="flex items-center justify-between border-b border-slate-800 pb-3">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-xs font-bold font-mono">
+            <div className="w-6 h-6 rounded-lg bg-[#2E8B77]/20 border border-[#2E8B77]/40 flex items-center justify-center text-[#34A88E] text-xs font-bold font-mono">
               WA
             </div>
             <div>
-              <p className="text-xs font-bold text-white">WhatsApp Kitchen & Team Alert</p>
-              <p className="text-[10px] text-emerald-400 font-mono">Instant Dispatch Latency: 0.4s</p>
+              <p className="text-xs font-bold text-white">WhatsApp Kitchen &amp; Team Alert</p>
+              <p className="text-[10px] text-[#34A88E] font-mono">Instant Dispatch Latency: 0.4s</p>
             </div>
           </div>
           <span className="text-[10px] font-mono text-slate-500">Just Now</span>
         </div>
 
-        <div className="p-4 rounded-lg bg-emerald-950/40 border border-emerald-500/30 space-y-2">
-          <div className="flex items-center gap-1.5 text-emerald-400 font-mono text-xs font-bold">
-            <span>⚡ NEW ORDER & DEPOSIT PAID</span>
+        <div className="p-4 rounded-lg bg-[#2E8B77]/10 border border-[#2E8B77]/30 space-y-2">
+          <div className="flex items-center gap-1.5 text-[#34A88E] font-mono text-xs font-bold">
+            <span>⚡ NEW ORDER &amp; DEPOSIT PAID</span>
           </div>
           <div className="text-xs font-sans text-slate-200 space-y-1 pt-1">
             <p><strong className="text-slate-400">Customer:</strong> Sophie Taylor (Reading, RG1)</p>
             <p><strong className="text-slate-400">Phone:</strong> +44 7700 900123</p>
-            <p><strong className="text-slate-400">Item:</strong> 3-Tier Pistachio & Raspberry (£185)</p>
-            <p><strong className="text-slate-400">Deposit Paid:</strong> <span className="text-emerald-400 font-mono font-bold">£50.00 via Apple Pay</span></p>
+            <p><strong className="text-slate-400">Item:</strong> 3-Tier Pistachio &amp; Raspberry (£185)</p>
+            <p><strong className="text-slate-400">Deposit Paid:</strong> <span className="text-[#34A88E] font-mono font-bold">£50.00 via Apple Pay</span></p>
             <p><strong className="text-slate-400">Pickup Date:</strong> Sat 24 Oct · 11:30 AM</p>
           </div>
         </div>
@@ -124,7 +124,7 @@ function StepGraphic({ step }: { step: number }) {
 
         <div className="flex items-center justify-between border-b border-slate-800 pb-2">
           <span className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider">
-            Orders & CRM Auto-Sync
+            Orders &amp; CRM Auto-Sync
           </span>
           <span className="text-[10px] font-mono bg-[#DCAE53]/10 text-[#DCAE53] px-2 py-0.5 rounded border border-[#DCAE53]/30">
             Live Feed
@@ -137,7 +137,7 @@ function StepGraphic({ step }: { step: number }) {
               <p className="font-bold text-white text-[11px]">Sophie Taylor (Reading)</p>
               <p className="text-[10px] text-slate-400">3-Tier Cake • Sat 24 Oct</p>
             </div>
-            <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">
+            <span className="text-[10px] bg-[#2E8B77]/20 text-[#34A88E] border border-[#2E8B77]/30 px-2 py-0.5 rounded font-bold">
               £50 Deposit Paid
             </span>
           </div>
@@ -147,7 +147,7 @@ function StepGraphic({ step }: { step: number }) {
               <p className="font-bold text-white text-[11px]">James Thornton (Windsor)</p>
               <p className="text-[10px] text-slate-400">Catering Box • Sun 25 Oct</p>
             </div>
-            <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">
+            <span className="text-[10px] bg-[#2E8B77]/20 text-[#34A88E] border border-[#2E8B77]/30 px-2 py-0.5 rounded font-bold">
               £120 Deposit Paid
             </span>
           </div>
@@ -182,7 +182,7 @@ function StepGraphic({ step }: { step: number }) {
         <span className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider">
           Weekly Operational Impact
         </span>
-        <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+        <span className="text-[10px] font-mono text-[#34A88E] bg-[#2E8B77]/10 px-2 py-0.5 rounded border border-[#2E8B77]/30 font-semibold">
           Zero Lost DMs
         </span>
       </div>
@@ -193,7 +193,7 @@ function StepGraphic({ step }: { step: number }) {
           <p className="text-[10px] text-slate-400 uppercase font-sans font-semibold">Admin Saved / Wk</p>
         </div>
         <div className="p-3 rounded-lg bg-[#18181F] border border-slate-800 text-center">
-          <p className="text-2xl font-extrabold text-emerald-400 font-mono">£0</p>
+          <p className="text-2xl font-extrabold text-[#34A88E] font-mono">£0</p>
           <p className="text-[10px] text-slate-400 uppercase font-sans font-semibold">Unpaid Cancellations</p>
         </div>
       </div>

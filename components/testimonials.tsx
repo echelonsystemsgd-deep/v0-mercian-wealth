@@ -100,7 +100,7 @@ export function Testimonials() {
                     ))}
                   </div>
                   {item.badge && (
-                    <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded border border-emerald-500/20">
+                    <span className="text-[10px] font-mono font-bold text-[#34A88E] bg-[#2E8B77]/10 px-2.5 py-0.5 rounded border border-[#2E8B77]/30">
                       {item.badge}
                     </span>
                   )}
@@ -135,8 +135,8 @@ export function Testimonials() {
           <div className="relative z-10 space-y-6">
             {/* Top Status Header */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-800 pb-5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-[10px] font-mono text-emerald-400 uppercase tracking-widest">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2E8B77]/10 border border-[#2E8B77]/30 text-[10px] font-mono text-[#34A88E] uppercase tracking-widest font-semibold">
+                <span className="w-2 h-2 rounded-full bg-[#34A88E] animate-pulse" />
                 {data.cohortCard.badge}
               </div>
               <span className="text-[10px] font-mono text-[#DCAE53] uppercase tracking-widest font-semibold">

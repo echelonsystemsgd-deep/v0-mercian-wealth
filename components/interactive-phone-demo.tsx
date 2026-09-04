@@ -133,8 +133,9 @@ export function InteractivePhoneDemo() {
                   <button
                     suppressHydrationWarning
                     key={opt.name}
+                    type="button"
                     onClick={() => setSelectedOption(opt.name)}
-                    className={`w-full p-3.5 rounded-xl text-left text-xs font-bold flex items-center justify-between transition-all border ${
+                    className={`w-full min-h-[48px] p-3.5 rounded-xl text-left text-xs font-bold flex items-center justify-between transition-all border cursor-pointer ${
                       selectedOption === opt.name
                         ? "bg-[#DCAE53]/15 border-[#DCAE53] text-white shadow-[0_0_15px_rgba(220,174,83,0.2)]"
                         : "bg-[#18181F] border-slate-800 text-slate-400 hover:bg-[#18181F]/80"
@@ -171,7 +172,8 @@ export function InteractivePhoneDemo() {
                         setSelectedDate(`${formatted} (11:30 AM)`)
                       }
                     }}
-                    className="w-full p-3 rounded-lg bg-[#18181F] border border-slate-800 text-xs font-bold text-white focus:outline-none focus:border-[#DCAE53] font-mono cursor-pointer"
+                    className="w-full min-h-[44px] p-3 rounded-lg bg-[#18181F] border border-slate-800 text-xs font-bold text-white focus:outline-none focus:border-[#DCAE53] font-mono cursor-pointer"
+                    aria-label="Select Date"
                   />
                 </div>
 
@@ -183,7 +185,7 @@ export function InteractivePhoneDemo() {
                       key={preset}
                       type="button"
                       onClick={() => setSelectedDate(preset)}
-                      className={`p-2 rounded-lg text-[10px] sm:text-[11px] font-semibold text-center transition-all border truncate ${
+                      className={`min-h-[44px] p-2 rounded-lg text-[10px] sm:text-[11px] font-semibold text-center transition-all border truncate cursor-pointer flex items-center justify-center ${
                         selectedDate === preset
                           ? "bg-[#DCAE53]/20 border-[#DCAE53] text-[#DCAE53] font-bold"
                           : "bg-[#18181F] border-slate-800 text-slate-400 hover:bg-slate-800"
@@ -207,9 +209,10 @@ export function InteractivePhoneDemo() {
             <div className="pt-2">
               <button
                 suppressHydrationWarning
+                type="button"
                 onClick={triggerTestSubmit}
                 disabled={isSimulating}
-                className="w-full py-4 rounded-lg bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-extrabold text-sm uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="w-full min-h-[52px] py-4 rounded-lg bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-extrabold text-sm uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 <span className="w-6 h-6 rounded-full bg-[#09090B]/20 text-[#09090B] font-mono text-xs flex items-center justify-center border border-[#09090B]/30">3</span>
                 <span>STEP 3: SUBMIT ORDER &amp; DISPATCH TO PHONE</span>
@@ -245,11 +248,11 @@ export function InteractivePhoneDemo() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 20, scale: 0.95 }}
                       transition={{ duration: 0.4, type: "spring", stiffness: 200 }}
-                      className="p-4 rounded-xl bg-[#111115] border border-emerald-500/40 shadow-2xl backdrop-blur-xl"
+                      className="p-4 rounded-xl bg-[#111115] border border-[#2E8B77]/40 shadow-[0_0_25px_rgba(46,139,119,0.18)] backdrop-blur-xl"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 rounded-lg bg-emerald-500 flex items-center justify-center text-slate-950 font-bold text-xs shadow-md">
+                          <div className="w-6 h-6 rounded-lg bg-[#2E8B77] flex items-center justify-center text-white font-bold text-xs shadow-md">
                             WA
                           </div>
                           <span className="text-xs font-bold text-slate-200">WhatsApp Alert</span>
@@ -258,7 +261,7 @@ export function InteractivePhoneDemo() {
                       </div>
 
                       <h4 className="text-sm font-bold text-white mb-1 flex items-center gap-1.5">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-[#34A88E] shrink-0" />
                         <span>{notification.title}</span>
                       </h4>
 
@@ -267,7 +270,7 @@ export function InteractivePhoneDemo() {
                       </p>
 
                       <div className="flex items-center justify-between pt-2 border-t border-slate-800 text-[11px]">
-                        <span className="font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                        <span className="font-bold text-[#34A88E] bg-[#2E8B77]/15 px-2.5 py-0.5 rounded-full border border-[#2E8B77]/30">
                           {notification.amount}
                         </span>
                         <span className="text-[#DCAE53] font-mono text-[10px] uppercase font-bold">

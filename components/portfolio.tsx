@@ -621,7 +621,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                         {item.category}
                       </p>
                       {!item.underConstruction ? (
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-0.5 rounded-full font-mono">
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-[#34A88E] bg-[#2E8B77]/10 border border-[#2E8B77]/30 px-2.5 py-0.5 rounded-full font-mono">
                           Live Interactive Sandbox
                         </span>
                       ) : (
@@ -644,7 +644,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                           size="sm"
                           variant="outline"
                           onClick={() => setPreviewPrototype(item)}
-                          className="border-emerald-500/40 text-emerald-300 hover:bg-emerald-500 hover:text-[#09090B] transition-all"
+                          className="border-[#2E8B77]/40 text-[#34A88E] hover:bg-[#2E8B77] hover:text-[#09090B] transition-all cursor-pointer"
                         >
                           <span className="text-xs font-bold uppercase tracking-wider">
                             Launch Live Sandbox →
