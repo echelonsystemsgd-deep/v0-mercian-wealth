@@ -54,6 +54,8 @@ export function FloatingAiConcierge() {
   ])
 
   const chatContainerRef = useRef<HTMLDivElement | null>(null)
+  const activeUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null)
+  const keepAliveIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -61,18 +63,63 @@ export function FloatingAiConcierge() {
     }
   }, [messages, isOpen])
 
-  // Optional Web Speech Synthesis
+  const cleanupConciergeSpeech = () => {
+    if (keepAliveIntervalRef.current) clearInterval(keepAliveIntervalRef.current)
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.cancel()
+    }
+    activeUtteranceRef.current = null
+    if (typeof window !== "undefined") {
+      delete (window as any).__conciergeUtterance
+    }
+    setIsSpeaking(false)
+  }
+
+  // Robust Web Speech Synthesis with Chromium GC prevention
   const speakText = (text: string) => {
     if (voiceMuted || typeof window === "undefined" || !("speechSynthesis" in window)) return
-    window.speechSynthesis.cancel()
+    cleanupConciergeSpeech()
+
     const utterance = new SpeechSynthesisUtterance(text)
+    utterance.lang = "en-GB"
     utterance.rate = 1.05
     utterance.pitch = 1.0
+
+    // Retain global reference so V8 GC does not kill utterance after 3-5 seconds
+    activeUtteranceRef.current = utterance
+    if (typeof window !== "undefined") {
+      (window as any).__conciergeUtterance = utterance
+    }
+
     utterance.onstart = () => setIsSpeaking(true)
-    utterance.onend = () => setIsSpeaking(false)
-    utterance.onerror = () => setIsSpeaking(false)
+    utterance.onend = () => {
+      setIsSpeaking(false)
+      activeUtteranceRef.current = null
+      if (keepAliveIntervalRef.current) clearInterval(keepAliveIntervalRef.current)
+    }
+    utterance.onerror = (e) => {
+      console.warn("Speech synthesis ended or interrupted:", e)
+      setIsSpeaking(false)
+      activeUtteranceRef.current = null
+      if (keepAliveIntervalRef.current) clearInterval(keepAliveIntervalRef.current)
+    }
+
+    // Chromium keepalive heartbeat
+    keepAliveIntervalRef.current = setInterval(() => {
+      if (typeof window !== "undefined" && window.speechSynthesis && window.speechSynthesis.speaking) {
+        window.speechSynthesis.pause()
+        window.speechSynthesis.resume()
+      }
+    }, 4500)
+
     window.speechSynthesis.speak(utterance)
   }
+
+  useEffect(() => {
+    return () => {
+      cleanupConciergeSpeech()
+    }
+  }, [])
 
   const handleSend = (userText: string) => {
     if (!userText.trim()) return
@@ -119,7 +166,7 @@ export function FloatingAiConcierge() {
   return (
     <>
       {/* Floating Trigger Button at Bottom Right */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-6 right-6 z-30">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}

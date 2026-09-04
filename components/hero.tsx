@@ -96,6 +96,59 @@ export function Hero() {
           </Button>
         </motion.div>
 
+        {/* 3-Step Plain-English Architecture Explainer Cards (Optimized for Instant Understanding on Mobile) */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8 sm:mb-10 text-left"
+        >
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#111115] border border-slate-800 space-y-2 hover:border-[#DCAE53]/40 transition-colors shadow-lg">
+            <div className="flex items-center justify-between">
+              <div className="p-2 rounded-xl bg-[#18181F] text-[#DCAE53] border border-[#DCAE53]/30">
+                <PhoneCall className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                &lt; 420ms
+              </span>
+            </div>
+            <h2 className="text-xs sm:text-sm font-bold text-white">1. Sub-500ms Voice Pickup</h2>
+            <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed font-sans">
+              Never let an emergency call hit voicemail. AI answers 24/7 with natural British voice cadence, qualifying callers immediately.
+            </p>
+          </div>
+
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#111115] border border-slate-800 space-y-2 hover:border-[#DCAE53]/40 transition-colors shadow-lg">
+            <div className="flex items-center justify-between">
+              <div className="p-2 rounded-xl bg-[#18181F] text-[#DCAE53] border border-[#DCAE53]/30">
+                <Zap className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] font-mono text-[#DCAE53] font-bold bg-[#DCAE53]/10 px-2 py-0.5 rounded-full border border-[#DCAE53]/30">
+                Stripe / SMS
+              </span>
+            </div>
+            <h2 className="text-xs sm:text-sm font-bold text-white">2. Live Triage &amp; Deposit</h2>
+            <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed font-sans">
+              Triage emergency priority, quote standard callout rates, and lock customer card deposits via SMS before sending technicians.
+            </p>
+          </div>
+
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#111115] border border-slate-800 space-y-2 hover:border-[#DCAE53]/40 transition-colors shadow-lg">
+            <div className="flex items-center justify-between">
+              <div className="p-2 rounded-xl bg-[#18181F] text-[#DCAE53] border border-[#DCAE53]/30">
+                <Activity className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] font-mono text-cyan-400 font-bold bg-cyan-500/10 px-2 py-0.5 rounded-full border border-cyan-500/20">
+                0.4s Alert
+              </span>
+            </div>
+            <h2 className="text-xs sm:text-sm font-bold text-white">3. Autonomous Fleet Dispatch</h2>
+            <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed font-sans">
+              The closest on-duty technician or driver is alerted via WhatsApp with full job scope and live GPS directions in under 0.4s.
+            </p>
+          </div>
+        </motion.div>
+
         {/* Live Autonomous AI Voice & Dispatch Terminal Mockup */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

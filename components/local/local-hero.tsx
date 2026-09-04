@@ -85,14 +85,14 @@ export function LocalHero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
         >
           <Link
-            href="#field-demo"
+            href="/portfolio"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 font-bold text-sm bg-accent-gold text-black hover:bg-amber-300 rounded-xl shadow-[0_0_25px_rgba(212,175,55,0.25)] transition-all duration-200 cursor-pointer"
           >
             <Smartphone size={18} />
             <span>Test Interactive Mobile Demo</span>
           </Link>
           <Link
-            href="#contact-local"
+            href="/book"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 font-bold text-sm bg-white/5 border border-accent-gold/30 hover:border-accent-gold/60 text-white hover:bg-accent-gold/10 rounded-xl transition-all duration-200 cursor-pointer"
           >
             <ShoppingBag size={18} className="text-accent-gold" />

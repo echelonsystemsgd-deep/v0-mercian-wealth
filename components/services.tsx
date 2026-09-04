@@ -24,6 +24,19 @@ export function Services({ limit }: { limit?: number }) {
   }))
 
   const displayServices = limit ? servicesList.slice(0, limit) : servicesList
+  const cardIds = ["voice", "dispatch", "spatial", "sdr"]
+
+  // Listen to ?solution= query param to automatically open or highlight target service
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search)
+      const solution = params.get("solution")
+      if (solution === "voice" || solution === "inbound") setActiveService(0)
+      else if (solution === "dispatch" || solution === "fleet") setActiveService(1)
+      else if (solution === "spatial" || solution === "3d" || solution === "ecommerce") setActiveService(2)
+      else if (solution === "sdr" || solution === "outbound") setActiveService(3)
+    }
+  }, [])
 
   // Handle escape key to close modal
   useEffect(() => {
@@ -71,11 +84,12 @@ export function Services({ limit }: { limit?: number }) {
             return (
               <motion.div
                 key={index}
+                id={cardIds[index]}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="w-full"
+                className="w-full scroll-mt-28"
               >
                 <Card className="h-full bg-[#111115] border border-slate-800 hover:border-[#DCAE53]/60 hover:shadow-[0_0_25px_rgba(220,174,83,0.15)] transition-all duration-300 rounded-2xl group flex flex-col justify-between">
                   <CardContent className="p-6 sm:p-7 flex flex-col justify-between h-full space-y-6">

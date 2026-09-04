@@ -20,7 +20,7 @@ export function CapabilitiesBento() {
         "Instant Stripe / Apple Pay deposit capture",
         "Real-time calendar & CRM booking injection"
       ],
-      href: "/services#voice",
+      href: "/services?solution=voice",
       featured: true
     },
     {
@@ -36,7 +36,7 @@ export function CapabilitiesBento() {
         "Automated WhatsApp & PWA driver handoff",
         "Zero dispatcher lag or coordination overhead"
       ],
-      href: "/services#dispatch"
+      href: "/services?solution=dispatch"
     },
     {
       id: "3d",
@@ -51,7 +51,7 @@ export function CapabilitiesBento() {
         "Touch-optimized for mobile product configurators",
         "Meshy.ai text-to-3D neural mesh generation"
       ],
-      href: "/services#3d"
+      href: "/services?solution=spatial"
     },
     {
       id: "outbound",
@@ -66,7 +66,7 @@ export function CapabilitiesBento() {
         "Revives dormant past client databases",
         "5-step dynamic WhatsApp & SMS nurture flows"
       ],
-      href: "/services#outbound"
+      href: "/services?solution=sdr"
     }
   ]
 

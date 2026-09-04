@@ -22,9 +22,9 @@ type PortfolioItem = {
 const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   {
     title: "Apex Commercial Climate",
-    category: "24/7 AI Voice Dispatch & Spatial Matching · Interactive Sandbox",
+    category: "24/7 AI Voice Dispatch & Spatial Matching · Case Study",
     gradient: "from-amber-500/20 to-yellow-600/20",
-    href: "/#voice-sandbox",
+    href: null,
     image: "/vanguard-construction-preview.png",
     underConstruction: false,
     metric: "< 380ms Latency · £350 Deposit Secured",
@@ -33,7 +33,7 @@ const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     title: "Aura Private Aesthetics",
     category: "Autonomous Speed-To-Lead Voice Setter · Case Study",
     gradient: "from-emerald-500/20 to-teal-500/20",
-    href: "/#voice-sandbox",
+    href: null,
     image: "/stamp-app-preview.png",
     underConstruction: false,
     metric: "89% Consultation Show-Up Rate",
@@ -42,7 +42,7 @@ const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     title: "Sovereign Haulage Fleet",
     category: "Operator Control Center & Driver PWA · Case Study",
     gradient: "from-rose-500/20 to-amber-500/20",
-    href: "/#demo",
+    href: null,
     image: "/caker-st-preview.png",
     underConstruction: false,
     metric: "Instant Geofence Spatial Matching",
@@ -51,7 +51,7 @@ const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     title: "Mayfair Asset Portfolio",
     category: "Autonomous Property Concierge & Viewing Desk · Case Study",
     gradient: "from-amber-500/20 to-orange-500/20",
-    href: "/#voice-sandbox",
+    href: null,
     image: "/grand-wedding-cakes-preview.png",
     underConstruction: false,
     metric: "£90k+ Leases Handled Autonomously",
@@ -508,7 +508,7 @@ function PrototypePreviewModal({ item, onClose }: { item: PortfolioItem; onClose
                   asChild
                   className="bg-accent-gold text-bg-primary font-bold hover:bg-accent-gold/90"
                 >
-                  <Link href="/contact">
+                  <Link href="/book">
                     Book Live Bespoke Walkthrough →
                   </Link>
                 </Button>

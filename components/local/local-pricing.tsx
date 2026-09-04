@@ -138,7 +138,7 @@ export function LocalPricing() {
 
               {/* CTA Button */}
               <Link
-                href={`#contact-local?tier=${encodeURIComponent(tier.name)}`}
+                href={`/book?tier=${encodeURIComponent(tier.name)}`}
                 className={`w-full py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm text-center flex items-center justify-center gap-2 transition-all cursor-pointer ${
                   tier.featured
                     ? "bg-accent-gold text-black hover:bg-amber-300 shadow-lg"

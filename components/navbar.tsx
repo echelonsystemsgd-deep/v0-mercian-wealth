@@ -10,6 +10,7 @@ import {
   LogOut, 
   LayoutDashboard, 
   ChevronDown, 
+  ChevronRight,
   ArrowRight, 
   PhoneCall, 
   Navigation, 
@@ -20,7 +21,10 @@ import {
   Activity, 
   Sparkles,
   ShieldCheck,
-  Calendar
+  Calendar,
+  CreditCard,
+  Mail,
+  MessageSquare
 } from "lucide-react"
 import Link from "next/link"
 import { BrandLogo } from "@/components/brand-logo"
@@ -97,6 +101,18 @@ export function Navbar() {
     }
   }, [])
 
+  // Lock body scroll when mobile drawer is active
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isMobileMenuOpen])
+
   // When route changes from another page, ensure instant landing at top (no bottom-to-top animated scroll)
   const prevPathnameRef = useRef(pathname)
   useEffect(() => {
@@ -134,7 +150,7 @@ export function Navbar() {
   }
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex flex-col font-sans pointer-events-none">
+    <div className="fixed top-0 left-0 right-0 z-[100] flex flex-col font-sans pointer-events-none">
       
       {/* Top Telemetry Ticker (Pointers enabled) */}
       <div className="pointer-events-auto">
@@ -188,7 +204,8 @@ export function Navbar() {
               onMouseEnter={() => handleMouseEnter("solutions")}
               onMouseLeave={handleMouseLeave}
             >
-              <button
+              <Link
+                href="/services"
                 className={`flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-full transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                   activeDropdown === "solutions" || pathname === "/services"
                     ? "text-[#DCAE53] bg-[#DCAE53]/10 font-bold"
@@ -197,7 +214,7 @@ export function Navbar() {
               >
                 <span className="whitespace-nowrap">Solutions</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 shrink-0 ${activeDropdown === "solutions" ? "rotate-180 text-[#DCAE53]" : "text-slate-400"}`} />
-              </button>
+              </Link>
 
               <AnimatePresence>
                 {activeDropdown === "solutions" && (
@@ -214,8 +231,9 @@ export function Navbar() {
                     </div>
 
                     <Link
-                      href="/services#voice"
+                      href="/services?solution=voice"
                       onClick={() => setActiveDropdown(null)}
+                      prefetch={true}
                       className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
@@ -228,8 +246,9 @@ export function Navbar() {
                     </Link>
 
                     <Link
-                      href="/services#dispatch"
+                      href="/services?solution=dispatch"
                       onClick={() => setActiveDropdown(null)}
+                      prefetch={true}
                       className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
@@ -242,8 +261,9 @@ export function Navbar() {
                     </Link>
 
                     <Link
-                      href="/services#3d"
+                      href="/services?solution=spatial"
                       onClick={() => setActiveDropdown(null)}
+                      prefetch={true}
                       className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
@@ -256,8 +276,9 @@ export function Navbar() {
                     </Link>
 
                     <Link
-                      href="/services#outbound"
+                      href="/services?solution=sdr"
                       onClick={() => setActiveDropdown(null)}
+                      prefetch={true}
                       className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
@@ -279,7 +300,8 @@ export function Navbar() {
               onMouseEnter={() => handleMouseEnter("sandboxes")}
               onMouseLeave={handleMouseLeave}
             >
-              <button
+              <Link
+                href="/portfolio"
                 className={`flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-full transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                   activeDropdown === "sandboxes" || pathname === "/portfolio"
                     ? "text-[#DCAE53] bg-[#DCAE53]/10 font-bold"
@@ -288,7 +310,7 @@ export function Navbar() {
               >
                 <span className="whitespace-nowrap">Demos</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 shrink-0 ${activeDropdown === "sandboxes" ? "rotate-180 text-[#DCAE53]" : "text-slate-400"}`} />
-              </button>
+              </Link>
 
               <AnimatePresence>
                 {activeDropdown === "sandboxes" && (
@@ -301,12 +323,13 @@ export function Navbar() {
                   >
                     <div className="px-3 py-1.5 border-b border-slate-800 flex items-center justify-between mb-1">
                       <span className="text-[10px] font-mono font-bold text-[#DCAE53] uppercase tracking-wider">Live Interactive Testing</span>
-                      <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Client Sandboxes</span>
+                      <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Dedicated Page</span>
                     </div>
 
                     <Link
-                      href="/#voice-sandbox"
+                      href="/portfolio?demo=voice"
                       onClick={() => setActiveDropdown(null)}
+                      prefetch={true}
                       className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
@@ -319,8 +342,9 @@ export function Navbar() {
                     </Link>
 
                     <Link
-                      href="/#spatial-studio"
+                      href="/portfolio?demo=3d"
                       onClick={() => setActiveDropdown(null)}
+                      prefetch={true}
                       className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
@@ -333,8 +357,9 @@ export function Navbar() {
                     </Link>
 
                     <Link
-                      href="/#demo"
+                      href="/portfolio?demo=dispatch"
                       onClick={() => setActiveDropdown(null)}
+                      prefetch={true}
                       className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
@@ -347,8 +372,9 @@ export function Navbar() {
                     </Link>
 
                     <Link
-                      href="/#roi-calculator"
+                      href="/portfolio?demo=roi"
                       onClick={() => setActiveDropdown(null)}
+                      prefetch={true}
                       className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
@@ -439,112 +465,181 @@ export function Navbar() {
               </Link>
             )}
 
-            {/* Primary Gold Pill CTA */}
+            {/* Primary Gold Pill CTA — hide on xs screens to give header breathing room */}
             <Link
               href="/book"
-              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-xs sm:text-sm transition-all shadow-lg shadow-[#DCAE53]/20 whitespace-nowrap group"
+              className="hidden sm:inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-xs sm:text-sm transition-all shadow-lg shadow-[#DCAE53]/20 whitespace-nowrap group"
             >
-              <span><span className="hidden sm:inline">Book </span>Voice Audit</span>
+              <span>Book Voice Audit</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
 
-            {/* Mobile Menu Hamburger */}
+            {/* Mobile Menu Hamburger Pill */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-full bg-[#18181F] text-slate-300 hover:text-white border border-slate-800 transition-colors"
+              className="lg:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#18181F] text-slate-200 hover:text-white border border-[#DCAE53]/30 text-xs font-semibold transition-all cursor-pointer shadow-md"
               aria-label="Toggle Navigation Menu"
             >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMobileMenuOpen ? <X className="w-4 h-4 text-[#DCAE53]" /> : <Menu className="w-4 h-4 text-[#DCAE53]" />}
+              <span className="text-[11px] font-mono uppercase tracking-wider">{isMobileMenuOpen ? "Close" : "Menu"}</span>
             </button>
 
           </div>
         </header>
       </div>
 
-      {/* Mobile Menu Overlay (Solid Opaque, No Glassmorphism) */}
+      {/* Luxury Slide-Over Navigation Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="pointer-events-auto lg:hidden fixed inset-x-3 top-20 bg-[#111115] border border-[#DCAE53]/40 rounded-3xl p-5 shadow-2xl shadow-black max-h-[85vh] overflow-y-auto space-y-4"
-          >
-            <div className="space-y-1 pb-3 border-b border-slate-800">
-              <Link
-                href="/"
-                onClick={(e) => {
-                  setIsMobileMenuOpen(false)
-                  handleHomeClick(e)
-                }}
-                prefetch={true}
-                className="block p-2.5 rounded-xl text-sm font-bold text-white hover:bg-[#18181F]"
-              >
-                Home
-              </Link>
-              <Link
-                href="/services"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block p-2.5 rounded-xl text-sm font-bold text-white hover:bg-[#18181F]"
-              >
-                AI Solutions &amp; Infrastructure
-              </Link>
-              <Link
-                href="/#voice-sandbox"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block p-2.5 rounded-xl text-sm font-bold text-white hover:bg-[#18181F]"
-              >
-                Interactive Voice Sandbox
-              </Link>
-              <Link
-                href="/#spatial-studio"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block p-2.5 rounded-xl text-sm font-bold text-white hover:bg-[#18181F]"
-              >
-                3D Spatial E-Commerce Studio
-              </Link>
-              <Link
-                href="/pricing"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block p-2.5 rounded-xl text-sm font-bold text-white hover:bg-[#18181F]"
-              >
-                Managed Retainers &amp; Pricing
-              </Link>
-              <Link
-                href="/process"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block p-2.5 rounded-xl text-sm font-bold text-white hover:bg-[#18181F]"
-              >
-                Agile Deployment Protocol
-              </Link>
-              <Link
-                href="/contact"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block p-2.5 rounded-xl text-sm font-bold text-white hover:bg-[#18181F]"
-              >
-                Contact Engineers
-              </Link>
-            </div>
+          <div className="fixed inset-0 z-[99999] flex justify-end pointer-events-auto">
+            {/* Soft Darkened Blur Backdrop (Tap outside to close) */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/75 backdrop-blur-sm cursor-pointer"
+            />
 
-            <div className="pt-2 flex flex-col gap-2">
-              <Link
-                href="/book"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full py-3 px-5 rounded-xl bg-[#DCAE53] text-[#09090B] font-bold text-sm text-center shadow-lg"
-              >
-                Book 15-Minute Voice Audit
-              </Link>
-              <a
-                href={SITE_COPY.navbar.whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3 px-5 rounded-xl bg-[#18181F] text-[#DCAE53] border border-[#DCAE53]/30 font-bold text-sm text-center"
-              >
-                Message on WhatsApp
-              </a>
-            </div>
-          </motion.div>
+            {/* Slide-in Sheet (Right-anchored, never stretched into an empty void) */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 28, stiffness: 300 }}
+              className="relative w-full max-w-[360px] sm:max-w-[380px] h-full bg-[#0c0c10] border-l border-slate-800 shadow-2xl flex flex-col justify-between p-5 sm:p-6 z-10 overflow-y-auto font-sans"
+            >
+              {/* Top Header */}
+              <div>
+                <div className="flex items-center justify-between border-b border-slate-800/80 pb-4 mb-5">
+                  <Link
+                    href="/"
+                    onClick={(e) => {
+                      setIsMobileMenuOpen(false)
+                      handleHomeClick(e)
+                    }}
+                    className="flex items-center gap-2.5"
+                  >
+                    <div className="relative h-8 w-8 rounded-lg overflow-hidden border border-[#DCAE53]/40 shadow-md">
+                      <BrandLogo variant="watermark" alt="Mercian Wealth" fill className="object-cover" priority />
+                    </div>
+                    <span className="font-sans text-sm font-extrabold tracking-tight text-white flex items-center gap-1 uppercase">
+                      <span>Mercian</span>
+                      <span className="text-[#DCAE53]">Wealth</span>
+                    </span>
+                  </Link>
+
+                  <button
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="p-2 rounded-full bg-[#18181F] text-slate-300 hover:text-white border border-slate-800 hover:border-[#DCAE53]/40 transition-colors cursor-pointer"
+                    aria-label="Close Navigation Menu"
+                  >
+                    <X className="w-5 h-5 text-slate-300" />
+                  </button>
+                </div>
+
+                {/* Mission Badge */}
+                <div className="mb-5 p-3 rounded-xl bg-[#111115] border border-[#DCAE53]/25 flex items-center gap-2.5 text-xs">
+                  <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                  <span className="text-[11px] font-mono text-slate-300">
+                    24/7 Autonomous AI Voice &amp; Dispatch Engine
+                  </span>
+                </div>
+
+                {/* Clean, Fast, Direct Navigation Links (No paragraphs, easy to navigate) */}
+                <nav className="space-y-1.5">
+                  {[
+                    { name: "Home", href: "/", icon: Sparkles, badge: null },
+                    { name: "AI Solutions & Services", href: "/services", icon: PhoneCall, badge: "24/7" },
+                    { name: "Live Demos & Sandboxes", href: "/portfolio", icon: Activity, badge: "Audio" },
+                    { name: "Retainers & Pricing", href: "/pricing", icon: CreditCard, badge: "Plans" },
+                    { name: "Agile Deployment Protocol", href: "/process", icon: Zap, badge: null },
+                    { name: "Contact Engineers", href: "/contact", icon: Mail, badge: "UK HQ" },
+                  ].map((item) => {
+                    const Icon = item.icon
+                    const isActive = pathname === item.href
+                    return (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`flex items-center justify-between px-3.5 py-3 rounded-xl transition-all group cursor-pointer ${
+                          isActive
+                            ? "bg-[#DCAE53]/15 text-[#DCAE53] font-bold border border-[#DCAE53]/30"
+                            : "text-slate-200 hover:bg-[#18181F] hover:text-white border border-transparent"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className={`p-2 rounded-lg border transition-colors ${
+                            isActive 
+                              ? "bg-[#DCAE53] text-[#09090B] border-[#DCAE53]" 
+                              : "bg-[#18181F] text-[#DCAE53] border-slate-800 group-hover:border-[#DCAE53]/40"
+                          }`}>
+                            <Icon className="w-4 h-4" />
+                          </div>
+                          <span className="text-sm font-semibold tracking-tight">{item.name}</span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          {item.badge && (
+                            <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#18181F] border border-slate-800 text-slate-400 group-hover:text-[#DCAE53] transition-colors">
+                              {item.badge}
+                            </span>
+                          )}
+                          <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                        </div>
+                      </Link>
+                    )
+                  })}
+                </nav>
+              </div>
+
+              {/* Bottom Action Deck */}
+              <div className="pt-5 border-t border-slate-800/80 shrink-0 space-y-2.5">
+                <Link
+                  href="/book"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full py-3.5 px-4 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-xs uppercase tracking-wider text-center shadow-lg shadow-[#DCAE53]/20 flex items-center justify-center gap-2 transition-all cursor-pointer"
+                >
+                  <span>Book 15-Minute Voice Audit</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <a
+                    href="tel:+447851055929"
+                    className="py-2.5 px-3 rounded-xl bg-[#18181F] hover:bg-[#22222d] text-slate-300 hover:text-white border border-slate-800 text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <PhoneCall className="w-3.5 h-3.5 text-[#DCAE53]" />
+                    <span>Call Direct</span>
+                  </a>
+
+                  <a
+                    href={SITE_COPY.navbar.whatsappHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-2.5 px-3 rounded-xl bg-[#18181F] hover:bg-[#22222d] text-slate-300 hover:text-white border border-slate-800 text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5 text-[#DCAE53]" />
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+
+                <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 pt-2 px-1">
+                  <span>Berkshire, UK</span>
+                  <Link
+                    href="/login"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-slate-400 hover:text-[#DCAE53] transition-colors"
+                  >
+                    Client Login →
+                  </Link>
+                </div>
+              </div>
+
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 

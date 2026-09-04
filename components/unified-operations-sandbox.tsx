@@ -26,8 +26,18 @@ import Link from "next/link"
 import * as THREE from "three"
 
 // Sub-components: Voice, 3D WebGL, Dispatch, and ROI Engine
-export function UnifiedOperationsSandbox() {
-  const [activeTab, setActiveTab] = useState<"voice" | "3d" | "dispatch" | "roi">("voice")
+export function UnifiedOperationsSandbox({ initialTab }: { initialTab?: "voice" | "3d" | "dispatch" | "roi" }) {
+  const [activeTab, setActiveTab] = useState<"voice" | "3d" | "dispatch" | "roi">(initialTab || "voice")
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search)
+      const demo = params.get("demo")
+      if (demo === "voice" || demo === "3d" || demo === "dispatch" || demo === "roi") {
+        setActiveTab(demo)
+      }
+    }
+  }, [])
 
   const tabs = [
     { id: "voice", label: "AI Voice Agent", icon: PhoneCall, badge: "<380ms Latency" },
@@ -153,72 +163,182 @@ function VoiceAgentLiveModule() {
   const [currentLineIndex, setCurrentLineIndex] = useState<number>(0)
   const [isMuted, setIsMuted] = useState<boolean>(false)
   const [callDuration, setCallDuration] = useState<number>(0)
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const [isSpeaking, setIsSpeaking] = useState<boolean>(false)
+
+  const activeUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null)
+  const pauseResumeIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  const nextLineTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const durationTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const isPlayingRef = useRef<boolean>(false)
+  const isMutedRef = useRef<boolean>(false)
+
+  isPlayingRef.current = isPlaying
+  isMutedRef.current = isMuted
 
   const dialogue = [
     { speaker: "agent", text: "Thanks for calling Apex Commercial Climate. This is our 24/7 AI dispatch desk. Are you calling regarding an emergency HVAC failure or scheduled maintenance?", time: "00:02" },
-    { speaker: "caller", text: "Hi, our main warehouse server cooling unit just faulted and temperatures are spiking. We need an on-call technician immediately.", time: "00:07" },
-    { speaker: "agent", text: "Understood, David. I'm flagging this as Tier-1 Critical. Our closest on-duty technician Marcus is 14 minutes away in Slough. Shall I dispatch him and lock in your emergency callout?", time: "00:14" },
-    { speaker: "caller", text: "Yes please, dispatch him right away.", time: "00:19" },
-    { speaker: "agent", text: "Confirmed. Technician Marcus has been dispatched. You've received a live GPS tracking link via SMS. Total dispatch time: 24 seconds.", time: "00:25" }
+    { speaker: "caller", text: "Hi, our main warehouse server cooling unit just faulted and temperatures are spiking. We need an on-call technician immediately.", time: "00:08" },
+    { speaker: "agent", text: "Understood, David. I'm flagging this as Tier-1 Critical. Our closest on-duty technician Marcus is 14 minutes away in Slough. Shall I dispatch him and lock in your emergency callout?", time: "00:15" },
+    { speaker: "caller", text: "Yes please, dispatch him right away.", time: "00:22" },
+    { speaker: "agent", text: "Confirmed. Technician Marcus has been dispatched. You've received a live GPS tracking link via SMS. Total dispatch time: 24 seconds.", time: "00:26" }
   ]
 
-  // Speak aloud through browser Web Speech API
-  const speak = (text: string, speaker: "agent" | "caller") => {
-    if (typeof window === "undefined" || !window.speechSynthesis || isMuted) return
+  const cleanupSpeech = () => {
+    if (pauseResumeIntervalRef.current) clearInterval(pauseResumeIntervalRef.current)
+    if (nextLineTimeoutRef.current) clearTimeout(nextLineTimeoutRef.current)
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.cancel()
+    }
+    activeUtteranceRef.current = null
+    if (typeof window !== "undefined") {
+      delete (window as any).__voiceUtterance
+    }
+    setIsSpeaking(false)
+  }
+
+  const playLine = (index: number) => {
+    if (!isPlayingRef.current || index >= dialogue.length) {
+      setIsPlaying(false)
+      setIsSpeaking(false)
+      cleanupSpeech()
+      return
+    }
+
+    setCurrentLineIndex(index)
+    const line = dialogue[index]
+
+    if (isMutedRef.current || typeof window === "undefined" || !("speechSynthesis" in window)) {
+      // Muted or speech unsupported: realistic reading delay so transcript steps naturally
+      setIsSpeaking(true)
+      const wordCount = line.text.split(" ").length
+      const readingDurationMs = Math.max(3500, wordCount * 330)
+
+      nextLineTimeoutRef.current = setTimeout(() => {
+        setIsSpeaking(false)
+        if (index < dialogue.length - 1 && isPlayingRef.current) {
+          nextLineTimeoutRef.current = setTimeout(() => {
+            if (isPlayingRef.current) {
+              playLine(index + 1)
+            }
+          }, 500)
+        } else {
+          setIsPlaying(false)
+        }
+      }, readingDurationMs)
+      return
+    }
+
+    // Unmuted browser speech synthesis
     window.speechSynthesis.cancel()
-    const utterance = new SpeechSynthesisUtterance(text)
+
+    const utterance = new SpeechSynthesisUtterance(line.text)
     utterance.lang = "en-GB"
-    utterance.rate = speaker === "agent" ? 1.05 : 1.0
-    utterance.pitch = speaker === "agent" ? 1.0 : 0.88
+    utterance.rate = line.speaker === "agent" ? 1.02 : 0.96
+    utterance.pitch = line.speaker === "agent" ? 1.0 : 0.88
+
+    // Retain global reference so Chrome doesn't garbage-collect mid-sentence
+    activeUtteranceRef.current = utterance
+    if (typeof window !== "undefined") {
+      (window as any).__voiceUtterance = utterance
+    }
+
+    utterance.onstart = () => {
+      setIsSpeaking(true)
+    }
+
+    utterance.onend = () => {
+      setIsSpeaking(false)
+      activeUtteranceRef.current = null
+      if (typeof window !== "undefined") {
+        delete (window as any).__voiceUtterance
+      }
+
+      if (!isPlayingRef.current) return
+
+      if (index < dialogue.length - 1) {
+        // Natural 500ms conversational turn-taking pause (sub-500ms neural speed)
+        nextLineTimeoutRef.current = setTimeout(() => {
+          if (isPlayingRef.current) {
+            playLine(index + 1)
+          }
+        }, 500)
+      } else {
+        // Final line finished completely
+        nextLineTimeoutRef.current = setTimeout(() => {
+          setIsPlaying(false)
+          setIsSpeaking(false)
+        }, 2000)
+      }
+    }
+
+    utterance.onerror = (e) => {
+      // If utterance was intentionally cancelled on stop, do not trigger error loop
+      if (!isPlayingRef.current) return
+      console.warn("Speech synthesis ended or was interrupted:", e)
+      setIsSpeaking(false)
+      activeUtteranceRef.current = null
+      if (index < dialogue.length - 1 && isPlayingRef.current) {
+        nextLineTimeoutRef.current = setTimeout(() => {
+          if (isPlayingRef.current) {
+            playLine(index + 1)
+          }
+        }, 1000)
+      } else {
+        setIsPlaying(false)
+      }
+    }
+
+    // Chromium keep-alive heartbeat: prevents Chrome from pausing speech after ~15s
+    if (pauseResumeIntervalRef.current) clearInterval(pauseResumeIntervalRef.current)
+    pauseResumeIntervalRef.current = setInterval(() => {
+      if (typeof window !== "undefined" && window.speechSynthesis && window.speechSynthesis.speaking) {
+        window.speechSynthesis.pause()
+        window.speechSynthesis.resume()
+      }
+    }, 4500)
+
     window.speechSynthesis.speak(utterance)
   }
 
   const startCall = () => {
+    cleanupSpeech()
     setIsPlaying(true)
+    isPlayingRef.current = true
     setCurrentLineIndex(0)
     setCallDuration(0)
-    speak(dialogue[0].text, "agent")
+    // Small initial tick to ensure audio context is unlocked
+    setTimeout(() => {
+      playLine(0)
+    }, 100)
   }
 
   const stopCall = () => {
     setIsPlaying(false)
-    if (timerRef.current) clearInterval(timerRef.current)
-    if (typeof window !== "undefined" && window.speechSynthesis) {
-      window.speechSynthesis.cancel()
-    }
+    isPlayingRef.current = false
+    cleanupSpeech()
   }
 
+  // Elapsed duration counter: only tracks call time, NEVER forces speech cancellation
   useEffect(() => {
     if (isPlaying) {
-      timerRef.current = setInterval(() => {
-        setCallDuration(prev => {
-          const next = prev + 1
-          if (next === 5 && currentLineIndex === 0) {
-            setCurrentLineIndex(1)
-            speak(dialogue[1].text, "caller")
-          } else if (next === 11 && currentLineIndex === 1) {
-            setCurrentLineIndex(2)
-            speak(dialogue[2].text, "agent")
-          } else if (next === 18 && currentLineIndex === 2) {
-            setCurrentLineIndex(3)
-            speak(dialogue[3].text, "caller")
-          } else if (next === 23 && currentLineIndex === 3) {
-            setCurrentLineIndex(4)
-            speak(dialogue[4].text, "agent")
-          } else if (next >= 29) {
-            stopCall()
-          }
-          return next
-        })
+      durationTimerRef.current = setInterval(() => {
+        setCallDuration(prev => prev + 1)
       }, 1000)
     } else {
-      if (timerRef.current) clearInterval(timerRef.current)
+      if (durationTimerRef.current) clearInterval(durationTimerRef.current)
     }
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current)
+      if (durationTimerRef.current) clearInterval(durationTimerRef.current)
     }
-  }, [isPlaying, currentLineIndex, isMuted])
+  }, [isPlaying])
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      cleanupSpeech()
+      if (durationTimerRef.current) clearInterval(durationTimerRef.current)
+    }
+  }, [])
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
@@ -251,9 +371,13 @@ function VoiceAgentLiveModule() {
         {/* Real-time Waveform Stream Indicator */}
         <div className="p-4 rounded-xl bg-[#111115] border border-slate-800/80 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <Mic className={`w-4 h-4 ${isPlaying ? "text-[#DCAE53] animate-pulse" : "text-slate-500"}`} />
+            <Mic className={`w-4 h-4 ${isSpeaking ? "text-[#DCAE53] animate-pulse" : "text-slate-500"}`} />
             <span className="text-xs font-mono text-slate-300">
-              {isPlaying ? (dialogue[currentLineIndex]?.speaker === "agent" ? "AI Voice Replying..." : "Caller Speaking...") : "Click 'Start Voice Call' to Hear Live Speech"}
+              {isPlaying 
+                ? (isSpeaking 
+                    ? (dialogue[currentLineIndex]?.speaker === "agent" ? "AI Voice Speaking (Live Audio)..." : "Caller Speaking (Slough Depot)...") 
+                    : "Neural Turn Handoff (<400ms)...") 
+                : "Click 'Start Voice Call' to Hear Live Speech"}
             </span>
           </div>
 
@@ -263,11 +387,11 @@ function VoiceAgentLiveModule() {
               <motion.div
                 key={i}
                 animate={{
-                  scaleY: isPlaying ? [Math.max(0.2, (h * 0.2) / 100), h / 100, Math.max(0.25, (h * 0.4) / 100)] : 0.2
+                  scaleY: isSpeaking ? [Math.max(0.25, (h * 0.2) / 100), h / 100, Math.max(0.3, (h * 0.4) / 100)] : 0.2
                 }}
-                transition={{ repeat: Infinity, duration: 0.6 + (i % 3) * 0.2, ease: "easeInOut" }}
+                transition={{ repeat: Infinity, duration: 0.5 + (i % 3) * 0.2, ease: "easeInOut" }}
                 style={{ originY: 0.5 }}
-                className={`w-1 h-6 rounded-full ${isPlaying ? "bg-[#DCAE53]" : "bg-slate-700"}`}
+                className={`w-1 h-6 rounded-full ${isSpeaking ? "bg-[#DCAE53]" : "bg-slate-700"}`}
               />
             ))}
           </div>

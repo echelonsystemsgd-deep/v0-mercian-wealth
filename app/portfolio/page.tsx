@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/navbar"
+import { UnifiedOperationsSandbox } from "@/components/unified-operations-sandbox"
 import { Portfolio } from "@/components/portfolio"
 import { CTA } from "@/components/cta"
 import { Footer } from "@/components/footer"
@@ -21,6 +22,7 @@ export default function PortfolioPage() {
         highlight={data.headerHighlight}
         subtitle={data.headerSubtitle}
       />
+      <UnifiedOperationsSandbox />
       <Portfolio />
       <CTA />
       <Footer />

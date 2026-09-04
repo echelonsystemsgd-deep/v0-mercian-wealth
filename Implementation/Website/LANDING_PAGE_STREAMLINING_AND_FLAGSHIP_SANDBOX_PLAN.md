@@ -89,4 +89,6 @@ Replaces walls of text and repetitive lists with a modern, visual 4-card bento g
 - [x] Header items stay strictly on one line across desktop viewports.
 - [x] Cross-page navigation to `/` lands immediately at top 0 with zero bottom-to-top scroll animation.
 - [x] Clicking logo while on landing page smoothly scrolls to top.
+- [x] Every button and link redirects properly to dedicated separate pages (`/services`, `/portfolio`, `/pricing`, `/process`, `/contact`, `/book`) with 0 in-page anchor trapping.
 - [x] Realistic sprint timelines and additional charges transparently disclosed.
+
