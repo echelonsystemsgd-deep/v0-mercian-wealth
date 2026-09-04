@@ -33,7 +33,7 @@ function StepGraphic({ step }: { step: number }) {
             <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
             <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
             <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-            <span className="text-[11px] font-mono text-slate-400 ml-1">artisan-bakery.storefront.app</span>
+            <span className="text-[11px] font-mono text-slate-400 ml-1">localbusiness.storefront.app</span>
           </div>
           <span className="text-[10px] font-mono font-bold bg-[#DCAE53]/10 text-[#DCAE53] border border-[#DCAE53]/30 px-2 py-0.5 rounded">
             ⚡ SUB-1-SECOND
@@ -42,14 +42,14 @@ function StepGraphic({ step }: { step: number }) {
 
         <div className="space-y-3">
           <div className="p-3 rounded-lg bg-[#18181F] border border-slate-800 space-y-1">
-            <span className="text-[10px] uppercase font-mono font-bold text-[#DCAE53]">Selected Product</span>
-            <p className="text-sm font-bold text-white">Custom 3-Tier Pistachio Cake</p>
-            <p className="text-xs text-slate-400 font-sans">12–16 Portions • Pickup Date: Sat 24 Oct</p>
+            <span className="text-[10px] uppercase font-mono font-bold text-[#DCAE53]">Selected Service</span>
+            <p className="text-sm font-bold text-white">Custom Project Package</p>
+            <p className="text-xs text-slate-400 font-sans">Full Scope Delivery • Scheduled: Sat 24 Oct</p>
           </div>
 
           <div className="p-3 rounded-lg bg-[#18181F]/80 border border-slate-800 space-y-2">
             <div className="flex justify-between text-xs">
-              <span className="text-slate-400">Total Order Value:</span>
+              <span className="text-slate-400">Total Project Value:</span>
               <span className="text-white font-mono font-bold">£185.00</span>
             </div>
             <div className="flex justify-between text-xs font-bold text-[#34A88E] pt-1 border-t border-slate-800">
@@ -86,7 +86,7 @@ function StepGraphic({ step }: { step: number }) {
               WA
             </div>
             <div>
-              <p className="text-xs font-bold text-white">WhatsApp Kitchen &amp; Team Alert</p>
+              <p className="text-xs font-bold text-white">WhatsApp Team &amp; Operations Alert</p>
               <p className="text-[10px] text-[#34A88E] font-mono">Instant Dispatch Latency: 0.4s</p>
             </div>
           </div>
@@ -95,14 +95,14 @@ function StepGraphic({ step }: { step: number }) {
 
         <div className="p-4 rounded-lg bg-[#2E8B77]/10 border border-[#2E8B77]/30 space-y-2">
           <div className="flex items-center gap-1.5 text-[#34A88E] font-mono text-xs font-bold">
-            <span>⚡ NEW ORDER &amp; DEPOSIT PAID</span>
+            <span>⚡ NEW BOOKING &amp; DEPOSIT PAID</span>
           </div>
           <div className="text-xs font-sans text-slate-200 space-y-1 pt-1">
             <p><strong className="text-slate-400">Customer:</strong> Sophie Taylor (Reading, RG1)</p>
             <p><strong className="text-slate-400">Phone:</strong> +44 7700 900123</p>
-            <p><strong className="text-slate-400">Item:</strong> 3-Tier Pistachio &amp; Raspberry (£185)</p>
+            <p><strong className="text-slate-400">Package:</strong> Custom Project Scope (£185)</p>
             <p><strong className="text-slate-400">Deposit Paid:</strong> <span className="text-[#34A88E] font-mono font-bold">£50.00 via Apple Pay</span></p>
-            <p><strong className="text-slate-400">Pickup Date:</strong> Sat 24 Oct · 11:30 AM</p>
+            <p><strong className="text-slate-400">Scheduled Date:</strong> Sat 24 Oct · 11:30 AM</p>
           </div>
         </div>
       </div>
@@ -135,7 +135,7 @@ function StepGraphic({ step }: { step: number }) {
           <div className="p-2.5 rounded-lg bg-[#18181F] border border-slate-800 flex justify-between items-center">
             <div>
               <p className="font-bold text-white text-[11px]">Sophie Taylor (Reading)</p>
-              <p className="text-[10px] text-slate-400">3-Tier Cake • Sat 24 Oct</p>
+              <p className="text-[10px] text-slate-400">Project Scope • Sat 24 Oct</p>
             </div>
             <span className="text-[10px] bg-[#2E8B77]/20 text-[#34A88E] border border-[#2E8B77]/30 px-2 py-0.5 rounded font-bold">
               £50 Deposit Paid
@@ -145,7 +145,7 @@ function StepGraphic({ step }: { step: number }) {
           <div className="p-2.5 rounded-lg bg-[#18181F]/70 border border-slate-800/80 flex justify-between items-center">
             <div>
               <p className="font-bold text-white text-[11px]">James Thornton (Windsor)</p>
-              <p className="text-[10px] text-slate-400">Catering Box • Sun 25 Oct</p>
+              <p className="text-[10px] text-slate-400">Bespoke Service • Sun 25 Oct</p>
             </div>
             <span className="text-[10px] bg-[#2E8B77]/20 text-[#34A88E] border border-[#2E8B77]/30 px-2 py-0.5 rounded font-bold">
               £120 Deposit Paid
@@ -155,7 +155,7 @@ function StepGraphic({ step }: { step: number }) {
           <div className="p-2.5 rounded-lg bg-[#18181F]/40 border border-slate-800/50 flex justify-between items-center">
             <div>
               <p className="font-bold text-white text-[11px]">Emma Watson (Maidenhead)</p>
-              <p className="text-[10px] text-slate-400">Celebration Order • Completed</p>
+              <p className="text-[10px] text-slate-400">Project Delivery • Completed</p>
             </div>
             <span className="text-[10px] bg-[#DCAE53]/20 text-[#DCAE53] border border-[#DCAE53]/30 px-2 py-0.5 rounded font-bold">
               5★ Review Collected
@@ -199,7 +199,7 @@ function StepGraphic({ step }: { step: number }) {
       </div>
 
       <div className="p-3 rounded-lg bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-center text-xs text-[#DCAE53] font-sans font-medium">
-        ✨ While you focus on prepping and baking, your automated storefront takes orders, collects deposits, and alerts your phone 24/7.
+        ✨ While you focus on fulfilling work and serving clients, your automated storefront takes bookings, collects deposits, and alerts your phone 24/7.
       </div>
     </div>
   )
@@ -211,29 +211,29 @@ export function StickmanWorkflow() {
   const steps = [
     {
       id: 0,
-      title: "1. Customers Configure & Order Online (24/7)",
-      subtitle: "Your sub-second mobile storefront collects sizes, flavors, event dates, and upfront deposits while you are in the kitchen or on a job.",
-      badge: "24/7 Order Intake & Deposits",
+      title: "1. Customers Configure & Book Online (24/7)",
+      subtitle: "Your sub-second mobile storefront collects service packages, project specifications, dates, and upfront deposits while you are on-site or busy with clients.",
+      badge: "24/7 Intake & Deposits",
       icon: Zap,
     },
     {
       id: 1,
       title: "2. Instant WhatsApp Alert Hits Your Phone",
-      subtitle: "Triggered instantly via automated cloud webhooks. Complete order specifications, customer phone, pickup date, and deposit receipt sent straight to your pocket.",
+      subtitle: "Triggered instantly via automated cloud webhooks. Complete project specifications, customer phone, scheduled date, and deposit receipt sent straight to your pocket.",
       badge: "Instant Smartphone WhatsApp Alert",
       icon: MessageSquare,
     },
     {
       id: 2,
       title: "3. Calendar & Customer Database Auto-Sync",
-      subtitle: "Zero lost DM notes or forgotten voicemails. All customer details, pickup dates, and deposit invoices are automatically logged.",
+      subtitle: "Zero lost DM notes or forgotten voicemails. All customer details, appointment dates, and deposit invoices are automatically logged.",
       badge: "Database & Accounting Sync",
       icon: Database,
     },
     {
       id: 3,
       title: "4. You Reclaim 10+ Hours Every Single Week",
-      subtitle: "No more spending exhausting evenings chasing bank transfers or answering the same flavor questions in DMs. Focus on craft while automation handles the orders.",
+      subtitle: "No more spending exhausting evenings chasing bank transfers or answering repetitive questions in DMs. Focus on high-value delivery while automation handles customer intake.",
       badge: "Saved Admin Time & Revenue Lift",
       icon: Clock,
     },

@@ -53,7 +53,7 @@ export function LocalHero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="font-sans text-base sm:text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed mb-8"
         >
-          For bakeries, caterers, food artisans, and bespoke local service businesses across Berkshire and the UK. Customers order in 3 taps, pay upfront deposits, and send WhatsApp alerts straight to your pocket.
+          For premier local businesses, consultancies, and bespoke service operators across Berkshire and the UK. Customers book in 3 taps, pay upfront deposits, and send WhatsApp alerts straight to your pocket.
         </motion.p>
 
         {/* Trust Points */}

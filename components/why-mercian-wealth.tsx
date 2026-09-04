@@ -48,10 +48,10 @@ export function WhyMercianWealth() {
               <span>FOUNDER &amp; AUTOMATION STRATEGIST</span>
             </div>
             <h3 className="font-sans text-lg sm:text-xl lg:text-2xl font-extrabold text-white">
-              &quot;I built Mercian Wealth so local business owners &amp; food artisans never lose custom orders or high-paying clients to buried DMs.&quot;
+              &quot;I built Mercian Wealth so local business owners never lose high-value project enquiries or custom bookings to buried DMs.&quot;
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
-              Unlike generic web designers who build slow brochures, we specialize strictly in fast mobile storefronts, 3-tap custom order builders, instant WhatsApp alert workflows, and 5-star Google review systems for bakeries, catering, food artisans, and local businesses.
+              Unlike generic web designers who build slow brochures, we specialize strictly in fast mobile storefronts, 3-tap custom booking and order engines, instant WhatsApp alert workflows, and 5-star Google review systems for ambitious local businesses.
             </p>
           </div>
         </motion.div>

@@ -51,7 +51,7 @@ export default async function Home() {
                 "@id": "https://mercianwealth.com/#website",
                 "url": "https://mercianwealth.com",
                 "name": "Mercian Wealth",
-                "description": "Mobile storefronts, 3-tap order builders, instant WhatsApp alerts & automated Google review systems for bakeries, catering businesses, food artisans & local services across Berkshire & the UK.",
+                "description": "Mobile storefronts, 3-tap booking builders, instant WhatsApp alerts & automated Google review systems for premier local businesses & service operators across Berkshire & the UK.",
                 "publisher": {
                   "@id": "https://mercianwealth.com/#organization"
                 }
@@ -67,7 +67,7 @@ export default async function Home() {
                 "about": {
                   "@id": "https://mercianwealth.com/#organization"
                 },
-                "description": "Mobile storefronts, 3-tap order builders, instant WhatsApp alerts & automated Google review systems for bakeries, catering businesses, food artisans & local services across Berkshire & the UK."
+                "description": "Mobile storefronts, 3-tap booking builders, instant WhatsApp alerts & automated Google review systems for premier local businesses & service operators across Berkshire & the UK."
               }
             ]
           })
@@ -94,7 +94,7 @@ export default async function Home() {
       <SectionDivider id="chapter-divider-V" chapter="V" title="Calculate Saved Hours & Revenue" />
       <InteractiveRoiCalculator />
 
-      <SectionDivider id="chapter-divider-VI" chapter="VI" title="Built for Food Artisans & Local Services" />
+      <SectionDivider id="chapter-divider-VI" chapter="VI" title="Built for Premier Local Businesses" />
       <WhyMercianWealth />
       <SystemBlueprint />
 

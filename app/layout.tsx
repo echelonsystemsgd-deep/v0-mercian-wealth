@@ -10,6 +10,7 @@ import { TabRetention } from '@/components/tab-retention'
 import { Toaster } from '@/components/ui/sonner'
 import { SITE_COPY } from '@/lib/site-copy'
 import { WhatsAppButton } from '@/components/whatsapp-button'
+import { ExtensionErrorHandler } from '@/components/extension-error-handler'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -37,12 +38,11 @@ export const metadata: Metadata = {
     "3-tap order builder",
     "WhatsApp order alerts",
     "automated Google review system",
-    "bakery ordering system UK",
-    "catering automation Berkshire",
     "local business automation UK",
     "custom web design agency UK",
     "automated booking systems UK",
-    "deposit capture systems"
+    "deposit capture systems",
+    "lead conversion systems UK"
   ],
   authors: [{ name: 'Mercian Wealth' }],
   creator: 'Mercian Wealth',
@@ -142,7 +142,7 @@ const jsonLd = {
     opens: '00:00',
     closes: '23:59'
   },
-  description: 'Mobile storefronts, 3-tap order builders, instant WhatsApp alerts, and automated Google review systems for bakeries, catering businesses, food artisans, and local services across Berkshire & the UK.',
+  description: 'Mobile storefronts, 3-tap booking builders, instant WhatsApp alerts, and automated Google review systems for premier local businesses and service operators across Berkshire & the UK.',
   sameAs: [
     'https://wa.me/447851055929'
   ]
@@ -157,11 +157,36 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${geistMono.variable} bg-[#09090B]`} suppressHydrationWarning>
       <head>
         <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                window.addEventListener('unhandledrejection', function(event) {
+                  var reason = event && event.reason;
+                  var str = (typeof reason === 'string' ? reason : (reason && (reason.message || reason.stack))) || '';
+                  if (str.indexOf('MetaMask') !== -1 || str.indexOf('chrome-extension://') !== -1 || str.indexOf('inpage.js') !== -1) {
+                    event.preventDefault();
+                    if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+                  }
+                }, true);
+                window.addEventListener('error', function(event) {
+                  var fn = (event && event.filename) || '';
+                  var msg = (event && event.message) || '';
+                  if (fn.indexOf('chrome-extension://') !== -1 || fn.indexOf('inpage.js') !== -1 || msg.indexOf('MetaMask') !== -1) {
+                    event.preventDefault();
+                    if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+                  }
+                }, true);
+              })();
+            `,
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body className="font-sans antialiased bg-[#09090B] text-white">
+          <ExtensionErrorHandler />
           {children}
           <StickyCTAButton />
           <ScrollToTop />

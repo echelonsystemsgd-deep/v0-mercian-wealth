@@ -6,23 +6,23 @@ import { PhoneOff, MessageSquareX, TrendingDown, Clock, AlertTriangle } from "lu
 const painPoints = [
   {
     icon: PhoneOff,
-    title: "Unanswered Calls During Baking Hours",
-    description: "You're kneading dough or serving a line of 10 people. The phone rings for a custom catering quote. Nobody answers, and that customer calls the next shop down the street.",
+    title: "Unanswered Enquiries During Busy Client Hours",
+    description: "You're on-site, in a consultation, or serving clients. The phone rings or a DM arrives for a high-value project. Nobody answers, and that customer calls your local competitor.",
   },
   {
     icon: MessageSquareX,
-    title: "Order Details Scribbled on Paper & WhatsApp",
-    description: "Flavors, pickup dates, and deposit notes scattered across napkins and chat threads. One misread date means a ruined weekend and an unhappy regular customer.",
+    title: "Project Notes Scribbled on Paper & WhatsApp",
+    description: "Specifications, delivery deadlines, and deposit notes scattered across scrap paper and chat threads. One misread specification means lost revenue and an unhappy client.",
   },
   {
     icon: TrendingDown,
-    title: "Losing Catering Deals to Franchise Chains",
-    description: "Corporate lunch planners and wedding hosts buy online in 30 seconds. If your business requires sending an email inquiry and waiting 24 hours, you lose the deal.",
+    title: "Losing Lucrative Contracts to Fast Rivals",
+    description: "High-intent customers and commercial decision makers book online in 30 seconds. If your business requires exchanging manual messages and waiting 24 hours for a quote, you lose the deal.",
   },
   {
     icon: Clock,
     title: "Forgotten Google Review Requests",
-    description: "Happy customers walk out your door smiling every single day. But without an automated text sent right after purchase, 95% forget to leave a 5-star Google review.",
+    description: "Happy clients thank you after exceptional delivery every single week. But without an automated link sent immediately upon completion, 95% forget to leave a 5-star Google review.",
   },
 ]
 
@@ -36,7 +36,7 @@ export function LocalPainPoints() {
             <span>The Daily Reality For Local Businesses</span>
           </div>
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
-            How Many Custom Orders Slip Through the Cracks Every Single Week?
+            How Many High-Value Enquiries Slip Through the Cracks Every Single Week?
           </h2>
         </div>
 

@@ -1,5 +1,5 @@
 # Mercian Wealth — Storefronts, Automation & Growth Systems for Local Businesses
-**Mobile storefronts, 3-tap order builders, instant WhatsApp alerts, and automated Google review systems for bakeries, catering businesses, food artisans, and local services across Berkshire & the UK.**
+**Mobile storefronts, 3-tap booking engines, instant WhatsApp alerts, and automated Google review systems for premier local businesses and service operators across Berkshire, the West Midlands & the UK.**
 
 ---
 
@@ -31,10 +31,10 @@ Built with a modern tech automation aesthetic (Charcoal + Solid Gold):
 
 ## 🚀 Core Service Pillars
 
-1. **Sub-Second Mobile Storefronts**: 3-tap checkout designed specifically for mobile shoppers on Instagram and Google.
-2. **Instant WhatsApp Order & Kitchen Alerts**: Orders dispatch directly to your kitchen or phone with customer notes and pickup times.
-3. **Automated Upfront Deposit Collection**: Integrated Apple Pay, Google Pay, and card deposits to eliminate unpaid no-shows.
-4. **Automated 5-Star Google Review Engine**: Post-order automated review requests steadily building local Google search dominance.
+1. **Sub-Second Mobile Storefronts**: 3-tap booking and order intake designed specifically for mobile shoppers and searchers.
+2. **Instant WhatsApp Dispatch Alerts**: Enquiries and reservations dispatch directly to your smartphone with client notes and requested times.
+3. **Automated Upfront Deposit Collection**: Integrated Apple Pay, Google Pay, and card deposits to eliminate unpaid cancellations.
+4. **Automated 5-Star Google Review Engine**: Post-service automated review requests steadily building local Google search dominance.
 5. **Direct Client & Admin Portals**: Dedicated `/client` and `/admin` portals for project tracking, bookings, leads, and metrics.
 
 ---

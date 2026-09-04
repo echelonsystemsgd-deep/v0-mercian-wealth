@@ -10,8 +10,8 @@ export function LocalLeadForm() {
     businessName: "",
     email: "",
     phone: "",
-    niche: "Bakery / Artisan Food",
-    packageChoice: "Catering & Order Engine (£895 setup)",
+    niche: "Local Professional Service",
+    packageChoice: "Pro Quote & Deposit Engine (£895 setup)",
     notes: "",
     gdprConsent: true,
   })
@@ -133,7 +133,7 @@ export function LocalLeadForm() {
                     required
                     value={formData.businessName}
                     onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
-                    placeholder="e.g. Sweet Artisan Bakery"
+                    placeholder="e.g. Sterling Premier Services"
                     className="w-full bg-white/[0.04] border border-white/15 rounded-xl p-3.5 text-sm text-white outline-none focus:border-accent-gold transition-colors font-sans"
                   />
                 </div>
@@ -150,7 +150,7 @@ export function LocalLeadForm() {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="sarah@sweetartisan.co.uk"
+                    placeholder="sarah@sterlingservices.co.uk"
                     className="w-full bg-white/[0.04] border border-white/15 rounded-xl p-3.5 text-sm text-white outline-none focus:border-accent-gold transition-colors font-sans"
                   />
                 </div>
@@ -181,12 +181,11 @@ export function LocalLeadForm() {
                     onChange={(e) => setFormData({ ...formData, niche: e.target.value })}
                     className="w-full bg-white/[0.04] border border-white/15 rounded-xl p-3.5 text-xs text-white outline-none focus:border-accent-gold font-sans"
                   >
-                    <option value="Bakery / Artisan Food" className="bg-bg-secondary text-white">Bakery / Artisan Food</option>
-                    <option value="Confectioner / Chocolatier" className="bg-bg-secondary text-white">Confectioner / Chocolatier</option>
-                    <option value="Independent Cafe / Deli" className="bg-bg-secondary text-white">Independent Cafe / Deli</option>
-                    <option value="Independent Retail Store" className="bg-bg-secondary text-white">Independent Retail Store</option>
                     <option value="Local Professional Service" className="bg-bg-secondary text-white">Local Professional Service</option>
-                    <option value="Other Business" className="bg-bg-secondary text-white">Other Business</option>
+                    <option value="Bespoke Retail / Boutique" className="bg-bg-secondary text-white">Bespoke Retail / Boutique</option>
+                    <option value="Consultancy & Practice" className="bg-bg-secondary text-white">Consultancy & Practice</option>
+                    <option value="Commercial & B2B Services" className="bg-bg-secondary text-white">Commercial & B2B Services</option>
+                    <option value="Other Local Business" className="bg-bg-secondary text-white">Other Local Business</option>
                   </select>
                 </div>
 
@@ -215,7 +214,7 @@ export function LocalLeadForm() {
                   rows={3}
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  placeholder="e.g. We need 24/7 site survey bookings, instant WhatsApp alerts on site, and Stripe deposit collection."
+                  placeholder="e.g. We need 24/7 online package bookings, instant WhatsApp dispatch alerts, and Stripe deposit collection."
                   className="w-full bg-white/[0.04] border border-white/15 rounded-xl p-3.5 text-sm text-white outline-none focus:border-accent-gold transition-colors font-sans resize-none"
                 />
               </div>

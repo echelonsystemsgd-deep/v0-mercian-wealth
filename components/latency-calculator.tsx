@@ -46,7 +46,7 @@ export function LatencyCalculator() {
             Calculate Your <span className="bg-gradient-to-r from-accent-gold via-amber-200 to-accent-gold bg-clip-text text-transparent">Latency Revenue Deficit</span>
           </h2>
           <p className="font-sans text-sm sm:text-base text-text-primary opacity-75 leading-relaxed mt-4">
-            Slow response speeds and missed calls while on site bleed high-ticket project revenue. Move the sliders to calculate your live estimated annual leak.
+            Slow response speeds and delayed replies during busy operational hours bleed high-ticket project revenue. Move the sliders to calculate your live estimated annual leak.
           </p>
         </div>
 
@@ -89,7 +89,7 @@ export function LatencyCalculator() {
                 <div className="flex flex-row justify-between items-baseline gap-2 min-w-0 flex-wrap sm:flex-nowrap">
                   <label className="font-sans text-xs sm:text-sm font-semibold text-white uppercase tracking-wider flex items-center gap-2 min-w-0 flex-1">
                     <DollarSign size={16} className="text-accent-gold shrink-0" />
-                    <span className="truncate">Average Job / Project Value</span>
+                    <span className="truncate">Average Client / Project Value</span>
                   </label>
                   <span className="font-mono text-lg sm:text-xl lg:text-2xl font-bold text-accent-gold whitespace-nowrap shrink-0">
                     {formatCurrency(avgDealValue)}

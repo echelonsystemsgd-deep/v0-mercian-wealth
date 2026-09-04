@@ -999,7 +999,7 @@ function BookingFlowInner() {
                 </div>
                 <div>
                   <h4 className="text-xs font-bold text-accent-gold uppercase tracking-wider">Instant Booking & Deposit Collection</h4>
-                  <p className="text-xs text-text-secondary mt-1">Online booking builder allowing clients to select service options and pay upfront deposits 24/7.</p>
+                  <p className="text-xs text-text-secondary mt-1">Online booking engine allowing clients to select service options and pay upfront deposits 24/7.</p>
                 </div>
                 <div>
                   <h4 className="text-xs font-bold text-accent-gold uppercase tracking-wider">Instant Phone Notifications</h4>

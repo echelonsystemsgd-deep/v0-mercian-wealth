@@ -122,7 +122,7 @@ export function ProjectTelemetry({ project }: ProjectProps) {
 
   const setupPerks = isRevenue
     ? [
-        "Everything in Pro Order Builder (Unlimited Pages)",
+        "Everything in Pro Automation Engine (Unlimited Pages)",
         "Multi-Service Architecture & Multi-Staff Booking",
         "Custom Online Quote & Price Calculators",
         "Advanced Multi-Location CRM Synchronization",

@@ -20,17 +20,17 @@ type Testimonial = {
 
 const DEFAULT_FRONTEND_TESTIMONIALS = [
   {
-    client_name: "Sarah M., Founder",
-    company: "The Artisan Patisserie Group · London",
-    testimonial: "We used to lose 4–5 bespoke orders every weekend due to missed calls and delayed replies. Mercian deployed an automated 24/7 storefront with WhatsApp notifications. We now capture 50% non-refundable deposits upfront before any job hits our calendar.",
+    client_name: "Sarah M., Managing Director",
+    company: "Vanguard Client Operations · West Midlands",
+    testimonial: "We used to lose 4–5 high-value client enquiries every single week to missed calls and delayed replies. Mercian deployed an automated booking and deposit engine with instant WhatsApp dispatch. We now capture non-refundable upfront commitment before any consultation hits our calendar.",
     badge: "+38% Revenue Lift",
     is_featured: true,
     is_archived: false,
   },
   {
-    client_name: "Marcus T., Managing Director",
-    company: "Gourmet Events & Hospitality · Berkshire",
-    testimonial: "The automated quote engine and instant phone dispatch completely eliminated our late-night quote chasing. Setup was completed in 6 business days and paid for itself within the first 3 weeks of operations.",
+    client_name: "Marcus T., Principal Operator",
+    company: "Sovereign Commercial Group · Warwickshire",
+    testimonial: "The automated intake system and instant WhatsApp routing completely eliminated our late-night enquiry chasing. Our team only speaks with qualified decision-makers who have already chosen their service tier.",
     badge: "14.5 Hrs Saved / Wk",
     is_featured: true,
     is_archived: false,

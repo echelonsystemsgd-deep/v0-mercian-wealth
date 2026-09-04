@@ -19,15 +19,15 @@ interface TestimonialRecord {
 
 const STATIC_FALLBACK_TESTIMONIALS: TestimonialRecord[] = [
   {
-    client_name: "Elena S., Head Baker & Owner",
-    company: "Artisan Flour & Crust · Windsor, Berkshire",
-    testimonial: "We used to lose custom celebration cake orders every weekend because we were knee-deep in dough and couldn't answer Instagram DMs fast enough. Mercian deployed our 3-tap order builder with instant WhatsApp phone alerts. We collected £4,800 in upfront deposits in our first 30 days and eliminated manual message tag.",
+    client_name: "Elena S., Managing Director",
+    company: "Apex Premier Services · Windsor, Berkshire",
+    testimonial: "We used to lose high-value customer enquiries every weekend because we were busy with clients and couldn't answer Instagram DMs fast enough. Mercian deployed our 3-tap booking engine with instant WhatsApp phone alerts. We collected £4,800 in upfront deposits in our first 30 days and eliminated manual message tag.",
     badge: "+£4.8k Deposits Captured",
   },
   {
-    client_name: "Marcus V., Executive Chef",
-    company: "Sovereign Events & Gourmet Catering · Reading",
-    testimonial: "The automated booking system and calendar sync completely eliminated our late-night invoicing headaches. Corporate clients can configure menus, view exact pricing, and secure dates in under 60 seconds with automated 5-star Google review collection post-event.",
+    client_name: "Marcus V., Operations Director",
+    company: "Sovereign Client Services · Reading",
+    testimonial: "The automated booking system and calendar sync completely eliminated our late-night invoicing headaches. Clients can configure packages, view exact pricing, and secure dates in under 60 seconds with automated 5-star Google review collection post-service.",
     badge: "12+ Hrs Saved / Wk",
   },
 ]

@@ -21,8 +21,8 @@ type PortfolioItem = {
 
 const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   {
-    title: "Artisan Flour & Crust",
-    category: "Custom Cake & Bakery Storefront · Interactive Sandbox",
+    title: "Vanguard Premier Operations",
+    category: "High-Ticket Client Intake & Deposit Engine · Interactive Sandbox",
     gradient: "from-amber-500/20 to-yellow-600/20",
     href: "https://premium-local-construction-business.vercel.app/",
     image: "/vanguard-construction-preview.png",
@@ -30,8 +30,8 @@ const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     metric: "3-Tap Order Intake · Instant WhatsApp Alert",
   },
   {
-    title: "Sovereign Events & Catering",
-    category: "Bespoke Event & Canapé Booking · Case Study",
+    title: "Sovereign Client Services",
+    category: "Bespoke Booking & Deposit Portal · Case Study",
     gradient: "from-emerald-500/20 to-teal-500/20",
     href: null,
     image: "/stamp-app-preview.png",
@@ -39,27 +39,27 @@ const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     metric: "Deposit Collection: Apple Pay / Card",
   },
   {
-    title: "Caker St. London Bakery",
-    category: "E-Commerce & Ordering · Case Study",
+    title: "Sterling Local Commerce",
+    category: "High-Converting Storefront & Ordering · Case Study",
     gradient: "from-rose-500/20 to-amber-500/20",
     href: null,
     image: "/caker-st-preview.png",
     underConstruction: true,
-    metric: "Interactive Cake Concierge",
+    metric: "Interactive 3-Tap Intake",
   },
   {
-    title: "Grand Wedding Cakes",
-    category: "Luxury Bridal Atelier · Case Study",
+    title: "Apex Bespoke Consultations",
+    category: "Luxury Client Atelier · Case Study",
     gradient: "from-amber-500/20 to-orange-500/20",
     href: null,
     image: "/grand-wedding-cakes-preview.png",
     underConstruction: true,
-    metric: "Tier Architecture & White-Glove Setup",
+    metric: "Tier Architecture & Direct Deposit Setup",
   },
 ]
 
 function PremiumMockup({ item }: { item: PortfolioItem }) {
-  if (item.title.includes("Vanguard") || item.title.includes("Apex") || item.title.includes("Construction")) {
+  if (item.title.includes("Vanguard") || item.title.includes("Apex") || item.title.includes("Operations")) {
     return (
       <div className="absolute inset-2 sm:inset-4 bg-[#050C1A] rounded-xl border border-[#DAA640]/40 overflow-hidden shadow-2xl flex flex-col font-sans">
         <div className="flex items-center justify-between px-3 py-2 bg-[#0A162E] border-b border-[#DAA640]/25 shrink-0">
@@ -69,36 +69,36 @@ function PremiumMockup({ item }: { item: PortfolioItem }) {
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
           </div>
           <div className="h-3.5 bg-[#020E28] border border-[#DAA640]/30 rounded-full px-3 text-[7px] text-[#DAA640] flex items-center justify-center font-mono">
-            premium-local-construction-business.vercel.app
+            vanguard-operations-prototype.vercel.app
           </div>
           <div className="w-4" />
         </div>
         <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#07153B] to-[#020E28]">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">VANGUARD CONSTRUCTION</span>
+              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">VANGUARD OPERATIONS</span>
               <span className="text-[6px] font-bold uppercase tracking-widest text-[#DAA640] bg-[#DAA640]/10 border border-[#DAA640]/30 px-1.5 py-0.5 rounded-full">SURREY & LONDON</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="text-[6px] text-emerald-400 font-bold">★ 14+ Yrs Craftsmanship</span>
+              <span className="text-[6px] text-emerald-400 font-bold">★ 14+ Yrs Client Excellence</span>
             </div>
           </div>
           <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-white leading-tight">Architectural House Extensions & Loft Conversions</h4>
-            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Built with fixed-price certainty, sub-second quote engine & turnkey structural project delivery.</p>
+            <h4 className="text-[11px] font-bold text-white leading-tight">High-Value Project Scope & Milestone Intake Engine</h4>
+            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Built with fixed-price certainty, sub-second quote engine & turnkey client delivery.</p>
           </div>
           <div className="grid grid-cols-3 gap-1">
             <div className="bg-[#0C1D4D] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Extensions</span>
-              <span className="text-[8px] font-serif font-bold text-[#DAA640]">Single & Double</span>
+              <span className="text-[6px] text-slate-400 block font-mono">Project Tiers</span>
+              <span className="text-[8px] font-serif font-bold text-[#DAA640]">Core & Bespoke</span>
             </div>
             <div className="bg-[#0C1D4D] border border-[#DAA640]/40 rounded p-1 text-center bg-[#DAA640]/10">
-              <span className="text-[6px] text-[#DAA640] block font-mono font-bold">Insurance</span>
+              <span className="text-[6px] text-[#DAA640] block font-mono font-bold">Security</span>
               <span className="text-[8px] font-serif font-bold text-white">£5M All-Risk</span>
             </div>
             <div className="bg-[#0C1D4D] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Loft Suites</span>
-              <span className="text-[8px] font-serif font-bold text-[#DAA640]">Dormer & Mansard</span>
+              <span className="text-[6px] text-slate-400 block font-mono">Deposit Lock</span>
+              <span className="text-[8px] font-serif font-bold text-[#DAA640]">Instant Stripe</span>
             </div>
           </div>
         </div>
@@ -106,7 +106,7 @@ function PremiumMockup({ item }: { item: PortfolioItem }) {
     )
   }
 
-  if (item.title === "Caker St. London Bakery" || item.title.includes("Caker St")) {
+  if (item.title === "Sterling Local Commerce" || item.title.includes("Sterling") || item.title.includes("Caker")) {
     return (
       <div className="absolute inset-2 sm:inset-4 bg-[#140608] rounded-xl border border-rose-950/60 overflow-hidden shadow-2xl flex flex-col font-sans">
         <div className="flex items-center justify-between px-3 py-2 bg-[#1f0a0d] border-b border-rose-900/30 shrink-0">
@@ -116,14 +116,14 @@ function PremiumMockup({ item }: { item: PortfolioItem }) {
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/40" />
           </div>
           <div className="h-3.5 bg-rose-950/50 border border-rose-900/30 rounded-full px-3 text-[7px] text-amber-200/60 flex items-center justify-center font-mono">
-            caker-st-prototype.vercel.app
+            sterling-commerce.vercel.app
           </div>
           <div className="w-4" />
         </div>
         <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#1a070a] to-[#0d0304]">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-black tracking-tight text-white font-serif">CAKER ST.</span>
+              <span className="text-[10px] font-black tracking-tight text-white font-serif">STERLING COMMERCE</span>
               <span className="text-[6px] font-bold uppercase tracking-widest text-amber-400 bg-amber-400/10 border border-amber-400/20 px-1.5 py-0.5 rounded-full">LONDON</span>
             </div>
             <div className="flex items-center gap-1">
@@ -131,16 +131,16 @@ function PremiumMockup({ item }: { item: PortfolioItem }) {
             </div>
           </div>
           <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-white leading-tight">Artisan Celebration Cakes Delivered Across England</h4>
-            <p className="text-[7px] text-rose-200/70 leading-relaxed max-w-[90%]">Handcrafted character, birthday & wedding cakes. 100% Eggless & Halal options with chilled UK delivery.</p>
+            <h4 className="text-[11px] font-bold text-white leading-tight">Premium Local Services & Products Delivered Seamlessly</h4>
+            <p className="text-[7px] text-rose-200/70 leading-relaxed max-w-[90%]">High-converting digital storefront with instant mobile booking, deposit collection & automated review extraction.</p>
           </div>
           <div className="bg-[#240c11] border border-rose-900/40 rounded p-2 flex justify-between items-center">
             <div className="space-y-0.5">
               <span className="text-[6px] text-amber-400/90 block font-mono font-bold">INTERACTIVE CONCIERGE</span>
-              <span className="text-[8px] font-bold text-white">Find Your Dream Cake in 30s</span>
+              <span className="text-[8px] font-bold text-white">Find Your Custom Scope in 30s</span>
             </div>
             <div className="h-4 px-2 bg-amber-400 text-slate-950 rounded flex items-center justify-center font-bold text-[7px]">
-              Shop Cakes →
+              Book Services →
             </div>
           </div>
         </div>
@@ -148,7 +148,7 @@ function PremiumMockup({ item }: { item: PortfolioItem }) {
     )
   }
 
-  if (item.title === "Grand Wedding Cakes" || item.title.includes("Grand Wedding")) {
+  if (item.title === "Apex Bespoke Consultations" || item.title.includes("Apex") || item.title.includes("Grand Wedding")) {
     return (
       <div className="absolute inset-2 sm:inset-4 bg-[#0d0f14] rounded-xl border border-amber-900/30 overflow-hidden shadow-2xl flex flex-col font-sans">
         <div className="flex items-center justify-between px-3 py-2 bg-[#141824] border-b border-amber-900/20 shrink-0">
@@ -158,24 +158,24 @@ function PremiumMockup({ item }: { item: PortfolioItem }) {
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/40" />
           </div>
           <div className="h-3.5 bg-white/5 border border-white/10 rounded-full px-3 text-[7px] text-amber-200/60 flex items-center justify-center font-mono">
-            grand-wedding-cakes-prototype.vercel.app
+            apex-consultations.vercel.app
           </div>
           <div className="w-4" />
         </div>
         <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#161a29] to-[#0d101a]">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-serif font-semibold tracking-wider text-amber-200">GRAND WEDDING CAKES</span>
+              <span className="text-[10px] font-serif font-semibold tracking-wider text-amber-200">APEX CONSULTATIONS</span>
             </div>
             <span className="text-[6px] uppercase tracking-widest text-[#DAA640] border border-[#DAA640]/30 bg-[#DAA640]/10 px-1.5 py-0.5 rounded-full font-mono">LUXURY ATELIER</span>
           </div>
           <div className="space-y-1">
-            <h4 className="text-[11px] font-serif font-medium text-white leading-tight">Grand Cakes For Your Greatest Celebration</h4>
-            <p className="text-[7px] text-white/60 leading-relaxed max-w-[88%]">Bespoke multi-tier luxury wedding cakes handcrafted in London with couture sugar florals & white-glove styling.</p>
+            <h4 className="text-[11px] font-serif font-medium text-white leading-tight">Bespoke Strategic Delivery For High-Ticket Clients</h4>
+            <p className="text-[7px] text-white/60 leading-relaxed max-w-[88%]">Comprehensive multi-tier service architecture handcrafted with white-glove onboarding and priority dispatch.</p>
           </div>
           <div className="grid grid-cols-3 gap-1">
             <div className="bg-[#1c2236] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-white/40 block font-mono">Drop Off</span>
+              <span className="text-[6px] text-white/40 block font-mono">Diagnostic</span>
               <span className="text-[8px] font-serif font-bold text-amber-300">From £450</span>
             </div>
             <div className="bg-[#1c2236] border border-[#DAA640]/30 rounded p-1 text-center bg-[#DAA640]/5">

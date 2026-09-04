@@ -120,13 +120,13 @@ export function Hero() {
             {/* Customer Storefront Order */}
             <div className="p-3.5 rounded-lg bg-[#18181F] border border-slate-800/80 space-y-2">
               <div className="flex justify-between items-center text-xs">
-                <span className="font-mono text-slate-400 uppercase text-[10px] font-bold">New Customer Order (Storefront)</span>
+                <span className="font-mono text-slate-400 uppercase text-[10px] font-bold">New Client Booking (Storefront)</span>
                 <span className="font-mono text-[10px] text-[#DCAE53] font-bold">3-TAP CHECKOUT</span>
               </div>
               <div className="flex justify-between items-baseline">
                 <div>
-                  <p className="font-bold text-white text-sm">Bespoke 3-Tier Celebration Cake</p>
-                  <p className="text-xs text-slate-400">Pistachio & Raspberry · Event Date: Sat 24 Oct · Notes: Gluten-Free Tier</p>
+                  <p className="font-bold text-white text-sm">Bespoke Client Project Package</p>
+                  <p className="text-xs text-slate-400">Full Scope Delivery · Scheduled: Sat 24 Oct · Scope: Custom Milestones</p>
                 </div>
                 <div className="text-right">
                   <span className="font-mono font-bold text-white text-sm">£185.00</span>
@@ -140,12 +140,12 @@ export function Hero() {
               <div className="flex items-center justify-between text-[#34A88E] font-mono text-[11px] font-bold">
                 <span className="flex items-center gap-1.5">
                   <MessageSquare size={13} />
-                  <span>WHATSAPP DISPATCH TO KITCHEN / TEAM</span>
+                  <span>WHATSAPP DISPATCH TO YOUR PHONE / TEAM</span>
                 </span>
                 <span className="text-[10px] text-slate-400 font-normal">0.4s Latency</span>
               </div>
               <p className="text-xs font-sans text-slate-300">
-                &quot;✨ New Order Confirmed! Sophie Taylor reserved 24 Oct for 3-Tier Cake. £50 deposit captured. Contact: +44 7700 900123.&quot;
+                &quot;✨ New Booking Confirmed! Sophie Taylor reserved 24 Oct for Custom Service Package. £50 deposit captured. Contact: +44 7700 900123.&quot;
               </p>
             </div>
           </div>

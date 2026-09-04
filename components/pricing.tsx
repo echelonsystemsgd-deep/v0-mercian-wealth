@@ -13,16 +13,16 @@ const comparisonCategories = [
   {
     category: "Core Storefront & Design",
     items: [
-      { name: "Custom Mobile Design", essential: "3–5 Page Custom Mobile Storefront", pro: "5–8 Page Custom Order Builder", custom: "Unlimited Multi-Service Storefront" },
+      { name: "Custom Mobile Design", essential: "3–5 Page Custom Mobile Storefront", pro: "5–8 Page Custom Booking Engine", custom: "Unlimited Multi-Service Storefront" },
       { name: "Sub-1s Mobile PageSpeed", essential: "✓ Guaranteed Sub-1s Load", pro: "✓ Guaranteed Sub-1s + Dynamic UI", custom: "✓ Max Speed + Multi-Location Architecture" },
       { name: "Local Google SEO", essential: "Core Local SEO & Schema Setup", pro: "Advanced Local Schema & Map Pack", custom: "Comprehensive Search Dominance Blueprint" },
-      { name: "Conversion Copywriting", essential: "Conversion-Focused Local Copy", pro: "Persuasive Menu & Service Copy", custom: "Complete Bespoke Brand Copywriting" },
+      { name: "Conversion Copywriting", essential: "Conversion-Focused Local Copy", pro: "Persuasive Service & Package Copy", custom: "Complete Bespoke Brand Copywriting" },
     ]
   },
   {
     category: "24/7 Booking & Deposit Engine",
     items: [
-      { name: "24/7 Online Order Builder", essential: "✓ 24/7 Mobile Lead Capture Form", pro: "✓ Interactive 3-Tap Order Builder", custom: "✓ Advanced Multi-Service Quote Engine" },
+      { name: "24/7 Online Booking Engine", essential: "✓ 24/7 Mobile Lead Capture Form", pro: "✓ Interactive 3-Tap Booking Engine", custom: "✓ Advanced Multi-Service Quote Engine" },
       { name: "Upfront Stripe Deposit Capture", essential: "— (Lead Capture Only)", pro: "✓ 50% Non-Refundable Card & Apple Pay", custom: "✓ Custom Split & Full Deposit Rules" },
       { name: "Calendar Slot Locking", essential: "—", pro: "✓ Automatic Date & Slot Locking", custom: "✓ Multi-Staff & Multi-Location Calendar Sync" },
       { name: "Automated Receipts & Invoices", essential: "Standard Email Notification", pro: "✓ Instant Branded Receipt & Invoice", custom: "✓ Multi-Location Invoicing & Accounting Sync" },
@@ -303,7 +303,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                               : "text-[#DCAE53] font-medium"
                           }`}
                         >
-                          Pro Builder
+                          Pro Engine
                         </button>
                         <button
                           onClick={() => setActiveMobileTier("custom")}
@@ -345,7 +345,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                           <tr className="border-b border-slate-800 bg-[#18181F] text-white">
                             <th className="p-4 sm:p-5 font-sans font-bold text-sm">Feature Comparison</th>
                             <th className="p-4 sm:p-5 font-mono text-[11px] text-slate-300 text-center">Essential Storefront (£495)</th>
-                            <th className="p-4 sm:p-5 font-mono text-[11px] text-[#DCAE53] text-center bg-[#DCAE53]/10 font-bold">Pro Order Builder (£895)</th>
+                            <th className="p-4 sm:p-5 font-mono text-[11px] text-[#DCAE53] text-center bg-[#DCAE53]/10 font-bold">Pro Automation Engine (£895)</th>
                             <th className="p-4 sm:p-5 font-mono text-[11px] text-slate-300 text-center">Full Custom Build (£1,450)</th>
                           </tr>
                         </thead>

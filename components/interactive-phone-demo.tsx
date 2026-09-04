@@ -2,13 +2,13 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { MessageSquare, CheckCircle2, Clock, Sparkles, Cake, UtensilsCrossed, Calendar, CreditCard, ArrowRight } from "lucide-react"
+import { MessageSquare, CheckCircle2, Clock, Sparkles, Briefcase, Layers, Calendar, CreditCard, ArrowRight } from "lucide-react"
 
 export function InteractivePhoneDemo() {
-  const [activeNiche, setActiveNiche] = useState<"bakery" | "catering">("bakery")
+  const [activeNiche, setActiveNiche] = useState<"bespoke" | "highTicket">("bespoke")
   
   // Interactive Order Builder Form States
-  const [selectedOption, setSelectedOption] = useState("Custom 3-Tier Pistachio Cake (£185)")
+  const [selectedOption, setSelectedOption] = useState("Premier Client Package (£450)")
   const [selectedDate, setSelectedDate] = useState("This Saturday (11:30 AM)")
   const [isSimulating, setIsSimulating] = useState(false)
 
@@ -19,37 +19,37 @@ export function InteractivePhoneDemo() {
     amount: string
     webhook: string
   }>({
-    title: "New Custom Order & Deposit Paid!",
-    body: "Sophie T. configured a Custom 3-Tier Pistachio Cake (£185). Pickup confirmed for This Saturday (11:30 AM).",
+    title: "New Client Booking & Deposit Paid!",
+    body: "Sophie T. configured a Premier Client Package (£450). Schedule confirmed for This Saturday (11:30 AM).",
     time: "Just now",
-    amount: "£50.00 Deposit Paid (Apple Pay)",
-    webhook: "Instant Kitchen Webhook Triggered"
+    amount: "£150.00 Deposit Paid (Apple Pay)",
+    webhook: "Instant Mobile Dispatch Webhook Triggered"
   })
 
-  const bakeryOptions = [
-    { name: "Custom 3-Tier Pistachio Cake (£185)", deposit: "£50.00 Deposit Paid", price: "£185.00" },
-    { name: "Weekend Artisan Sourdough & Pastry Bundle (£48)", deposit: "Paid in Full", price: "£48.00" },
-    { name: "Corporate Dessert Platter (50 Portions) (£160)", deposit: "£50.00 Deposit Paid", price: "£160.00" },
+  const bespokeOptions = [
+    { name: "Premier Client Package (£450)", deposit: "£150.00 Deposit Paid", price: "£450.00" },
+    { name: "Custom Milestone Delivery (£1,200)", deposit: "£400.00 Deposit Paid", price: "£1,200.00" },
+    { name: "Express Consultation & Retainer (£280)", deposit: "Paid in Full", price: "£280.00" },
   ]
 
-  const cateringOptions = [
-    { name: "Private Dining & Canapés (20 Guests) (£650)", deposit: "£150.00 Deposit Paid", price: "£650.00" },
-    { name: "Gourmet Buffet & Grazing Table (£420)", deposit: "£100.00 Deposit Paid", price: "£420.00" },
-    { name: "Weekend Luxury Brunch Delivery Box (£95)", deposit: "Paid in Full", price: "£95.00" },
+  const highTicketOptions = [
+    { name: "Full-Scope Commercial Project (£2,400)", deposit: "£600.00 Deposit Paid", price: "£2,400.00" },
+    { name: "Executive On-Site Service (£850)", deposit: "£250.00 Deposit Paid", price: "£850.00" },
+    { name: "Priority Diagnostic & Audit (£350)", deposit: "Paid in Full", price: "£350.00" },
   ]
 
   const triggerTestSubmit = () => {
     setIsSimulating(true)
     setTimeout(() => {
-      const currentList = activeNiche === "bakery" ? bakeryOptions : cateringOptions
+      const currentList = activeNiche === "bespoke" ? bespokeOptions : highTicketOptions
       const match = currentList.find(o => o.name === selectedOption) || currentList[0]
 
       setNotification({
-        title: activeNiche === "bakery" ? "New Bakery Order & Deposit Paid!" : "New Catering Booking Confirmed!",
-        body: `Customer submitted bespoke order for ${selectedOption}. Delivery/Pickup locked for ${selectedDate}.`,
+        title: activeNiche === "bespoke" ? "New Client Booking & Deposit Paid!" : "High-Ticket Project Confirmed!",
+        body: `Customer submitted bespoke request for ${selectedOption}. Appointment locked for ${selectedDate}.`,
         time: "Just now",
         amount: match.deposit,
-        webhook: "Instant Kitchen Webhook Triggered"
+        webhook: "Instant Mobile Dispatch Webhook Triggered"
       })
       setIsSimulating(false)
     }, 500)
@@ -68,10 +68,10 @@ export function InteractivePhoneDemo() {
             <span>Interactive 3-Tap Storefront Simulator</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Test The 3-Tap Order Engine Yourself
+            Test The 3-Tap Booking Engine Yourself
           </h2>
           <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-            Select an order package below, click <strong>&quot;Submit Order &amp; Pay Deposit&quot;</strong>, and watch the live smartphone mockup receive the instant WhatsApp dispatch in 0.4 seconds!
+            Select a service package below, click <strong>&quot;Submit Booking &amp; Pay Deposit&quot;</strong>, and watch the live smartphone mockup receive the instant WhatsApp dispatch in 0.4 seconds!
           </p>
         </div>
 
@@ -80,33 +80,33 @@ export function InteractivePhoneDemo() {
           <button
             suppressHydrationWarning
             onClick={() => {
-              setActiveNiche("bakery")
-              setSelectedOption(bakeryOptions[0].name)
+              setActiveNiche("bespoke")
+              setSelectedOption(bespokeOptions[0].name)
             }}
             className={`flex items-center gap-2 px-4 sm:px-6 py-3 sm:py-3.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 ${
-              activeNiche === "bakery"
+              activeNiche === "bespoke"
                 ? "bg-[#DCAE53] text-[#09090B] shadow-lg scale-105"
                 : "bg-[#111115] text-slate-300 hover:bg-[#18181F] border border-slate-800"
             }`}
           >
-            <Cake size={16} className="shrink-0" />
-            <span>Artisan Bakery &amp; Cake Studio Demo</span>
+            <Briefcase size={16} className="shrink-0" />
+            <span>Bespoke Project &amp; Package Demo</span>
           </button>
 
           <button
             suppressHydrationWarning
             onClick={() => {
-              setActiveNiche("catering")
-              setSelectedOption(cateringOptions[0].name)
+              setActiveNiche("highTicket")
+              setSelectedOption(highTicketOptions[0].name)
             }}
             className={`flex items-center gap-2 px-4 sm:px-6 py-3 sm:py-3.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 ${
-              activeNiche === "catering"
+              activeNiche === "highTicket"
                 ? "bg-[#DCAE53] text-[#09090B] shadow-lg scale-105"
                 : "bg-[#111115] text-slate-300 hover:bg-[#18181F] border border-slate-800"
             }`}
           >
-            <UtensilsCrossed size={16} className="shrink-0" />
-            <span>Bespoke Catering &amp; Events Demo</span>
+            <Layers size={16} className="shrink-0" />
+            <span>High-Ticket Commercial Booking Demo</span>
           </button>
         </div>
 
@@ -115,7 +115,7 @@ export function InteractivePhoneDemo() {
           <div className="lg:col-span-6 p-4 sm:p-8 rounded-2xl bg-[#111115] border border-slate-800/80 backdrop-blur-xl shadow-2xl space-y-6 min-w-0 max-w-full">
             <div className="flex items-center justify-between border-b border-slate-800 pb-4">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <span>Customer Mobile Order Builder</span>
+                <span>Customer Mobile Booking Engine</span>
               </h3>
               <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#DCAE53] bg-[#DCAE53]/10 px-2.5 py-1 rounded-full border border-[#DCAE53]/20">
                 Live Interactive Widget
@@ -126,10 +126,10 @@ export function InteractivePhoneDemo() {
             <div>
               <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2 mb-2">
                 <span className="w-5 h-5 rounded-full bg-[#DCAE53]/20 text-[#DCAE53] font-mono text-[11px] flex items-center justify-center border border-[#DCAE53]/40">1</span>
-                <span>STEP 1: SELECT PRODUCT / PACKAGE</span>
+                <span>STEP 1: SELECT SERVICE / PROJECT SCOPE</span>
               </label>
               <div className="space-y-2">
-                {(activeNiche === "bakery" ? bakeryOptions : cateringOptions).map((opt, idx) => (
+                {(activeNiche === "bespoke" ? bespokeOptions : highTicketOptions).map((opt, idx) => (
                   <button
                     suppressHydrationWarning
                     key={opt.name}
@@ -155,7 +155,7 @@ export function InteractivePhoneDemo() {
             <div>
               <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2 mb-2">
                 <span className="w-5 h-5 rounded-full bg-[#DCAE53]/20 text-[#DCAE53] font-mono text-[11px] flex items-center justify-center border border-[#DCAE53]/40">2</span>
-                <span>STEP 2: SELECT PICKUP OR EVENT DATE</span>
+                <span>STEP 2: SELECT APPOINTMENT OR PROJECT START DATE</span>
               </label>
               
               <div className="space-y-2">
@@ -215,7 +215,7 @@ export function InteractivePhoneDemo() {
                 className="w-full min-h-[52px] py-4 rounded-lg bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-extrabold text-sm uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 <span className="w-6 h-6 rounded-full bg-[#09090B]/20 text-[#09090B] font-mono text-xs flex items-center justify-center border border-[#09090B]/30">3</span>
-                <span>STEP 3: SUBMIT ORDER &amp; DISPATCH TO PHONE</span>
+                <span>STEP 3: SUBMIT BOOKING &amp; DISPATCH TO PHONE</span>
                 <ArrowRight size={16} />
               </button>
               <span className="text-[11px] text-slate-400 text-center block mt-2 font-mono">

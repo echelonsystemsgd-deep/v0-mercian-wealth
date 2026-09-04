@@ -4,7 +4,7 @@
  * Centralised Copy Registry for mercianwealth.com
  *
  * High-Leverage AI Automation, 3-Tap Mobile Storefronts, WhatsApp Order Dispatch & Review Extraction
- * Engineered for Bakeries, Catering, Food Artisans & Premier Local Services across Berkshire & the UK.
+ * Engineered for Ambitious Local Businesses & Premier Service Operators across Berkshire & the UK.
  */
 
 export const SITE_COPY = {
@@ -13,23 +13,23 @@ export const SITE_COPY = {
     layout: {
       defaultTitle: "Mercian Wealth · Storefronts, Automation & Growth Systems",
       titleTemplate: "%s · Mercian Wealth",
-      description: "We engineer high-converting mobile storefronts, 3-tap custom order builders, instant WhatsApp alerts, and automated Google review engines for UK local businesses.",
+      description: "We engineer high-converting mobile storefronts, 3-tap custom booking and order engines, instant WhatsApp alerts, and automated Google review engines for UK local businesses.",
     },
     home: {
       title: "Mercian Wealth · Storefronts, Automation & Growth Systems",
-      description: "Sub-second mobile storefronts, 3-tap order builders, instant WhatsApp dispatch alerts, and automated review extraction for local food artisans and businesses.",
+      description: "Sub-second mobile storefronts, 3-tap booking engines, instant WhatsApp dispatch alerts, and automated review extraction for UK local businesses.",
     },
     services: {
       title: "What We Build · Mercian Wealth",
-      description: "Bespoke mobile storefronts, automated deposit capture, instant WhatsApp kitchen dispatch, and systematic 5-star Google review engines.",
+      description: "Bespoke mobile storefronts, automated deposit capture, instant WhatsApp operational dispatch, and systematic 5-star Google review engines.",
     },
     process: {
       title: "The 7-Day Protocol · Mercian Wealth",
-      description: "From diagnostic audit to a fully operational, automated ordering and WhatsApp alert engine in 7 days. Zero operational drag.",
+      description: "From diagnostic audit to a fully operational, automated booking and WhatsApp alert engine in 7 days. Zero operational drag.",
     },
     portfolio: {
       title: "Prototypes · Mercian Wealth",
-      description: "Live interactive storefront sandboxes and custom order builder prototypes engineered for food artisans and local service operators.",
+      description: "Live interactive storefront sandboxes and custom booking prototypes engineered for premier local businesses and service operators.",
     },
     pricing: {
       title: "Commercial Terms · Mercian Wealth",
@@ -37,15 +37,15 @@ export const SITE_COPY = {
     },
     testimonials: {
       title: "Case Studies · Mercian Wealth",
-      description: "Quantified operational outcomes, recovered orders, and automated revenue engines across Berkshire and the UK.",
+      description: "Quantified operational outcomes, recovered project bookings, and automated revenue engines across Berkshire and the UK.",
     },
     contact: {
       title: "Direct Gateway · Mercian Wealth",
-      description: "Stop haemorrhaging orders in unread DMs. Connect directly via WhatsApp or book a 15-minute diagnostic audit.",
+      description: "Stop haemorrhaging high-value enquiries in unread DMs. Connect directly via WhatsApp or book a 15-minute diagnostic audit.",
     },
     book: {
       title: "Book Diagnostic · Mercian Wealth",
-      description: "Schedule a 15-minute diagnostic call to uncover exactly where your business is losing orders, deposits, and billable hours.",
+      description: "Schedule a 15-minute diagnostic call to uncover exactly where your business is losing bookings, deposits, and billable hours.",
     },
   },
 
@@ -82,7 +82,7 @@ export const SITE_COPY = {
     hero: {
       eyebrow: "MOBILE STOREFRONTS · ORDER AUTOMATION · LOCAL GROWTH",
       headline: "We Build Fast Mobile Storefronts & AI Automations That Capture Orders, Collect Deposits, and Scale Local Businesses 24/7.",
-      subheadline: "Stop losing orders in unread Instagram DMs and manual phone tag. We engineer sub-second mobile storefronts, 3-tap order builders, instant WhatsApp kitchen dispatch alerts, and automated Google review engines for bakeries, caterers, food artisans, and premier local businesses across Berkshire & the UK.",
+      subheadline: "Stop losing high-value enquiries in unread Instagram DMs and manual phone tag. We engineer sub-second mobile storefronts, 3-tap booking engines, instant WhatsApp dispatch alerts, and automated Google review engines for premier local businesses across Berkshire & the UK.",
       primaryCtaText: "Message on WhatsApp",
       primaryCtaHref: "https://wa.me/447851055929",
       secondaryCtaText: "Book a 15-Min Audit",
@@ -90,7 +90,7 @@ export const SITE_COPY = {
       proofBadge: "3-Tap Checkout · Sub-1s Load Speed · WhatsApp Dispatch · 5★ Reviews",
       trustItems: [
         "Sub-1-Second Mobile Storefronts",
-        "3-Tap Custom Order Builders",
+        "3-Tap Custom Booking Engines",
         "Instant WhatsApp Dispatch Alerts",
         "Automated 5-Star Review Extraction",
       ],
@@ -101,15 +101,15 @@ export const SITE_COPY = {
     divergenceComparison: {
       eyebrow: "OPERATIONAL LEVERAGE",
       headline: "Friction is an unforced error. Make ordering instant, or lose the customer to someone who will.",
-      subheadline: "In local commerce, customers buy when impulse is high. You can continue juggling buried DMs, lost order notes, and manual deposit chasing—or deploy an automated engine that captures orders and deposits 24/7.",
+      subheadline: "In local commerce, customers buy when impulse is high. You can continue juggling buried DMs, lost project notes, and manual deposit chasing—or deploy an automated engine that captures bookings and deposits 24/7.",
       pathConventional: {
         badge: "MANUAL JUGGLE · OPERATIONAL DRAG",
         title: "The DM & Scrap Paper Vulnerability",
-        subtitle: "Losing high-margin custom celebration orders and catering bookings whilst you are in the kitchen or on site.",
+        subtitle: "Losing high-margin custom bookings and project enquiries whilst serving clients or fulfilling work on-site.",
         points: [
-          "Haemorrhaging 5–10 lucrative orders weekly because customers wait hours for a reply in Instagram or Facebook DMs.",
-          "Exhausting your evenings manually typing quotes, verifying bank transfers, and reconciling order dates.",
-          "Absorbing no-shows and last-minute cancellations on custom orders due to uncollected upfront deposits.",
+          "Haemorrhaging 5–10 lucrative project bookings weekly because customers wait hours for a reply in Instagram or Facebook DMs.",
+          "Exhausting your evenings manually typing quotes, verifying bank transfers, and reconciling booking dates.",
+          "Absorbing no-shows and last-minute cancellations on bespoke bookings due to uncollected upfront deposits.",
           "Zero systematic Google reviews collected, allowing inferior local competitors to outrank you on Google Maps.",
         ]
       },
@@ -118,10 +118,10 @@ export const SITE_COPY = {
         title: "The Mercian Automation Engine",
         subtitle: "Instant 3-tap customer checkout, non-refundable deposit capture, and sub-second WhatsApp dispatch.",
         points: [
-          "Customers configure flavours, portion sizes, bespoke notes & event dates online 24/7, paying deposits instantly via Apple Pay/Card.",
-          "Instant WhatsApp dispatch hits your smartphone with comprehensive order specifications and pickup dates in under 0.4 seconds.",
+          "Customers configure project specifications, custom requirements, bespoke notes & dates online 24/7, paying deposits instantly via Apple Pay/Card.",
+          "Instant WhatsApp dispatch hits your smartphone with comprehensive booking specifications and scheduled dates in under 0.4 seconds.",
           "Sub-1-second mobile load speeds convert impulsive mobile browsers before they bounce elsewhere.",
-          "Automated 5-star review extraction sent post-delivery to cement undisputed #1 local Google Maps ranking.",
+          "Automated 5-star review extraction sent post-completion to cement undisputed #1 local Google Maps ranking.",
         ],
         ctaText: "Book your free 15-minute diagnostic audit →",
       }
@@ -143,11 +143,11 @@ export const SITE_COPY = {
       cards: [
         {
           title: "Lost Revenue in Buried DMs & Missed Calls",
-          description: "Customers enquire whilst you are baking, preparing ingredients, or serving clients. By the time you reply hours later, they have already paid a competitor.",
+          description: "Customers enquire whilst you are on-site, serving clients, or fulfilling orders. By the time you reply hours later, they have already paid a competitor.",
         },
         {
           title: "Chasing Manual Deposits & Bank Transfers",
-          description: "Wasting billable hours texting back and forth to confirm flavour specifications, dates, and bank account numbers for upfront deposits.",
+          description: "Wasting billable hours texting back and forth to confirm project specifications, dates, and bank account numbers for upfront deposits.",
         },
         {
           title: "Stagnant Google Reviews Whilst Rivals Rank Higher",
@@ -165,66 +165,86 @@ export const SITE_COPY = {
 
     // 4. Mercian Wealth Difference
     whyMercianWealth: {
-      headline: "Engineered For Bakeries, Catering, Food Artisans & Premier Local Services.",
-      description: "Your digital asset should showcase your craftsmanship, configure bespoke orders, collect non-refundable deposits, and dominate local search on total autopilot.",
+      headline: "Engineered For Ambitious Local Businesses & Premier Service Operators.",
+      description: "Your digital asset should showcase your craftsmanship, configure bespoke bookings, collect non-refundable deposits, and dominate local search on total autopilot.",
       differentiators: [
-        "3-Tap Mobile Order Builder — Customers customise options, flavours, dimensions & dates in under 30 seconds.",
-        "Instant WhatsApp Dispatch Alerts — Full order specifications, allergen notes, and payment receipts delivered straight to your phone.",
-        "Systematic 5-Star Review Engine — Extract verified Google reviews from delighted clients automatically after delivery.",
+        "3-Tap Mobile Booking Engine — Customers customise options, scopes, project specifications & dates in under 30 seconds.",
+        "Instant WhatsApp Dispatch Alerts — Full booking specifications, client notes, and payment receipts delivered straight to your phone.",
+        "Systematic 5-Star Review Engine — Extract verified Google reviews from delighted clients automatically after completion.",
       ],
       structuralRealityHeadline: "The Strategic Divide",
       standardAgency: {
         title: "Standard Web Agency",
         items: [
           "Bloated generic templates taking months to build.",
-          "Zero bespoke order builders or deposit capture mechanisms.",
-          "Zero instant WhatsApp notifications for business owners on the move.",
-          "Recurring monthly fees for a website that automates nothing.",
+          "Zero bespoke booking engines or deposit capture mechanisms.",
+          "Buried static contact forms with days-long email response lag.",
+          "Zero post-completion Google review automation.",
+          "High overheads, complex retainers, and generic non-converting copy.",
         ],
       },
       mercianWealth: {
-        title: "Mercian Automation Protocol",
+        title: "Mercian Wealth Architecture",
         items: [
-          "Bespoke high-performance mobile storefront deployed in 7 days.",
-          "Non-refundable deposit capture integrated directly into 3-tap checkout.",
-          "Instant WhatsApp notification dispatched on every single order or booking.",
-          "Automated Google review requests triggered after every successful completion.",
+          "Delivered and fully operational in 7 business days.",
+          "3-tap mobile booking engine with instant Apple Pay / Stripe deposits.",
+          "Sub-0.4s WhatsApp order dispatch straight to your smartphone.",
+          "Automated 5-star Google review extraction to rank #1 locally.",
+          "Zero long-term lock-in with flat, clear, risk-aligned pricing.",
         ],
       },
+      founderQuoteHeadline: "Craftsmanship Deserves Systematic Commercial Power",
+      founderQuoteText: "You have spent years mastering your craft and building local reputation. Your digital system should operate with the exact same standard of excellence—capturing high-value clients and locking deposits on total autopilot while you execute your work.",
+      founderQuoteAuthor: "Founder & Lead Architect, Mercian Wealth",
+      proofStats: [
+        { label: "Turnaround Time", value: "7 Days" },
+        { label: "Mobile Load Speed", value: "< 0.8s" },
+        { label: "Alert Dispatch", value: "< 0.4s" },
+      ],
     },
 
     // 5. Trend Adaptation Statement
     trendAdaptation: {
       eyebrow: "CONTINUOUS UPTIME",
-      headline: "Your Storefront Captures Orders 24/7 Whilst You Focus On Craftsmanship.",
-      description: "We handle cloud infrastructure, security, WhatsApp webhooks, and performance optimisations in the background. Your mobile storefront remains lightning-fast and ready to convert 365 days a year.",
+      headline: "Your Storefront Captures Bookings 24/7 Whilst You Focus On Craftsmanship.",
+      description: "We handle cloud infrastructure, speed optimization, WhatsApp webhooks, and performance updates in the background. Your digital intake engine remains lightning-fast and ready to convert 365 days a year.",
     },
 
     // 6. Model Hint
     modelHint: {
       eyebrow: "TRANSPARENT TERMS",
       headline: "Simple Commercial Structures Built For Local Cash Flow.",
-      description: "Select the model that suits your operations: one-off setup fee (£495–£1,450) or flat monthly support with zero long-term lock-in.",
+      description: "Select the model that suits your operations: one-off setup fee (£495–£1,450) or transparent flat monthly support with zero long-term lock-in.",
     },
 
-    // 7. Exclusivity Lock
+    // 7. Category Exclusivity & Postcode Lock
+    exclusivity: {
+      eyebrow: "TERRITORIAL EXCLUSIVITY",
+      headline: "We partner with only one premier business per trade category in each local postcode.",
+      subheadline: "Because our automated review and booking systems are built to dominate local Google search and outpace local competitors, we cannot deploy these unfair advantages for your rivals simultaneously.",
+      badge: "One Operator Per Postcode Allocation",
+      lockDescription: "Once an exclusive postcode allocation is claimed, that territory is permanently locked against direct competitors for the duration of our partnership.",
+      buttonText: "Check Your Postcode Availability",
+      buttonHref: "/book",
+    },
+
     exclusivityLock: {
       eyebrow: "TERRITORIAL EXCLUSIVITY",
       headline: "We Partner With Selected Premier Local Businesses Per Postcode.",
-      description: "To guarantee decisive local advantage, we partner with dedicated food artisans and local service operators across Berkshire & the UK. When we deploy our automated ordering system for your brand, you hold an insurmountable speed advantage in your territory.",
+      description: "To guarantee decisive local advantage, we partner with selected premier local businesses per postcode across Berkshire, the West Midlands & the UK. When we deploy our automated booking system for your brand, you hold an insurmountable speed advantage in your territory.",
     },
 
-    // 8. Pricing & Packages
+    // 8. Testimonials Section
     testimonials: {
-      eyebrow: "TRANSPARENT COMMERCIALS",
-      headline: "Predictable Investment Built For Rapid ROI",
-      subheadline: "One-Off Setup Fee or Flat Monthly Growth Retainer",
+      eyebrow: "PROVEN OPERATIONAL RESULTS",
+      headline: "How premier local businesses eliminated DM chaos and scaled deposits.",
+      subheadline: "Real outcomes from ambitious local operators who upgraded to our sub-second mobile storefronts and WhatsApp dispatch systems.",
       guarantee: "Strict Commitments · Zero Hidden Costs · Transparent Pricing",
       
       cohortCard: {
         badge: "LOCAL STOREFRONT & AUTOMATION BLUEPRINT",
         title: "High-Leverage Systems Built For Local Business Cash Flow",
-        paragraph1: "We engineer high-converting mobile storefronts and automation engines for UK bakeries, caterers, food artisans, and local businesses who refuse to surrender revenue to chaotic manual admin.",
+        paragraph1: "We engineer high-converting mobile storefronts and automation engines for UK local businesses and service operators who refuse to surrender revenue to chaotic manual admin.",
         paragraph2: "Upfront Stripe deposit collection, sub-1-second mobile performance, instant WhatsApp alerts, and automated Google review engines included as standard.",
         paragraph3: "Single one-off setup fee (£495–£1,450) or transparent flat monthly support. Zero hidden charges, zero fine-print lock-in contracts.",
         enquiryCtaText: "To inspect your current order bottlenecks and test a live prototype, book your free 15-minute diagnostic audit below or message us directly on WhatsApp.",
@@ -232,7 +252,59 @@ export const SITE_COPY = {
 
       trustPoints: [
         "Sub-1-Second Mobile Page Speed",
-        "3-Tap Order Builder with Instant Deposit",
+        "3-Tap Booking Engine with Instant Deposit",
+        "Instant Smartphone WhatsApp Alerts",
+      ],
+
+      items: [
+        {
+          quote: "We used to lose 4–5 high-value client enquiries every single week because we were busy on-site and couldn't reply to DMs instantly. Mercian deployed an automated booking engine with WhatsApp notifications in 6 days. We now capture non-refundable upfront deposits before any consultation hits our diary.",
+          author: "Sarah M.",
+          role: "Managing Director",
+          location: "Vanguard Client Operations · West Midlands",
+          metric: "+38% Upfront Revenue",
+        },
+        {
+          quote: "The automated intake system and instant WhatsApp routing completely eliminated our late-night enquiry chasing. Customers select their package, submit their specifications, and pay their deposit online. Our team only speaks with qualified decision-makers.",
+          author: "Marcus T.",
+          role: "Principal Operator",
+          location: "Sovereign Commercial Group · Warwickshire",
+          metric: "14.5 Hrs Saved / Wk",
+        },
+      ],
+    },
+
+    // 7. Pricing Tiers
+    pricing: {
+      eyebrow: "TRANSPARENT COMMERCIAL PRICING",
+      headline: "Zero Hidden Retainers. Clear Fixed Engagements.",
+      subheadline: "Choose between our one-off capital deployment tiers, flexible ongoing maintenance packages, or performance-aligned revenue share partnerships.",
+      setupFeeDisclaimer: "All setup tiers include complete bespoke build, mobile optimisation, WhatsApp alert configuration, and 30–90 days included technical support.",
+      monthlyDisclaimer: "Zero long-term lock-in contracts. Upgrade, downgrade, or cancel maintenance at any time with 30 days notice.",
+      revenueShareDisclaimer: "Subject to business qualification and verified monthly digital transaction volume. Includes zero upfront design risk.",
+    },
+
+    // 8. Lead Capture / Postcode Lock
+    leadCapture: {
+      eyebrow: "TERRITORIAL POSTCODE AUDIT",
+      headline: "Verify if your local territory and category are still available.",
+      subheadline: "Enter your postcode below to run a real-time availability check and schedule your 15-minute diagnostic audit with our engineering team.",
+      postcodePlaceholder: "e.g. SL4 1PD or B91 3QJ",
+      businessNamePlaceholder: "Your Business Name",
+      phonePlaceholder: "Your WhatsApp / Mobile Number",
+      submitButtonText: "Check Territory & Request Audit",
+      guaranteeText: "100% Free · Zero Obligation · Live Prototype Demonstration Included",
+      
+      consultationBooking: {
+        headline: "Book Your 15-Minute Diagnostic Audit",
+        subheadline: "Pick a time on our calendar. We will review your current customer intake process, demonstrate a live prototype tailored to your business, and show you exactly where enquiries are leaking.",
+        calendarPlaceholder: "Select a date and time slot from our live diary below.",
+        enquiryCtaText: "To inspect your current order bottlenecks and test a live prototype, book your free 15-minute diagnostic audit below or message us directly on WhatsApp.",
+      },
+
+      trustPoints: [
+        "Sub-1-Second Mobile Page Speed",
+        "3-Tap Booking Engine with Instant Deposit",
         "Instant Smartphone WhatsApp Alerts",
       ],
     },
@@ -240,7 +312,7 @@ export const SITE_COPY = {
     // 9. FOMO Close & CTA Section
     cta: {
       headline: "Ready to stop losing orders in DMs and automate your business?",
-      subheadline: "Message us directly on WhatsApp or book a 15-minute diagnostic call to see an interactive prototype tailored to your exact products and workflow.",
+      subheadline: "Message us directly on WhatsApp or book a 15-minute diagnostic call to see an interactive prototype tailored to your exact services and workflow.",
       buttonText: "Book Your 15-Min Audit",
       whatsappButtonText: "Chat on WhatsApp",
     },
@@ -249,27 +321,27 @@ export const SITE_COPY = {
     faq: {
       eyebrow: "FREQUENTLY ASKED QUESTIONS",
       headline: "Direct Answers. Zero Jargon.",
-      description: "Everything you need to know about our mobile storefronts, order builders, WhatsApp dispatch, and commercial terms.",
+      description: "Everything you need to know about our mobile storefronts, booking engines, WhatsApp dispatch, and commercial terms.",
       faqs: [
         {
           question: "Do I require technical skills to operate this system?",
-          answer: "None whatsoever. All order notifications arrive directly on the WhatsApp application you already use every day. If you can read a text message, you can manage your operations seamlessly.",
+          answer: "None whatsoever. All booking notifications arrive directly on the WhatsApp application you already use every day. If you can read a text message, you can manage your operations seamlessly.",
         },
         {
-          question: "How do custom order builders and deposit capture function?",
-          answer: "Customers select portions, flavours, dietary requirements, and delivery/pickup dates online, paying a mandatory deposit via Apple Pay or Card before the order is locked into your schedule.",
+          question: "How do custom booking engines and deposit capture function?",
+          answer: "Customers select service options, project scopes, custom requirements, and delivery/appointment dates online, paying a mandatory deposit via Apple Pay or Card before the booking is locked into your schedule.",
         },
         {
           question: "Does this synchronise with my existing calendar and accounting tools?",
-          answer: "Yes. We automatically synchronise bookings and pickup dates to your Google or Outlook Calendar and generate customer records and invoice drafts automatically.",
+          answer: "Yes. We automatically synchronise bookings and appointment dates to your Google or Outlook Calendar and generate customer records and invoice drafts automatically.",
         },
         {
           question: "How quickly can my storefront and automation go live?",
-          answer: "Your bespoke mobile storefront, 3-tap order builder, and WhatsApp alert engine are configured, rigorously tested, and launched in 7 business days.",
+          answer: "Your bespoke mobile storefront, 3-tap booking engine, and WhatsApp alert engine are configured, rigorously tested, and launched in 7 business days.",
         },
         {
-          question: "Can I update products, seasonal menus, or pricing?",
-          answer: "Yes. You can request menu adjustments, new product photography uploads, or price updates at any time, with complimentary edits included in our support.",
+          question: "Can I update services, packages, or pricing?",
+          answer: "Yes. You can request package adjustments, new portfolio photo uploads, or price updates at any time, with complimentary edits included in our support.",
         },
       ],
     },
@@ -299,28 +371,28 @@ export const SITE_COPY = {
         ctaHref: "/book",
       },
       {
-        title: "3-Tap Order Builders & Instant Deposits",
-        description: "Unconfirmed orders and endless DM negotiations consume hours and produce costly cancellations.",
+        title: "3-Tap Booking Engines & Instant Deposits",
+        description: "Unconfirmed enquiries and endless DM negotiations consume hours and produce costly cancellations.",
         outcome: "24/7 Bespoke Configuration & Deposit Capture",
         tagline: "Lock Non-Refundable Deposits Automatically.",
-        overview: "Customers customise flavours, sizes, portion counts, and dates online 24/7, paying a mandatory deposit via Apple Pay or Card to confirm the booking before it reaches your diary.",
+        overview: "Customers customise project options, service tiers, package scope, and dates online 24/7, paying a mandatory deposit via Apple Pay or Card to confirm the booking before it reaches your diary.",
         features: [
-          { name: "Interactive Scope & Flavour Selector", description: "Customisable dropdowns for tiers, dietary notes, and photo uploads." },
+          { name: "Interactive Scope & Package Selector", description: "Customisable dropdowns for service tiers, project notes, and file uploads." },
           { name: "Upfront Deposit Gateway", description: "Securely capture non-refundable deposits via Apple Pay, Google Pay, or Card." },
-          { name: "Automated Calendar Scheduling", description: "Blocks booked event or pickup slots automatically to prevent double-bookings." },
-          { name: "3-Tap Mobile Checkout", description: "Frictionless checkout engineered to maximise completed orders." },
+          { name: "Automated Calendar Scheduling", description: "Blocks booked event or appointment slots automatically to prevent double-bookings." },
+          { name: "3-Tap Mobile Checkout", description: "Frictionless checkout engineered to maximise completed bookings." },
         ],
         ctaText: "Book 15-Min Audit",
         ctaHref: "/book",
       },
       {
         title: "Instant Smartphone WhatsApp Dispatch",
-        description: "You cannot manage complicated desktop software whilst baking, preparing orders, or serving clients.",
+        description: "You cannot manage complicated desktop software whilst fulfilling orders, working on-site, or serving clients.",
         outcome: "Real-Time Mobile Order Dispatch",
         tagline: "Sub-Second Alerts Straight To Your Smartphone.",
-        overview: "The instant a customer submits an order or pays a deposit, an instant WhatsApp notification lands on your phone with full specifications, allergen notes, and event dates.",
+        overview: "The instant a customer submits a booking or pays a deposit, an instant WhatsApp notification lands on your phone with full specifications, client notes, and scheduled dates.",
         features: [
-          { name: "Sub-0.4s WhatsApp Alerts", description: "Complete order specifications dispatched straight to your phone instantaneously." },
+          { name: "Sub-0.4s WhatsApp Alerts", description: "Complete booking specifications dispatched straight to your phone instantaneously." },
           { name: "Automated Customer Confirmation", description: "Dispatches an instant professional confirmation message to the customer." },
           { name: "Accounting & CRM Synchronisation", description: "Automatically creates customer records and invoice drafts in Xero / QuickBooks." },
           { name: "Zero Technical Friction", description: "Operates seamlessly on the WhatsApp application you already use every day." },
@@ -333,12 +405,12 @@ export const SITE_COPY = {
         description: "Competitors with inferior craftsmanship win customers solely because they possess more Google reviews.",
         outcome: "Systematic 5-Star Review Generation",
         tagline: "Build Undisputed Local Search Dominance On Autopilot.",
-        overview: "An automated trigger invites delighted customers to leave a 5-star Google review immediately after their order is fulfilled, steadily elevating your local ranking.",
+        overview: "An automated trigger invites delighted customers to leave a 5-star Google review immediately after their project or order is completed, steadily elevating your local ranking.",
         features: [
-          { name: "Intelligent Review Trigger", description: "Polite automated message dispatched immediately following order fulfillment." },
+          { name: "Intelligent Review Trigger", description: "Polite automated message dispatched immediately following completion." },
           { name: "1-Tap Direct Google Review Gateway", description: "Directs customers straight into the 5-star Google review dialogue in one tap." },
           { name: "Private Feedback Filter", description: "Intercepts any minor customer questions privately before public posting." },
-          { name: "Compounding Search Authority", description: "Watch your 5-star Google reviews compound order after order." },
+          { name: "Compounding Search Authority", description: "Watch your 5-star Google reviews compound booking after booking." },
         ],
         ctaText: "Book 15-Min Audit",
         ctaHref: "/book",
@@ -355,15 +427,15 @@ export const SITE_COPY = {
       {
         number: "01",
         title: "Step 1: The 15-Minute Diagnostic Audit",
-        sub: "Pinpointing order haemorrhages and manual bottlenecks.",
-        details: "We analyse your current ordering workflow, DM bottlenecks, and payment chasing to identify precisely where revenue is escaping.",
+        sub: "Pinpointing booking haemorrhages and manual bottlenecks.",
+        details: "We analyse your current customer intake workflow, DM bottlenecks, and payment chasing to identify precisely where revenue is escaping.",
         deliverable: "Custom Automation Roadmap",
       },
       {
         number: "02",
-        title: "Step 2: Storefront & 3-Tap Builder Configuration",
+        title: "Step 2: Storefront & 3-Tap Booking Engine Configuration",
         sub: "Engineering your high-performance mobile storefront.",
-        details: "We build your mobile storefront and configure your 3-tap order builder with automated deposit collection and calendar slot locking.",
+        details: "We build your mobile storefront and configure your 3-tap booking engine with automated deposit collection and calendar slot locking.",
         deliverable: "Interactive Storefront Architecture",
       },
       {
@@ -377,7 +449,7 @@ export const SITE_COPY = {
         number: "04",
         title: "Step 4: Commercial Launch in 7 Days",
         sub: "Going live with complete operational certainty.",
-        details: "Your engine goes live. It captures custom orders and locks deposits 24/7 whilst you focus entirely on delivering exceptional craftsmanship.",
+        details: "Your engine goes live. It captures custom bookings and locks deposits 24/7 whilst you focus entirely on delivering exceptional craftsmanship.",
         deliverable: "Live Storefront & Ongoing Support",
       },
     ],
@@ -385,13 +457,13 @@ export const SITE_COPY = {
 
   // Portfolio Page Copy (`/portfolio`)
   portfolioPage: {
-    headerTitle: "Explore interactive prototypes for bakeries, catering & local businesses.",
+    headerTitle: "Explore interactive prototypes for premier local businesses.",
     headerHighlight: "Built For Speed",
-    headerSubtitle: "Engineered specifically for food artisans and local service operators who demand sub-second speed and zero administrative drag.",
-    noticeTitle: "Tailored To Your Exact Ordering Workflow",
-    noticeDescription: "Every system is configured to match the exact flavour specifications, deposit requirements, and dispatch workflows of your business. Test our live prototypes or book a 15-minute call for a bespoke demonstration.",
+    headerSubtitle: "Engineered specifically for local business operators who demand sub-second speed and zero administrative drag.",
+    noticeTitle: "Tailored To Your Exact Booking & Intake Workflow",
+    noticeDescription: "Every system is configured to match the exact project specifications, deposit requirements, and dispatch workflows of your business. Test our live prototypes or book a 15-minute call for a bespoke demonstration.",
     constructionTitle: "Request A Bespoke Prototype Demo",
-    constructionDescription: "Want to see how our 3-tap order builders and WhatsApp alert systems function live for your brand? Schedule a 15-minute diagnostic audit.",
+    constructionDescription: "Want to see how our 3-tap booking engines and WhatsApp alert systems function live for your brand? Schedule a 15-minute diagnostic audit.",
     emailLabel: "Business Email",
     nameLabel: "Your Name",
     submitBtnText: "Book 15-Min Audit",
@@ -400,7 +472,7 @@ export const SITE_COPY = {
 
   // Pricing Page Copy (`/pricing`)
   pricingPage: {
-    headerTitle: "A single lost catering order or bespoke booking costs far more than a system that secures them automatically.",
+    headerTitle: "A single lost project enquiry or bespoke booking costs far more than a system that secures them automatically.",
     headerHighlight: "Transparent Pricing",
     headerSubtitle: "Clear, predictable investment with zero hidden charges. Select the commercial structure that matches your cash flow.",
     performanceSLATitle: "Strict Commitments & Honest Guarantees",
@@ -409,7 +481,7 @@ export const SITE_COPY = {
     roiCalculator: {
       eyebrow: "REVENUE RECOVERY CALCULATOR",
       title: "Calculate Your Saved Hours & Recovered Orders",
-      description: "Discover how many hours of manual admin and lost customer orders an automated storefront recovers each month.",
+      description: "Discover how many hours of manual admin and lost customer enquiries an automated storefront recovers each month.",
       annualTimeLabel: "Annual Admin Hours Recovered",
       growthLiftLabel: "Est. Extra Orders Captured (+15%)",
       valueUnlockedLabel: "Total Annual Value Unlocked",
@@ -446,11 +518,11 @@ export const SITE_COPY = {
         name: "Pro Automation Engine",
         price: "895",
         interval: "one-off setup fee",
-        milestoneBreakdown: "Complete order builder & WhatsApp alerts in 7 days",
-        description: "Bespoke 3-tap order builder with instant deposit capture, WhatsApp dispatch, and automated Google review extraction.",
+        milestoneBreakdown: "Complete booking engine & WhatsApp alerts in 7 days",
+        description: "Bespoke 3-tap booking engine with instant deposit capture, WhatsApp dispatch, and automated Google review extraction.",
         features: [
           "Everything in Essential Storefront",
-          "3-Tap Custom Order Builder & Deposit Capture",
+          "3-Tap Custom Booking Engine & Deposit Capture",
           "Instant WhatsApp & SMS Order Notifications",
           "Automated 5-Star Google Review Engine",
           "Customer & Order Management Database",
@@ -465,11 +537,11 @@ export const SITE_COPY = {
         price: "1,450",
         interval: "one-off setup fee",
         milestoneBreakdown: "Complete custom architecture in 14 days",
-        description: "Comprehensive multi-location or multi-service portal, custom menu builders, accounting auto-sync, and priority launch.",
+        description: "Comprehensive multi-location or multi-service portal, custom package configurators, accounting auto-sync, and priority launch.",
         features: [
           "Everything in Pro Automation Engine",
           "Multi-Service / Multi-Location Architecture",
-          "Custom Interactive Menu & Dynamic Price Builders",
+          "Custom Interactive Scope & Dynamic Price Configurators",
           "Accounting & CRM Auto-Synchronisation (Xero / QuickBooks)",
           "90 Days Technical Support & Staff Training",
           "Priority Dedicated Support Desk",
@@ -489,7 +561,7 @@ export const SITE_COPY = {
         features: [
           "Managed Mobile Cloud Hosting & SSL Security",
           "Continuous Speed & Uptime Monitoring",
-          "Complimentary Menu & Price Adjustments",
+          "Complimentary Package & Price Adjustments",
           "Monthly Order & Conversion Analytics",
           "24/7 Critical System Monitoring",
           "Rapid Turnaround on Urgent Edits",
@@ -502,14 +574,14 @@ export const SITE_COPY = {
         name: "Growth & Maintenance",
         price: "195",
         interval: "billed monthly (zero contract)",
-        milestoneBreakdown: "Active WhatsApp & order builder maintenance",
-        description: "Includes active WhatsApp alert maintenance, deposit gateway updates, and seasonal menu promotional launches.",
+        milestoneBreakdown: "Active WhatsApp & booking engine maintenance",
+        description: "Includes active WhatsApp alert maintenance, deposit gateway updates, and promotional package launches.",
         features: [
           "Everything in Launch Support",
           "Active WhatsApp Alert & Webhook Maintenance",
-          "Order Builder & Calendar Synchronisation Care",
+          "Booking Engine & Calendar Synchronisation Care",
           "Seasonal Promotional Campaigns & Package Config",
-          "Unlimited Menu, Flavour & Photo Edits",
+          "Unlimited Package, Content & Photo Edits",
           "Priority Support SLA (<4 Hours Response)",
         ],
         cta: "Book 15-Min Audit",
@@ -521,7 +593,7 @@ export const SITE_COPY = {
         price: "395",
         interval: "billed monthly (zero contract)",
         milestoneBreakdown: "Complete digital & automation management",
-        description: "Full digital and automation governance for high-volume food operators or multi-branch service enterprises.",
+        description: "Full digital and automation governance for high-volume local operators or multi-branch service enterprises.",
         features: [
           "Everything in Growth & Maintenance",
           "CRM & Automated Revenue Pipeline Governance",
@@ -558,7 +630,7 @@ export const SITE_COPY = {
         price: "8%",
         interval: "revenue share of website sales",
         milestoneBreakdown: "Performance alignment model",
-        description: "Complete order builder & automation deployment for 8% share of generated digital revenue.",
+        description: "Complete order intake & automation deployment for 8% share of generated digital revenue.",
         features: [
           "Everything in Starter Option",
           "Customer & Order Database",
@@ -609,10 +681,10 @@ export const SITE_COPY = {
         price: "895",
         interval: "one-off setup fee",
         milestoneBreakdown: "Delivered & operational in 7 business days",
-        description: "Interactive 3-tap order builder, instant WhatsApp phone alerts, automated deposit capture, and 5-star Google review engine.",
+        description: "Interactive 3-tap booking engine, instant WhatsApp phone alerts, automated deposit capture, and 5-star Google review engine.",
         features: [
           "Everything in Essential Storefront",
-          "3-Tap Custom Order Builder & Deposit Capture",
+          "3-Tap Custom Booking Engine & Deposit Capture",
           "Instant WhatsApp & SMS Order Notifications",
           "Automated 5-Star Google Review Engine",
           "Customer & Order Database",
@@ -627,11 +699,11 @@ export const SITE_COPY = {
         price: "1,450",
         interval: "one-off setup fee",
         milestoneBreakdown: "Complete custom architecture in 14 days",
-        description: "Full multi-location or multi-service portal, custom menu builders, accounting auto-sync, and priority setup.",
+        description: "Full multi-location or multi-service portal, custom package configurators, accounting auto-sync, and priority setup.",
         features: [
           "Everything in Pro Automation Engine",
           "Multi-Service / Multi-Location Architecture",
-          "Custom Interactive Menu & Price Builders",
+          "Custom Interactive Scope & Price Configurators",
           "Accounting / CRM Auto-Sync",
           "90 Days Technical Support & Training",
           "Priority Support Desk",
@@ -651,7 +723,7 @@ export const SITE_COPY = {
         features: [
           "Managed Mobile Hosting & SSL Security",
           "Weekly Speed & Security Monitoring",
-          "Complimentary Menu & Price Edits",
+          "Complimentary Package & Price Edits",
           "Monthly Order & Traffic Reports",
           "24/7 System Uptime Monitoring",
           "Fast Urgent Edit Turnaround",
@@ -664,14 +736,14 @@ export const SITE_COPY = {
         name: "Growth & Maintenance",
         price: "195",
         interval: "billed monthly (zero contract)",
-        milestoneBreakdown: "Active WhatsApp & order builder maintenance",
-        description: "Includes WhatsApp notification maintenance, deposit system updates, and seasonal menu promotions.",
+        milestoneBreakdown: "Active WhatsApp & booking engine maintenance",
+        description: "Includes WhatsApp notification maintenance, deposit system updates, and seasonal promotional campaigns.",
         features: [
           "Everything in Launch Support",
           "Active WhatsApp Alert & Webhook Maintenance",
-          "Order Builder & Calendar Maintenance",
+          "Booking Engine & Calendar Maintenance",
           "Seasonal Campaigns & Special Packages",
-          "Unlimited Menu & Photo Edits",
+          "Unlimited Package & Photo Edits",
           "Dedicated Priority Support SLA (<4 Hours)",
         ],
         cta: "Book 15-Min Audit",
@@ -683,7 +755,7 @@ export const SITE_COPY = {
         price: "395",
         interval: "billed monthly (zero contract)",
         milestoneBreakdown: "Complete digital & automation management",
-        description: "Complete digital management for growing food businesses or multi-branch service operators.",
+        description: "Complete digital management for growing local businesses or multi-branch service operators.",
         features: [
           "Everything in Growth & Maintenance",
           "CRM & Automated Pipeline Updates",
@@ -701,9 +773,9 @@ export const SITE_COPY = {
 
   // Contact Concierge Copy (`/contact`)
   contactPage: {
-    headerTitle: "Stop letting high-intent orders get buried in unread DMs.",
+    headerTitle: "Stop letting high-intent enquiries get buried in unread DMs.",
     headerHighlight: "Direct Gateway",
-    headerSubtitle: "Ready to inspect an automated storefront configured specifically for your menu and ordering workflow? Connect directly below.",
+    headerSubtitle: "Ready to inspect an automated storefront configured specifically for your services and intake workflow? Connect directly below.",
     supportEyebrow: "DIRECT ASSISTANCE",
     supportTitle: "Direct Human Response",
     supportDescription: "No automated ticket queues or overseas call centres. Speak directly with our lead automation engineers in Berkshire.",
@@ -714,8 +786,8 @@ export const SITE_COPY = {
     whatsNextTitle: "What Occurs Next?",
     whatsNextItems: [
       "Instant confirmation acknowledging your enquiry.",
-      "Brief 15-minute diagnostic call to review your current ordering bottlenecks.",
-      "Live interactive prototype demonstration configured for your exact products.",
+      "Brief 15-minute diagnostic call to review your current intake bottlenecks.",
+      "Live interactive prototype demonstration configured for your exact services.",
     ],
   },
 
@@ -723,14 +795,14 @@ export const SITE_COPY = {
   testimonialsPage: {
     headerTitle: "Quantified Results &",
     headerHighlight: "Verified Local Outcomes",
-    headerSubtitle: "How local bakeries, caterers, and service operators capture more custom orders and recover 10+ hours of manual admin each week.",
+    headerSubtitle: "How premier local businesses and service operators capture more custom bookings and recover 10+ hours of manual admin each week.",
   },
 
   // Booking Page Copy (`/book`)
   bookPage: {
     clinicalEvaluationLabel: "15-Minute Operational Diagnostic",
     headerTitle: "Uncover precisely where your business is haemorrhaging",
-    headerHighlight: "orders, deposits, and billable hours.",
+    headerHighlight: "bookings, deposits, and billable hours.",
     headerSubtitle: "Reserve a 15-minute slot on our diary. We will dissect your current customer intake, DM friction, and payment capture, presenting the exact automation blueprint to resolve it.",
     trustItems: [
       "15-minute focused telephone consultation on your schedule",

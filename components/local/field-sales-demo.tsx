@@ -2,14 +2,14 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Smartphone, CheckCircle, Send, HardHat, Cake, Calendar, CreditCard, Sparkles, MessageCircle, AlertCircle } from "lucide-react"
+import { Smartphone, CheckCircle, Send, Briefcase, Calendar, CreditCard, Sparkles, MessageCircle, AlertCircle } from "lucide-react"
 
 const demoServices = [
-  { id: "custom-bakery", category: "Artisan Bakery", name: "Custom 3-Tier Celebration Cake", price: 240, deposit: 120.0, subtitle: "Windsor & Ascot · Handcrafted Atelier" },
-  { id: "sourdough-box", category: "Artisan Bakery", name: "Weekly Sourdough & Pastry Subscription", price: 65, deposit: 65.0, subtitle: "Doorstep Chilled Drop · Batch Baked" },
-  { id: "artisan-catering", category: "Bespoke Catering", name: "Private Dining & Canapé Service (30 Pax)", price: 850, deposit: 250.0, subtitle: "Chef-Prepared Seasonal Menu" },
-  { id: "buffet-event", category: "Bespoke Catering", name: "Gourmet Event Grazing Table & Delivery", price: 480, deposit: 150.0, subtitle: "Local Berkshire & Thames Valley" },
-  { id: "local-service", category: "Local Services", name: "Bespoke Service Booking Package", price: 350, deposit: 100.0, subtitle: "Instant Slot Reservation Lock" },
+  { id: "bespoke-project", category: "Commercial & Private", name: "Bespoke Client Project Package", price: 1850, deposit: 250.0, subtitle: "Full Scope Briefing & Delivery Window" },
+  { id: "retainer-tier", category: "Ongoing Retainer", name: "Monthly Dedicated Priority Retainer", price: 895, deposit: 195.0, subtitle: "Priority Response · Dedicated Account Slot" },
+  { id: "executive-consultation", category: "Consultation & Audit", name: "Executive On-Site Consultation & Scoping", price: 450, deposit: 150.0, subtitle: "Diagnostic Assessment & Fixed Proposal" },
+  { id: "commercial-service", category: "Local Services", name: "Premier Commercial Service Engagement", price: 3400, deposit: 500.0, subtitle: "Turnkey Implementation & Dedicated Account Lead" },
+  { id: "express-intake", category: "Priority Intake", name: "Express Local Service Package", price: 350, deposit: 100.0, subtitle: "Instant Slot Reservation Lock" },
 ]
 
 export function FieldSalesDemo() {
@@ -40,7 +40,7 @@ export function FieldSalesDemo() {
             <span>Interactive Mobile Demo — Try It On Your Phone</span>
           </div>
           <h2 className="font-sans text-2xl sm:text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
-            See How Customer Orders Reach Your WhatsApp in 2 Seconds
+            See How Customer Enquiries Reach Your WhatsApp in 2 Seconds
           </h2>
           <p className="text-sm sm:text-base text-slate-300">
             Tap through this demo below to see what your customer experiences and how the instant WhatsApp alert dings on your smartphone without DM chaos.
@@ -54,8 +54,8 @@ export function FieldSalesDemo() {
           <div className="lg:col-span-7 bg-[#111115] p-5 sm:p-7 rounded-3xl border border-slate-800 shadow-2xl relative">
             <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
               <div className="flex items-center gap-2">
-                <Cake className="text-[#DCAE53]" size={20} />
-                <span className="font-sans font-bold text-white text-base">Artisan Bakery &amp; Local Storefront</span>
+                <Briefcase className="text-[#DCAE53]" size={20} />
+                <span className="font-sans font-bold text-white text-base">Premier Local Business Storefront</span>
               </div>
               <span className="text-[10px] font-mono text-[#34A88E] bg-[#2E8B77]/10 px-2 py-0.5 rounded-full border border-[#2E8B77]/20 font-semibold">
                 LIVE DEMO STOREFRONT
@@ -136,7 +136,7 @@ export function FieldSalesDemo() {
             {/* Deposit Summary & Simulate Action Button */}
             <div className="p-4 rounded-2xl bg-[#DCAE53]/5 border border-[#DCAE53]/25 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
-                <span className="text-xs text-slate-400 block">Upfront Survey Fee / Deposit:</span>
+                <span className="text-xs text-slate-400 block">Upfront Slot Lock / Deposit:</span>
                 <span className="text-2xl font-mono font-bold text-[#DCAE53]">£{selectedService.deposit.toFixed(2)}</span>
                 <span className="text-[10px] text-white/50 block">Project Total: £{selectedService.price.toLocaleString()}</span>
               </div>
@@ -196,7 +196,7 @@ export function FieldSalesDemo() {
                       <div className="text-xs space-y-1 pt-1 font-sans">
                         <p><strong className="text-[#DCAE53]">Client:</strong> {customerName}</p>
                         <p><strong className="text-[#DCAE53]">Project:</strong> {selectedService.name}</p>
-                        <p><strong className="text-[#DCAE53]">Survey Slot:</strong> {pickupDate}</p>
+                        <p><strong className="text-[#DCAE53]">Requested Slot:</strong> {pickupDate}</p>
                         <p><strong className="text-[#34A88E]">Deposit Paid:</strong> £{selectedService.deposit.toFixed(2)} (via Stripe)</p>
                       </div>
 
