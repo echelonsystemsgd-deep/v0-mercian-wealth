@@ -10,7 +10,7 @@ import { CopyEmailButton } from "@/components/copy-email-button"
 export function Footer() {
   const { getSection } = useWebsiteContent()
   const data = getSection('footer', {
-    tagline: "Storefronts · Automation · Growth for bakeries, catering businesses, food artisans, and local services across Berkshire & the UK.",
+    tagline: "Storefronts · Automation · Growth for premier local businesses and service operators across Berkshire, the West Midlands & the UK.",
     email: "mercianwealthgs@gmail.com",
     phone: "+44 7851 055929",
     whatsappLink: "https://wa.me/447851055929?text=Hi%20Mercian%20Wealth,%20I'd%20like%20to%20inquire%20about%20your%20services.",
