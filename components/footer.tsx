@@ -10,14 +10,14 @@ import { CopyEmailButton } from "@/components/copy-email-button"
 export function Footer() {
   const { getSection } = useWebsiteContent()
   const data = getSection('footer', {
-    tagline: "Autonomous AI Voice, Spatial Dispatch & 3D Spatial E-Commerce Infrastructure for High-Ticket Commercial Operators Across the UK.",
+    tagline: "Autonomous conversion and rapid response systems for UK businesses. Built to answer faster, capture deposits, and stop leads leaking.",
     email: "mercianwealthgs@gmail.com",
     phone: "+44 7851 055929",
     whatsappLink: "https://wa.me/447851055929?text=Hi%20Mercian%20Wealth,%20I'd%20like%20to%20inquire%20about%20your%20services.",
     instagramLink: "https://www.instagram.com/mercianwealth/",
     linkedinLink: "https://www.linkedin.com/in/gs-legacy-wealth/",
-    ctaDescription: "Book a 15-minute voice diagnostic audit to calculate your missed call revenue leakage and test live AI prototypes.",
-    ctaButtonText: "Book 15-Minute Voice Audit"
+    ctaDescription: "Book a call to review your current enquiry flow and see a working prototype for your business.",
+    ctaButtonText: "Book a call"
   })
 
   const quickLinks = [
@@ -36,7 +36,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-12">
           
           {/* Column 1: Logo & Tagline */}
-          <div className="space-y-4 flex flex-col items-start">
+          <div className="space-y-3 flex flex-col items-start">
             <Link href="/" className="inline-block">
               <div className="relative h-10 w-44">
                 <BrandLogo
@@ -50,6 +50,9 @@ export function Footer() {
             <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed max-w-[240px]">
               {data.tagline}
             </p>
+            <div className="pt-2 text-[11px] font-mono text-[#DCAE53] leading-snug max-w-[240px]">
+              Based in the West Midlands, serving businesses across the UK.
+            </div>
           </div>
 
           {/* Column 2: Quick Links */}

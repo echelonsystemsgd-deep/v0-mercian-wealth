@@ -11,15 +11,14 @@ interface Chapter {
 }
 
 const chapters: Chapter[] = [
-  { id: "bottleneck", label: "I", title: "Telephony Drag", selectors: ["#chapter-divider-I", "#bottleneck"] },
-  { id: "voice-sandbox", label: "II", title: "Voice Agent", selectors: ["#chapter-divider-II", "#voice-sandbox"] },
-  { id: "spatial-studio", label: "III", title: "3D Meshes", selectors: ["#chapter-divider-III", "#spatial-studio"] },
-  { id: "demo", label: "IV", title: "Dispatch", selectors: ["#chapter-divider-IV", "#demo"] },
-  { id: "divergence", label: "V", title: "Comparison", selectors: ["#chapter-divider-V", "#divergence"] },
-  { id: "roi", label: "VI", title: "ROI Engine", selectors: ["#chapter-divider-VI", "#roi-calculator"] },
-  { id: "architecture", label: "VII", title: "Architecture", selectors: ["#chapter-divider-VII", "#architecture", "#system-blueprint"] },
-  { id: "pricing", label: "VIII", title: "Retainers", selectors: ["#chapter-divider-VIII", "#pricing"] },
-  { id: "cta", label: "IX", title: "Audit Booking", selectors: ["#chapter-divider-IX", "#cta"] },
+  { id: "what-changed", label: "I", title: "What Changed", selectors: ["#what-changed", "#chapter-divider-I"] },
+  { id: "bottleneck", label: "II", title: "Leakage", selectors: ["#bottleneck", "#chapter-divider-II"] },
+  { id: "offer-mechanism", label: "III", title: "The Offer", selectors: ["#offer-mechanism", "#chapter-divider-III"] },
+  { id: "portfolio", label: "IV", title: "Websites", selectors: ["#portfolio", "#chapter-divider-IV"] },
+  { id: "proof-cases", label: "V", title: "Verified Proof", selectors: ["#proof-cases", "#chapter-divider-V"] },
+  { id: "architecture", label: "VI", title: "Operator", selectors: ["#architecture", "#chapter-divider-VI"] },
+  { id: "pricing", label: "VII", title: "Retainers", selectors: ["#pricing", "#chapter-divider-VII"] },
+  { id: "cta", label: "VIII", title: "Prototype", selectors: ["#cta", "#chapter-divider-VIII"] },
 ]
 
 function getElement(selector: string): Element | null {

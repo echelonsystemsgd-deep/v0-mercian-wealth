@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { CardContent } from "@/components/ui/card"
 import { 
   ChevronDown, 
-  ChevronUp,
+  ChevronUp, 
   CheckCircle2, 
   ShieldCheck, 
   ArrowRight, 
@@ -18,9 +18,10 @@ import {
   Sliders, 
   Check, 
   Layers, 
-  Cpu,
-  Activity,
-  Filter
+  Cpu, 
+  Activity, 
+  Filter,
+  Globe
 } from "lucide-react"
 import Link from "next/link"
 import type { PricingTier } from "@/lib/pricing"
@@ -46,54 +47,54 @@ interface ComparisonCategory {
 
 const comparisonCategories: ComparisonCategory[] = [
   {
-    id: "voice",
-    category: "24/7 AI Voice & Inbound Telephony",
-    icon: PhoneCall,
-    badge: "Sub-380ms Latency",
-    description: "Inbound call answering, intent qualification, live conversational transcripts, and deposit captures.",
+    id: "web",
+    category: "Custom Web Architecture & UI/UX",
+    icon: Globe,
+    badge: "Sub-Second Load",
+    description: "Bespoke digital design, mobile storefront flow, search discoverability, and upfront payment capture.",
     items: [
-      { name: "Voice Answering Latency", detail: "Neural speech latency before assistant starts replying", essential: "< 450ms Neural Voice", pro: "< 380ms Neural Voice", custom: "< 350ms Dedicated SIP Trunk", highlight: true },
-      { name: "24/7 Inbound Answering", detail: "Continuous uptime with 0 missed emergency or off-peak calls", essential: "✓ Included (24/7/365)", pro: "✓ Included (24/7/365)", custom: "✓ Dedicated Multi-Line SIP Trunk" },
-      { name: "Emergency Triage & Qualification", detail: "Decision trees to evaluate customer budget and emergency tier", essential: "Standard Qualification Logic", pro: "Advanced Multi-Branch Triage", custom: "Bespoke Enterprise Subagent Logic" },
-      { name: "Upfront Stripe / Apple Pay Deposit", detail: "Locking customer commitment during the live telephone call", essential: "✓ Instant SMS / Link Deposit", pro: "✓ Dynamic Deposit & Geofence Surcharge", custom: "✓ Multi-Currency & Corporate Terms" },
+      { name: "Mobile Page Speed", detail: "Optimized Next.js code and global edge CDN delivering sub-second first contentful paint", essential: "< 900ms Load Speed", pro: "< 500ms Edge Render", custom: "< 350ms Dedicated Cluster", highlight: true },
+      { name: "Bespoke Brand Design", detail: "Custom designed layouts tailored to your business, with zero generic templates", essential: "Bespoke Storefront", pro: "Full Atelier Custom Design", custom: "Multi-Brand Web Architecture" },
+      { name: "Search & AEO Discoverability", detail: "Semantic schema markup and answer engine optimization so local search engines recommend you", essential: "Standard Local Schema", pro: "Advanced FAQ & AEO Schema", custom: "Multi-Location Regional Graph" },
+      { name: "Instant Deposit / Card Capture", detail: "Direct Stripe / Apple Pay checkout for instant customer commitment and deposits", essential: "✓ Standard Checkout", pro: "✓ Dynamic 3-Tap Deposit Lock", custom: "✓ Bespoke Multi-Currency Portal" },
     ]
   },
   {
-    id: "dispatch",
-    category: "Spatial Fleet Dispatch & Workflows",
+    id: "booking",
+    category: "Booking Flow & Instant Alerts",
     icon: Navigation,
-    badge: "Real-Time GPS",
-    description: "Automated geofence technician matching, WhatsApp alerts, and customer GPS tracking links.",
+    badge: "< 60s Handoff",
+    description: "Frictionless customer booking interfaces, instant WhatsApp team notifications, and calendar sync.",
     items: [
-      { name: "Spatial Geofence Matching", detail: "Calculating proximity to nearest field engineer or driver", essential: "— (Direct Team Alert)", pro: "✓ Real-Time Driver Geofence Match", custom: "✓ Multi-Depot Fleet Optimization", highlight: true },
-      { name: "Instant Smartphone WhatsApp Dispatch", detail: "Sub-second job handoff with customer details and map pin", essential: "✓ Sub-0.4s Alert to Phone", pro: "✓ Sub-0.4s Alert + Driver PWA", custom: "✓ Custom Operator Control Center" },
-      { name: "Customer Live GPS ETA Link", detail: "Live Uber-style technician arrival link sent directly to customer", essential: "Standard Confirmation SMS", pro: "✓ Live Technician GPS Tracking Link", custom: "✓ White-Label Customer Portal" },
-      { name: "CRM & Calendar Auto-Sync", detail: "Immediate booking injection with zero manual coordinator input", essential: "Google / Outlook Sync", pro: "✓ ServiceTitan / Jobber / HubSpot Sync", custom: "✓ Custom ERP / Database Auto-Sync" },
+      { name: "3-Tap Customer Flow", detail: "Frictionless booking or order builder so customers confirm without bouncing", essential: "Single-Page Intake", pro: "✓ 3-Tap Mobile Order Builder", custom: "✓ Bespoke Consultation Setter", highlight: true },
+      { name: "Instant Smartphone WhatsApp Alerts", detail: "Instant job and booking notification with customer details sent to owner's phone", essential: "✓ Sub-second Phone Alert", pro: "✓ Sub-second Alert + WhatsApp Link", custom: "✓ Dedicated Control Panel" },
+      { name: "Customer Confirmation & Receipt", detail: "Automated booking confirmation and payment receipt delivered in under 60 seconds", essential: "Standard Email Receipt", pro: "✓ SMS + WhatsApp Confirmation", custom: "✓ Branded Client Portal" },
+      { name: "CRM & Calendar Two-Way Sync", detail: "Immediate diary booking with zero manual coordination required", essential: "Google / Outlook Sync", pro: "✓ CRM / Booking System Sync", custom: "✓ Custom Database Auto-Sync" },
     ]
   },
   {
-    id: "outbound",
-    category: "Outbound SDR & Database Reactivation",
+    id: "growth",
+    category: "Conversion & Review Engine",
     icon: Zap,
-    badge: "< 45s Speed-To-Lead",
-    description: "Sub-45s outbound dialing on new ad leads, automated database reactivation, and WhatsApp nurture.",
+    badge: "Zero Leaked Leads",
+    description: "Automated Google review collection, abandoned enquiry recovery, and conversion optimization.",
     items: [
-      { name: "Speed-To-Lead Outbound Dialing", detail: "Calling ad leads before they click a competitor search result", essential: "—", pro: "✓ <45s Outbound Call to Ad Leads", custom: "✓ High-Volume Parallel Calling Desk", highlight: true },
-      { name: "Dormant Customer Reactivation", detail: "Automated campaign reviving past quotes and unbooked leads", essential: "—", pro: "✓ Monthly Database Campaign", custom: "✓ Continuous Multi-Channel SDR" },
-      { name: "Multi-Channel WhatsApp/SMS Nurture", detail: "Smart follow-up sequences until booking or explicit opt-out", essential: "Standard Post-Call SMS", pro: "✓ 5-Step Dynamic Nurture Workflow", custom: "✓ Bespoke Multi-Agent SDR Network" },
+      { name: "Automated Review Extraction", detail: "Post-service automated review request via WhatsApp/SMS to scale 5-star Google ratings", essential: "—", pro: "✓ Automated Google Review Flow", custom: "✓ Multi-Platform Review Engine", highlight: true },
+      { name: "Abandoned Enquiry Recovery", detail: "Automated follow-up sequence re-engaging visitors who started booking but didn't finish", essential: "—", pro: "✓ 3-Step Lead Recovery Flow", custom: "✓ Custom Reactivation Campaign" },
+      { name: "Speed-To-Lead Customer Handoff", detail: "Instant response system ensuring prospective customers get answers before leaving", essential: "Standard Contact Gateway", pro: "✓ Sub-60s Interactive Intake", custom: "✓ Bespoke Interactive Concierge" },
     ]
   },
   {
-    id: "operations",
-    category: "Managed Retainer SLA & Operations",
+    id: "hosting",
+    category: "Cloud Infrastructure & Managed Retainer",
     icon: ShieldCheck,
-    badge: "99.98% Telephony SLA",
-    description: "Dedicated telephony servers, weekly prompt tuning, conversation QA audits, and engineer support.",
+    badge: "99.98% Web SLA",
+    description: "High-performance edge cloud hosting, continuous security, speed audits, and monthly content updates.",
     items: [
-      { name: "Dedicated Telephony Infrastructure", detail: "Voice hosting and isolated call trunk routing nodes", essential: "Shared High-Performance Node", pro: "Dedicated Telephony Server", custom: "Isolated Multi-Region Node" },
-      { name: "Weekly Conversation & Edge-Case Audits", detail: "Engineers inspecting edge cases, hallucinations, and prompt tuning", essential: "Bi-Weekly Prompt Audits", pro: "✓ Weekly Prompt & Edge-Case Audits", custom: "✓ Continuous Real-Time QA & Tuning" },
-      { name: "Telephony Uptime SLA", detail: "Contractual guarantee on continuous phone line availability", essential: "99.9% Uptime", pro: "99.98% Uptime SLA", custom: "99.99% Enterprise Uptime SLA", highlight: true },
-      { name: "Technical Support SLA", detail: "Direct escalation path for prompt updates or workflow adjustments", essential: "< 4 Hours Response", pro: "< 2 Hours Priority Support", custom: "Direct Founder Phone Hotline" },
+      { name: "Edge Cloud Infrastructure", detail: "Global edge CDN with automated failover and unlimited bandwidth", essential: "High-Performance Edge CDN", pro: "Dedicated Edge Cluster", custom: "Isolated Multi-Region CDN" },
+      { name: "Monthly Conversion Audits", detail: "Regular speed tuning, image compression audits, and conversion rate optimizations", essential: "Bi-Weekly Speed Checks", pro: "✓ Weekly Speed & Conversion Audits", custom: "✓ Real-Time Performance Audits" },
+      { name: "Website Uptime SLA", detail: "Contractual guarantee on continuous website availability and checkout performance", essential: "99.9% Uptime", pro: "99.98% Uptime SLA", custom: "99.99% Enterprise Uptime SLA", highlight: true },
+      { name: "Content & Menu Updates", detail: "Hands-off support for menu changes, price updates, new photos, and service additions", essential: "Standard Support (<24h)", pro: "Priority Support (<4h)", custom: "Same-Day Direct Hotline" },
     ]
   }
 ]
@@ -316,7 +317,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                       }`}
                     >
                       <Link href="/book">
-                        <span>Book 15-Minute Voice Audit</span>
+                        <span>Book a call</span>
                       </Link>
                     </Button>
                   </div>
@@ -333,8 +334,8 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
               <span className="p-1 rounded-lg bg-[#DCAE53]/10 text-[#DCAE53]">
                 <ShieldCheck className="w-4 h-4" />
               </span>
-              <span className="font-mono text-xs font-bold text-white uppercase tracking-wider">
-                Scope, Timelines &amp; Billing Transparency
+              <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
+                Deployment Scope &amp; Commercial Terms
               </span>
             </div>
             <span className="text-[10px] font-mono text-[#DCAE53] bg-[#DCAE53]/10 px-2.5 py-0.5 rounded-full border border-[#DCAE53]/30 w-fit">
@@ -349,17 +350,17 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                 <span>Realistic Build Timelines</span>
               </div>
               <p className="text-slate-300 text-[11px] leading-relaxed">
-                We work in rapid agile sprints. Standard setups aim for <strong className="text-white">7–14 business days</strong> once scripts, pricing sheets, and CRM access are supplied. Complex multi-branch integrations take longer depending on technical scope and owner feedback cadence.
+                We work in rapid agile sprints. Standard setups aim for <strong className="text-white">7–14 business days</strong> once intake details and booking rules are supplied. Complex multi-branch setups take longer depending on technical scope.
               </p>
             </div>
 
             <div className="p-4 rounded-2xl bg-[#0c0c0e] border border-slate-800/80 space-y-2">
               <div className="font-bold text-white flex items-center gap-2">
                 <span>📞</span>
-                <span>Telephony Minutes &amp; Carrier Costs</span>
+                <span>Monthly Handling Capacity</span>
               </div>
               <p className="text-slate-300 text-[11px] leading-relaxed">
-                Monthly retainers include generous voice minute allowances (<strong className="text-white">1,500 to 3,500+ mins/mo</strong>). High-volume excess minutes or dedicated international SIP numbers are passed through at transparent wholesale carrier cost (~£0.09/min).
+                Monthly retainers include generous customer interaction capacity (<strong className="text-white">1,500 to 3,500+ enquiries/mo</strong>). High-volume excess usage scales transparently without service interruption.
               </p>
             </div>
 
@@ -369,7 +370,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                 <span>Additional Scope &amp; Bespoke APIs</span>
               </div>
               <p className="text-slate-300 text-[11px] leading-relaxed">
-                Standard webhooks and calendar links are 100% included. Additional geographic depots, specialized legacy ERP database programming, or extra custom sub-agent workflows outside agreed specifications are quoted clearly in advance.
+                Standard calendars and alert webhooks are 100% included. Additional depots, custom ERP integrations, or specialized database programming outside agreed specifications are quoted clearly in advance.
               </p>
             </div>
           </div>
@@ -379,7 +380,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
         {isHomepage ? (
           <div className="pt-8 border-t border-slate-800 text-center flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-slate-400">
             <span className="font-mono text-[11px] text-[#DCAE53]">
-              ✦ 99.98% Telephony SLA · Sub-500ms Voice Latency Guaranteed
+              ✦ 99.98% System SLA · Sub-60s Response Times Guaranteed
             </span>
             <span className="hidden sm:inline text-white/20">•</span>
             <Link
@@ -642,7 +643,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
             <div className="text-center mt-12 sm:mt-16">
               <Button asChild size="lg" className="bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold px-8 py-6 rounded-2xl shadow-xl shadow-[#DCAE53]/20">
                 <Link href="/book" className="flex items-center gap-2">
-                  <span>Schedule 15-Min Voice Diagnostic Audit</span>
+                  <span>Book a call</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </Button>

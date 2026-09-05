@@ -19,6 +19,27 @@ export function FAQHome() {
         }}
       />
 
+      {/* FAQPage JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": Array.isArray(data.faqs)
+              ? data.faqs.map((faq: any) => ({
+                  "@type": "Question",
+                  "name": faq.question,
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": faq.answer,
+                  },
+                }))
+              : [],
+          }),
+        }}
+      />
+
       <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 z-10">
         
         {/* Section Header */}

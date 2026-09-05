@@ -187,7 +187,7 @@ export function InteractiveRoiCalculator() {
                 href="/book"
                 className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-xs sm:text-sm transition-all shadow-lg"
               >
-                <span>Book 15-Min Voice Diagnostic Audit</span>
+                <span>Book a call</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

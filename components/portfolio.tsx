@@ -21,40 +21,40 @@ type PortfolioItem = {
 
 const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   {
-    title: "Apex Commercial Climate",
-    category: "24/7 AI Voice Dispatch & Spatial Matching · Case Study",
+    title: "The Caker Street Bakery",
+    category: "Custom Mobile Storefront & Order Builder · Case Study",
     gradient: "from-amber-500/20 to-yellow-600/20",
     href: null,
-    image: "/vanguard-construction-preview.png",
+    image: "/caker-st-preview.png",
     underConstruction: false,
-    metric: "< 380ms Latency · £350 Deposit Secured",
+    metric: "+£32,400/yr · 499 Admin Hours Saved",
   },
   {
     title: "Aura Private Aesthetics",
-    category: "Autonomous Speed-To-Lead Voice Setter · Case Study",
+    category: "Luxury Clinic Website & Consultation Engine · Case Study",
     gradient: "from-emerald-500/20 to-teal-500/20",
     href: null,
     image: "/stamp-app-preview.png",
     underConstruction: false,
-    metric: "89% Consultation Show-Up Rate",
+    metric: "Doctor Consultation Slots & Deposits Secured",
   },
   {
-    title: "Sovereign Haulage Fleet",
-    category: "Operator Control Center & Driver PWA · Case Study",
-    gradient: "from-rose-500/20 to-amber-500/20",
-    href: null,
-    image: "/caker-st-preview.png",
-    underConstruction: false,
-    metric: "Instant Geofence Spatial Matching",
-  },
-  {
-    title: "Mayfair Asset Portfolio",
-    category: "Autonomous Property Concierge & Viewing Desk · Case Study",
+    title: "Apex Bespoke Consultations",
+    category: "High-Ticket Client Acquisition Platform · Case Study",
     gradient: "from-amber-500/20 to-orange-500/20",
     href: null,
     image: "/grand-wedding-cakes-preview.png",
     underConstruction: false,
-    metric: "£90k+ Leases Handled Autonomously",
+    metric: "Fixed-Price Scoping & Automated Onboarding",
+  },
+  {
+    title: "Vanguard Commercial Services",
+    category: "Commercial Services Web Platform · Case Study",
+    gradient: "from-blue-500/20 to-indigo-500/20",
+    href: null,
+    image: "/vanguard-construction-preview.png",
+    underConstruction: false,
+    metric: "Instant Sub-Second Project Quote Engine",
   },
 ]
 
@@ -506,10 +506,10 @@ function PrototypePreviewModal({ item, onClose }: { item: PortfolioItem; onClose
                 </div>
                 <Button
                   asChild
-                  className="bg-accent-gold text-bg-primary font-bold hover:bg-accent-gold/90"
+                  className="bg-[#DCAE53] text-[#09090B] font-bold hover:bg-[#E5B85C]"
                 >
                   <Link href="/book">
-                    Book Live Bespoke Walkthrough →
+                    Book a call →
                   </Link>
                 </Button>
               </div>
@@ -568,11 +568,14 @@ export function Portfolio({ limit }: { limit?: number }) {
           {/* Section Header */}
           <div className="text-center mb-16">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#DCAE53] mb-3 font-mono">
-              [ Selected Work ]
+              [ SYSTEM IV · WEBSITE CREATIONS ]
             </p>
-            <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
-              Storefronts That Generate Orders
+            <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4">
+              Websites Engineered to Convert Visitors
             </h2>
+            <p className="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
+              Every website we build is crafted for rapid mobile performance, effortless customer bookings, and automated deposit collection.
+            </p>
           </div>
 
           {/* 2-Column Grid */}

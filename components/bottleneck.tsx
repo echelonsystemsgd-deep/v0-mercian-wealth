@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { SITE_COPY } from "@/lib/site-copy"
 
+import { SectionDivider } from "@/components/section-divider"
+
 export function Bottleneck() {
   const [isOrdered, setIsOrdered] = useState(false)
   const data = SITE_COPY.homepage.bottleneck
@@ -20,8 +22,18 @@ export function Bottleneck() {
     { id: 5, chaos: { x: 280, y: 320 }, order: { x: 200, y: 290 } },
   ]
 
+  const orderedSolutions = [
+    "Zero time wasted on back-and-forth. Customer specifications, package choice, and dates are collected automatically 24/7.",
+    "Costly misunderstandings and double-bookings eliminated. Orders and client slots are verified and confirmed with upfront card deposits.",
+    "Sub-60s response captures customers while intent is peak. Never let an enquiry go cold or bounce to a competitor.",
+    "Automatic 5-star review collection and structured follow-up protects your local market reputation on autopilot.",
+  ]
+
   return (
-    <section id="bottleneck" className="relative py-12 sm:py-24 lg:py-32 overflow-hidden bg-[#09090B]">
+    <section id="bottleneck" className="relative py-16 sm:py-24 overflow-hidden bg-[#09090B]">
+      {/* Chapter Marker */}
+      <SectionDivider chapter="II" title="REVENUE HAEMORRHAGE" />
+
       {/* Background radial glow */}
       <div 
         className="absolute inset-0 pointer-events-none z-0"
@@ -38,24 +50,24 @@ export function Bottleneck() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16 max-w-3xl mx-auto"
+          className="text-center mb-12 sm:mb-16 max-w-3xl mx-auto"
         >
           <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.25em] text-[#DCAE53]">
             [ {data.eyebrow} ]
           </span>
-          <h2 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mt-4 leading-[1.1] text-balance">
+          <h2 className="font-sans text-3xl sm:text-5xl font-extrabold text-white mt-4 leading-[1.15] text-balance">
             {data.headline}
           </h2>
-          <p className="font-sans text-base text-slate-300 leading-relaxed mt-6 max-w-2xl mx-auto">
+          <p className="font-sans text-sm sm:text-base text-slate-300 leading-relaxed mt-4 max-w-2xl mx-auto">
             {data.subheadline}
           </p>
-          <p className="font-sans text-sm text-[#DCAE53] font-medium mt-4 max-w-2xl mx-auto">
+          <p className="font-sans text-xs sm:text-sm text-[#DCAE53] font-medium mt-3 max-w-2xl mx-auto">
             {data.goldSlogan}
           </p>
         </motion.div>
 
         {/* ── Visual + Cards side-by-side ── */}
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
           {/* Left Column: Interactive SVG Visualiser */}
           <motion.div
@@ -65,11 +77,16 @@ export function Bottleneck() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-5 flex justify-center min-w-0 max-w-full"
           >
-            <div className="relative w-full max-w-lg h-auto bg-bg-tertiary border border-border-brand/20 p-4 sm:p-6 rounded-xl shadow-2xl flex flex-col justify-start items-center overflow-hidden min-w-0 max-w-full">
-              <div className="w-full flex items-center gap-2 mb-3 pb-3 border-b border-white/5">
-                <span className={`w-2.5 h-2.5 rounded-full ${isOrdered ? "bg-accent-gold animate-pulse" : "bg-red-500 animate-pulse"}`} />
-                <span className="text-[10px] font-bold uppercase tracking-widest text-text-primary opacity-70">
-                  {data.systemMode} {isOrdered ? data.modeAutomated : data.modeManual}
+            <div className="relative w-full max-w-lg h-auto bg-[#111115] border border-slate-800 p-4 sm:p-6 rounded-2xl shadow-2xl flex flex-col justify-start items-center overflow-hidden min-w-0 max-w-full">
+              <div className="w-full flex items-center justify-between gap-2 mb-3 pb-3 border-b border-slate-800">
+                <div className="flex items-center gap-2">
+                  <span className={`w-2.5 h-2.5 rounded-full ${isOrdered ? "bg-[#DCAE53] animate-pulse" : "bg-red-500 animate-pulse"}`} />
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-300">
+                    {isOrdered ? data.modeAutomated : data.modeManual}
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono text-[#DCAE53]">
+                  {isOrdered ? "Pipeline Streamlined" : "High Friction"}
                 </span>
               </div>
 
@@ -79,14 +96,14 @@ export function Bottleneck() {
                   {/* Connection Lines */}
                   {isOrdered ? (
                     <>
-                      <motion.line x1="50" y1="200" x2="170" y2="200" stroke="rgba(201, 162, 39, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
-                      <motion.line x1="170" y1="200" x2="290" y2="200" stroke="rgba(201, 162, 39, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.2 }} />
-                      <motion.line x1="200" y1="110" x2="170" y2="200" stroke="rgba(201, 162, 39, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
-                      <motion.line x1="200" y1="290" x2="170" y2="200" stroke="rgba(201, 162, 39, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
+                      <motion.line x1="50" y1="200" x2="170" y2="200" stroke="rgba(220, 174, 83, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
+                      <motion.line x1="170" y1="200" x2="290" y2="200" stroke="rgba(220, 174, 83, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.2 }} />
+                      <motion.line x1="200" y1="110" x2="170" y2="200" stroke="rgba(220, 174, 83, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
+                      <motion.line x1="200" y1="290" x2="170" y2="200" stroke="rgba(220, 174, 83, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
                       {/* Flow pulse dots */}
-                      <motion.circle r="4" fill="var(--color-accent-gold)" animate={{ cx: [50, 170], cy: [200, 200] }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} />
-                      <motion.circle r="4" fill="var(--color-accent-gold)" animate={{ cx: [200, 170], cy: [110, 200] }} transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }} />
-                      <motion.circle r="4" fill="var(--color-accent-gold)" animate={{ cx: [200, 170], cy: [290, 200] }} transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }} />
+                      <motion.circle r="4" fill="#DCAE53" animate={{ cx: [50, 170], cy: [200, 200] }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} />
+                      <motion.circle r="4" fill="#DCAE53" animate={{ cx: [200, 170], cy: [110, 200] }} transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }} />
+                      <motion.circle r="4" fill="#DCAE53" animate={{ cx: [200, 170], cy: [290, 200] }} transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }} />
                     </>
                   ) : (
                     <>
@@ -105,8 +122,8 @@ export function Bottleneck() {
                          cx={isOrdered ? node.order.x : node.chaos.x}
                          cy={isOrdered ? node.order.y : node.chaos.y}
                          r={isOrdered ? "12" : "8"}
-                         fill={isOrdered ? "var(--color-bg-tertiary)" : "var(--color-bg-primary)"}
-                         stroke={isOrdered ? "var(--color-accent-gold)" : "#ef4444"}
+                         fill={isOrdered ? "#18181F" : "#09090B"}
+                         stroke={isOrdered ? "#DCAE53" : "#ef4444"}
                          strokeWidth="2"
                         animate={{
                           cx: isOrdered ? node.order.x : node.chaos.x,
@@ -123,8 +140,8 @@ export function Bottleneck() {
                        cx="170"
                        cy="200"
                        r="16"
-                       fill="var(--color-accent-purple)"
-                       stroke="var(--color-accent-gold)"
+                       fill="#DCAE53"
+                       stroke="#09090B"
                        strokeWidth="2.5"
                       animate={{ scale: [1, 1.1, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
@@ -134,20 +151,18 @@ export function Bottleneck() {
               </div>
 
               {/* Toggle Switch */}
-              <div className="w-full border-t border-white/10 pt-4 mt-4 flex flex-col sm:flex-row gap-4 items-center sm:justify-between bg-transparent relative z-20 shrink-0">
-                <div className="flex flex-col text-center sm:text-left">
-                  <span className="text-xs font-semibold text-text-primary opacity-80 leading-relaxed">
-                    {isOrdered ? "Automated Storefront Active" : "Manual Scramble Active"}
-                  </span>
-                </div>
+              <div className="w-full border-t border-slate-800 pt-4 mt-4 flex flex-col sm:flex-row gap-3 items-center sm:justify-between bg-transparent relative z-20 shrink-0">
+                <span className="text-xs font-semibold text-slate-300">
+                  {isOrdered ? "Automated Response Active" : "Manual Scramble Active"}
+                </span>
                 <Button
                   onClick={() => setIsOrdered(!isOrdered)}
                   size="sm"
                   variant={isOrdered ? "default" : "outline"}
-                  className={`w-full sm:w-auto text-xs sm:text-sm px-5 py-3 border transition-all shrink-0 ${
+                  className={`w-full sm:w-auto text-xs px-4 py-2 border transition-all shrink-0 cursor-pointer ${
                     isOrdered 
-                      ? "" 
-                      : "bg-transparent border-red-500/50 text-red-500 hover:bg-red-500/10 hover:text-red-400"
+                      ? "bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C]" 
+                      : "bg-transparent border-red-500/50 text-red-400 hover:bg-red-500/10"
                   }`}
                 >
                   {isOrdered ? data.triggerBtnActive : data.triggerBtnInactive}
@@ -156,87 +171,63 @@ export function Bottleneck() {
             </div>
           </motion.div>
 
-          {/* Right Column: Problem / Solution Cards */}
+          {/* Right Column: 4 Outcomes Cards */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-7 space-y-5"
+            className="lg:col-span-7 space-y-3.5"
           >
-            {/* Card 1 */}
-            <div className={`p-6 rounded-xl border transition-all duration-300 ${isOrdered ? "bg-[#111115] border-[#DCAE53]/30" : "bg-[#18181F] border-red-500/20"}`}>
-              <div className="flex items-start gap-4">
-                <div className={`p-2 rounded-lg shrink-0 ${isOrdered ? "text-[#DCAE53] bg-[#DCAE53]/10" : "text-red-400 bg-red-500/10"}`}>
-                  {isOrdered ? <ShieldCheck size={18} /> : <AlertCircle size={18} />}
-                </div>
-                <div className="space-y-2">
-                  <h3 className="font-sans font-semibold text-lg text-white">{data.cards[0].title}</h3>
-                  <p className="font-sans text-sm text-slate-300 leading-relaxed">
-                    {isOrdered 
-                      ? "24/7 Sub-500ms AI Voice Receptionist answers every inbound call, extracts job scope, and qualifies high-intent commercial clients."
-                      : data.cards[0].description
-                    }
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 2 */}
-            <div className={`p-6 rounded-xl border transition-all duration-300 ${isOrdered ? "bg-[#111115] border-[#DCAE53]/30" : "bg-[#18181F] border-red-500/20"}`}>
-              <div className="flex items-start gap-4">
-                <div className={`p-2 rounded-lg shrink-0 ${isOrdered ? "text-[#DCAE53] bg-[#DCAE53]/10" : "text-red-400 bg-red-500/10"}`}>
-                  {isOrdered ? <ShieldCheck size={18} /> : <AlertCircle size={18} />}
-                </div>
-                <div className="space-y-2">
-                  <h3 className="font-sans font-semibold text-lg text-white">{data.cards[1].title}</h3>
-                  <p className="font-sans text-sm text-slate-300 leading-relaxed">
-                    {isOrdered 
-                      ? "Instant spatial fleet geofence routing matches the closest technician and sends full job coordinates via WhatsApp and PWA in under 30 seconds."
-                      : data.cards[1].description
-                    }
-                  </p>
+            {data.cards.map((card, idx) => (
+              <div 
+                key={idx}
+                className={`p-4 sm:p-5 rounded-xl border transition-all duration-300 ${
+                  isOrdered 
+                    ? "bg-[#111115] border-[#DCAE53]/30 shadow-md" 
+                    : "bg-[#18181F] border-slate-800"
+                }`}
+              >
+                <div className="flex items-start gap-3.5">
+                  <div className={`p-2 rounded-lg shrink-0 mt-0.5 ${isOrdered ? "text-[#DCAE53] bg-[#DCAE53]/10" : "text-red-400 bg-red-500/10"}`}>
+                    {isOrdered ? <ShieldCheck size={18} /> : <AlertCircle size={18} />}
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-sans font-bold text-sm sm:text-base text-white">{card.title}</h3>
+                      <span className={`text-[9px] font-mono uppercase px-2 py-0.5 rounded font-bold ${
+                        isOrdered ? "bg-[#DCAE53]/10 text-[#DCAE53]" : "bg-red-500/10 text-red-400"
+                      }`}>
+                        {card.outcome}
+                      </span>
+                    </div>
+                    <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed">
+                      {isOrdered ? orderedSolutions[idx] : card.description}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Card 3 */}
-            <div className={`p-6 rounded-xl border transition-all duration-300 ${isOrdered ? "bg-[#111115] border-[#DCAE53]/30" : "bg-[#18181F] border-red-500/20"}`}>
-              <div className="flex items-start gap-4">
-                <div className={`p-2 rounded-lg shrink-0 ${isOrdered ? "text-[#DCAE53] bg-[#DCAE53]/10" : "text-red-400 bg-red-500/10"}`}>
-                  {isOrdered ? <ShieldCheck size={18} /> : <AlertCircle size={18} />}
-                </div>
-                <div className="space-y-2">
-                  <h3 className="font-sans font-semibold text-lg text-white">{data.cards[2].title}</h3>
-                  <p className="font-sans text-sm text-slate-300 leading-relaxed">
-                    {isOrdered 
-                      ? "Outbound AI speed-to-lead dials new ad inquiries in <45 seconds, locking consultations into your calendar with confirmed deposits."
-                      : data.cards[2].description
-                    }
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
           </motion.div>
 
         </div>
 
-        {/* Post-Bottleneck Single CTA Bar */}
+        {/* Post-Bottleneck CTA */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.5 }}
-          className="mt-10 sm:mt-16 text-center min-w-0 max-w-full"
+          className="mt-10 sm:mt-14 text-center"
         >
           <Button
             asChild
             size="lg"
-            className="w-full sm:w-auto h-auto py-4 sm:py-5 px-6 sm:px-10 text-sm sm:text-base font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] shadow-lg rounded-lg"
+            className="w-full sm:w-auto py-3.5 sm:py-4 px-8 text-sm font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] shadow-lg shadow-[#DCAE53]/20 rounded-lg cursor-pointer"
           >
             <Link href="/book" className="flex items-center justify-center gap-2">
-              <span>Book your 15-minute audit</span>
-              <span className="text-lg shrink-0">→</span>
+              <span>Book a call</span>
+              <span className="text-base shrink-0">→</span>
             </Link>
           </Button>
         </motion.div>

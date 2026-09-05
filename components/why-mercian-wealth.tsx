@@ -5,13 +5,18 @@ import { RefreshCw, Landmark } from "lucide-react"
 import { SITE_COPY } from "@/lib/site-copy"
 import { BrandLogo } from "@/components/brand-logo"
 
+import { SectionDivider } from "@/components/section-divider"
+
 export function WhyMercianWealth() {
   const data = SITE_COPY.homepage.whyMercianWealth
   const trendData = SITE_COPY.homepage.trendAdaptation
   const modelData = SITE_COPY.homepage.modelHint
 
   return (
-    <section id="architecture" className="relative py-20 lg:py-28 overflow-hidden bg-[#09090B]">
+    <section id="architecture" className="relative py-16 sm:py-24 overflow-hidden bg-[#09090B]">
+      {/* Chapter Marker */}
+      <SectionDivider chapter="VI" title="OPERATOR COMMITMENT" />
+
       {/* Background Crest Watermark */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden max-w-full">
         <div className="relative w-[550px] h-[550px] sm:w-[700px] sm:h-[700px] max-w-full opacity-10">
@@ -26,15 +31,15 @@ export function WhyMercianWealth() {
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 z-10">
         
-        {/* Founder Spotlight Banner */}
+        {/* Founder Spotlight Banner with Verbatim Outcomes Positioning */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16 p-6 sm:p-8 rounded-xl border border-slate-800/90 border-l-2 border-l-[#34A88E] bg-[#111115] backdrop-blur-md shadow-xl flex flex-col md:flex-row items-center gap-6 md:gap-8 text-left max-w-5xl mx-auto hover:border-slate-700/80 transition-colors"
+          className="mb-14 p-6 sm:p-8 rounded-2xl border border-slate-800/90 border-l-4 border-l-[#DCAE53] bg-[#111115] backdrop-blur-md shadow-2xl flex flex-col md:flex-row items-center gap-6 md:gap-8 text-left max-w-5xl mx-auto hover:border-slate-700/80 transition-colors"
         >
-          <div className="w-18 h-18 sm:w-20 sm:h-20 rounded-xl bg-[#18181F] border border-[#DCAE53]/30 p-1 shrink-0 shadow-lg relative overflow-hidden flex items-center justify-center">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#18181F] border border-[#DCAE53]/30 p-2 shrink-0 shadow-lg relative overflow-hidden flex items-center justify-center">
             <BrandLogo 
               variant="watermark"
               alt="Mercian Wealth Logo"
@@ -42,16 +47,16 @@ export function WhyMercianWealth() {
               className="object-contain p-1"
             />
           </div>
-          <div className="space-y-2 flex-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2E8B77]/10 border border-[#2E8B77]/30 text-[10px] font-mono text-[#34A88E] uppercase tracking-wider font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#34A88E]" />
-              <span>FOUNDER &amp; AI AUTOMATION ARCHITECT</span>
+          <div className="space-y-2.5 flex-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[10px] font-mono text-[#DCAE53] uppercase tracking-wider font-bold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#DCAE53]" />
+              <span>FOUNDER &amp; OPERATOR COMMITMENT</span>
             </div>
-            <h3 className="font-sans text-lg sm:text-xl lg:text-2xl font-extrabold text-white">
-              &quot;I built Mercian Wealth so high-ticket operators never lose 5-figure commercial contracts to missed calls and dispatcher lag.&quot;
+            <h3 className="font-sans text-lg sm:text-xl lg:text-2xl font-extrabold text-white leading-tight">
+              &quot;I don&apos;t talk about agents, models, or workflows — that&apos;s my job, not yours.&quot;
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
-              Unlike traditional web agencies that build static brochure sites, we engineer sub-500ms 24/7 AI voice phone agents, real-time spatial fleet dispatch, 3D e-commerce, and managed operations infrastructure with strict telephony SLAs.
+              I talk about what changes for you: faster response times, fewer missed leads, more bookings closed, less time spent chasing admin. If a system doesn&apos;t save time, cut cost, grow revenue, or remove a risk, it doesn&apos;t go on your site.
             </p>
           </div>
         </motion.div>

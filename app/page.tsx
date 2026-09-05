@@ -1,11 +1,18 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
-import { UnifiedOperationsSandbox } from "@/components/unified-operations-sandbox"
-import { CapabilitiesBento } from "@/components/capabilities-bento"
-import { DivergenceComparison } from "@/components/divergence-comparison"
+import { WhatChanged } from "@/components/what-changed"
+import { Bottleneck } from "@/components/bottleneck"
+import { OfferMechanism } from "@/components/offer-mechanism"
+import { Portfolio } from "@/components/portfolio"
+import { ProofCaseStudies } from "@/components/proof-case-studies"
+import { WhyMercianWealth } from "@/components/why-mercian-wealth"
 import { Pricing } from "@/components/pricing"
 import { CTA } from "@/components/cta"
 import { Footer } from "@/components/footer"
+import { ChapterTracker } from "@/components/chapter-tracker"
+import { PrototypeRequestModal } from "@/components/prototype-request-modal"
+import { ZeroDisruptionGuarantee } from "@/components/zero-disruption"
+import { FAQHome } from "@/components/faq-home"
 import { FloatingAiConcierge } from "@/components/floating-ai-concierge"
 import { getPricingTiers } from "@/lib/pricing"
 import { Suspense } from "react"
@@ -14,6 +21,7 @@ export const revalidate = 60
 
 export default async function Home() {
   const { setupTiers, retainerTiers } = await getPricingTiers()
+
   return (
     <main className="min-h-screen bg-[#09090B] text-slate-100 overflow-x-hidden font-sans">
       <script
@@ -42,7 +50,7 @@ export default async function Home() {
                 "@id": "https://mercianwealth.com/#website",
                 "url": "https://mercianwealth.com",
                 "name": "Mercian Wealth",
-                "description": "24/7 Sub-500ms AI Voice Phone Agents, Spatial Fleet Dispatch, 3D Spatial E-Commerce & Multi-Agent Operations Infrastructure for High-Ticket UK Enterprises.",
+                "description": "High-Converting Response Systems & Automated Customer Intake for Local and Regional Businesses. See a working prototype before committing.",
                 "publisher": {
                   "@id": "https://mercianwealth.com/#organization"
                 }
@@ -51,45 +59,66 @@ export default async function Home() {
                 "@type": "WebPage",
                 "@id": "https://mercianwealth.com/#webpage",
                 "url": "https://mercianwealth.com",
-                "name": "Mercian Wealth | Autonomous AI Voice, 3D Storefronts & Workflow Operations",
+                "name": "Mercian Wealth | Rapid Customer Conversion & Response Systems",
                 "isPartOf": {
                   "@id": "https://mercianwealth.com/#website"
                 },
                 "about": {
                   "@id": "https://mercianwealth.com/#organization"
                 },
-                "description": "24/7 Sub-500ms AI Voice Phone Agents, Spatial Fleet Dispatch, 3D Spatial E-Commerce & Multi-Agent Operations Infrastructure for High-Ticket UK Enterprises."
+                "description": "High-Converting Response Systems & Automated Customer Intake for Local and Regional Businesses. See a working prototype before committing."
               }
             ]
           })
         }}
       />
       
-      {/* 1. Solid Floating Pill Header */}
+      {/* 1. Header Navigation */}
       <Navbar />
 
-      {/* 2. Spectacular Hero Section */}
+      {/* 2. Outcomes Hero Section */}
       <Hero />
 
-      {/* 3. Flagship Unified Operations Command Center (Voice Audio, 3D WebGL, Dispatch, ROI) */}
-      <UnifiedOperationsSandbox />
+      {/* 3. SYSTEM I · What Changed (4 Market Shifts) */}
+      <WhatChanged />
 
-      {/* 4. The 4 Enterprise Operations Pillars (Bento Grid) */}
-      <CapabilitiesBento />
+      {/* 4. SYSTEM II · Revenue Haemorrhage (The 4 Leakage Categories) */}
+      <Bottleneck />
 
-      {/* 5. Autonomous Operations vs Human Lag */}
-      <DivergenceComparison />
+      {/* Zero-Disruption Guarantee */}
+      <ZeroDisruptionGuarantee />
 
-      {/* 6. Managed Operations Retainers & Pricing */}
+      {/* 5. SYSTEM III · The Offer Protocol (Prototype-First 3-Step Sequence) */}
+      <OfferMechanism />
+
+      {/* 6. SYSTEM IV · Website Creations & Storefront Showcase */}
+      <Portfolio />
+
+      {/* 7. SYSTEM V · Verified Proof (Bakery Storefront + Aura Aesthetics Prototype) */}
+      <ProofCaseStudies />
+
+      {/* 8. SYSTEM VI · Operator & Founder Commitment */}
+      <WhyMercianWealth />
+
+      {/* 9. SYSTEM VII · Retainer Terms & Transparent Pricing */}
       <Suspense fallback={<div className="py-20 text-center text-[#DCAE53] font-mono text-sm">Loading Solutions & Retainer Pricing...</div>}>
         <Pricing isHomepage={true} setupTiers={setupTiers} retainerTiers={retainerTiers} />
       </Suspense>
 
-      {/* 7. Diagnostic Voice Audit CTA & Footer */}
+      {/* Frequently Asked Questions with FAQPage Schema */}
+      <FAQHome />
+
+      {/* 10. SYSTEM VIII · Closing Prototype CTA & Footer */}
       <CTA />
       <Footer />
 
-      {/* Live Floating AI Concierge Drawer */}
+      {/* Floating Systems Tracking Pill */}
+      <ChapterTracker />
+
+      {/* 3-Field Prototype Request Modal */}
+      <PrototypeRequestModal />
+
+      {/* Bottom-Left Questions Assistant (Hidden on mobile <640px) */}
       <FloatingAiConcierge />
     </main>
   )

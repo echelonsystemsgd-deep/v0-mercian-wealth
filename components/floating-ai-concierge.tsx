@@ -4,19 +4,12 @@ import React, { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { 
   Bot, 
-  MessageSquare, 
   X, 
   Send, 
-  Sparkles, 
-  PhoneCall, 
   Volume2, 
   VolumeX, 
-  ShieldCheck, 
-  ArrowRight,
-  Zap,
-  CheckCircle2
+  MessageSquareText
 } from "lucide-react"
-import Link from "next/link"
 
 interface ChatMessage {
   id: string
@@ -26,17 +19,17 @@ interface ChatMessage {
 }
 
 const QUICK_PROMPTS = [
-  "How does 24/7 AI Voice Answering work?",
-  "What's included in the monthly retainer?",
-  "Can you build 3D E-Commerce & Meshy assets?",
-  "Check postcode availability for my firm"
+  "How fast does the response system answer?",
+  "What is the zero-disruption guarantee?",
+  "How does the working prototype work?",
+  "What are the terms of the monthly retainer?"
 ]
 
 const AI_KNOWLEDGE: Record<string, string> = {
-  "How does 24/7 AI Voice Answering work?": "Our neural voice agents connect directly to your carrier SIP trunk. They pick up inbound calls in <420ms, speak with natural human intonation, qualify customer needs, collect deposits via Stripe/Apple Pay, and dispatch full notes to your smartphone in <0.4s.",
-  "What's included in the monthly retainer?": "Every monthly retainer includes dedicated voice server hosting, 99.98% telephony uptime SLA, sub-500ms latency monitoring, weekly conversation audits to fix edge cases, continuous prompt optimization, and up to 3,500 minutes of voice throughput.",
-  "Can you build 3D E-Commerce & Meshy assets?": "Yes! We build WebGL 3D interactive storefronts and integrate generative neural mesh pipelines like Meshy.ai. Customers can rotate products 360°, inspect PBR materials, and customize options in 3D, lifting checkout conversions by 42%.",
-  "Check postcode availability for my firm": "We operate on strict category exclusivity (1 premier operator per sector per territory). Schedule a free 15-minute diagnostic audit or message us on WhatsApp to verify if your territory is still open."
+  "How fast does the response system answer?": "Inbound calls and customer enquiries are answered in under 60 seconds. The system qualifies the customer's requirement, locks an appointment or deposit, and instantly alerts your phone via WhatsApp or SMS.",
+  "What is the zero-disruption guarantee?": "The system runs parallel to your team. Your existing phone number and calendar remain unchanged, and your staff don't have to install any software. It only steps in when your team is busy, on-site, or closed.",
+  "How does the working prototype work?": "We build a working demonstration specific to your business in 48 hours before you commit to anything. You test how it answers, collects details, and books clients on your own smartphone. You only proceed if the outcome makes clear commercial sense.",
+  "What are the terms of the monthly retainer?": "All retainers are month-to-month with 30 days notice. There are no annual lock-in contracts. It includes continuous response monitoring, ongoing accuracy audits, and dedicated support."
 }
 
 export function FloatingAiConcierge() {
@@ -48,7 +41,7 @@ export function FloatingAiConcierge() {
     {
       id: "welcome",
       sender: "ai",
-      text: "Hello! I'm the Mercian Wealth AI Concierge. Ask me anything about our 24/7 AI Voice Callers, 3D Spatial E-Commerce, or Managed Retainers.",
+      text: "Hello! I'm the Mercian Wealth assistant. Ask me anything about how our response systems work, the zero-disruption guarantee, or our retainer terms.",
       timestamp: "Just now"
     }
   ])
@@ -61,98 +54,87 @@ export function FloatingAiConcierge() {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
     }
-  }, [messages, isOpen])
-
-  const cleanupConciergeSpeech = () => {
-    if (keepAliveIntervalRef.current) clearInterval(keepAliveIntervalRef.current)
-    if (typeof window !== "undefined" && window.speechSynthesis) {
-      window.speechSynthesis.cancel()
-    }
-    activeUtteranceRef.current = null
-    if (typeof window !== "undefined") {
-      delete (window as any).__conciergeUtterance
-    }
-    setIsSpeaking(false)
-  }
-
-  // Robust Web Speech Synthesis with Chromium GC prevention
-  const speakText = (text: string) => {
-    if (voiceMuted || typeof window === "undefined" || !("speechSynthesis" in window)) return
-    cleanupConciergeSpeech()
-
-    const utterance = new SpeechSynthesisUtterance(text)
-    utterance.lang = "en-GB"
-    utterance.rate = 1.05
-    utterance.pitch = 1.0
-
-    // Retain global reference so V8 GC does not kill utterance after 3-5 seconds
-    activeUtteranceRef.current = utterance
-    if (typeof window !== "undefined") {
-      (window as any).__conciergeUtterance = utterance
-    }
-
-    utterance.onstart = () => setIsSpeaking(true)
-    utterance.onend = () => {
-      setIsSpeaking(false)
-      activeUtteranceRef.current = null
-      if (keepAliveIntervalRef.current) clearInterval(keepAliveIntervalRef.current)
-    }
-    utterance.onerror = (e) => {
-      console.warn("Speech synthesis ended or interrupted:", e)
-      setIsSpeaking(false)
-      activeUtteranceRef.current = null
-      if (keepAliveIntervalRef.current) clearInterval(keepAliveIntervalRef.current)
-    }
-
-    // Chromium keepalive heartbeat
-    keepAliveIntervalRef.current = setInterval(() => {
-      if (typeof window !== "undefined" && window.speechSynthesis && window.speechSynthesis.speaking) {
-        window.speechSynthesis.pause()
-        window.speechSynthesis.resume()
-      }
-    }, 4500)
-
-    window.speechSynthesis.speak(utterance)
-  }
+  }, [messages])
 
   useEffect(() => {
     return () => {
-      cleanupConciergeSpeech()
+      if (typeof window !== "undefined" && window.speechSynthesis) {
+        window.speechSynthesis.cancel()
+      }
+      if (keepAliveIntervalRef.current) {
+        clearInterval(keepAliveIntervalRef.current)
+      }
     }
   }, [])
 
-  const handleSend = (userText: string) => {
-    if (!userText.trim()) return
+  const speakText = (text: string) => {
+    if (voiceMuted || typeof window === "undefined" || !("speechSynthesis" in window)) return
+
+    try {
+      window.speechSynthesis.cancel()
+      if (keepAliveIntervalRef.current) clearInterval(keepAliveIntervalRef.current)
+
+      const utterance = new SpeechSynthesisUtterance(text)
+      utterance.rate = 1.05
+      utterance.pitch = 1.0
+      utterance.lang = "en-GB"
+
+      utterance.onstart = () => setIsSpeaking(true)
+      utterance.onend = () => {
+        setIsSpeaking(false)
+        if (keepAliveIntervalRef.current) clearInterval(keepAliveIntervalRef.current)
+      }
+      utterance.onerror = () => {
+        setIsSpeaking(false)
+        if (keepAliveIntervalRef.current) clearInterval(keepAliveIntervalRef.current)
+      }
+
+      activeUtteranceRef.current = utterance
+
+      keepAliveIntervalRef.current = setInterval(() => {
+        if (window.speechSynthesis.speaking) {
+          window.speechSynthesis.pause()
+          window.speechSynthesis.resume()
+        }
+      }, 4000)
+
+      window.speechSynthesis.speak(utterance)
+    } catch {
+      setIsSpeaking(false)
+    }
+  }
+
+  const handleSend = (text: string) => {
+    if (!text.trim()) return
 
     const userMsg: ChatMessage = {
-      id: Date.now().toString(),
+      id: `user-${Date.now()}`,
       sender: "user",
-      text: userText,
+      text,
       timestamp: "Just now"
     }
 
     setMessages(prev => [...prev, userMsg])
     setInputVal("")
 
-    // Generate intelligent AI reply
     setTimeout(() => {
-      let replyText = "Our autonomous AI infrastructure is engineered specifically for high-ticket service operators. We deploy 24/7 AI voice receptionists, spatial fleet dispatch, and 3D e-commerce via rapid agile sprints tailored to your requirements. Would you like to schedule a 15-minute diagnostic audit?"
+      let replyText = ""
+      const lower = text.toLowerCase()
 
-      for (const [key, ans] of Object.entries(AI_KNOWLEDGE)) {
-        if (userText.toLowerCase().includes(key.toLowerCase().slice(0, 15))) {
-          replyText = ans
-          break
-        }
-      }
-
-      if (userText.toLowerCase().includes("pricing") || userText.toLowerCase().includes("cost") || userText.toLowerCase().includes("retainer")) {
-        replyText = "Our core packages range from £2,250 setup + £1,250/mo retainer up to £3,850 setup + £2,250/mo retainer. Retainers cover dedicated telephony infrastructure, weekly prompt tuning, voice minutes, and 99.98% SLA."
-      } else if (userText.toLowerCase().includes("3d") || userText.toLowerCase().includes("meshy")) {
-        replyText = "We build interactive WebGL 3D product viewers and AI generative mesh pipelines via Meshy.ai. Check out the 3D Spatial Storefront tab in our homepage command center to test it live!"
+      if (AI_KNOWLEDGE[text]) {
+        replyText = AI_KNOWLEDGE[text]
+      } else if (lower.includes("price") || lower.includes("cost") || lower.includes("retainer")) {
+        replyText = "Our implementation setups range from £2,250 to £5,500 based on technical scope, with monthly managed retainers from £1,250 to £3,500/mo. All retainers are month-to-month with 30 days notice."
+      } else if (lower.includes("prototype") || lower.includes("demo") || lower.includes("try")) {
+        replyText = "We build a working prototype specific to your business in 48 hours with zero commitment. You test it directly on your smartphone before deciding if it makes sense to proceed."
+      } else if (lower.includes("disrupt") || lower.includes("number") || lower.includes("phone")) {
+        replyText = "The system runs parallel to your team with zero disruption. Your existing phone numbers and calendar remain identical. It only steps in when your team is busy or after hours."
+      } else {
+        replyText = "We build systems that answer faster, book more, and stop leads leaking. The best next step is to book a call so we can review your current response flow and demonstrate a working prototype."
       }
 
       const aiMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
+        id: `ai-${Date.now()}`,
         sender: "ai",
         text: replyText,
         timestamp: "Just now"
@@ -160,41 +142,40 @@ export function FloatingAiConcierge() {
 
       setMessages(prev => [...prev, aiMsg])
       speakText(replyText)
-    }, 400)
+    }, 350)
   }
 
   return (
     <>
-      {/* Floating Trigger Button at Bottom Right */}
-      <div className="fixed bottom-6 right-6 z-30">
+      {/* Floating Trigger Button at Bottom Left (Hidden on mobile <640px to prevent clutter) */}
+      <div className="fixed bottom-5 left-5 z-30 hidden sm:block font-sans">
         <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
           onClick={() => setIsOpen(true)}
-          className="relative group p-3.5 sm:p-4 rounded-full bg-[#111115] border-2 border-[#DCAE53] text-[#DCAE53] shadow-2xl shadow-black/80 flex items-center gap-3 cursor-pointer"
-          aria-label="Open AI Concierge"
+          className="relative group px-4 py-3 rounded-full bg-[#111115] border border-slate-700 hover:border-[#DCAE53]/60 text-slate-200 hover:text-white shadow-2xl flex items-center gap-2.5 cursor-pointer transition-colors"
+          aria-label="Open Questions Assistant"
         >
-          <div className="relative">
-            <Bot className="w-6 h-6 text-[#DCAE53]" />
-            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400" />
+          <div className="relative flex items-center justify-center">
+            <MessageSquareText className="w-4 h-4 text-[#DCAE53]" />
+            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400" />
           </div>
-          <span className="hidden sm:inline-block font-mono text-xs font-bold text-white tracking-wider pr-1">
-            TEST AI CONCIERGE
+          <span className="font-mono text-xs font-semibold tracking-wide">
+            Questions? Ask Assistant
           </span>
         </motion.button>
       </div>
 
-      {/* Interactive AI Concierge Chat Drawer */}
+      {/* Interactive Chat Drawer (Opens at Bottom Left) */}
       <AnimatePresence>
         {isOpen && (
-          <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:justify-end sm:p-6 bg-black/60 backdrop-blur-sm">
+          <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:justify-start sm:p-6 bg-black/60 backdrop-blur-sm">
             <motion.div
               initial={{ opacity: 0, y: 30, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 30, scale: 0.95 }}
-              transition={{ duration: 0.25 }}
-              className="w-full sm:max-w-[420px] bg-[#111115] border-2 border-[#DCAE53]/40 sm:rounded-3xl rounded-t-3xl shadow-2xl overflow-hidden flex flex-col h-[560px] sm:h-[620px] max-h-[92vh]"
+              transition={{ duration: 0.2 }}
+              className="w-full sm:max-w-[420px] bg-[#111115] border border-[#DCAE53]/40 sm:rounded-3xl rounded-t-3xl shadow-2xl overflow-hidden flex flex-col h-[540px] sm:h-[600px] max-h-[90vh]"
             >
               
               {/* Drawer Header */}
@@ -204,12 +185,12 @@ export function FloatingAiConcierge() {
                     <Bot className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
-                      <span>Mercian Autonomous Concierge</span>
+                    <h3 className="text-xs sm:text-sm font-bold text-white">
+                      Mercian Response Assistant
                     </h3>
                     <p className="text-[10px] text-emerald-400 font-mono flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      Neural Speech Model · &lt; 300ms
+                      Instant Answers · Zero Jargon
                     </p>
                   </div>
                 </div>
@@ -230,7 +211,7 @@ export function FloatingAiConcierge() {
                       if (typeof window !== "undefined") window.speechSynthesis?.cancel()
                       setIsOpen(false)
                     }}
-                    className="p-2 rounded-lg text-slate-400 hover:text-white transition-colors"
+                    className="p-2 rounded-lg text-slate-400 hover:text-white transition-colors cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -244,12 +225,12 @@ export function FloatingAiConcierge() {
                   return (
                     <div key={msg.id} className={`flex flex-col ${isAi ? "items-start" : "items-end"}`}>
                       <div className="text-[9px] font-mono text-slate-500 mb-1 px-1">
-                        {isAi ? "Mercian AI" : "You"} · {msg.timestamp}
+                        {isAi ? "Mercian Assistant" : "You"} · {msg.timestamp}
                       </div>
                       <div
                         className={`p-3 rounded-2xl text-xs leading-relaxed max-w-[88%] ${
-                          isAi 
-                            ? "bg-[#18181F] text-slate-200 border border-slate-800 rounded-tl-sm" 
+                          isAi
+                            ? "bg-[#18181F] text-slate-200 border border-slate-800/80 rounded-tl-sm"
                             : "bg-[#DCAE53] text-[#09090B] font-medium rounded-tr-sm shadow-md"
                         }`}
                       >
@@ -260,13 +241,13 @@ export function FloatingAiConcierge() {
                 })}
               </div>
 
-              {/* Quick Prompt Suggestions */}
-              <div className="px-4 py-2 bg-[#09090B] border-t border-slate-800/80 overflow-x-auto scrollbar-none flex gap-2">
+              {/* Quick Suggestion Prompts */}
+              <div className="p-2 bg-[#0c0c0e] border-t border-slate-800/80 flex items-center gap-1.5 overflow-x-auto scrollbar-none">
                 {QUICK_PROMPTS.map((prompt, i) => (
                   <button
                     key={i}
                     onClick={() => handleSend(prompt)}
-                    className="whitespace-nowrap px-2.5 py-1 rounded-lg bg-[#18181F] hover:bg-[#22222d] border border-slate-800 text-[10px] font-mono text-slate-300 transition-all shrink-0"
+                    className="whitespace-nowrap px-2.5 py-1 rounded-lg bg-[#18181F] hover:bg-[#22222d] border border-slate-800 text-[10px] font-mono text-slate-300 transition-all shrink-0 cursor-pointer"
                   >
                     {prompt}
                   </button>
@@ -277,7 +258,7 @@ export function FloatingAiConcierge() {
               <div className="p-3 bg-[#18181F] border-t border-slate-800 flex items-center gap-2">
                 <input
                   type="text"
-                  placeholder="Ask a question about AI voice or retainers..."
+                  placeholder="Ask a question about response times or terms..."
                   value={inputVal}
                   onChange={(e) => setInputVal(e.target.value)}
                   onKeyDown={(e) => {
@@ -287,7 +268,7 @@ export function FloatingAiConcierge() {
                 />
                 <button
                   onClick={() => handleSend(inputVal)}
-                  className="p-2.5 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold transition-all shadow-md"
+                  className="p-2.5 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold transition-all shadow-md cursor-pointer"
                 >
                   <Send className="w-4 h-4" />
                 </button>

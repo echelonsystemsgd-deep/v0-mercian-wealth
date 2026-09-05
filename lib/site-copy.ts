@@ -11,58 +11,58 @@ export const SITE_COPY = {
   // Global Meta Info
   metadata: {
     layout: {
-      defaultTitle: "Mercian Wealth · Autonomous AI Voice, Dispatch & Workflow Operations",
+      defaultTitle: "Mercian Wealth · Autonomous Lead Conversion & Rapid Response Systems",
       titleTemplate: "%s · Mercian Wealth",
-      description: "We deploy 24/7 custom AI voice phone callers, spatial fleet dispatch dashboards, and multi-agent workflow infrastructure for high-ticket UK enterprises.",
+      description: "We deploy systems that answer faster, book more, and stop leads leaking for UK businesses. See a working prototype before committing.",
     },
     home: {
-      title: "Mercian Wealth · 24/7 AI Voice Phone Agents & Autonomous Dispatch",
-      description: "Sub-500ms inbound & outbound AI voice callers, automated spatial dispatch, and multi-agent operational workflows for UK commercial services.",
+      title: "Mercian Wealth · Autonomous Conversion Systems & Rapid Response",
+      description: "Systems that answer faster, book more, and stop leads leaking. Prototype-first: see what it changes before you commit.",
     },
     services: {
-      title: "Autonomous AI Infrastructure & Solutions · Mercian Wealth",
-      description: "24/7 Inbound Voice Callers, Outbound Reactivation SDRs, Spatial Fleet Dispatch & Custom Agent Gateways.",
+      title: "Conversion Solutions & Systems · Mercian Wealth",
+      description: "Rapid Call Intake, Automated Customer Booking, and Managed Conversion Retainers.",
     },
     process: {
-      title: "Agile Deployment Protocol · Mercian Wealth",
-      description: "From telephony diagnostic audit to live 24/7 AI voice receptionists and spatial WhatsApp dispatch via collaborative rapid sprints.",
+      title: "Prototype-First Protocol · Mercian Wealth",
+      description: "From live prototype demonstration to fully managed conversion operations.",
     },
     portfolio: {
-      title: "Interactive AI Sandboxes & Telemetry · Mercian Wealth",
-      description: "Live interactive voice agent sandboxes, spatial dispatch simulators, and multi-agent workflow demonstrations.",
+      title: "Interactive Verification & Proof · Mercian Wealth",
+      description: "Test real-time call response, automated booking dispatch alerts, and our revenue recovery engine.",
     },
     pricing: {
       title: "Commercial Retainer Terms · Mercian Wealth",
       description: "Transparent UK GBP (£) pricing: Fixed implementation setup (£2,250–£5,500) + Flat managed monthly operations retainers (£1,250–£3,500/mo).",
     },
     testimonials: {
-      title: "Operational Outcomes & Case Studies · Mercian Wealth",
-      description: "Quantified revenue recovery, zero missed emergency calls, and 10x ROI for high-ticket UK operators.",
+      title: "Operational Proof & Case Studies · Mercian Wealth",
+      description: "Quantified revenue recovery, zero missed customer calls, and verifiable business ROI.",
     },
     contact: {
-      title: "Direct Engineering Gateway · Mercian Wealth",
-      description: "Connect directly with our lead AI automation engineers or schedule a 15-minute diagnostic voice audit.",
+      title: "Direct Gateway · Mercian Wealth",
+      description: "Connect directly with our operations team or request a prototype for your business.",
     },
     book: {
-      title: "Book Voice Diagnostic Audit · Mercian Wealth",
-      description: "Schedule a 15-minute diagnostic call to uncover exactly how much revenue your business is losing to missed calls and manual dispatch drag.",
+      title: "Book 15-Minute Audit · Mercian Wealth",
+      description: "Schedule a 15-minute diagnostic call to uncover exactly how much revenue your business is losing to slow response and missed enquiries.",
     },
   },
 
   // Navbar Component
   navbar: {
     logo: "Mercian Wealth",
-    tagline: "AI Voice · Spatial Dispatch · Operations",
+    tagline: "Faster Response · Higher Bookings · Zero Leaked Leads",
     links: [
-      { label: "AI Solutions", href: "/services" },
+      { label: "Solutions", href: "/services" },
       { label: "Deployment Protocol", href: "/process" },
-      { label: "Voice Sandboxes", href: "/portfolio" },
+      { label: "Live Demos", href: "/portfolio" },
       { label: "Retainer Pricing", href: "/pricing" },
       { label: "Contact", href: "/contact" },
     ],
-    ctaText: "Book 15-Min Voice Audit",
+    ctaText: "Book a call",
     ctaHref: "/book",
-    whatsappCtaText: "WhatsApp Engineering",
+    whatsappCtaText: "Message on WhatsApp",
     whatsappHref: "https://wa.me/447851055929",
   },
 
@@ -71,136 +71,254 @@ export const SITE_COPY = {
     // 0. Live Telemetry Ticker
     telemetryTicker: {
       items: [
-        "Unanswered calls bleed 5-figure revenue straight to your competitors in under 60 seconds.",
-        "Sub-500ms neural voice agents qualify, capture deposits, and dispatch 24/7/365.",
-        "Spatial matching routes emergency jobs to closest technicians with zero dispatcher lag.",
-        "Managed AI operations retainers include continuous prompt tuning, voice SLA & telephony monitoring.",
+        "Unanswered calls and slow DM replies bleed revenue to faster competitors in under 60 seconds.",
+        "Response times under 60 seconds lock customer bookings before they look for alternatives.",
+        "Zero manual coordination: customer intake, deposit locking, and instant team alerts.",
+        "Measured in four commercial outcomes: time saved, cost reduced, revenue increased, and risk removed.",
       ]
     },
 
-    // 1. Hero Section
+    // 1. Hero Section (Outcomes-First)
     hero: {
-      eyebrow: "AUTONOMOUS TELEPHONY · 24/7 VOICE AGENTS · SPATIAL DISPATCH",
-      headline: "We Deploy Autonomous AI Voice, Dispatch & Workflow Operations for High-Ticket Services.",
-      subheadline: "Stop losing £3,000+ jobs to missed after-hours calls and manual dispatch chaos. We engineer sub-500ms inbound/outbound AI voice agents, real-time spatial fleet dispatch, and automated multi-agent workflows that run your operations 24/7.",
-      primaryCtaText: "Message on WhatsApp",
-      primaryCtaHref: "https://wa.me/447851055929",
-      secondaryCtaText: "Book 15-Min Voice Audit",
-      secondaryCtaHref: "/book",
-      proofBadge: "Sub-500ms Voice Pickup · 24/7/365 Zero Downtime · Spatial Matching · 99.98% SLA",
+      eyebrow: "HIGH-CONVERTING WEBSITES · MOBILE STOREFRONTS · PROTOTYPE-FIRST",
+      headline: "We help local businesses stop losing jobs to whoever replies first.",
+      subheadline: "Every enquiry gets answered in seconds, every deposit gets captured, every review gets collected — automatically. See your new site built before you decide anything.",
+      primaryCtaText: "Book a call",
+      primaryCtaHref: "/book",
+      secondaryCtaText: "See a free prototype of your site",
+      secondaryCtaHref: "#prototype-modal",
+      whatsappCtaText: "Message on WhatsApp",
+      whatsappHref: "https://wa.me/447851055929",
+      proofBadge: "Time Saved · Cost Reduced · Revenue Increased · Risk Removed",
       trustItems: [
-        "24/7 Sub-500ms AI Voice Receptionists",
-        "Autonomous Inbound & Outbound Calling",
-        "Real-Time Spatial Dispatch & Driver PWAs",
-        "Bespoke Multi-Agent Workflow Gateways",
+        "Faster Response Times",
+        "Zero Missed Leads",
+        "More Bookings Closed",
+        "Less Admin Drag",
       ],
-      unsureText: "Message our engineering team on WhatsApp or test our live interactive voice sandboxes below →",
+      unsureText: "Message directly on WhatsApp or test our live response systems below →",
+    },
+
+    // 2. What Changed (SYSTEM I)
+    whatChanged: {
+      eyebrow: "WHAT CHANGED",
+      headline: "The rules of customer acquisition shifted. Waiting is now an active choice to lose revenue.",
+      subheadline: "Every business is feeling the shift in customer expectations. The operators who adapt to instant response capture market share while traditional setups leak cash.",
+      shifts: [
+        {
+          outcome: "Revenue Increased",
+          tag: "CONVERSION LIFT",
+          title: "Customers Don't Browse Anymore, They Decide",
+          description: "A slow or unclear site is now a direct revenue leak, not just a bad look. Inbound visitors arrive already half-convinced; your site's only job is closing the gap immediately.",
+        },
+        {
+          outcome: "Risk Removed",
+          tag: "DISCOVERABILITY",
+          title: "Unstructured Sites Are Invisible to Search Answers",
+          description: "Search engines and answer engines decide who gets recommended. If your site isn't structured to give clear, direct answers, you're invisible where customers are actually asking — a growth risk that's easy to remove and easy to ignore.",
+        },
+        {
+          outcome: "Cost Reduced",
+          tag: "TIME RECLAIMED",
+          title: "Every Unanswered Hour Becomes a Lost Booking",
+          description: "Every hour an enquiry sits unanswered is time that turns into a lost booking. Chasing cold leads is one of the most fixable costs in a local business.",
+        },
+        {
+          outcome: "Risk Removed",
+          tag: "CUSTOMER RETENTION",
+          title: "The Business That Answers First Keeps the Customer",
+          description: "The business that answers first keeps the customer. The one that's slow loses them to whoever replies faster.",
+        },
+      ],
     },
 
     // Divergence Comparison (The Two-Path Mechanic)
     divergenceComparison: {
       eyebrow: "OPERATIONAL LEVERAGE",
-      headline: "Delayed response is an unforced error. Answer in 500ms, or lose the job to someone who will.",
-      subheadline: "In high-ticket services, the first business to pick up the phone and confirm dispatch secures the contract. You can continue relying on overwhelmed human staff and missed after-hours calls—or deploy autonomous AI infrastructure that scales effortlessly.",
+      headline: "Delayed response is an unforced error. Answer in seconds, or lose the job to someone who will.",
+      subheadline: "In local services, the first business to pick up the enquiry and confirm the slot secures the customer. You can continue relying on voicemail and missed after-hours calls—or deploy autonomous conversion systems that scale effortlessly.",
       pathConventional: {
         badge: "MANUAL DRAG · 5-FIGURE REVENUE LEAK",
         title: "The Overwhelmed Human Bottleneck",
-        subtitle: "Losing lucrative commercial contracts and emergency jobs whilst technicians are on-site or receptionists are busy.",
+        subtitle: "Losing lucrative commercial contracts and emergency jobs whilst on-site or after hours.",
         points: [
-          "Haemorrhaging 10–25 lucrative commercial calls monthly because customers hit voicemail after 17:00 or at weekends.",
-          "Wasting hours manually calling technicians, texting job coordinates, and verifying driver tachograph schedules.",
-          "Delayed follow-up on high-ticket ad leads (£4,000+ cosmetic dental / roofing leads going cold in under 15 minutes).",
-          "Paying £35,000+/year per receptionist only to endure human sick days, call hold queues, and booking errors.",
+          "Haemorrhaging bookings monthly because customers hit voicemail after 17:00 or at weekends.",
+          "Wasting hours manually texting coordinates, chasing payments, and updating booking calendars.",
+          "Delayed follow-up on high-ticket ad enquiries going cold in under 15 minutes.",
+          "Paying expensive front-desk costs only to endure missed calls and booking friction.",
         ]
       },
       pathMercian: {
-        badge: "AUTONOMOUS INFRASTRUCTURE · 24/7 DOMINANCE",
-        title: "The Mercian AI Operations Engine",
-        subtitle: "Sub-500ms human-fidelity voice answering, spatial dispatch routing, and automated deposit capture.",
+        badge: "AUTONOMOUS INFRASTRUCTURE · 24/7 CAPTURE",
+        title: "The Mercian Conversion Engine",
+        subtitle: "Instant response, automated booking confirmation, and upfront deposit capture.",
         points: [
-          "Inbound voice agents answer in under 0.4s 24/7/365, qualify caller intent, and collect emergency upfront card deposits.",
-          "Spatial matching engine checks real-time GPS geofences and dispatches closest technicians via WhatsApp/PWA in 28 seconds.",
-          "Autonomous outbound SDRs dial new ad leads within 45 seconds to lock consultations directly onto doctor/director calendars.",
-          "Managed operations retainer guarantees 99.98% telephony uptime, latency monitoring, and continuous weekly conversation audits.",
+          "Systems answer in seconds 24/7/365, qualify customer intent, and collect upfront card deposits.",
+          "Instant routing alerts the team via WhatsApp and delivers customer confirmation in under 60 seconds.",
+          "Continuous speed-to-lead response locks consultations directly onto calendars.",
+          "Managed retainer guarantees high response uptime, prompt tuning, and conversation auditing.",
         ],
-        ctaText: "Book your 15-minute voice diagnostic audit →",
       }
     },
 
-    // 2. Deficit Diagnostic
+    // 3. Bottleneck Analysis (SYSTEM II)
     bottleneck: {
-      eyebrow: "REVENUE HAEMORRHAGE",
-      headline: "A missed emergency call is not an inconvenience—it is a £3,000+ contract gifted to your rival.",
-      subheadline: "Every minute a high-intent commercial prospect waits for a callback, their likelihood of closing drops by 80%. When customers face emergencies, speed-to-answer is the only metric that matters.",
-      goldSlogan: "Whilst competitors let inbound calls roll to voicemail, your AI voice receptionist picks up instantly, qualifies the job, and locks the booking.",
+      eyebrow: "WHERE REVENUE LEAKS",
+      headline: "Four Places Your Business Leaks Revenue Every Single Week.",
+      subheadline: "Most owners think they have a traffic problem. In reality, they are losing customers who already want to buy, but hit friction before they can confirm.",
+      goldSlogan: "Whilst competitors let enquiries sit in inboxes, your system answers instantly, confirms details, and secures bookings.",
       systemMode: "Mode: ",
-      modeAutomated: "24/7 Autonomous AI Operations",
+      modeAutomated: "Instant Response System",
       modeManual: "Manual Reception Drag",
-      triggerBtnActive: "Deactivate Autonomous Voice",
-      triggerBtnInactive: "Activate Autonomous Voice",
-      diagnosticLink: "Book your 15-minute voice diagnostic audit →",
-      
+      triggerBtnActive: "Deactivate Response Engine",
+      triggerBtnInactive: "Activate Response Engine",
+      diagnosticLink: "Book a call →",
       cards: [
         {
-          title: "Missed After-Hours Emergency & Commercial Calls",
-          description: "60% of high-ticket commercial HVAC, plumbing, and property calls happen after 17:00. If nobody answers within 3 rings, they immediately dial the next company on Google.",
+          id: "time-leak",
+          outcome: "Time Wasted",
+          tag: "ADMIN DRAG",
+          metric: "4–8 hrs/wk",
+          title: "Manual Admin & Enquiry Chase",
+          description: "Hours spent answering the same pricing questions, scheduling appointments, and chasing unconfirmed bookings across messages.",
         },
         {
-          title: "Manual Dispatch, Phone Tag & Driver Friction",
-          description: "Dispatchers wasting billable hours manually ringing drivers, texting addresses, and chasing proof-of-delivery updates over chaotic WhatsApp groups.",
+          id: "cost-leak",
+          outcome: "Cost Incurred",
+          tag: "LOST REVENUE",
+          metric: "£1.2k–£3.5k/mo",
+          title: "Slow Speed-to-Lead",
+          description: "Enquiries that sit unaddressed for hours go straight to the next competitor on Google who answers first.",
         },
         {
-          title: "Cold Leads & Slow Follow-Up on Ad Spend",
-          description: "Spending thousands on Meta and Google Ads, but leads go cold because clinic receptionists are busy with in-person patients and take hours to call back.",
+          id: "risk-leak",
+          outcome: "Risk Incurred",
+          tag: "REVENUE LEAK",
+          metric: "15–30% Leaked",
+          title: "No Upfront Deposit or Lock",
+          description: "Consultations and bookings made verbally without a deposit, resulting in last-minute cancellations and empty diary slots.",
+        },
+        {
+          id: "revenue-leak",
+          outcome: "Revenue Lost",
+          tag: "REPUTATION DRAG",
+          metric: "Compounding",
+          title: "Zero Follow-Up & Stagnant Reviews",
+          description: "No review system, no structured follow-up — competitors compound their 5-star reputation while your customer pipeline stays flat.",
         },
       ],
     },
 
-    // 3. Commodity Trap
-    commodityTrap: {
-      eyebrow: "THE HARSH REALITY",
-      headline: "Basic web forms and generic chatbots do not close high-ticket clients. Autonomous voice does.",
-      description: "High-ticket commercial clients and urgent patients do not fill out static 10-field web forms and wait 2 days for an email. They demand immediate telephone confirmation, real-time qualification, and guaranteed dispatch.",
+    // 4. Offer Mechanism (SYSTEM III)
+    offerMechanism: {
+      eyebrow: "THE OFFER PROTOCOL",
+      headline: "Before we build your actual site, we build a working prototype of it.",
+      subheadline: "You will never be asked to commit based on promises, slide decks, or vague proposals. You see your actual system running before any agreement.",
+      steps: [
+        {
+          stepNumber: "01",
+          title: "We build a working prototype specific to your business.",
+          description: "Not a deck, not a proposal. Real structure, real conversion logic, specific to your operations.",
+          metric: "Real Business Logic",
+        },
+        {
+          stepNumber: "02",
+          title: "You see exactly what it changes.",
+          description: "Response time, booking rate, admin hours, and missed-lead risk. A fully functioning demo you can test on your smartphone.",
+          metric: "Tangible Outcomes",
+        },
+        {
+          stepNumber: "03",
+          title: "We build it for real — only once the outcome is worth it to you.",
+          description: "Zero pressure, zero upfront commitment. We only deploy if the numbers make undeniable commercial sense.",
+          metric: "Zero Commitment",
+        },
+      ],
+      ctaText: "See a free prototype of your site",
     },
 
-    // 4. Mercian Wealth Difference
+    // 5. Dual Proof Case Studies (SYSTEM V)
+    caseStudies: {
+      eyebrow: "VERIFIED OUTCOMES",
+      headline: "Proven Results. No Fabricated Metrics.",
+      subheadline: "Real business outcomes and live outreach prototypes engineered to stop operational leakage.",
+      studies: [
+        {
+          id: "bakery-storefront",
+          title: "Bespoke Local Commerce & Order System",
+          badge: "VERIFIED PRODUCTION METRICS",
+          outcomes: [
+            { label: "Time saved", value: "499 hrs/yr" },
+            { label: "Revenue increased", value: "+£32,400/yr" },
+          ],
+          problem: "Overwhelmed owner spending evenings chasing bank transfers and answering order specs across Instagram DMs.",
+          solution: "Automated 3-tap customer storefront with upfront card deposits and instant WhatsApp phone notifications.",
+          image: "/caker-st-preview.png",
+          liveUrl: "/local",
+          isPrototype: false,
+        },
+        {
+          id: "aura-aesthetics",
+          title: "Aura Private Aesthetics",
+          badge: "OUTREACH PROTOTYPE · ZERO FABRICATED METRICS",
+          outcomes: [
+            { label: "Risk removed", value: "Zero DM Leaks" },
+            { label: "Outcome", value: "Consultations Secured" },
+          ],
+          problem: "Consultation intake & deposit engine — built to stop high-ticket enquiries leaking through DMs before they ever book.",
+          solution: "Direct qualification triage that collects treatment requirements, locks appointment slots, and captures deposits within 60 seconds.",
+          image: "/stamp-app-preview.png",
+          liveUrl: "/local",
+          isPrototype: true,
+        },
+      ],
+    },
+
+    // 6. Founder & Positioning Statement (SYSTEM VI)
     whyMercianWealth: {
-      headline: "Engineered For High-Ticket Trades, Private Clinics, Haulage & Property Fleets.",
-      description: "Your operational infrastructure should answer every call in <500ms, qualify complex requirements, route spatial dispatch, and generate revenue on total autopilot.",
+      eyebrow: "OPERATOR COMMITMENT",
+      headline: "Engineered For Businesses That Refuse to Lose Leads.",
+      description: "Your systems should answer immediately, confirm bookings, and capture revenue without requiring you to be tied to your screen all day.",
+      founderQuoteHeadline: "Clear Outcomes. Zero Tool-Talk.",
+      founderQuoteText: "We don't talk about agents, models, or workflows — that's our job, not yours. We talk about what changes for you: faster response times, fewer missed leads, more bookings closed, less time spent chasing admin. If a system doesn't save time, cut cost, grow revenue, or remove a risk, it doesn't go on your site.",
+      founderQuoteAuthor: "Founder & Lead Strategist, Mercian Wealth",
+      proofStats: [
+        { label: "Outcome Target", value: "Time & Rev" },
+        { label: "Response Speed", value: "< 60 Seconds" },
+        { label: "Prototype-First", value: "Zero Risk" },
+      ],
       differentiators: [
-        "24/7 AI Voice Phone Agents — Natural human conversational tone, zero robotic lag, sub-500ms pickup.",
-        "Spatial Fleet Matching & PWA Dispatch — Instant geofence driver routing and WhatsApp dispatch alerts in <0.4s.",
-        "Autonomous Outbound SDR & Lead Reactivation — Dials leads within 45s and revives past databases on autopilot.",
+        "Sub-60s Response Systems — Instant customer answers, immediate qualification, and zero dropped enquiries.",
+        "Working Prototype First — You test a live, functioning version of your system before making any commitment.",
+        "Revenue & Time Focus — Every build is engineered strictly to save hours, cut costs, increase revenue, or remove risks.",
       ],
       structuralRealityHeadline: "The Strategic Divide",
       standardAgency: {
         title: "Standard Web / Marketing Agency",
         items: [
-          "Builds static brochure sites that don't answer phones or dispatch jobs.",
-          "Zero telephony, SIP trunk, or low-latency voice engineering capability.",
-          "Passes unqualified leads straight to your overwhelmed front desk.",
-          "No ongoing prompt tuning, conversation QA audits, or telephony SLAs.",
-          "Charges expensive retainers with zero direct revenue-tied operational value.",
+          "Builds static brochure sites that don't answer calls or capture deposits.",
+          "Passes slow, unvetted contact forms to your overwhelmed inbox.",
+          "Leaves after-hours enquiries sitting until the next working day.",
+          "Charges monthly retainers with zero direct revenue-tied operational value.",
         ],
       },
       mercianWealth: {
-        title: "Mercian Wealth Autonomous AI",
+        title: "Mercian Wealth Response Systems",
         items: [
-          "Sub-500ms AI voice phone receptionists deployed via rapid agile sprints (7–14 days target).",
-          "Spatial geofence matching & instant WhatsApp/PWA driver dispatch.",
-          "Automated upfront Stripe deposit capture on emergency callouts.",
-          "Continuous managed operations: prompt optimization & weekly call QA.",
-          "Clear, high-ROI monthly retainers that pay for themselves in 1–2 saved jobs.",
+          "Sub-60s customer intake systems deployed via rapid agile sprints.",
+          "Automated upfront Stripe deposit capture on high-ticket bookings.",
+          "Direct smartphone WhatsApp notifications with full customer specs.",
+          "Continuous managed operations: response optimization & revenue tracking.",
+          "Clear, high-ROI monthly retainers that pay for themselves in captured bookings.",
         ],
       },
-      founderQuoteHeadline: "Operational Velocity Is The Ultimate Unfair Advantage",
-      founderQuoteText: "You have built a premier reputation in your industry. Your operational telephony should operate at the exact same standard of excellence—answering calls in 400ms, qualifying £5,000 jobs, and dispatching your fleet on total autopilot 24/7/365.",
-      founderQuoteAuthor: "Founder & Lead AI Architect, Mercian Wealth",
-      proofStats: [
-        { label: "Deployment Target", value: "7–14 Days" },
-        { label: "Voice Latency", value: "< 420ms" },
-        { label: "Dispatch Alert", value: "< 0.4s" },
-      ],
+    },
+
+    // Commodity Trap
+    commodityTrap: {
+      eyebrow: "THE HARSH REALITY",
+      headline: "Basic web forms and slow callbacks leak revenue. Fast response closes deals.",
+      description: "Customers and high-intent clients do not wait around for days. They demand immediate confirmation, clear details, and rapid booking.",
     },
 
     // 5. Trend Adaptation Statement
@@ -311,9 +429,10 @@ export const SITE_COPY = {
 
     // 9. FOMO Close & CTA Section
     cta: {
-      headline: "Ready to stop losing 5-figure contracts to missed calls?",
-      subheadline: "Message us directly on WhatsApp or book a 15-minute voice diagnostic call to test an interactive AI voice agent tailored to your exact industry and dispatch workflow.",
-      buttonText: "Book Your 15-Min Voice Audit",
+      headline: "Stop guessing what faster, cheaper, or more profitable would look like. See it.",
+      subheadline: "Request a custom working prototype for your business. You see the outcome before making any commitment.",
+      buttonText: "See Your Free Prototype",
+      secondaryButtonText: "Book a 15-Min Audit",
       whatsappButtonText: "Chat on WhatsApp",
     },
 
@@ -321,27 +440,27 @@ export const SITE_COPY = {
     faq: {
       eyebrow: "FREQUENTLY ASKED QUESTIONS",
       headline: "Direct Answers. Zero Jargon.",
-      description: "Everything you need to know about our 24/7 AI voice phone agents, spatial dispatch systems, telephony SLAs, and managed monthly retainers.",
+      description: "Everything you need to know about how our response systems operate, how the prototype works, and our terms.",
       faqs: [
         {
-          question: "Does the AI voice sound natural, or does it sound like a robotic IVR menu?",
-          answer: "Our voice agents use ultra-low-latency neural speech models operating under 450ms with natural human intonation, pauses, and backchanneling. In over 85% of calls, customers believe they are speaking directly with a senior human receptionist.",
+          question: "Will this disrupt our existing phone lines, numbers, or receptionist?",
+          answer: "No. The system runs in parallel with your current setup. Your phone number stays identical, and zero software needs to be installed by your staff. It only steps in to capture calls and enquiries when your team is busy, on-site, or closed.",
         },
         {
-          question: "How does the AI handle complex edge cases or angry customers?",
-          answer: "We engineer strict boundary guardrails and custom subagent triage logic. If a caller presents an edge case outside the AI's parameter scope, the system seamlessly transfers the call live to your on-call manager's mobile with full transcription context.",
+          question: "What happens if a customer asks a question outside the standard intake flow?",
+          answer: "The system is built with strict operational boundaries. If a customer presents an unusual or out-of-scope query, it immediately takes their details, notes the exact enquiry, and alerts your phone via WhatsApp or SMS so your team can follow up instantly.",
         },
         {
-          question: "What is included in the monthly managed operations retainer?",
-          answer: "Your monthly retainer covers dedicated telephony and voice server infrastructure, continuous latency monitoring, weekly conversation auditing to fix edge cases, monthly prompt enhancements, CRM API maintenance, and 24/7 uptime SLA.",
+          question: "How does the working prototype work before we commit?",
+          answer: "We build a functioning prototype specific to your business within 48 hours. You test how it qualifies enquiries, captures booking deposits, and dispatches notifications on your own smartphone. You only decide to proceed if the outcome makes clear commercial sense.",
         },
         {
-          question: "How quickly can our 24/7 voice agent and dispatch system go live?",
-          answer: "Deployment duration is tailored to each operator. For standard builds where the owner has scripts and pricing ready, we aim for a 7–14 business day sprint. More comprehensive enterprise architectures or complex multi-branch integrations take longer depending on technical scope and owner feedback cadence.",
+          question: "What is the contract term on the monthly operations retainer?",
+          answer: "All retainers are month-to-month with 30 days notice. There are no multi-year lock-in contracts. We earn retention every month by keeping your response speed under 60 seconds and preventing booking leaks.",
         },
         {
-          question: "Does this integrate with our existing CRM, calendar, or accounting software?",
-          answer: "Yes. We build native webhooks and API bridges into ServiceTitan, Jobber, Cliniko, HubSpot, Salesforce, Xero, QuickBooks, Google Calendar, and custom databases.",
+          question: "How quickly can the system be live for our business?",
+          answer: "Standard deployments take 5 to 7 business days once your service details and booking rules are confirmed. Your working prototype is ready to test within 48 hours.",
         },
       ],
     },

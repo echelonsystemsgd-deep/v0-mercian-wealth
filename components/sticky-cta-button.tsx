@@ -104,7 +104,7 @@ export function StickyCTAButton() {
               href="/book"
               className="flex-1 py-3 px-3 rounded-xl bg-[#DCAE53] text-[#09090B] font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-1 shadow-md active:scale-95 transition-transform"
             >
-              <span>Book Voice Audit →</span>
+              <span>Book a call →</span>
             </Link>
           </motion.div>
 
@@ -114,7 +114,7 @@ export function StickyCTAButton() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.2 }}
-            className="hidden sm:flex fixed bottom-6 right-24 z-40 items-center pointer-events-auto"
+            className="hidden sm:flex fixed bottom-6 right-48 z-40 items-center pointer-events-auto"
           >
             <button
               onClick={scrollToTop}

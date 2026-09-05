@@ -226,8 +226,8 @@ export function Navbar() {
                     className="absolute top-full left-0 mt-2 w-[400px] bg-[#111115] border border-[#DCAE53]/35 rounded-2xl p-3 shadow-2xl space-y-1 z-50"
                   >
                     <div className="px-3 py-1.5 border-b border-slate-800 flex items-center justify-between mb-1">
-                      <span className="text-[10px] font-mono font-bold text-[#DCAE53] uppercase tracking-wider">Enterprise AI Architecture</span>
-                      <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">24/7 Operations</span>
+                      <span className="text-[10px] font-mono font-bold text-[#DCAE53] uppercase tracking-wider">Conversion Infrastructure</span>
+                      <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Outcome-Driven</span>
                     </div>
 
                     <Link
@@ -240,8 +240,8 @@ export function Navbar() {
                         <PhoneCall className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">24/7 Inbound AI Voice Receptionist</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">Sub-420ms neural speech answering, intent qualification &amp; deposit lock.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Rapid Response &amp; Call Intake</div>
+                        <p className="text-[11px] text-slate-400 leading-snug">Sub-380ms answering, intent qualification &amp; deposit locking. Zero missed calls.</p>
                       </div>
                     </Link>
 
@@ -255,28 +255,13 @@ export function Navbar() {
                         <Navigation className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Spatial Fleet Dispatch &amp; Driver PWA</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">Real-time GPS geofence matching, WhatsApp alerts &amp; live customer ETA links.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Instant Booking &amp; Dispatch Engine</div>
+                        <p className="text-[11px] text-slate-400 leading-snug">Automated customer intake, WhatsApp routing &amp; live confirmation alerts.</p>
                       </div>
                     </Link>
 
                     <Link
-                      href="/services?solution=spatial"
-                      onClick={() => setActiveDropdown(null)}
-                      prefetch={true}
-                      className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
-                    >
-                      <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
-                        <Box className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">3D Spatial E-Commerce &amp; Meshy Studio</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">Interactive 360° WebGL viewers &amp; generative AI meshes (+42% conversion).</p>
-                      </div>
-                    </Link>
-
-                    <Link
-                      href="/services?solution=sdr"
+                      href="/services?solution=retainer"
                       onClick={() => setActiveDropdown(null)}
                       prefetch={true}
                       className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
@@ -285,8 +270,8 @@ export function Navbar() {
                         <Zap className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Autonomous Outbound SDR &amp; Reactivation</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">&lt;45s speed-to-lead dialing on ad spend &amp; dormant client list revival.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Managed Conversion Retainer</div>
+                        <p className="text-[11px] text-slate-400 leading-snug">Continuous conversion tuning, latency SLA monitoring &amp; revenue tracking.</p>
                       </div>
                     </Link>
                   </motion.div>
@@ -322,8 +307,8 @@ export function Navbar() {
                     className="absolute top-full left-0 mt-2 w-[360px] bg-[#111115] border border-[#DCAE53]/35 rounded-2xl p-3 shadow-2xl space-y-1 z-50"
                   >
                     <div className="px-3 py-1.5 border-b border-slate-800 flex items-center justify-between mb-1">
-                      <span className="text-[10px] font-mono font-bold text-[#DCAE53] uppercase tracking-wider">Live Interactive Testing</span>
-                      <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Dedicated Page</span>
+                      <span className="text-[10px] font-mono font-bold text-[#DCAE53] uppercase tracking-wider">Interactive Verification</span>
+                      <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Live Testing</span>
                     </div>
 
                     <Link
@@ -336,8 +321,38 @@ export function Navbar() {
                         <PhoneCall className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">AI Voice Answering Sandbox</div>
-                        <p className="text-[11px] text-slate-400">Hear 4 industry simulated emergency calls &amp; waveforms.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">Rapid Call Intake Sandbox</div>
+                        <p className="text-[11px] text-slate-400">Hear real-time response &amp; deposit qualification.</p>
+                      </div>
+                    </Link>
+
+                    <Link
+                      href="/portfolio?demo=dispatch"
+                      onClick={() => setActiveDropdown(null)}
+                      prefetch={true}
+                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
+                    >
+                      <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
+                        <Navigation className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">Booking &amp; Dispatch Sandbox</div>
+                        <p className="text-[11px] text-slate-400">Simulate instant WhatsApp &amp; customer confirmation.</p>
+                      </div>
+                    </Link>
+
+                    <Link
+                      href="/portfolio?demo=roi"
+                      onClick={() => setActiveDropdown(null)}
+                      prefetch={true}
+                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
+                    >
+                      <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
+                        <Calculator className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">Revenue Recovery Engine</div>
+                        <p className="text-[11px] text-slate-400">Calculate exact annual revenue upside.</p>
                       </div>
                     </Link>
 
@@ -470,7 +485,7 @@ export function Navbar() {
               href="/book"
               className="hidden sm:inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-xs sm:text-sm transition-all shadow-lg shadow-[#DCAE53]/20 whitespace-nowrap group"
             >
-              <span>Book Voice Audit</span>
+              <span>Book a call</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
 
@@ -543,7 +558,7 @@ export function Navbar() {
                 <div className="mb-5 p-3 rounded-xl bg-[#111115] border border-[#DCAE53]/25 flex items-center gap-2.5 text-xs">
                   <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
                   <span className="text-[11px] font-mono text-slate-300">
-                    24/7 Autonomous AI Voice &amp; Dispatch Engine
+                    Autonomous Response &amp; Lead Conversion Systems
                   </span>
                 </div>
 
@@ -551,11 +566,11 @@ export function Navbar() {
                 <nav className="space-y-1.5">
                   {[
                     { name: "Home", href: "/", icon: Sparkles, badge: null },
-                    { name: "AI Solutions & Services", href: "/services", icon: PhoneCall, badge: "24/7" },
-                    { name: "Live Demos & Sandboxes", href: "/portfolio", icon: Activity, badge: "Audio" },
-                    { name: "Retainers & Pricing", href: "/pricing", icon: CreditCard, badge: "Plans" },
-                    { name: "Agile Deployment Protocol", href: "/process", icon: Zap, badge: null },
-                    { name: "Contact Engineers", href: "/contact", icon: Mail, badge: "UK HQ" },
+                    { name: "Solutions", href: "/services", icon: PhoneCall, badge: "Outcomes" },
+                    { name: "Live Demos", href: "/portfolio", icon: Activity, badge: "Interactive" },
+                    { name: "Retainers & Pricing", href: "/pricing", icon: CreditCard, badge: "Terms" },
+                    { name: "Deployment Protocol", href: "/process", icon: Zap, badge: null },
+                    { name: "Contact", href: "/contact", icon: Mail, badge: "UK HQ" },
                   ].map((item) => {
                     const Icon = item.icon
                     const isActive = pathname === item.href
@@ -602,7 +617,7 @@ export function Navbar() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="w-full py-3.5 px-4 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-xs uppercase tracking-wider text-center shadow-lg shadow-[#DCAE53]/20 flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
-                  <span>Book 15-Minute Voice Audit</span>
+                  <span>Book a call</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 

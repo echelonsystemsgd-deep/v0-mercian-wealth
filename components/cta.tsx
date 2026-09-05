@@ -6,11 +6,22 @@ import { motion } from "framer-motion"
 import { ArrowRight, ShieldCheck, MessageSquare } from "lucide-react"
 import { SITE_COPY } from "@/lib/site-copy"
 
+import { SectionDivider } from "@/components/section-divider"
+
 export function CTA() {
   const data = SITE_COPY.homepage.cta
 
+  const triggerModal = () => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("open-prototype-modal"))
+    }
+  }
+
   return (
-    <section id="cta" className="relative py-24 lg:py-32 overflow-hidden bg-[#09090B]">
+    <section id="cta" className="relative py-16 sm:py-24 overflow-hidden bg-[#09090B]">
+      {/* Chapter Marker */}
+      <SectionDivider chapter="VIII" title="DECISIVE ADVANTAGE" />
+
       {/* Background Radial Gold Glow */}
       <div 
         className="absolute inset-0 pointer-events-none z-0"
@@ -19,7 +30,7 @@ export function CTA() {
         }}
       />
 
-      <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 z-10 text-center flex flex-col items-center space-y-8">
+      <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 z-10 text-center flex flex-col items-center space-y-6">
         
         {/* Headline */}
         <motion.h2
@@ -52,35 +63,39 @@ export function CTA() {
           className="w-full flex flex-col items-center gap-4 pt-2"
         >
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full">
-            {/* Primary WhatsApp */}
+            {/* Primary Action: Book a call */}
+            <Link
+              href="/book"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-sm sm:text-base font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] rounded-lg transition-all duration-200 shadow-lg shadow-[#DCAE53]/20 cursor-pointer"
+            >
+              <span>Book a call</span>
+              <ArrowRight size={16} />
+            </Link>
+
+            {/* Secondary: Prototype Modal */}
+            <button
+              onClick={triggerModal}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 text-sm sm:text-base font-semibold border border-slate-800 bg-[#111115] text-slate-200 hover:bg-[#18181F] hover:text-white rounded-lg transition-all cursor-pointer"
+            >
+              <span>{data.buttonText || "See a free prototype of your site"}</span>
+            </button>
+
+            {/* WhatsApp */}
             <a
               href={SITE_COPY.navbar.whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 text-sm sm:text-base font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] rounded-lg transition-all duration-200 shadow-lg shadow-black/40"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 text-sm sm:text-base font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 rounded-lg transition-all"
             >
-              <MessageSquare size={18} className="shrink-0" />
-              <span>Message on WhatsApp</span>
+              <MessageSquare size={16} className="shrink-0" />
+              <span>{data.whatsappButtonText}</span>
             </a>
-
-            {/* Secondary Book Call */}
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto px-8 py-4 text-sm sm:text-base font-semibold border-slate-800 bg-[#111115] text-slate-200 hover:bg-[#18181F] hover:text-white rounded-lg"
-            >
-              <Link href="/book" className="flex items-center gap-2">
-                <span>{data.buttonText}</span>
-                <ArrowRight size={16} />
-              </Link>
-            </Button>
           </div>
 
           <div className="pt-2 flex flex-col sm:flex-row items-center gap-4 text-xs font-mono text-slate-400">
             <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#111115] border border-slate-800 text-[10px] text-[#DCAE53] uppercase tracking-wider">
               <ShieldCheck size={12} className="text-[#DCAE53]" />
-              15-Minute Telephone Call · Zero High-Pressure Pitch
+              Prototype Delivered Specific to Your Business · Zero Obligation
             </span>
           </div>
         </motion.div>
