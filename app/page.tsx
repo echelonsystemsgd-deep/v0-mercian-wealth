@@ -50,7 +50,7 @@ export default async function Home() {
                 "@id": "https://mercianwealth.com/#website",
                 "url": "https://mercianwealth.com",
                 "name": "Mercian Wealth",
-                "description": "High-Converting Response Systems & Automated Customer Intake for Local and Regional Businesses. See a working prototype before committing.",
+                "description": "High-Converting Websites & Automated Booking Systems for UK Local Businesses. See a working prototype before committing.",
                 "publisher": {
                   "@id": "https://mercianwealth.com/#organization"
                 }
@@ -59,14 +59,14 @@ export default async function Home() {
                 "@type": "WebPage",
                 "@id": "https://mercianwealth.com/#webpage",
                 "url": "https://mercianwealth.com",
-                "name": "Mercian Wealth | Rapid Customer Conversion & Response Systems",
+                "name": "Mercian Wealth | High-Converting Websites & Booking Systems",
                 "isPartOf": {
                   "@id": "https://mercianwealth.com/#website"
                 },
                 "about": {
                   "@id": "https://mercianwealth.com/#organization"
                 },
-                "description": "High-Converting Response Systems & Automated Customer Intake for Local and Regional Businesses. See a working prototype before committing."
+                "description": "High-Converting Websites & Automated Booking Systems for UK Local Businesses. See a working prototype before committing."
               }
             ]
           })

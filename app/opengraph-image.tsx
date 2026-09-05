@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'Mercian Wealth | AI Websites & Automated Storefronts for UK Local Businesses'
+export const alt = 'Mercian Wealth | High-Converting Websites & Booking Systems for UK Local Businesses'
 export const size = {
   width: 1200,
   height: 630,
@@ -85,7 +85,7 @@ export default async function Image() {
             marginBottom: '24px',
           }}
         >
-          <span>Websites & Automated Storefronts</span>
+          <span>Websites &amp; Booking Systems</span>
           <span style={{ color: '#DAA640' }}>That Collect Deposits 24/7.</span>
         </div>
 

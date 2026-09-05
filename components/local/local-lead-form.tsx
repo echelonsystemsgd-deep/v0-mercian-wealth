@@ -214,7 +214,7 @@ export function LocalLeadForm() {
                   rows={3}
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  placeholder="e.g. We need 24/7 online package bookings, instant WhatsApp dispatch alerts, and Stripe deposit collection."
+                  placeholder="e.g. We need 24/7 online package bookings, instant WhatsApp alerts, and Stripe deposit collection."
                   className="w-full bg-white/[0.04] border border-white/15 rounded-xl p-3.5 text-sm text-white outline-none focus:border-accent-gold transition-colors font-sans resize-none"
                 />
               </div>

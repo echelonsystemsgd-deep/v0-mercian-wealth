@@ -26,7 +26,7 @@ const DEFAULT_FRONTEND_PROJECTS = [
   {
     project_name: "Vanguard Operations Portal",
     client_name: "Vanguard Local Operations · West Midlands",
-    description: "Multi-channel intake engine with automated diagnostic scoring, calendar slot reservation, and instant WhatsApp dispatch.",
+    description: "Multi-channel intake engine with automated diagnostic scoring, calendar slot reservation, and instant WhatsApp alerts.",
     industry: "Operations & Booking · Case Study",
     website_link: null,
     cover_image: "/stamp-app-preview.png",

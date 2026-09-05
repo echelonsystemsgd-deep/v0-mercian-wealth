@@ -39,7 +39,7 @@ const STAGES: ProjectStage[] = [
     name: '4. Revision & Signoff',
     key: 'Revision',
     subtitle: 'Throughput Validation & Speed Optimization',
-    description: 'We deploy staging versions, audit response latency, optimize render speeds, and run thorough security and telemetry checks.',
+    description: 'We deploy staging versions, audit response times, optimize page load speeds, and run thorough security and telemetry checks.',
     deliverables: ['Staging Link Live', 'Revision Loops Finished', 'SEO Audits & Optimization'],
   },
   {

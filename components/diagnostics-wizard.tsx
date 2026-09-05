@@ -38,7 +38,7 @@ const questions: Question[] = [
   {
     id: 3,
     title: "How is lead data synced into your CRM and email sequences?",
-    subtitle: "Manual copy-pasting creates data latency and human error.",
+    subtitle: "Manual copy-pasting creates delays and human error.",
     options: [
       { label: "100% automated API data pipeline", scorePenalty: 0 },
       { label: "Partial Zapier / basic integrations", scorePenalty: 15 },
@@ -161,8 +161,8 @@ export function DiagnosticsWizard() {
             </div>
             <p className="font-sans text-xs sm:text-sm text-text-secondary max-w-lg mx-auto">
               {frictionScore > 50 
-                ? "Significant speed-to-lead latency detected. Your current intake pipeline is bleeding actionable leads to manual delays."
-                : "Moderate friction detected. Implementing Mercian Wealth's autonomic architecture will unlock an immediate conversion lift."
+                ? "Significant enquiry response delays detected. Your current intake pipeline is bleeding actionable customers to slow follow-up."
+                : "Moderate friction detected. Implementing Mercian Wealth's high-converting website architecture will unlock an immediate conversion lift."
               }
             </p>
           </div>
@@ -173,7 +173,7 @@ export function DiagnosticsWizard() {
               RECOMMENDED ARCHITECTURE INTEGRATION:
             </h4>
             <p className="font-sans text-sm text-white leading-relaxed">
-              <strong>Mercian Autonomic Capture Protocol</strong> — Custom AI qualification concierge, zero-latency lead routing, and continuous CRM synchronization.
+              <strong>Mercian High-Converting Website System</strong> — Sub-second mobile storefront, 3-tap booking and upfront deposit capture, and instant WhatsApp alerts.
             </p>
           </div>
 
@@ -184,7 +184,7 @@ export function DiagnosticsWizard() {
               className="font-bold shadow-[0_0_25px_rgba(212,175,55,0.2)] hover:shadow-accent-gold/30 px-8 py-6"
             >
               <Link href="/book" className="flex items-center justify-center gap-2">
-                <span>Schedule Alignment to Plug Friction</span>
+                <span>Book a call</span>
                 <ArrowRight size={16} />
               </Link>
             </Button>

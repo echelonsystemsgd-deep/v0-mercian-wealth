@@ -40,7 +40,7 @@ export async function POST(req: Request) {
       const loadTimeSeconds = score >= 90 
         ? (1.2 + (100 - score) * 0.05) 
         : (2.5 + (90 - score) * 0.12)
-      const latencyDecay = score >= 90 
+      const dropoffRate = score >= 90 
         ? Math.max(5, Math.round((100 - score) * 0.5)) 
         : Math.min(95, Math.round(15 + (90 - score) * 1.1))
       
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
         url: targetUrl,
         score,
         loadTime: loadTimeSeconds.toFixed(1),
-        latencyDecay,
+        dropoffRate,
         timestamp: new Date().toISOString()
       })
     } catch (fetchErr) {
@@ -68,14 +68,14 @@ export async function POST(req: Request) {
     } catch (e) {}
 
     const loadTimeSeconds = 2.5 + (90 - simulatedScore) * 0.12
-    const latencyDecay = Math.min(95, Math.round(15 + (90 - simulatedScore) * 1.1))
+    const dropoffRate = Math.min(95, Math.round(15 + (90 - simulatedScore) * 1.1))
 
     return NextResponse.json({
       success: true,
       simulated: true,
       score: simulatedScore,
       loadTime: loadTimeSeconds.toFixed(1),
-      latencyDecay,
+      dropoffRate,
       timestamp: new Date().toISOString()
     })
   }

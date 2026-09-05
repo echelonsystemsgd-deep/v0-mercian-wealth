@@ -1,5 +1,5 @@
-# Mercian Wealth — Storefronts, Automation & Growth Systems for Local Businesses
-**Mobile storefronts, 3-tap booking engines, instant WhatsApp alerts, and automated Google review systems for premier local businesses and service operators across Berkshire, the West Midlands & the UK.**
+# Mercian Wealth — High-Converting Websites & Booking Systems for Local Businesses
+**Custom high-performance websites, 3-tap booking flows, instant WhatsApp smartphone alerts, and automated Google review engines for premier local businesses and service operators across Berkshire, the West Midlands & the UK.**
 
 ---
 
@@ -23,19 +23,19 @@ Built with a modern tech automation aesthetic (Charcoal + Solid Gold):
 * **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) & [Framer Motion](https://www.framer.com/motion/)
 * **Database & Auth**: [Supabase](https://supabase.com/) PostgreSQL with Row Level Security (RLS) & Server-Side Session Auth
 * **Payments & Billing**: Stripe UK Checkout, Apple Pay, Google Pay & automated deposit collection
-* **Automation Infrastructure**: WhatsApp Business Direct Links & Cloud API, Webhooks, Resend Transactional Email Engine
-* **UK Compliance & Security**: UK & EU GDPR Compliant, strict data residency, zero AI training on client business data
+* **Notification Infrastructure**: WhatsApp Business Direct Links & Cloud API, Webhooks, Resend Transactional Email Engine
+* **UK Compliance & Security**: UK & EU GDPR Compliant, strict data residency
 * **Performance Standard**: Sub-second load speeds, 100/100 Core Web Vitals, fluid responsive typography
 
 ---
 
 ## 🚀 Core Service Pillars
 
-1. **Sub-Second Mobile Storefronts**: 3-tap booking and order intake designed specifically for mobile shoppers and searchers.
-2. **Instant WhatsApp Dispatch Alerts**: Enquiries and reservations dispatch directly to your smartphone with client notes and requested times.
-3. **Automated Upfront Deposit Collection**: Integrated Apple Pay, Google Pay, and card deposits to eliminate unpaid cancellations.
-4. **Automated 5-Star Google Review Engine**: Post-service automated review requests steadily building local Google search dominance.
-5. **Direct Client & Admin Portals**: Dedicated `/client` and `/admin` portals for project tracking, bookings, leads, and metrics.
+1. **High-Converting Websites**: Sub-second Next.js websites built specifically to convert traffic into confirmed enquiries.
+2. **3-Tap Booking & Upfront Deposits**: Frictionless customer booking interfaces that capture non-refundable card deposits via Stripe and Apple Pay.
+3. **Instant WhatsApp Smartphone Alerts**: Enquiry and booking notifications delivered straight to the operator's phone in under 2 seconds.
+4. **Automated 5-Star Google Review Engine**: Post-service automated review requests systematically compounding local Google dominance.
+5. **Managed Speed & Growth Retainer**: 99.98% uptime SLA, continuous Core Web Vitals optimization, and hands-off menu/content updates.
 
 ---
 
@@ -49,14 +49,14 @@ app/
 │   ├── signup/                 # Client account registration
 │   └── forgot-password/        # Password recovery flow
 ├── (client)/                   # Client project war room & live telemetry dashboard
-├── page.tsx                    # Main Homepage (Interactive Phone Sandbox, ROI Calculator, System Blueprint)
-├── services/page.tsx           # What We Build & interactive service detail modals
-├── process/page.tsx            # 7-Day Launch Protocol interactive accordion
-├── portfolio/page.tsx          # Live Interactive Sandbox prototypes & case studies
-├── pricing/page.tsx            # Transparent 3-tier GBP (£495–£1,450) pricing matrix
-├── contact/page.tsx            # UK direct phone, WhatsApp dispatch & enquiry form
-├── book/page.tsx               # 15-Minute diagnostic audit booking flow
-├── testimonials/page.tsx       # Verified Berkshire business case studies
+├── page.tsx                    # Main Homepage (High-Converting Websites, 3-Tap Booking, Outcomes Positioning)
+├── services/page.tsx           # Web infrastructure deliverables & interactive architecture modals
+├── process/page.tsx            # 7-Day Launch Protocol interactive accordion & zero-downtime cutover
+├── portfolio/page.tsx          # Live case studies & Interactive Order Engine demo
+├── pricing/page.tsx            # Transparent 3-tier GBP (£495–£1,495) pricing & retainer matrix
+├── contact/page.tsx            # UK direct phone, WhatsApp alerts & enquiry form
+├── book/page.tsx               # Discovery call & prototype request booking flow
+├── testimonials/page.tsx       # Verified UK local business case studies
 ├── terms/page.tsx              # Standard UK commercial terms
 ├── privacy/page.tsx            # UK/EU GDPR-compliant privacy policy
 ├── sitemap.ts                  # Dynamic search engine XML sitemap

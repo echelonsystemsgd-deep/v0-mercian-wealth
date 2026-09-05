@@ -19,29 +19,29 @@ interface ChatMessage {
 }
 
 const QUICK_PROMPTS = [
-  "How fast does the response system answer?",
+  "How fast does the website load & book?",
   "What is the zero-disruption guarantee?",
   "How does the working prototype work?",
   "What are the terms of the monthly retainer?"
 ]
 
 const AI_KNOWLEDGE: Record<string, string> = {
-  "How fast does the response system answer?": "Inbound calls and customer enquiries are answered in under 60 seconds. The system qualifies the customer's requirement, locks an appointment or deposit, and instantly alerts your phone via WhatsApp or SMS.",
-  "What is the zero-disruption guarantee?": "The system runs parallel to your team. Your existing phone number and calendar remain unchanged, and your staff don't have to install any software. It only steps in when your team is busy, on-site, or closed.",
-  "How does the working prototype work?": "We build a working demonstration specific to your business in 48 hours before you commit to anything. You test how it answers, collects details, and books clients on your own smartphone. You only proceed if the outcome makes clear commercial sense.",
-  "What are the terms of the monthly retainer?": "All retainers are month-to-month with 30 days notice. There are no annual lock-in contracts. It includes continuous response monitoring, ongoing accuracy audits, and dedicated support."
+  "How fast does the website load & book?": "Websites load in under a second on mobile devices. Customers can browse, select their service, and pay an upfront deposit in 3 taps, while you receive an instant alert on your phone via WhatsApp.",
+  "What is the zero-disruption guarantee?": "We build and test your new website on a private staging link. When ready, domain cutover takes minutes with zero downtime. You keep your existing domain name, business email, and Google rankings completely intact.",
+  "How does the working prototype work?": "We build a working demonstration specific to your business in 48 hours before you commit to anything. You test how it looks, feels, and converts on your own smartphone. You only proceed if the outcome makes clear commercial sense.",
+  "What are the terms of the monthly retainer?": "All retainers are month-to-month with 30 days notice and zero lock-in contracts. Website care retainers start from £95/mo and include premium edge hosting, continuous speed tuning, security patches, and monthly content updates."
 }
 
 export function FloatingAiConcierge() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [inputVal, setInputVal] = useState<string>("")
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false)
-  const [voiceMuted, setVoiceMuted] = useState<boolean>(false)
+  const [speechMuted, setSpeechMuted] = useState<boolean>(false)
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "welcome",
       sender: "ai",
-      text: "Hello! I'm the Mercian Wealth assistant. Ask me anything about how our response systems work, the zero-disruption guarantee, or our retainer terms.",
+      text: "Hello! I'm the Mercian Wealth assistant. Ask me anything about our website builds, the zero-disruption guarantee, or our pricing terms.",
       timestamp: "Just now"
     }
   ])
@@ -68,7 +68,7 @@ export function FloatingAiConcierge() {
   }, [])
 
   const speakText = (text: string) => {
-    if (voiceMuted || typeof window === "undefined" || !("speechSynthesis" in window)) return
+    if (speechMuted || typeof window === "undefined" || !("speechSynthesis" in window)) return
 
     try {
       window.speechSynthesis.cancel()
@@ -124,13 +124,13 @@ export function FloatingAiConcierge() {
       if (AI_KNOWLEDGE[text]) {
         replyText = AI_KNOWLEDGE[text]
       } else if (lower.includes("price") || lower.includes("cost") || lower.includes("retainer")) {
-        replyText = "Our implementation setups range from £2,250 to £5,500 based on technical scope, with monthly managed retainers from £1,250 to £3,500/mo. All retainers are month-to-month with 30 days notice."
+        replyText = "Our fixed-price website builds range from £495 (Essential) to £895 (Growth) and £1,495 (Flagship Custom). Optional monthly website care retainers range from £95/mo to £245/mo and £595/mo with zero long-term lock-in."
       } else if (lower.includes("prototype") || lower.includes("demo") || lower.includes("try")) {
         replyText = "We build a working prototype specific to your business in 48 hours with zero commitment. You test it directly on your smartphone before deciding if it makes sense to proceed."
-      } else if (lower.includes("disrupt") || lower.includes("number") || lower.includes("phone")) {
-        replyText = "The system runs parallel to your team with zero disruption. Your existing phone numbers and calendar remain identical. It only steps in when your team is busy or after hours."
+      } else if (lower.includes("disrupt") || lower.includes("domain") || lower.includes("email") || lower.includes("seo") || lower.includes("ranking")) {
+        replyText = "We guarantee zero downtime during launch. You retain 100% domain ownership, your business email accounts remain untouched, and redirect mapping preserves all your Google search rankings."
       } else {
-        replyText = "We build systems that answer faster, book more, and stop leads leaking. The best next step is to book a call so we can review your current response flow and demonstrate a working prototype."
+        replyText = "We build high-converting websites, 3-tap booking flows, and instant WhatsApp alert systems. The best next step is to book a call so we can discuss your business and build you a free working prototype."
       }
 
       const aiMsg: ChatMessage = {
@@ -199,12 +199,12 @@ export function FloatingAiConcierge() {
                   <button
                     onClick={() => {
                       if (isSpeaking) window.speechSynthesis?.cancel()
-                      setVoiceMuted(!voiceMuted)
+                      setSpeechMuted(!speechMuted)
                     }}
                     className="p-2 rounded-lg text-slate-400 hover:text-white transition-colors"
-                    title={voiceMuted ? "Unmute Speech" : "Mute Speech"}
+                    title={speechMuted ? "Unmute Speech" : "Mute Speech"}
                   >
-                    {voiceMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#DCAE53]" />}
+                    {speechMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#DCAE53]" />}
                   </button>
                   <button
                     onClick={() => {

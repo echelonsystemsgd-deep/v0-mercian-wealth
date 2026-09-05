@@ -64,7 +64,7 @@ export function StagingPreview({ previewUrl, projectUpdates }: StagingPreviewPro
       () => `[${formatTime(new Date())}] [GIT] Fetching origin/main updates (all changes synced).`,
       () => `[${formatTime(new Date())}] [CDN] Edge static pre-fetch completed.`,
       `[${formatTime(new Date())}] [SEC] Security scan completed: 0 threats found. RLS policies active.`,
-      () => `[${formatTime(new Date())}] [SYS] Telemetry ping: latency 42ms. Health status ACTIVE.`,
+      () => `[${formatTime(new Date())}] [SYS] Telemetry ping: response 42ms. Health status ACTIVE.`,
       () => `[${formatTime(new Date())}] [DB] Real-time replication socket connection verified.`
     ]
 

@@ -11,12 +11,6 @@ import { SectionDivider } from "@/components/section-divider"
 export function CTA() {
   const data = SITE_COPY.homepage.cta
 
-  const triggerModal = () => {
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new CustomEvent("open-prototype-modal"))
-    }
-  }
-
   return (
     <section id="cta" className="relative py-16 sm:py-24 overflow-hidden bg-[#09090B]">
       {/* Chapter Marker */}
@@ -66,26 +60,18 @@ export function CTA() {
             {/* Primary Action: Book a call */}
             <Link
               href="/book"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-sm sm:text-base font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] rounded-lg transition-all duration-200 shadow-lg shadow-[#DCAE53]/20 cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-sm sm:text-base font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] rounded-xl transition-all duration-200 shadow-lg shadow-[#DCAE53]/20 cursor-pointer"
             >
               <span>Book a call</span>
               <ArrowRight size={16} />
             </Link>
-
-            {/* Secondary: Prototype Modal */}
-            <button
-              onClick={triggerModal}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 text-sm sm:text-base font-semibold border border-slate-800 bg-[#111115] text-slate-200 hover:bg-[#18181F] hover:text-white rounded-lg transition-all cursor-pointer"
-            >
-              <span>{data.buttonText || "See a free prototype of your site"}</span>
-            </button>
 
             {/* WhatsApp */}
             <a
               href={SITE_COPY.navbar.whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 text-sm sm:text-base font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 rounded-lg transition-all"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 text-sm sm:text-base font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 rounded-xl transition-all"
             >
               <MessageSquare size={16} className="shrink-0" />
               <span>{data.whatsappButtonText}</span>
@@ -95,7 +81,7 @@ export function CTA() {
           <div className="pt-2 flex flex-col sm:flex-row items-center gap-4 text-xs font-mono text-slate-400">
             <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#111115] border border-slate-800 text-[10px] text-[#DCAE53] uppercase tracking-wider">
               <ShieldCheck size={12} className="text-[#DCAE53]" />
-              Prototype Delivered Specific to Your Business · Zero Obligation
+              Custom Build Specific to Your Business · Zero Obligation
             </span>
           </div>
         </motion.div>

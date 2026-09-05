@@ -171,7 +171,7 @@ function PremiumMockup({ item }: { item: PortfolioItem }) {
           </div>
           <div className="space-y-1">
             <h4 className="text-[11px] font-serif font-medium text-white leading-tight">Bespoke Strategic Delivery For High-Ticket Clients</h4>
-            <p className="text-[7px] text-white/60 leading-relaxed max-w-[88%]">Comprehensive multi-tier service architecture handcrafted with white-glove onboarding and priority dispatch.</p>
+            <p className="text-[7px] text-white/60 leading-relaxed max-w-[88%]">Comprehensive multi-tier service architecture handcrafted with white-glove client onboarding and priority scheduling.</p>
           </div>
           <div className="grid grid-cols-3 gap-1">
             <div className="bg-[#1c2236] border border-white/5 rounded p-1 text-center">

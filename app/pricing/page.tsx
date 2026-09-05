@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/navbar"
 import { Pricing } from "@/components/pricing"
-import { FAQ } from "@/components/faq"
+import { FAQHome } from "@/components/faq-home"
 import { CTA } from "@/components/cta"
 import { Footer } from "@/components/footer"
 import { PageHeader } from "@/components/page-header"
@@ -46,7 +46,7 @@ export default async function PricingPage() {
         </div>
       </section>
 
-      <FAQ />
+      <FAQHome />
       <CTA />
       <Footer />
     </main>

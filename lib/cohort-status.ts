@@ -16,7 +16,7 @@ const DEFAULT_STATUS: CohortStatus = {
   remainingSlots: 2,
   cohortStatus: "open",
   bannerActive: true,
-  bannerText: "Custom AI Automations & Digital Storefronts — Test Live Order Demo",
+  bannerText: "High-Converting Websites & Booking Systems — Test Live Demo",
   bannerLink: "/local",
 }
 

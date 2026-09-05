@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Mercian Wealth',
     short_name: 'Mercian Wealth',
-    description: 'Storefronts, Automation & Growth Systems for Local Businesses',
+    description: 'High-Converting Websites & Booking Systems for UK Local Businesses',
     start_url: '/',
     display: 'standalone',
     background_color: '#09090B',

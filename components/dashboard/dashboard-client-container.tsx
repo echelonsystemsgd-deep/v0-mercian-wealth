@@ -1041,7 +1041,7 @@ export default function DashboardClientContainer({
                 {[
                   { title: 'Automated Storefront & Deposit Engine', desc: 'Captures 24/7 custom orders and collects 50% non-refundable deposits upfront via Stripe before jobs are reserved.', roi: '+38% Revenue Lift', accent: 'text-gold' },
                   { title: 'Sub-60s WhatsApp Notification Webhook', desc: 'Instantly delivers complete order specs, customer details, and payment confirmations straight to the owner\'s mobile.', roi: '14.5 Hrs Saved / Wk', accent: 'text-blue-400' },
-                  { title: 'Automated 5-Star Google Review Dispatch', desc: 'Dispatches post-job review request links via SMS/WhatsApp with private feedback filters to build local Google search authority.', roi: '5.0★ Local Rank', accent: 'text-green-400' },
+                  { title: 'Automated 5-Star Google Review Engine', desc: 'Sends post-job review request links via SMS/WhatsApp with private feedback filters to build local Google search authority.', roi: '5.0★ Local Rank', accent: 'text-green-400' },
                 ].map((study) => (
                   <div key={study.title} className="p-5 glass rounded-xl border border-gold/10 hover:border-gold/20 transition-all group">
                     <div className="flex justify-between items-start gap-4">

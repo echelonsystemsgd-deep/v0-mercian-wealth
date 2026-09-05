@@ -23,7 +23,7 @@ export function AnnouncementBar() {
     return null
   }
 
-  const bannerText = status?.bannerText || "Custom AI Automations & Digital Storefronts — Test Live Order Demo"
+  const bannerText = status?.bannerText || "High-Converting Websites & Booking Systems — Test Live Demo"
   const bannerLink = status?.bannerLink || "/local"
 
   return (

@@ -22,7 +22,7 @@ const DEFAULT_FRONTEND_TESTIMONIALS = [
   {
     client_name: "Sarah M., Managing Director",
     company: "Vanguard Client Operations · West Midlands",
-    testimonial: "We used to lose 4–5 high-value client enquiries every single week to missed calls and delayed replies. Mercian deployed an automated booking and deposit engine with instant WhatsApp dispatch. We now capture non-refundable upfront commitment before any consultation hits our calendar.",
+    testimonial: "We used to lose 4–5 high-value client enquiries every single week to missed calls and delayed replies. Mercian deployed an automated booking and deposit engine with instant WhatsApp alerts. We now capture non-refundable upfront commitment before any consultation hits our calendar.",
     badge: "+38% Revenue Lift",
     is_featured: true,
     is_archived: false,

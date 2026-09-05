@@ -107,7 +107,7 @@ interface PricingProps {
 }
 
 export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retainerTiers: propRetainerTiers, revenueShareTiers: propRevenueShareTiers }: PricingProps) {
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "oneTime" | "revenueShare">("monthly")
+  const [billingCycle, setBillingCycle] = useState<"oneTime" | "monthly" | "revenueShare">("oneTime")
   const [activeCategoryFilter, setActiveCategoryFilter] = useState<string>("all")
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   // All accordion cards closed by default to keep page compact and clean
@@ -176,56 +176,59 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
           </div>
         )}
 
-        {/* Billing Switcher Header (3 Tabs) */}
-        <div className="flex justify-center mb-10 lg:mb-14 relative z-20">
-          <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-1.5 bg-[#111115] p-1 sm:p-1.5 rounded-full border border-[#DCAE53]/25 relative shadow-lg max-w-full min-w-0">
-            <button
-              suppressHydrationWarning
-              onClick={() => setBillingCycle("monthly")}
-              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer ${
-                billingCycle === "monthly" ? "text-[#09090B] font-bold" : "text-slate-300 hover:text-white"
-              }`}
-            >
-              {billingCycle === "monthly" && (
-                <motion.div
-                  layoutId="pricingBillingBg"
-                  className="absolute inset-0 rounded-full bg-[#DCAE53] z-[-1]"
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                />
-              )}
-              Monthly Managed Retainer
-            </button>
+        {/* Billing Switcher Header (3 Tabs: Setup -> Retainer -> Custom/Enterprise) */}
+        <div className="flex justify-center mb-8 sm:mb-12 relative z-20">
+          <div className="inline-flex items-center justify-center p-1 rounded-xl sm:rounded-full bg-[#111115] border border-[#DCAE53]/25 relative shadow-lg max-w-full">
             <button
               suppressHydrationWarning
               onClick={() => setBillingCycle("oneTime")}
-              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer ${
+              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer ${
                 billingCycle === "oneTime" ? "text-[#09090B] font-bold" : "text-slate-300 hover:text-white"
               }`}
             >
               {billingCycle === "oneTime" && (
                 <motion.div
                   layoutId="pricingBillingBg"
-                  className="absolute inset-0 rounded-full bg-[#DCAE53] z-[-1]"
+                  className="absolute inset-0 rounded-lg sm:rounded-full bg-[#DCAE53] z-[-1]"
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 />
               )}
-              Implementation Setup
+              <span className="hidden sm:inline">Implementation Setup</span>
+              <span className="sm:hidden">Setup Build</span>
+            </button>
+            <button
+              suppressHydrationWarning
+              onClick={() => setBillingCycle("monthly")}
+              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer ${
+                billingCycle === "monthly" ? "text-[#09090B] font-bold" : "text-slate-300 hover:text-white"
+              }`}
+            >
+              {billingCycle === "monthly" && (
+                <motion.div
+                  layoutId="pricingBillingBg"
+                  className="absolute inset-0 rounded-lg sm:rounded-full bg-[#DCAE53] z-[-1]"
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                />
+              )}
+              <span className="hidden sm:inline">Website Care &amp; Growth Retainer</span>
+              <span className="sm:hidden">Care Retainer</span>
             </button>
             <button
               suppressHydrationWarning
               onClick={() => setBillingCycle("revenueShare")}
-              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer ${
+              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer ${
                 billingCycle === "revenueShare" ? "text-[#09090B] font-bold" : "text-slate-300 hover:text-white"
               }`}
             >
               {billingCycle === "revenueShare" && (
                 <motion.div
                   layoutId="pricingBillingBg"
-                  className="absolute inset-0 rounded-full bg-[#DCAE53] z-[-1]"
+                  className="absolute inset-0 rounded-lg sm:rounded-full bg-[#DCAE53] z-[-1]"
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 />
               )}
-              Performance Share
+              <span className="hidden sm:inline">Custom / Enterprise</span>
+              <span className="sm:hidden">Custom</span>
             </button>
           </div>
         </div>
@@ -253,10 +256,10 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                   </div>
                 )}
 
-                <div className="p-5 sm:p-7 flex-1 flex flex-col justify-between">
-                  <CardContent className="p-0 space-y-5">
+                <div className="p-4 sm:p-7 flex-1 flex flex-col justify-between">
+                  <CardContent className="p-0 space-y-4 sm:space-y-5">
                     <div>
-                      <div className="flex items-center justify-between gap-2 mb-2">
+                      <div className="flex items-center justify-between gap-2 mb-1.5 sm:mb-2">
                         <span className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider">
                           [ {tier.highlight || `Tier 0${idx + 1}`} ]
                         </span>
@@ -266,18 +269,18 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                           </span>
                         )}
                       </div>
-                      <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                      <h3 className="text-lg sm:text-2xl font-bold text-white tracking-tight">
                         {tier.name}
                       </h3>
-                      <p className="text-xs sm:text-sm text-slate-300 mt-1.5 leading-relaxed min-h-[40px]">
+                      <p className="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed min-h-[36px]">
                         {tier.description}
                       </p>
                     </div>
 
                     {/* Price Block */}
-                    <div className="py-4 border-y border-slate-800/80">
+                    <div className="py-3 sm:py-4 border-y border-slate-800/80">
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight">
+                        <span className="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-tight">
                           {tier.price}
                         </span>
                         <span className="text-xs text-slate-400 font-mono">
@@ -285,7 +288,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                         </span>
                       </div>
                       {(tier as any).milestoneBreakdown && (
-                        <div className="mt-2.5 p-2 rounded-lg bg-[#18181F] border border-slate-800 text-[11px] text-slate-300 leading-relaxed flex items-center gap-2 font-mono">
+                        <div className="mt-2 p-2 rounded-lg bg-[#18181F] border border-slate-800 text-[10px] sm:text-[11px] text-slate-300 leading-relaxed flex items-center gap-2 font-mono">
                           <span className="text-[#DCAE53] font-bold shrink-0">⚡</span>
                           <span>{(tier as any).milestoneBreakdown}</span>
                         </div>
@@ -293,10 +296,10 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                     </div>
 
                     {/* Features List */}
-                    <div className="space-y-2.5">
+                    <div className="space-y-2 sm:space-y-2.5">
                       {tier.features.map((feature: string, i: number) => (
                         <div key={i} className="flex items-start gap-2.5">
-                          <span className="text-[#DCAE53] text-sm shrink-0 mt-0.5 font-bold">✦</span>
+                          <span className="text-[#DCAE53] text-xs sm:text-sm shrink-0 mt-0.5 font-bold">✦</span>
                           <span className="text-xs text-slate-200 leading-normal font-medium">
                             {feature}
                           </span>
@@ -306,7 +309,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                   </CardContent>
 
                   {/* Tier Action CTA */}
-                  <div className="pt-6 mt-6 border-t border-slate-800/80">
+                  <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-slate-800/80">
                     <Button
                       asChild
                       size="lg"
@@ -350,27 +353,27 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                 <span>Realistic Build Timelines</span>
               </div>
               <p className="text-slate-300 text-[11px] leading-relaxed">
-                We work in rapid agile sprints. Standard setups aim for <strong className="text-white">7–14 business days</strong> once intake details and booking rules are supplied. Complex multi-branch setups take longer depending on technical scope.
+                We work in rapid agile sprints. Standard setups aim for <strong className="text-white">5–7 business days</strong> once branding and service details are supplied. Complex multi-location portals take 10–14 days depending on technical scope.
               </p>
             </div>
 
             <div className="p-4 rounded-2xl bg-[#0c0c0e] border border-slate-800/80 space-y-2">
               <div className="font-bold text-white flex items-center gap-2">
-                <span>📞</span>
-                <span>Monthly Handling Capacity</span>
+                <span>⚡</span>
+                <span>Cloud Hosting &amp; Bandwidth</span>
               </div>
               <p className="text-slate-300 text-[11px] leading-relaxed">
-                Monthly retainers include generous customer interaction capacity (<strong className="text-white">1,500 to 3,500+ enquiries/mo</strong>). High-volume excess usage scales transparently without service interruption.
+                Monthly retainers include unlimited global bandwidth, edge CDN delivery, and continuous speed optimization. Your site never slows down under high traffic spikes.
               </p>
             </div>
 
             <div className="p-4 rounded-2xl bg-[#0c0c0e] border border-slate-800/80 space-y-2">
               <div className="font-bold text-white flex items-center gap-2">
                 <span>🛠️</span>
-                <span>Additional Scope &amp; Bespoke APIs</span>
+                <span>Additional Scope &amp; Bespoke Features</span>
               </div>
               <p className="text-slate-300 text-[11px] leading-relaxed">
-                Standard calendars and alert webhooks are 100% included. Additional depots, custom ERP integrations, or specialized database programming outside agreed specifications are quoted clearly in advance.
+                Standard booking flows and WhatsApp alert webhooks are 100% included. Additional locations, custom ERP integrations, or specialized database programming outside agreed specifications are quoted clearly in advance.
               </p>
             </div>
           </div>
@@ -380,7 +383,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
         {isHomepage ? (
           <div className="pt-8 border-t border-slate-800 text-center flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-slate-400">
             <span className="font-mono text-[11px] text-[#DCAE53]">
-              ✦ 99.98% System SLA · Sub-60s Response Times Guaranteed
+              ✦ 99.98% Website Uptime SLA · Sub-Second Page Speeds Guaranteed
             </span>
             <span className="hidden sm:inline text-white/20">•</span>
             <Link
@@ -402,10 +405,10 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                 <span>Interactive Technical Architecture Matrix</span>
               </div>
               <h3 className="text-2xl sm:text-4xl font-extrabold text-white mb-3 font-sans tracking-tight">
-                Enterprise Infrastructure Breakdown
+                Technical Deliverables &amp; SLA Breakdown
               </h3>
               <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto font-sans leading-relaxed">
-                Filter and compare voice latency, dispatch logic, multi-agent workflows, and managed retainer SLAs across all operational tiers.
+                Compare page speed, booking flows, deposit capture, and managed website care SLAs across all tiers.
               </p>
             </div>
 
@@ -575,7 +578,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                               {/* 3 Interactive Spec Cards */}
                               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                                 
-                                {/* 1. Core Voice Desk */}
+                                {/* 1. Essential Build */}
                                 <div
                                   className={`p-3 rounded-xl border transition-all ${
                                     activeTierFocus === "essential" || activeTierFocus === "all"
@@ -584,14 +587,14 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                                   }`}
                                 >
                                   <div className="text-[9px] font-mono text-slate-400 uppercase font-bold mb-1">
-                                    Core Voice Desk
+                                    Essential Build
                                   </div>
                                   <div className="text-xs font-semibold">
                                     {item.essential}
                                   </div>
                                 </div>
 
-                                {/* 2. Autonomous Growth (Featured) */}
+                                {/* 2. Growth System (Featured) */}
                                 <div
                                   className={`p-3 rounded-xl border relative transition-all ${
                                     activeTierFocus === "pro" || activeTierFocus === "all"
@@ -601,7 +604,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                                 >
                                   <div className="flex items-center justify-between mb-1">
                                     <span className="text-[9px] font-mono text-[#DCAE53] uppercase font-bold">
-                                      Autonomous Growth
+                                      Growth System
                                     </span>
                                     <span className="text-[8px] font-mono text-[#09090B] bg-[#DCAE53] px-1.5 rounded font-bold">
                                       RECOMMENDED
@@ -612,7 +615,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                                   </div>
                                 </div>
 
-                                {/* 3. Enterprise Infrastructure */}
+                                {/* 3. Flagship Custom */}
                                 <div
                                   className={`p-3 rounded-xl border transition-all ${
                                     activeTierFocus === "custom" || activeTierFocus === "all"
@@ -621,7 +624,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                                   }`}
                                 >
                                   <div className="text-[9px] font-mono text-slate-400 uppercase font-bold mb-1">
-                                    Enterprise Infrastructure
+                                    Flagship Custom
                                   </div>
                                   <div className="text-xs font-semibold text-slate-300">
                                     {item.custom}

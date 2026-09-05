@@ -24,7 +24,10 @@ import {
   Calendar,
   CreditCard,
   Mail,
-  MessageSquare
+  MessageSquare,
+  Globe,
+  Smartphone,
+  Layers
 } from "lucide-react"
 import Link from "next/link"
 import { BrandLogo } from "@/components/brand-logo"
@@ -101,15 +104,21 @@ export function Navbar() {
     }
   }, [])
 
-  // Lock body scroll when mobile drawer is active
+  // Lock body and html scroll when mobile drawer is active
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden"
+      document.documentElement.style.overflow = "hidden"
+      document.body.style.touchAction = "none"
     } else {
       document.body.style.overflow = ""
+      document.documentElement.style.overflow = ""
+      document.body.style.touchAction = ""
     }
     return () => {
       document.body.style.overflow = ""
+      document.documentElement.style.overflow = ""
+      document.body.style.touchAction = ""
     }
   }, [isMobileMenuOpen])
 
@@ -226,52 +235,52 @@ export function Navbar() {
                     className="absolute top-full left-0 mt-2 w-[400px] bg-[#111115] border border-[#DCAE53]/35 rounded-2xl p-3 shadow-2xl space-y-1 z-50"
                   >
                     <div className="px-3 py-1.5 border-b border-slate-800 flex items-center justify-between mb-1">
-                      <span className="text-[10px] font-mono font-bold text-[#DCAE53] uppercase tracking-wider">Conversion Infrastructure</span>
+                      <span className="text-[10px] font-mono font-bold text-[#DCAE53] uppercase tracking-wider">Website Solutions</span>
                       <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Outcome-Driven</span>
                     </div>
 
                     <Link
-                      href="/services?solution=voice"
+                      href="/services#web"
                       onClick={() => setActiveDropdown(null)}
                       prefetch={true}
                       className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
-                        <PhoneCall className="w-4 h-4" />
+                        <Globe className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Rapid Response &amp; Call Intake</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">Sub-380ms answering, intent qualification &amp; deposit locking. Zero missed calls.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">High-Converting Websites</div>
+                        <p className="text-[11px] text-slate-400 leading-snug">Sub-second load speeds, bespoke UI/UX &amp; upfront deposit capture.</p>
                       </div>
                     </Link>
 
                     <Link
-                      href="/services?solution=dispatch"
+                      href="/services#booking"
                       onClick={() => setActiveDropdown(null)}
                       prefetch={true}
                       className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
-                        <Navigation className="w-4 h-4" />
+                        <Smartphone className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Instant Booking &amp; Dispatch Engine</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">Automated customer intake, WhatsApp routing &amp; live confirmation alerts.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">3-Tap Booking &amp; WhatsApp Alerts</div>
+                        <p className="text-[11px] text-slate-400 leading-snug">Frictionless customer booking flow with sub-second owner alerts.</p>
                       </div>
                     </Link>
 
                     <Link
-                      href="/services?solution=retainer"
+                      href="/pricing"
                       onClick={() => setActiveDropdown(null)}
                       prefetch={true}
                       className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
-                        <Zap className="w-4 h-4" />
+                        <ShieldCheck className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Managed Conversion Retainer</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">Continuous conversion tuning, latency SLA monitoring &amp; revenue tracking.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Website Care &amp; Growth Retainer</div>
+                        <p className="text-[11px] text-slate-400 leading-snug">Continuous speed tuning, uptime monitoring &amp; monthly content updates.</p>
                       </div>
                     </Link>
                   </motion.div>
@@ -307,97 +316,52 @@ export function Navbar() {
                     className="absolute top-full left-0 mt-2 w-[360px] bg-[#111115] border border-[#DCAE53]/35 rounded-2xl p-3 shadow-2xl space-y-1 z-50"
                   >
                     <div className="px-3 py-1.5 border-b border-slate-800 flex items-center justify-between mb-1">
-                      <span className="text-[10px] font-mono font-bold text-[#DCAE53] uppercase tracking-wider">Interactive Verification</span>
-                      <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Live Testing</span>
+                      <span className="text-[10px] font-mono font-bold text-[#DCAE53] uppercase tracking-wider">Live Verification</span>
+                      <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Live Routes</span>
                     </div>
 
                     <Link
-                      href="/portfolio?demo=voice"
+                      href="/local"
                       onClick={() => setActiveDropdown(null)}
                       prefetch={true}
                       className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
-                        <PhoneCall className="w-4 h-4" />
+                        <Smartphone className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">Rapid Call Intake Sandbox</div>
-                        <p className="text-[11px] text-slate-400">Hear real-time response &amp; deposit qualification.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">Interactive Order Engine</div>
+                        <p className="text-[11px] text-slate-400">Test the 3-tap order builder &amp; instant phone alert live.</p>
                       </div>
                     </Link>
 
                     <Link
-                      href="/portfolio?demo=dispatch"
+                      href="/portfolio"
                       onClick={() => setActiveDropdown(null)}
                       prefetch={true}
                       className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
-                        <Navigation className="w-4 h-4" />
+                        <Layers className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">Booking &amp; Dispatch Sandbox</div>
-                        <p className="text-[11px] text-slate-400">Simulate instant WhatsApp &amp; customer confirmation.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">Website Creations Gallery</div>
+                        <p className="text-[11px] text-slate-400">Explore bespoke storefronts &amp; client case studies.</p>
                       </div>
                     </Link>
 
                     <Link
-                      href="/portfolio?demo=roi"
+                      href="/book"
                       onClick={() => setActiveDropdown(null)}
                       prefetch={true}
                       className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
-                        <Calculator className="w-4 h-4" />
+                        <Sparkles className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">Revenue Recovery Engine</div>
-                        <p className="text-[11px] text-slate-400">Calculate exact annual revenue upside.</p>
-                      </div>
-                    </Link>
-
-                    <Link
-                      href="/portfolio?demo=3d"
-                      onClick={() => setActiveDropdown(null)}
-                      prefetch={true}
-                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
-                    >
-                      <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
-                        <Box className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">3D Spatial WebGL Studio</div>
-                        <p className="text-[11px] text-slate-400">360° mouse drag, PBR shaders &amp; wireframe diagnostics.</p>
-                      </div>
-                    </Link>
-
-                    <Link
-                      href="/portfolio?demo=dispatch"
-                      onClick={() => setActiveDropdown(null)}
-                      prefetch={true}
-                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
-                    >
-                      <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
-                        <Activity className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">Live Dispatch Simulation</div>
-                        <p className="text-[11px] text-slate-400">Step through Voice Pickup ➔ Geofence Match ➔ WhatsApp alert.</p>
-                      </div>
-                    </Link>
-
-                    <Link
-                      href="/portfolio?demo=roi"
-                      onClick={() => setActiveDropdown(null)}
-                      prefetch={true}
-                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
-                    >
-                      <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
-                        <Calculator className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">Missed Call Revenue Calculator</div>
-                        <p className="text-[11px] text-slate-400">Calculate annual leakage &amp; 10x retainer ROI.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">Request Free Working Prototype</div>
+                        <p className="text-[11px] text-slate-400">See a working demo built for your business in 48h.</p>
                       </div>
                     </Link>
                   </motion.div>
@@ -413,7 +377,7 @@ export function Navbar() {
                   : "text-slate-300 hover:text-white hover:bg-[#18181F]"
               }`}
             >
-              Retainers
+              Pricing
             </Link>
 
             <Link
@@ -506,7 +470,7 @@ export function Navbar() {
       {/* Luxury Slide-Over Navigation Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 z-[99999] flex justify-end pointer-events-auto">
+          <div className="fixed inset-0 z-[99999] flex justify-end pointer-events-auto touch-none">
             {/* Soft Darkened Blur Backdrop (Tap outside to close) */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -514,7 +478,11 @@ export function Navbar() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/75 backdrop-blur-sm cursor-pointer"
+              onTouchMove={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+              }}
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm cursor-pointer touch-none"
             />
 
             {/* Slide-in Sheet (Right-anchored, never stretched into an empty void) */}
@@ -523,7 +491,7 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 300 }}
-              className="relative w-full max-w-[360px] sm:max-w-[380px] h-full bg-[#0c0c10] border-l border-slate-800 shadow-2xl flex flex-col justify-between p-5 sm:p-6 z-10 overflow-y-auto font-sans"
+              className="relative w-full max-w-[320px] sm:max-w-[360px] h-full bg-[#0c0c10] border-l border-slate-800 shadow-2xl flex flex-col justify-between p-4 sm:p-6 z-10 overflow-y-auto overscroll-contain touch-pan-y font-sans"
             >
               {/* Top Header */}
               <div>
@@ -558,7 +526,7 @@ export function Navbar() {
                 <div className="mb-5 p-3 rounded-xl bg-[#111115] border border-[#DCAE53]/25 flex items-center gap-2.5 text-xs">
                   <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
                   <span className="text-[11px] font-mono text-slate-300">
-                    Autonomous Response &amp; Lead Conversion Systems
+                    High-Converting Websites &amp; Booking Systems
                   </span>
                 </div>
 
@@ -566,9 +534,10 @@ export function Navbar() {
                 <nav className="space-y-1.5">
                   {[
                     { name: "Home", href: "/", icon: Sparkles, badge: null },
-                    { name: "Solutions", href: "/services", icon: PhoneCall, badge: "Outcomes" },
-                    { name: "Live Demos", href: "/portfolio", icon: Activity, badge: "Interactive" },
-                    { name: "Retainers & Pricing", href: "/pricing", icon: CreditCard, badge: "Terms" },
+                    { name: "Solutions", href: "/services", icon: Globe, badge: "Outcomes" },
+                    { name: "Live Demo", href: "/local", icon: Smartphone, badge: "Interactive" },
+                    { name: "Portfolio", href: "/portfolio", icon: Layers, badge: "Case Studies" },
+                    { name: "Pricing & Retainers", href: "/pricing", icon: CreditCard, badge: "Terms" },
                     { name: "Deployment Protocol", href: "/process", icon: Zap, badge: null },
                     { name: "Contact", href: "/contact", icon: Mail, badge: "UK HQ" },
                   ].map((item) => {

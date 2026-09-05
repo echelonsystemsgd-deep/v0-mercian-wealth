@@ -33,15 +33,15 @@ export const metadata: Metadata = {
   description: SITE_COPY.metadata.layout.description,
   applicationName: 'Mercian Wealth',
   keywords: [
-    "AI automation agency UK",
-    "mobile storefronts UK",
-    "3-tap order builder",
-    "WhatsApp order alerts",
+    "high converting websites UK",
+    "website creation UK",
+    "3-tap booking systems",
+    "WhatsApp booking alerts",
     "automated Google review system",
-    "local business automation UK",
+    "local business websites UK",
     "custom web design agency UK",
     "automated booking systems UK",
-    "deposit capture systems",
+    "upfront deposit capture websites",
     "lead conversion systems UK"
   ],
   authors: [{ name: 'Mercian Wealth' }],
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         url: '/Logo2.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Mercian Wealth | Storefronts · Automation · Growth for Local Businesses',
+        alt: 'Mercian Wealth | High-Converting Websites & Booking Systems',
       },
     ],
     locale: 'en_GB',
@@ -94,7 +94,7 @@ export const metadata: Metadata = {
     shortcut: '/Logo1.jpeg',
     apple: '/Logo1.jpeg',
   },
-  // DNS prefetch for Calendly embed (reduces first-load latency by ~150–200 ms)
+  // DNS prefetch for Calendly embed (reduces first-load delay by ~150–200 ms)
   other: {
     'preconnect-calendly': 'https://calendly.com',
     'preconnect-calendly-assets': 'https://assets.calendly.com',
@@ -118,7 +118,7 @@ const jsonLd = {
   '@id': 'https://mercianwealth.com/#organization',
   url: 'https://mercianwealth.com',
   telephone: '+447851055929',
-  priceRange: '£495 - £1,450',
+  priceRange: '£495 - £1,495',
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'GB',

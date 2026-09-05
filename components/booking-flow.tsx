@@ -341,16 +341,16 @@ function BookingFlowInner() {
       const lower = param.toLowerCase()
       let mappedValue = ""
 
-      if (lower.includes("storefront") || lower.includes("essential") || lower.includes("starter") || lower.includes("authority")) {
-        mappedValue = "High-Yield Digital Infrastructure"
-      } else if (lower.includes("order") || lower.includes("builder") || lower.includes("routing") || lower.includes("funnel") || lower.includes("operations")) {
-        mappedValue = "Autonomous Pipeline Routing"
-      } else if (lower.includes("database") || lower.includes("cloud")) {
-        mappedValue = "Relational Cloud Data Architecture"
-      } else if (lower.includes("alert") || lower.includes("review") || lower.includes("ai") || lower.includes("agent") || lower.includes("custom") || lower.includes("revenue")) {
-        mappedValue = "Autonomic Multi-Agent Systems"
+      if (lower.includes("essential") || lower.includes("starter") || lower.includes("storefront")) {
+        mappedValue = "Instant Mobile Storefront"
+      } else if (lower.includes("growth") || lower.includes("builder") || lower.includes("booking") || lower.includes("deposit")) {
+        mappedValue = "Instant Booking & Deposit Collection"
+      } else if (lower.includes("alert") || lower.includes("phone") || lower.includes("whatsapp")) {
+        mappedValue = "Instant Phone Notifications"
+      } else if (lower.includes("review") || lower.includes("reputation")) {
+        mappedValue = "Automated 5-Star Review Engine"
       } else {
-        mappedValue = "High-Yield Digital Infrastructure"
+        mappedValue = "Free 15-Minute Audit"
       }
 
       if (mappedValue) {
