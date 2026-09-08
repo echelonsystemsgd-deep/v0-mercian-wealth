@@ -104,7 +104,7 @@ export default function SignupPage() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="sarah@artisanbakery.co.uk"
+            placeholder="david@apexservices.co.uk"
             className="w-full bg-[#18181F] border border-slate-800 hover:border-slate-700 focus:border-[#DCAE53] rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] transition-all"
           />
         </div>

@@ -3,12 +3,11 @@
 import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
-import { Globe, Smartphone, Sparkles, ShieldCheck, X, CheckCircle2, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { PhoneCall, Bot, Zap, PhoneOutgoing, Mail, Globe, X, CheckCircle2, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { SITE_COPY } from "@/lib/site-copy"
 
-const icons = [Globe, Smartphone, Sparkles, ShieldCheck]
+const icons = [PhoneCall, Bot, Zap, PhoneOutgoing, Mail, Globe]
 
 export function Services({ limit }: { limit?: number }) {
   const [activeService, setActiveService] = useState<number | null>(null)
@@ -24,17 +23,19 @@ export function Services({ limit }: { limit?: number }) {
   }))
 
   const displayServices = limit ? servicesList.slice(0, limit) : servicesList
-  const cardIds = ["web", "booking", "reviews", "hosting"]
+  const cardIds = ["voice", "chatbots", "workflows", "outbound", "email", "web"]
 
   // Listen to ?solution= query param to automatically open or highlight target service
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search)
       const solution = params.get("solution")
-      if (solution === "web" || solution === "websites") setActiveService(0)
-      else if (solution === "booking" || solution === "alerts") setActiveService(1)
-      else if (solution === "reviews") setActiveService(2)
-      else if (solution === "hosting" || solution === "retainer") setActiveService(3)
+      if (solution === "voice" || solution === "inbound") setActiveService(0)
+      else if (solution === "chatbots" || solution === "chat") setActiveService(1)
+      else if (solution === "workflows" || solution === "automation") setActiveService(2)
+      else if (solution === "outbound" || solution === "reactivation") setActiveService(3)
+      else if (solution === "email" || solution === "outreach") setActiveService(4)
+      else if (solution === "web" || solution === "websites") setActiveService(5)
     }
   }, [])
 
@@ -73,18 +74,18 @@ export function Services({ limit }: { limit?: number }) {
         {/* Section Header */}
         <div className="text-center mb-8 sm:mb-12">
           <p className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#DCAE53] mb-2 sm:mb-3 font-mono">
-            [ Core Web Infrastructure ]
+            [ Core AI &amp; Automation Infrastructure ]
           </p>
           <h2 className="font-sans text-xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-3">
-            High-Converting Websites &amp; Booking Systems
+            Autonomous Systems Built For Direct Cash Flow
           </h2>
           <p className="text-slate-300 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
-            Bespoke web architecture engineered for premier local businesses who demand sub-second speed, frictionless booking, and upfront deposit capture.
+            24/7 AI voice receptionists, enquiry chatbots, email outreach engines, and hands-off workflow automation engineered for UK local businesses.
           </p>
         </div>
 
-        {/* 4-Column Card Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
+        {/* 6-Card Responsive Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
           {displayServices.map((service, index) => {
             const IconComponent = service.icon
             return (
@@ -94,12 +95,12 @@ export function Services({ limit }: { limit?: number }) {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
                 className="w-full scroll-mt-28"
               >
                 <Card className="h-full bg-[#111115] border border-slate-800 hover:border-[#DCAE53]/60 hover:shadow-[0_0_25px_rgba(220,174,83,0.15)] transition-all duration-300 rounded-xl sm:rounded-2xl group flex flex-col justify-between">
                   <CardContent className="p-4 sm:p-6 flex flex-col justify-between h-full space-y-4 sm:space-y-6">
-                    <div className="space-y-3 sm:space-y-4">
+                    <div className="space-y-3 sm:space-y-4 text-left">
                       {/* Gold icon */}
                       <div className="inline-flex items-center justify-center p-2.5 sm:p-3 border border-slate-800 bg-[#18181F] text-[#DCAE53] rounded-xl group-hover:scale-105 transition-transform">
                         <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.5]" />
@@ -111,15 +112,15 @@ export function Services({ limit }: { limit?: number }) {
                       </h3>
                       
                       {/* Description */}
-                      <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed min-h-[38px] sm:min-h-[44px]">
+                      <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed min-h-[44px]">
                         {service.description}
                       </p>
                     </div>
 
-                    <div className="space-y-3 sm:space-y-4 pt-3 sm:pt-4 border-t border-slate-800/80">
+                    <div className="space-y-3 sm:space-y-4 pt-3 sm:pt-4 border-t border-slate-800/80 text-left">
                       {/* Outcome Badge */}
                       <div className="bg-[#18181F] p-2.5 sm:p-3 rounded-xl border border-slate-800">
-                        <span className="text-[9px] sm:text-[10px] font-mono uppercase text-slate-400 block mb-0.5 sm:mb-1">Guaranteed Speed / SLA</span>
+                        <span className="text-[9px] sm:text-[10px] font-mono uppercase text-slate-400 block mb-0.5 sm:mb-1">Target Commercial SLA</span>
                         <span className="text-xs font-bold text-emerald-400 font-mono">{service.outcome}</span>
                       </div>
 
@@ -150,11 +151,11 @@ export function Services({ limit }: { limit?: number }) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="relative w-full max-w-2xl bg-[#111115] border border-[#DCAE53]/40 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl overflow-y-auto overscroll-contain touch-pan-y max-h-[90vh]"
+              className="relative w-full max-w-2xl bg-[#111115] border border-[#DCAE53]/40 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl overflow-y-auto overscroll-contain touch-pan-y max-h-[90vh] text-left"
             >
               <button
                 onClick={() => setActiveService(null)}
-                className="absolute top-5 right-5 p-2 rounded-full bg-[#18181F] text-slate-400 hover:text-white border border-slate-800 transition-colors"
+                className="absolute top-5 right-5 p-2 rounded-full bg-[#18181F] text-slate-400 hover:text-white border border-slate-800 transition-colors cursor-pointer"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
@@ -200,14 +201,14 @@ export function Services({ limit }: { limit?: number }) {
                   <Link
                     href="/book"
                     onClick={() => setActiveService(null)}
-                    className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-sm transition-all shadow-lg"
+                    className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-sm transition-all shadow-lg cursor-pointer"
                   >
-                    <span>Book a call</span>
+                    <span>Book a Discovery Call</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <button
                     onClick={() => setActiveService(null)}
-                    className="py-3 px-6 rounded-xl bg-[#18181F] text-slate-300 hover:text-white border border-slate-800 text-sm font-semibold transition-colors"
+                    className="py-3 px-6 rounded-xl bg-[#18181F] text-slate-300 hover:text-white border border-slate-800 text-sm font-semibold transition-colors cursor-pointer"
                   >
                     Close
                   </button>

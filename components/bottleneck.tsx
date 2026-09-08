@@ -23,8 +23,8 @@ export function Bottleneck() {
   ]
 
   const orderedSolutions = [
-    "Zero time wasted on back-and-forth. Customer specifications, package choice, and dates are collected automatically 24/7.",
-    "Costly misunderstandings and double-bookings eliminated. Orders and client slots are verified and confirmed with upfront card deposits.",
+    "Zero time wasted on back-and-forth. Customer requirements, service scope, and calendar availability are qualified automatically 24/7.",
+    "Costly missed calls and double-bookings eliminated. 24/7 AI answers every call, qualifies project specs, and confirms appointments live.",
     "Sub-60s response captures customers while intent is peak. Never let an enquiry go cold or bounce to a competitor.",
     "Automatic 5-star review collection and structured follow-up protects your local market reputation on autopilot.",
   ]

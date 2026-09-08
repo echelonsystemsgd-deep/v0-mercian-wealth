@@ -14,8 +14,8 @@ const demoServices = [
 
 export function FieldSalesDemo() {
   const [selectedService, setSelectedService] = useState(demoServices[0])
-  const [pickupDate, setPickupDate] = useState("Saturday, 10:00 AM")
-  const [customerName, setCustomerName] = useState("Sarah Mitchell")
+  const [appointmentSlot, setAppointmentSlot] = useState("Saturday, 10:00 AM")
+  const [customerName, setCustomerName] = useState("James Mitchell")
   const [isSimulating, setIsSimulating] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
 
@@ -55,7 +55,7 @@ export function FieldSalesDemo() {
             <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
               <div className="flex items-center gap-2">
                 <Briefcase className="text-[#DCAE53]" size={20} />
-                <span className="font-sans font-bold text-white text-base">Premier Local Business Storefront</span>
+                <span className="font-sans font-bold text-white text-base">Client Intake &amp; Booking Portal</span>
               </div>
               <span className="text-[10px] font-mono text-[#34A88E] bg-[#2E8B77]/10 px-2 py-0.5 rounded-full border border-[#2E8B77]/20 font-semibold">
                 LIVE DEMO STOREFRONT
@@ -107,8 +107,8 @@ export function FieldSalesDemo() {
                   2. Requested Date / Slot:
                 </label>
                 <select
-                  value={pickupDate}
-                  onChange={(e) => setPickupDate(e.target.value)}
+                  value={appointmentSlot}
+                  onChange={(e) => setAppointmentSlot(e.target.value)}
                   className="w-full min-h-[44px] bg-white/[0.04] border border-white/15 rounded-xl p-3 text-xs text-white outline-none focus:border-[#DCAE53] cursor-pointer"
                   aria-label="Select Date Slot"
                 >
@@ -196,7 +196,7 @@ export function FieldSalesDemo() {
                       <div className="text-xs space-y-1 pt-1 font-sans">
                         <p><strong className="text-[#DCAE53]">Client:</strong> {customerName}</p>
                         <p><strong className="text-[#DCAE53]">Project:</strong> {selectedService.name}</p>
-                        <p><strong className="text-[#DCAE53]">Requested Slot:</strong> {pickupDate}</p>
+                        <p><strong className="text-[#DCAE53]">Requested Slot:</strong> {appointmentSlot}</p>
                         <p><strong className="text-[#34A88E]">Deposit Paid:</strong> £{selectedService.deposit.toFixed(2)} (via Stripe)</p>
                       </div>
 

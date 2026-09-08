@@ -235,52 +235,67 @@ export function Navbar() {
                     className="absolute top-full left-0 mt-2 w-[400px] bg-[#111115] border border-[#DCAE53]/35 rounded-2xl p-3 shadow-2xl space-y-1 z-50"
                   >
                     <div className="px-3 py-1.5 border-b border-slate-800 flex items-center justify-between mb-1">
-                      <span className="text-[10px] font-mono font-bold text-[#DCAE53] uppercase tracking-wider">Website Solutions</span>
+                      <span className="text-[10px] font-mono font-bold text-[#DCAE53] uppercase tracking-wider">AI Solutions</span>
                       <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Outcome-Driven</span>
                     </div>
 
                     <Link
-                      href="/services#web"
+                      href="/services#voice"
                       onClick={() => setActiveDropdown(null)}
                       prefetch={true}
                       className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
-                        <Globe className="w-4 h-4" />
+                        <PhoneCall className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">High-Converting Websites</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">Sub-second load speeds, bespoke UI/UX &amp; upfront deposit capture.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">24/7 AI Phone Receptionist</div>
+                        <p className="text-[11px] text-slate-400 leading-snug">Answers on ring one, qualifies leads &amp; books into your live calendar.</p>
                       </div>
                     </Link>
 
                     <Link
-                      href="/services#booking"
+                      href="/services#chatbots"
                       onClick={() => setActiveDropdown(null)}
                       prefetch={true}
                       className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
-                        <Smartphone className="w-4 h-4" />
+                        <MessageSquare className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">3-Tap Booking &amp; WhatsApp Alerts</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">Frictionless customer booking flow with sub-second owner alerts.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Chatbots &amp; Support Triage</div>
+                        <p className="text-[11px] text-slate-400 leading-snug">Instant qualification across web &amp; WhatsApp so leads never go cold.</p>
                       </div>
                     </Link>
 
                     <Link
-                      href="/pricing"
+                      href="/services#workflows"
                       onClick={() => setActiveDropdown(null)}
                       prefetch={true}
                       className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
-                        <ShieldCheck className="w-4 h-4" />
+                        <Zap className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Website Care &amp; Growth Retainer</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">Continuous speed tuning, uptime monitoring &amp; monthly content updates.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Workflow &amp; Admin Automation</div>
+                        <p className="text-[11px] text-slate-400 leading-snug">Hands-off CRM syncing, SMS reminders &amp; automated 5-star review collection.</p>
+                      </div>
+                    </Link>
+
+                    <Link
+                      href="/services#outbound"
+                      onClick={() => setActiveDropdown(null)}
+                      prefetch={true}
+                      className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
+                    >
+                      <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
+                        <Activity className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">AI Outbound Speed-to-Lead</div>
+                        <p className="text-[11px] text-slate-400 leading-snug">Sub-30s callback on form fills &amp; automated phone reactivation for quiet quotes.</p>
                       </div>
                     </Link>
                   </motion.div>
@@ -321,17 +336,32 @@ export function Navbar() {
                     </div>
 
                     <Link
-                      href="/local"
+                      href="/#voice-demo"
                       onClick={() => setActiveDropdown(null)}
                       prefetch={true}
                       className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
-                        <Smartphone className="w-4 h-4" />
+                        <PhoneCall className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">Interactive Order Engine</div>
-                        <p className="text-[11px] text-slate-400">Test the 3-tap order builder &amp; instant phone alert live.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">AI Voice Call Simulator</div>
+                        <p className="text-[11px] text-slate-400">Listen to live inbound receptionist &amp; outbound callbacks.</p>
+                      </div>
+                    </Link>
+
+                    <Link
+                      href="/#automation-flow"
+                      onClick={() => setActiveDropdown(null)}
+                      prefetch={true}
+                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
+                    >
+                      <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
+                        <Zap className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">4-Step Revenue Visualizer</div>
+                        <p className="text-[11px] text-slate-400">See how enquiries become booked appointments hands-off.</p>
                       </div>
                     </Link>
 
@@ -345,8 +375,8 @@ export function Navbar() {
                         <Layers className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">Website Creations Gallery</div>
-                        <p className="text-[11px] text-slate-400">Explore bespoke storefronts &amp; client case studies.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">AI Deployments &amp; Case Studies</div>
+                        <p className="text-[11px] text-slate-400">Explore verified client outcomes &amp; operational metrics.</p>
                       </div>
                     </Link>
 
@@ -526,7 +556,7 @@ export function Navbar() {
                 <div className="mb-5 p-3 rounded-xl bg-[#111115] border border-[#DCAE53]/25 flex items-center gap-2.5 text-xs">
                   <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
                   <span className="text-[11px] font-mono text-slate-300">
-                    High-Converting Websites &amp; Booking Systems
+                    24/7 AI Voice · Chatbots · Workflow Automation
                   </span>
                 </div>
 
@@ -534,11 +564,12 @@ export function Navbar() {
                 <nav className="space-y-1.5">
                   {[
                     { name: "Home", href: "/", icon: Sparkles, badge: null },
-                    { name: "Solutions", href: "/services", icon: Globe, badge: "Outcomes" },
-                    { name: "Live Demo", href: "/local", icon: Smartphone, badge: "Interactive" },
-                    { name: "Portfolio", href: "/portfolio", icon: Layers, badge: "Case Studies" },
-                    { name: "Pricing & Retainers", href: "/pricing", icon: CreditCard, badge: "Terms" },
-                    { name: "Deployment Protocol", href: "/process", icon: Zap, badge: null },
+                    { name: "AI Solutions", href: "/services", icon: Cpu, badge: "5 Systems" },
+                    { name: "Voice Call Demo", href: "/#voice-demo", icon: PhoneCall, badge: "Listen Live" },
+                    { name: "Workflow Visualizer", href: "/#automation-flow", icon: Zap, badge: "Interactive" },
+                    { name: "Case Studies", href: "/portfolio", icon: Layers, badge: "Metrics" },
+                    { name: "Pricing & Retainers", href: "/pricing", icon: CreditCard, badge: "Plans" },
+                    { name: "Deployment Protocol", href: "/process", icon: Activity, badge: null },
                     { name: "Contact", href: "/contact", icon: Mail, badge: "UK HQ" },
                   ].map((item) => {
                     const Icon = item.icon

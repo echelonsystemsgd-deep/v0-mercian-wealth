@@ -94,7 +94,7 @@ const comparisonCategories: ComparisonCategory[] = [
       { name: "Edge Cloud Infrastructure", detail: "Global edge CDN with automated failover and unlimited bandwidth", essential: "High-Performance Edge CDN", pro: "Dedicated Edge Cluster", custom: "Isolated Multi-Region CDN" },
       { name: "Monthly Conversion Audits", detail: "Regular speed tuning, image compression audits, and conversion rate optimizations", essential: "Bi-Weekly Speed Checks", pro: "✓ Weekly Speed & Conversion Audits", custom: "✓ Real-Time Performance Audits" },
       { name: "Website Uptime SLA", detail: "Contractual guarantee on continuous website availability and checkout performance", essential: "99.9% Uptime", pro: "99.98% Uptime SLA", custom: "99.99% Enterprise Uptime SLA", highlight: true },
-      { name: "Content & Menu Updates", detail: "Hands-off support for menu changes, price updates, new photos, and service additions", essential: "Standard Support (<24h)", pro: "Priority Support (<4h)", custom: "Same-Day Direct Hotline" },
+      { name: "Knowledge Base & Prompt Updates", detail: "Hands-off support for service adjustments, pricing changes, prompt tuning, and workflow additions", essential: "Standard Support (<24h)", pro: "Priority Support (<4h)", custom: "Same-Day Direct Hotline" },
     ]
   }
 ]

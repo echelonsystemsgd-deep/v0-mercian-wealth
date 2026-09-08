@@ -3,6 +3,8 @@ import { Hero } from "@/components/hero"
 import { WhatChanged } from "@/components/what-changed"
 import { Bottleneck } from "@/components/bottleneck"
 import { OfferMechanism } from "@/components/offer-mechanism"
+import { InteractiveAiVoiceDemo } from "@/components/interactive-ai-voice-demo"
+import { InteractiveAutomationFlow } from "@/components/interactive-automation-flow"
 import { Portfolio } from "@/components/portfolio"
 import { ProofCaseStudies } from "@/components/proof-case-studies"
 import { WhyMercianWealth } from "@/components/why-mercian-wealth"
@@ -50,7 +52,7 @@ export default async function Home() {
                 "@id": "https://mercianwealth.com/#website",
                 "url": "https://mercianwealth.com",
                 "name": "Mercian Wealth",
-                "description": "High-Converting Websites & Automated Booking Systems for UK Local Businesses. See a working prototype before committing.",
+                "description": "24/7 AI Voice Receptionists, Enquiry Chatbots, and Workflow Automation for UK Businesses. See a working prototype before committing.",
                 "publisher": {
                   "@id": "https://mercianwealth.com/#organization"
                 }
@@ -59,14 +61,14 @@ export default async function Home() {
                 "@type": "WebPage",
                 "@id": "https://mercianwealth.com/#webpage",
                 "url": "https://mercianwealth.com",
-                "name": "Mercian Wealth | High-Converting Websites & Booking Systems",
+                "name": "Mercian Wealth | AI Voice, Chatbots & Automation Infrastructure",
                 "isPartOf": {
                   "@id": "https://mercianwealth.com/#website"
                 },
                 "about": {
                   "@id": "https://mercianwealth.com/#organization"
                 },
-                "description": "High-Converting Websites & Automated Booking Systems for UK Local Businesses. See a working prototype before committing."
+                "description": "24/7 AI Voice Receptionists, Enquiry Chatbots, and Workflow Automation for UK Businesses. See a working prototype before committing."
               }
             ]
           })
@@ -91,10 +93,16 @@ export default async function Home() {
       {/* 5. SYSTEM III · The Offer Protocol (Prototype-First 3-Step Sequence) */}
       <OfferMechanism />
 
-      {/* 6. SYSTEM IV · Website Creations & Storefront Showcase */}
+      {/* SYSTEM IV · Live AI Voice & Telephony Demo Player */}
+      <InteractiveAiVoiceDemo />
+
+      {/* SYSTEM IV-B · Autonomous 4-Step Revenue Chain Visualizer */}
+      <InteractiveAutomationFlow />
+
+      {/* 6. SYSTEM IV · AI Systems & Deployments Showcase */}
       <Portfolio />
 
-      {/* 7. SYSTEM V · Verified Proof (Bakery Storefront + Aura Aesthetics Prototype) */}
+      {/* 7. SYSTEM V · Verified Proof (Commercial Trade + Aesthetics Deployments) */}
       <ProofCaseStudies />
 
       {/* 8. SYSTEM VI · Operator & Founder Commitment */}

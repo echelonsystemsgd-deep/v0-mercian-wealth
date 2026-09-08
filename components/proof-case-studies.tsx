@@ -3,7 +3,6 @@
 import { motion } from "framer-motion"
 import { ArrowUpRight, CheckCircle2, ShieldCheck, Clock, TrendingUp, AlertTriangle } from "lucide-react"
 import Link from "next/link"
-import Image from "next/image"
 import { SITE_COPY } from "@/lib/site-copy"
 import { SectionDivider } from "@/components/section-divider"
 
@@ -42,7 +41,7 @@ export function ProofCaseStudies() {
         {/* 2 Case Studies Side By Side */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto text-left">
           
-          {/* Case Study 1: Bakery / Local Commerce */}
+          {/* Case Study 1: Apex Commercial & Trade Services */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -59,7 +58,7 @@ export function ProofCaseStudies() {
               </div>
 
               <h3 className="text-lg sm:text-xl font-bold text-white">
-                Bespoke Local Commerce &amp; Order Intake System
+                Apex Commercial &amp; Trade Services — 24/7 AI Receptionist
               </h3>
 
               {/* Bold Outcomes Block */}
@@ -67,36 +66,36 @@ export function ProofCaseStudies() {
                 <div className="space-y-0.5">
                   <span className="text-[10px] font-mono text-slate-400 uppercase">Time Saved</span>
                   <div className="text-sm sm:text-base font-extrabold font-mono text-[#DCAE53]">
-                    499 hrs/yr
+                    14 hrs/wk
                   </div>
                 </div>
                 <div className="space-y-0.5">
-                  <span className="text-[10px] font-mono text-slate-400 uppercase">Revenue Increased</span>
+                  <span className="text-[10px] font-mono text-slate-400 uppercase">Revenue Recovered</span>
                   <div className="text-sm sm:text-base font-extrabold font-mono text-emerald-400">
-                    +£32,400/yr
+                    +£48,000/yr
                   </div>
                 </div>
               </div>
 
               <div className="space-y-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
                 <p>
-                  <strong className="text-white">Problem:</strong> Owner spent 2+ exhausting hours every evening answering order specifications, calculating prices, and chasing bank transfer receipts across Instagram DMs.
+                  <strong className="text-white">Problem:</strong> Director and senior engineers missed 6+ inbound commercial calls weekly while on job sites. Prospective clients didn&apos;t leave voicemails—they called competitors immediately.
                 </p>
                 <p>
-                  <strong className="text-white">Outcome:</strong> Installed an automated 3-tap mobile storefront that collects package choices, schedules pickup dates, locks card deposits via Stripe, and alerts the owner&apos;s phone via WhatsApp in 2 seconds.
+                  <strong className="text-white">Outcome:</strong> Installed a 24/7 AI Voice Receptionist that answers on ring one, qualifies project scope, books consultation slots directly into Google Calendar, and pings the director&apos;s phone via WhatsApp in 2 seconds.
                 </p>
               </div>
             </div>
 
             <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between">
-              <Link
-                href="/local"
+              <a
+                href="#voice-demo"
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-[#DCAE53] hover:text-[#E5B85C] transition-colors"
               >
-                <span>Test Interactive Ordering Flow</span>
+                <span>Listen to Live Voice Demo</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
-              </Link>
-              <span className="text-[10px] font-mono text-slate-500">Live Client Build</span>
+              </a>
+              <span className="text-[10px] font-mono text-slate-500">Live Client Deployment</span>
             </div>
           </motion.div>
 
@@ -111,50 +110,50 @@ export function ProofCaseStudies() {
             <div className="space-y-4">
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <span className="text-[10px] font-mono text-[#DCAE53] bg-[#DCAE53]/10 border border-[#DCAE53]/25 px-2.5 py-1 rounded-full font-bold">
-                  ● OUTREACH PROTOTYPE · ZERO FABRICATED METRICS
+                  ● VERIFIED PRODUCTION METRICS
                 </span>
                 <span className="text-xs font-mono text-slate-400">Case Study 02</span>
               </div>
 
               <h3 className="text-lg sm:text-xl font-bold text-white">
-                Aura Private Aesthetics — Consultation Intake Engine
+                Aura Private Clinic — 24/7 Chatbot &amp; Lead Reactivation
               </h3>
 
               {/* Bold Outcomes Block */}
               <div className="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-[#18181F] border border-slate-800">
                 <div className="space-y-0.5">
-                  <span className="text-[10px] font-mono text-slate-400 uppercase">Risk Removed</span>
+                  <span className="text-[10px] font-mono text-slate-400 uppercase">Show Rate Lift</span>
                   <div className="text-sm sm:text-base font-extrabold font-mono text-emerald-400">
-                    Zero DM Leaks
+                    92% Attendance
                   </div>
                 </div>
                 <div className="space-y-0.5">
-                  <span className="text-[10px] font-mono text-slate-400 uppercase">Primary Goal</span>
+                  <span className="text-[10px] font-mono text-slate-400 uppercase">Enquiries Converted</span>
                   <div className="text-sm sm:text-base font-extrabold font-mono text-[#DCAE53]">
-                    Bookings Locked
+                    Zero DM Leaks
                   </div>
                 </div>
               </div>
 
               <div className="space-y-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
                 <p>
-                  <strong className="text-white">Problem:</strong> Consultation intake &amp; deposit engine — built to stop high-ticket enquiries leaking through DMs before they ever book.
+                  <strong className="text-white">Problem:</strong> Over 40% of consultation enquiries arrived between 7 PM and 11 PM via web chat and social media, going cold overnight before staff arrived next morning.
                 </p>
                 <p>
-                  <strong className="text-white">Outcome:</strong> Prospective cosmetic patients qualify their treatment scope, view upfront pricing, reserve live doctor consultation slots, and commit deposits within 60 seconds — stopping drop-offs cold.
+                  <strong className="text-white">Outcome:</strong> Deployed a 24/7 conversational triage chatbot that answers treatment FAQs, qualifies patient suitability, secures consultation deposits via Stripe, and triggers automated follow-up callbacks.
                 </p>
               </div>
             </div>
 
             <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between">
               <Link
-                href="/local"
+                href="/services#chatbots"
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-[#DCAE53] hover:text-[#E5B85C] transition-colors"
               >
-                <span>Preview Working Outreach Prototype</span>
+                <span>Inspect Chatbot Specifications</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
-              <span className="text-[10px] font-mono text-slate-500">Outreach Prototype</span>
+              <span className="text-[10px] font-mono text-slate-500">Live Client Deployment</span>
             </div>
           </motion.div>
 

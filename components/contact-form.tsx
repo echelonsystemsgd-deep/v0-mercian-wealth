@@ -162,7 +162,7 @@ export function ContactForm() {
             <input
               id="email"
               type="email"
-              placeholder="e.g. sarah@artisanbakery.co.uk"
+              placeholder="e.g. david@apexservices.co.uk"
               value={formData.email}
               onChange={(e) => updateField("email", e.target.value)}
               className={`w-full bg-[#18181F] border rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] focus:border-[#DCAE53] transition-all ${
@@ -181,7 +181,7 @@ export function ContactForm() {
               <input
                 id="companyName"
                 type="text"
-                placeholder="e.g. The Artisan Bakery"
+                placeholder="e.g. Apex Commercial Services"
                 value={formData.companyName}
                 onChange={(e) => updateField("companyName", e.target.value)}
                 className="w-full bg-[#18181F] border border-slate-800 hover:border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] focus:border-[#DCAE53] transition-all"

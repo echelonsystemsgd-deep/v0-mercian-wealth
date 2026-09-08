@@ -105,12 +105,12 @@ export function Hero() {
                 <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
               <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                &lt; 60 Seconds
+                24/7 Coverage
               </span>
             </div>
-            <h2 className="text-xs sm:text-sm font-bold text-white">1. Sub-60s Inbound Response</h2>
+            <h2 className="text-xs sm:text-sm font-bold text-white">1. 24/7 AI Voice &amp; Chat Response</h2>
             <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed font-sans">
-              Never let an enquiry sit cold. Customers are answered and qualified instantly before they bounce to a competitor.
+              Never let an enquiry go cold. AI phone receptionists and web chatbots answer on ring one and qualify leads 24/7.
             </p>
           </div>
 
@@ -120,12 +120,12 @@ export function Hero() {
                 <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
               <span className="text-[10px] font-mono text-[#DCAE53] font-bold bg-[#DCAE53]/10 px-2 py-0.5 rounded-full border border-[#DCAE53]/30">
-                Stripe / Apple Pay
+                Calendar &amp; Stripe
               </span>
             </div>
-            <h2 className="text-xs sm:text-sm font-bold text-white">2. Upfront Deposits &amp; Booking</h2>
+            <h2 className="text-xs sm:text-sm font-bold text-white">2. Automated Booking &amp; Scoping</h2>
             <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed font-sans">
-              Qualify project scope, confirm live calendar slots, and lock card deposits upfront without evening message tag.
+              Qualify project scope, sync live calendar slots, and lock card deposits upfront without evening message tag.
             </p>
           </div>
 
@@ -138,9 +138,9 @@ export function Hero() {
                 0.4s Alert
               </span>
             </div>
-            <h2 className="text-xs sm:text-sm font-bold text-white">3. Direct Smartphone WhatsApp Alerts</h2>
+            <h2 className="text-xs sm:text-sm font-bold text-white">3. Instant WhatsApp Alerts &amp; CRM</h2>
             <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed font-sans">
-              Full customer intake specs and booking confirmation sent straight to your phone via WhatsApp in under 2 seconds.
+              Full customer intake specs, call summary, and booking details sent straight to your phone via WhatsApp in seconds.
             </p>
           </div>
         </motion.div>
