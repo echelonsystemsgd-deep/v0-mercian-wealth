@@ -21,7 +21,7 @@ type PortfolioItem = {
 
 const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   {
-    title: "Vanguard Premier Operations",
+    title: "Vanguard Architectural Construction",
     category: "High-Ticket Client Intake & Quote Engine · Live Sandbox",
     gradient: "from-amber-500/20 to-yellow-600/20",
     href: "https://premium-local-construction-business.vercel.app/",
@@ -30,18 +30,18 @@ const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     metric: "Instant Sub-Second Project Quote Engine",
   },
   {
-    title: "Sterling Local Commerce",
-    category: "3-Tap Booking & WhatsApp Alert Engine · Live Sandbox",
-    gradient: "from-rose-500/20 to-amber-500/20",
-    href: "/local",
-    image: "/caker-st-preview.png",
+    title: "Aurēlia Cellular Longevity",
+    category: "Precision Nootropics & Bioactive E-Commerce · Live Sandbox",
+    gradient: "from-emerald-500/20 to-teal-500/20",
+    href: "https://premium-supplement-commerce.vercel.app/",
+    image: "/aurelia-supplement-preview.png",
     underConstruction: false,
-    metric: "Sub-60s Intake & 2-Second WhatsApp Alert",
+    metric: "Duodenal Delivery & Automated Subscriptions",
   },
   {
     title: "Aura Private Aesthetics",
     category: "24/7 Chatbot & Consultation Intake Engine · Case Study",
-    gradient: "from-emerald-500/20 to-teal-500/20",
+    gradient: "from-purple-500/20 to-pink-500/20",
     href: null,
     image: "/stamp-app-preview.png",
     underConstruction: true,
@@ -49,17 +49,17 @@ const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   },
   {
     title: "Oakwood Bespoke Contracts",
-    category: "High-Ticket Client Acquisition & Workflow Engine · Case Study",
-    gradient: "from-amber-500/20 to-orange-500/20",
+    category: "Commercial Acquisition & Dispatch Engine · Case Study",
+    gradient: "from-blue-500/20 to-cyan-500/20",
     href: null,
-    image: "/grand-wedding-cakes-preview.png",
+    image: "/vanguard-construction-preview.png",
     underConstruction: true,
     metric: "Automated B2B Outbound Pipeline",
   },
 ]
 
 function PremiumMockup({ item }: { item: PortfolioItem }) {
-  if (item.title.includes("Vanguard") || item.title.includes("Apex") || item.title.includes("Operations")) {
+  if (item.title.includes("Vanguard") || item.title.includes("Construction") || item.title.includes("Operations")) {
     return (
       <div className="absolute inset-2 sm:inset-4 bg-[#050C1A] rounded-xl border border-[#DAA640]/40 overflow-hidden shadow-2xl flex flex-col font-sans">
         <div className="flex items-center justify-between px-3 py-2 bg-[#0A162E] border-b border-[#DAA640]/25 shrink-0">
@@ -69,7 +69,7 @@ function PremiumMockup({ item }: { item: PortfolioItem }) {
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
           </div>
           <div className="h-3.5 bg-[#020E28] border border-[#DAA640]/30 rounded-full px-3 text-[7px] text-[#DAA640] flex items-center justify-center font-mono">
-            vanguard-operations-prototype.vercel.app
+            premium-local-construction-business.vercel.app
           </div>
           <div className="w-4" />
         </div>
@@ -77,23 +77,23 @@ function PremiumMockup({ item }: { item: PortfolioItem }) {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-1.5">
               <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">VANGUARD OPERATIONS</span>
-              <span className="text-[6px] font-bold uppercase tracking-widest text-[#DAA640] bg-[#DAA640]/10 border border-[#DAA640]/30 px-1.5 py-0.5 rounded-full">SURREY & LONDON</span>
+              <span className="text-[6px] font-bold uppercase tracking-widest text-[#DAA640] bg-[#DAA640]/10 border border-[#DAA640]/30 px-1.5 py-0.5 rounded-full">SURREY &amp; LONDON</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="text-[6px] text-emerald-400 font-bold">★ 14+ Yrs Client Excellence</span>
+              <span className="text-[6px] text-emerald-400 font-bold">★ Fixed-Price Guarantee</span>
             </div>
           </div>
           <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-white leading-tight">High-Value Project Scope & Milestone Intake Engine</h4>
-            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Built with fixed-price certainty, sub-second quote engine & turnkey client delivery.</p>
+            <h4 className="text-[11px] font-bold text-white leading-tight">Architectural House Extensions &amp; Loft Conversions</h4>
+            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Sub-second project quote builder with turnkey delivery, upfront deposit locks &amp; instant WhatsApp notifications.</p>
           </div>
           <div className="grid grid-cols-3 gap-1">
             <div className="bg-[#0C1D4D] border border-white/5 rounded p-1 text-center">
               <span className="text-[6px] text-slate-400 block font-mono">Project Tiers</span>
-              <span className="text-[8px] font-serif font-bold text-[#DAA640]">Core & Bespoke</span>
+              <span className="text-[8px] font-serif font-bold text-[#DAA640]">Fixed-Price</span>
             </div>
             <div className="bg-[#0C1D4D] border border-[#DAA640]/40 rounded p-1 text-center bg-[#DAA640]/10">
-              <span className="text-[6px] text-[#DAA640] block font-mono font-bold">Security</span>
+              <span className="text-[6px] text-[#DAA640] block font-mono font-bold">Insurance</span>
               <span className="text-[8px] font-serif font-bold text-white">£5M All-Risk</span>
             </div>
             <div className="bg-[#0C1D4D] border border-white/5 rounded p-1 text-center">
@@ -106,85 +106,46 @@ function PremiumMockup({ item }: { item: PortfolioItem }) {
     )
   }
 
-  if (item.title === "Sterling Local Commerce" || item.title.includes("Sterling") || item.title.includes("Caker")) {
+  if (item.title.includes("Aurēlia") || item.title.includes("Aurelia") || item.title.includes("Supplement") || item.title.includes("Longevity")) {
     return (
-      <div className="absolute inset-2 sm:inset-4 bg-[#140608] rounded-xl border border-rose-950/60 overflow-hidden shadow-2xl flex flex-col font-sans">
-        <div className="flex items-center justify-between px-3 py-2 bg-[#1f0a0d] border-b border-rose-900/30 shrink-0">
+      <div className="absolute inset-2 sm:inset-4 bg-[#0A0A0C] rounded-xl border border-[#DCAE53]/35 overflow-hidden shadow-2xl flex flex-col font-sans">
+        <div className="flex items-center justify-between px-3 py-2 bg-[#121216] border-b border-[#DCAE53]/20 shrink-0">
           <div className="flex gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-rose-500/40" />
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/40" />
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/40" />
+            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
           </div>
-          <div className="h-3.5 bg-rose-950/50 border border-rose-900/30 rounded-full px-3 text-[7px] text-amber-200/60 flex items-center justify-center font-mono">
-            sterling-commerce.vercel.app
+          <div className="h-3.5 bg-[#08080A] border border-[#DCAE53]/30 rounded-full px-3 text-[7px] text-[#DCAE53] flex items-center justify-center font-mono">
+            premium-supplement-commerce.vercel.app
           </div>
           <div className="w-4" />
         </div>
-        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#1a070a] to-[#0d0304]">
+        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#0e0e12] to-[#070709]">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-black tracking-tight text-white font-serif">STERLING COMMERCE</span>
-              <span className="text-[6px] font-bold uppercase tracking-widest text-amber-400 bg-amber-400/10 border border-amber-400/20 px-1.5 py-0.5 rounded-full">LONDON</span>
+              <span className="text-[10px] font-medium tracking-[0.2em] text-white font-serif uppercase">AURĒLIA</span>
+              <span className="text-[6px] font-bold uppercase tracking-widest text-[#DCAE53] bg-[#DCAE53]/10 border border-[#DCAE53]/30 px-1.5 py-0.5 rounded-full">CELLULAR LONGEVITY</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="text-[6px] text-emerald-400 font-bold">★ 4.9 Trustpilot</span>
+              <span className="text-[6px] text-emerald-400 font-bold">★ ISO-17025 Verified</span>
             </div>
           </div>
           <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-white leading-tight">Premium Local Services & Products Delivered Seamlessly</h4>
-            <p className="text-[7px] text-rose-200/70 leading-relaxed max-w-[90%]">High-converting digital storefront with instant mobile booking, deposit collection & automated review extraction.</p>
-          </div>
-          <div className="bg-[#240c11] border border-rose-900/40 rounded p-2 flex justify-between items-center">
-            <div className="space-y-0.5">
-              <span className="text-[6px] text-amber-400/90 block font-mono font-bold">INTERACTIVE CONCIERGE</span>
-              <span className="text-[8px] font-bold text-white">Find Your Custom Scope in 30s</span>
-            </div>
-            <div className="h-4 px-2 bg-amber-400 text-slate-950 rounded flex items-center justify-center font-bold text-[7px]">
-              Book Services →
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (item.title === "Apex Bespoke Consultations" || item.title.includes("Apex") || item.title.includes("Grand Wedding")) {
-    return (
-      <div className="absolute inset-2 sm:inset-4 bg-[#0d0f14] rounded-xl border border-amber-900/30 overflow-hidden shadow-2xl flex flex-col font-sans">
-        <div className="flex items-center justify-between px-3 py-2 bg-[#141824] border-b border-amber-900/20 shrink-0">
-          <div className="flex gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/40" />
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-400/40" />
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/40" />
-          </div>
-          <div className="h-3.5 bg-white/5 border border-white/10 rounded-full px-3 text-[7px] text-amber-200/60 flex items-center justify-center font-mono">
-            apex-consultations.vercel.app
-          </div>
-          <div className="w-4" />
-        </div>
-        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#161a29] to-[#0d101a]">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-serif font-semibold tracking-wider text-amber-200">APEX CONSULTATIONS</span>
-            </div>
-            <span className="text-[6px] uppercase tracking-widest text-[#DAA640] border border-[#DAA640]/30 bg-[#DAA640]/10 px-1.5 py-0.5 rounded-full font-mono">LUXURY ATELIER</span>
-          </div>
-          <div className="space-y-1">
-            <h4 className="text-[11px] font-serif font-medium text-white leading-tight">Bespoke Strategic Delivery For High-Ticket Clients</h4>
-            <p className="text-[7px] text-white/60 leading-relaxed max-w-[88%]">Comprehensive multi-tier service architecture handcrafted with white-glove client onboarding and priority scheduling.</p>
+            <h4 className="text-[11px] font-serif font-normal text-white leading-tight">Precision Cellular Longevity &amp; Nootropics</h4>
+            <p className="text-[7px] text-slate-400 leading-relaxed max-w-[92%]">High-converting luxury e-commerce platform with delayed duodenal delivery protocols, liposomal subscription tiers &amp; instant Apple Pay checkout.</p>
           </div>
           <div className="grid grid-cols-3 gap-1">
-            <div className="bg-[#1c2236] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-white/40 block font-mono">Diagnostic</span>
-              <span className="text-[8px] font-serif font-bold text-amber-300">From £450</span>
+            <div className="bg-[#15151b] border border-white/5 rounded p-1 text-center">
+              <span className="text-[6px] text-slate-400 block font-mono">Enzymatic Purity</span>
+              <span className="text-[8px] font-serif font-bold text-[#DCAE53]">≥99.8% NMN</span>
             </div>
-            <div className="bg-[#1c2236] border border-[#DAA640]/30 rounded p-1 text-center bg-[#DAA640]/5">
-              <span className="text-[6px] text-[#DAA640] block font-mono font-bold">Silver Tier</span>
-              <span className="text-[8px] font-serif font-bold text-white">From £750</span>
+            <div className="bg-[#15151b] border border-[#DCAE53]/30 rounded p-1 text-center bg-[#DCAE53]/5">
+              <span className="text-[6px] text-[#DCAE53] block font-mono font-bold">Checkout</span>
+              <span className="text-[8px] font-serif font-bold text-white">1-Tap Stripe</span>
             </div>
-            <div className="bg-[#1c2236] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-white/40 block font-mono">Gold Tier</span>
-              <span className="text-[8px] font-serif font-bold text-amber-300">From £1k</span>
+            <div className="bg-[#15151b] border border-white/5 rounded p-1 text-center">
+              <span className="text-[6px] text-slate-400 block font-mono">Subscriptions</span>
+              <span className="text-[8px] font-serif font-bold text-[#DCAE53]">Recurring -15%</span>
             </div>
           </div>
         </div>
