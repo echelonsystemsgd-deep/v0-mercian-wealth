@@ -205,17 +205,6 @@ export default function LoginPage() {
             </Link>
           </div>
 
-          {loginType === 'client' && (
-            <p className="text-xs text-slate-400">
-              Don&apos;t have an account?{' '}
-              <Link
-                href="/signup"
-                className="text-[#DCAE53] hover:underline transition-colors font-semibold"
-              >
-                Create one here
-              </Link>
-            </p>
-          )}
 
           <Link
             href="/"

@@ -335,20 +335,6 @@ export function Navbar() {
                       <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Live Routes</span>
                     </div>
 
-                    <Link
-                      href="/#voice-demo"
-                      onClick={() => setActiveDropdown(null)}
-                      prefetch={true}
-                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
-                    >
-                      <div className="p-2 rounded-lg bg-[#18181F] text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0">
-                        <PhoneCall className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53]">AI Voice Call Simulator</div>
-                        <p className="text-[11px] text-slate-400">Listen to live inbound receptionist &amp; outbound callbacks.</p>
-                      </div>
-                    </Link>
 
                     <Link
                       href="/#automation-flow"
@@ -565,7 +551,6 @@ export function Navbar() {
                   {[
                     { name: "Home", href: "/", icon: Sparkles, badge: null },
                     { name: "AI Solutions", href: "/services", icon: Cpu, badge: "5 Systems" },
-                    { name: "Voice Call Demo", href: "/#voice-demo", icon: PhoneCall, badge: "Listen Live" },
                     { name: "Workflow Visualizer", href: "/#automation-flow", icon: Zap, badge: "Interactive" },
                     { name: "Case Studies", href: "/portfolio", icon: Layers, badge: "Metrics" },
                     { name: "Pricing & Retainers", href: "/pricing", icon: CreditCard, badge: "Plans" },

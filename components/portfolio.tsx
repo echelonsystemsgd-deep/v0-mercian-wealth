@@ -21,13 +21,22 @@ type PortfolioItem = {
 
 const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   {
-    title: "Apex Commercial Services",
-    category: "24/7 AI Voice Receptionist & Intake Engine · Case Study",
+    title: "Vanguard Premier Operations",
+    category: "High-Ticket Client Intake & Quote Engine · Live Sandbox",
     gradient: "from-amber-500/20 to-yellow-600/20",
-    href: null,
+    href: "https://premium-local-construction-business.vercel.app/",
     image: "/vanguard-construction-preview.png",
     underConstruction: false,
-    metric: "+£48,000/yr · 14 Admin Hours Saved/Wk",
+    metric: "Instant Sub-Second Project Quote Engine",
+  },
+  {
+    title: "Sterling Local Commerce",
+    category: "3-Tap Booking & WhatsApp Alert Engine · Live Sandbox",
+    gradient: "from-rose-500/20 to-amber-500/20",
+    href: "/local",
+    image: "/caker-st-preview.png",
+    underConstruction: false,
+    metric: "Sub-60s Intake & 2-Second WhatsApp Alert",
   },
   {
     title: "Aura Private Aesthetics",
@@ -35,26 +44,17 @@ const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     gradient: "from-emerald-500/20 to-teal-500/20",
     href: null,
     image: "/stamp-app-preview.png",
-    underConstruction: false,
+    underConstruction: true,
     metric: "92% Show Rate · Zero DM Leaks",
   },
   {
     title: "Oakwood Bespoke Contracts",
-    category: "High-Ticket Client Acquisition & Email Engine · Case Study",
+    category: "High-Ticket Client Acquisition & Workflow Engine · Case Study",
     gradient: "from-amber-500/20 to-orange-500/20",
     href: null,
     image: "/grand-wedding-cakes-preview.png",
-    underConstruction: false,
+    underConstruction: true,
     metric: "Automated B2B Outbound Pipeline",
-  },
-  {
-    title: "Vanguard Commercial Services",
-    category: "Commercial AI Telephony & Quote Engine · Case Study",
-    gradient: "from-blue-500/20 to-indigo-500/20",
-    href: null,
-    image: "/vanguard-construction-preview.png",
-    underConstruction: false,
-    metric: "Instant Sub-Second Project Quote Engine",
   },
 ]
 
@@ -453,16 +453,24 @@ function PrototypePreviewModal({ item, onClose }: { item: PortfolioItem; onClose
           </div>
 
           {/* Prototype Banner & Form Notice */}
-          <div className="bg-emerald-950/80 border-b border-emerald-500/30 text-emerald-300 py-2.5 px-4 text-center text-[10px] sm:text-xs font-semibold font-sans flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 tracking-wide">
-            <div className="flex items-center gap-1.5 uppercase font-mono font-bold text-emerald-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Interactive Sandbox Prototype</span>
+          {item.href ? (
+            <div className="bg-emerald-950/80 border-b border-emerald-500/30 text-emerald-300 py-2.5 px-4 text-center text-[10px] sm:text-xs font-semibold font-sans flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 tracking-wide">
+              <div className="flex items-center gap-1.5 uppercase font-mono font-bold text-emerald-400">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Interactive Sandbox Prototype</span>
+              </div>
+              <span className="hidden sm:inline text-emerald-500/60">•</span>
+              <span className="text-emerald-200/80 text-[10px] sm:text-xs">
+                Feel free to test all interactive tools and forms. Submissions are safely simulated for demo purposes (no live data is dispatched).
+              </span>
             </div>
-            <span className="hidden sm:inline text-emerald-500/60">•</span>
-            <span className="text-emerald-200/80 text-[10px] sm:text-xs">
-              Feel free to test all interactive tools and forms. Submissions are safely simulated for demo purposes (no live data is dispatched).
-            </span>
-          </div>
+          ) : (
+            <div className="bg-[#18181F] border-b border-slate-800 text-slate-300 py-2.5 px-4 text-center text-[10px] sm:text-xs font-semibold font-sans flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 tracking-wide">
+              <div className="flex items-center gap-1.5 uppercase font-mono font-bold text-[#DCAE53]">
+                <span>Verified Client Architecture · Production Case Study</span>
+              </div>
+            </div>
+          )}
 
           {/* Interactive Frame or Showcase Box */}
           <div className="flex-1 relative bg-black/40 overflow-hidden">
@@ -623,7 +631,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                       <p className="text-xs uppercase tracking-widest text-[#DCAE53] font-semibold">
                         {item.category}
                       </p>
-                      {!item.underConstruction ? (
+                      {!item.underConstruction && item.href ? (
                         <span className="text-[9px] font-bold uppercase tracking-wider text-[#34A88E] bg-[#2E8B77]/10 border border-[#2E8B77]/30 px-2.5 py-0.5 rounded-full font-mono">
                           Live Interactive Sandbox
                         </span>
@@ -642,7 +650,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                       </p>
                     )}
                     <div className="pt-2">
-                      {!item.underConstruction ? (
+                      {!item.underConstruction && item.href ? (
                         <Button
                           size="sm"
                           variant="outline"
@@ -658,7 +666,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                           size="sm"
                           variant="outline"
                           onClick={() => setRequestSchemaModal(item)}
-                          className="border-[#DCAE53]/40 text-white hover:bg-[#DCAE53] hover:text-[#09090B] transition-all"
+                          className="border-[#DCAE53]/40 text-white hover:bg-[#DCAE53] hover:text-[#09090B] transition-all cursor-pointer"
                         >
                           <span className="text-xs font-bold uppercase tracking-wider">
                             View Blueprint →
@@ -676,7 +684,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                       <p className="text-[10px] uppercase tracking-widest text-[#DCAE53] font-semibold leading-none truncate max-w-full">
                         {item.category} {item.metric ? `· ${item.metric}` : ''}
                       </p>
-                      {!item.underConstruction ? (
+                      {!item.underConstruction && item.href ? (
                         <span className="shrink-0 text-[8px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-1.5 py-0.5 rounded-full font-mono">
                           Live Sandbox
                         </span>
@@ -690,7 +698,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                       {item.title}
                     </h3>
                   </div>
-                  {!item.underConstruction ? (
+                  {!item.underConstruction && item.href ? (
                     <button
                       className="shrink-0 ml-3 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#09090B] bg-emerald-400 px-3 py-1.5 rounded-lg active:opacity-80 transition-opacity cursor-pointer"
                       onClick={() => setPreviewPrototype(item)}

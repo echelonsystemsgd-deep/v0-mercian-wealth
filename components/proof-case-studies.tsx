@@ -89,10 +89,10 @@ export function ProofCaseStudies() {
 
             <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between">
               <a
-                href="#voice-demo"
+                href="#automation-flow"
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-[#DCAE53] hover:text-[#E5B85C] transition-colors"
               >
-                <span>Listen to Live Voice Demo</span>
+                <span>Explore Workflow Visualizer</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
               <span className="text-[10px] font-mono text-slate-500">Live Client Deployment</span>

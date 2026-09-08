@@ -3,7 +3,6 @@ import { Hero } from "@/components/hero"
 import { WhatChanged } from "@/components/what-changed"
 import { Bottleneck } from "@/components/bottleneck"
 import { OfferMechanism } from "@/components/offer-mechanism"
-import { InteractiveAiVoiceDemo } from "@/components/interactive-ai-voice-demo"
 import { InteractiveAutomationFlow } from "@/components/interactive-automation-flow"
 import { Portfolio } from "@/components/portfolio"
 import { ProofCaseStudies } from "@/components/proof-case-studies"
@@ -92,9 +91,6 @@ export default async function Home() {
 
       {/* 5. SYSTEM III · The Offer Protocol (Prototype-First 3-Step Sequence) */}
       <OfferMechanism />
-
-      {/* SYSTEM IV · Live AI Voice & Telephony Demo Player */}
-      <InteractiveAiVoiceDemo />
 
       {/* SYSTEM IV-B · Autonomous 4-Step Revenue Chain Visualizer */}
       <InteractiveAutomationFlow />
