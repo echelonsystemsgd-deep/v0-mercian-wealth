@@ -1,446 +1,98 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, X, Loader2, Lock } from "lucide-react"
+import {
+  ArrowRight,
+  X,
+  Loader2,
+  Lock,
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  Pause,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { createClient } from "@/lib/supabase/client"
 import { SITE_COPY } from "@/lib/site-copy"
 
-type PortfolioItem = {
+export type PortfolioItem = {
   title: string
   category: string
   gradient: string
   href?: string | null
-  image?: string | null
+  image: string
   underConstruction: boolean
   metric?: string | null
+  domain?: string
 }
 
-const DEFAULT_PORTFOLIO: PortfolioItem[] = [
+export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
+  {
+    title: "Example Build: Luxury Techwear & Adaptive Outerwear",
+    category: "Luxury E-Commerce & Sovereign Outerwear · Live Sandbox",
+    gradient: "from-zinc-800/40 to-cyan-950/40",
+    href: "https://princeps-ecom.vercel.app/",
+    image: "/princeps-techwear-preview.jpg",
+    underConstruction: false,
+    metric: "Kinetic Shell Visualizer & Dynamic Cart",
+    domain: "princeps-ecom.vercel.app",
+  },
+  {
+    title: "Example Build: Private Cosmetic Dentistry & Smile Assessment",
+    category: "Patient Triage & 60s Smile Assessment · Live Sandbox",
+    gradient: "from-emerald-950/40 to-teal-950/40",
+    href: "https://dental-clinic-prototype-zeta.vercel.app/",
+    image: "/meridian-dental-preview.jpg",
+    underConstruction: false,
+    metric: "60s Smile Assessment & Treatment Guide",
+    domain: "dental-clinic-prototype-zeta.vercel.app",
+  },
   {
     title: "Example Build: Architectural Construction & House Extensions",
-    category: "High-Ticket Client Intake & Quote Engine · Live Sandbox",
-    gradient: "from-amber-500/20 to-yellow-600/20",
+    category: "High-Ticket Intake & Instant Quote Engine · Live Sandbox",
+    gradient: "from-amber-950/40 to-yellow-950/40",
     href: "https://premium-local-construction-business.vercel.app/",
     image: "/vanguard-construction-preview.png",
     underConstruction: false,
     metric: "Instant Sub-Second Project Quote Engine",
+    domain: "premium-local-construction-business.vercel.app",
+  },
+  {
+    title: "Example Build: Commercial & Residential Roofing Systems",
+    category: "Emergency Repair Dispatch & Quote Lock · Live Sandbox",
+    gradient: "from-blue-950/40 to-indigo-950/40",
+    href: "https://home-solutions-roofing.vercel.app/",
+    image: "/home-solutions-roofing-preview.jpg",
+    underConstruction: false,
+    metric: "Emergency Repair Dispatch & Quote Locks",
+    domain: "home-solutions-roofing.vercel.app",
+  },
+  {
+    title: "Example Build: Bespoke Extensions & Structural Renovations",
+    category: "Turnkey Scope Estimator & Contractor Intake · Live Sandbox",
+    gradient: "from-amber-950/40 to-orange-950/40",
+    href: "https://me-building-services.vercel.app/",
+    image: "/me-building-services-preview.jpg",
+    underConstruction: false,
+    metric: "Turnkey Scope Estimator & Milestone Billing",
+    domain: "me-building-services.vercel.app",
   },
   {
     title: "Example Build: Cellular Longevity & Precision Nutrition Storefront",
     category: "Luxury E-Commerce & Subscriptions · Live Sandbox",
-    gradient: "from-emerald-500/20 to-teal-500/20",
+    gradient: "from-emerald-950/40 to-teal-950/40",
     href: "https://premium-supplement-commerce.vercel.app/",
     image: "/aurelia-supplement-preview.png",
     underConstruction: false,
     metric: "Duodenal Delivery & Automated Subscriptions",
-  },
-  {
-    title: "Example Build: Commercial & Residential Roofing Systems",
-    category: "Rapid Dispatch & Quote Engine · Live Sandbox",
-    gradient: "from-blue-500/20 to-indigo-500/20",
-    href: "https://home-solutions-roofing.vercel.app/",
-    image: null,
-    underConstruction: false,
-    metric: "Emergency Repair Dispatch & Quote Locks",
-  },
-  {
-    title: "Example Build: Bespoke Extensions & Structural Renovations",
-    category: "Contractor Intake & Estimator · Live Sandbox",
-    gradient: "from-amber-500/20 to-orange-500/20",
-    href: "https://me-building-services.vercel.app/",
-    image: null,
-    underConstruction: false,
-    metric: "Turnkey Scope Estimator & Milestone Billing",
-  },
-  {
-    title: "Example Build: Owner-Led Prime Residential Contracting",
-    category: "High-Value Project Intake · Live Sandbox",
-    gradient: "from-slate-500/20 to-zinc-500/20",
-    href: "https://berkshireheathrow.vercel.app/",
-    image: null,
-    underConstruction: false,
-    metric: "Principal Oversight & Zero Subcontractor Markup",
-  },
-  {
-    title: "Example Build: High-Performance Lifestyle & Dual-System Flagship",
-    category: "Digital Partner Pathways & Commerce · Live Sandbox",
-    gradient: "from-cyan-500/20 to-blue-500/20",
-    href: "https://vyra-dual-system-flagship.vercel.app/",
-    image: null,
-    underConstruction: false,
-    metric: "Dual-Engine Commerce & Partner Onboarding",
-  },
-  {
-    title: "Example Build: Private Healthcare & Dental Consultation Booking",
-    category: "Patient Triage & Appointment Scheduling · Live Sandbox",
-    gradient: "from-teal-500/20 to-emerald-500/20",
-    href: "https://dental-clinic-prototype.vercel.app/",
-    image: null,
-    underConstruction: false,
-    metric: "24/7 Conversational Triage & Slot Booking",
-  },
-  {
-    title: "Stamp & Collectibles AI Valuation Engine",
-    category: "AI Computer Vision & Appraisal · Under Development",
-    gradient: "from-purple-500/20 to-violet-500/20",
-    href: null,
-    image: "/stamp-app-preview.png",
-    underConstruction: true,
-    metric: "Target Latency: < 1s · AI Neural Appraisal",
+    domain: "premium-supplement-commerce.vercel.app",
   },
 ]
-
-function PremiumMockup({ item }: { item: PortfolioItem }) {
-  if (item.title.includes("Roofing") || item.title.includes("Roof")) {
-    return (
-      <div className="absolute inset-2 sm:inset-4 bg-[#071426] rounded-xl border border-blue-500/40 overflow-hidden shadow-2xl flex flex-col font-sans">
-        <div className="flex items-center justify-between px-3 py-2 bg-[#0c1f38] border-b border-blue-500/25 shrink-0">
-          <div className="flex gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-          </div>
-          <div className="h-3.5 bg-[#050f1d] border border-blue-500/30 rounded-full px-3 text-[7px] text-blue-300 flex items-center justify-center font-mono">
-            home-solutions-roofing.vercel.app
-          </div>
-          <div className="w-4" />
-        </div>
-        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#091e38] to-[#040c17]">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">ROOFING &amp; DISPATCH</span>
-              <span className="text-[6px] font-bold uppercase tracking-widest text-blue-300 bg-blue-500/15 border border-blue-500/30 px-1.5 py-0.5 rounded-full">SURREY &amp; WEYBRIDGE</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <span className="text-[6px] text-emerald-400 font-bold">★ Guild Certified</span>
-            </div>
-          </div>
-          <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-white leading-tight">Professional Roofing &amp; Emergency Repair Triage</h4>
-            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Rapid-response quote dispatch, drone roof surveys, insurance claim exports, and instant deposit locks.</p>
-          </div>
-          <div className="grid grid-cols-3 gap-1">
-            <div className="bg-[#0e274a] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Dispatch</span>
-              <span className="text-[8px] font-serif font-bold text-blue-300">&lt;45 Mins</span>
-            </div>
-            <div className="bg-[#0e274a] border border-blue-500/40 rounded p-1 text-center bg-blue-500/10">
-              <span className="text-[6px] text-blue-300 block font-mono font-bold">Warranty</span>
-              <span className="text-[8px] font-serif font-bold text-white">25-Yr Guild</span>
-            </div>
-            <div className="bg-[#0e274a] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Insurance</span>
-              <span className="text-[8px] font-serif font-bold text-blue-300">£10M All-Risk</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (item.title.includes("Bespoke Extensions") || item.title.includes("Structural Renovations")) {
-    return (
-      <div className="absolute inset-2 sm:inset-4 bg-[#14100c] rounded-xl border border-amber-500/40 overflow-hidden shadow-2xl flex flex-col font-sans">
-        <div className="flex items-center justify-between px-3 py-2 bg-[#211a14] border-b border-amber-500/25 shrink-0">
-          <div className="flex gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-          </div>
-          <div className="h-3.5 bg-[#0d0a08] border border-amber-500/30 rounded-full px-3 text-[7px] text-amber-300 flex items-center justify-center font-mono">
-            me-building-services.vercel.app
-          </div>
-          <div className="w-4" />
-        </div>
-        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#211a14] to-[#0c0907]">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">STRUCTURAL EXTENSIONS</span>
-              <span className="text-[6px] font-bold uppercase tracking-widest text-amber-300 bg-amber-500/15 border border-amber-500/30 px-1.5 py-0.5 rounded-full">SURREY &amp; LONDON</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <span className="text-[6px] text-emerald-400 font-bold">★ Master Builder</span>
-            </div>
-          </div>
-          <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-white leading-tight">Turnkey House Extensions &amp; Loft Conversions</h4>
-            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Sub-second project scope breakdown, milestone-based escrow deposit billing, and real-time site updates.</p>
-          </div>
-          <div className="grid grid-cols-3 gap-1">
-            <div className="bg-[#291f17] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Scope Intake</span>
-              <span className="text-[8px] font-serif font-bold text-amber-300">Instant BOQ</span>
-            </div>
-            <div className="bg-[#291f17] border border-amber-500/40 rounded p-1 text-center bg-amber-500/10">
-              <span className="text-[6px] text-amber-300 block font-mono font-bold">Milestones</span>
-              <span className="text-[8px] font-serif font-bold text-white">Escrow Lock</span>
-            </div>
-            <div className="bg-[#291f17] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Contract</span>
-              <span className="text-[8px] font-serif font-bold text-amber-300">Fixed Lump-Sum</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (item.title.includes("Owner-Led") || item.title.includes("Prime Residential")) {
-    return (
-      <div className="absolute inset-2 sm:inset-4 bg-[#0a101d] rounded-xl border border-slate-500/40 overflow-hidden shadow-2xl flex flex-col font-sans">
-        <div className="flex items-center justify-between px-3 py-2 bg-[#121c30] border-b border-slate-500/25 shrink-0">
-          <div className="flex gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-          </div>
-          <div className="h-3.5 bg-[#070b14] border border-slate-500/30 rounded-full px-3 text-[7px] text-slate-300 flex items-center justify-center font-mono">
-            berkshireheathrow.vercel.app
-          </div>
-          <div className="w-4" />
-        </div>
-        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#121c30] to-[#070b14]">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">OWNER-LED PRIME BUILDS</span>
-              <span className="text-[6px] font-bold uppercase tracking-widest text-slate-300 bg-slate-500/15 border border-slate-500/30 px-1.5 py-0.5 rounded-full">BERKSHIRE &amp; BUCKS</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <span className="text-[6px] text-emerald-400 font-bold">★ Principal Oversight</span>
-            </div>
-          </div>
-          <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-white leading-tight">High-Specification Architectural Residences</h4>
-            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Direct founder-led construction intake with zero subcontractor layers, transparent bill-of-quantities, and weekly client video walk-throughs.</p>
-          </div>
-          <div className="grid grid-cols-3 gap-1">
-            <div className="bg-[#172540] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Supervision</span>
-              <span className="text-[8px] font-serif font-bold text-slate-200">Founder-Led</span>
-            </div>
-            <div className="bg-[#172540] border border-slate-500/40 rounded p-1 text-center bg-slate-500/10">
-              <span className="text-[6px] text-slate-300 block font-mono font-bold">Tenders</span>
-              <span className="text-[8px] font-serif font-bold text-white">Transparent BOQ</span>
-            </div>
-            <div className="bg-[#172540] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Capacity</span>
-              <span className="text-[8px] font-serif font-bold text-slate-200">3 Builds / Yr</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (item.title.includes("Lifestyle") || item.title.includes("Dual-System") || item.title.includes("Flagship")) {
-    return (
-      <div className="absolute inset-2 sm:inset-4 bg-[#080811] rounded-xl border border-cyan-500/40 overflow-hidden shadow-2xl flex flex-col font-sans">
-        <div className="flex items-center justify-between px-3 py-2 bg-[#101026] border-b border-cyan-500/25 shrink-0">
-          <div className="flex gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-          </div>
-          <div className="h-3.5 bg-[#05050d] border border-cyan-500/30 rounded-full px-3 text-[7px] text-cyan-300 flex items-center justify-center font-mono">
-            vyra-dual-system-flagship.vercel.app
-          </div>
-          <div className="w-4" />
-        </div>
-        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#101026] to-[#05050d]">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">BIOMECHANICAL PERFORMANCE</span>
-              <span className="text-[6px] font-bold uppercase tracking-widest text-cyan-300 bg-cyan-500/15 border border-cyan-500/30 px-1.5 py-0.5 rounded-full">DUAL-SYSTEM FLAGSHIP</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <span className="text-[6px] text-emerald-400 font-bold">★ Clinical Grade</span>
-            </div>
-          </div>
-          <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-white leading-tight">Elite Nutrition Systems &amp; Partner Pathways</h4>
-            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Dual-engine digital commerce uniting clinical bio-optimization supplements with automated partner affiliate funnels and commission tracking.</p>
-          </div>
-          <div className="grid grid-cols-3 gap-1">
-            <div className="bg-[#171738] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Purity</span>
-              <span className="text-[8px] font-serif font-bold text-cyan-300">Clinical Grade</span>
-            </div>
-            <div className="bg-[#171738] border border-cyan-500/40 rounded p-1 text-center bg-cyan-500/10">
-              <span className="text-[6px] text-cyan-300 block font-mono font-bold">Commerce</span>
-              <span className="text-[8px] font-serif font-bold text-white">1-Tap Stripe</span>
-            </div>
-            <div className="bg-[#171738] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Partners</span>
-              <span className="text-[8px] font-serif font-bold text-cyan-300">Auto Funnel</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (item.title.includes("Dental") || item.title.includes("Healthcare") || item.title.includes("Medical")) {
-    return (
-      <div className="absolute inset-2 sm:inset-4 bg-[#06131c] rounded-xl border border-teal-500/40 overflow-hidden shadow-2xl flex flex-col font-sans">
-        <div className="flex items-center justify-between px-3 py-2 bg-[#0d2536] border-b border-teal-500/25 shrink-0">
-          <div className="flex gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-          </div>
-          <div className="h-3.5 bg-[#040d14] border border-teal-500/30 rounded-full px-3 text-[7px] text-teal-300 flex items-center justify-center font-mono">
-            dental-clinic-prototype.vercel.app
-          </div>
-          <div className="w-4" />
-        </div>
-        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#0d2536] to-[#040d14]">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">PRIVATE MEDICAL &amp; DENTAL</span>
-              <span className="text-[6px] font-bold uppercase tracking-widest text-teal-300 bg-teal-500/15 border border-teal-500/30 px-1.5 py-0.5 rounded-full">SURREY &amp; LONDON</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <span className="text-[6px] text-emerald-400 font-bold">★ CQC Protocols</span>
-            </div>
-          </div>
-          <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-white leading-tight">Conversational Patient Intake &amp; Booking</h4>
-            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">24/7 intelligent patient triage chatbot qualifying treatment suitability, estimating clinical timelines, and reserving deposit slots.</p>
-          </div>
-          <div className="grid grid-cols-3 gap-1">
-            <div className="bg-[#13354d] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Triage</span>
-              <span className="text-[8px] font-serif font-bold text-teal-300">24/7 Conversational</span>
-            </div>
-            <div className="bg-[#13354d] border border-teal-500/40 rounded p-1 text-center bg-teal-500/10">
-              <span className="text-[6px] text-teal-300 block font-mono font-bold">Booking</span>
-              <span className="text-[8px] font-serif font-bold text-white">Calendar Lock</span>
-            </div>
-            <div className="bg-[#13354d] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Waitlist</span>
-              <span className="text-[8px] font-serif font-bold text-teal-300">Zero Friction</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (item.title.includes("Architectural") || item.title.includes("Construction") || item.title.includes("Operations")) {
-    return (
-      <div className="absolute inset-2 sm:inset-4 bg-[#050C1A] rounded-xl border border-[#DAA640]/40 overflow-hidden shadow-2xl flex flex-col font-sans">
-        <div className="flex items-center justify-between px-3 py-2 bg-[#0A162E] border-b border-[#DAA640]/25 shrink-0">
-          <div className="flex gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-          </div>
-          <div className="h-3.5 bg-[#020E28] border border-[#DAA640]/30 rounded-full px-3 text-[7px] text-[#DAA640] flex items-center justify-center font-mono">
-            premium-local-construction-business.vercel.app
-          </div>
-          <div className="w-4" />
-        </div>
-        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#07153B] to-[#020E28]">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">ARCHITECTURAL EXTENSIONS</span>
-              <span className="text-[6px] font-bold uppercase tracking-widest text-[#DAA640] bg-[#DAA640]/10 border border-[#DAA640]/30 px-1.5 py-0.5 rounded-full">SURREY &amp; LONDON</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <span className="text-[6px] text-emerald-400 font-bold">★ Fixed-Price Guarantee</span>
-            </div>
-          </div>
-          <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-white leading-tight">Architectural House Extensions &amp; Loft Conversions</h4>
-            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Sub-second project quote builder with turnkey delivery, upfront deposit locks &amp; instant WhatsApp notifications.</p>
-          </div>
-          <div className="grid grid-cols-3 gap-1">
-            <div className="bg-[#0C1D4D] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Project Tiers</span>
-              <span className="text-[8px] font-serif font-bold text-[#DAA640]">Fixed-Price</span>
-            </div>
-            <div className="bg-[#0C1D4D] border border-[#DAA640]/40 rounded p-1 text-center bg-[#DAA640]/10">
-              <span className="text-[6px] text-[#DAA640] block font-mono font-bold">Insurance</span>
-              <span className="text-[8px] font-serif font-bold text-white">£5M All-Risk</span>
-            </div>
-            <div className="bg-[#0C1D4D] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Deposit Lock</span>
-              <span className="text-[8px] font-serif font-bold text-[#DAA640]">Instant Stripe</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (item.title.includes("Cellular") || item.title.includes("Aurēlia") || item.title.includes("Aurelia") || item.title.includes("Supplement") || item.title.includes("Longevity")) {
-    return (
-      <div className="absolute inset-2 sm:inset-4 bg-[#0A0A0C] rounded-xl border border-[#DCAE53]/35 overflow-hidden shadow-2xl flex flex-col font-sans">
-        <div className="flex items-center justify-between px-3 py-2 bg-[#121216] border-b border-[#DCAE53]/20 shrink-0">
-          <div className="flex gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-          </div>
-          <div className="h-3.5 bg-[#08080A] border border-[#DCAE53]/30 rounded-full px-3 text-[7px] text-[#DCAE53] flex items-center justify-center font-mono">
-            premium-supplement-commerce.vercel.app
-          </div>
-          <div className="w-4" />
-        </div>
-        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#0e0e12] to-[#070709]">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-medium tracking-[0.2em] text-white font-serif uppercase">CELLULAR NUTRITION</span>
-              <span className="text-[6px] font-bold uppercase tracking-widest text-[#DCAE53] bg-[#DCAE53]/10 border border-[#DCAE53]/30 px-1.5 py-0.5 rounded-full">PRECISION STOREFRONT</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <span className="text-[6px] text-emerald-400 font-bold">★ ISO-17025 Verified</span>
-            </div>
-          </div>
-          <div className="space-y-1">
-            <h4 className="text-[11px] font-serif font-normal text-white leading-tight">Precision Cellular Longevity &amp; Nootropics</h4>
-            <p className="text-[7px] text-slate-400 leading-relaxed max-w-[92%]">High-converting luxury e-commerce platform with delayed duodenal delivery protocols, liposomal subscription tiers &amp; instant Apple Pay checkout.</p>
-          </div>
-          <div className="grid grid-cols-3 gap-1">
-            <div className="bg-[#15151b] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Enzymatic Purity</span>
-              <span className="text-[8px] font-serif font-bold text-[#DCAE53]">≥99.8% NMN</span>
-            </div>
-            <div className="bg-[#15151b] border border-[#DCAE53]/30 rounded p-1 text-center bg-[#DCAE53]/5">
-              <span className="text-[6px] text-[#DCAE53] block font-mono font-bold">Checkout</span>
-              <span className="text-[8px] font-serif font-bold text-white">1-Tap Stripe</span>
-            </div>
-            <div className="bg-[#15151b] border border-white/5 rounded p-1 text-center">
-              <span className="text-[6px] text-slate-400 block font-mono">Subscriptions</span>
-              <span className="text-[8px] font-serif font-bold text-[#DCAE53]">Recurring -15%</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <div className="absolute inset-4 lg:inset-6 bg-card rounded-xl border border-border overflow-hidden shadow-2xl">
-      <div className="flex items-center gap-2 px-3 py-2 bg-secondary/50 border-b border-border">
-        <div className="flex gap-1">
-          <div className="w-2 h-2 rounded-full bg-red-500/50" />
-          <div className="w-2 h-2 rounded-full bg-yellow-500/50" />
-          <div className="w-2 h-2 rounded-full bg-green-500/50" />
-        </div>
-      </div>
-      <div className="p-4 space-y-3">
-        <div className="h-4 bg-accent-gold/20 rounded w-2/3" />
-        <div className="h-3 bg-secondary rounded w-full" />
-        <div className="h-3 bg-secondary rounded w-4/5" />
-      </div>
-    </div>
-  )
-}
 
 function RequestSystemSchemaModal({ item, onClose }: { item: PortfolioItem; onClose: () => void }) {
   const [email, setEmail] = useState("")
@@ -455,11 +107,10 @@ function RequestSystemSchemaModal({ item, onClose }: { item: PortfolioItem; onCl
     setIsSubmitting(true)
     setErrorMsg(null)
 
-    // Capture UTM tracking parameters from current page URL
     let utmParams: Record<string, string> = {}
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const searchParams = new URLSearchParams(window.location.search)
-      const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
+      const utmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"]
       utmKeys.forEach((key) => {
         const val = searchParams.get(key)
         if (val) utmParams[key] = val
@@ -467,15 +118,15 @@ function RequestSystemSchemaModal({ item, onClose }: { item: PortfolioItem; onCl
     }
 
     try {
-      const res = await fetch('/api/portfolio/request', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/portfolio/request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: name,
-          email: email,
+          name,
+          email,
           project_name: item.title,
-          referrer: typeof document !== 'undefined' ? document.referrer : 'none',
-          user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : 'none',
+          referrer: typeof document !== "undefined" ? document.referrer : "none",
+          user_agent: typeof navigator !== "undefined" ? navigator.userAgent : "none",
           ...utmParams,
         }),
       })
@@ -553,7 +204,7 @@ function RequestSystemSchemaModal({ item, onClose }: { item: PortfolioItem; onCl
               </div>
               <h4 className="font-serif text-lg font-bold text-accent-gold">Request Received</h4>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Your request for the sanitized blueprints and case study of <strong>{item.title}</strong> has been secured. We will transmit the walkthrough details directly to <strong>{email}</strong> shortly.
+                Your request for the blueprints of <strong>{item.title}</strong> has been secured. We will transmit the walkthrough details directly to <strong>{email}</strong> shortly.
               </p>
             </motion.div>
           ) : (
@@ -596,8 +247,8 @@ function RequestSystemSchemaModal({ item, onClose }: { item: PortfolioItem; onCl
                   <Loader2 size={16} className="animate-spin text-bg-primary" />
                 ) : (
                   <>
-                     <span>{SITE_COPY.portfolioPage.submitBtnText}</span>
-                     <ArrowRight size={16} />
+                    <span>{SITE_COPY.portfolioPage.submitBtnText}</span>
+                    <ArrowRight size={16} />
                   </>
                 )}
               </Button>
@@ -621,6 +272,15 @@ function RequestSystemSchemaModal({ item, onClose }: { item: PortfolioItem; onCl
 function PrototypePreviewModal({ item, onClose }: { item: PortfolioItem; onClose: () => void }) {
   const [loading, setLoading] = useState(true)
 
+  // Prevent background body scrolling while modal is open
+  useEffect(() => {
+    const originalStyle = window.getComputedStyle(document.body).overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = originalStyle
+    }
+  }, [])
+
   return (
     <AnimatePresence>
       <motion.div
@@ -632,51 +292,48 @@ function PrototypePreviewModal({ item, onClose }: { item: PortfolioItem; onClose
         className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6"
         onClick={onClose}
       >
-        <div className="absolute inset-0 bg-black/85 backdrop-blur-md" />
+        <div className="absolute inset-0 bg-black/90 backdrop-blur-md" />
 
         <motion.div
           key="preview-window"
-          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          initial={{ opacity: 0, scale: 0.96, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 15 }}
+          exit={{ opacity: 0, scale: 0.96, y: 15 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="relative z-10 w-full h-full md:h-[85vh] md:max-w-6xl bg-bg-tertiary md:border md:border-white/10 rounded-none md:rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+          className="relative z-10 w-full h-full md:h-[88vh] md:max-w-6xl bg-[#0d0d12] md:border md:border-white/10 rounded-none md:rounded-2xl overflow-hidden shadow-2xl flex flex-col"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 bg-bg-secondary border-b border-white/5 shrink-0">
+          {/* Header Bar */}
+          <div className="flex items-center justify-between px-4 py-3 bg-[#13131a] border-b border-white/10 shrink-0">
             <div className="flex items-center gap-3">
               <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                <div
+                  className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-400 cursor-pointer transition-colors"
+                  onClick={onClose}
+                  title="Close Preview"
+                />
                 <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 <div className="w-3 h-3 rounded-full bg-green-500/80" />
               </div>
               <div className="h-4 w-px bg-white/10" />
               <div className="text-left">
-                <h4 className="font-serif text-sm font-bold text-white leading-tight">
+                <h4 className="font-sans text-sm font-bold text-white leading-tight">
                   {item.title}
                 </h4>
-                <p className="text-[10px] uppercase tracking-wider text-accent-gold font-semibold leading-none mt-0.5">
-                  {item.category}
+                <p className="text-[10px] uppercase tracking-wider text-[#DCAE53] font-semibold leading-none mt-0.5 font-mono">
+                  {item.domain || item.category}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              {item.href && (
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-accent-gold hover:underline flex items-center gap-1 mr-2 font-mono"
-                >
-                  <span>Open External</span>
-                  <ArrowRight size={12} />
-                </a>
-              )}
+              <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[10px] font-bold uppercase tracking-wider">
+                <ShieldCheck size={13} className="text-emerald-400" />
+                <span>Sandbox Mode · Backend Guarded</span>
+              </div>
               <button
                 onClick={onClose}
-                className="text-white/40 hover:text-white hover:bg-white/10 transition-colors rounded-full p-1.5 cursor-pointer"
+                className="text-white/50 hover:text-white hover:bg-white/10 transition-colors rounded-full p-1.5 cursor-pointer ml-1"
                 aria-label="Close Preview"
               >
                 <X size={18} />
@@ -684,35 +341,27 @@ function PrototypePreviewModal({ item, onClose }: { item: PortfolioItem; onClose
             </div>
           </div>
 
-          {/* Prototype Banner & Form Notice */}
-          {item.href ? (
-            <div className="bg-emerald-950/80 border-b border-emerald-500/30 text-emerald-300 py-2.5 px-4 text-center text-[10px] sm:text-xs font-semibold font-sans flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 tracking-wide">
-              <div className="flex items-center gap-1.5 uppercase font-mono font-bold text-emerald-400">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Interactive Sandbox Prototype</span>
-              </div>
-              <span className="hidden sm:inline text-emerald-500/60">•</span>
-              <span className="text-emerald-200/80 text-[10px] sm:text-xs">
-                Feel free to test all interactive tools and forms. Submissions are safely simulated for demo purposes (no live data is dispatched).
-              </span>
+          {/* Prototype Security & Interactive Notice Banner */}
+          <div className="bg-emerald-950/90 border-b border-emerald-500/30 text-emerald-300 py-2.5 px-4 text-center text-[10px] sm:text-xs font-semibold font-sans flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 tracking-wide shrink-0">
+            <div className="flex items-center gap-1.5 uppercase font-mono font-bold text-emerald-400 shrink-0">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Live Interactive Sandbox</span>
             </div>
-          ) : (
-            <div className="bg-[#18181F] border-b border-slate-800 text-slate-300 py-2.5 px-4 text-center text-[10px] sm:text-xs font-semibold font-sans flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 tracking-wide">
-              <div className="flex items-center gap-1.5 uppercase font-mono font-bold text-[#DCAE53]">
-                <span>Verified Client Architecture · Production Case Study</span>
-              </div>
-            </div>
-          )}
+            <span className="hidden sm:inline text-emerald-500/60">•</span>
+            <span className="text-emerald-200/90 text-[10px] sm:text-xs">
+              Interactive calculators, variant pickers, quizzes, and UI workflows are live for testing. External dispatches (WhatsApp chats, calendar bookings, and transactions) are sandboxed and simulated for demonstration safety.
+            </span>
+          </div>
 
-          {/* Interactive Frame or Showcase Box */}
-          <div className="flex-1 relative bg-black/40 overflow-hidden">
+          {/* Interactive Frame Viewport */}
+          <div className="flex-1 relative bg-black/50 overflow-hidden">
             {item.href ? (
               <>
                 {loading && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-bg-tertiary z-20 transition-opacity duration-300">
-                    <Loader2 className="w-8 h-8 text-accent-gold animate-spin" />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#09090B] z-20 transition-opacity duration-300">
+                    <Loader2 className="w-8 h-8 text-[#DCAE53] animate-spin" />
                     <p className="text-xs text-muted-foreground font-mono">
-                      Loading prototype viewport...
+                      Initializing secure interactive sandbox viewport...
                     </p>
                   </div>
                 )}
@@ -724,33 +373,11 @@ function PrototypePreviewModal({ item, onClose }: { item: PortfolioItem; onClose
                 />
               </>
             ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center space-y-6">
-                {item.image && (
-                  <div className="relative w-full max-w-lg aspect-video rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-                <div className="max-w-md space-y-2">
-                  <h3 className="text-xl font-serif font-bold text-white">{item.title}</h3>
-                  <p className="text-xs text-muted-foreground font-mono">{item.category}</p>
-                  {item.metric && (
-                    <p className="text-xs font-bold text-accent-gold font-mono uppercase">
-                      Telemetry: {item.metric}
-                    </p>
-                  )}
-                </div>
-                <Button
-                  asChild
-                  className="bg-[#DCAE53] text-[#09090B] font-bold hover:bg-[#E5B85C]"
-                >
-                  <Link href="/book">
-                    Book a call →
-                  </Link>
+              <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center space-y-4">
+                <h3 className="text-xl font-serif font-bold text-white">{item.title}</h3>
+                <p className="text-xs text-muted-foreground">{item.category}</p>
+                <Button onClick={onClose} className="bg-[#DCAE53] text-[#09090B] font-bold">
+                  Return to Portfolio
                 </Button>
               </div>
             )}
@@ -766,33 +393,40 @@ export function Portfolio({ limit }: { limit?: number }) {
   const [requestSchemaModal, setRequestSchemaModal] = useState<PortfolioItem | null>(null)
   const [previewPrototype, setPreviewPrototype] = useState<PortfolioItem | null>(null)
   const [items, setItems] = useState<PortfolioItem[]>(DEFAULT_PORTFOLIO)
+  const [isPaused, setIsPaused] = useState(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const resumeTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     async function loadPortfolio() {
       try {
         const { data, error } = await supabase
-          .from('portfolio_items')
-          .select('*')
-          .eq('is_archived', false)
-          .order('is_featured', { ascending: false })
-          .order('created_at', { ascending: false })
+          .from("portfolio_items")
+          .select("*")
+          .eq("is_archived", false)
+          .order("is_featured", { ascending: false })
+          .order("created_at", { ascending: false })
 
         if (error) throw error
 
         if (data && data.length > 0) {
           const mapped = data.map((d: any) => ({
             title: d.project_name,
-            category: d.badge_type || d.industry || (d.under_construction ? 'Architecture Case Study' : 'Interactive Sandbox'),
-            gradient: d.gradient || 'from-blue-500/20 to-indigo-500/20',
+            category:
+              d.badge_type ||
+              d.industry ||
+              (d.under_construction ? "Architecture Case Study" : "Interactive Sandbox"),
+            gradient: d.gradient || "from-blue-500/20 to-indigo-500/20",
             href: d.website_link || d.live_demo_url || null,
             image: d.cover_image,
             underConstruction: Boolean(d.under_construction),
             metric: d.metric || d.case_study_metrics || null,
+            domain: d.website_link ? new URL(d.website_link).hostname : undefined,
           }))
           setItems(mapped)
         }
       } catch (err: any) {
-        console.warn('Live portfolio items unavailable, using built-in showcase assets:', err?.message || err)
+        console.warn("Live portfolio items unavailable, using built-in showcase assets:", err?.message || err)
       }
     }
     loadPortfolio()
@@ -800,188 +434,304 @@ export function Portfolio({ limit }: { limit?: number }) {
 
   const displayItems = limit ? items.slice(0, limit) : items
 
+  // Moving carousel continuous auto-scroll animation with seamless infinite loop
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    let animationId: number
+    const speed = 0.8 // smooth sub-pixel scroll speed
+
+    const scroll = () => {
+      if (el && !isPaused) {
+        el.scrollLeft += speed
+        // If scrolled past the first duplicate set, seamlessly reset to zero
+        if (el.scrollLeft >= el.scrollWidth / 2) {
+          el.scrollLeft = 0
+        }
+      }
+      animationId = requestAnimationFrame(scroll)
+    }
+
+    animationId = requestAnimationFrame(scroll)
+    return () => cancelAnimationFrame(animationId)
+  }, [isPaused])
+
+  // Manual scroll controls for Left / Right arrows
+  const handleScroll = (direction: "left" | "right") => {
+    const el = scrollRef.current
+    if (!el) return
+    setIsPaused(true)
+
+    // Clear any previous resume timer
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+
+    const cardWidth = el.querySelector(".portfolio-card")?.clientWidth || 450
+    const scrollDelta = cardWidth + 24 // card width + gap
+
+    el.scrollBy({
+      left: direction === "left" ? -scrollDelta : scrollDelta,
+      behavior: "smooth",
+    })
+
+    // Automatically resume gentle auto-scroll after 4 seconds of inactivity
+    resumeTimerRef.current = setTimeout(() => {
+      setIsPaused(false)
+    }, 4000)
+  }
+
+  // Handle mobile touch interaction
+  const handleTouchStart = () => {
+    setIsPaused(true)
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+  }
+
+  const handleTouchEnd = () => {
+    resumeTimerRef.current = setTimeout(() => {
+      setIsPaused(false)
+    }, 3500)
+  }
+
+  // Duplicate items for the infinite looping track
+  const carouselItems = [...displayItems, ...displayItems]
+
   return (
     <>
-      <section id="portfolio" className="relative py-24 lg:py-32 overflow-hidden bg-[#09090B] border-t border-slate-800/80">
+      <section id="portfolio" className="relative py-20 lg:py-28 overflow-hidden bg-[#09090B] border-t border-slate-800/80">
+        {/* Ambient background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#DCAE53]/5 rounded-full blur-[140px] pointer-events-none z-0" />
+
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10">
           
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#DCAE53] mb-3 font-mono">
-              [ SYSTEM IV · WEBSITE CREATIONS ]
-            </p>
-            <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4">
+          <div className="text-center mb-12 sm:mb-14">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#111115] border border-[#DCAE53]/30 text-[#DCAE53] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-3">
+              <Sparkles size={13} className="text-[#DCAE53]" />
+              <span>[ SYSTEM IV · INTERACTIVE PROTOTYPE BUILDS ]</span>
+            </div>
+            <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4 tracking-tight">
               Websites Engineered to Convert Visitors
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
-              Every website we build is crafted for rapid mobile performance, effortless customer bookings, and automated deposit collection.
+            <p className="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+              Every prototype is live, responsive, and ready for you to test. Hover over any card to stop the animation and launch the interactive sandbox.
             </p>
-          </div>
 
-          {/* 2-Column Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mb-16">
-            {displayItems.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-2xl border border-slate-800 hover:border-[#DCAE53]/60 transition-all duration-300 bg-[#111115] aspect-[16/10] sm:aspect-[16/10]"
+            {/* Interactive Status & Manual Carousel Controls */}
+            <div className="mt-6 flex items-center justify-center gap-3 flex-wrap">
+              <button
+                type="button"
+                onClick={() => setIsPaused((prev) => !prev)}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#111115] border border-slate-800 hover:border-[#DCAE53]/50 text-slate-300 hover:text-white transition-all text-xs font-mono cursor-pointer"
+                title={isPaused ? "Resume auto-scroll" : "Pause auto-scroll"}
               >
-                {/* Visual Image / Mockup background */}
-                <div className="w-full h-full relative z-10">
-                  {item.image ? (
-                    <div className="absolute inset-2 sm:inset-4 rounded-xl border border-slate-800 overflow-hidden shadow-2xl flex flex-col bg-[#18181F]">
-                      <div className="flex items-center justify-between px-3 py-2 bg-[#111115] border-b border-slate-800 shrink-0">
-                        <div className="flex gap-1">
-                          <div className="w-2 h-2 rounded-full bg-red-500/70" />
-                          <div className="w-2 h-2 rounded-full bg-yellow-500/70" />
-                          <div className="w-2 h-2 rounded-full bg-green-500/70" />
-                        </div>
-                        {item.underConstruction && (
-                          <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-[#DCAE53] bg-[#DCAE53]/15 border border-[#DCAE53]/35 px-2 py-0.5 rounded-full">
-                            Under Development
-                          </span>
-                        )}
-                      </div>
-                      <div className="relative flex-1">
-                        <Image
-                           src={item.image}
-                           alt={item.title}
-                           fill
-                           className="object-cover object-top"
-                           sizes="(max-width: 768px) 100vw, 50vw"
-                           priority={index === 0}
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    <PremiumMockup item={item} />
-                  )}
-                </div>
+                {isPaused ? (
+                  <>
+                    <Play size={12} className="text-emerald-400 fill-emerald-400" />
+                    <span className="text-[11px] text-emerald-400 font-semibold">Paused (Click to Play)</span>
+                  </>
+                ) : (
+                  <>
+                    <Pause size={12} className="text-[#DCAE53]" />
+                    <span className="text-[11px] text-slate-400">Moving Carousel · Hover to Stop</span>
+                  </>
+                )}
+              </button>
 
-                {/* Hover Reveal Slide-Up Overlay — Desktop only */}
-                <div className="absolute inset-0 bg-[#09090B]/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hidden md:flex flex-col justify-center items-center p-8 text-center space-y-4">
-                  <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300 space-y-3">
-                    <div className="flex items-center justify-center gap-2 flex-wrap">
-                      <p className="text-xs uppercase tracking-widest text-[#DCAE53] font-semibold">
-                        {item.category}
-                      </p>
-                      {!item.underConstruction && item.href ? (
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-[#34A88E] bg-[#2E8B77]/10 border border-[#2E8B77]/30 px-2.5 py-0.5 rounded-full font-mono">
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => handleScroll("left")}
+                  aria-label="Previous Build"
+                  className="w-8 h-8 rounded-full bg-[#111115] border border-slate-800 hover:border-[#DCAE53] text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleScroll("right")}
+                  aria-label="Next Build"
+                  className="w-8 h-8 rounded-full bg-[#111115] border border-slate-800 hover:border-[#DCAE53] text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Continuous Moving Carousel Track with Hover Pause */}
+        <div
+          className="relative w-full overflow-hidden py-4 z-10"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* Edge fade gradients for luxury seamless transition */}
+          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-r from-[#09090B] to-transparent z-20 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-l from-[#09090B] to-transparent z-20 pointer-events-none" />
+
+          <div
+            ref={scrollRef}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            className="flex gap-6 sm:gap-8 overflow-x-auto no-scrollbar scroll-smooth px-4 sm:px-8 snap-x snap-mandatory"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch",
+            }}
+          >
+            {carouselItems.map((item, index) => {
+              const domain =
+                item.domain || (item.href ? new URL(item.href).hostname : "mercianwealth.com")
+
+              return (
+                <div
+                  key={`${item.title}-${index}`}
+                  className="portfolio-card group relative flex-shrink-0 w-[85vw] sm:w-[500px] md:w-[560px] lg:w-[600px] aspect-[16/10] rounded-2xl border border-slate-800 hover:border-[#DCAE53] transition-all duration-300 bg-[#111115] overflow-hidden shadow-2xl cursor-pointer snap-center"
+                  onClick={() => {
+                    if (!item.underConstruction && item.href) {
+                      setPreviewPrototype(item)
+                    } else {
+                      setRequestSchemaModal(item)
+                    }
+                  }}
+                >
+                  {/* Browser Chrome Shell & Real Landing Page Preview Image */}
+                  <div className="w-full h-full relative z-10 flex flex-col bg-[#111115]">
+                    {/* Browser Chrome Header */}
+                    <div className="flex items-center justify-between px-3 py-2 sm:px-4 sm:py-2.5 bg-[#14141a] border-b border-slate-800 shrink-0">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                      </div>
+
+                      {/* Mockup Address Bar */}
+                      <div className="h-5 bg-[#09090B] border border-slate-800/90 rounded-full px-3 text-[9px] sm:text-[10px] text-slate-400 flex items-center justify-center font-mono truncate max-w-[200px] sm:max-w-[280px]">
+                        {domain}
+                      </div>
+
+                      {/* Live Badge */}
+                      <span className="text-[8px] sm:text-[9px] font-mono font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="hidden xs:inline">Live</span> Sandbox
+                      </span>
+                    </div>
+
+                    {/* Screenshot Body */}
+                    <div className="relative flex-1 w-full bg-[#0d0d12] overflow-hidden">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+                        sizes="(max-width: 768px) 85vw, 600px"
+                        priority={index < 4}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Desktop Hover Reveal Slide-Up Overlay — Interactive on Hover */}
+                  <div className="absolute inset-0 bg-[#09090B]/92 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hidden md:flex flex-col justify-center items-center p-8 text-center space-y-4">
+                    <div className="translate-y-3 group-hover:translate-y-0 transition-transform duration-300 space-y-3 max-w-lg">
+                      <div className="flex items-center justify-center gap-2 flex-wrap">
+                        <p className="text-xs uppercase tracking-widest text-[#DCAE53] font-semibold font-mono">
+                          {item.category}
+                        </p>
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-0.5 rounded-full font-mono">
                           Live Interactive Sandbox
                         </span>
-                      ) : (
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-[#DCAE53] bg-[#DCAE53]/10 border border-[#DCAE53]/30 px-2.5 py-0.5 rounded-full font-mono">
-                          Under Development
-                        </span>
-                      )}
-                    </div>
-                    <h3 className="font-sans text-2xl font-extrabold text-white">
-                      {item.title}
-                    </h3>
-                    {item.metric && (
-                      <p className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider">
-                        Benchmark: {item.metric}
-                      </p>
-                    )}
-                    <div className="pt-2">
-                      {!item.underConstruction && item.href ? (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => setPreviewPrototype(item)}
-                          className="border-[#2E8B77]/40 text-[#34A88E] hover:bg-[#2E8B77] hover:text-[#09090B] transition-all cursor-pointer"
-                        >
-                          <span className="text-xs font-bold uppercase tracking-wider">
-                            Launch Live Sandbox →
-                          </span>
-                        </Button>
-                      ) : (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => setRequestSchemaModal(item)}
-                          className="border-[#DCAE53]/40 text-white hover:bg-[#DCAE53] hover:text-[#09090B] transition-all cursor-pointer"
-                        >
-                          <span className="text-xs font-bold uppercase tracking-wider">
-                            Preview Blueprint →
-                          </span>
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </div>
+                      </div>
 
-                {/* Mobile Bottom Bar — always visible, hidden on desktop */}
-                <div className="absolute bottom-0 left-0 right-0 z-20 flex md:hidden items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 bg-[#09090B]/90 border-t border-slate-800 backdrop-blur-sm min-w-0 max-w-full">
-                  <div className="min-w-0 flex-1 pr-2">
-                    <div className="flex items-center gap-1.5 mb-0.5 min-w-0 flex-wrap">
-                      <p className="text-[10px] uppercase tracking-widest text-[#DCAE53] font-semibold leading-none truncate max-w-full">
-                        {item.category} {item.metric ? `· ${item.metric}` : ''}
-                      </p>
-                      {!item.underConstruction && item.href ? (
-                        <span className="shrink-0 text-[8px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-1.5 py-0.5 rounded-full font-mono">
-                          Live Sandbox
-                        </span>
-                      ) : (
-                        <span className="shrink-0 text-[8px] font-bold uppercase tracking-wider text-[#DCAE53] bg-[#DCAE53]/10 border border-[#DCAE53]/30 px-1.5 py-0.5 rounded-full font-mono">
-                          Under Development
-                        </span>
+                      <h3 className="font-sans text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                        {item.title}
+                      </h3>
+
+                      {item.metric && (
+                        <p className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider bg-[#DCAE53]/10 border border-[#DCAE53]/25 px-3 py-1 rounded-lg inline-block">
+                          Feature: {item.metric}
+                        </p>
                       )}
+
+                      <div className="pt-2">
+                        <Button
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setPreviewPrototype(item)
+                          }}
+                          className="bg-emerald-500 hover:bg-emerald-400 text-[#09090B] font-bold px-5 py-2 rounded-xl transition-all cursor-pointer shadow-lg shadow-emerald-500/20"
+                        >
+                          <span className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                            Launch Live Sandbox
+                            <ArrowRight size={14} />
+                          </span>
+                        </Button>
+                      </div>
                     </div>
-                    <h3 className="font-sans text-xs sm:text-sm font-bold text-white truncate">
-                      {item.title}
-                    </h3>
                   </div>
-                  {!item.underConstruction && item.href ? (
+
+                  {/* Mobile Bottom Bar — Always visible on small touch screens */}
+                  <div className="absolute bottom-0 left-0 right-0 z-20 flex md:hidden items-center justify-between px-3.5 py-2.5 bg-[#09090B]/95 border-t border-slate-800 backdrop-blur-md">
+                    <div className="min-w-0 flex-1 pr-2">
+                      <p className="text-[9px] uppercase tracking-widest text-[#DCAE53] font-semibold leading-none truncate font-mono mb-0.5">
+                        {item.category}
+                      </p>
+                      <h3 className="font-sans text-xs font-bold text-white truncate">
+                        {item.title}
+                      </h3>
+                    </div>
+
                     <button
-                      className="shrink-0 ml-3 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#09090B] bg-emerald-400 px-3 py-1.5 rounded-lg active:opacity-80 transition-opacity cursor-pointer"
-                      onClick={() => setPreviewPrototype(item)}
+                      type="button"
+                      className="shrink-0 flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-[#09090B] bg-emerald-400 px-3 py-1.5 rounded-lg active:scale-95 transition-transform cursor-pointer font-sans"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setPreviewPrototype(item)
+                      }}
                     >
-                      Test Sandbox →
+                      <span>Test Sandbox</span>
+                      <ArrowRight size={12} />
                     </button>
-                  ) : (
-                    <button
-                      className="shrink-0 ml-3 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#09090B] bg-[#DCAE53] px-3 py-1.5 rounded-lg active:opacity-80 transition-opacity cursor-pointer"
-                      onClick={() => setRequestSchemaModal(item)}
-                    >
-                      Preview Blueprint →
-                    </button>
-                  )}
+                  </div>
                 </div>
-              </motion.div>
-            ))}
+              )
+            })}
           </div>
-
-          {/* Bottom Button */}
-          {limit && (
-            <div className="text-center">
-              <Button 
-                asChild 
-                size="lg" 
-                variant="outline"
-                className="px-8 py-6 text-sm font-bold tracking-wider uppercase bg-[#111115] border-slate-800 text-white hover:border-[#DCAE53]"
-              >
-                <Link href="/portfolio" className="flex items-center gap-2">
-                  View Full Portfolio
-                  <ArrowRight size={16} />
-                </Link>
-              </Button>
-            </div>
-          )}
         </div>
+
+        {/* Bottom Callout / Full Portfolio Link */}
+        {limit && (
+          <div className="text-center mt-12 z-10 relative">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="px-8 py-6 text-xs sm:text-sm font-bold tracking-wider uppercase bg-[#111115] border-slate-800 text-white hover:border-[#DCAE53] hover:text-[#DCAE53] transition-all rounded-xl"
+            >
+              <Link href="/portfolio" className="flex items-center gap-2">
+                View Full Interactive Showcase
+                <ArrowRight size={16} />
+              </Link>
+            </Button>
+          </div>
+        )}
       </section>
 
       {/* Request System Schema Modal */}
       {requestSchemaModal && (
-        <RequestSystemSchemaModal item={requestSchemaModal} onClose={() => setRequestSchemaModal(null)} />
+        <RequestSystemSchemaModal
+          item={requestSchemaModal}
+          onClose={() => setRequestSchemaModal(null)}
+        />
       )}
 
-      {/* Prototype Preview Modal */}
+      {/* Prototype Preview Modal with Hardened Sandbox Security */}
       {previewPrototype && (
-        <PrototypePreviewModal item={previewPrototype} onClose={() => setPreviewPrototype(null)} />
+        <PrototypePreviewModal
+          item={previewPrototype}
+          onClose={() => setPreviewPrototype(null)}
+        />
       )}
     </>
   )
