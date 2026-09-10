@@ -19,16 +19,10 @@ interface TestimonialRecord {
 
 const STATIC_FALLBACK_TESTIMONIALS: TestimonialRecord[] = [
   {
-    client_name: "Elena S., Managing Director",
-    company: "Apex Premier Services · Windsor, Berkshire",
-    testimonial: "We used to lose high-value customer enquiries every weekend because we were busy with clients and couldn't answer Instagram DMs fast enough. Mercian deployed our 3-tap booking engine with instant WhatsApp phone alerts. We collected £4,800 in upfront deposits in our first 30 days and eliminated manual message tag.",
-    badge: "+£4.8k Deposits Captured",
-  },
-  {
-    client_name: "Marcus V., Operations Director",
-    company: "Sovereign Client Services · Reading",
-    testimonial: "The automated booking system and calendar sync completely eliminated our late-night invoicing headaches. Clients can configure packages, view exact pricing, and secure dates in under 60 seconds with automated 5-star Google review collection post-service.",
-    badge: "12+ Hrs Saved / Wk",
+    client_name: "Tariq K., Founder",
+    company: "The Caker Street Bakery · London",
+    testimonial: "Before working with Mercian Wealth, our team spent hours every evening chasing messages, manually taking orders, and verifying bank transfers. The 3-tap custom storefront and automated deposit flow reclaimed 499 hours of admin time in our first year and captured over £32,400 in direct orders.",
+    badge: "+£32.4k Direct Revenue · 499 Hrs Saved",
   },
 ]
 

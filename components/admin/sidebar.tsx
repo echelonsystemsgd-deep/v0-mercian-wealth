@@ -26,6 +26,7 @@ import {
   Terminal,
   ChevronDown,
   DollarSign,
+  Receipt,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
@@ -45,6 +46,7 @@ const sidebarGroups = [
     items: [
       { href: '/admin/leads', label: 'Leads', icon: Inbox },
       { href: '/admin/bookings', label: 'Bookings', icon: Calendar },
+      { href: '/admin/quotes', label: 'Quotes & Invoices', icon: Receipt },
     ]
   },
   {

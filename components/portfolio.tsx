@@ -21,8 +21,17 @@ type PortfolioItem = {
 
 const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   {
+    title: "The Caker Street London Bakery",
+    category: "Bespoke Local Commerce & Order Intake · Verified Client Build",
+    gradient: "from-amber-500/20 to-yellow-600/20",
+    href: null,
+    image: "/stickman_baker_order.png",
+    underConstruction: false,
+    metric: "499 hrs saved · +£32,400/yr",
+  },
+  {
     title: "Vanguard Architectural Construction",
-    category: "High-Ticket Client Intake & Quote Engine · Live Sandbox",
+    category: "High-Ticket Client Intake & Quote Engine · Concept Sandbox",
     gradient: "from-amber-500/20 to-yellow-600/20",
     href: "https://premium-local-construction-business.vercel.app/",
     image: "/vanguard-construction-preview.png",
@@ -31,30 +40,12 @@ const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   },
   {
     title: "Aurēlia Cellular Longevity",
-    category: "Precision Nootropics & Bioactive E-Commerce · Live Sandbox",
+    category: "Precision Nootropics & Bioactive E-Commerce · Concept Sandbox",
     gradient: "from-emerald-500/20 to-teal-500/20",
     href: "https://premium-supplement-commerce.vercel.app/",
     image: "/aurelia-supplement-preview.png",
     underConstruction: false,
     metric: "Duodenal Delivery & Automated Subscriptions",
-  },
-  {
-    title: "Aura Private Aesthetics",
-    category: "24/7 Chatbot & Consultation Intake Engine · Case Study",
-    gradient: "from-purple-500/20 to-pink-500/20",
-    href: null,
-    image: "/stamp-app-preview.png",
-    underConstruction: true,
-    metric: "92% Show Rate · Zero DM Leaks",
-  },
-  {
-    title: "Oakwood Bespoke Contracts",
-    category: "Commercial Acquisition & Dispatch Engine · Case Study",
-    gradient: "from-blue-500/20 to-cyan-500/20",
-    href: null,
-    image: "/vanguard-construction-preview.png",
-    underConstruction: true,
-    metric: "Automated B2B Outbound Pipeline",
   },
 ]
 

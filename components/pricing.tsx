@@ -176,9 +176,36 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
           </div>
         )}
 
-        {/* Billing Switcher Header (3 Tabs: Setup -> Retainer -> Custom/Enterprise) */}
+        {/* Engineered Scope & Skin in the Game Framing Banner */}
+        <div className="max-w-3xl mx-auto mb-8 p-4 sm:p-5 rounded-2xl bg-[#111115] border border-[#DCAE53]/30 text-center space-y-1.5 shadow-xl">
+          <span className="text-[10px] font-mono text-[#DCAE53] uppercase tracking-widest font-bold block">
+            ENGINEERED SCOPE · NO GENERIC PRICE TAGS
+          </span>
+          <p className="text-xs sm:text-sm text-slate-200 font-sans leading-relaxed">
+            We do not build generic template sites, and we do not sell one-size-fits-all price tags. Every Mercian Wealth build is custom-engineered to your booking logic, customer volume, and operational bottlenecks. We scope fixed milestones on our discovery call — or, if you qualify, we tie our compensation directly to your growth through our <strong className="text-emerald-400">Revenue Share partnership (5%–10%)</strong>.
+          </p>
+        </div>
+
+        {/* Billing Switcher Header (3 Tabs: Setup -> Retainer -> Revenue Share) */}
         <div className="flex justify-center mb-8 sm:mb-12 relative z-20">
           <div className="inline-flex items-center justify-center p-1 rounded-xl sm:rounded-full bg-[#111115] border border-[#DCAE53]/25 relative shadow-lg max-w-full">
+            <button
+              suppressHydrationWarning
+              onClick={() => setBillingCycle("revenueShare")}
+              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer ${
+                billingCycle === "revenueShare" ? "text-[#09090B] font-bold" : "text-slate-300 hover:text-white"
+              }`}
+            >
+              {billingCycle === "revenueShare" && (
+                <motion.div
+                  layoutId="pricingBillingBg"
+                  className="absolute inset-0 rounded-lg sm:rounded-full bg-[#DCAE53] z-[-1]"
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                />
+              )}
+              <span className="hidden sm:inline">Revenue Share (5%–10%)</span>
+              <span className="sm:hidden">Rev Share</span>
+            </button>
             <button
               suppressHydrationWarning
               onClick={() => setBillingCycle("oneTime")}
@@ -193,8 +220,8 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 />
               )}
-              <span className="hidden sm:inline">Implementation Setup</span>
-              <span className="sm:hidden">Setup Build</span>
+              <span className="hidden sm:inline">System Build (Custom Scope)</span>
+              <span className="sm:hidden">System Build</span>
             </button>
             <button
               suppressHydrationWarning
@@ -210,25 +237,8 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 />
               )}
-              <span className="hidden sm:inline">Website Care &amp; Growth Retainer</span>
-              <span className="sm:hidden">Care Retainer</span>
-            </button>
-            <button
-              suppressHydrationWarning
-              onClick={() => setBillingCycle("revenueShare")}
-              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer ${
-                billingCycle === "revenueShare" ? "text-[#09090B] font-bold" : "text-slate-300 hover:text-white"
-              }`}
-            >
-              {billingCycle === "revenueShare" && (
-                <motion.div
-                  layoutId="pricingBillingBg"
-                  className="absolute inset-0 rounded-lg sm:rounded-full bg-[#DCAE53] z-[-1]"
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                />
-              )}
-              <span className="hidden sm:inline">Custom / Enterprise</span>
-              <span className="sm:hidden">Custom</span>
+              <span className="hidden sm:inline">Growth Retainer (Managed Scope)</span>
+              <span className="sm:hidden">Growth Retainer</span>
             </button>
           </div>
         </div>
@@ -279,8 +289,10 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
 
                     {/* Price Block */}
                     <div className="py-3 sm:py-4 border-y border-slate-800/80">
-                      <div className="flex items-baseline gap-1.5">
-                        <span className="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-tight">
+                      <div className="flex items-baseline gap-2 flex-wrap">
+                        <span className={`text-xl sm:text-3xl font-extrabold font-mono tracking-tight ${
+                          billingCycle === 'revenueShare' ? 'text-emerald-400' : 'text-white'
+                        }`}>
                           {tier.price}
                         </span>
                         <span className="text-xs text-slate-400 font-mono">

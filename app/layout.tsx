@@ -118,7 +118,7 @@ const jsonLd = {
   '@id': 'https://mercianwealth.com/#organization',
   url: 'https://mercianwealth.com',
   telephone: '+447851055929',
-  priceRange: '£495 - £1,495',
+  priceRange: '£££',
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'GB',
