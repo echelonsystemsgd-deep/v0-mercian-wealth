@@ -1060,8 +1060,8 @@ export default function AdminQuotesPage() {
       {viewingInvoice && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-[#09090B] text-slate-100 border border-[#DCAE53]/40 rounded-3xl w-full max-w-3xl max-h-[95vh] overflow-y-auto p-6 sm:p-10 space-y-6 shadow-2xl relative">
-            <div className="flex justify-between items-center print:hidden border-b border-white/10 pb-4">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 print:hidden border-b border-white/10 pb-4">
+              <div className="flex items-center gap-2 flex-wrap">
                 <button
                   onClick={() => window.print()}
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#18181F] border border-[#DCAE53]/30 text-[#DCAE53] hover:bg-[#DCAE53]/10 text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer"
@@ -1081,7 +1081,7 @@ export default function AdminQuotesPage() {
               </div>
               <button
                 onClick={() => setViewingInvoice(null)}
-                className="text-slate-400 hover:text-white transition-colors cursor-pointer"
+                className="text-slate-400 hover:text-white transition-colors cursor-pointer self-end sm:self-auto"
               >
                 <X size={20} />
               </button>
@@ -1090,7 +1090,7 @@ export default function AdminQuotesPage() {
             {/* INVOICE PRINTABLE CONTAINER */}
             <div id="invoice-print-area" className="space-y-6">
               {/* Header Letterhead */}
-              <div className="flex justify-between items-start border-b border-white/10 pb-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-white/10 pb-6">
                 <div className="space-y-2">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-[#111115] border border-[#DCAE53]/40 flex items-center justify-center p-1.5">
@@ -1113,7 +1113,7 @@ export default function AdminQuotesPage() {
                   </p>
                 </div>
 
-                <div className="text-right space-y-1 font-mono text-xs">
+                <div className="text-left sm:text-right space-y-1 font-mono text-xs w-full sm:w-auto">
                   <span className="text-xl font-bold text-white block tracking-wide">INVOICE</span>
                   <span className="text-[#DCAE53] font-bold block">{viewingInvoice.invoice_number}</span>
                   <span className="text-slate-400 block">
@@ -1126,7 +1126,7 @@ export default function AdminQuotesPage() {
               </div>
 
               {/* Billed To */}
-              <div className="grid grid-cols-2 gap-6 text-xs font-sans">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-sans">
                 <div className="p-4 rounded-xl bg-[#111115] border border-white/5 space-y-1">
                   <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">Billed To:</span>
                   <strong className="text-white text-sm block">{viewingInvoice.client_business || viewingInvoice.client_name}</strong>
@@ -1181,27 +1181,44 @@ export default function AdminQuotesPage() {
               </div>
 
               {/* Bank Coordinates Directives */}
-              <div className="p-5 rounded-2xl bg-[#111115] border border-white/10 space-y-3 font-mono text-xs">
-                <span className="text-[10px] text-[#DCAE53] uppercase font-bold tracking-wider block">
-                  UK Faster Payments Bank Directives
-                </span>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-slate-300">
-                  <div>
-                    <span className="text-[10px] text-slate-500 uppercase block">Bank Name</span>
-                    <span className="text-white font-bold">{MERCIAN_BANK_DETAILS.bankName}</span>
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#111115] border border-white/10 space-y-3 font-mono text-xs">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <span className="text-[10px] text-[#DCAE53] uppercase font-bold tracking-wider block">
+                    UK Faster Payments Bank Directives
+                  </span>
+                  <span className="text-[10px] font-mono text-[#DCAE53] bg-[#DCAE53]/10 border border-[#DCAE53]/25 px-2.5 py-0.5 rounded-full font-bold">
+                    GBP (£) Faster Payments / BACS
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-slate-300">
+                  <div className="p-3 rounded-xl bg-[#18181F] border border-white/5">
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Account Holder</span>
+                    <span className="text-white font-bold block truncate">
+                      {viewingInvoice.bank_details_snapshot?.accountName || MERCIAN_BANK_DETAILS.accountName}
+                    </span>
                   </div>
-                  <div>
-                    <span className="text-[10px] text-slate-500 uppercase block">Sort Code</span>
-                    <span className="text-white font-bold">{MERCIAN_BANK_DETAILS.sortCode}</span>
+                  <div className="p-3 rounded-xl bg-[#18181F] border border-white/5">
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Sort Code</span>
+                    <span className="text-white font-bold block">
+                      {viewingInvoice.bank_details_snapshot?.sortCode || MERCIAN_BANK_DETAILS.sortCode}
+                    </span>
                   </div>
-                  <div>
-                    <span className="text-[10px] text-slate-500 uppercase block">Account No.</span>
-                    <span className="text-white font-bold">{MERCIAN_BANK_DETAILS.accountNumber}</span>
+                  <div className="p-3 rounded-xl bg-[#18181F] border border-white/5">
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Account Number</span>
+                    <span className="text-white font-bold block">
+                      {viewingInvoice.bank_details_snapshot?.accountNumber || MERCIAN_BANK_DETAILS.accountNumber}
+                    </span>
                   </div>
-                  <div>
-                    <span className="text-[10px] text-slate-500 uppercase block">Reference</span>
-                    <span className="text-[#DCAE53] font-bold">{viewingInvoice.invoice_number}</span>
+                  <div className="p-3 rounded-xl bg-[#18181F] border border-white/5">
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Bank Name</span>
+                    <span className="text-white font-bold block truncate">
+                      {viewingInvoice.bank_details_snapshot?.bankName || MERCIAN_BANK_DETAILS.bankName}
+                    </span>
                   </div>
+                </div>
+                <div className="p-3.5 rounded-xl bg-[#0D0D11] border border-white/5 flex items-center justify-between text-xs font-mono">
+                  <span className="text-slate-400">Payment Reference:</span>
+                  <span className="text-[#DCAE53] font-bold font-mono">{viewingInvoice.invoice_number}</span>
                 </div>
               </div>
             </div>

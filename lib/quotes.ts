@@ -79,12 +79,12 @@ export type Invoice = {
 }
 
 export const MERCIAN_BANK_DETAILS = {
-  accountName: "Mercian Wealth Ltd",
-  bankName: "Barclays Bank UK",
-  sortCode: "20-00-00",
-  accountNumber: "83920194",
-  iban: "GB29BARC20000083920194",
-  bicSwift: "BARCGB22",
+  accountName: "Gurtej Deep",
+  bankName: "Starling Bank",
+  sortCode: "60-83-71",
+  accountNumber: "39898316",
+  iban: "GB56SRLG60837139898316",
+  bicSwift: "SRLGGB2L",
   vatNotice: "VAT not applicable / exempt under UK threshold",
   tagline: "Storefronts · Automation · Growth.",
 }

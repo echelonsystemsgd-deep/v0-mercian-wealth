@@ -333,10 +333,10 @@ export default function ClientQuotePortal({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-2">
             {[
-              { label: 'Bank Name', value: bankDetails.bankName },
-              { label: 'Account Name', value: bankDetails.accountName },
-              { label: 'Sort Code', value: bankDetails.sortCode },
-              { label: 'Account Number', value: bankDetails.accountNumber },
+              { label: 'Account Holder', value: bankDetails?.accountName || MERCIAN_BANK_DETAILS.accountName },
+              { label: 'Sort Code', value: bankDetails?.sortCode || MERCIAN_BANK_DETAILS.sortCode },
+              { label: 'Account Number', value: bankDetails?.accountNumber || MERCIAN_BANK_DETAILS.accountNumber },
+              { label: 'Bank Name', value: bankDetails?.bankName || MERCIAN_BANK_DETAILS.bankName },
             ].map((field, i) => (
               <div
                 key={i}
@@ -346,7 +346,7 @@ export default function ClientQuotePortal({
                 <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
                   {field.label}
                 </span>
-                <span className="font-mono text-sm font-bold text-white group-hover:text-[#DCAE53] transition-colors">
+                <span className="font-mono text-sm font-bold text-white group-hover:text-[#DCAE53] transition-colors truncate block">
                   {field.value}
                 </span>
                 <div className="absolute top-2 right-2 text-slate-500 group-hover:text-[#DCAE53]">
