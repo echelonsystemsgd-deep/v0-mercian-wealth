@@ -21,35 +21,315 @@ type PortfolioItem = {
 
 const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   {
-    title: "Artisanal Bakery & Confectionery (London)",
-    category: "Bespoke Local Commerce & Order Intake · Verified Client Deployment",
-    gradient: "from-amber-500/20 to-yellow-600/20",
-    href: null,
-    image: "/stickman_baker_order.png",
-    underConstruction: false,
-    metric: "499 hrs saved · +£32,400/yr",
-  },
-  {
     title: "Example Build: Architectural Construction & House Extensions",
-    category: "High-Ticket Client Intake & Quote Engine · Illustrative Example Build",
+    category: "High-Ticket Client Intake & Quote Engine · Live Sandbox",
     gradient: "from-amber-500/20 to-yellow-600/20",
     href: "https://premium-local-construction-business.vercel.app/",
     image: "/vanguard-construction-preview.png",
     underConstruction: false,
-    metric: "Sub-Second Project Quote Engine",
+    metric: "Instant Sub-Second Project Quote Engine",
   },
   {
     title: "Example Build: Cellular Longevity & Precision Nutrition Storefront",
-    category: "E-Commerce & Automated Subscriptions · Illustrative Example Build",
+    category: "Luxury E-Commerce & Subscriptions · Live Sandbox",
     gradient: "from-emerald-500/20 to-teal-500/20",
     href: "https://premium-supplement-commerce.vercel.app/",
     image: "/aurelia-supplement-preview.png",
     underConstruction: false,
     metric: "Duodenal Delivery & Automated Subscriptions",
   },
+  {
+    title: "Example Build: Commercial & Residential Roofing Systems",
+    category: "Rapid Dispatch & Quote Engine · Live Sandbox",
+    gradient: "from-blue-500/20 to-indigo-500/20",
+    href: "https://home-solutions-roofing.vercel.app/",
+    image: null,
+    underConstruction: false,
+    metric: "Emergency Repair Dispatch & Quote Locks",
+  },
+  {
+    title: "Example Build: Bespoke Extensions & Structural Renovations",
+    category: "Contractor Intake & Estimator · Live Sandbox",
+    gradient: "from-amber-500/20 to-orange-500/20",
+    href: "https://me-building-services.vercel.app/",
+    image: null,
+    underConstruction: false,
+    metric: "Turnkey Scope Estimator & Milestone Billing",
+  },
+  {
+    title: "Example Build: Owner-Led Prime Residential Contracting",
+    category: "High-Value Project Intake · Live Sandbox",
+    gradient: "from-slate-500/20 to-zinc-500/20",
+    href: "https://berkshireheathrow.vercel.app/",
+    image: null,
+    underConstruction: false,
+    metric: "Principal Oversight & Zero Subcontractor Markup",
+  },
+  {
+    title: "Example Build: High-Performance Lifestyle & Dual-System Flagship",
+    category: "Digital Partner Pathways & Commerce · Live Sandbox",
+    gradient: "from-cyan-500/20 to-blue-500/20",
+    href: "https://vyra-dual-system-flagship.vercel.app/",
+    image: null,
+    underConstruction: false,
+    metric: "Dual-Engine Commerce & Partner Onboarding",
+  },
+  {
+    title: "Example Build: Private Healthcare & Dental Consultation Booking",
+    category: "Patient Triage & Appointment Scheduling · Live Sandbox",
+    gradient: "from-teal-500/20 to-emerald-500/20",
+    href: "https://dental-clinic-prototype.vercel.app/",
+    image: null,
+    underConstruction: false,
+    metric: "24/7 Conversational Triage & Slot Booking",
+  },
+  {
+    title: "Stamp & Collectibles AI Valuation Engine",
+    category: "AI Computer Vision & Appraisal · Under Development",
+    gradient: "from-purple-500/20 to-violet-500/20",
+    href: null,
+    image: "/stamp-app-preview.png",
+    underConstruction: true,
+    metric: "Target Latency: < 1s · AI Neural Appraisal",
+  },
 ]
 
 function PremiumMockup({ item }: { item: PortfolioItem }) {
+  if (item.title.includes("Roofing") || item.title.includes("Roof")) {
+    return (
+      <div className="absolute inset-2 sm:inset-4 bg-[#071426] rounded-xl border border-blue-500/40 overflow-hidden shadow-2xl flex flex-col font-sans">
+        <div className="flex items-center justify-between px-3 py-2 bg-[#0c1f38] border-b border-blue-500/25 shrink-0">
+          <div className="flex gap-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
+          </div>
+          <div className="h-3.5 bg-[#050f1d] border border-blue-500/30 rounded-full px-3 text-[7px] text-blue-300 flex items-center justify-center font-mono">
+            home-solutions-roofing.vercel.app
+          </div>
+          <div className="w-4" />
+        </div>
+        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#091e38] to-[#040c17]">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">ROOFING &amp; DISPATCH</span>
+              <span className="text-[6px] font-bold uppercase tracking-widest text-blue-300 bg-blue-500/15 border border-blue-500/30 px-1.5 py-0.5 rounded-full">SURREY &amp; WEYBRIDGE</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-[6px] text-emerald-400 font-bold">★ Guild Certified</span>
+            </div>
+          </div>
+          <div className="space-y-1">
+            <h4 className="text-[11px] font-bold text-white leading-tight">Professional Roofing &amp; Emergency Repair Triage</h4>
+            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Rapid-response quote dispatch, drone roof surveys, insurance claim exports, and instant deposit locks.</p>
+          </div>
+          <div className="grid grid-cols-3 gap-1">
+            <div className="bg-[#0e274a] border border-white/5 rounded p-1 text-center">
+              <span className="text-[6px] text-slate-400 block font-mono">Dispatch</span>
+              <span className="text-[8px] font-serif font-bold text-blue-300">&lt;45 Mins</span>
+            </div>
+            <div className="bg-[#0e274a] border border-blue-500/40 rounded p-1 text-center bg-blue-500/10">
+              <span className="text-[6px] text-blue-300 block font-mono font-bold">Warranty</span>
+              <span className="text-[8px] font-serif font-bold text-white">25-Yr Guild</span>
+            </div>
+            <div className="bg-[#0e274a] border border-white/5 rounded p-1 text-center">
+              <span className="text-[6px] text-slate-400 block font-mono">Insurance</span>
+              <span className="text-[8px] font-serif font-bold text-blue-300">£10M All-Risk</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (item.title.includes("Bespoke Extensions") || item.title.includes("Structural Renovations")) {
+    return (
+      <div className="absolute inset-2 sm:inset-4 bg-[#14100c] rounded-xl border border-amber-500/40 overflow-hidden shadow-2xl flex flex-col font-sans">
+        <div className="flex items-center justify-between px-3 py-2 bg-[#211a14] border-b border-amber-500/25 shrink-0">
+          <div className="flex gap-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
+          </div>
+          <div className="h-3.5 bg-[#0d0a08] border border-amber-500/30 rounded-full px-3 text-[7px] text-amber-300 flex items-center justify-center font-mono">
+            me-building-services.vercel.app
+          </div>
+          <div className="w-4" />
+        </div>
+        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#211a14] to-[#0c0907]">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">STRUCTURAL EXTENSIONS</span>
+              <span className="text-[6px] font-bold uppercase tracking-widest text-amber-300 bg-amber-500/15 border border-amber-500/30 px-1.5 py-0.5 rounded-full">SURREY &amp; LONDON</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-[6px] text-emerald-400 font-bold">★ Master Builder</span>
+            </div>
+          </div>
+          <div className="space-y-1">
+            <h4 className="text-[11px] font-bold text-white leading-tight">Turnkey House Extensions &amp; Loft Conversions</h4>
+            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Sub-second project scope breakdown, milestone-based escrow deposit billing, and real-time site updates.</p>
+          </div>
+          <div className="grid grid-cols-3 gap-1">
+            <div className="bg-[#291f17] border border-white/5 rounded p-1 text-center">
+              <span className="text-[6px] text-slate-400 block font-mono">Scope Intake</span>
+              <span className="text-[8px] font-serif font-bold text-amber-300">Instant BOQ</span>
+            </div>
+            <div className="bg-[#291f17] border border-amber-500/40 rounded p-1 text-center bg-amber-500/10">
+              <span className="text-[6px] text-amber-300 block font-mono font-bold">Milestones</span>
+              <span className="text-[8px] font-serif font-bold text-white">Escrow Lock</span>
+            </div>
+            <div className="bg-[#291f17] border border-white/5 rounded p-1 text-center">
+              <span className="text-[6px] text-slate-400 block font-mono">Contract</span>
+              <span className="text-[8px] font-serif font-bold text-amber-300">Fixed Lump-Sum</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (item.title.includes("Owner-Led") || item.title.includes("Prime Residential")) {
+    return (
+      <div className="absolute inset-2 sm:inset-4 bg-[#0a101d] rounded-xl border border-slate-500/40 overflow-hidden shadow-2xl flex flex-col font-sans">
+        <div className="flex items-center justify-between px-3 py-2 bg-[#121c30] border-b border-slate-500/25 shrink-0">
+          <div className="flex gap-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
+          </div>
+          <div className="h-3.5 bg-[#070b14] border border-slate-500/30 rounded-full px-3 text-[7px] text-slate-300 flex items-center justify-center font-mono">
+            berkshireheathrow.vercel.app
+          </div>
+          <div className="w-4" />
+        </div>
+        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#121c30] to-[#070b14]">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">OWNER-LED PRIME BUILDS</span>
+              <span className="text-[6px] font-bold uppercase tracking-widest text-slate-300 bg-slate-500/15 border border-slate-500/30 px-1.5 py-0.5 rounded-full">BERKSHIRE &amp; BUCKS</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-[6px] text-emerald-400 font-bold">★ Principal Oversight</span>
+            </div>
+          </div>
+          <div className="space-y-1">
+            <h4 className="text-[11px] font-bold text-white leading-tight">High-Specification Architectural Residences</h4>
+            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Direct founder-led construction intake with zero subcontractor layers, transparent bill-of-quantities, and weekly client video walk-throughs.</p>
+          </div>
+          <div className="grid grid-cols-3 gap-1">
+            <div className="bg-[#172540] border border-white/5 rounded p-1 text-center">
+              <span className="text-[6px] text-slate-400 block font-mono">Supervision</span>
+              <span className="text-[8px] font-serif font-bold text-slate-200">Founder-Led</span>
+            </div>
+            <div className="bg-[#172540] border border-slate-500/40 rounded p-1 text-center bg-slate-500/10">
+              <span className="text-[6px] text-slate-300 block font-mono font-bold">Tenders</span>
+              <span className="text-[8px] font-serif font-bold text-white">Transparent BOQ</span>
+            </div>
+            <div className="bg-[#172540] border border-white/5 rounded p-1 text-center">
+              <span className="text-[6px] text-slate-400 block font-mono">Capacity</span>
+              <span className="text-[8px] font-serif font-bold text-slate-200">3 Builds / Yr</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (item.title.includes("Lifestyle") || item.title.includes("Dual-System") || item.title.includes("Flagship")) {
+    return (
+      <div className="absolute inset-2 sm:inset-4 bg-[#080811] rounded-xl border border-cyan-500/40 overflow-hidden shadow-2xl flex flex-col font-sans">
+        <div className="flex items-center justify-between px-3 py-2 bg-[#101026] border-b border-cyan-500/25 shrink-0">
+          <div className="flex gap-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
+          </div>
+          <div className="h-3.5 bg-[#05050d] border border-cyan-500/30 rounded-full px-3 text-[7px] text-cyan-300 flex items-center justify-center font-mono">
+            vyra-dual-system-flagship.vercel.app
+          </div>
+          <div className="w-4" />
+        </div>
+        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#101026] to-[#05050d]">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">BIOMECHANICAL PERFORMANCE</span>
+              <span className="text-[6px] font-bold uppercase tracking-widest text-cyan-300 bg-cyan-500/15 border border-cyan-500/30 px-1.5 py-0.5 rounded-full">DUAL-SYSTEM FLAGSHIP</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-[6px] text-emerald-400 font-bold">★ Clinical Grade</span>
+            </div>
+          </div>
+          <div className="space-y-1">
+            <h4 className="text-[11px] font-bold text-white leading-tight">Elite Nutrition Systems &amp; Partner Pathways</h4>
+            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">Dual-engine digital commerce uniting clinical bio-optimization supplements with automated partner affiliate funnels and commission tracking.</p>
+          </div>
+          <div className="grid grid-cols-3 gap-1">
+            <div className="bg-[#171738] border border-white/5 rounded p-1 text-center">
+              <span className="text-[6px] text-slate-400 block font-mono">Purity</span>
+              <span className="text-[8px] font-serif font-bold text-cyan-300">Clinical Grade</span>
+            </div>
+            <div className="bg-[#171738] border border-cyan-500/40 rounded p-1 text-center bg-cyan-500/10">
+              <span className="text-[6px] text-cyan-300 block font-mono font-bold">Commerce</span>
+              <span className="text-[8px] font-serif font-bold text-white">1-Tap Stripe</span>
+            </div>
+            <div className="bg-[#171738] border border-white/5 rounded p-1 text-center">
+              <span className="text-[6px] text-slate-400 block font-mono">Partners</span>
+              <span className="text-[8px] font-serif font-bold text-cyan-300">Auto Funnel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (item.title.includes("Dental") || item.title.includes("Healthcare") || item.title.includes("Medical")) {
+    return (
+      <div className="absolute inset-2 sm:inset-4 bg-[#06131c] rounded-xl border border-teal-500/40 overflow-hidden shadow-2xl flex flex-col font-sans">
+        <div className="flex items-center justify-between px-3 py-2 bg-[#0d2536] border-b border-teal-500/25 shrink-0">
+          <div className="flex gap-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-500/60" />
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
+          </div>
+          <div className="h-3.5 bg-[#040d14] border border-teal-500/30 rounded-full px-3 text-[7px] text-teal-300 flex items-center justify-center font-mono">
+            dental-clinic-prototype.vercel.app
+          </div>
+          <div className="w-4" />
+        </div>
+        <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#0d2536] to-[#040d14]">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">PRIVATE MEDICAL &amp; DENTAL</span>
+              <span className="text-[6px] font-bold uppercase tracking-widest text-teal-300 bg-teal-500/15 border border-teal-500/30 px-1.5 py-0.5 rounded-full">SURREY &amp; LONDON</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-[6px] text-emerald-400 font-bold">★ CQC Protocols</span>
+            </div>
+          </div>
+          <div className="space-y-1">
+            <h4 className="text-[11px] font-bold text-white leading-tight">Conversational Patient Intake &amp; Booking</h4>
+            <p className="text-[7px] text-slate-300 leading-relaxed max-w-[90%]">24/7 intelligent patient triage chatbot qualifying treatment suitability, estimating clinical timelines, and reserving deposit slots.</p>
+          </div>
+          <div className="grid grid-cols-3 gap-1">
+            <div className="bg-[#13354d] border border-white/5 rounded p-1 text-center">
+              <span className="text-[6px] text-slate-400 block font-mono">Triage</span>
+              <span className="text-[8px] font-serif font-bold text-teal-300">24/7 Conversational</span>
+            </div>
+            <div className="bg-[#13354d] border border-teal-500/40 rounded p-1 text-center bg-teal-500/10">
+              <span className="text-[6px] text-teal-300 block font-mono font-bold">Booking</span>
+              <span className="text-[8px] font-serif font-bold text-white">Calendar Lock</span>
+            </div>
+            <div className="bg-[#13354d] border border-white/5 rounded p-1 text-center">
+              <span className="text-[6px] text-slate-400 block font-mono">Waitlist</span>
+              <span className="text-[8px] font-serif font-bold text-teal-300">Zero Friction</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   if (item.title.includes("Architectural") || item.title.includes("Construction") || item.title.includes("Operations")) {
     return (
       <div className="absolute inset-2 sm:inset-4 bg-[#050C1A] rounded-xl border border-[#DAA640]/40 overflow-hidden shadow-2xl flex flex-col font-sans">
@@ -553,12 +833,17 @@ export function Portfolio({ limit }: { limit?: number }) {
                 <div className="w-full h-full relative z-10">
                   {item.image ? (
                     <div className="absolute inset-2 sm:inset-4 rounded-xl border border-slate-800 overflow-hidden shadow-2xl flex flex-col bg-[#18181F]">
-                      <div className="flex items-center gap-2 px-3 py-2 bg-[#111115] border-b border-slate-800 shrink-0">
+                      <div className="flex items-center justify-between px-3 py-2 bg-[#111115] border-b border-slate-800 shrink-0">
                         <div className="flex gap-1">
                           <div className="w-2 h-2 rounded-full bg-red-500/70" />
                           <div className="w-2 h-2 rounded-full bg-yellow-500/70" />
                           <div className="w-2 h-2 rounded-full bg-green-500/70" />
                         </div>
+                        {item.underConstruction && (
+                          <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-[#DCAE53] bg-[#DCAE53]/15 border border-[#DCAE53]/35 px-2 py-0.5 rounded-full">
+                            Under Development
+                          </span>
+                        )}
                       </div>
                       <div className="relative flex-1">
                         <Image
@@ -589,7 +874,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                         </span>
                       ) : (
                         <span className="text-[9px] font-bold uppercase tracking-wider text-[#DCAE53] bg-[#DCAE53]/10 border border-[#DCAE53]/30 px-2.5 py-0.5 rounded-full font-mono">
-                          Architecture Case Study
+                          Under Development
                         </span>
                       )}
                     </div>
@@ -621,7 +906,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                           className="border-[#DCAE53]/40 text-white hover:bg-[#DCAE53] hover:text-[#09090B] transition-all cursor-pointer"
                         >
                           <span className="text-xs font-bold uppercase tracking-wider">
-                            View Blueprint →
+                            Preview Blueprint →
                           </span>
                         </Button>
                       )}
@@ -642,7 +927,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                         </span>
                       ) : (
                         <span className="shrink-0 text-[8px] font-bold uppercase tracking-wider text-[#DCAE53] bg-[#DCAE53]/10 border border-[#DCAE53]/30 px-1.5 py-0.5 rounded-full font-mono">
-                          Case Study
+                          Under Development
                         </span>
                       )}
                     </div>
@@ -662,7 +947,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                       className="shrink-0 ml-3 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#09090B] bg-[#DCAE53] px-3 py-1.5 rounded-lg active:opacity-80 transition-opacity cursor-pointer"
                       onClick={() => setRequestSchemaModal(item)}
                     >
-                      View Blueprint →
+                      Preview Blueprint →
                     </button>
                   )}
                 </div>
