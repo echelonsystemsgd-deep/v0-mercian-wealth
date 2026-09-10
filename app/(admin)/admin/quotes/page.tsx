@@ -340,6 +340,61 @@ export default function AdminQuotesPage() {
     }
   }
 
+  // Delete invoice
+  const handleDeleteInvoice = async (invoiceId: string) => {
+    if (!confirm('Are you sure you want to permanently delete this invoice?')) return
+    try {
+      const res = await fetch(`/api/admin/invoices/${invoiceId}`, { method: 'DELETE' })
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.error || 'Failed to delete invoice')
+      }
+      toast.success('Invoice deleted successfully')
+      setInvoices((prev) => prev.filter((inv) => inv.id !== invoiceId))
+      if (viewingInvoice && viewingInvoice.id === invoiceId) {
+        setViewingInvoice(null)
+      }
+      fetchData()
+    } catch (err: any) {
+      toast.error(err.message)
+    }
+  }
+
+  // Copy invoice client link
+  const handleCopyInvoiceLink = (invoiceId: string) => {
+    const origin = typeof window !== 'undefined' ? window.location.origin : ''
+    const url = `${origin}/invoice/${invoiceId}`
+    navigator.clipboard.writeText(url)
+    setCopiedLinkToken(invoiceId)
+    toast.success('Client invoice link copied to clipboard!')
+    setTimeout(() => setCopiedLinkToken(null), 2500)
+  }
+
+  // Open completely empty quote builder
+  const handleOpenNewQuote = () => {
+    setSelectedClientId('')
+    setClientForm({
+      name: '',
+      business: '',
+      email: '',
+      phone: '',
+      address: '',
+    })
+    setSelectedItems([])
+    setCustomItemForm({
+      name: '',
+      description: '',
+      unit_price: '',
+      billing_interval: 'one_time',
+    })
+    setRevSharePct(0)
+    setProjectedSales('25000')
+    setDepositType('milestone_50')
+    setCustomDepositAmount('')
+    setScopeNotes('')
+    setIsNewQuoteOpen(true)
+  }
+
   // Update Catalog Item
   const handleSaveCatalogItem = async () => {
     if (!editingCatalogItem) return
@@ -409,7 +464,7 @@ export default function AdminQuotesPage() {
 
         <div className="flex items-center gap-3">
           <button
-            onClick={() => setIsNewQuoteOpen(true)}
+            onClick={handleOpenNewQuote}
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#DAA640] to-[#B88528] hover:from-[#E5B85C] hover:to-[#C99632] text-[#09090B] text-xs font-mono font-bold uppercase tracking-wider shadow-lg shadow-[#DAA640]/20 transition-all cursor-pointer"
           >
             <Plus size={15} />
@@ -630,24 +685,24 @@ export default function AdminQuotesPage() {
           ) : (
             <div className="rounded-2xl border border-white/8 overflow-hidden bg-[#111115]">
               <div className="grid grid-cols-12 px-5 py-3 bg-[#18181F] border-b border-white/5 text-[11px] font-mono text-slate-400 uppercase tracking-wider">
-                <div className="col-span-3">Invoice Ref</div>
-                <div className="col-span-4">Client / Company</div>
+                <div className="col-span-3 sm:col-span-2">Invoice Ref</div>
+                <div className="col-span-4 sm:col-span-3">Client / Company</div>
                 <div className="col-span-2 text-right">Deposit Due</div>
                 <div className="col-span-1 text-center">Status</div>
-                <div className="col-span-2 text-right">Actions</div>
+                <div className="col-span-2 sm:col-span-4 text-right">Actions</div>
               </div>
 
               <div className="divide-y divide-white/5">
                 {filteredInvoices.map((inv) => (
-                  <div key={inv.id} className="grid grid-cols-12 px-5 py-4 items-center text-xs font-mono">
-                    <div className="col-span-3 font-bold text-[#DCAE53] flex items-center gap-2">
-                      <Receipt size={14} />
-                      <span>{inv.invoice_number}</span>
+                  <div key={inv.id} className="grid grid-cols-12 px-5 py-4 items-center text-xs font-mono gap-2">
+                    <div className="col-span-3 sm:col-span-2 font-bold text-[#DCAE53] flex items-center gap-2">
+                      <Receipt size={14} className="shrink-0" />
+                      <span className="truncate">{inv.invoice_number}</span>
                     </div>
-                    <div className="col-span-4 font-sans">
-                      <span className="font-bold text-white block">{inv.client_business || inv.client_name}</span>
-                      <span className="text-[11px] text-slate-400 font-mono">
-                        {inv.client_email}
+                    <div className="col-span-4 sm:col-span-3 font-sans">
+                      <span className="font-bold text-white block truncate">{inv.client_business || inv.client_name}</span>
+                      <span className="text-[11px] text-slate-400 font-mono block truncate">
+                        {inv.client_email || 'No email on file'}
                       </span>
                     </div>
                     <div className="col-span-2 text-right font-bold text-white">
@@ -662,12 +717,39 @@ export default function AdminQuotesPage() {
                         {inv.status}
                       </span>
                     </div>
-                    <div className="col-span-2 text-right flex items-center justify-end gap-2">
+                    <div className="col-span-2 sm:col-span-4 text-right flex items-center justify-end gap-1.5 flex-wrap">
+                      <button
+                        onClick={() => handleCopyInvoiceLink(inv.id)}
+                        title="Copy Client Invoice Link"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#18181F] border border-white/10 hover:border-[#DCAE53]/40 text-slate-300 hover:text-white text-[11px] font-mono transition-all cursor-pointer"
+                      >
+                        {copiedLinkToken === inv.id ? (
+                          <>
+                            <Check size={12} className="text-emerald-400" />
+                            <span className="text-emerald-400 font-bold">Copied</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={12} />
+                            <span>Copy Link</span>
+                          </>
+                        )}
+                      </button>
+                      <a
+                        href={`/invoice/${inv.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="View Live Client Invoice"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded bg-[#18181F] border border-white/10 hover:border-[#DCAE53]/40 text-slate-300 hover:text-white text-[11px] font-mono transition-all cursor-pointer"
+                      >
+                        <ExternalLink size={12} />
+                        <span className="hidden sm:inline">Client View</span>
+                      </a>
                       <button
                         onClick={() => setViewingInvoice(inv)}
                         className="px-2.5 py-1 rounded bg-[#18181F] border border-white/10 hover:border-[#DCAE53]/40 text-slate-200 hover:text-white text-[11px] font-medium transition-all cursor-pointer"
                       >
-                        View &amp; Print
+                        Print
                       </button>
                       {inv.status !== 'paid' && (
                         <button
@@ -677,6 +759,13 @@ export default function AdminQuotesPage() {
                           Mark Paid
                         </button>
                       )}
+                      <button
+                        onClick={() => handleDeleteInvoice(inv.id)}
+                        title="Delete Invoice"
+                        className="p-1.5 rounded hover:bg-red-500/10 text-slate-500 hover:text-red-400 transition-colors cursor-pointer"
+                      >
+                        <Trash2 size={14} />
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -832,6 +921,8 @@ export default function AdminQuotesPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <input
                   type="text"
+                  name="quote_client_full_name"
+                  autoComplete="off"
                   placeholder="Client Full Name *"
                   value={clientForm.name}
                   onChange={(e) => setClientForm({ ...clientForm, name: e.target.value })}
@@ -839,6 +930,8 @@ export default function AdminQuotesPage() {
                 />
                 <input
                   type="text"
+                  name="quote_client_business_name"
+                  autoComplete="off"
                   placeholder="Business / Company Name"
                   value={clientForm.business}
                   onChange={(e) => setClientForm({ ...clientForm, business: e.target.value })}
@@ -846,6 +939,8 @@ export default function AdminQuotesPage() {
                 />
                 <input
                   type="email"
+                  name="quote_client_email_address"
+                  autoComplete="off"
                   placeholder="Contact Email Address"
                   value={clientForm.email}
                   onChange={(e) => setClientForm({ ...clientForm, email: e.target.value })}
@@ -853,6 +948,8 @@ export default function AdminQuotesPage() {
                 />
                 <input
                   type="tel"
+                  name="quote_client_phone_number"
+                  autoComplete="off"
                   placeholder="Phone / WhatsApp Number"
                   value={clientForm.phone}
                   onChange={(e) => setClientForm({ ...clientForm, phone: e.target.value })}
@@ -1064,20 +1161,53 @@ export default function AdminQuotesPage() {
               <div className="flex items-center gap-2 flex-wrap">
                 <button
                   onClick={() => window.print()}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#18181F] border border-[#DCAE53]/30 text-[#DCAE53] hover:bg-[#DCAE53]/10 text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#18181F] border border-[#DCAE53]/30 text-[#DCAE53] hover:bg-[#DCAE53]/10 text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer"
                 >
                   <Printer size={14} />
-                  <span>Print / Save PDF</span>
+                  <span>Print / PDF</span>
                 </button>
+                <button
+                  onClick={() => handleCopyInvoiceLink(viewingInvoice.id)}
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#18181F] border border-white/10 hover:border-[#DCAE53]/40 text-slate-300 hover:text-white text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer"
+                >
+                  {copiedLinkToken === viewingInvoice.id ? (
+                    <>
+                      <Check size={14} className="text-emerald-400" />
+                      <span className="text-emerald-400">Link Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={14} className="text-[#DCAE53]" />
+                      <span>Copy Link</span>
+                    </>
+                  )}
+                </button>
+                <a
+                  href={`/invoice/${viewingInvoice.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#18181F] border border-white/10 hover:border-white/20 text-slate-300 hover:text-white text-xs font-mono font-bold uppercase tracking-wider transition-all"
+                >
+                  <ExternalLink size={14} className="text-cyan-400" />
+                  <span>Client View</span>
+                </a>
                 {viewingInvoice.status !== 'paid' && (
                   <button
                     onClick={() => handleMarkInvoicePaid(viewingInvoice.id)}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25 text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25 text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer"
                   >
                     <CheckCircle2 size={14} />
                     <span>Mark Paid</span>
                   </button>
                 )}
+                <button
+                  onClick={() => handleDeleteInvoice(viewingInvoice.id)}
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer"
+                  title="Delete invoice permanently"
+                >
+                  <Trash2 size={14} />
+                  <span>Delete</span>
+                </button>
               </div>
               <button
                 onClick={() => setViewingInvoice(null)}
