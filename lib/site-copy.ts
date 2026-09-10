@@ -244,8 +244,8 @@ export const SITE_COPY = {
       subheadline: "Real business outcomes from verified production systems alongside working interactive prototypes.",
       studies: [
         {
-          id: "caker-street",
-          title: "The Caker Street London Bakery",
+          id: "artisanal-bakery",
+          title: "Artisanal Bakery & Confectionery (London)",
           badge: "VERIFIED PRODUCTION METRICS",
           outcomes: [
             { label: "Time saved", value: "499 hrs/yr" },
@@ -258,9 +258,9 @@ export const SITE_COPY = {
           isPrototype: false,
         },
         {
-          id: "vanguard-construction",
-          title: "Vanguard Architectural Construction",
-          badge: "CONCEPT PROTOTYPE · ZERO FABRICATED METRICS",
+          id: "architectural-construction",
+          title: "Example Build: Architectural Construction & Extension Quote Engine",
+          badge: "ILLUSTRATIVE EXAMPLE BUILD · INTERACTIVE SANDBOX",
           outcomes: [
             { label: "Response latency", value: "< 500ms" },
             { label: "Quote intake", value: "100% Automated" },
@@ -350,9 +350,9 @@ export const SITE_COPY = {
       items: [
         {
           quote: "Before working with Mercian Wealth, our team spent hours every evening chasing messages, manually taking orders, and verifying bank transfers. The 3-tap custom storefront and automated deposit flow reclaimed 499 hours of admin time in our first year and captured over £32,400 in direct orders.",
-          author: "Tariq K.",
-          role: "Founder & Operations Lead",
-          location: "The Caker Street Bakery · London",
+          author: "Founder & Operations Lead",
+          role: "Bespoke Confectionery Director",
+          location: "Artisanal Bakery & Confectionery · London",
           metric: "+£32,400 Captured / 499 Hrs Saved",
         },
       ],

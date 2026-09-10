@@ -19,34 +19,41 @@ This implementation plan resolves the complete commercial and financial infrastr
 
 ---
 
-## 2. Immediate P0: Proof Integrity & Fabricated Case Studies Resolution
+## 2. Immediate P0: Proof Integrity & Business Anonymisation Addendum
 
 > [!CAUTION]
-> ### The Public Factual Accuracy Issue
-> The live site currently features several case studies that display fictitious metrics alongside a `● VERIFIED PRODUCTION METRICS` badge. This violates Section 5 of [POSITIONING_PRINCIPLES.md](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/POSITIONING_PRINCIPLES.md) and represents a severe credibility risk.
+> ### The Public Factual Accuracy & Anonymisation Mandate
+> The site must not name any specific business — real, placeholder, or otherwise — anywhere in its copy. Furthermore, any metric or outcome stat displayed must be confirmed genuinely real. Unverified stats (`+£48,000/yr`, `92% attendance lift`) are strictly purged, while confirmed real metrics (`499 hrs saved`, `+£32,400/yr`) remain attached exclusively to an anonymised description.
 
-### 2.1 Forensic Audit of Fictitious Case Studies in Codebase
-A full audit of the codebase confirms the exact status of the disputed names:
+### 2.1 The Core Directives
+1. **Remove All Named Businesses**: The site must not name any specific business (e.g., Vanguard Architectural Construction, Aura Private Aesthetics, Oakwood Bespoke Contracts, Apex Commercial & Trade Services, The Caker Street Bakery) anywhere in its copy, headings, testimonials, case studies, or portfolio.
+2. **Anonymise Real Client Deployments**: Where real, confirmed telemetry exists (The Caker Street Bakery: 499 hrs saved, +£32,400/yr captured), describe the *type* of business and the operational context instead: e.g., *"An artisanal bakery & confectionery in London"*. Keep the confirmed stats attached to the anonymised entity.
+3. **No Invented Specificity or Swapping Fictional Names**: Do not replace fictional names with new fictional names (e.g. do not replace "Apex Commercial" with another invented company name). Describe the operational archetype instead: e.g., *"A local trade business missing 6+ calls a week while on job sites"*.
+4. **Relabel Sandboxes as Illustrative Example Builds**: Any portfolio or demo links that showcase functional concepts rather than live client work are relabelled clearly as illustrative builds (e.g., *"Example build: Architectural construction quote engine"*) with zero implied real-world client claims or fabricated financial metrics.
+5. **Purge All Unconfirmed Metrics**: Stripping a name off an invented stat does not make it honest. Any stat not confirmed genuinely real (such as the +£48k trade recovery or 92% clinic lift) is completely removed.
+6. **Sanitise Placeholders & Mockups**: All input placeholders (e.g. `david@apexservices.co.uk`, `Harrison Private Clinic`, `Sterling Premier Services`) and UI mockup banners (`VANGUARD OPERATIONS`, `AURĒLIA`) are replaced with generic business descriptors (`director@yourbusiness.co.uk`, `Your Business Name`, `ARCHITECTURAL OPERATIONS`).
 
-1. **Vanguard Architectural Construction / Apex Commercial & Trade Services**:
-   - *Origin*: Created in August 2026 during a trades positioning experiment ([Implementation/Website/CONSTRUCTION_AND_HIGH_TICKET_TRADES_PIVOT_PLAN.md](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/Implementation/Website/CONSTRUCTION_AND_HIGH_TICKET_TRADES_PIVOT_PLAN.md)). A live sandbox demo was deployed to Vercel (`premium-local-construction-business.vercel.app`).
-   - *Factual Status*: **Not a real client.** In [components/proof-case-studies.tsx](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/components/proof-case-studies.tsx#L55-L78), it was erroneously stamped with `● VERIFIED PRODUCTION METRICS` claiming `14 hrs/wk saved` and `+£48,000/yr revenue recovered`. These are unverified, fabricated numbers.
-2. **Aura Private Aesthetics / Clinic**:
-   - *Origin*: Created as an outreach concept prototype to pitch high-ticket cosmetic clinics on 24/7 web chat triage.
-   - *Factual Status*: **Not a real client.** In [components/proof-case-studies.tsx](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/components/proof-case-studies.tsx#L113-L137), it was stamped with `● VERIFIED PRODUCTION METRICS` claiming `92% Attendance Lift` and `Zero DM Leaks`.
-3. **Oakwood Bespoke Contracts**:
-   - *Origin*: A placeholder portfolio card in [components/portfolio.tsx](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/components/portfolio.tsx#L51-L58) marked `underConstruction: true` with a dummy label `"Automated B2B Outbound Pipeline"`.
-   - *Factual Status*: **Not a real client.** Pure leftover template scaffold.
-4. **The Caker Street Bakery London**:
-   - *Origin*: Documented in [POSITIONING_PRINCIPLES.md](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/POSITIONING_PRINCIPLES.md#L43) and [Implementation/Website/PORTFOLIO_PROTOTYPES_AND_DISCLAIMER_PLAN.md](file:///c:/Users/Deepg/OneDrive/Desktop/The%20Real%20World/Campuses/AI%20Automation/New%20Lessons/CODING/v0-gs-legacy-wealth-app/Implementation/Website/PORTFOLIO_PROTOTYPES_AND_DISCLAIMER_PLAN.md).
-   - *Factual Status*: **The single authentic, verified client build** with real historical operational telemetry: `499 hours saved` and `+£32,400/yr` captured through a 3-tap storefront order intake and automated phone dispatch.
+### 2.2 Complete Anonymisation & Proof Registry
+The following registry documents every entity, where it appears in the codebase, what was removed or anonymised, and the rationale:
 
-### 2.2 Immediate Remediation Plan (P0 — Prior to Any Other Work)
-- **Action 1**: Remove the misleading `components/proof-case-studies.tsx` section from the homepage, or completely rewrite it to feature **The Caker Street Bakery** as the sole verified commercial case study.
-- **Action 2**: Purge fictitious names and fabricated claims (`+£48,000/yr`, `92% show rate`) from `lib/site-copy.ts`, `components/testimonials.tsx`, and `components/portfolio.tsx`.
-- **Action 3**: Any interactive sandboxes (such as the construction quote demo or cake concierge) will be displayed strictly under an unassailable banner:  
-  `CONCEPT SANDBOX · INTERACTIVE DEMONSTRATION · ZERO FABRICATED METRICS`
-- **Action 4**: Remove dummy `underConstruction` cards (Oakwood) from the portfolio grid so every showcased asset is a functional, honest demonstration.
+| Entity / Reference | Codebase Location(s) | Prior State / Claims | Verified Status | Remediation & New Label | Strategic Rationale |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **The Caker Street Bakery London** | `lib/site-copy.ts` (L248, 355)<br>`components/portfolio.tsx` (L24)<br>`components/testimonials.tsx` (L23) | Named client with metrics: `499 hrs saved`, `+£32,400/yr` captured | **Authentic Client Data** | Anonymise to **"Artisanal Bakery & Confectionery (London)"**; keep real verified metrics intact | Complies with zero named business policy while retaining 100% verified commercial proof. |
+| **Vanguard Architectural Construction** | `lib/site-copy.ts` (L262)<br>`components/portfolio.tsx` (L33, 70)<br>`app/(admin)/admin/portfolio/page.tsx` (L27) | Named demo build claiming `+£48,000/yr` and `14 hrs/wk saved` | **Not a Real Client** (Interactive Vercel Demo) | Relabel to **"Example Build: Architectural Construction & Extension Quote Engine"**; badge: `Illustrative Example Build · Interactive Sandbox`; remove all fake outcome stats | Clarifies this is a functional demonstration sandbox, not a client deployment. Zero fabricated claims. |
+| **Aura Private Aesthetics / Clinic** | `lib/site-copy.ts`<br>`components/proof-case-studies.tsx`<br>`app/(admin)/admin/portfolio/page.tsx` (L51) | Named clinic claiming `92% Attendance Lift` and `Zero DM Leaks` | **Not a Real Client** (Outreach Concept) | Purge from public case studies; in admin mocks, relabel to **"Example Build: Private Medical Consultation Triage"** with unverified stats removed | Eliminates fabricated attendance lift claims and invented clinic identity. |
+| **Oakwood Bespoke Contracts** | `components/portfolio.tsx`<br>`docs/IMPLEMENTATION_PLAN.md` (L37) | Under-construction card with dummy label "Automated B2B Outbound Pipeline" | **Template Scaffold Placeholder** | **Completely Removed** from portfolio grid | Eliminates empty non-functional cards and placeholder branding. |
+| **Apex Commercial & Trade Services** | `components/interactive-automation-flow.tsx` (L55)<br>`components/contact-form.tsx` (L165) | `operations@apexlogistics.co.uk`<br>`placeholder="e.g. david@apexservices.co.uk"` | **Invented Placeholder** | Replace with **`enquiries@commercialservices.co.uk`** and **`placeholder="e.g. director@yourbusiness.co.uk"`** | Removes invented company name from customer telemetry demo and form fields. |
+| **Harrison Private Clinic** | `components/prototype-request-modal.tsx` (L173, 187) | `placeholder="e.g. Harrison Private Clinic"`<br>`placeholder="e.g. harrisonclinic.co.uk"` | **Invented Placeholder** | Replace with **`placeholder="e.g. Your Business Name"`** and **`placeholder="e.g. yourbusiness.co.uk or @social"`** | Prevents invented business names from appearing in input examples. |
+| **Sterling Premier Services** | `components/local/local-lead-form.tsx` (L136, 153) | `placeholder="e.g. Sterling Premier Services"`<br>`placeholder="sarah@sterlingservices.co.uk"` | **Invented Placeholder** | Replace with **`placeholder="e.g. Your Business Name"`** and **`placeholder="e.g. director@yourbusiness.co.uk"`** | Eliminates fictional agency client placeholders. |
+| **Aurēlia Cellular Longevity** | `components/portfolio.tsx` (L42, 117)<br>`app/(admin)/admin/portfolio/page.tsx` (L39) | Named e-commerce sandbox with luxury brand header `AURĒLIA` | **Interactive Demo Storefront** | Relabel to **"Example Build: Cellular Longevity & Precision Nutrition Storefront"**; header: `CELLULAR NUTRITION` | Transparently communicates illustrative concept without implying real client affiliation. |
+| **Vanguard / Sovereign Testimonials** | `app/(admin)/admin/testimonials/page.tsx` (L24, 32) | Named mock testimonials: "Vanguard Client Operations", "Sovereign Commercial Group" with `+38% Revenue Lift` | **Unverified Admin Mock Data** | Relabel to anonymised archetypes or replace with authenticated client testimonial record | Prevents unverified stats or fictional names from persisting even in admin seeds. |
+
+### 2.3 Verification Checklist for Zero Named Businesses & Proof Integrity
+- [ ] **No Specific Business Names**: No specific business name (real, placeholder, or newly invented) appears anywhere on the site copy, headers, badges, or mockups.
+- [ ] **Anonymised Real Proof**: Every verified case study (artisanal bakery) is anonymised to its business type and regional location, retaining only confirmed-real data (499 hrs, +£32,400/yr).
+- [ ] **Clearly Labelled Illustrative Builds**: Every sandbox or prototype link is explicitly labelled as an illustrative/example build with no implied real-world client claims.
+- [ ] **Zero Fabricated Stats**: No unconfirmed stat or metric remains attached to any section or component.
+- [ ] **Documented Rationale**: Full documentation in `/docs/IMPLEMENTATION_PLAN.md` detailing every removal, anonymisation, and verification criteria.
 
 ---
 
@@ -173,10 +180,11 @@ Because the public site will **never display fixed £ prices** (masking them com
 ## 9. Disciplined Implementation Roadmap
 
 ```
-[ PHASE 0: P0 PROOF INTEGRITY REMEDIATION ]
-  ├── Purge fabricated case studies (Apex & Aura fake metrics) from components/proof-case-studies.tsx
-  ├── Center social proof exclusively on The Caker Street Bakery (verified 499 hrs, +£32.4k/yr)
-  └── Label any demo prototypes strictly as CONCEPT SANDBOXES with zero fabricated metrics
+[ PHASE 0: P0 PROOF INTEGRITY & BUSINESS ANONYMISATION ]
+  ├── Anonymise verified client deployment (Artisanal Bakery & Confectionery: 499 hrs, +£32.4k/yr)
+  ├── Relabel interactive sandboxes as ILLUSTRATIVE EXAMPLE BUILDS with zero unverified stats
+  ├── Purge all placeholder business names (Apex, Harrison Clinic, Sterling Services) from forms & flows
+  └── Remove unverified case studies and dummy cards (Aura, Oakwood)
         │
         ▼
 [ PHASE 1: DATABASE & CATALOG INFRASTRUCTURE ]

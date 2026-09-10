@@ -102,7 +102,7 @@ export function ProofCaseStudies() {
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </Link>
                 <span className="text-[10px] font-mono text-slate-500">
-                  {study.isPrototype ? "Concept Demo Sandbox" : "Verified Client Deployment"}
+                  {study.isPrototype ? "Illustrative Example Build" : "Verified Client Deployment"}
                 </span>
               </div>
             </motion.div>

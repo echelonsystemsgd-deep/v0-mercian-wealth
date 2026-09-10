@@ -133,7 +133,7 @@ export function LocalLeadForm() {
                     required
                     value={formData.businessName}
                     onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
-                    placeholder="e.g. Sterling Premier Services"
+                    placeholder="e.g. Your Business Name"
                     className="w-full bg-white/[0.04] border border-white/15 rounded-xl p-3.5 text-sm text-white outline-none focus:border-accent-gold transition-colors font-sans"
                   />
                 </div>
@@ -150,7 +150,7 @@ export function LocalLeadForm() {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="sarah@sterlingservices.co.uk"
+                    placeholder="director@yourbusiness.co.uk"
                     className="w-full bg-white/[0.04] border border-white/15 rounded-xl p-3.5 text-sm text-white outline-none focus:border-accent-gold transition-colors font-sans"
                   />
                 </div>

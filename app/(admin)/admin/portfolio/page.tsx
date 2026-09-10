@@ -24,8 +24,8 @@ type PortfolioItem = {
 
 const DEFAULT_FRONTEND_PROJECTS = [
   {
-    project_name: "Vanguard Architectural Construction",
-    client_name: "Vanguard Operations · Surrey & London",
+    project_name: "Example Build: Architectural Construction",
+    client_name: "Architectural Extensions · Illustrative Sandbox",
     description: "High-ticket architectural extension quote builder with turnkey project intake, upfront deposit locks, and instant WhatsApp alerts.",
     industry: "Architectural Extensions · Live Sandbox",
     website_link: "https://premium-local-construction-business.vercel.app/",
@@ -36,8 +36,8 @@ const DEFAULT_FRONTEND_PROJECTS = [
     is_featured: true,
   },
   {
-    project_name: "Aurēlia Cellular Longevity",
-    client_name: "Aurēlia Longevity House · London & Worldwide",
+    project_name: "Example Build: Cellular Longevity",
+    client_name: "Cellular Nutrition · Illustrative Sandbox",
     description: "Precision cellular longevity and nootropics e-commerce with delayed duodenal delivery protocols, liposomal subscriptions, and 1-tap checkout.",
     industry: "Precision Nootropics & Commerce · Live Sandbox",
     website_link: "https://premium-supplement-commerce.vercel.app/",
@@ -48,13 +48,13 @@ const DEFAULT_FRONTEND_PROJECTS = [
     is_featured: true,
   },
   {
-    project_name: "Aura Private Aesthetics",
-    client_name: "Aura Aesthetics Clinic · Berkshire",
+    project_name: "Example Build: Private Medical Consultation Triage",
+    client_name: "Private Clinic Triage · Illustrative Sandbox",
     description: "24/7 conversational triage chatbot that qualifies patient suitability, answers treatment FAQs, and books consultation slots.",
-    industry: "Private Medical & Aesthetics · Case Study",
+    industry: "Private Medical & Aesthetics · Illustrative Build",
     website_link: null,
     cover_image: "/stamp-app-preview.png",
-    metric: "92% Show Rate · Zero DM Leaks",
+    metric: "24/7 Triage · Zero Missed Consultations",
     under_construction: true,
     badge_type: "Architecture Case Study",
     is_featured: true,
@@ -297,7 +297,7 @@ export default function PortfolioPage() {
           <div className="space-y-1">
             <p className="font-serif text-xl font-bold text-foreground">No Database Projects Found</p>
             <p className="text-xs text-muted-foreground max-w-md">
-              The public site is currently rendering the 4 built-in showcase builds (Stamp Valuation, Elite Fitness, Sterling Direct, Strategic Growth). Click below to import them into your database for direct editing.
+              The public site is currently rendering built-in showcase builds (Architectural Construction, Cellular Nutrition, Clinic Consultation Triage). Click below to import them into your database for direct editing.
             </p>
           </div>
           <button
@@ -306,7 +306,7 @@ export default function PortfolioPage() {
             className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold to-gold-light text-background text-xs font-bold hover:shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all cursor-pointer"
           >
             {seeding ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
-            Import 4 Frontend Showcase Projects
+            Import Frontend Showcase Projects
           </button>
         </div>
       ) : (

@@ -21,8 +21,8 @@ type PortfolioItem = {
 
 const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   {
-    title: "The Caker Street London Bakery",
-    category: "Bespoke Local Commerce & Order Intake · Verified Client Build",
+    title: "Artisanal Bakery & Confectionery (London)",
+    category: "Bespoke Local Commerce & Order Intake · Verified Client Deployment",
     gradient: "from-amber-500/20 to-yellow-600/20",
     href: null,
     image: "/stickman_baker_order.png",
@@ -30,17 +30,17 @@ const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     metric: "499 hrs saved · +£32,400/yr",
   },
   {
-    title: "Vanguard Architectural Construction",
-    category: "High-Ticket Client Intake & Quote Engine · Concept Sandbox",
+    title: "Example Build: Architectural Construction & House Extensions",
+    category: "High-Ticket Client Intake & Quote Engine · Illustrative Example Build",
     gradient: "from-amber-500/20 to-yellow-600/20",
     href: "https://premium-local-construction-business.vercel.app/",
     image: "/vanguard-construction-preview.png",
     underConstruction: false,
-    metric: "Instant Sub-Second Project Quote Engine",
+    metric: "Sub-Second Project Quote Engine",
   },
   {
-    title: "Aurēlia Cellular Longevity",
-    category: "Precision Nootropics & Bioactive E-Commerce · Concept Sandbox",
+    title: "Example Build: Cellular Longevity & Precision Nutrition Storefront",
+    category: "E-Commerce & Automated Subscriptions · Illustrative Example Build",
     gradient: "from-emerald-500/20 to-teal-500/20",
     href: "https://premium-supplement-commerce.vercel.app/",
     image: "/aurelia-supplement-preview.png",
@@ -50,7 +50,7 @@ const DEFAULT_PORTFOLIO: PortfolioItem[] = [
 ]
 
 function PremiumMockup({ item }: { item: PortfolioItem }) {
-  if (item.title.includes("Vanguard") || item.title.includes("Construction") || item.title.includes("Operations")) {
+  if (item.title.includes("Architectural") || item.title.includes("Construction") || item.title.includes("Operations")) {
     return (
       <div className="absolute inset-2 sm:inset-4 bg-[#050C1A] rounded-xl border border-[#DAA640]/40 overflow-hidden shadow-2xl flex flex-col font-sans">
         <div className="flex items-center justify-between px-3 py-2 bg-[#0A162E] border-b border-[#DAA640]/25 shrink-0">
@@ -67,7 +67,7 @@ function PremiumMockup({ item }: { item: PortfolioItem }) {
         <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#07153B] to-[#020E28]">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">VANGUARD OPERATIONS</span>
+              <span className="text-[10px] font-black tracking-tight text-white font-serif uppercase">ARCHITECTURAL EXTENSIONS</span>
               <span className="text-[6px] font-bold uppercase tracking-widest text-[#DAA640] bg-[#DAA640]/10 border border-[#DAA640]/30 px-1.5 py-0.5 rounded-full">SURREY &amp; LONDON</span>
             </div>
             <div className="flex items-center gap-1">
@@ -97,7 +97,7 @@ function PremiumMockup({ item }: { item: PortfolioItem }) {
     )
   }
 
-  if (item.title.includes("Aurēlia") || item.title.includes("Aurelia") || item.title.includes("Supplement") || item.title.includes("Longevity")) {
+  if (item.title.includes("Cellular") || item.title.includes("Aurēlia") || item.title.includes("Aurelia") || item.title.includes("Supplement") || item.title.includes("Longevity")) {
     return (
       <div className="absolute inset-2 sm:inset-4 bg-[#0A0A0C] rounded-xl border border-[#DCAE53]/35 overflow-hidden shadow-2xl flex flex-col font-sans">
         <div className="flex items-center justify-between px-3 py-2 bg-[#121216] border-b border-[#DCAE53]/20 shrink-0">
@@ -114,8 +114,8 @@ function PremiumMockup({ item }: { item: PortfolioItem }) {
         <div className="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#0e0e12] to-[#070709]">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-medium tracking-[0.2em] text-white font-serif uppercase">AURĒLIA</span>
-              <span className="text-[6px] font-bold uppercase tracking-widest text-[#DCAE53] bg-[#DCAE53]/10 border border-[#DCAE53]/30 px-1.5 py-0.5 rounded-full">CELLULAR LONGEVITY</span>
+              <span className="text-[10px] font-medium tracking-[0.2em] text-white font-serif uppercase">CELLULAR NUTRITION</span>
+              <span className="text-[6px] font-bold uppercase tracking-widest text-[#DCAE53] bg-[#DCAE53]/10 border border-[#DCAE53]/30 px-1.5 py-0.5 rounded-full">PRECISION STOREFRONT</span>
             </div>
             <div className="flex items-center gap-1">
               <span className="text-[6px] text-emerald-400 font-bold">★ ISO-17025 Verified</span>

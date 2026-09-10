@@ -156,7 +156,7 @@ export function PrototypeRequestModal({ isOpen: propIsOpen, onClose: propOnClose
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="e.g. David Harrison"
+                      placeholder="e.g. David Miller"
                       className="w-full px-4 py-2.5 rounded-xl bg-[#18181F] border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#DCAE53] transition-colors"
                     />
                   </div>
@@ -170,7 +170,7 @@ export function PrototypeRequestModal({ isOpen: propIsOpen, onClose: propOnClose
                       required
                       value={businessName}
                       onChange={(e) => setBusinessName(e.target.value)}
-                      placeholder="e.g. Harrison Private Clinic"
+                      placeholder="e.g. Your Business Name"
                       className="w-full px-4 py-2.5 rounded-xl bg-[#18181F] border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#DCAE53] transition-colors"
                     />
                   </div>
@@ -184,7 +184,7 @@ export function PrototypeRequestModal({ isOpen: propIsOpen, onClose: propOnClose
                       required
                       value={websiteOrSocial}
                       onChange={(e) => setWebsiteOrSocial(e.target.value)}
-                      placeholder="e.g. harrisonclinic.co.uk or @harrisonclinic"
+                      placeholder="e.g. yourbusiness.co.uk or @instagram"
                       className="w-full px-4 py-2.5 rounded-xl bg-[#18181F] border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#DCAE53] transition-colors"
                     />
                   </div>

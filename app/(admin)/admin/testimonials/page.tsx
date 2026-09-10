@@ -20,18 +20,10 @@ type Testimonial = {
 
 const DEFAULT_FRONTEND_TESTIMONIALS = [
   {
-    client_name: "Sarah M., Managing Director",
-    company: "Vanguard Client Operations · West Midlands",
-    testimonial: "We used to lose 4–5 high-value client enquiries every single week to missed calls and delayed replies. Mercian deployed an automated booking and deposit engine with instant WhatsApp alerts. We now capture non-refundable upfront commitment before any consultation hits our calendar.",
-    badge: "+38% Revenue Lift",
-    is_featured: true,
-    is_archived: false,
-  },
-  {
-    client_name: "Marcus T., Principal Operator",
-    company: "Sovereign Commercial Group · Warwickshire",
-    testimonial: "The automated intake system and instant WhatsApp routing completely eliminated our late-night enquiry chasing. Our team only speaks with qualified decision-makers who have already chosen their service tier.",
-    badge: "14.5 Hrs Saved / Wk",
+    client_name: "Founder & Operations Lead",
+    company: "Artisanal Bakery & Confectionery · London",
+    testimonial: "Before working with Mercian Wealth, our team spent hours every evening chasing messages, manually taking orders, and verifying bank transfers. The 3-tap custom storefront and automated deposit flow reclaimed 499 hours of admin time in our first year and captured over £32,400 in direct orders.",
+    badge: "+£32.4k Direct Revenue · 499 Hrs Saved",
     is_featured: true,
     is_archived: false,
   },

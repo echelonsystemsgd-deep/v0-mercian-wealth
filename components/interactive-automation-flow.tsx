@@ -52,7 +52,7 @@ const FLOW_STEPS = [
     payloadData: {
       calendarSync: "Google Calendar & Outlook Verified",
       appointmentTime: "Tuesday, 09:00 AM - 10:30 AM",
-      customerEmail: "operations@apexlogistics.co.uk",
+      customerEmail: "enquiries@commercialservices.co.uk",
       depositStatus: "Deposit Secured via Stripe (£150.00)",
     },
   },

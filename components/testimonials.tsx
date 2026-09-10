@@ -19,8 +19,8 @@ interface TestimonialRecord {
 
 const STATIC_FALLBACK_TESTIMONIALS: TestimonialRecord[] = [
   {
-    client_name: "Tariq K., Founder",
-    company: "The Caker Street Bakery · London",
+    client_name: "Founder & Operations Lead",
+    company: "Artisanal Bakery & Confectionery · London",
     testimonial: "Before working with Mercian Wealth, our team spent hours every evening chasing messages, manually taking orders, and verifying bank transfers. The 3-tap custom storefront and automated deposit flow reclaimed 499 hours of admin time in our first year and captured over £32,400 in direct orders.",
     badge: "+£32.4k Direct Revenue · 499 Hrs Saved",
   },
