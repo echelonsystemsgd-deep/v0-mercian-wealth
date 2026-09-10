@@ -16,7 +16,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!user) redirect('/login')
+  if (!user) redirect('/unauthorized')
 
   const { data: profile } = await supabase
     .from('profiles')
@@ -25,7 +25,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     .single()
 
   if (!profile || profile.role !== 'admin' || profile.is_suspended) {
-    redirect('/login')
+    redirect('/unauthorized')
   }
 
   return (

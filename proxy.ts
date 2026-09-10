@@ -53,11 +53,11 @@ export async function proxy(request: NextRequest) {
   // Protect all /admin/* routes
   if (pathname.startsWith('/admin')) {
     if (!user) {
-      return NextResponse.redirect(new URL('/login', request.url))
+      return NextResponse.redirect(new URL('/unauthorized', request.url))
     }
     const profile = await getUserProfile()
     if (!profile || profile.role !== 'admin' || profile.is_suspended) {
-      // If a standard user tries to access admin, redirect them to unauthorized page
+      // If a non-admin user tries to access admin, redirect them to unauthorized warning page
       return NextResponse.redirect(new URL('/unauthorized', request.url))
     }
   }
