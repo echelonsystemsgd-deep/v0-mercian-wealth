@@ -33,61 +33,61 @@ export type PortfolioItem = {
 
 export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   {
-    title: "Example Build: Luxury Techwear & Adaptive Outerwear",
-    category: "Luxury E-Commerce & Sovereign Outerwear · Live Sandbox",
+    title: "PRINCEPS — Luxury Techwear & Outerwear",
+    category: "Luxury E-Commerce & Sovereign Techwear · Live Sandbox",
     gradient: "from-zinc-800/40 to-cyan-950/40",
     href: "https://princeps-ecom.vercel.app/",
-    image: "/princeps-techwear-preview.jpg",
+    image: "/princeps-preview-real.jpg",
     underConstruction: false,
     metric: "Kinetic Shell Visualizer & Dynamic Cart",
     domain: "princeps-ecom.vercel.app",
   },
   {
-    title: "Example Build: Private Cosmetic Dentistry & Smile Assessment",
-    category: "Patient Triage & 60s Smile Assessment · Live Sandbox",
+    title: "Meridian Dental — Private Cosmetic & Restorative Dentistry",
+    category: "Private Healthcare & Aesthetic Dentistry · Live Sandbox",
     gradient: "from-emerald-950/40 to-teal-950/40",
     href: "https://dental-clinic-prototype-zeta.vercel.app/",
-    image: "/meridian-dental-preview.jpg",
+    image: "/meridian-dental-preview-real.jpg",
     underConstruction: false,
     metric: "60s Smile Assessment & Treatment Guide",
     domain: "dental-clinic-prototype-zeta.vercel.app",
   },
   {
-    title: "Example Build: Architectural Construction & House Extensions",
-    category: "High-Ticket Intake & Instant Quote Engine · Live Sandbox",
+    title: "Vanguard Construction — House Extensions & Loft Conversions",
+    category: "Architectural Extensions & Turnkey Renovations · Live Sandbox",
     gradient: "from-amber-950/40 to-yellow-950/40",
     href: "https://premium-local-construction-business.vercel.app/",
-    image: "/vanguard-construction-preview.png",
+    image: "/vanguard-construction-preview-real.jpg",
     underConstruction: false,
     metric: "Instant Sub-Second Project Quote Engine",
     domain: "premium-local-construction-business.vercel.app",
   },
   {
-    title: "Example Build: Commercial & Residential Roofing Systems",
-    category: "Emergency Repair Dispatch & Quote Lock · Live Sandbox",
+    title: "Home Solutions Roofing — Roofing Systems & Leak Diagnostics",
+    category: "Commercial & Residential Roofing · Live Sandbox",
     gradient: "from-blue-950/40 to-indigo-950/40",
     href: "https://home-solutions-roofing.vercel.app/",
-    image: "/home-solutions-roofing-preview.jpg",
+    image: "/home-solutions-roofing-preview-real.jpg",
     underConstruction: false,
-    metric: "Emergency Repair Dispatch & Quote Locks",
+    metric: "Emergency Repair Dispatch & Diagnostics Intake",
     domain: "home-solutions-roofing.vercel.app",
   },
   {
-    title: "Example Build: Bespoke Extensions & Structural Renovations",
-    category: "Turnkey Scope Estimator & Contractor Intake · Live Sandbox",
+    title: "M.E Building Services — Specialist Residential Building Contractor",
+    category: "Surrey & South London Structural Extensions · Live Sandbox",
     gradient: "from-amber-950/40 to-orange-950/40",
     href: "https://me-building-services.vercel.app/",
-    image: "/me-building-services-preview.jpg",
+    image: "/me-building-services-preview-real.jpg",
     underConstruction: false,
     metric: "Turnkey Scope Estimator & Milestone Billing",
     domain: "me-building-services.vercel.app",
   },
   {
-    title: "Example Build: Cellular Longevity & Precision Nutrition Storefront",
-    category: "Luxury E-Commerce & Subscriptions · Live Sandbox",
+    title: "AURĒLIA — Cellular Longevity & Precision Nootropics",
+    category: "Luxury Healthspan & Nootropic Commerce · Live Sandbox",
     gradient: "from-emerald-950/40 to-teal-950/40",
     href: "https://premium-supplement-commerce.vercel.app/",
-    image: "/aurelia-supplement-preview.png",
+    image: "/aurelia-supplement-preview-real.jpg",
     underConstruction: false,
     metric: "Duodenal Delivery & Automated Subscriptions",
     domain: "premium-supplement-commerce.vercel.app",
@@ -435,19 +435,26 @@ export function Portfolio({ limit }: { limit?: number }) {
   const displayItems = limit ? items.slice(0, limit) : items
 
   // Moving carousel continuous auto-scroll animation with seamless infinite loop
+  const scrollPosRef = useRef(0)
+  const isInteractingRef = useRef(false)
+
   useEffect(() => {
     const el = scrollRef.current
     if (!el) return
 
     let animationId: number
-    const speed = 0.8 // smooth sub-pixel scroll speed
+    const speed = 0.75 // smooth luxury crawl speed
 
     const scroll = () => {
-      if (el && !isPaused) {
-        el.scrollLeft += speed
-        // If scrolled past the first duplicate set, seamlessly reset to zero
-        if (el.scrollLeft >= el.scrollWidth / 2) {
-          el.scrollLeft = 0
+      if (el && !isPaused && !isInteractingRef.current) {
+        scrollPosRef.current += speed
+        // Single set width based on 3 duplicates
+        const singleSetWidth = el.scrollWidth / 3
+        if (singleSetWidth > 0 && scrollPosRef.current >= singleSetWidth) {
+          scrollPosRef.current -= singleSetWidth
+          el.scrollLeft = scrollPosRef.current
+        } else {
+          el.scrollLeft = scrollPosRef.current
         }
       }
       animationId = requestAnimationFrame(scroll)
@@ -457,22 +464,37 @@ export function Portfolio({ limit }: { limit?: number }) {
     return () => cancelAnimationFrame(animationId)
   }, [isPaused])
 
+  // Sync scroll position if user manually scrolls while paused
+  const handleScrollEvent = () => {
+    const el = scrollRef.current
+    if (el && (isPaused || isInteractingRef.current)) {
+      scrollPosRef.current = el.scrollLeft
+    }
+  }
+
   // Manual scroll controls for Left / Right arrows
   const handleScroll = (direction: "left" | "right") => {
     const el = scrollRef.current
     if (!el) return
     setIsPaused(true)
+    isInteractingRef.current = true
 
     // Clear any previous resume timer
     if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
 
-    const cardWidth = el.querySelector(".portfolio-card")?.clientWidth || 450
-    const scrollDelta = cardWidth + 24 // card width + gap
+    const cardWidth = el.querySelector(".portfolio-card")?.clientWidth || 500
+    const scrollDelta = cardWidth + 32 // card width + gap
 
     el.scrollBy({
       left: direction === "left" ? -scrollDelta : scrollDelta,
       behavior: "smooth",
     })
+
+    // Resync position after smooth scroll completes
+    setTimeout(() => {
+      if (el) scrollPosRef.current = el.scrollLeft
+      isInteractingRef.current = false
+    }, 500)
 
     // Automatically resume gentle auto-scroll after 4 seconds of inactivity
     resumeTimerRef.current = setTimeout(() => {
@@ -483,17 +505,21 @@ export function Portfolio({ limit }: { limit?: number }) {
   // Handle mobile touch interaction
   const handleTouchStart = () => {
     setIsPaused(true)
+    isInteractingRef.current = true
     if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
   }
 
   const handleTouchEnd = () => {
+    const el = scrollRef.current
+    if (el) scrollPosRef.current = el.scrollLeft
+    isInteractingRef.current = false
     resumeTimerRef.current = setTimeout(() => {
       setIsPaused(false)
     }, 3500)
   }
 
-  // Duplicate items for the infinite looping track
-  const carouselItems = [...displayItems, ...displayItems]
+  // Triplicate items for the seamless infinite looping track on all viewports
+  const carouselItems = [...displayItems, ...displayItems, ...displayItems]
 
   return (
     <>
@@ -559,21 +585,18 @@ export function Portfolio({ limit }: { limit?: number }) {
           </div>
         </div>
 
-        {/* Continuous Moving Carousel Track with Hover Pause */}
-        <div
-          className="relative w-full overflow-hidden py-4 z-10"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
+        {/* Continuous Moving Carousel Track with Card-Level Hover Pause */}
+        <div className="relative w-full overflow-hidden py-4 z-10">
           {/* Edge fade gradients for luxury seamless transition */}
           <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-r from-[#09090B] to-transparent z-20 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-l from-[#09090B] to-transparent z-20 pointer-events-none" />
 
           <div
             ref={scrollRef}
+            onScroll={handleScrollEvent}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
-            className="flex gap-6 sm:gap-8 overflow-x-auto no-scrollbar scroll-smooth px-4 sm:px-8 snap-x snap-mandatory"
+            className="flex gap-6 sm:gap-8 overflow-x-auto no-scrollbar px-4 sm:px-8"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
@@ -587,10 +610,12 @@ export function Portfolio({ limit }: { limit?: number }) {
               return (
                 <div
                   key={`${item.title}-${index}`}
-                  className="portfolio-card group relative flex-shrink-0 w-[85vw] sm:w-[500px] md:w-[560px] lg:w-[600px] aspect-[16/10] rounded-2xl border border-slate-800 hover:border-[#DCAE53] transition-all duration-300 bg-[#111115] overflow-hidden shadow-2xl cursor-pointer snap-center"
+                  className="portfolio-card group relative flex-shrink-0 w-[85vw] sm:w-[500px] md:w-[560px] lg:w-[600px] aspect-[16/10] rounded-2xl border border-slate-800 hover:border-[#DCAE53] transition-all duration-300 bg-[#111115] overflow-hidden shadow-2xl cursor-pointer"
+                  onMouseEnter={() => setIsPaused(true)}
+                  onMouseLeave={() => setIsPaused(false)}
                   onClick={() => {
-                    if (!item.underConstruction && item.href) {
-                      setPreviewPrototype(item)
+                    if (item.href) {
+                      window.open(item.href, "_blank", "noopener,noreferrer")
                     } else {
                       setRequestSchemaModal(item)
                     }
@@ -599,20 +624,20 @@ export function Portfolio({ limit }: { limit?: number }) {
                   {/* Browser Chrome Shell & Real Landing Page Preview Image */}
                   <div className="w-full h-full relative z-10 flex flex-col bg-[#111115]">
                     {/* Browser Chrome Header */}
-                    <div className="flex items-center justify-between px-3 py-2 sm:px-4 sm:py-2.5 bg-[#14141a] border-b border-slate-800 shrink-0">
-                      <div className="flex items-center gap-1.5 sm:gap-2">
-                        <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                    <div className="flex items-center justify-between px-2.5 py-2 sm:px-4 sm:py-2.5 bg-[#14141a] border-b border-slate-800 shrink-0">
+                      <div className="flex items-center gap-1 sm:gap-2">
+                        <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-500/80" />
+                        <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-yellow-500/80" />
+                        <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-green-500/80" />
                       </div>
 
                       {/* Mockup Address Bar */}
-                      <div className="h-5 bg-[#09090B] border border-slate-800/90 rounded-full px-3 text-[9px] sm:text-[10px] text-slate-400 flex items-center justify-center font-mono truncate max-w-[200px] sm:max-w-[280px]">
+                      <div className="h-5 bg-[#09090B] border border-slate-800/90 rounded-full px-2.5 sm:px-3 text-[9px] sm:text-[10px] text-slate-400 flex items-center justify-center font-mono truncate max-w-[130px] sm:max-w-[280px]">
                         {domain}
                       </div>
 
                       {/* Live Badge */}
-                      <span className="text-[8px] sm:text-[9px] font-mono font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                      <span className="text-[7.5px] sm:text-[9px] font-mono font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-1.5 sm:px-2 py-0.5 rounded-full flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                         <span className="hidden xs:inline">Live</span> Sandbox
                       </span>
@@ -658,7 +683,9 @@ export function Portfolio({ limit }: { limit?: number }) {
                           size="sm"
                           onClick={(e) => {
                             e.stopPropagation()
-                            setPreviewPrototype(item)
+                            if (item.href) {
+                              window.open(item.href, "_blank", "noopener,noreferrer")
+                            }
                           }}
                           className="bg-emerald-500 hover:bg-emerald-400 text-[#09090B] font-bold px-5 py-2 rounded-xl transition-all cursor-pointer shadow-lg shadow-emerald-500/20"
                         >
@@ -687,7 +714,9 @@ export function Portfolio({ limit }: { limit?: number }) {
                       className="shrink-0 flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-[#09090B] bg-emerald-400 px-3 py-1.5 rounded-lg active:scale-95 transition-transform cursor-pointer font-sans"
                       onClick={(e) => {
                         e.stopPropagation()
-                        setPreviewPrototype(item)
+                        if (item.href) {
+                          window.open(item.href, "_blank", "noopener,noreferrer")
+                        }
                       }}
                     >
                       <span>Test Sandbox</span>

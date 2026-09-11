@@ -7,23 +7,42 @@ This document establishes the architecture, legal safeguards, and deployment gui
 
 ## 1. Prototype Showcase & Lead Architecture
 
-### Portfolio Lineup (Zero External Link Exposure)
-1. **Stamp Valuation App (SellYourStampsUK)**
-   * **Domain / Category:** AI Computer Vision · Case Study
-   * **Benchmark:** Target Latency: < 1s
-   * **Link Status:** Fully Isolated (Zero external links exposed). Opens "Book A Live Demonstration" lead-capture modal.
+### Portfolio Lineup (Direct Live Sandbox Clickthrough)
+1. **PRINCEPS — Luxury Techwear & Outerwear**
+   * **Domain / Category:** `princeps-ecom.vercel.app` · Luxury E-Commerce & Sovereign Techwear
+   * **Benchmark:** Kinetic Shell Visualizer & Dynamic Cart
+   * **Preview Asset:** `/princeps-preview-real.jpg` (authentic live landing page capture)
+   * **Link Status:** Direct new-tab launch (`https://princeps-ecom.vercel.app/`).
 
-2. **Caker St. London Bakery**
-   * **Domain / Category:** E-Commerce & Ordering · Case Study
-   * **Benchmark:** Interactive Cake Concierge (30s Quote)
-   * **Highlights:** Multi-step cake matching concierge, 100% Eggless & Halal filters, Trustpilot integration, popup-free browsing.
-   * **Link Status:** Fully Isolated (Zero external links exposed). Opens "Book A Live Demonstration" lead-capture modal.
+2. **Meridian Dental — Private Cosmetic & Restorative Dentistry**
+   * **Domain / Category:** `dental-clinic-prototype-zeta.vercel.app` · Private Healthcare & Aesthetic Dentistry
+   * **Benchmark:** 60-Second Smile Assessment & Treatment Guide
+   * **Preview Asset:** `/meridian-dental-preview-real.jpg` (authentic live landing page capture)
+   * **Link Status:** Direct new-tab launch (`https://dental-clinic-prototype-zeta.vercel.app/`).
 
-3. **Grand Wedding Cakes**
-   * **Domain / Category:** Luxury Bridal Atelier · Case Study
-   * **Benchmark:** Tier Architecture & White-Glove Setup
-   * **Highlights:** Editorial luxury design, tiered packages (Drop-Off £450, Silver £750, Gold £1,000+), interactive flavour/buttercream matrix, wedding cake cutting tier logistics.
-   * **Link Status:** Fully Isolated (Zero external links exposed). Opens "Book A Live Demonstration" lead-capture modal.
+3. **Vanguard Construction — House Extensions & Loft Conversions**
+   * **Domain / Category:** `premium-local-construction-business.vercel.app` · Architectural Extensions & Turnkey Renovations
+   * **Benchmark:** Instant Sub-Second Project Scope & Quote Engine
+   * **Preview Asset:** `/vanguard-construction-preview-real.jpg` (authentic live landing page capture)
+   * **Link Status:** Direct new-tab launch (`https://premium-local-construction-business.vercel.app/`).
+
+4. **Home Solutions Roofing — Roofing Systems & Leak Diagnostics**
+   * **Domain / Category:** `home-solutions-roofing.vercel.app` · Commercial & Residential Roofing Systems
+   * **Benchmark:** Emergency Repair Dispatch & Diagnostics Intake
+   * **Preview Asset:** `/home-solutions-roofing-preview-real.jpg` (authentic live landing page capture)
+   * **Link Status:** Direct new-tab launch (`https://home-solutions-roofing.vercel.app/`).
+
+5. **M.E Building Services — Specialist Residential Building Contractor**
+   * **Domain / Category:** `me-building-services.vercel.app` · Surrey & South London Structural Extensions
+   * **Benchmark:** Turnkey Scope Estimator & Milestone Billing
+   * **Preview Asset:** `/me-building-services-preview-real.jpg` (authentic live landing page capture)
+   * **Link Status:** Direct new-tab launch (`https://me-building-services.vercel.app/`).
+
+6. **AURĒLIA — Cellular Longevity & Precision Nootropics**
+   * **Domain / Category:** `premium-supplement-commerce.vercel.app` · Luxury Healthspan & Nootropic Commerce
+   * **Benchmark:** Duodenal Delivery & Automated Subscriptions
+   * **Preview Asset:** `/aurelia-supplement-preview-real.jpg` (authentic live landing page capture)
+   * **Link Status:** Direct new-tab launch (`https://premium-supplement-commerce.vercel.app/`).
 
 ---
 
