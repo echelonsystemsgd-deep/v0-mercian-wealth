@@ -14,21 +14,25 @@
     },
     {
       "parameters": {
-        "values": {
-          "string": [
+        "assignments": {
+          "assignments": [
             {
+              "id": "field-search-query",
               "name": "search_query",
-              "value": "Roofers in Solihull, UK"
-            }
-          ],
-          "number": [
-            {
-              "name": "max_leads",
-              "value": 50
+              "value": "Roofers in Solihull, UK",
+              "type": "string"
             },
             {
+              "id": "field-max-leads",
+              "name": "max_leads",
+              "value": 50,
+              "type": "number"
+            },
+            {
+              "id": "field-min-reviews",
               "name": "min_reviews",
-              "value": 1
+              "value": 1,
+              "type": "number"
             }
           ]
         },
