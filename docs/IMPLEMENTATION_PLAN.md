@@ -219,3 +219,119 @@ Because the public site will **never display fixed £ prices** (masking them com
   ├── Implement Service and FAQPage JSON-LD schemas
   └── Run TypeScript type check (npx tsc --noEmit) and production build (npm run build)
 ```
+
+---
+
+## 10. Outbound Lead Engine & Supabase Pipeline Architecture
+
+### 10.1 Business Context & Role
+The automated lead-finder workflow is an internal operational asset of **Mercian Wealth** — the engineering studio that designs high-converting digital storefronts, autonomous lead-capture engines, and operations infrastructure for UK businesses. 
+
+Rather than functioning as a disconnected, standalone scraper or third-party spreadsheet silo, this workflow serves as Mercian Wealth's primary outbound acquisition engine. It feeds prospective businesses directly into the central database, powering operator outreach, qualification, and automated quote generation.
+
+---
+
+### 10.2 Relational Schema Alignment (`public.leads`)
+The scraper integrates directly with the existing `public.leads` table (first defined in `20260531000000_schema.sql` and augmented in `20260802191700_add_local_lead_fields.sql`).
+
+To support automated triage, multi-niche outreach, and direct handoff to quotes, `public.leads` is extended non-destructively:
+
+| Column | Type | Default / Constraints | Strategic Purpose |
+| :--- | :--- | :--- | :--- |
+| **`outreach_category`** | `TEXT` | `CHECK (outreach_category IN ('no_website', 'social_only', 'dead_website', 'parked_domain', 'outdated_functional', 'disqualified'))` | Categorizes the prospect's online presence to trigger the exact matching Stage 2 pitch. |
+| **`outreach_stage`** | `TEXT` | `DEFAULT 'uncontacted'` · `CHECK (outreach_stage IN ('uncontacted', 'stage_1_sent', 'stage_1_replied', 'stage_2_sent', 'prototype_requested', 'converted_to_quote', 'lost'))` | Tracks progression through Mercian Wealth's 2-stage outreach protocol. |
+| **`whatsapp_direct_url`**| `TEXT` | `NULLABLE` | Pre-built internationalized `https://wa.me/447...` link pre-populated with `Hi 👋`. |
+| **`scraped_metadata`** | `JSONB`| `DEFAULT '{}'::jsonb` | Stores raw telemetry: reviews count, Google Maps rating, place ID, full address, and opening hours. |
+| **`converted_quote_id`**| `UUID` | `REFERENCES public.quotes(id) ON DELETE SET NULL` | Direct foreign key connecting the lead to an active quote draft once qualified. |
+
+```sql
+-- Migration: 20260911120000_outbound_lead_pipeline.sql
+ALTER TABLE public.leads
+  ADD COLUMN IF NOT EXISTS outreach_category TEXT DEFAULT 'no_website',
+  ADD COLUMN IF NOT EXISTS outreach_stage TEXT DEFAULT 'uncontacted',
+  ADD COLUMN IF NOT EXISTS whatsapp_direct_url TEXT,
+  ADD COLUMN IF NOT EXISTS scraped_metadata JSONB DEFAULT '{}'::jsonb,
+  ADD COLUMN IF NOT EXISTS converted_quote_id UUID REFERENCES public.quotes(id) ON DELETE SET NULL;
+
+CREATE INDEX IF NOT EXISTS idx_leads_outreach_stage ON public.leads(outreach_stage);
+CREATE INDEX IF NOT EXISTS idx_leads_outreach_category ON public.leads(outreach_category);
+```
+
+---
+
+### 10.3 The Lead → Client → Quote Pipeline
+When an outbound lead responds positively to Stage 2 and requests a proposal or sandbox demonstration, the operator triggers the **"Convert to Quote"** workflow:
+
+1. **Seamless Promotion**: A PostgreSQL RPC function `public.convert_lead_to_quote(lead_id UUID, default_tier TEXT)` reads the lead's business name, phone, address, and notes.
+2. **Zero Duplicate Entry**:
+   - Creates or links a record in `public.profiles` (setting role to `client`).
+   - Instantiates a persistent draft record in `public.quotes` (`MW-Q-2026-XXXX`) pre-populated with:
+     - `client_name`: Lead contact name (or Owner/Director).
+     - `client_business`: Lead company name.
+     - `client_phone`: Clean UK phone.
+     - `client_address`: Scraped regional address.
+     - `scope_notes`: Scraped online status and requested niche specifications.
+3. **Instant Financial Command**: The operator is automatically redirected to `/admin/quotes/[id]` where they can attach line items from the internal catalog (Launch Catalyst £1,850, System Leverage £3,850), calculate dynamic rev-share projections, and generate the branded PDF invoice or secret interactive link (`/quote/[token]`).
+
+---
+
+### 10.4 Multi-Niche Taxonomy & Query Engine
+Mercian Wealth's engine is built **trade-agnostic**, systematically addressing high-margin UK sectors where a single new client or captured contract represents £500 to £20,000+ in revenue:
+
+1. **High-Value Regional Trades**:
+   - *Niches*: Roofing & Guttering, Architectural Extensions, Structural Builders, Loft Conversions, Heat Pump & Boiler Engineers, Commercial Landscaping.
+   - *Pain Point*: Mobile operators losing jobs on site to competitors who reply first; unvetted phone calls; lack of instant digital quote intake.
+2. **Private Healthcare & Medical Aesthetics**:
+   - *Niches*: Cosmetic Dentistry, Implantology, Private Facial Aesthetics, Orthodontics, Physiotherapy.
+   - *Pain Point*: High out-of-hours drop-off, missed consultation requests, friction in deposit collection.
+3. **Professional & Financial Services**:
+   - *Niches*: Chartered Accountants, R&D Tax Advisors, Structural Engineers, Commercial Insurance Brokers.
+   - *Pain Point*: Archaic contact forms, slow response lag, manual onboarding friction.
+4. **Artisanal & Luxury Retail**:
+   - *Niches*: Bespoke Wedding Confectionery, Luxury Florists, Custom Outerwear/Tailoring.
+   - *Pain Point*: Over-reliance on Instagram DMs with zero automated order triage or calendar booking.
+
+---
+
+### 10.5 Outreach Template Mapping (The Finalized 2-Stage Protocol)
+The scraper's classification logic maps directly into Mercian Wealth's two-stage communication protocol. **Stage 1 and Stage 2 are strictly delivered as separate messages.**
+
+#### Stage 1: The Frictionless Opener (Sent Alone)
+> **`Hi 👋`**  
+> *(or `Hi [Name] 👋` if owner name is identified)*  
+> *Rule: Sent alone on WhatsApp/SMS. Wait for active human reply before sending Stage 2.*
+
+#### Stage 2: The Outcome-First Pitch (Sent Only After Prospect Replies)
+1. **Category A: No Website (`no_website`)**:
+   > *"Came across [Business Name] — had a look for a website, couldn't find one. Here's the bit that actually matters: every day someone searches for a [trade] near them, sees you're not there, and books with whoever showed up instead. That's not a maybe — it's happening right now, on jobs you'll never even know you lost.*
+   > 
+   > *I build the site before I ever ask for money — I don't sell direction I haven't already shown. If it's not for you, no pressure at all, just glad I flagged it. If it is, we take it from there."*
+
+2. **Category B: Broken / Outdated / Social Only (`social_only` / `dead_website` / `outdated_functional`)**:
+   > *"Came across [Business Name] — went to check out the site, but [specific, honest observation]. That's not just a rough edge — it's the exact moment someone decides you're not worth the call, and picks the next result instead. Happening on repeat, quietly, without you ever seeing it.*
+   > 
+   > *I build the site before I ever ask for money — I don't sell direction I haven't already shown. If it's not for you, no pressure at all, just glad I flagged it. If it is, we take it from there."*
+
+3. **Category C: Broader Automation Pitch (High-Ticket & Referral Leads)**:
+   > *"Came across [Business Name] — [one specific, real observation about how they currently handle enquiries/calls/leads].*
+   > 
+   > *Every missed call or slow reply isn't a maybe — it's a job going to whoever picked up faster. I build systems that fix exactly that: faster response, less admin, more of what's already coming in actually turning into paying work.*
+   > 
+   > *I show you a working version before anything's agreed — no cost, no pressure. If it's useful, we take it further. If not, no worries at all."*
+
+#### Follow-Up Sequences:
+- **No Response (48h)**: *"Hey — following up on [Business Name]'s site. No pressure at all, just wanted to check it landed and see where you're at."*
+- **Final Follow-Up (96h)**: *"Last one from me on this — if it's not a priority right now, that's completely fair. If it ever is, the offer stands, just say the word."*
+- **"I'll come back to you"**: *"No rush at all — happy to wait until you're ready. Just didn't want it to go unsaid: every day without it is a day someone's landing somewhere else instead of you. Whenever you're ready, everything's exactly as we left it."*
+- **Declined**: *"No worries at all, appreciate you letting me know 👍 If that ever changes, feel free to reach out — all the best with the business!"*
+
+---
+
+### 10.6 Brand Discipline for Review Interfaces
+Any human-facing surface built for reviewing or managing scraped leads (such as an internal triage dashboard or lead table) must strictly honor Mercian Wealth's canonical design system:
+- **Canvas Charcoal**: `#09090B` (never default browser white or generic grey).
+- **Surface Cards**: `#111115` with crisp hairline borders (`border-slate-800` or `border-[#DCAE53]/20`).
+- **Accent Gold**: `#DCAE53` applied exclusively to primary interactive triggers, status badges, and active pills.
+- **Brand Mark**: Geometric Bowtie/Hourglass "MW" SVG icon (`/public/logo1.png` / `/public/logo2.png`) anchored in the header.
+- **Zero Third-Party Bleed**: No un-styled n8n or generic UI elements exposed to operators or clients.
+
