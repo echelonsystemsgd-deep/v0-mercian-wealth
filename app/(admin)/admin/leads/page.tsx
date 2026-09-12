@@ -32,10 +32,12 @@ import {
   MapPin,
   Laptop,
   Check,
+  FileSpreadsheet,
 } from 'lucide-react'
 import { useInspector } from '@/hooks/use-inspector'
 import { OutreachModal, OutreachLead } from '@/components/admin/outreach-modal'
 import { AntigravityPromptModal } from '@/components/admin/antigravity-prompt-modal'
+import { GoogleSheetSyncModal } from '@/components/admin/google-sheet-sync-modal'
 
 export type Lead = OutreachLead
 
@@ -92,6 +94,9 @@ export default function LeadsPage() {
   // Dedicated Antigravity Prompt Modal State
   const [promptLead, setPromptLead] = useState<Lead | null>(null)
   const [isPromptOpen, setIsPromptOpen] = useState(false)
+
+  // Dedicated Google Sheets Sync Modal State
+  const [isSheetSyncOpen, setIsSheetSyncOpen] = useState(false)
 
   const handleOpenPrompt = (lead: Lead) => {
     setPromptLead(lead)
@@ -479,15 +484,24 @@ export default function LeadsPage() {
             Execute 1-click WhatsApp outreach, build instant storefront prototypes, and hit £10k/month deal targets.
           </p>
         </div>
-        <button
-          onClick={() => {
-            setLeadForm({ name: '', business_name: '', email: '', phone: '', website: '', service_interested: '', source: 'manual', status: 'New', notes: '' })
-            setShowNewModal(true)
-          }}
-          className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-gold to-gold-light text-background shadow-[0_0_16px_rgba(212,175,55,0.25)] hover:shadow-[0_0_24px_rgba(212,175,55,0.45)] transition-all cursor-pointer self-end sm:self-center"
-        >
-          <Plus size={14} /> Add Lead
-        </button>
+        <div className="flex items-center gap-2 self-end sm:self-center">
+          <button
+            onClick={() => setIsSheetSyncOpen(true)}
+            className="flex items-center gap-2 px-3.5 py-2.5 text-xs font-bold rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25 transition-all cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.15)]"
+            title="Sync 224 leads from Google Sheets"
+          >
+            <FileSpreadsheet size={14} /> Sync Google Sheet
+          </button>
+          <button
+            onClick={() => {
+              setLeadForm({ name: '', business_name: '', email: '', phone: '', website: '', service_interested: '', source: 'manual', status: 'New', notes: '' })
+              setShowNewModal(true)
+            }}
+            className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-gold to-gold-light text-background shadow-[0_0_16px_rgba(212,175,55,0.25)] hover:shadow-[0_0_24px_rgba(212,175,55,0.45)] transition-all cursor-pointer"
+          >
+            <Plus size={14} /> Add Lead
+          </button>
+        </div>
       </div>
 
       {/* Visual Pipeline Headers */}
@@ -1501,6 +1515,17 @@ export default function LeadsPage() {
         isOpen={isPromptOpen}
         onClose={() => setIsPromptOpen(false)}
         lead={promptLead}
+      />
+
+      {/* ── GOOGLE SHEETS 1-CLICK SYNC MODAL ── */}
+      <GoogleSheetSyncModal
+        isOpen={isSheetSyncOpen}
+        onClose={() => setIsSheetSyncOpen(false)}
+        onSuccess={() => {
+          fetchLeads()
+          triggerToast('Google Sheets sync complete!')
+        }}
+        currentCount={leads.length}
       />
     </div>
   )

@@ -6,9 +6,8 @@
  * 2. Paste this entire script into Code.gs (replacing everything).
  * 3. Click Save (Ctrl + S).
  * 4. Reload your Google Sheet.
- * 5. Click the new "Mercian Wealth" menu at the top -> "✨ Auto-Align & Format My Table".
- *    It will instantly clean up your 37 rows, insert headers, remove blank columns,
- *    and format everything with zero manual work!
+ * 5. Click the new "Mercian Wealth" menu at the top -> "🚀 Sync All Leads to Admin Dashboard (1-Click)".
+ *    It will instantly push all 224 leads to your Supabase backend and Admin Dashboard!
  */
 
 var SUPABASE_URL = "https://ladebhmyywkcqtyazxxk.supabase.co";
@@ -17,37 +16,360 @@ var SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSI
 function onOpen() {
   var ui = SpreadsheetApp.getUi();
   ui.createMenu('Mercian Wealth')
-    .addItem('✨ Auto-Align & Format My Table (1-Click)', 'autoFormatExistingTable')
+    .addItem('🚀 Sync All Leads to Admin Dashboard (1-Click)', 'syncAllLeadsToAdminBackend')
+    .addItem('⚡ Fresh Sync (Wipe Old Scraper Leads & Import Fresh)', 'freshSyncToAdminBackend')
     .addSeparator()
+    .addItem('✨ Auto-Align & Format My Table (1-Click)', 'autoFormatExistingTable')
     .addItem('🔄 Sync Deletions to Admin Backend', 'syncDeletionsToBackend')
     .addItem('🗑️ Delete Selected Row from Backend', 'deleteSelectedRowFromBackend')
     .addToUi();
 }
 
 /**
+ * Helper: Find column index by checking header names flexibly
+ */
+function findColIndex(headers, keywords) {
+  for (var i = 0; i < headers.length; i++) {
+    var h = String(headers[i] || '').trim().toLowerCase();
+    for (var k = 0; k < keywords.length; k++) {
+      if (h.indexOf(keywords[k]) !== -1) {
+        return i;
+      }
+    }
+  }
+  return -1;
+}
+
+/**
+ * Extracts and prepares lead objects from the current active sheet
+ */
+function extractLeadsFromSheet() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var lastRow = sheet.getLastRow();
+  var lastCol = sheet.getLastColumn();
+
+  if (lastRow < 2) {
+    return [];
+  }
+
+  var headerRow = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
+
+  // Dynamic header matching
+  var colName = findColIndex(headerRow, ['business name', 'company', 'business', 'name']);
+  var colPhone = findColIndex(headerRow, ['phone', 'tel', 'mobile', 'telephone']);
+  var colWebsite = findColIndex(headerRow, ['website', 'site', 'url']);
+  var colReviewsRating = findColIndex(headerRow, ['reviews & rating', 'rating & reviews', 'reviews and rating']);
+  var colRating = findColIndex(headerRow, ['google rating', 'rating', 'star']);
+  var colReviews = findColIndex(headerRow, ['reviews count', 'reviews', 'review']);
+  var colAddress = findColIndex(headerRow, ['address', 'location', 'street']);
+  var colTrade = findColIndex(headerRow, ['trade', 'category', 'niche']);
+  var colStatus = findColIndex(headerRow, ['status']);
+  var colWhatsApp = findColIndex(headerRow, ['whatsapp link', 'whatsapp', 'wa link']);
+  var colStage1 = findColIndex(headerRow, ['stage 1 opener', 'stage 1', 'opener']);
+  var colStage2 = findColIndex(headerRow, ['stage 2 pitch', 'stage 2', 'pitch']);
+  var colFollowUp1 = findColIndex(headerRow, ['follow up 1', 'followup 1']);
+  var colFollowUpFinal = findColIndex(headerRow, ['follow up final', 'followup final']);
+
+  // Fallback defaults if headers were standard 13-column format
+  if (colName === -1) colName = 0;
+  if (colPhone === -1) colPhone = 1;
+  if (colReviewsRating === -1) colReviewsRating = 4;
+  if (colWebsite === -1) colWebsite = 5;
+  if (colAddress === -1) colAddress = 6;
+  if (colTrade === -1) colTrade = 7;
+  if (colStage1 === -1) colStage1 = 8;
+  if (colStage2 === -1) colStage2 = 9;
+  if (colFollowUp1 === -1) colFollowUp1 = 10;
+  if (colFollowUpFinal === -1) colFollowUpFinal = 11;
+  if (colStatus === -1) colStatus = 12;
+
+  var allData = sheet.getRange(2, 1, lastRow - 1, lastCol).getValues();
+  var prepared = [];
+
+  for (var r = 0; r < allData.length; r++) {
+    var row = allData[r];
+    var businessName = String(row[colName] || '').trim();
+    var rawPhone = String(row[colPhone] || '').trim();
+
+    // Skip empty dummy rows
+    if (!businessName && !rawPhone) continue;
+    if (businessName.toLowerCase() === 'business name') continue;
+
+    // Phone standardisation
+    var digits = rawPhone.replace(/[^0-9]/g, '');
+    var formattedPhone = rawPhone;
+    if (digits.startsWith('07') && digits.length === 11) {
+      formattedPhone = '+44' + digits.substring(1);
+    } else if (digits.startsWith('447')) {
+      formattedPhone = '+' + digits;
+    } else if ((digits.startsWith('01') || digits.startsWith('02') || digits.startsWith('08')) && digits.length >= 10) {
+      formattedPhone = '+44' + digits.substring(1);
+    } else if (digits.startsWith('44')) {
+      formattedPhone = '+' + digits;
+    }
+
+    var isMobile = digits.startsWith('447') || digits.startsWith('07');
+    var waDigits = digits.startsWith('07') ? ('44' + digits.substring(1)) : (digits.startsWith('447') ? digits : digits);
+    var waUrl = isMobile ? ('https://wa.me/' + waDigits) : null;
+
+    // Address cleaning (strip corrupt review fragments like '· 57 (★4.9)')
+    var rawAddress = colAddress !== -1 ? String(row[colAddress] || '').trim() : '';
+    var cleanAddress = rawAddress
+      .replace(/·\s*\d+(\s*\(★[\d\.]+\))?/g, '')
+      .replace(/\(\s*★[\d\.]+\s*\)/g, '')
+      .replace(/·\s*★[\d\.]+/g, '')
+      .trim();
+
+    // Rating & Reviews count extraction
+    var rating = 5.0;
+    var reviewsCount = 0;
+    var rawRatingReviews = colReviewsRating !== -1 ? String(row[colReviewsRating] || '') : '';
+    if (rawRatingReviews) {
+      var rMatch = rawRatingReviews.match(/([0-5]\.[0-9]|[0-5])/);
+      if (rMatch) rating = parseFloat(rMatch[1]);
+      var revMatch = rawRatingReviews.match(/(\d+)\s*reviews?/i) || rawRatingReviews.match(/^(\d+)/);
+      if (revMatch) reviewsCount = parseInt(revMatch[1], 10);
+    } else {
+      if (colRating !== -1) {
+        var rSingle = parseFloat(row[colRating]);
+        if (!isNaN(rSingle)) rating = rSingle;
+      }
+      if (colReviews !== -1) {
+        var revSingle = parseInt(row[colReviews], 10);
+        if (!isNaN(revSingle)) reviewsCount = revSingle;
+      }
+    }
+
+    // Website sanitisation
+    var rawWeb = colWebsite !== -1 ? String(row[colWebsite] || '').trim() : '';
+    var website = (rawWeb && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' && rawWeb !== 'null' && rawWeb !== 'undefined') ? rawWeb : null;
+
+    var trade = (colTrade !== -1 ? String(row[colTrade] || '') : '').trim() || 'Local Business';
+    var rawStatus = colStatus !== -1 ? String(row[colStatus] || '').trim() : '';
+    var status = rawStatus || 'New';
+
+    var stage1 = colStage1 !== -1 ? String(row[colStage1] || '').trim() : 'Hi 👋';
+    var stage2 = colStage2 !== -1 ? String(row[colStage2] || '').trim() : '';
+    var f1 = colFollowUp1 !== -1 ? String(row[colFollowUp1] || '').trim() : '';
+    var fFinal = colFollowUpFinal !== -1 ? String(row[colFollowUpFinal] || '').trim() : '';
+
+    var notes = (cleanAddress || '') + (rating ? ' · ★' + rating : '') + (reviewsCount ? ' (' + reviewsCount + ' reviews)' : '');
+
+    prepared.push({
+      name: 'Owner / Director',
+      business_name: businessName,
+      phone: formattedPhone || null,
+      website: website,
+      service_interested: 'Digital Storefront & Speed-to-Lead Automation',
+      notes: notes,
+      status: status,
+      source: 'google_maps_outreach',
+      lead_type: 'local',
+      local_business_niche: trade,
+      outreach_category: !website ? 'no_website' : 'has_website',
+      outreach_stage: status === 'Contacted' ? 'contacted' : 'uncontacted',
+      whatsapp_direct_url: waUrl,
+      scraped_metadata: {
+        address: cleanAddress,
+        rating: rating,
+        reviews_count: reviewsCount,
+        rating_reviews: rating + ' (' + reviewsCount + ' reviews)',
+        trade: trade,
+        stage_1_opener: stage1 || 'Hi 👋',
+        stage_2_pitch: stage2,
+        follow_up_1: f1,
+        follow_up_final: fFinal
+      }
+    });
+  }
+
+  return prepared;
+}
+
+/**
+ * 🚀 Sync All Leads to Admin Dashboard (1-Click)
+ * Pushes/Upserts all leads from Google Sheets directly to Supabase
+ */
+function syncAllLeadsToAdminBackend() {
+  var ui = SpreadsheetApp.getUi();
+  var leads = extractLeadsFromSheet();
+
+  if (leads.length === 0) {
+    ui.alert('⚠️ No leads found in the current sheet to sync.');
+    return;
+  }
+
+  // 1. Fetch existing leads from Supabase to prevent duplicates
+  var fetchUrl = SUPABASE_URL + '/rest/v1/leads?select=id,phone,business_name&source=eq.google_maps_outreach';
+  var fetchRes = UrlFetchApp.fetch(fetchUrl, {
+    method: 'GET',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY
+    },
+    muteHttpExceptions: true
+  });
+
+  if (fetchRes.getResponseCode() !== 200) {
+    ui.alert('Error checking backend: ' + fetchRes.getContentText());
+    return;
+  }
+
+  var existing = JSON.parse(fetchRes.getContentText()) || [];
+  var existingPhoneMap = {};
+  var existingNameMap = {};
+
+  existing.forEach(function(item) {
+    if (item.phone) {
+      var d = String(item.phone).replace(/[^0-9]/g, '');
+      if (d) existingPhoneMap[d] = item.id;
+    }
+    if (item.business_name) {
+      existingNameMap[String(item.business_name).trim().toLowerCase()] = item.id;
+    }
+  });
+
+  var toInsert = [];
+  var updatedCount = 0;
+
+  leads.forEach(function(lead) {
+    var digits = lead.phone ? String(lead.phone).replace(/[^0-9]/g, '') : '';
+    var nameKey = String(lead.business_name).trim().toLowerCase();
+    var existingId = (digits && existingPhoneMap[digits]) || existingNameMap[nameKey];
+
+    if (existingId) {
+      // Update existing lead record
+      var updateUrl = SUPABASE_URL + '/rest/v1/leads?id=eq.' + existingId;
+      UrlFetchApp.fetch(updateUrl, {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_KEY,
+          'Content-Type': 'application/json'
+        },
+        payload: JSON.stringify({
+          website: lead.website,
+          notes: lead.notes,
+          local_business_niche: lead.local_business_niche,
+          outreach_category: lead.outreach_category,
+          scraped_metadata: lead.scraped_metadata
+        }),
+        muteHttpExceptions: true
+      });
+      updatedCount++;
+    } else {
+      toInsert.push(lead);
+    }
+  });
+
+  // Batch insert new leads in chunks of 50
+  var insertedCount = 0;
+  var CHUNK_SIZE = 50;
+  for (var i = 0; i < toInsert.length; i += CHUNK_SIZE) {
+    var chunk = toInsert.slice(i, i + CHUNK_SIZE);
+    var insertRes = UrlFetchApp.fetch(SUPABASE_URL + '/rest/v1/leads', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      payload: JSON.stringify(chunk),
+      muteHttpExceptions: true
+    });
+
+    if (insertRes.getResponseCode() === 201 || insertRes.getResponseCode() === 200) {
+      insertedCount += chunk.length;
+    } else {
+      ui.alert('Warning on batch insert: ' + insertRes.getContentText());
+      break;
+    }
+  }
+
+  ui.alert('🚀 Sync Complete!\n\n' +
+           '• Total leads in sheet: ' + leads.length + '\n' +
+           '• New leads inserted: ' + insertedCount + '\n' +
+           '• Existing leads updated: ' + updatedCount + '\n\n' +
+           'All leads are now live in your Admin Dashboard (/admin/leads)!');
+}
+
+/**
+ * ⚡ Fresh Sync: Wipes existing scraper leads and imports clean
+ */
+function freshSyncToAdminBackend() {
+  var ui = SpreadsheetApp.getUi();
+  var response = ui.alert(
+    '⚠️ Confirm Fresh Sync',
+    'This will clear existing outreach leads and replace them with all leads currently in this sheet. Manual/booking leads are preserved. Continue?',
+    ui.ButtonSet.YES_NO
+  );
+
+  if (response !== ui.Button.YES) return;
+
+  var leads = extractLeadsFromSheet();
+  if (leads.length === 0) {
+    ui.alert('No leads found in sheet.');
+    return;
+  }
+
+  // Delete previous outreach leads
+  var delRes = UrlFetchApp.fetch(SUPABASE_URL + '/rest/v1/leads?source=eq.google_maps_outreach', {
+    method: 'DELETE',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY
+    },
+    muteHttpExceptions: true
+  });
+
+  // Batch insert in chunks of 50
+  var insertedCount = 0;
+  var CHUNK_SIZE = 50;
+  for (var i = 0; i < leads.length; i += CHUNK_SIZE) {
+    var chunk = leads.slice(i, i + CHUNK_SIZE);
+    var insertRes = UrlFetchApp.fetch(SUPABASE_URL + '/rest/v1/leads', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      payload: JSON.stringify(chunk),
+      muteHttpExceptions: true
+    });
+
+    if (insertRes.getResponseCode() === 201 || insertRes.getResponseCode() === 200) {
+      insertedCount += chunk.length;
+    } else {
+      ui.alert('Error on batch insert: ' + insertRes.getContentText());
+      return;
+    }
+  }
+
+  ui.alert('⚡ Fresh Sync Complete!\n\nImported ' + insertedCount + ' clean leads to your Admin Dashboard. Refresh /admin/leads to view them.');
+}
+
+/**
  * Automatically cleans up existing rows:
  * - Inserts Row 1 header row if missing
- * - Deletes accidental blank columns (C & E)
  * - Sets column widths, colors, and frozen header
  */
 function autoFormatExistingTable() {
   var sheet = SpreadsheetApp.getActiveSheet();
   
-  // Check if Row 1 is already a header or lead data
   var firstCell = sheet.getRange('A1').getValue().toString().toLowerCase();
   
-  // If Row 1 contains a business name (not "Business Name"), insert a new header row at top
   if (!firstCell.includes('business') && !firstCell.includes('name') && !firstCell.includes('status')) {
     sheet.insertRowBefore(1);
   }
   
-  // Set clean standard headers in Row 1
   var headers = [
     ['Business Name', 'Phone', 'Channel', 'WhatsApp Link', 'Reviews & Rating', 'Website', 'Address', 'Trade', 'Stage 1 Opener', 'Stage 2 Pitch', 'Follow Up 1', 'Follow Up Final', 'Status']
   ];
   sheet.getRange(1, 1, 1, headers[0].length).setValues(headers);
 
-  // Style Header Row (Dark Slate & Bold White Text)
   var headerRange = sheet.getRange(1, 1, 1, headers[0].length);
   headerRange.setBackground('#0f172a')
              .setFontColor('#ffffff')
@@ -57,7 +379,6 @@ function autoFormatExistingTable() {
   
   sheet.setFrozenRows(1);
 
-  // Auto-set comfortable column widths
   sheet.setColumnWidth(1, 230); // Business Name
   sheet.setColumnWidth(2, 140); // Phone
   sheet.setColumnWidth(3, 140); // Channel
@@ -72,12 +393,11 @@ function autoFormatExistingTable() {
   sheet.setColumnWidth(12, 260); // Follow Up Final
   sheet.setColumnWidth(13, 100); // Status
 
-  SpreadsheetApp.getUi().alert('✨ All leads and headers have been automatically formatted and aligned! No manual moving needed.');
+  SpreadsheetApp.getUi().alert('✨ Table layout formatted and aligned!');
 }
 
 /**
- * Syncs the sheet with the backend. Any lead deleted from Google Sheets
- * is automatically removed from the admin backend!
+ * Syncs deletions: any lead removed from Google Sheets is removed from backend
  */
 function syncDeletionsToBackend() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -85,7 +405,7 @@ function syncDeletionsToBackend() {
   
   var activePhones = [];
   if (sheet.getLastRow() > 1) {
-    var data = sheet.getRange(2, 2, sheet.getLastRow() - 1, 1).getValues(); // Column B: Phone
+    var data = sheet.getRange(2, 2, sheet.getLastRow() - 1, 1).getValues();
     data.forEach(function(row) {
       if (row[0]) activePhones.push(String(row[0]).trim());
     });
