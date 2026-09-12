@@ -17,9 +17,9 @@ import {
   CheckCircle2,
   XCircle,
   Clock,
-  UserCheck,
   LayoutGrid,
   List,
+  Columns,
   Info,
   Sparkles,
   MessageSquare,
@@ -29,6 +29,9 @@ import {
   ExternalLink,
   Flame,
   Send,
+  MapPin,
+  Laptop,
+  Check,
 } from 'lucide-react'
 import { useInspector } from '@/hooks/use-inspector'
 import { OutreachModal, OutreachLead } from '@/components/admin/outreach-modal'
@@ -47,6 +50,13 @@ const STATUS_COLORS: Record<string, string> = {
 
 const ALL_STATUSES = ['New', 'Contacted', 'Call Booked', 'Proposal Sent', 'Won', 'Lost', 'Spam']
 
+function getInitials(name: string): string {
+  const clean = (name || '').replace(/[^a-zA-Z0-9\s]/g, '').trim()
+  const parts = clean.split(/\s+/)
+  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase()
+  return (clean || 'MW').slice(0, 2).toUpperCase()
+}
+
 export default function LeadsPage() {
   const supabase = createClient()
   const router = useRouter()
@@ -64,13 +74,12 @@ export default function LeadsPage() {
   const [activeTab, setActiveTab] = useState<'active' | 'archived' | 'spam'>('active')
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [toast, setToast] = useState<string | null>(null)
-  const [viewMode, setViewMode] = useState<'table' | 'kanban'>('table')
-  const [activeKanbanColumn, setActiveKanbanColumn] = useState<string>('New')
+  
+  // Views: 'cards' (Deal Cards Grid), 'table' (Dense Table), 'kanban' (Pipeline Columns)
+  const [viewMode, setViewMode] = useState<'cards' | 'table' | 'kanban'>('cards')
 
-  // Pipeline headers & dynamic filter lists
+  // Pipeline counts
   const [statusCounts, setStatusCounts] = useState<Record<string, number>>({})
-  const [servicesList, setServicesList] = useState<string[]>([])
-  const [sourcesList, setSourcesList] = useState<string[]>([])
 
   // Dedicated Outreach Cockpit Modal State
   const [outreachLead, setOutreachLead] = useState<Lead | null>(null)
@@ -124,11 +133,6 @@ export default function LeadsPage() {
         return acc
       }, {})
       setStatusCounts(counts)
-
-      const services = Array.from(new Set(allActiveLeads.map(d => d.service_interested).filter(Boolean))) as string[]
-      const sources = Array.from(new Set(allActiveLeads.map(d => d.source).filter(Boolean))) as string[]
-      setServicesList(services)
-      setSourcesList(sources)
     }
   }, [supabase])
 
@@ -184,11 +188,9 @@ export default function LeadsPage() {
   }
 
   const handleDeleteLead = async (id: string) => {
-    // 1. Instant local removal
     setLeads(prev => prev.filter(l => l.id !== id))
     triggerToast('Lead removed.')
 
-    // 2. Background deletion
     try {
       const { error } = await supabase
         .from('leads')
@@ -329,28 +331,9 @@ export default function LeadsPage() {
     }
   }
 
-  const handleBulkArchiveUpdate = async (archive: boolean) => {
-    if (selectedIds.length === 0) return
-    setLoading(true)
-    try {
-      const { error } = await supabase
-        .from('leads')
-        .update({ is_archived: archive })
-        .in('id', selectedIds)
-
-      if (error) throw error
-      triggerToast(archive ? `Archived ${selectedIds.length} leads.` : `Restored ${selectedIds.length} leads to inbox.`)
-      setSelectedIds([])
-      fetchLeads()
-    } catch (err: any) {
-      triggerToast(`Archive failed: ${err.message}`)
-      setLoading(false)
-    }
-  }
-
   const handleBulkDelete = async () => {
     if (selectedIds.length === 0) return
-    if (!confirm(`Are you sure you want to permanently delete the ${selectedIds.length} selected leads? This action is irreversible.`)) return
+    if (!confirm(`Are you sure you want to permanently delete the ${selectedIds.length} selected leads?`)) return
     setLoading(true)
     try {
       const { error } = await supabase
@@ -368,7 +351,24 @@ export default function LeadsPage() {
     }
   }
 
-  // AMBIENT ROW COLOR HIGHLIGHTING
+  // AMBIENT CARD STYLING HELPER
+  const getCardBorderClass = (status: string) => {
+    if (status === 'Won') {
+      return 'border-emerald-500/50 bg-[#07130e]/80 shadow-[0_0_25px_rgba(16,185,129,0.15)] hover:border-emerald-400'
+    }
+    if (status === 'Lost' || status === 'Spam') {
+      return 'border-rose-500/35 bg-[#12080a]/60 shadow-[0_0_20px_rgba(244,63,94,0.08)] hover:border-rose-400 opacity-80'
+    }
+    if (status === 'Contacted') {
+      return 'border-amber-500/40 bg-[#120f09]/70 shadow-[0_0_20px_rgba(245,158,11,0.1)] hover:border-amber-400'
+    }
+    if (status === 'Call Booked' || status === 'Proposal Sent') {
+      return 'border-purple-500/40 bg-[#100814]/70 shadow-[0_0_20px_rgba(168,85,247,0.1)] hover:border-purple-400'
+    }
+    return 'border-gold/15 bg-[#0b0f17]/90 shadow-[0_0_25px_rgba(0,0,0,0.6)] hover:border-gold/35'
+  }
+
+  // AMBIENT TABLE ROW STYLING HELPER
   const getRowHighlightClass = (status: string, isChecked: boolean, isInspected: boolean) => {
     if (isInspected) {
       return 'bg-gold/[0.05] border-l-4 border-l-gold shadow-[inset_3px_0_0_rgba(212,175,55,1),0_0_20px_rgba(212,175,55,0.06)]'
@@ -404,11 +404,11 @@ export default function LeadsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-bold tracking-widest text-gold uppercase">
-            <Sparkles size={12} /> High-Speed Outreach Cockpit
+            <Sparkles size={12} /> High-Ticket Deal Flow Terminal
           </div>
           <h1 className="text-2xl sm:text-3xl font-serif font-bold text-foreground mt-1">Lead Outreach Ledger</h1>
           <p className="text-sm text-muted-foreground">
-            Execute 1-click WhatsApp outreach, qualify storefronts, and track win/loss outcomes in real-time.
+            Execute 1-click WhatsApp outreach, build instant storefront prototypes, and hit £10k/month deal targets.
           </p>
         </div>
         <button
@@ -429,7 +429,7 @@ export default function LeadsPage() {
           { key: 'Contacted', label: 'Contacted', color: 'text-amber-400' },
           { key: 'Call Booked', label: 'Call Booked', color: 'text-purple-400' },
           { key: 'Proposal Sent', label: 'Proposal Sent', color: 'text-orange-400' },
-          { key: 'Won', label: 'Won / Booked', color: 'text-emerald-400 font-extrabold' },
+          { key: 'Won', label: 'Won / Closed', color: 'text-emerald-400 font-extrabold' },
           { key: 'Lost', label: 'Lost / Closed', color: 'text-rose-400' },
         ].map((item) => {
           const count = statusCounts[item.key] || 0
@@ -489,14 +489,14 @@ export default function LeadsPage() {
         </button>
       </div>
 
-      {/* Toolbar */}
+      {/* Toolbar & View Switcher */}
       <div className="flex flex-wrap items-center gap-3">
         {/* Search */}
         <div className="relative flex-1 min-w-[220px]">
           <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
           <input
             type="text"
-            placeholder="Search company, phone, trade, name…"
+            placeholder="Search business name, phone, trade, postcode…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-9 pr-4 py-2.5 bg-card border border-gold/15 hover:border-gold/25 rounded-xl text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-2 focus:ring-gold/20 transition-all"
@@ -514,18 +514,28 @@ export default function LeadsPage() {
             onClick={() => setShowFilters((v) => !v)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-all cursor-pointer ${showFilters ? 'bg-gold/10 border-gold/30 text-gold' : 'bg-card border-gold/15 text-muted-foreground hover:text-foreground hover:border-gold/25'}`}
           >
-            <Filter size={15} /> Filters {(statusFilter.length > 0 || serviceFilter !== 'All' || sourceFilter !== 'All') && '(Active)'}
+            <Filter size={15} /> Filters {(statusFilter.length > 0) && '(Active)'}
           </button>
         )}
 
-        {/* View Toggle */}
+        {/* Triple View Toggle (Deal Cards vs Table vs Kanban) */}
         {activeTab === 'active' && (
-          <div className="flex items-center gap-1 bg-[#0A0A0A]/60 p-1 rounded-xl border border-gold/10 ml-auto">
+          <div className="flex items-center gap-1 bg-[#0A0A0A]/80 p-1 rounded-xl border border-gold/15 ml-auto shadow-inner">
+            <button
+              onClick={() => setViewMode('cards')}
+              className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+                viewMode === 'cards'
+                  ? 'bg-gold/20 text-gold border border-gold/40 shadow-sm font-extrabold'
+                  : 'text-muted-foreground hover:text-foreground border border-transparent'
+              }`}
+            >
+              <LayoutGrid size={13} /> Deal Cards
+            </button>
             <button
               onClick={() => setViewMode('table')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+              className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
                 viewMode === 'table'
-                  ? 'bg-gold/10 text-gold border border-gold/20 font-bold shadow-sm'
+                  ? 'bg-gold/20 text-gold border border-gold/40 shadow-sm font-extrabold'
                   : 'text-muted-foreground hover:text-foreground border border-transparent'
               }`}
             >
@@ -533,13 +543,13 @@ export default function LeadsPage() {
             </button>
             <button
               onClick={() => setViewMode('kanban')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+              className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
                 viewMode === 'kanban'
-                  ? 'bg-gold/10 text-gold border border-gold/20 font-bold shadow-sm'
+                  ? 'bg-gold/20 text-gold border border-gold/40 shadow-sm font-extrabold'
                   : 'text-muted-foreground hover:text-foreground border border-transparent'
               }`}
             >
-              <LayoutGrid size={13} /> Kanban
+              <Columns size={13} /> Board
             </button>
           </div>
         )}
@@ -569,24 +579,209 @@ export default function LeadsPage() {
               })}
             </div>
           </div>
-
-          <div className="flex justify-end pt-2 border-t border-gold/10">
-            <button
-              onClick={() => {
-                setStatusFilter([])
-                setServiceFilter('All')
-                setSourceFilter('All')
-              }}
-              className="text-xs font-semibold text-muted-foreground hover:text-gold transition-colors cursor-pointer"
-            >
-              Reset All Filters
-            </button>
-          </div>
         </div>
       )}
 
-      {/* MAIN VIEW: TABLE OR KANBAN */}
-      {viewMode === 'kanban' && activeTab === 'active' ? (
+      {/* ───────────────────────────────────────────────────────────────────────── */}
+      {/* 1. DEAL CARDS GRID VIEW (SiteDrop-style, Luxury Bespoke Edition)          */}
+      {/* ───────────────────────────────────────────────────────────────────────── */}
+      {viewMode === 'cards' && activeTab === 'active' ? (
+        loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="h-64 rounded-2xl bg-white/[0.02] border border-white/5 animate-pulse p-6" />
+            ))}
+          </div>
+        ) : leads.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20 text-center px-6 space-y-4 max-w-md mx-auto glass rounded-2xl border border-gold/15">
+            <div className="w-14 h-14 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center text-gold">
+              <Inbox size={24} />
+            </div>
+            <h3 className="font-serif text-lg font-bold text-foreground">No Leads in Pipeline</h3>
+            <p className="text-xs text-muted-foreground">
+              Run your n8n Lead Machine to scrape 120 fresh leads or adjust your filters above.
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+            {leads.map((lead) => {
+              const businessName = lead.business_name || lead.name
+              const trade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Business'
+              const rawWebsite = lead.website
+              const hasWebsite = rawWebsite && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE'
+              const rating = lead.scraped_metadata?.rating ?? 5.0
+              const reviews = lead.scraped_metadata?.reviews_count ?? 0
+              const phone = lead.phone || ''
+              const isMobile = phone.startsWith('+447') || phone.startsWith('07')
+              const address = lead.scraped_metadata?.address || lead.notes || 'UK Regional'
+              const mapsUrl = lead.scraped_metadata?.google_maps_url
+
+              return (
+                <div
+                  key={lead.id}
+                  className={`rounded-2xl border transition-all duration-200 p-5 space-y-4 flex flex-col justify-between relative group ${getCardBorderClass(lead.status)}`}
+                >
+                  {/* Top: Monogram Avatar + Title + Rating */}
+                  <div className="space-y-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
+                        {/* Squircle Monogram Avatar */}
+                        <div className={`w-11 h-11 rounded-xl flex items-center justify-center font-bold text-sm tracking-wider shrink-0 border ${
+                          lead.status === 'Won' ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.3)]' :
+                          lead.status === 'Lost' ? 'bg-rose-500/20 text-rose-400 border-rose-500/40' :
+                          lead.status === 'Contacted' ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-[0_0_15px_rgba(245,158,11,0.2)]' :
+                          'bg-gradient-to-br from-gold/20 via-gold/10 to-transparent text-gold border-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.15)]'
+                        }`}>
+                          {getInitials(businessName)}
+                        </div>
+
+                        <div className="min-w-0">
+                          <h3 className="font-serif font-bold text-base text-foreground leading-tight truncate group-hover:text-gold transition-colors">
+                            {businessName}
+                          </h3>
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 text-gold/90 border border-white/5 uppercase tracking-wider">
+                              {trade}
+                            </span>
+                            <span className="flex items-center gap-1 text-amber-300 font-bold text-xs">
+                              <Star size={11} className="fill-amber-300" /> {rating} ({reviews})
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Status Pill */}
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider border shrink-0 ${
+                        STATUS_COLORS[lead.status] || 'bg-card text-muted-foreground'
+                      }`}>
+                        {lead.status}
+                      </span>
+                    </div>
+
+                    {/* HERO ACTION STRIP (The SiteDrop Signature, Elevated) */}
+                    <div className="rounded-xl overflow-hidden">
+                      {!hasWebsite ? (
+                        <div className="p-3 bg-gradient-to-r from-amber-500/15 via-red-500/10 to-transparent border border-amber-500/30 rounded-xl space-y-2">
+                          <div className="flex items-center justify-between text-[11px] font-extrabold">
+                            <span className="text-amber-300 flex items-center gap-1.5 uppercase tracking-wider">
+                              <Flame size={13} className="text-red-400 animate-pulse" /> Prime Target: No Website
+                            </span>
+                            <span className="text-[9px] text-amber-400/80 font-mono">HIGH CONVERSION</span>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-2 pt-1">
+                            {/* Action 1: 1-Click WhatsApp */}
+                            <button
+                              onClick={() => handleQuickWhatsApp(lead)}
+                              className="py-2 px-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.35)] hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] transition-all cursor-pointer"
+                              title="Launch WhatsApp with Stage 1 Opener and mark Contacted"
+                            >
+                              <MessageSquare size={13} /> 💬 WhatsApp
+                            </button>
+
+                            {/* Action 2: Direct Demo Site Builder */}
+                            <Link
+                              href={`/admin/projects?create=true&client_name=${encodeURIComponent('Owner / Director')}&project_name=${encodeURIComponent(businessName + ' Storefront')}&service_type=${encodeURIComponent('Digital Storefront & Speed-to-Lead Automation')}`}
+                              className="py-2 px-3 rounded-lg bg-gold/15 hover:bg-gold/25 text-gold border border-gold/35 font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all text-center"
+                              title="Generate an instant preview storefront prototype"
+                            >
+                              <Laptop size={13} /> ⚡ Demo Site →
+                            </Link>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-xl flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-1.5 text-xs text-blue-300 truncate">
+                            <Globe size={13} className="shrink-0 text-blue-400" />
+                            <a
+                              href={rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="hover:underline font-medium truncate"
+                            >
+                              {rawWebsite.replace(/^https?:\/\//, '')}
+                            </a>
+                          </div>
+
+                          <button
+                            onClick={() => handleQuickWhatsApp(lead)}
+                            className="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-foreground text-xs font-bold shrink-0 border border-white/10 flex items-center gap-1"
+                          >
+                            <MessageSquare size={12} /> Pitch
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Telemetry / Contact Info */}
+                    <div className="space-y-1.5 text-xs text-muted-foreground pt-1">
+                      <div className="flex items-center justify-between">
+                        <span className="flex items-center gap-1.5 font-mono text-foreground/90 font-medium">
+                          <Phone size={12} className="text-gold" /> {phone || 'No phone'}
+                        </span>
+                        {mapsUrl && (
+                          <a
+                            href={mapsUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-gold hover:underline flex items-center gap-1 font-semibold text-[11px]"
+                          >
+                            <MapPin size={11} /> View on Maps <ExternalLink size={9} />
+                          </a>
+                        )}
+                      </div>
+
+                      <p className="text-[11px] text-muted-foreground/80 truncate flex items-center gap-1">
+                        <MapPin size={11} className="shrink-0 text-muted-foreground/50" /> {address}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Bottom: 1-Click Outcome Bar & Cockpit Trigger */}
+                  <div className="pt-3 border-t border-white/5 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => handleUpdateLeadStatus(lead.id, 'Won')}
+                        className={`px-2.5 py-1 rounded-lg border text-[10px] font-extrabold flex items-center gap-1 transition-all cursor-pointer ${
+                          lead.status === 'Won'
+                            ? 'bg-emerald-500 text-black border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.5)]'
+                            : 'bg-emerald-500/10 hover:bg-emerald-500/25 text-emerald-400 border-emerald-500/30'
+                        }`}
+                        title="Mark this deal as WON"
+                      >
+                        <Check size={11} /> Won 🟢
+                      </button>
+
+                      <button
+                        onClick={() => handleUpdateLeadStatus(lead.id, 'Lost')}
+                        className={`px-2.5 py-1 rounded-lg border text-[10px] font-extrabold flex items-center gap-1 transition-all cursor-pointer ${
+                          lead.status === 'Lost'
+                            ? 'bg-rose-500 text-white border-rose-400 shadow-[0_0_12px_rgba(244,63,94,0.5)]'
+                            : 'bg-rose-500/10 hover:bg-rose-500/25 text-rose-400 border-rose-500/30'
+                        }`}
+                        title="Mark this deal as Lost"
+                      >
+                        <X size={11} /> Lost 🔴
+                      </button>
+                    </div>
+
+                    <button
+                      onClick={() => handleOpenOutreach(lead)}
+                      className="px-3 py-1 rounded-lg bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 text-[10px] font-extrabold flex items-center gap-1.5 transition-all shadow-sm cursor-pointer ml-auto"
+                      title="Open Multi-Stage Outreach Cockpit"
+                    >
+                      <Sparkles size={11} /> Cockpit ⚡
+                    </button>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )
+      ) : viewMode === 'kanban' && activeTab === 'active' ? (
+        /* ───────────────────────────────────────────────────────────────────────── */
+        /* 2. KANBAN BOARD VIEW                                                      */
+        /* ───────────────────────────────────────────────────────────────────────── */
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 items-start">
             {['New', 'Contacted', 'Call Booked', 'Proposal Sent', 'Won', 'Lost'].map((columnStatus) => {
@@ -633,7 +828,7 @@ export default function LeadsPage() {
                           >
                             <MessageSquare size={10} /> WhatsApp
                           </button>
-                          <span className="text-[9px] font-bold text-gold">Outreach ⚡</span>
+                          <span className="text-[9px] font-bold text-gold">Cockpit ⚡</span>
                         </div>
                       </div>
                     ))}
@@ -644,6 +839,9 @@ export default function LeadsPage() {
           </div>
         </div>
       ) : (
+        /* ───────────────────────────────────────────────────────────────────────── */
+        /* 3. DENSE DATA TABLE VIEW                                                  */
+        /* ───────────────────────────────────────────────────────────────────────── */
         <div className="glass rounded-2xl border border-gold/15 overflow-hidden relative shadow-[0_0_40px_rgba(0,0,0,0.5)]">
           {loading ? (
             <div className="divide-y divide-gold/5">
@@ -699,7 +897,6 @@ export default function LeadsPage() {
                     const rating = lead.scraped_metadata?.rating ?? 5.0
                     const reviews = lead.scraped_metadata?.reviews_count ?? 0
                     const phone = lead.phone || ''
-                    const isMobile = phone.startsWith('+447') || phone.startsWith('07')
 
                     return (
                       <tr
@@ -752,7 +949,6 @@ export default function LeadsPage() {
                               <button
                                 onClick={() => handleQuickWhatsApp(lead)}
                                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 hover:text-emerald-300 border border-emerald-500/30 text-[10px] font-extrabold shadow-sm transition-all cursor-pointer"
-                                title="Open WhatsApp with prefilled Hi 👋 and mark Contacted"
                               >
                                 <MessageSquare size={11} /> 💬 Chat WhatsApp
                               </button>
@@ -806,9 +1002,8 @@ export default function LeadsPage() {
                                   ? 'bg-emerald-500 text-black border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.5)]'
                                   : 'bg-emerald-500/10 hover:bg-emerald-500/25 text-emerald-400 border-emerald-500/30'
                               }`}
-                              title="Mark this lead as WON (Turn row green)"
                             >
-                              <CheckCircle2 size={11} /> Win 🟢
+                              <Check size={11} /> Win 🟢
                             </button>
 
                             <button
@@ -818,9 +1013,8 @@ export default function LeadsPage() {
                                   ? 'bg-rose-500 text-white border-rose-400 shadow-[0_0_12px_rgba(244,63,94,0.5)]'
                                   : 'bg-rose-500/10 hover:bg-rose-500/25 text-rose-400 border-rose-500/30'
                               }`}
-                              title="Mark this lead as Lost (Turn row red)"
                             >
-                              <XCircle size={11} /> Lost 🔴
+                              <X size={11} /> Lost 🔴
                             </button>
                           </div>
                         </td>
@@ -831,7 +1025,6 @@ export default function LeadsPage() {
                             <button
                               onClick={() => handleOpenOutreach(lead)}
                               className="px-2.5 py-1 rounded-lg bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 text-[10px] font-extrabold flex items-center gap-1 transition-all shadow-sm cursor-pointer"
-                              title="Open Multi-Stage Outreach Cockpit"
                             >
                               <Sparkles size={11} /> Cockpit ⚡
                             </button>
@@ -841,7 +1034,6 @@ export default function LeadsPage() {
                               className={`w-7 h-7 rounded-lg border flex items-center justify-center transition-all cursor-pointer ${
                                 isInspected ? 'bg-gold/25 border-gold text-gold' : 'bg-white/5 border-white/10 text-muted-foreground hover:text-foreground'
                               }`}
-                              title="Inspect Telemetry"
                             >
                               <Info size={12} />
                             </button>
