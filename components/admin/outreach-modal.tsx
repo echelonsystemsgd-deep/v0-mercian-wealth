@@ -73,11 +73,26 @@ export function OutreachModal({
   onDeleteLead,
 }: OutreachModalProps) {
   const [activeTab, setActiveTab] = useState<'stage1' | 'stage2' | 'followup' | 'voice'>('stage1')
-  const [pitchType, setPitchType] = useState<'noWebsite' | 'brokenSite' | 'referral' | 'automation'>('noWebsite')
+  const [pitchType, setPitchType] = useState<'noWebsite' | 'brokenSite' | 'referral' | 'automation' | 'scrapedCustom'>('noWebsite')
   const [followupType, setFollowupType] = useState<'noResponse' | 'final' | 'comeBack' | 'declined'>('noResponse')
   const [copied, setCopied] = useState(false)
   const [updating, setUpdating] = useState(false)
   const [isPromptOpen, setIsPromptOpen] = useState(false)
+
+  // Auto-detect presence and set appropriate default pitch
+  useEffect(() => {
+    if (lead) {
+      const rawWeb = (lead.website || '').trim()
+      const hasWeb = rawWeb !== '' && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' && !rawWeb.toLowerCase().includes('facebook.com') && !rawWeb.toLowerCase().includes('instagram.com')
+      if (lead.scraped_metadata?.stage_2_pitch) {
+        setPitchType('scrapedCustom')
+      } else if (hasWeb) {
+        setPitchType('brokenSite')
+      } else {
+        setPitchType('noWebsite')
+      }
+    }
+  }, [lead])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -93,11 +108,31 @@ export function OutreachModal({
 
   const businessName = lead.business_name || 'Local Business'
   const trade = (lead.local_business_niche || lead.scraped_metadata?.trade || 'tradesperson').toLowerCase()
-  const rawWebsite = lead.website
-  const hasWebsite = rawWebsite && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE'
-  const rating = lead.scraped_metadata?.rating ?? 5.0
-  const reviewsCount = lead.scraped_metadata?.reviews_count ?? 0
-  const address = lead.scraped_metadata?.address || lead.notes || 'United Kingdom'
+  const rawWebsite = (lead.website || '').trim()
+  const hasWebsite = rawWebsite !== '' && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE' && !rawWebsite.toLowerCase().includes('facebook.com') && !rawWebsite.toLowerCase().includes('instagram.com')
+  
+  // Rating and reviews sanitization (parse composite strings like '57 (★4.9)')
+  let rating = Number(lead.scraped_metadata?.rating || 5.0)
+  let reviewsCount = Number(lead.scraped_metadata?.reviews_count ?? (lead.scraped_metadata as any)?.reviews ?? 0)
+  const compositeRating = (lead.scraped_metadata as any)?.rating_reviews || lead.notes || ''
+  if ((!reviewsCount || reviewsCount === 0) && compositeRating) {
+    const match = compositeRating.match(/(\d+)\s*\([★*]?\s*([\d.]+)\)/)
+    if (match) {
+      reviewsCount = parseInt(match[1], 10)
+      rating = parseFloat(match[2])
+    }
+  }
+
+  // Address sanitization (filter out contaminated reviews/rating string)
+  const rawAddr = (lead.scraped_metadata?.address || '').trim()
+  const rawNotes = (lead.notes || '').trim()
+  let address = rawAddr
+  if (!address && rawNotes && !rawNotes.startsWith('·') && !rawNotes.includes('★')) {
+    address = rawNotes
+  }
+  if (!address || address.startsWith('·') || address.includes('★')) {
+    address = 'UK Regional'
+  }
   const mapsUrl = lead.scraped_metadata?.google_maps_url
 
   // Phone Sanitization & Channel Detection
@@ -110,6 +145,9 @@ export function OutreachModal({
     ? `${window.location.origin}/preview/demo?name=${encodeURIComponent(businessName)}&trade=${encodeURIComponent(trade)}&phone=${encodeURIComponent(lead.phone || '')}&city=${encodeURIComponent(address)}&rating=${rating}&reviews=${reviewsCount}`
     : `https://mercianwealth.co.uk/preview/demo?name=${encodeURIComponent(businessName)}`
 
+  // Domain name for upgrade pitch
+  const domain = rawWebsite.replace(/^https?:\/\//, '').replace(/\/$/, '')
+
   // ─────────────────────────────────────────────────────────────────────────────
   // EXACT OUTREACH SCRIPTS
   // ─────────────────────────────────────────────────────────────────────────────
@@ -120,10 +158,12 @@ export function OutreachModal({
 
   // STAGE 2: THE PITCH (send only after they reply)
   let stage2Text = ''
-  if (pitchType === 'noWebsite') {
+  if (pitchType === 'scrapedCustom' && lead.scraped_metadata?.stage_2_pitch) {
+    stage2Text = `${lead.scraped_metadata.stage_2_pitch}\n\nLive prototype for ${businessName}:\n${demoUrl}`
+  } else if (pitchType === 'noWebsite') {
     stage2Text = `Came across ${businessName} — had a look for a website, couldn't find one. Here's the bit that actually matters: every day someone searches for a ${trade} near them, sees you're not there, and books with whoever showed up instead. That's not a maybe — it's happening right now, on jobs you'll never even know you lost.\n\nI build the site before I ever ask for money — I don't sell direction I haven't already shown. Put together this live prototype for ${businessName}:\n${demoUrl}\n\nIf it's not for you, no pressure at all, just glad I flagged it. If it is, we take it from there.`
   } else if (pitchType === 'brokenSite') {
-    stage2Text = `Came across ${businessName} — went to check out the site, but noticed it isn't set up for instant mobile quotes. That's not just a rough edge — it's the exact moment someone decides you're not worth the call, and picks the next result instead. Happening on repeat, quietly, without you ever seeing it.\n\nI build the site before I ever ask for money — I don't sell direction I haven't already shown. Here is what a high-converting version looks like for you:\n${demoUrl}\n\nIf it's not for you, no pressure at all, just glad I flagged it. If it is, we take it from there.`
+    stage2Text = `Came across ${businessName} — saw your site at ${domain || 'online'}, noticed it isn't set up for instant mobile quotes or fast lead capture. That's not just a rough edge — it's the exact moment someone decides you're not worth the call, and picks the next result instead. Happening on repeat, quietly, without you ever seeing it.\n\nI build the upgraded storefront before I ever ask for money — I don't sell direction I haven't already shown. Here is what a high-converting version looks like for ${businessName}:\n${demoUrl}\n\nIf it's not for you, no pressure at all, just glad I flagged it. If it is, we take it from there.`
   } else if (pitchType === 'referral') {
     stage2Text = `Passed your number — said you might be after a modern website.\n\nI build the site before I ever ask for money — you're not paying for an idea, you're looking at something real. Took a few minutes to stage a prototype for ${businessName}:\n${demoUrl}\n\nIf it's useful, we take it from there and talk price. If not, no pressure at all.`
   } else {
@@ -167,7 +207,7 @@ export function OutreachModal({
     const url = `https://wa.me/${cleanDigits}?text=${encodeURIComponent(textToSend)}`
     window.open(url, '_blank')
 
-    if (lead.status === 'New') {
+    if (lead.status === 'New' && isMobile) {
       await onUpdateStatus(lead.id, 'Contacted')
     }
   }
@@ -351,13 +391,23 @@ export function OutreachModal({
             {/* Sub-selectors for Stage 2 & Follow-up */}
             {activeTab === 'stage2' && (
               <div className="flex flex-wrap gap-1.5 p-1 rounded-lg bg-black/30 border border-white/5 text-[11px]">
+                {lead.scraped_metadata?.stage_2_pitch && (
+                  <button
+                    onClick={() => setPitchType('scrapedCustom')}
+                    className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                      pitchType === 'scrapedCustom' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    ✨ AI Bespoke Pitch
+                  </button>
+                )}
                 <button
                   onClick={() => setPitchType('noWebsite')}
                   className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
                     pitchType === 'noWebsite' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
                   }`}
                 >
-                  🔥 No Website
+                  🔥 No Website {hasWebsite && '(Override)'}
                 </button>
                 <button
                   onClick={() => setPitchType('brokenSite')}
@@ -365,7 +415,7 @@ export function OutreachModal({
                     pitchType === 'brokenSite' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
                   }`}
                 >
-                  ⚠️ Broken / Outdated Site
+                  {hasWebsite ? '⚡ Modern Redesign / Upgrade' : '⚠️ Broken / Outdated Site'}
                 </button>
                 <button
                   onClick={() => setPitchType('referral')}
@@ -505,53 +555,65 @@ export function OutreachModal({
             <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
               Update Lead Outcome:
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
               <button
                 disabled={updating}
-                onClick={() => handleStatusClick('Won')}
-                className={`py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                  lead.status === 'Won'
-                    ? 'bg-emerald-500 text-black border-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.4)]'
-                    : 'bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+                onClick={() => handleStatusClick('New')}
+                className={`py-2 px-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer ${
+                  lead.status === 'New'
+                    ? 'bg-blue-500 text-white border-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.4)]'
+                    : 'bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border-blue-500/30'
                 }`}
               >
-                <CheckCircle2 size={14} /> Mark Won 🟢
-              </button>
-
-              <button
-                disabled={updating}
-                onClick={() => handleStatusClick('Call Booked')}
-                className={`py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                  lead.status === 'Call Booked'
-                    ? 'bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.4)]'
-                    : 'bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border-purple-500/30'
-                }`}
-              >
-                <Clock size={14} /> Call Booked 🟣
+                <Clock size={13} /> New 🔵
               </button>
 
               <button
                 disabled={updating}
                 onClick={() => handleStatusClick('Contacted')}
-                className={`py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                className={`py-2 px-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer ${
                   lead.status === 'Contacted'
                     ? 'bg-amber-500 text-black border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.4)]'
                     : 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border-amber-500/30'
                 }`}
               >
-                <MessageSquare size={14} /> Contacted 🟡
+                <MessageSquare size={13} /> Contacted 🟡
+              </button>
+
+              <button
+                disabled={updating}
+                onClick={() => handleStatusClick('Call Booked')}
+                className={`py-2 px-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer ${
+                  lead.status === 'Call Booked'
+                    ? 'bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.4)]'
+                    : 'bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border-purple-500/30'
+                }`}
+              >
+                <Clock size={13} /> Booked 🟣
+              </button>
+
+              <button
+                disabled={updating}
+                onClick={() => handleStatusClick('Won')}
+                className={`py-2 px-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer ${
+                  lead.status === 'Won'
+                    ? 'bg-emerald-500 text-black border-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.4)]'
+                    : 'bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+                }`}
+              >
+                <CheckCircle2 size={13} /> Won 🟢
               </button>
 
               <button
                 disabled={updating}
                 onClick={() => handleStatusClick('Lost')}
-                className={`py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                className={`py-2 px-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer ${
                   lead.status === 'Lost'
                     ? 'bg-rose-500 text-white border-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.4)]'
                     : 'bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border-rose-500/30'
                 }`}
               >
-                <XCircle size={14} /> Mark Lost 🔴
+                <XCircle size={13} /> Lost 🔴
               </button>
             </div>
           </div>

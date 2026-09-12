@@ -76,6 +76,7 @@ export default function LeadsPage() {
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [toast, setToast] = useState<string | null>(null)
   const [followupOnly, setFollowupOnly] = useState(false)
+  const [segmentFilter, setSegmentFilter] = useState<'all' | 'no_website' | 'mobile' | 'landline' | 'has_website'>('all')
   const [wonDeal, setWonDeal] = useState<{ businessName: string } | null>(null)
   
   // Views: 'cards' (Deal Cards Grid), 'table' (Dense Table), 'kanban' (Pipeline Columns)
@@ -192,13 +193,16 @@ export default function LeadsPage() {
       return
     }
 
+    const isMobile = cleanDigits.startsWith('447') || cleanDigits.startsWith('07')
     const ownerName = lead.name && lead.name !== lead.business_name && !lead.name.includes('Owner') ? lead.name.split(' ')[0] : ''
     const opener = ownerName ? `Hi ${ownerName} 👋` : 'Hi 👋'
     const url = `https://wa.me/${cleanDigits}?text=${encodeURIComponent(opener)}`
     window.open(url, '_blank')
 
-    if (lead.status === 'New') {
+    if (lead.status === 'New' && isMobile) {
       handleUpdateLeadStatus(lead.id, 'Contacted')
+    } else if (!isMobile) {
+      triggerToast('☎️ UK Landline opened. If not registered on WhatsApp, use Direct Call.')
     }
   }
 
@@ -309,11 +313,53 @@ export default function LeadsPage() {
   }, [fetchLeads])
 
   const displayedLeads = useMemo(() => {
+    let list = leads
     if (followupOnly) {
-      return leads.filter(l => l.status === 'Contacted')
+      list = list.filter(l => l.status === 'Contacted')
     }
-    return leads
-  }, [leads, followupOnly])
+    if (segmentFilter === 'no_website') {
+      list = list.filter(l => {
+        const rawWeb = (l.website || '').trim()
+        return !rawWeb || rawWeb === 'None' || rawWeb === 'NO WEBSITE' || rawWeb.toLowerCase().includes('facebook.com') || rawWeb.toLowerCase().includes('instagram.com')
+      })
+    } else if (segmentFilter === 'has_website') {
+      list = list.filter(l => {
+        const rawWeb = (l.website || '').trim()
+        return rawWeb && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' && !rawWeb.toLowerCase().includes('facebook.com') && !rawWeb.toLowerCase().includes('instagram.com')
+      })
+    } else if (segmentFilter === 'mobile') {
+      list = list.filter(l => {
+        const clean = (l.phone || '').replace(/[^0-9]/g, '')
+        return clean.startsWith('447') || clean.startsWith('07')
+      })
+    } else if (segmentFilter === 'landline') {
+      list = list.filter(l => {
+        const clean = (l.phone || '').replace(/[^0-9]/g, '')
+        const isMob = clean.startsWith('447') || clean.startsWith('07')
+        return !isMob && clean.length > 5
+      })
+    }
+    return list
+  }, [leads, followupOnly, segmentFilter])
+
+  const segmentCounts = useMemo(() => {
+    let noWeb = 0
+    let hasWeb = 0
+    let mobile = 0
+    let landline = 0
+    leads.forEach(l => {
+      const rawWeb = (l.website || '').trim()
+      const isWeb = Boolean(rawWeb && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' && !rawWeb.toLowerCase().includes('facebook.com') && !rawWeb.toLowerCase().includes('instagram.com'))
+      if (isWeb) hasWeb++
+      else noWeb++
+
+      const clean = (l.phone || '').replace(/[^0-9]/g, '')
+      const isMob = clean.startsWith('447') || clean.startsWith('07')
+      if (isMob) mobile++
+      else if (clean.length > 5) landline++
+    })
+    return { noWeb, hasWeb, mobile, landline, total: leads.length }
+  }, [leads])
 
   const toggleStatus = (s: string) =>
     setStatusFilter((prev) => prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s])
@@ -593,6 +639,73 @@ export default function LeadsPage() {
         )}
       </div>
 
+      {/* ───────────────────────────────────────────────────────────────────────── */}
+      {/* QUICK PIPELINE SEGMENTS (No Website Blitz vs WhatsApp vs Landline vs All)  */}
+      {/* ───────────────────────────────────────────────────────────────────────── */}
+      {activeTab === 'active' && (
+        <div className="flex flex-wrap items-center justify-between gap-3 p-2.5 rounded-2xl bg-[#080b11] border border-gold/15">
+          <div className="flex flex-wrap items-center gap-1.5 text-xs">
+            <span className="text-[11px] font-extrabold uppercase tracking-wider text-muted-foreground px-2">
+              Pipeline Queue:
+            </span>
+            <button
+              onClick={() => setSegmentFilter('all')}
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
+                segmentFilter === 'all'
+                  ? 'bg-gold/20 text-gold border border-gold/30 shadow-sm'
+                  : 'text-muted-foreground hover:text-white bg-white/5 border border-transparent'
+              }`}
+            >
+              All Leads ({segmentCounts.total})
+            </button>
+            <button
+              onClick={() => setSegmentFilter('no_website')}
+              className={`px-3 py-1.5 rounded-xl font-extrabold transition-all cursor-pointer flex items-center gap-1.5 ${
+                segmentFilter === 'no_website'
+                  ? 'bg-amber-500/25 text-amber-300 border border-amber-500/40 shadow-[0_0_12px_rgba(245,158,11,0.25)]'
+                  : 'text-amber-400/90 hover:text-amber-300 bg-amber-500/10 border border-amber-500/20'
+              }`}
+            >
+              <Flame size={13} className="text-red-400" /> 🔥 No Website Only ({segmentCounts.noWeb})
+            </button>
+            <button
+              onClick={() => setSegmentFilter('mobile')}
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                segmentFilter === 'mobile'
+                  ? 'bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 shadow-[0_0_12px_rgba(16,185,129,0.25)]'
+                  : 'text-emerald-400/90 hover:text-emerald-300 bg-emerald-500/10 border border-emerald-500/20'
+              }`}
+            >
+              <MessageSquare size={13} /> 📱 WhatsApp Ready ({segmentCounts.mobile})
+            </button>
+            <button
+              onClick={() => setSegmentFilter('landline')}
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                segmentFilter === 'landline'
+                  ? 'bg-blue-500/25 text-blue-300 border border-blue-500/40 shadow-[0_0_12px_rgba(59,130,246,0.25)]'
+                  : 'text-blue-400/90 hover:text-blue-300 bg-blue-500/10 border border-blue-500/20'
+              }`}
+            >
+              <Phone size={13} /> ☎️ Landlines ({segmentCounts.landline})
+            </button>
+            <button
+              onClick={() => setSegmentFilter('has_website')}
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                segmentFilter === 'has_website'
+                  ? 'bg-purple-500/25 text-purple-300 border border-purple-500/40 shadow-sm'
+                  : 'text-purple-400/80 hover:text-purple-300 bg-purple-500/10 border border-purple-500/20'
+              }`}
+            >
+              <Globe size={13} /> 🌐 Has Website ({segmentCounts.hasWeb})
+            </button>
+          </div>
+
+          <span className="text-[11px] text-muted-foreground font-mono px-2 hidden md:inline">
+            Showing {displayedLeads.length} of {leads.length} leads
+          </span>
+        </div>
+      )}
+
       {/* Filter Options Accordion */}
       {showFilters && activeTab !== 'spam' && (
         <div className="glass p-5 rounded-2xl border border-gold/15 space-y-4 animate-fade-in">
@@ -645,15 +758,36 @@ export default function LeadsPage() {
             {displayedLeads.map((lead) => {
               const businessName = lead.business_name || lead.name
               const trade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Business'
-              const rawWebsite = lead.website
-              const hasWebsite = rawWebsite && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE'
-              const rating = lead.scraped_metadata?.rating ?? 5.0
-              const reviews = lead.scraped_metadata?.reviews_count ?? 0
+              const rawWebsite = (lead.website || '').trim()
+              const hasWebsite = rawWebsite !== '' && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE' && !rawWebsite.toLowerCase().includes('facebook.com') && !rawWebsite.toLowerCase().includes('instagram.com')
+              
+              // Clean rating and reviews
+              let rating = Number(lead.scraped_metadata?.rating || 5.0)
+              let reviews = Number(lead.scraped_metadata?.reviews_count ?? (lead.scraped_metadata as any)?.reviews ?? 0)
+              const composite = (lead.scraped_metadata as any)?.rating_reviews || lead.notes || ''
+              if ((!reviews || reviews === 0) && composite) {
+                const match = composite.match(/(\d+)\s*\([★*]?\s*([\d.]+)\)/)
+                if (match) {
+                  reviews = parseInt(match[1], 10)
+                  rating = parseFloat(match[2])
+                }
+              }
+
               const phone = lead.phone || ''
               const cleanDigits = phone.replace(/[^0-9]/g, '')
               const isMobile = cleanDigits.startsWith('447') || cleanDigits.startsWith('07')
               const isLandline = !isMobile && cleanDigits.length > 5
-              const address = lead.scraped_metadata?.address || lead.notes || 'UK Regional'
+
+              // Clean address
+              const rawAddr = (lead.scraped_metadata?.address || '').trim()
+              const rawNotes = (lead.notes || '').trim()
+              let address = rawAddr
+              if (!address && rawNotes && !rawNotes.startsWith('·') && !rawNotes.includes('★')) {
+                address = rawNotes
+              }
+              if (!address || address.startsWith('·') || address.includes('★')) {
+                address = 'UK Regional'
+              }
               const mapsUrl = lead.scraped_metadata?.google_maps_url
 
               return (

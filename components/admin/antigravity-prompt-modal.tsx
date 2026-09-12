@@ -44,11 +44,31 @@ export function AntigravityPromptModal({
 
   const businessName = lead.business_name || lead.name || 'Local Business'
   const trade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Roofing & Building'
-  const rawWebsite = lead.website
-  const hasWebsite = rawWebsite && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE'
-  const rating = lead.scraped_metadata?.rating ?? 5.0
-  const reviewsCount = lead.scraped_metadata?.reviews_count ?? 0
-  const address = lead.scraped_metadata?.address || lead.notes || 'United Kingdom'
+  const rawWebsite = (lead.website || '').trim()
+  const hasWebsite = rawWebsite !== '' && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE' && !rawWebsite.toLowerCase().includes('facebook.com') && !rawWebsite.toLowerCase().includes('instagram.com')
+  
+  // Clean rating & reviews
+  let rating = Number(lead.scraped_metadata?.rating || 5.0)
+  let reviewsCount = Number(lead.scraped_metadata?.reviews_count ?? (lead.scraped_metadata as any)?.reviews ?? 0)
+  const composite = (lead.scraped_metadata as any)?.rating_reviews || lead.notes || ''
+  if ((!reviewsCount || reviewsCount === 0) && composite) {
+    const match = composite.match(/(\d+)\s*\([★*]?\s*([\d.]+)\)/)
+    if (match) {
+      reviewsCount = parseInt(match[1], 10)
+      rating = parseFloat(match[2])
+    }
+  }
+
+  // Clean address
+  const rawAddr = (lead.scraped_metadata?.address || '').trim()
+  const rawNotes = (lead.notes || '').trim()
+  let address = rawAddr
+  if (!address && rawNotes && !rawNotes.startsWith('·') && !rawNotes.includes('★')) {
+    address = rawNotes
+  }
+  if (!address || address.startsWith('·') || address.includes('★')) {
+    address = 'UK Regional'
+  }
   const cleanDigits = (lead.phone || '').replace(/[^0-9]/g, '')
   const ownerName = lead.name && lead.name !== lead.business_name && !lead.name.includes('Owner') ? lead.name.split(' ')[0] : 'Owner / Director'
 
