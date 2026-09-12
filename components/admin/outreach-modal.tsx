@@ -18,7 +18,13 @@ import {
   XCircle,
   AlertTriangle,
   Trash2,
+  Mic,
+  Laptop,
+  Flame,
+  ThumbsUp
 } from 'lucide-react'
+
+import { AntigravityPromptModal } from './antigravity-prompt-modal'
 
 export interface OutreachLead {
   id: string
@@ -66,9 +72,12 @@ export function OutreachModal({
   onUpdateStatus,
   onDeleteLead,
 }: OutreachModalProps) {
-  const [activeTab, setActiveTab] = useState<'stage1' | 'stage2' | 'followup1' | 'followupFinal'>('stage1')
+  const [activeTab, setActiveTab] = useState<'stage1' | 'stage2' | 'followup' | 'voice'>('stage1')
+  const [pitchType, setPitchType] = useState<'noWebsite' | 'brokenSite' | 'referral' | 'automation'>('noWebsite')
+  const [followupType, setFollowupType] = useState<'noResponse' | 'final' | 'comeBack' | 'declined'>('noResponse')
   const [copied, setCopied] = useState(false)
   const [updating, setUpdating] = useState(false)
+  const [isPromptOpen, setIsPromptOpen] = useState(false)
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -83,7 +92,7 @@ export function OutreachModal({
   if (!isOpen || !lead) return null
 
   const businessName = lead.business_name || 'Local Business'
-  const trade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Tradesperson'
+  const trade = (lead.local_business_niche || lead.scraped_metadata?.trade || 'tradesperson').toLowerCase()
   const rawWebsite = lead.website
   const hasWebsite = rawWebsite && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE'
   const rating = lead.scraped_metadata?.rating ?? 5.0
@@ -91,35 +100,60 @@ export function OutreachModal({
   const address = lead.scraped_metadata?.address || lead.notes || 'United Kingdom'
   const mapsUrl = lead.scraped_metadata?.google_maps_url
 
-  // Phone Sanitization
+  // Phone Sanitization & Channel Detection
   const cleanDigits = (lead.phone || '').replace(/[^0-9]/g, '')
-  const isMobile = (lead.phone || '').startsWith('+447') || (lead.phone || '').startsWith('07')
-  const channel = isMobile ? 'WhatsApp / Mobile' : 'Landline / Direct Call'
+  const isMobile = cleanDigits.startsWith('447') || cleanDigits.startsWith('07')
+  const isLandline = !isMobile && cleanDigits.length > 5
 
-  // Scripts
-  const stage1Text = 'Hi 👋'
-  const stage2Text =
-    lead.scraped_metadata?.stage_2_pitch ||
-    (hasWebsite
-      ? `Came across ${businessName} — checked out your profile. Just wanted to see if you're taking on more ${trade.toLowerCase()} jobs right now, or if you're currently full?`
-      : `Came across ${businessName} — had a look for a website, couldn't find one. Here's the bit that actually matters: every day someone searches for a ${trade.toLowerCase()} near them, sees you're not there, and books with whoever showed up instead. I build the storefront before I ever ask for money — if it's not for you, no pressure at all.`)
+  // Live Prototype Dynamic URL
+  const demoUrl = typeof window !== 'undefined'
+    ? `${window.location.origin}/preview/demo?name=${encodeURIComponent(businessName)}&trade=${encodeURIComponent(trade)}&phone=${encodeURIComponent(lead.phone || '')}&city=${encodeURIComponent(address)}&rating=${rating}&reviews=${reviewsCount}`
+    : `https://mercianwealth.co.uk/preview/demo?name=${encodeURIComponent(businessName)}`
 
-  const followUp1Text =
-    lead.scraped_metadata?.follow_up_1 ||
-    `Hey — following up on ${businessName}. No pressure at all, just wanted to check if this landed and see where you're at.`
+  // ─────────────────────────────────────────────────────────────────────────────
+  // EXACT OUTREACH SCRIPTS
+  // ─────────────────────────────────────────────────────────────────────────────
 
-  const followUpFinalText =
-    lead.scraped_metadata?.follow_up_final ||
-    `Last one from me on this — if it's not a priority right now, that's completely fair. If it ever is, the offer stands, just say the word.`
+  // STAGE 1: OPENER (send alone, wait for reply)
+  const ownerName = lead.name && lead.name !== lead.business_name && !lead.name.includes('Owner') ? lead.name.split(' ')[0] : ''
+  const stage1Text = ownerName ? `Hi ${ownerName} 👋` : 'Hi 👋'
+
+  // STAGE 2: THE PITCH (send only after they reply)
+  let stage2Text = ''
+  if (pitchType === 'noWebsite') {
+    stage2Text = `Came across ${businessName} — had a look for a website, couldn't find one. Here's the bit that actually matters: every day someone searches for a ${trade} near them, sees you're not there, and books with whoever showed up instead. That's not a maybe — it's happening right now, on jobs you'll never even know you lost.\n\nI build the site before I ever ask for money — I don't sell direction I haven't already shown. Put together this live prototype for ${businessName}:\n${demoUrl}\n\nIf it's not for you, no pressure at all, just glad I flagged it. If it is, we take it from there.`
+  } else if (pitchType === 'brokenSite') {
+    stage2Text = `Came across ${businessName} — went to check out the site, but noticed it isn't set up for instant mobile quotes. That's not just a rough edge — it's the exact moment someone decides you're not worth the call, and picks the next result instead. Happening on repeat, quietly, without you ever seeing it.\n\nI build the site before I ever ask for money — I don't sell direction I haven't already shown. Here is what a high-converting version looks like for you:\n${demoUrl}\n\nIf it's not for you, no pressure at all, just glad I flagged it. If it is, we take it from there.`
+  } else if (pitchType === 'referral') {
+    stage2Text = `Passed your number — said you might be after a modern website.\n\nI build the site before I ever ask for money — you're not paying for an idea, you're looking at something real. Took a few minutes to stage a prototype for ${businessName}:\n${demoUrl}\n\nIf it's useful, we take it from there and talk price. If not, no pressure at all.`
+  } else {
+    // Broader automation pitch
+    stage2Text = `Came across ${businessName} — noticed you're getting steady interest, but every missed call or slow reply is a job going to whoever picked up faster.\n\nI build speed-to-lead systems that fix exactly that: faster response, less admin, more of what's already coming in actually turning into paying work.\n\nI show you a working version before anything's agreed — no cost, no pressure. If it's useful, we take it further. If not, no worries at all.`
+  }
+
+  // FOLLOW-UPS
+  let followupText = ''
+  if (followupType === 'noResponse') {
+    followupText = `Hey — following up on ${businessName}'s site. No pressure at all, just wanted to check it landed and see where you're at.`
+  } else if (followupType === 'final') {
+    followupText = `Last one from me on this — if it's not a priority right now, that's completely fair. If it ever is, the offer stands, just say the word.`
+  } else if (followupType === 'comeBack') {
+    followupText = `No rush at all — happy to wait until you're ready. Just didn't want it to go unsaid: every day without it is a day someone's landing somewhere else instead of you. Whenever you're ready, everything's exactly as we left it.`
+  } else {
+    followupText = `No worries at all, appreciate you letting me know 👍 If that ever changes, feel free to reach out — all the best with the business!`
+  }
+
+  // VOICE NOTE PROMPTER (15s)
+  const voiceNoteScript = `🎙️ 15-SECOND VOICE NOTE SCRIPT (Speak naturally):\n\n"Hey ${ownerName || 'mate'}, quick voice note — it's Gurtej from Mercian Wealth in Worcestershire.\nSaw your 5-star reviews on Google but noticed you don't have a website up yet.\nPut together a live preview for ${businessName} so you stop losing local jobs to competitors.\nSent you the link above, have a look whenever you're off the tools and let me know what you think!"`
 
   const currentMessageText =
     activeTab === 'stage1'
       ? stage1Text
       : activeTab === 'stage2'
       ? stage2Text
-      : activeTab === 'followup1'
-      ? followUp1Text
-      : followUpFinalText
+      : activeTab === 'followup'
+      ? followupText
+      : voiceNoteScript
 
   const handleCopy = () => {
     navigator.clipboard.writeText(currentMessageText)
@@ -129,10 +163,10 @@ export function OutreachModal({
 
   const handleSendWhatsApp = async () => {
     if (!cleanDigits) return
-    const url = `https://wa.me/${cleanDigits}?text=${encodeURIComponent(currentMessageText)}`
+    const textToSend = activeTab === 'voice' ? stage1Text : currentMessageText
+    const url = `https://wa.me/${cleanDigits}?text=${encodeURIComponent(textToSend)}`
     window.open(url, '_blank')
 
-    // Optimistically update status to Contacted if still New
     if (lead.status === 'New') {
       await onUpdateStatus(lead.id, 'Contacted')
     }
@@ -156,7 +190,7 @@ export function OutreachModal({
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-2xl bg-[#0b0f17] border border-gold/25 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.8),0_0_20px_rgba(212,175,55,0.15)] overflow-hidden z-10 flex flex-col max-h-[90vh]">
+      <div className="relative w-full max-w-2xl bg-[#0b0f17] border border-gold/25 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.8),0_0_20px_rgba(212,175,55,0.15)] overflow-hidden z-10 flex flex-col max-h-[92vh]">
         {/* Header Strip */}
         <div className="p-5 border-b border-gold/15 bg-gradient-to-r from-gold/10 via-white/[0.02] to-transparent flex items-start justify-between gap-4">
           <div className="space-y-1">
@@ -194,10 +228,6 @@ export function OutreachModal({
               <span className="flex items-center gap-1">
                 <Phone size={12} /> {lead.phone || 'No phone'}
               </span>
-              <span>•</span>
-              <span className="flex items-center gap-1 text-gold/80">
-                <MessageSquare size={12} /> {channel}
-              </span>
             </div>
           </div>
 
@@ -210,7 +240,7 @@ export function OutreachModal({
         </div>
 
         {/* Content Body */}
-        <div className="p-6 space-y-6 overflow-y-auto flex-1 discord-scroll">
+        <div className="p-6 space-y-5 overflow-y-auto flex-1 discord-scroll">
           {/* Telemetry / Info Bar */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3.5 rounded-xl bg-black/40 border border-white/5 text-xs">
             <div>
@@ -239,30 +269,38 @@ export function OutreachModal({
             </div>
 
             <div>
-              <p className="text-[10px] uppercase font-bold text-muted-foreground">Google Listing</p>
-              {mapsUrl ? (
+              <p className="text-[10px] uppercase font-bold text-muted-foreground">Antigravity / Demo</p>
+              <div className="flex items-center gap-2 mt-0.5">
+                <button
+                  type="button"
+                  onClick={() => setIsPromptOpen(true)}
+                  className="text-gold hover:text-white hover:underline flex items-center gap-1 font-bold text-[11px] cursor-pointer"
+                  title="Open Antigravity Vibecoding Prompts"
+                >
+                  <Sparkles size={11} className="text-gold" /> Vibecoding Prompt
+                </button>
+                <span className="text-muted-foreground">•</span>
                 <a
-                  href={mapsUrl}
+                  href={demoUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-gold hover:underline flex items-center gap-1 font-medium mt-0.5"
+                  className="text-amber-300 hover:text-amber-200 hover:underline flex items-center gap-1 font-bold text-[11px]"
+                  title="Open Live Prototype Preview"
                 >
-                  <ExternalLink size={11} /> Open Google Maps
+                  Live Demo <ExternalLink size={9} />
                 </a>
-              ) : (
-                <span className="text-muted-foreground">Maps unlinked</span>
-              )}
+              </div>
             </div>
           </div>
 
-          {/* Outreach Sequence Selector */}
+          {/* Outreach Sequence Cockpit */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-gold flex items-center gap-1.5">
-                <Sparkles size={14} /> Multi-Stage Outreach Cockpit
+                <Sparkles size={14} /> Sequence Cockpit (Outcomes Over Tools)
               </span>
               <span className="text-[11px] text-muted-foreground">
-                Tailored for: <strong className="text-foreground">{trade}</strong>
+                Target: <strong className="text-foreground">{trade}</strong>
               </span>
             </div>
 
@@ -270,7 +308,7 @@ export function OutreachModal({
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 p-1 rounded-xl bg-black/50 border border-white/5">
               <button
                 onClick={() => setActiveTab('stage1')}
-                className={`py-2 px-3 text-xs font-bold rounded-lg transition-all cursor-pointer text-center ${
+                className={`py-2 px-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer text-center ${
                   activeTab === 'stage1'
                     ? 'bg-gold/20 text-gold border border-gold/30 shadow-sm'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
@@ -280,48 +318,133 @@ export function OutreachModal({
               </button>
               <button
                 onClick={() => setActiveTab('stage2')}
-                className={`py-2 px-3 text-xs font-bold rounded-lg transition-all cursor-pointer text-center ${
+                className={`py-2 px-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer text-center ${
                   activeTab === 'stage2'
                     ? 'bg-gold/20 text-gold border border-gold/30 shadow-sm'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                 }`}
               >
-                2. Value Pitch
+                2. The Pitch
               </button>
               <button
-                onClick={() => setActiveTab('followup1')}
-                className={`py-2 px-3 text-xs font-bold rounded-lg transition-all cursor-pointer text-center ${
-                  activeTab === 'followup1'
+                onClick={() => setActiveTab('followup')}
+                className={`py-2 px-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer text-center ${
+                  activeTab === 'followup'
                     ? 'bg-gold/20 text-gold border border-gold/30 shadow-sm'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                 }`}
               >
-                3. Follow-Up 1
+                3. Follow-Ups
               </button>
               <button
-                onClick={() => setActiveTab('followupFinal')}
-                className={`py-2 px-3 text-xs font-bold rounded-lg transition-all cursor-pointer text-center ${
-                  activeTab === 'followupFinal'
+                onClick={() => setActiveTab('voice')}
+                className={`py-2 px-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1 ${
+                  activeTab === 'voice'
                     ? 'bg-gold/20 text-gold border border-gold/30 shadow-sm'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                 }`}
               >
-                4. Final Close
+                <Mic size={12} /> 4. Voice Note
               </button>
             </div>
+
+            {/* Sub-selectors for Stage 2 & Follow-up */}
+            {activeTab === 'stage2' && (
+              <div className="flex flex-wrap gap-1.5 p-1 rounded-lg bg-black/30 border border-white/5 text-[11px]">
+                <button
+                  onClick={() => setPitchType('noWebsite')}
+                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                    pitchType === 'noWebsite' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  }`}
+                >
+                  🔥 No Website
+                </button>
+                <button
+                  onClick={() => setPitchType('brokenSite')}
+                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                    pitchType === 'brokenSite' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  }`}
+                >
+                  ⚠️ Broken / Outdated Site
+                </button>
+                <button
+                  onClick={() => setPitchType('referral')}
+                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                    pitchType === 'referral' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  }`}
+                >
+                  🤝 Warm Referral
+                </button>
+                <button
+                  onClick={() => setPitchType('automation')}
+                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                    pitchType === 'automation' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  }`}
+                >
+                  ⚡ Speed-to-Lead
+                </button>
+              </div>
+            )}
+
+            {activeTab === 'followup' && (
+              <div className="flex flex-wrap gap-1.5 p-1 rounded-lg bg-black/30 border border-white/5 text-[11px]">
+                <button
+                  onClick={() => setFollowupType('noResponse')}
+                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                    followupType === 'noResponse' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  }`}
+                >
+                  ⏳ No Response (48h)
+                </button>
+                <button
+                  onClick={() => setFollowupType('final')}
+                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                    followupType === 'final' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  }`}
+                >
+                  🛑 Final Follow-up
+                </button>
+                <button
+                  onClick={() => setFollowupType('comeBack')}
+                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                    followupType === 'comeBack' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  }`}
+                >
+                  📅 "I'll come back to you"
+                </button>
+                <button
+                  onClick={() => setFollowupType('declined')}
+                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
+                    followupType === 'declined' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  }`}
+                >
+                  👍 Polite Close / Declined
+                </button>
+              </div>
+            )}
+
+            {/* Guidance Alert for Stage 1 */}
+            {activeTab === 'stage1' && (
+              <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-center gap-2">
+                <Flame size={14} className="shrink-0 text-amber-400" />
+                <span>
+                  <strong>Rule:</strong> Send alone, wait for their reply. When they ask "Who's this?", drop Stage 2.
+                </span>
+              </div>
+            )}
 
             {/* Message Box */}
             <div className="relative rounded-xl bg-[#06080d] border border-gold/15 p-4 space-y-3 shadow-inner">
               <div className="flex items-center justify-between text-[11px] text-muted-foreground pb-2 border-b border-white/5">
-                <span className="font-semibold text-foreground/80">Message Preview:</span>
+                <span className="font-semibold text-foreground/80">Message Body:</span>
                 <span className="text-[10px] text-gold/80">
                   {activeTab === 'stage1'
-                    ? 'Quick Pattern Interrupt'
+                    ? 'Curiosity Gap Opener'
                     : activeTab === 'stage2'
-                    ? 'Pain-Point Demonstration Pitch'
-                    : activeTab === 'followup1'
-                    ? 'Day 2 Polite Check-in'
-                    : 'Zero-Pressure Departure'}
+                    ? 'Trojan Horse Demo Pitch'
+                    : activeTab === 'followup'
+                    ? 'Polite Follow-up Sequence'
+                    : '15-Second Voice Script'}
                 </span>
               </div>
 
@@ -329,22 +452,49 @@ export function OutreachModal({
                 {currentMessageText}
               </p>
 
+              {isLandline && (
+                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-300 text-[11px] flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-1.5">
+                    <Phone size={12} className="text-amber-400 shrink-0" />
+                    <span><strong>UK Landline Notice:</strong> {lead.phone} is a regional landline. If WhatsApp shows &quot;isn&apos;t on WhatsApp&quot;, dial directly to reach the business.</span>
+                  </span>
+                  <a
+                    href={`tel:${lead.phone}`}
+                    className="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 font-bold shrink-0 text-[11px] flex items-center gap-1"
+                  >
+                    <Phone size={11} /> Call Directly
+                  </a>
+                </div>
+              )}
+
               <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/5">
                 <button
                   onClick={handleCopy}
                   className="px-3 py-1.5 rounded-lg border border-white/10 hover:border-gold/30 bg-white/5 hover:bg-gold/10 text-xs font-semibold text-foreground flex items-center gap-1.5 transition-all cursor-pointer"
                 >
                   {copied ? <Check size={13} className="text-green-400" /> : <Copy size={13} />}
-                  {copied ? 'Copied!' : 'Copy Text'}
+                  {copied ? 'Copied!' : 'Copy Script'}
                 </button>
 
-                {isMobile && (
-                  <button
-                    onClick={handleSendWhatsApp}
-                    className="px-4 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs flex items-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] transition-all cursor-pointer"
-                  >
-                    <Send size={13} /> Send via WhatsApp
-                  </button>
+                {cleanDigits && (
+                  <div className="flex items-center gap-2">
+                    {isLandline && (
+                      <a
+                        href={`tel:${lead.phone}`}
+                        className="px-3 py-1.5 rounded-lg bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 border border-blue-500/30 font-bold text-xs flex items-center gap-1.5 transition-all"
+                      >
+                        <Phone size={13} /> Call {lead.phone}
+                      </a>
+                    )}
+
+                    <button
+                      onClick={handleSendWhatsApp}
+                      className="px-4 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs flex items-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] transition-all cursor-pointer"
+                      title={isLandline ? "Try WhatsApp (if registered as WhatsApp Business)" : "Open in WhatsApp"}
+                    >
+                      <Send size={13} /> {activeTab === 'stage1' ? 'Send Hi 👋 via WhatsApp' : 'Send via WhatsApp'}
+                    </button>
+                  </div>
                 )}
               </div>
             </div>
@@ -433,6 +583,13 @@ export function OutreachModal({
           </div>
         </div>
       </div>
+
+      {/* Dedicated Antigravity Vibecoding & Prototype Prompt Modal */}
+      <AntigravityPromptModal
+        isOpen={isPromptOpen}
+        onClose={() => setIsPromptOpen(false)}
+        lead={lead}
+      />
     </div>
   )
 }

@@ -35,6 +35,7 @@ import {
 } from 'lucide-react'
 import { useInspector } from '@/hooks/use-inspector'
 import { OutreachModal, OutreachLead } from '@/components/admin/outreach-modal'
+import { AntigravityPromptModal } from '@/components/admin/antigravity-prompt-modal'
 
 export type Lead = OutreachLead
 
@@ -74,6 +75,8 @@ export default function LeadsPage() {
   const [activeTab, setActiveTab] = useState<'active' | 'archived' | 'spam'>('active')
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [toast, setToast] = useState<string | null>(null)
+  const [followupOnly, setFollowupOnly] = useState(false)
+  const [wonDeal, setWonDeal] = useState<{ businessName: string } | null>(null)
   
   // Views: 'cards' (Deal Cards Grid), 'table' (Dense Table), 'kanban' (Pipeline Columns)
   const [viewMode, setViewMode] = useState<'cards' | 'table' | 'kanban'>('cards')
@@ -84,6 +87,15 @@ export default function LeadsPage() {
   // Dedicated Outreach Cockpit Modal State
   const [outreachLead, setOutreachLead] = useState<Lead | null>(null)
   const [isOutreachOpen, setIsOutreachOpen] = useState(false)
+
+  // Dedicated Antigravity Prompt Modal State
+  const [promptLead, setPromptLead] = useState<Lead | null>(null)
+  const [isPromptOpen, setIsPromptOpen] = useState(false)
+
+  const handleOpenPrompt = (lead: Lead) => {
+    setPromptLead(lead)
+    setIsPromptOpen(true)
+  }
 
   // Manual Lead creation modal states
   const [showNewModal, setShowNewModal] = useState(false)
@@ -138,17 +150,19 @@ export default function LeadsPage() {
 
   // OPTIMISTIC Status Update (0ms UI latency)
   const handleUpdateLeadStatus = async (id: string, status: string) => {
+    const targetLead = leads.find(l => l.id === id)
     // 1. Instant local update
     setLeads(prev => prev.map(l => l.id === id ? { ...l, status } : l))
     if (outreachLead?.id === id) {
       setOutreachLead(prev => prev ? { ...prev, status } : null)
     }
 
-    // 2. Feedback message
+    // 2. Feedback message & Gamified Revenue Won Modal
     if (status === 'Won') {
-      triggerToast('🟢 Lead marked as WON! Highlighted in green.')
+      triggerToast('🟢 Deal marked as WON! Revenue & Retainer unlocked.')
+      setWonDeal({ businessName: targetLead?.business_name || targetLead?.name || 'New Client' })
     } else if (status === 'Lost') {
-      triggerToast('🔴 Lead marked as Lost. Highlighted in red.')
+      triggerToast('🔴 Lead marked as Lost.')
     } else if (status === 'Contacted') {
       triggerToast('🟡 Lead marked as Contacted.')
     } else {
@@ -169,7 +183,7 @@ export default function LeadsPage() {
     }
   }
 
-  // Direct 1-Click WhatsApp action
+  // Direct 1-Click WhatsApp action (Stage 1 Opener: Hi 👋 alone)
   const handleQuickWhatsApp = (lead: Lead) => {
     const phone = lead.phone || ''
     const cleanDigits = phone.replace(/[^0-9]/g, '')
@@ -178,8 +192,9 @@ export default function LeadsPage() {
       return
     }
 
-    const opener = lead.scraped_metadata?.stage_1_opener || 'Hi 👋'
-    const url = lead.whatsapp_direct_url || `https://wa.me/${cleanDigits}?text=${encodeURIComponent(opener)}`
+    const ownerName = lead.name && lead.name !== lead.business_name && !lead.name.includes('Owner') ? lead.name.split(' ')[0] : ''
+    const opener = ownerName ? `Hi ${ownerName} 👋` : 'Hi 👋'
+    const url = `https://wa.me/${cleanDigits}?text=${encodeURIComponent(opener)}`
     window.open(url, '_blank')
 
     if (lead.status === 'New') {
@@ -292,6 +307,13 @@ export default function LeadsPage() {
     const timer = setTimeout(fetchLeads, 300)
     return () => clearTimeout(timer)
   }, [fetchLeads])
+
+  const displayedLeads = useMemo(() => {
+    if (followupOnly) {
+      return leads.filter(l => l.status === 'Contacted')
+    }
+    return leads
+  }, [leads, followupOnly])
 
   const toggleStatus = (s: string) =>
     setStatusFilter((prev) => prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s])
@@ -510,12 +532,28 @@ export default function LeadsPage() {
 
         {/* Filter toggle */}
         {activeTab !== 'spam' && (
-          <button
-            onClick={() => setShowFilters((v) => !v)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-all cursor-pointer ${showFilters ? 'bg-gold/10 border-gold/30 text-gold' : 'bg-card border-gold/15 text-muted-foreground hover:text-foreground hover:border-gold/25'}`}
-          >
-            <Filter size={15} /> Filters {(statusFilter.length > 0) && '(Active)'}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowFilters((v) => !v)}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-all cursor-pointer ${showFilters ? 'bg-gold/10 border-gold/30 text-gold' : 'bg-card border-gold/15 text-muted-foreground hover:text-foreground hover:border-gold/25'}`}
+            >
+              <Filter size={15} /> Filters {(statusFilter.length > 0) && '(Active)'}
+            </button>
+
+            {/* Smart Follow-Up Filter */}
+            <button
+              onClick={() => setFollowupOnly((v) => !v)}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-bold transition-all cursor-pointer ${
+                followupOnly
+                  ? 'bg-amber-500/20 border-amber-500/40 text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.25)]'
+                  : 'bg-card border-gold/15 text-muted-foreground hover:text-foreground hover:border-gold/25'
+              }`}
+              title="Filter leads in Contacted status awaiting stage 3 follow-up"
+            >
+              <Clock size={14} className={followupOnly ? 'text-amber-400' : 'text-gold'} />
+              <span>🔔 Due for Follow-Up ({statusCounts['Contacted'] || 0})</span>
+            </button>
+          </div>
         )}
 
         {/* Triple View Toggle (Deal Cards vs Table vs Kanban) */}
@@ -604,7 +642,7 @@ export default function LeadsPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-            {leads.map((lead) => {
+            {displayedLeads.map((lead) => {
               const businessName = lead.business_name || lead.name
               const trade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Business'
               const rawWebsite = lead.website
@@ -612,7 +650,9 @@ export default function LeadsPage() {
               const rating = lead.scraped_metadata?.rating ?? 5.0
               const reviews = lead.scraped_metadata?.reviews_count ?? 0
               const phone = lead.phone || ''
-              const isMobile = phone.startsWith('+447') || phone.startsWith('07')
+              const cleanDigits = phone.replace(/[^0-9]/g, '')
+              const isMobile = cleanDigits.startsWith('447') || cleanDigits.startsWith('07')
+              const isLandline = !isMobile && cleanDigits.length > 5
               const address = lead.scraped_metadata?.address || lead.notes || 'UK Regional'
               const mapsUrl = lead.scraped_metadata?.google_maps_url
 
@@ -670,23 +710,23 @@ export default function LeadsPage() {
                           </div>
 
                           <div className="grid grid-cols-2 gap-2 pt-1">
-                            {/* Action 1: 1-Click WhatsApp */}
+                            {/* Action 1: 1-Click WhatsApp (Stage 1: Hi alone) */}
                             <button
                               onClick={() => handleQuickWhatsApp(lead)}
                               className="py-2 px-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.35)] hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] transition-all cursor-pointer"
-                              title="Launch WhatsApp with Stage 1 Opener and mark Contacted"
+                              title={isLandline ? "Open WhatsApp (Note: UK Landlines might not be registered on WhatsApp)" : "Launch WhatsApp with Stage 1 Opener ('Hi 👋' alone)"}
                             >
-                              <MessageSquare size={13} /> 💬 WhatsApp
+                              <MessageSquare size={13} /> {isLandline ? '💬 WhatsApp' : '💬 WhatsApp (Hi 👋)'}
                             </button>
 
-                            {/* Action 2: Direct Demo Site Builder */}
-                            <Link
-                              href={`/admin/projects?create=true&client_name=${encodeURIComponent('Owner / Director')}&project_name=${encodeURIComponent(businessName + ' Storefront')}&service_type=${encodeURIComponent('Digital Storefront & Speed-to-Lead Automation')}`}
-                              className="py-2 px-3 rounded-lg bg-gold/15 hover:bg-gold/25 text-gold border border-gold/35 font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all text-center"
-                              title="Generate an instant preview storefront prototype"
+                            {/* Action 2: Dynamic Live Demo & Antigravity Vibecoding Cockpit */}
+                            <button
+                              onClick={() => handleOpenPrompt(lead)}
+                              className="py-2 px-3 rounded-lg bg-gold/15 hover:bg-gold/25 text-gold border border-gold/35 font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all text-center cursor-pointer shadow-sm"
+                              title="Open live prototype demo and Antigravity Vibecoding prompts"
                             >
                               <Laptop size={13} /> ⚡ Demo Site →
-                            </Link>
+                            </button>
                           </div>
                         </div>
                       ) : (
@@ -703,12 +743,22 @@ export default function LeadsPage() {
                             </a>
                           </div>
 
-                          <button
-                            onClick={() => handleQuickWhatsApp(lead)}
-                            className="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-foreground text-xs font-bold shrink-0 border border-white/10 flex items-center gap-1"
-                          >
-                            <MessageSquare size={12} /> Pitch
-                          </button>
+                          <div className="flex items-center gap-1.5 shrink-0">
+                            <button
+                              onClick={() => handleQuickWhatsApp(lead)}
+                              className="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold border border-emerald-500/30 flex items-center gap-1 cursor-pointer"
+                              title={isLandline ? "Open WhatsApp" : "Send Hi 👋 via WhatsApp"}
+                            >
+                              <MessageSquare size={12} /> WhatsApp
+                            </button>
+                            <button
+                              onClick={() => handleOpenPrompt(lead)}
+                              className="px-2.5 py-1 rounded-lg bg-gold/15 hover:bg-gold/25 text-gold text-xs font-bold border border-gold/30 flex items-center gap-1 cursor-pointer"
+                              title="Open Antigravity Vibecoding Prompt & Demo"
+                            >
+                              <Laptop size={12} /> Demo
+                            </button>
+                          </div>
                         </div>
                       )}
                     </div>
@@ -716,19 +766,38 @@ export default function LeadsPage() {
                     {/* Telemetry / Contact Info */}
                     <div className="space-y-1.5 text-xs text-muted-foreground pt-1">
                       <div className="flex items-center justify-between">
-                        <span className="flex items-center gap-1.5 font-mono text-foreground/90 font-medium">
-                          <Phone size={12} className="text-gold" /> {phone || 'No phone'}
-                        </span>
-                        {mapsUrl && (
-                          <a
-                            href={mapsUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-gold hover:underline flex items-center gap-1 font-semibold text-[11px]"
-                          >
-                            <MapPin size={11} /> View on Maps <ExternalLink size={9} />
-                          </a>
-                        )}
+                        <div className="flex items-center gap-2">
+                          <span className="flex items-center gap-1.5 font-mono text-foreground/90 font-medium">
+                            <Phone size={12} className="text-gold" /> {phone || 'No phone'}
+                          </span>
+                          {phone && (
+                            <span className={`px-1.5 py-0.2 rounded text-[9px] font-extrabold ${isMobile ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}`}>
+                              {isMobile ? '📱 Mobile' : '☎️ Landline'}
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          {isLandline && (
+                            <a
+                              href={`tel:${phone}`}
+                              className="px-2 py-0.5 rounded bg-blue-500/15 hover:bg-blue-500/25 text-blue-300 text-[10px] font-bold border border-blue-500/30 flex items-center gap-1 transition-all"
+                              title="Direct dial landline number"
+                            >
+                              <Phone size={10} /> Call
+                            </a>
+                          )}
+                          {mapsUrl && (
+                            <a
+                              href={mapsUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-gold hover:underline flex items-center gap-1 font-semibold text-[11px]"
+                            >
+                              <MapPin size={11} /> Maps <ExternalLink size={9} />
+                            </a>
+                          )}
+                        </div>
                       </div>
 
                       <p className="text-[11px] text-muted-foreground/80 truncate flex items-center gap-1">
@@ -785,7 +854,7 @@ export default function LeadsPage() {
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 items-start">
             {['New', 'Contacted', 'Call Booked', 'Proposal Sent', 'Won', 'Lost'].map((columnStatus) => {
-              const columnLeads = leads.filter((l) => l.status === columnStatus)
+              const columnLeads = displayedLeads.filter((l) => l.status === columnStatus)
               return (
                 <div key={columnStatus} className="glass rounded-2xl border border-gold/10 p-3.5 space-y-3 flex flex-col min-h-[450px] bg-white/[0.01]">
                   <div className="flex items-center justify-between pb-2 border-b border-gold/5">
@@ -854,7 +923,7 @@ export default function LeadsPage() {
                 </div>
               ))}
             </div>
-          ) : leads.length === 0 ? (
+          ) : displayedLeads.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-center px-6 space-y-4 max-w-md mx-auto">
               <div className="w-12 h-12 rounded-full bg-gold/5 border border-gold/15 flex items-center justify-center text-gold/40">
                 <Inbox size={20} />
@@ -874,7 +943,7 @@ export default function LeadsPage() {
                     <th className="w-10 px-4 py-4">
                       <input
                         type="checkbox"
-                        checked={selectedIds.length === leads.length && leads.length > 0}
+                        checked={selectedIds.length === displayedLeads.length && displayedLeads.length > 0}
                         onChange={(e) => handleSelectAll(e.target.checked)}
                         className="w-4 h-4 accent-gold cursor-pointer rounded border-gold/25 bg-background text-gold focus:ring-0"
                       />
@@ -888,7 +957,7 @@ export default function LeadsPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gold/5 text-xs">
-                  {leads.map((lead) => {
+                  {displayedLeads.map((lead) => {
                     const isChecked = selectedIds.includes(lead.id)
                     const isInspected = searchParams.get('leadId') === lead.id
                     const trade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Business'
@@ -1236,6 +1305,69 @@ export default function LeadsPage() {
           </div>
         </div>
       )}
+
+      {/* ── GAMIFIED REVENUE WON CELEBRATION MODAL ── */}
+      {wonDeal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+          <div className="relative w-full max-w-md bg-[#0B0F17] border border-emerald-500/40 rounded-3xl p-6 sm:p-8 space-y-6 shadow-[0_0_60px_rgba(16,185,129,0.3)] text-center">
+            <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto shadow-[0_0_25px_rgba(16,185,129,0.4)]">
+              <Sparkles size={32} />
+            </div>
+
+            <div className="space-y-1.5">
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-400 bg-emerald-500/15 px-3 py-1 rounded-full border border-emerald-500/30">
+                🎉 High-Ticket Deal Won & Locked In!
+              </span>
+              <h3 className="font-serif text-2xl font-bold text-white pt-2">
+                {wonDeal.businessName}
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                Successfully converted into your client portfolio. Deal economics added to your engine:
+              </p>
+            </div>
+
+            {/* Deal Economics Cards */}
+            <div className="grid grid-cols-2 gap-3 text-left">
+              <div className="p-3.5 rounded-2xl bg-black/60 border border-emerald-500/20 space-y-1">
+                <span className="text-[10px] font-bold text-muted-foreground uppercase">Setup Cashflow</span>
+                <p className="font-serif text-xl font-black text-emerald-400">£1,200</p>
+                <p className="text-[10px] text-muted-foreground/80">Paid upon launch</p>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-black/60 border border-amber-500/20 space-y-1">
+                <span className="text-[10px] font-bold text-muted-foreground uppercase">Monthly Retainer</span>
+                <p className="font-serif text-xl font-black text-amber-300">£150<span className="text-xs font-normal">/mo</span></p>
+                <p className="text-[10px] text-muted-foreground/80">Hosting & Speed-to-Lead</p>
+              </div>
+            </div>
+
+            {/* Progress to £10k */}
+            <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 space-y-2 text-left text-xs">
+              <div className="flex justify-between font-bold">
+                <span className="text-muted-foreground">Progress to £10,000/Month Target:</span>
+                <span className="text-gold">1 Deal Closer ⚡</span>
+              </div>
+              <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-emerald-500 to-gold rounded-full w-[25%]" />
+              </div>
+            </div>
+
+            <button
+              onClick={() => setWonDeal(null)}
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500 text-black font-extrabold text-sm shadow-[0_0_20px_rgba(16,185,129,0.35)] transition-all cursor-pointer"
+            >
+              Log Client & Continue Outreaching →
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── ANTIGRAVITY VIBECODING & PROTOTYPE PROMPT MODAL ── */}
+      <AntigravityPromptModal
+        isOpen={isPromptOpen}
+        onClose={() => setIsPromptOpen(false)}
+        lead={promptLead}
+      />
     </div>
   )
 }
