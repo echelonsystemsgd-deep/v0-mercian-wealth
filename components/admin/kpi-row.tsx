@@ -124,124 +124,154 @@ export function AdminKpiRow({
 
   return (
     <section className="space-y-4">
-      {/* Motion Stats Grid */}
+      {/* Motion Stats Grid (Rexora / Obsidian Standard) */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
         {/* Revenue Realized */}
         <button
           onClick={() => togglePanel('sales')}
-          className={`p-4 sm:p-5 bg-[#0B0B0D] rounded-2xl border transition-colors flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[105px] ${
-            expandedPanel === 'sales'
-              ? 'border-[#DAA640]/50 ring-1 ring-[#DAA640]/20'
-              : 'border-white/10 hover:border-white/20'
+          className={`card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[125px] relative group ${
+            expandedPanel === 'sales' ? 'card-depth-active' : ''
           }`}
         >
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-start justify-between w-full">
             <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
               Revenue Realized
             </span>
-            <div className="flex items-center gap-1 shrink-0 ml-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              {expandedPanel === 'sales' ? (
-                <ChevronUp size={12} className="text-[#DAA640]" />
-              ) : (
-                <ChevronDown size={12} className="text-zinc-500" />
-              )}
+            <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 ml-1 text-emerald-400 group-hover:scale-105 transition-transform">
+              <PoundSterling size={14} />
             </div>
           </div>
-          <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
-            £{totalSales.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-          </p>
+          <div>
+            <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
+              £{totalSales.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+            </p>
+            <div className="flex items-center gap-1 mt-1 text-[10px] font-mono text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span>Collected Funds</span>
+            </div>
+          </div>
         </button>
 
         {/* Pipeline Value */}
         <button
           onClick={() => togglePanel('pipeline')}
-          className={`p-4 sm:p-5 bg-[#0B0B0D] rounded-2xl border transition-colors flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[105px] ${
-            expandedPanel === 'pipeline'
-              ? 'border-[#DAA640]/50 ring-1 ring-[#DAA640]/20'
-              : 'border-white/10 hover:border-white/20'
+          className={`card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[125px] relative group ${
+            expandedPanel === 'pipeline' ? 'card-depth-active' : ''
           }`}
         >
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-start justify-between w-full">
             <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
               Pipeline Value
             </span>
-            <div className="flex items-center gap-1 shrink-0 ml-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" />
-              {expandedPanel === 'pipeline' ? (
-                <ChevronUp size={12} className="text-[#DAA640]" />
-              ) : (
-                <ChevronDown size={12} className="text-zinc-500" />
-              )}
+            <div className="w-8 h-8 rounded-xl bg-[#DAA640]/10 border border-[#DAA640]/20 flex items-center justify-center shrink-0 ml-1 text-[#DAA640] group-hover:scale-105 transition-transform">
+              <FolderKanban size={14} />
             </div>
           </div>
-          <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
-            £{totalPipeline.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-          </p>
+          <div>
+            <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
+              £{totalPipeline.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+            </p>
+            <div className="flex items-center gap-1 mt-1 text-[10px] font-mono text-[#DAA640]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" />
+              <span>Contracted Deal Volume</span>
+            </div>
+          </div>
         </button>
 
         {/* Inbound Leads */}
         <button
           onClick={() => handleOpenPreviewModal('leads')}
-          className="p-4 sm:p-5 bg-[#0B0B0D] rounded-2xl border border-white/10 hover:border-white/20 transition-colors flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[105px]"
+          className="card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[125px] relative group"
         >
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-start justify-between w-full">
             <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
               Inbound Leads
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+            <div className="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 ml-1 text-zinc-300 group-hover:scale-105 transition-transform">
+              <Users size={14} />
+            </div>
           </div>
-          <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
-            {leadsCount ?? 0}
-          </p>
+          <div>
+            <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
+              {leadsCount ?? 0}
+            </p>
+            <div className="flex items-center gap-1 mt-1 text-[10px] font-mono text-zinc-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
+              <span>Active Database</span>
+            </div>
+          </div>
         </button>
 
         {/* Active Projects */}
         <button
           onClick={() => handleOpenPreviewModal('projects')}
-          className="p-4 sm:p-5 bg-[#0B0B0D] rounded-2xl border border-white/10 hover:border-white/20 transition-colors flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[105px]"
+          className="card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[125px] relative group"
         >
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-start justify-between w-full">
             <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
-              Active Projects
+              Active Builds
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 ml-1 text-emerald-400 group-hover:scale-105 transition-transform">
+              <TrendingUp size={14} />
+            </div>
           </div>
-          <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
-            {projectsCount ?? 0}
-          </p>
+          <div>
+            <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
+              {projectsCount ?? 0}
+            </p>
+            <div className="flex items-center gap-1 mt-1 text-[10px] font-mono text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span>In Production</span>
+            </div>
+          </div>
         </button>
 
         {/* Booked Audits */}
         <button
           onClick={() => handleOpenPreviewModal('bookings')}
-          className="p-4 sm:p-5 bg-[#0B0B0D] rounded-2xl border border-white/10 hover:border-white/20 transition-colors flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[105px]"
+          className="card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[125px] relative group"
         >
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-start justify-between w-full">
             <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
-              Booked Audits
+              Booked Calls
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+            <div className="w-8 h-8 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center shrink-0 ml-1 text-amber-400 group-hover:scale-105 transition-transform">
+              <Calendar size={14} />
+            </div>
           </div>
-          <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
-            {sessionsCount ?? 0}
-          </p>
+          <div>
+            <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
+              {sessionsCount ?? 0}
+            </p>
+            <div className="flex items-center gap-1 mt-1 text-[10px] font-mono text-amber-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              <span>Strategy Sessions</span>
+            </div>
+          </div>
         </button>
 
         {/* Monthly Retainers */}
         <button
           onClick={() => handleOpenPreviewModal('mrr')}
-          className="p-4 sm:p-5 bg-[#0B0B0D] rounded-2xl border border-white/10 hover:border-white/20 transition-colors flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[105px]"
+          className="card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[125px] relative group"
         >
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-start justify-between w-full">
             <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
               Monthly MRR
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" />
+            <div className="w-8 h-8 rounded-xl bg-[#DAA640]/10 border border-[#DAA640]/20 flex items-center justify-center shrink-0 ml-1 text-[#DAA640] group-hover:scale-105 transition-transform">
+              <Sparkles size={14} />
+            </div>
           </div>
-          <p className="text-xl sm:text-2xl font-sans font-bold text-[#DAA640] tracking-tight truncate">
-            £{projectedMRR.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-          </p>
+          <div>
+            <p className="text-xl sm:text-2xl font-sans font-bold text-[#DAA640] tracking-tight truncate">
+              £{projectedMRR.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+            </p>
+            <div className="flex items-center gap-1 mt-1 text-[10px] font-mono text-[#DAA640]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" />
+              <span>Recurring Retainers</span>
+            </div>
+          </div>
         </button>
       </div>
 
@@ -252,7 +282,7 @@ export function AdminKpiRow({
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="bg-[#0B0B0D] border border-white/10 rounded-2xl p-5 sm:p-6 space-y-4"
+            className="card-depth p-5 sm:p-6 space-y-4"
           >
             <div className="flex items-center justify-between">
               <div>
@@ -278,25 +308,21 @@ export function AdminKpiRow({
                       <p className="text-[11px] text-zinc-400 truncate mt-0.5">
                         {payment.notes || 'Milestone payment'}
                       </p>
-                      <p className="text-[10px] text-zinc-500 font-mono mt-0.5">
-                        {new Date(payment.created_at).toLocaleDateString('en-GB')}
-                      </p>
                     </div>
                     <div className="text-right shrink-0">
-                      <span className="text-sm font-bold font-mono text-emerald-400">
-                        +£{Number(payment.amount).toLocaleString('en-GB')}
-                      </span>
-                      <div className="flex items-center justify-end gap-1.5 mt-0.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                        <span className="text-[10px] uppercase tracking-wider text-zinc-400 font-mono">
-                          {payment.status}
-                        </span>
-                      </div>
+                      <p className="text-xs font-mono font-bold text-emerald-400">
+                        +£{Number(payment.amount || 0).toLocaleString('en-GB')}
+                      </p>
+                      <p className="text-[10px] text-zinc-400">
+                        {new Date(payment.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}
+                      </p>
                     </div>
                   </div>
                 ))
               ) : (
-                <p className="py-6 text-center text-xs text-zinc-400">No payment transactions recorded yet.</p>
+                <div className="py-6 text-center text-xs text-zinc-400">
+                  No direct transactions recorded.
+                </div>
               )}
             </div>
           </motion.div>
@@ -307,7 +333,7 @@ export function AdminKpiRow({
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="bg-[#0B0B0D] border border-white/10 rounded-2xl p-5 sm:p-6 space-y-4"
+            className="card-depth p-5 sm:p-6 space-y-4"
           >
             <div className="flex items-center justify-between">
               <div>
@@ -407,7 +433,7 @@ export function AdminKpiRow({
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="w-full max-w-lg bg-[#0B0B0D] border border-white/10 rounded-2xl shadow-2xl p-6 relative flex flex-col max-h-[85vh] overflow-hidden"
+              className="w-full max-w-lg card-depth p-6 relative flex flex-col max-h-[85vh] overflow-hidden"
             >
               {/* Header */}
               <div className="flex items-start justify-between border-b border-white/10 pb-4">

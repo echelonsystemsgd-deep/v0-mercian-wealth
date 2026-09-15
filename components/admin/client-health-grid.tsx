@@ -322,7 +322,7 @@ export function ClientHealthGrid({
                   setSelectedProject(project)
                 }
               }}
-              className={`relative p-4 bg-[#111115] rounded-2xl border border-slate-800 hover:border-slate-700 hover:shadow-xl transition-all duration-300 border-l-[3px] ${healthBorder} group flex flex-col gap-3 text-left w-full cursor-pointer`}
+              className={`relative p-4 card-depth transition-all duration-200 border-l-[3px] ${healthBorder} group flex flex-col gap-3 text-left w-full cursor-pointer`}
             >
               {/* Avatar + Name */}
               <div className="flex items-center gap-3">

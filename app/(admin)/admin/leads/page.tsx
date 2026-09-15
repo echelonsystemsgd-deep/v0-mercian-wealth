@@ -34,6 +34,8 @@ import {
   Check,
   FileSpreadsheet,
   MoreHorizontal,
+  Trophy,
+  Calendar,
 } from 'lucide-react'
 import {
   DropdownMenu,
@@ -464,9 +466,9 @@ export default function LeadsPage() {
   // AMBIENT CARD STYLING HELPER
   const getCardBorderClass = (status: string) => {
     if (status === 'Won') {
-      return 'border-emerald-500/30 bg-[#0B0B0D] hover:border-emerald-500/50 shadow-sm'
+      return 'card-depth border-emerald-500/35 hover:border-emerald-500/55'
     }
-    return 'border-white/10 bg-[#0B0B0D] hover:border-white/20 shadow-sm'
+    return 'card-depth'
   }
 
   // AMBIENT TABLE ROW STYLING HELPER
@@ -489,13 +491,10 @@ export default function LeadsPage() {
         </div>
       )}
 
-      {/* Header */}
+      {/* Header (Clean Executive Typography, No Orange Eyebrow) */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#DAA640] uppercase">
-            <Sparkles size={12} /> Local Business Outreach Engine
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white mt-1">Lead Outreach Ledger</h1>
+          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">Lead Outreach Ledger</h1>
           <p className="text-sm text-zinc-400">
             Execute verified WhatsApp outreach, build instant digital storefront prototypes, and close local business clients.
           </p>
@@ -522,16 +521,17 @@ export default function LeadsPage() {
         </div>
       </div>
 
-      {/* Motion Stats Grid */}
-      <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4">
+      {/* Motion Stats Grid (Obsidian / Rexora Standard with Metric Icons) */}
+      <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
         {[
-          { key: 'New', label: 'Fresh Leads', dot: 'bg-zinc-400' },
-          { key: 'Contacted', label: 'Contacted', dot: 'bg-amber-400' },
-          { key: 'Call Booked', label: 'Call Booked', dot: 'bg-amber-400' },
-          { key: 'Proposal Sent', label: 'Proposal Sent', dot: 'bg-amber-400' },
-          { key: 'Won', label: 'Won Deals', dot: 'bg-emerald-400' },
-          { key: 'Lost', label: 'Lost', dot: 'bg-rose-500' },
+          { key: 'New', label: 'Fresh Leads', dot: 'bg-zinc-400', icon: Inbox, iconColor: 'text-zinc-300', iconBg: 'bg-white/5' },
+          { key: 'Contacted', label: 'Contacted', dot: 'bg-amber-400', icon: MessageSquare, iconColor: 'text-amber-400', iconBg: 'bg-amber-400/10' },
+          { key: 'Call Booked', label: 'Call Booked', dot: 'bg-amber-400', icon: Calendar, iconColor: 'text-amber-400', iconBg: 'bg-amber-400/10' },
+          { key: 'Proposal Sent', label: 'Proposal Sent', dot: 'bg-amber-400', icon: Send, iconColor: 'text-amber-400', iconBg: 'bg-amber-400/10' },
+          { key: 'Won', label: 'Won Deals', dot: 'bg-emerald-400', icon: Trophy, iconColor: 'text-emerald-400', iconBg: 'bg-emerald-400/10' },
+          { key: 'Lost', label: 'Lost', dot: 'bg-rose-500', icon: XCircle, iconColor: 'text-rose-400', iconBg: 'bg-rose-500/10' },
         ].map((item) => {
+          const Icon = item.icon
           const count = statusCounts[item.key] || 0
           const isSelected = statusFilter.includes(item.key)
           return (
@@ -539,21 +539,24 @@ export default function LeadsPage() {
               type="button"
               key={item.key}
               onClick={() => toggleStatus(item.key)}
-              className={`p-4 rounded-2xl flex flex-col justify-between text-left transition-all cursor-pointer bg-[#0B0B0D] border relative group ${
-                isSelected
-                  ? 'border-[#DAA640] ring-1 ring-[#DAA640]/40 shadow-sm'
-                  : 'border-white/10 hover:border-white/20'
+              className={`p-4 sm:p-5 flex flex-col justify-between text-left transition-all cursor-pointer card-depth relative group min-h-[110px] ${
+                isSelected ? 'card-depth-active' : ''
               }`}
             >
-              <div className="flex items-center justify-between gap-1 w-full">
+              <div className="flex items-start justify-between gap-1 w-full">
                 <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-medium truncate">
                   {item.label}
                 </span>
+                <div className={`w-7 h-7 rounded-xl ${item.iconBg} border border-white/10 flex items-center justify-center shrink-0 ${item.iconColor} group-hover:scale-105 transition-transform`}>
+                  <Icon size={13} />
+                </div>
+              </div>
+              <div className="flex items-baseline justify-between mt-3">
+                <span className="text-2xl font-bold text-white font-sans">
+                  {count}
+                </span>
                 <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.dot}`} />
               </div>
-              <span className="text-2xl font-bold text-white mt-3 font-sans">
-                {count}
-              </span>
             </button>
           )
         })}

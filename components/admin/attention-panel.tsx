@@ -32,7 +32,7 @@ export function AttentionPanel({
     todaySessionCount > 0
 
   return (
-    <section className="p-4 sm:p-5 bg-[#111115] rounded-2xl border border-slate-800 space-y-4 hover:scale-[1.01] hover:-translate-y-0.5 transition-all duration-300 shadow-xl">
+    <section className="p-4 sm:p-5 card-depth space-y-4">
       <h2 className="text-base font-sans font-bold text-white">Attention Needed</h2>
 
       {/* Dynamic rows */}

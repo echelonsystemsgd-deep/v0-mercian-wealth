@@ -29,9 +29,9 @@ function formatTime(isoString: string): string {
 
 export function TodayScheduleStrip({ sessions }: TodayScheduleStripProps) {
   return (
-    <section className="p-4 sm:p-5 bg-[#111115] rounded-2xl border border-slate-800 space-y-4 shadow-xl">
+    <section className="p-4 sm:p-5 card-depth space-y-4">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+      <div className="flex items-center justify-between border-b border-white/5 pb-3">
         <div className="flex items-center gap-2">
           <CalendarClock size={16} className="text-[#DCAE53] shrink-0" />
           <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">

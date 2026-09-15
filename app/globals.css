@@ -242,6 +242,46 @@
   opacity: 1;
 }
 
+/* Executive Card Elevation: Soft Ambient Drop + Crisp Specular Top Highlight */
+.card-depth {
+  background-color: var(--color-bg-secondary, #0B0B0D);
+  border: 1px solid var(--color-border, rgba(255, 255, 255, 0.08));
+  box-shadow: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.6),
+    0 4px 6px -2px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.4);
+  border-radius: 1rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-depth:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 
+    0 14px 35px -4px rgba(0, 0, 0, 0.75),
+    0 6px 12px -2px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.4);
+}
+
+.card-depth-active {
+  border-color: var(--color-accent-gold, #DAA640) !important;
+  box-shadow: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.6),
+    0 0 0 1px var(--color-accent-gold, #DAA640),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+.card-depth-subtle {
+  background-color: var(--color-bg-secondary, #0B0B0D);
+  border: 1px solid var(--color-border, rgba(255, 255, 255, 0.08));
+  box-shadow: 
+    0 4px 12px -2px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  border-radius: 0.75rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 
 /* Animations */
 @keyframes fadeIn {
