@@ -66,7 +66,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({\n  q: $json.search_query || 'Roofers in Solihull, UK',\n  gl: 'gb',\n  hl: 'en'\n}) }}",
+        "jsonBody": "={{ JSON.stringify({\n  q: $('2. Search Settings').first().json.search_query || 'Roofers in Solihull, UK',\n  gl: 'gb',\n  hl: 'en'\n}) }}",
         "options": {
           "timeout": 30000
         }
@@ -121,7 +121,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://ladebhmyywkcqtyazxxk.supabase.co/rest/v1/leads",
+        "url": "https://ladebhmyywkcqtyazxxk.supabase.co/rest/v1/leads?on_conflict=phone",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -139,7 +139,7 @@
             },
             {
               "name": "Prefer",
-              "value": "return=minimal"
+              "value": "resolution=merge-duplicates"
             }
           ]
         },
@@ -176,14 +176,14 @@
       "main": [
         [
           {
-            "node": "3. Scrape Google Maps (No Cloud Console)",
+            "node": "3. Scrape Google Maps (Serper API)",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "3. Scrape Google Maps (No Cloud Console)": {
+    "3. Scrape Google Maps (Serper API)": {
       "main": [
         [
           {

@@ -94,7 +94,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({\n  q: $('Set Variables1').item.json.search_query,\n  gl: 'gb',\n  hl: 'en'\n}) }}",
+        "jsonBody": "={{ (() => {\n  const vars = $('Set Variables1').first().json || {};\n  const q = vars.search_query || 'Roofers in Solihull, UK';\n  let ll = undefined;\n  try {\n    const geo = $('Geocoding API (Coordinates)1').first().json;\n    const item = Array.isArray(geo) ? geo[0] : geo;\n    if (item && item.lat && item.lon) {\n      ll = '@' + item.lat + ',' + item.lon + ',14z';\n    }\n  } catch (e) {}\n  const payload = { q, gl: 'gb', hl: 'en' };\n  if (ll) payload.ll = ll;\n  return JSON.stringify(payload);\n})() }}",
         "options": {
           "timeout": 30000
         }
@@ -223,14 +223,14 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
+            "node": "HTTP Request (Serper Google Maps)",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "HTTP Request": {
+    "HTTP Request (Serper Google Maps)": {
       "main": [
         [
           {
