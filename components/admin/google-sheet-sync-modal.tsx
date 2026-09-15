@@ -36,6 +36,33 @@ export function GoogleSheetSyncModal({
   const [isImporting, setIsImporting] = useState(false)
   const [copiedScript, setCopiedScript] = useState(false)
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+  const [liveDbCount, setLiveDbCount] = useState<number>(currentCount)
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
+  const fetchLiveCount = React.useCallback(async () => {
+    try {
+      const res = await fetch('/api/admin/leads/sync-sheets')
+      if (res.ok) {
+        const data = await res.json()
+        if (data.total_outreach_leads !== undefined) {
+          setLiveDbCount(data.total_outreach_leads)
+        }
+      }
+    } catch {}
+  }, [])
+
+  React.useEffect(() => {
+    if (isOpen) {
+      fetchLiveCount()
+    }
+  }, [isOpen, fetchLiveCount])
+
+  const handleManualRefresh = async () => {
+    setIsRefreshing(true)
+    await fetchLiveCount()
+    onSuccess()
+    setTimeout(() => setIsRefreshing(false), 500)
+  }
 
   if (!isOpen) return null
 
@@ -168,7 +195,7 @@ export function GoogleSheetSyncModal({
                 </span>
               </div>
               <p className="text-xs text-muted-foreground mt-0.5">
-                Push all 224 Google Sheet leads directly into your dashboard in 1 click
+                Sync your Google Sheet leads directly into your dashboard in 1 click
               </p>
             </div>
           </div>
@@ -184,7 +211,7 @@ export function GoogleSheetSyncModal({
         <div className="px-6 py-3 bg-[#080b11] border-b border-gold/10 flex items-center justify-between text-xs">
           <div className="flex items-center gap-2 text-muted-foreground">
             <span>Database Status:</span>
-            <span className="font-bold text-foreground">{currentCount} Active Leads in DB</span>
+            <span className="font-bold text-foreground">{liveDbCount} Active Leads in DB</span>
           </div>
           <a
             href={GOOGLE_SHEET_URL}
@@ -192,7 +219,7 @@ export function GoogleSheetSyncModal({
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 font-semibold text-emerald-400 hover:text-emerald-300 underline underline-offset-2"
           >
-            Open 224-Lead Google Sheet <ExternalLink size={12} />
+            Open Google Sheet <ExternalLink size={12} />
           </a>
         </div>
 
@@ -240,7 +267,7 @@ export function GoogleSheetSyncModal({
             <div className="space-y-4">
               <div className="p-4 rounded-2xl bg-white/[0.02] border border-gold/15 space-y-3">
                 <h4 className="text-xs font-extrabold uppercase tracking-wider text-gold flex items-center gap-1.5">
-                  <Layers size={13} /> How to push your 224 leads to this dashboard in 10 seconds:
+                  <Layers size={13} /> How to push your Google Sheet leads to this dashboard in 10 seconds:
                 </h4>
 
                 <div className="space-y-2.5 text-xs text-muted-foreground">
@@ -258,7 +285,7 @@ export function GoogleSheetSyncModal({
                         Open your Google Sheet <ExternalLink size={11} />
                       </a>
                       <p className="text-[11px] text-muted-foreground mt-0.5">
-                        Your spreadsheet with the 224 scraped leads.
+                        Your spreadsheet with the scraped leads.
                       </p>
                     </div>
                   </div>
@@ -288,8 +315,8 @@ export function GoogleSheetSyncModal({
                       <div className="mt-1 px-3 py-1.5 rounded-xl bg-gold/10 border border-gold/30 text-gold font-bold inline-flex items-center gap-2">
                         <span>Mercian Wealth</span> <ArrowRight size={12} /> <span>🚀 Sync All Leads to Admin Dashboard (1-Click)</span>
                       </div>
-                      <p className="text-[11px] text-emerald-400 font-semibold mt-1">
-                        ✓ All 224 leads will instantly populate into this dashboard with 0 errors!
+                      <p className="text-[11px] text-emerald-400/90 font-medium mt-1">
+                        ✓ All leads will instantly populate into this dashboard with 0 errors!
                       </p>
                     </div>
                   </div>
@@ -307,13 +334,10 @@ export function GoogleSheetSyncModal({
                 </a>
 
                 <button
-                  onClick={() => {
-                    onSuccess()
-                    onClose()
-                  }}
+                  onClick={handleManualRefresh}
                   className="px-4 py-2.5 rounded-xl bg-card border border-gold/20 hover:border-gold/40 text-foreground text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer"
                 >
-                  <RefreshCw size={13} className="text-gold" /> Refresh Dashboard
+                  <RefreshCw size={13} className={`text-gold ${isRefreshing ? 'animate-spin' : ''}`} /> Refresh Dashboard
                 </button>
               </div>
             </div>
@@ -327,7 +351,7 @@ export function GoogleSheetSyncModal({
                   rows={8}
                   value={pastedData}
                   onChange={(e) => setPastedData(e.target.value)}
-                  placeholder="Paste your 224 rows here directly from Google Sheets...&#10;Business Name | Phone | Reviews & Rating | Website | Address | Trade..."
+                  placeholder="Paste your rows here directly from Google Sheets...&#10;Business Name | Phone | Channel | WhatsApp Link | Reviews | Rating..."
                   className="w-full p-3.5 bg-black/60 border border-gold/20 focus:border-gold/50 rounded-2xl text-xs font-mono text-foreground placeholder:text-muted-foreground/40 outline-none resize-none transition-all"
                 />
               </div>
