@@ -65,8 +65,9 @@ export default function NotificationsPage() {
   const fetchData = useCallback(async () => {
     setLoading(true)
     try {
-      // 1. Fetch notifications
-      const { data: notificationsData, error: notifErr } = await supabase
+      // 1. Fetch notifications with defensive join
+      let notificationsData: any[] = []
+      const { data: primaryData, error: notifErr } = await supabase
         .from('user_notifications')
         .select(`
           id, user_id, title, description, link, is_read, created_at,
@@ -74,8 +75,18 @@ export default function NotificationsPage() {
         `)
         .order('created_at', { ascending: false })
 
-      if (notifErr) throw notifErr
-      setNotifications((notificationsData as any) ?? [])
+      if (notifErr) {
+        // Fallback without join to guarantee UI stability
+        const { data: fallbackData } = await supabase
+          .from('user_notifications')
+          .select('id, user_id, title, description, link, is_read, created_at')
+          .order('created_at', { ascending: false })
+        notificationsData = fallbackData ?? []
+      } else {
+        notificationsData = primaryData ?? []
+      }
+
+      setNotifications(notificationsData)
 
       // 2. Fetch clients & users for dispatch selector
       const { data: profilesData, error: profErr } = await supabase

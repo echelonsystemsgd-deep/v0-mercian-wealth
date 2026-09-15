@@ -4,25 +4,32 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Design Tokens - Mercian Wealth Brand Suite Sampled from Logo1 & Logo2 */
-  --color-bg-primary: #09090B;      /* Modern Dark Charcoal Primary Background */
-  --color-bg-secondary: #111115;    /* Modern Charcoal Card / Section Surface */
-  --color-bg-tertiary: #18181F;     /* Elevated Card Surface */
-  --color-accent-purple: #DCAE53;   /* Backward-compatible alias mapped to Canonical Gold */
-  --color-accent-purple-glow: rgba(220, 174, 83, 0.12); /* Background Gold Ambient Glow */
-  --color-accent-gold: #DCAE53;     /* Geometric MW Monogram Gold (Sampled from Logo) */
-  --color-accent-gold-muted: rgba(220, 174, 83, 0.35); /* Muted Gold Border */
-  --color-accent-sage: #34A88E;     /* Secondary Accent - Luminous Sea-Green for Success & Accents */
-  --color-accent-sage-muted: #2E8B77; /* Muted Sea-Green for Borders */
-  --color-accent-sage-glow: rgba(46, 139, 119, 0.15); /* Sea-Green Ambient Glow */
-  --color-accent-sage-bg: rgba(46, 139, 119, 0.10); /* Sea-Green Translucent Background */
+  /* Design Tokens - Mercian Wealth Brand Suite (#020E28 Oxford Navy & #DAA640 Canonical Gold) */
+  --color-bg-primary: #020E28;      /* Oxford Navy Primary Background */
+  --color-bg-secondary: #071536;    /* Deep Navy Card / Section Surface */
+  --color-bg-tertiary: #0C1F4D;     /* Elevated Card / Modal Surface */
+  --color-accent-purple: #DAA640;   /* Backward-compatible alias mapped to Canonical Gold */
+  --color-accent-purple-glow: rgba(218, 166, 64, 0.12); /* Ambient Gold Glow */
+  --color-accent-gold: #DAA640;     /* Canonical Mercian Wealth Gold */
+  --color-accent-gold-muted: rgba(218, 166, 64, 0.35); /* Muted Gold Border */
+  --color-accent-sage: #10B981;     /* Semantic Success Emerald */
+  --color-accent-sage-muted: #059669;
+  --color-accent-sage-glow: rgba(16, 185, 129, 0.15);
+  --color-accent-sage-bg: rgba(16, 185, 129, 0.10);
   --color-text-primary: #FFFFFF;    /* Pure White Body / Heading Text */
-  --color-text-secondary: #94A3B8;  /* Luminous Slate Silver Accent */
+  --color-text-secondary: #94A3B8;  /* Slate Silver Accent */
   --color-text-gold: #E5B85C;       /* Highlighted Warm Gold Text */
-  --color-text-sage: #34A88E;       /* Sea-Green Text Accent */
-  --color-border: rgba(220, 174, 83, 0.18); /* Canonical Gold-Charcoal Border */
+  --color-text-sage: #10B981;       /* Success Emerald Text */
+  --color-border: rgba(218, 166, 64, 0.16); /* Subtle Gold-Navy Border */
+  --color-border-subtle: rgba(255, 255, 255, 0.08); /* Neutral Surface Border */
 
-  /* Modern High-Tech Theme - Always dark, mapped to Mercian Wealth brand variables */
+  /* Strict Semantic Colors */
+  --semantic-success: #10B981;
+  --semantic-warning: #F59E0B;
+  --semantic-destructive: #EF4444;
+  --semantic-info: #94A3B8;
+
+  /* Modern High-Tech Theme - Standardized on Mercian Wealth brand variables */
   --background: var(--color-bg-primary);
   --foreground: var(--color-text-primary);
   --card: var(--color-bg-secondary);
@@ -30,15 +37,15 @@
   --popover: var(--color-bg-secondary);
   --popover-foreground: var(--color-text-primary);
   --primary: var(--color-accent-gold);
-  --primary-foreground: #09090B;
+  --primary-foreground: #020E28;
   --secondary: var(--color-bg-secondary);
   --secondary-foreground: var(--color-text-secondary);
   --muted: var(--color-bg-secondary);
   --muted-foreground: var(--color-text-secondary);
   --accent: var(--color-accent-gold);
-  --accent-foreground: #09090B;
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --accent-foreground: #020E28;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
   --border: var(--color-border);
   --input: var(--color-border);
   --ring: var(--color-accent-gold);
@@ -53,15 +60,15 @@
   --popover: var(--color-bg-secondary);
   --popover-foreground: var(--color-text-primary);
   --primary: var(--color-accent-gold);
-  --primary-foreground: #09090B;
+  --primary-foreground: #020E28;
   --secondary: var(--color-bg-secondary);
   --secondary-foreground: var(--color-text-secondary);
   --muted: var(--color-bg-secondary);
   --muted-foreground: var(--color-text-secondary);
   --accent: var(--color-accent-gold);
-  --accent-foreground: #09090B;
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --accent-foreground: #020E28;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
   --border: var(--color-border);
   --input: var(--color-border);
   --ring: var(--color-accent-gold);
@@ -490,71 +497,26 @@ input[type="range"]::-moz-range-thumb:active {
   background: linear-gradient(to right, rgba(201, 162, 39, 0.2) 0%, rgba(201, 162, 39, 0.05) 50%, transparent 100%);
 }
 
-/* Micro-Theming Accent Classes */
-.theme-gold, :root:has(.theme-gold) {
-  --color-accent-gold: #C9A227;
-  --color-accent-gold-muted: #B8952A;
-  --color-text-gold: #d4b86a;
-  --color-border: #8B6914;
-  --color-gold: #C9A227;
+/* Standard Semantic Status Utilities */
+.badge-success {
+  background-color: rgba(16, 185, 129, 0.12);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.25);
 }
-
-.theme-emerald, :root:has(.theme-emerald) {
-  --color-accent-gold: #10B981;
-  --color-accent-gold-muted: #059669;
-  --color-text-gold: #34D399;
-  --color-border: #064E3B;
-  --color-gold: #10B981;
-  --color-border-brand: #064E3B;
+.badge-warning {
+  background-color: rgba(245, 158, 11, 0.12);
+  color: #F59E0B;
+  border: 1px solid rgba(245, 158, 11, 0.25);
 }
-
-.theme-sapphire, :root:has(.theme-sapphire) {
-  --color-accent-gold: #3B82F6;
-  --color-accent-gold-muted: #2563EB;
-  --color-text-gold: #60A5FA;
-  --color-border: #1E3A8A;
-  --color-gold: #3B82F6;
-  --color-border-brand: #1E3A8A;
+.badge-destructive {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #EF4444;
+  border: 1px solid rgba(239, 68, 68, 0.25);
 }
-
-.theme-obsidian, :root:has(.theme-obsidian) {
-  --color-accent-gold: #E2E8F0;
-  --color-accent-gold-muted: #94A3B8;
-  --color-text-gold: #CBD5E1;
-  --color-border: #334155;
-  --color-gold: #E2E8F0;
-  --color-border-brand: #334155;
-}
-
-/* Audio Wave Animations */
-@keyframes wave-pulse-1 {
-  0%, 100% { height: 8px; }
-  50% { height: 18px; }
-}
-@keyframes wave-pulse-2 {
-  0%, 100% { height: 12px; }
-  50% { height: 24px; }
-}
-@keyframes wave-pulse-3 {
-  0%, 100% { height: 6px; }
-  50% { height: 14px; }
-}
-@keyframes wave-pulse-4 {
-  0%, 100% { height: 14px; }
-  50% { height: 28px; }
-}
-
-.animate-wave-1 {
-  animation: wave-pulse-1 1s ease-in-out infinite;
-}
-.animate-wave-2 {
-  animation: wave-pulse-2 0.8s ease-in-out infinite;
-}
-.animate-wave-3 {
-  animation: wave-pulse-3 1.2s ease-in-out infinite;
-}
-.animate-wave-4 {
-  animation: wave-pulse-4 0.7s ease-in-out infinite;
+.badge-neutral {
+  background-color: rgba(148, 163, 184, 0.12);
+  color: #94A3B8;
+  border: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 /* Sleek Custom Scrollbars (Admin, Client & Public) */
@@ -564,24 +526,24 @@ input[type="range"]::-moz-range-thumb:active {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(9, 9, 11, 0.6);
+  background: rgba(2, 14, 40, 0.6);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(220, 174, 83, 0.28);
+  background: rgba(218, 166, 64, 0.28);
   border-radius: 9999px;
-  border: 1px solid rgba(220, 174, 83, 0.15);
+  border: 1px solid rgba(218, 166, 64, 0.15);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(220, 174, 83, 0.6);
-  box-shadow: 0 0 10px rgba(220, 174, 83, 0.3);
+  background: rgba(218, 166, 64, 0.6);
+  box-shadow: 0 0 10px rgba(218, 166, 64, 0.3);
 }
 
 /* Firefox standard scrollbars */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(220, 174, 83, 0.3) rgba(9, 9, 11, 0.6);
+  scrollbar-color: rgba(218, 166, 64, 0.3) rgba(2, 14, 40, 0.6);
 }
 
 /* Hide scrollbars utility class */
@@ -593,16 +555,6 @@ input[type="range"]::-moz-range-thumb:active {
 .scrollbar-none {
   -ms-overflow-style: none;  /* IE/Edge */
   scrollbar-width: none;  /* Firefox */
-}
-
-/* Premium micro-carbon-fiber pattern with Royal Purple accents */
-.bg-carbon-purple {
-  background-color: #050308;
-  background-image: 
-    linear-gradient(45deg, #090610 25%, transparent 25%, transparent 75%, #090610 75%, #090610), 
-    linear-gradient(45deg, #090610 25%, transparent 25%, transparent 75%, #090610 75%, #090610);
-  background-size: 8px 8px;
-  background-position: 0 0, 4px 4px;
 }
 
 /* Infinite Marquee Animation for Live Telemetry */

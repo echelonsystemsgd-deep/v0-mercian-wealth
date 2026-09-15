@@ -42,13 +42,13 @@ import { GoogleSheetSyncModal } from '@/components/admin/google-sheet-sync-modal
 export type Lead = OutreachLead
 
 const STATUS_COLORS: Record<string, string> = {
-  New: 'bg-blue-500/15 text-blue-400 border-blue-500/25',
-  Contacted: 'bg-amber-500/20 text-amber-300 border-amber-500/35 font-bold',
-  'Call Booked': 'bg-purple-500/20 text-purple-300 border-purple-500/35 font-bold',
-  'Proposal Sent': 'bg-orange-500/20 text-orange-300 border-orange-500/35 font-bold',
-  Won: 'bg-emerald-500/25 text-emerald-300 border-emerald-500/40 font-extrabold shadow-[0_0_12px_rgba(16,185,129,0.2)]',
-  Lost: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
-  Spam: 'bg-red-500/10 text-red-400/70 border-red-500/20'
+  New: 'bg-slate-500/15 text-slate-300 border-slate-500/25',
+  Contacted: 'bg-amber-500/15 text-amber-300 border-amber-500/30 font-semibold',
+  'Call Booked': 'bg-amber-500/20 text-amber-300 border-amber-500/35 font-bold',
+  'Proposal Sent': 'bg-amber-500/20 text-amber-300 border-amber-500/35 font-bold',
+  Won: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/35 font-bold shadow-[0_0_12px_rgba(16,185,129,0.15)]',
+  Lost: 'bg-rose-500/15 text-rose-400 border-rose-500/25',
+  Spam: 'bg-slate-500/10 text-slate-400/60 border-slate-500/15'
 }
 
 const ALL_STATUSES = ['New', 'Contacted', 'Call Booked', 'Proposal Sent', 'Won', 'Lost', 'Spam']
@@ -477,11 +477,11 @@ export default function LeadsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-bold tracking-widest text-gold uppercase">
-            <Sparkles size={12} /> High-Ticket Deal Flow Terminal
+            <Sparkles size={12} /> Local Business Outreach Engine
           </div>
           <h1 className="text-2xl sm:text-3xl font-serif font-bold text-foreground mt-1">Lead Outreach Ledger</h1>
           <p className="text-sm text-muted-foreground">
-            Execute 1-click WhatsApp outreach, build instant storefront prototypes, and hit £10k/month deal targets.
+            Execute verified WhatsApp outreach, build instant digital storefront prototypes, and close local business clients.
           </p>
         </div>
         <div className="flex items-center gap-2 self-end sm:self-center">
@@ -507,11 +507,11 @@ export default function LeadsPage() {
       {/* Visual Pipeline Headers */}
       <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
         {[
-          { key: 'New', label: 'Fresh Leads', color: 'text-blue-400' },
-          { key: 'Contacted', label: 'Contacted', color: 'text-amber-400' },
-          { key: 'Call Booked', label: 'Call Booked', color: 'text-purple-400' },
-          { key: 'Proposal Sent', label: 'Proposal Sent', color: 'text-orange-400' },
-          { key: 'Won', label: 'Won / Closed', color: 'text-emerald-400 font-extrabold' },
+          { key: 'New', label: 'Fresh Leads', color: 'text-slate-300' },
+          { key: 'Contacted', label: 'Contacted', color: 'text-amber-300' },
+          { key: 'Call Booked', label: 'Call Booked', color: 'text-amber-300' },
+          { key: 'Proposal Sent', label: 'Proposal Sent', color: 'text-amber-300' },
+          { key: 'Won', label: 'Won / Closed', color: 'text-emerald-400 font-bold' },
           { key: 'Lost', label: 'Lost / Closed', color: 'text-rose-400' },
         ].map((item) => {
           const count = statusCounts[item.key] || 0
@@ -984,10 +984,10 @@ export default function LeadsPage() {
 
                     <button
                       onClick={() => handleOpenOutreach(lead)}
-                      className="px-3 py-1 rounded-lg bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 text-[10px] font-extrabold flex items-center gap-1.5 transition-all shadow-sm cursor-pointer ml-auto"
-                      title="Open Multi-Stage Outreach Cockpit"
+                      className="px-3 py-1 rounded-lg bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 text-[10px] font-bold flex items-center gap-1.5 transition-all shadow-sm cursor-pointer ml-auto"
+                      title="Open Multi-Stage Outreach Sequence"
                     >
-                      <Sparkles size={11} /> Cockpit ⚡
+                      <Send size={11} /> Pitch
                     </button>
                   </div>
                 </div>
@@ -1045,7 +1045,7 @@ export default function LeadsPage() {
                           >
                             <MessageSquare size={10} /> WhatsApp
                           </button>
-                          <span className="text-[9px] font-bold text-gold">Cockpit ⚡</span>
+                          <span className="text-[9px] font-bold text-gold flex items-center gap-1"><Send size={9} /> Pitch</span>
                         </div>
                       </div>
                     ))}
@@ -1221,6 +1221,14 @@ export default function LeadsPage() {
                               }`}
                             >
                               <Check size={11} /> Win 🟢
+                            </button>
+
+                            <button
+                              onClick={() => handleOpenOutreach(lead)}
+                              className="px-2.5 py-1 rounded-lg bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 text-[10px] font-bold flex items-center gap-1 transition-all shadow-sm cursor-pointer"
+                              title="Open Multi-Stage Outreach Sequence"
+                            >
+                              <Send size={11} /> Pitch
                             </button>
 
                             <button
@@ -1464,7 +1472,7 @@ export default function LeadsPage() {
 
             <div className="space-y-1.5">
               <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-400 bg-emerald-500/15 px-3 py-1 rounded-full border border-emerald-500/30">
-                🎉 High-Ticket Deal Won & Locked In!
+                🎉 Deal Won & Locked In!
               </span>
               <h3 className="font-serif text-2xl font-bold text-white pt-2">
                 {wonDeal.businessName}

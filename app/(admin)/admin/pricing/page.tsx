@@ -107,17 +107,18 @@ function TierCard({
               />
             </div>
             <div className="sm:w-40 space-y-1.5">
-              <label className="text-[10px] font-bold uppercase tracking-wider text-white/40">Featured Tier</label>
+              <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Highlight Status</label>
               <button
+                type="button"
                 onClick={() => update({ featured: !tier.featured })}
-                className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold border transition-all cursor-pointer ${
+                className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
                   tier.featured
-                    ? 'bg-[#DAA640]/15 border-[#DAA640]/40 text-[#DAA640]'
-                    : 'bg-white/4 border-white/10 text-white/40 hover:text-white/60'
+                    ? 'bg-amber-500/15 border-amber-500/40 text-amber-300'
+                    : 'bg-white/[0.03] border-white/10 text-muted-foreground hover:text-foreground'
                 }`}
               >
-                <Star size={14} fill={tier.featured ? 'currentColor' : 'none'} />
-                {tier.featured ? 'Featured' : 'Not Featured'}
+                <Star size={13} fill={tier.featured ? 'currentColor' : 'none'} />
+                {tier.featured ? 'Featured Tier' : 'Standard Tier'}
               </button>
             </div>
           </div>

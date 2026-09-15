@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import {
-  User, Shield, UserX, UserCheck, Save, Loader2, Key, Check, AlertCircle, Upload, Settings, Calendar, CheckCircle2, ScrollText, Sparkles, Flame, Megaphone
+  User, Shield, UserX, UserCheck, Save, Loader2, Key, Check, AlertCircle, Upload, Settings, Calendar, CheckCircle2, ScrollText, Sparkles, Flame, Megaphone, Copy
 } from 'lucide-react'
 
 type Profile = {
@@ -271,42 +271,42 @@ export default function SettingsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-gold/10 overflow-x-auto scrollbar-none gap-2">
+      <div className="flex border-b border-gold/15 overflow-x-auto scrollbar-none gap-1 sm:gap-2 pb-0.5">
         <button
           onClick={() => setActiveTab('profile')}
-          className={`px-5 py-3 border-b-2 text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
+          className={`px-4 py-2.5 border-b-2 text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
             activeTab === 'profile'
-              ? 'border-gold text-gold bg-gold/5'
+              ? 'border-gold text-gold bg-gold/10 rounded-t-lg'
               : 'border-transparent text-muted-foreground hover:text-foreground'
           }`}
         >
-          <User size={14} /> Personal Profile
+          <User size={14} /> Profile
         </button>
         <button
           onClick={() => setActiveTab('cohort')}
-          className={`px-5 py-3 border-b-2 text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
+          className={`px-4 py-2.5 border-b-2 text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
             activeTab === 'cohort'
-              ? 'border-gold text-gold bg-gold/5'
+              ? 'border-gold text-gold bg-gold/10 rounded-t-lg'
               : 'border-transparent text-muted-foreground hover:text-foreground'
           }`}
         >
-          <Flame size={14} /> Cohort Scarcity & Broadcast
+          <Flame size={14} /> Cohort & Scarcity
         </button>
         <button
           onClick={() => setActiveTab('team')}
-          className={`px-5 py-3 border-b-2 text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
+          className={`px-4 py-2.5 border-b-2 text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
             activeTab === 'team'
-              ? 'border-gold text-gold bg-gold/5'
+              ? 'border-gold text-gold bg-gold/10 rounded-t-lg'
               : 'border-transparent text-muted-foreground hover:text-foreground'
           }`}
         >
-          <Shield size={14} /> Team Permissions
+          <Shield size={14} /> Team
         </button>
         <button
           onClick={() => setActiveTab('system')}
-          className={`px-5 py-3 border-b-2 text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
+          className={`px-4 py-2.5 border-b-2 text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
             activeTab === 'system'
-              ? 'border-gold text-gold bg-gold/5'
+              ? 'border-gold text-gold bg-gold/10 rounded-t-lg'
               : 'border-transparent text-muted-foreground hover:text-foreground'
           }`}
         >
@@ -314,13 +314,13 @@ export default function SettingsPage() {
         </button>
         <button
           onClick={() => setActiveTab('logs')}
-          className={`px-5 py-3 border-b-2 text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
+          className={`px-4 py-2.5 border-b-2 text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
             activeTab === 'logs'
-              ? 'border-gold text-gold bg-gold/5'
+              ? 'border-gold text-gold bg-gold/10 rounded-t-lg'
               : 'border-transparent text-muted-foreground hover:text-foreground'
           }`}
         >
-          <ScrollText size={14} /> Audit Trail Logs
+          <ScrollText size={14} /> Logs
         </button>
       </div>
 
@@ -332,20 +332,20 @@ export default function SettingsPage() {
       ) : (
         <div className="space-y-6">
           {activeTab === 'profile' && currentUser && (
-            <div className="glass rounded-2xl border border-gold/10 p-6 max-w-2xl space-y-6">
-              <h2 className="font-serif text-xl font-bold text-foreground">Edit Profile Information</h2>
+            <div className="glass rounded-2xl border border-gold/15 p-5 sm:p-6 max-w-2xl space-y-5">
+              <h2 className="font-serif text-lg sm:text-xl font-bold text-foreground">Edit Profile Information</h2>
               <form onSubmit={handleUpdateProfile} className="space-y-4">
-                <div className="flex items-center gap-5 flex-wrap">
-                  <div className="w-16 h-16 rounded-full bg-gold/10 border border-gold/25 overflow-hidden flex items-center justify-center relative shrink-0">
+                <div className="flex items-center gap-4 flex-wrap">
+                  <div className="w-14 h-14 rounded-full bg-gold/10 border border-gold/25 overflow-hidden flex items-center justify-center relative shrink-0">
                     {displayAvatarUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={displayAvatarUrl} alt="Avatar" className="w-full h-full object-cover" />
                     ) : (
-                      <User size={28} className="text-gold" />
+                      <User size={24} className="text-gold" />
                     )}
                   </div>
-                  <div className="space-y-1">
-                    <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground block">Upload Avatar</label>
+                  <div className="space-y-1 flex-1 min-w-[200px]">
+                    <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground block">Upload Avatar</label>
                     <input
                       type="file"
                       accept="image/*"
@@ -357,35 +357,45 @@ export default function SettingsPage() {
                           setDisplayAvatarUrl(localUrl)
                         }
                       }}
-                      className="text-xs text-muted-foreground file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border file:border-gold/25 file:bg-gold/5 file:text-xxs file:font-semibold file:text-gold hover:file:bg-gold/10 transition-all cursor-pointer"
+                      className="text-xs text-muted-foreground max-w-full file:mr-3 file:py-1 file:px-2.5 file:rounded-lg file:border file:border-gold/25 file:bg-gold/10 file:text-[11px] file:font-semibold file:text-gold hover:file:bg-gold/20 transition-all cursor-pointer"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Full Display Name</label>
+                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Full Display Name</label>
                   <input
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 focus:border-gold rounded-xl px-3.5 py-2 text-sm text-foreground outline-none focus:ring-1 focus:ring-gold/30 transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">User ID Reference</label>
-                  <input
-                    disabled
-                    value={currentUser.id}
-                    className="w-full bg-white/5 border border-gold/10 rounded-xl px-4 py-2.5 text-sm text-muted-foreground outline-none cursor-not-allowed"
-                  />
+                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">User ID Reference</label>
+                  <div className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/10 text-xs">
+                    <code className="text-xs font-mono text-slate-300 truncate max-w-[240px] sm:max-w-md select-all">
+                      {currentUser.id}
+                    </code>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        navigator.clipboard.writeText(currentUser.id)
+                        showToast('User ID copied to clipboard.')
+                      }}
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white text-[11px] font-mono transition-all cursor-pointer shrink-0 ml-2"
+                    >
+                      <Copy size={11} /> Copy
+                    </button>
+                  </div>
                 </div>
 
                 <div className="pt-2">
                   <button
                     type="submit"
                     disabled={saving}
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold to-gold-light text-background text-sm font-bold disabled:opacity-50 hover:shadow-[0_0_16px_rgba(212,175,55,0.3)] transition-all cursor-pointer"
+                    className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-xs sm:text-sm font-bold disabled:opacity-50 hover:brightness-110 shadow-[0_0_16px_rgba(218,166,64,0.25)] transition-all cursor-pointer"
                   >
                     {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
                     Save Changes

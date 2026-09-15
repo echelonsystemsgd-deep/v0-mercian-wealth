@@ -130,31 +130,31 @@ export function AdminKpiRow({
         {/* Hero: Capital Realised */}
         <button
           onClick={() => togglePanel('sales')}
-          className={`p-3.5 sm:p-6 bg-[#111115] rounded-2xl border transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left hover:scale-[1.02] hover:-translate-y-0.5 shadow-xl ${
+          className={`p-3.5 sm:p-6 bg-card rounded-2xl border transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left hover:scale-[1.01] shadow-lg ${
             expandedPanel === 'sales'
-              ? 'border-[#DCAE53] shadow-[0_0_25px_rgba(220,174,83,0.15)]'
-              : 'border-slate-800 hover:border-slate-700'
+              ? 'border-gold shadow-[0_0_25px_rgba(218,166,64,0.15)]'
+              : 'border-white/10 hover:border-gold/30'
           }`}
         >
           <div className="space-y-1 sm:space-y-1.5 min-w-0">
             <div className="flex items-center gap-1">
-              <span className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-mono font-bold">
+              <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground font-mono font-bold">
                 Revenue Realized
               </span>
-              <Info size={11} className="text-slate-500 group-hover:text-[#DCAE53] transition-colors shrink-0" />
+              <Info size={11} className="text-muted-foreground group-hover:text-gold transition-colors shrink-0" />
             </div>
-            <p className="text-lg sm:text-2xl font-sans font-bold text-white truncate">
+            <p className="text-lg sm:text-2xl font-sans font-bold text-foreground truncate">
               £{totalSales.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
             </p>
           </div>
           <div className="flex flex-col items-center gap-1 shrink-0">
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#18181F] border border-slate-800 flex items-center justify-center group-hover:border-[#DCAE53] transition-all">
-              <PoundSterling size={18} className="text-[#DCAE53]" />
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center group-hover:border-gold/40 transition-all">
+              <PoundSterling size={18} className="text-gold" />
             </div>
             {expandedPanel === 'sales' ? (
-              <ChevronUp size={10} className="text-[#DCAE53]" />
+              <ChevronUp size={10} className="text-gold" />
             ) : (
-              <ChevronDown size={10} className="text-slate-500" />
+              <ChevronDown size={10} className="text-muted-foreground" />
             )}
           </div>
         </button>
@@ -162,31 +162,31 @@ export function AdminKpiRow({
         {/* Hero: Pipeline Value */}
         <button
           onClick={() => togglePanel('pipeline')}
-          className={`p-3.5 sm:p-6 bg-[#111115] rounded-2xl border transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left hover:scale-[1.02] hover:-translate-y-0.5 shadow-xl ${
+          className={`p-3.5 sm:p-6 bg-card rounded-2xl border transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left hover:scale-[1.01] shadow-lg ${
             expandedPanel === 'pipeline'
-              ? 'border-[#DCAE53] shadow-[0_0_25px_rgba(220,174,83,0.15)]'
-              : 'border-slate-800 hover:border-slate-700'
+              ? 'border-gold shadow-[0_0_25px_rgba(218,166,64,0.15)]'
+              : 'border-white/10 hover:border-gold/30'
           }`}
         >
           <div className="space-y-1 sm:space-y-1.5 min-w-0">
             <div className="flex items-center gap-1">
-              <span className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-mono font-bold">
+              <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground font-mono font-bold">
                 Pipeline Value
               </span>
-              <Info size={11} className="text-slate-500 group-hover:text-[#DCAE53] transition-colors shrink-0" />
+              <Info size={11} className="text-muted-foreground group-hover:text-gold transition-colors shrink-0" />
             </div>
-            <p className="text-lg sm:text-2xl font-sans font-bold text-white truncate">
+            <p className="text-lg sm:text-2xl font-sans font-bold text-foreground truncate">
               £{totalPipeline.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
             </p>
           </div>
           <div className="flex flex-col items-center gap-1 shrink-0">
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#18181F] border border-slate-800 flex items-center justify-center group-hover:border-[#DCAE53] transition-all">
-              <Sparkles size={18} className="text-[#DCAE53]" />
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center group-hover:border-gold/40 transition-all">
+              <Sparkles size={18} className="text-gold" />
             </div>
             {expandedPanel === 'pipeline' ? (
-              <ChevronUp size={10} className="text-[#DCAE53]" />
+              <ChevronUp size={10} className="text-gold" />
             ) : (
-              <ChevronDown size={10} className="text-slate-500" />
+              <ChevronDown size={10} className="text-muted-foreground" />
             )}
           </div>
         </button>
@@ -194,72 +194,72 @@ export function AdminKpiRow({
         {/* Standard: Inbound Leads */}
         <button
           onClick={() => handleOpenPreviewModal('leads')}
-          className="p-3.5 sm:p-6 bg-[#111115] rounded-2xl border border-slate-800 hover:border-slate-700 hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-xl"
+          className="p-3.5 sm:p-6 bg-card rounded-2xl border border-white/10 hover:border-gold/30 hover:scale-[1.01] transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-lg"
         >
           <div className="space-y-1 sm:space-y-1.5 min-w-0">
-            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-mono font-bold block">
+            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground font-mono font-bold block">
               Inbound Leads
             </span>
-            <p className="text-lg sm:text-2xl font-sans font-bold text-white truncate">
+            <p className="text-lg sm:text-2xl font-sans font-bold text-foreground truncate">
               {leadsCount ?? 0}
             </p>
           </div>
-          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#18181F] border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-[#DCAE53] transition-all">
-            <Users size={18} className="text-[#DCAE53]" />
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-gold/40 transition-all">
+            <Users size={18} className="text-gold" />
           </div>
         </button>
 
         {/* Standard: Active Projects */}
         <button
           onClick={() => handleOpenPreviewModal('projects')}
-          className="p-3.5 sm:p-6 bg-[#111115] rounded-2xl border border-slate-800 hover:border-slate-700 hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-xl"
+          className="p-3.5 sm:p-6 bg-card rounded-2xl border border-white/10 hover:border-gold/30 hover:scale-[1.01] transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-lg"
         >
           <div className="space-y-1 sm:space-y-1.5 min-w-0">
-            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-mono font-bold block">
+            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground font-mono font-bold block">
               Active Projects
             </span>
-            <p className="text-lg sm:text-2xl font-sans font-bold text-white truncate">
+            <p className="text-lg sm:text-2xl font-sans font-bold text-foreground truncate">
               {projectsCount ?? 0}
             </p>
           </div>
-          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#18181F] border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-[#DCAE53] transition-all">
-            <FolderKanban size={18} className="text-[#DCAE53]" />
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-gold/40 transition-all">
+            <FolderKanban size={18} className="text-gold" />
           </div>
         </button>
 
         {/* Standard: Booked Audits */}
         <button
           onClick={() => handleOpenPreviewModal('bookings')}
-          className="p-3.5 sm:p-6 bg-[#111115] rounded-2xl border border-slate-800 hover:border-slate-700 hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-xl"
+          className="p-3.5 sm:p-6 bg-card rounded-2xl border border-white/10 hover:border-gold/30 hover:scale-[1.01] transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-lg"
         >
           <div className="space-y-1 sm:space-y-1.5 min-w-0">
-            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-mono font-bold block">
+            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground font-mono font-bold block">
               Booked Audits
             </span>
-            <p className="text-lg sm:text-2xl font-sans font-bold text-white truncate">
+            <p className="text-lg sm:text-2xl font-sans font-bold text-foreground truncate">
               {sessionsCount ?? 0}
             </p>
           </div>
-          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#18181F] border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-[#DCAE53] transition-all">
-            <Calendar size={18} className="text-[#DCAE53]" />
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-gold/40 transition-all">
+            <Calendar size={18} className="text-gold" />
           </div>
         </button>
 
         {/* Standard: Monthly Retainers */}
         <button
           onClick={() => handleOpenPreviewModal('mrr')}
-          className="p-3.5 sm:p-6 bg-[#111115] rounded-2xl border border-slate-800 hover:border-slate-700 hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-xl"
+          className="p-3.5 sm:p-6 bg-card rounded-2xl border border-white/10 hover:border-gold/30 hover:scale-[1.01] transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-lg"
         >
           <div className="space-y-1 sm:space-y-1.5 min-w-0">
-            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-mono font-bold block">
+            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground font-mono font-bold block">
               Monthly Retainers
             </span>
-            <p className="text-lg sm:text-2xl font-sans font-bold text-[#DCAE53] truncate">
+            <p className="text-lg sm:text-2xl font-sans font-bold text-gold truncate">
               £{projectedMRR.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
             </p>
           </div>
-          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#18181F] border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-[#DCAE53] transition-all">
-            <TrendingUp size={18} className="text-[#DCAE53]" />
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-gold/40 transition-all">
+            <TrendingUp size={18} className="text-gold" />
           </div>
         </button>
       </div>
