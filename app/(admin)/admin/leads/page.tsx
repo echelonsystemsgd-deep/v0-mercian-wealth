@@ -230,6 +230,7 @@ export default function LeadsPage() {
   }
 
   const handleDeleteLead = async (id: string) => {
+    const leadToDelete = leads.find(l => l.id === id)
     setLeads(prev => prev.filter(l => l.id !== id))
     triggerToast('Lead removed.')
 
@@ -240,6 +241,24 @@ export default function LeadsPage() {
         .eq('id', id)
       if (error) throw error
       loadFiltersAndCounts()
+
+      // 2-Way Sync: notify Google Sheets webhook to delete the corresponding row
+      if (leadToDelete && (leadToDelete.phone || leadToDelete.business_name)) {
+        try {
+          fetch('https://script.google.com/macros/s/AKfycbw4WM9582vBCmlU7sIkG48tHAQTb8uLWc-ASvtztR_s2yKuu4Ms6huGMyeMmryIFKwkPQ/exec', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'delete_row',
+              phone: leadToDelete.phone,
+              business_name: leadToDelete.business_name
+            })
+          }).catch(() => {})
+        } catch (syncErr) {
+          console.warn('Google Sheets delete sync notice:', syncErr)
+        }
+      }
     } catch (err: any) {
       triggerToast(`Deletion failed: ${err.message}`)
       fetchLeads()

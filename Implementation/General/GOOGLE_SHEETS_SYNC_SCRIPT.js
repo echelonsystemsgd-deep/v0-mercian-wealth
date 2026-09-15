@@ -27,6 +27,33 @@ function doPost(e) {
     var raw = (e && e.postData && e.postData.contents) ? e.postData.contents : '{}';
     var data = JSON.parse(raw);
     
+    // Action 1: Delete Row by Phone or Business Name (triggered from Admin Dashboard)
+    if (data.action === 'delete_row' || data.action === 'delete') {
+      var targetPhone = String(data.phone || '').replace(/[^0-9]/g, '');
+      var targetName = String(data.business_name || '').trim().toLowerCase();
+      var deletedRows = 0;
+      
+      var lastRow = sheet.getLastRow();
+      if (lastRow > 1) {
+        // Iterate backwards so deleting rows does not alter subsequent indices
+        for (var r = lastRow; r >= 2; r--) {
+          var rowName = String(sheet.getRange(r, 1).getValue() || '').trim().toLowerCase();
+          var rowPhone = String(sheet.getRange(r, 2).getValue() || '').replace(/[^0-9]/g, '');
+          
+          var matchPhone = (targetPhone && rowPhone && (rowPhone.indexOf(targetPhone) !== -1 || targetPhone.indexOf(rowPhone) !== -1));
+          var matchName = (targetName && rowName && (rowName === targetName || rowName.indexOf(targetName) !== -1 || targetName.indexOf(rowName) !== -1));
+          
+          if (matchPhone || matchName) {
+            sheet.deleteRow(r);
+            deletedRows++;
+          }
+        }
+      }
+      lock.releaseLock();
+      return ContentService.createTextOutput(JSON.stringify({ status: 'success', deleted: deletedRows }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    
     // Auto-create header row if sheet is completely empty
     if (sheet.getLastRow() === 0) {
       sheet.appendRow([
@@ -36,28 +63,37 @@ function doPost(e) {
       ]);
     }
     
-    var row = [
-      data['Business Name'] || data.business_name || '',
-      data['Phone'] || data.phone || '',
-      data['Channel'] || '',
-      data['WhatsApp Link'] || data.whatsapp_direct_url || '',
-      data['Reviews'] || data.reviews || 0,
-      data['Rating'] || data.rating || 5.0,
-      data['Website'] || data.website || 'None',
-      data['Address'] || data.address || '',
-      data['Trade'] || data.trade || '',
-      data['Classification'] || data.classification || '',
-      data['Stage 1 Opener'] || '',
-      data['Stage 2 Pitch'] || '',
-      data['Follow Up 1'] || '',
-      data['Follow Up Final'] || '',
-      data['Status'] || 'New'
-    ];
+    var itemsToInsert = Array.isArray(data) ? data : (data.leads && Array.isArray(data.leads) ? data.leads : [data]);
+    var rows = [];
     
-    sheet.appendRow(row);
+    for (var i = 0; i < itemsToInsert.length; i++) {
+      var item = itemsToInsert[i];
+      rows.push([
+        item['Business Name'] || item.business_name || '',
+        item['Phone'] || item.phone || '',
+        item['Channel'] || '',
+        item['WhatsApp Link'] || item.whatsapp_direct_url || '',
+        item['Reviews'] || item.reviews || 0,
+        item['Rating'] || item.rating || 5.0,
+        item['Website'] || item.website || 'None',
+        item['Address'] || item.address || '',
+        item['Trade'] || item.trade || '',
+        item['Classification'] || item.classification || '',
+        item['Stage 1 Opener'] || '',
+        item['Stage 2 Pitch'] || '',
+        item['Follow Up 1'] || '',
+        item['Follow Up Final'] || '',
+        item['Status'] || 'New'
+      ]);
+    }
+    
+    if (rows.length > 0) {
+      sheet.getRange(sheet.getLastRow() + 1, 1, rows.length, rows[0].length).setValues(rows);
+    }
+    
     lock.releaseLock();
     
-    return ContentService.createTextOutput(JSON.stringify({ status: 'success', row: sheet.getLastRow() }))
+    return ContentService.createTextOutput(JSON.stringify({ status: 'success', inserted: rows.length, row: sheet.getLastRow() }))
       .setMimeType(ContentService.MimeType.JSON);
   } catch (err) {
     return ContentService.createTextOutput(JSON.stringify({ status: 'error', error: err.toString() }))
