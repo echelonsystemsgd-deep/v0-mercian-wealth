@@ -44,24 +44,21 @@ export function AdminAlertBanner({
   if (!alertMessage) return null
 
   return (
-    <div className="flex items-center gap-3 px-4 py-3 glass rounded-2xl border border-gold/20 bg-gold/[0.03] animate-in slide-in-from-top-1 duration-300">
-      {/* Pulsing dot */}
-      <span className="relative flex h-2.5 w-2.5 shrink-0">
-        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75" />
-        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-gold" />
-      </span>
+    <div className="card-depth p-4 flex items-center gap-3 animate-in slide-in-from-top-1 duration-300">
+      {/* 6px Semantic Status Dot */}
+      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
 
       <div className="flex items-center gap-2 flex-1 min-w-0">
         {alertIcon}
-        <p className="text-xs text-foreground font-medium truncate">{alertMessage}</p>
+        <p className="text-xs text-white font-medium truncate">{alertMessage}</p>
       </div>
 
       <Link
         href={alertLink}
-        className="shrink-0 flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-gold hover:text-gold/80 transition-colors"
+        className="shrink-0 flex items-center gap-1.5 text-xs font-semibold text-[#DAA640] hover:text-[#DAA640]/80 transition-colors"
       >
-        <Zap size={10} />
-        Resolve
+        <Zap size={12} />
+        <span>Resolve</span>
       </Link>
     </div>
   )

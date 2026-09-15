@@ -421,23 +421,23 @@ export default function PortfolioPage() {
             </div>
             <form onSubmit={handleSave} className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Project Title *</label>
+                <label className="text-xs font-medium text-muted-foreground">Project Title *</label>
                 <input required value={form.project_name} onChange={(e) => setForm((p) => ({ ...p, project_name: e.target.value }))}
                   placeholder="e.g. Stamp Valuation App"
-                  className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all" />
+                  className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640] rounded-xl px-4 py-2.5 text-sm text-foreground outline-none transition-all" />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Category / Tag</label>
+                  <label className="text-xs font-medium text-muted-foreground">Category / Tag</label>
                   <input value={form.industry} onChange={(e) => setForm((p) => ({ ...p, industry: e.target.value }))}
                     placeholder="e.g. AI Web App · Prototype"
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all" />
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640] rounded-xl px-4 py-2.5 text-sm text-foreground outline-none transition-all" />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Badge Style</label>
+                  <label className="text-xs font-medium text-muted-foreground">Badge Style</label>
                   <select value={form.badge_type} onChange={(e) => setForm((p) => ({ ...p, badge_type: e.target.value }))}
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all">
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640] rounded-xl px-4 py-2.5 text-sm text-foreground outline-none transition-all">
                     <option value="Interactive Sandbox">Interactive Sandbox</option>
                     <option value="Live Client Deployment">Live Client Deployment</option>
                     <option value="Concept Prototype">Concept Prototype</option>
@@ -446,38 +446,38 @@ export default function PortfolioPage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Key Metric / KPI</label>
+                <label className="text-xs font-medium text-muted-foreground">Key Metric / KPI</label>
                 <input value={form.metric} onChange={(e) => setForm((p) => ({ ...p, metric: e.target.value }))}
                   placeholder="e.g. Target Latency: < 1s or Pipeline Architecture"
-                  className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all" />
+                  className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640] rounded-xl px-4 py-2.5 text-sm text-foreground outline-none transition-all" />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Live App URL / Interactive Demo Link</label>
+                <label className="text-xs font-medium text-muted-foreground">Live App URL / Interactive Demo Link</label>
                 <input value={form.website_link} onChange={(e) => setForm((p) => ({ ...p, website_link: e.target.value }))}
                   placeholder="https://... or /local (leave blank for built-in sandbox showcase)"
-                  className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all font-mono" />
+                  className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640] rounded-xl px-4 py-2.5 text-sm text-foreground outline-none transition-all font-mono" />
               </div>
 
-              <div className="flex items-center gap-2 pt-1 p-3 rounded-xl bg-gold/5 border border-gold/15">
+              <div className="flex items-center gap-2 pt-1 p-3 rounded-xl bg-white/5 border border-white/10">
                 <input type="checkbox" id="under_construction" checked={form.under_construction} onChange={(e) => setForm((p) => ({ ...p, under_construction: e.target.checked }))}
-                  className="w-4 h-4 text-gold border-gold/30 rounded focus:ring-gold/20 cursor-pointer" />
+                  className="w-4 h-4 text-[#DAA640] border-white/20 rounded focus:ring-[#DAA640]/20 cursor-pointer" />
                 <label htmlFor="under_construction" className="text-xs text-foreground cursor-pointer">
                   <strong>Blueprint / Concept Mode:</strong> Checked = "Architecture Case Study" (lead request modal). Unchecked = "Live Interactive Sandbox" (live testing mode).
                 </label>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Cover Image {editing && '(leave blank to keep current)'}</label>
+                <label className="text-xs font-medium text-muted-foreground">Cover Image {editing && '(leave blank to keep current)'}</label>
                 <input type="file" accept="image/*" onChange={(e) => setCoverFile(e.target.files?.[0] ?? null)}
-                  className="w-full text-sm text-muted-foreground file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border file:border-gold/25 file:bg-gold/5 file:text-xs file:font-semibold file:text-gold hover:file:bg-gold/10 transition-all cursor-pointer" />
+                  className="w-full text-sm text-muted-foreground file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border file:border-white/10 file:bg-white/5 file:text-xs file:font-medium file:text-foreground hover:file:bg-white/10 transition-all cursor-pointer" />
               </div>
 
               <div className="flex justify-end gap-3 pt-2">
-                <button type="button" onClick={() => setModal(null)} className="px-4 py-2 rounded-xl border border-gold/15 text-sm text-muted-foreground hover:text-foreground transition-all cursor-pointer">Cancel</button>
-                <button type="submit" disabled={saving} className="flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-gold to-gold-light text-background text-sm font-bold disabled:opacity-60 hover:shadow-[0_0_16px_rgba(212,175,55,0.3)] transition-all cursor-pointer">
+                <button type="button" onClick={() => setModal(null)} className="px-4 py-2 rounded-xl border border-white/10 text-sm text-muted-foreground hover:text-foreground transition-all cursor-pointer">Cancel</button>
+                <button type="submit" disabled={saving} className="flex items-center gap-2 px-5 py-2 rounded-xl bg-[#DAA640] text-black text-sm font-semibold disabled:opacity-60 hover:bg-[#DAA640]/90 transition-all cursor-pointer">
                   {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
-                  {modal === 'edit' ? 'Save Changes' : 'Add to Portfolio'}
+                  {editing ? 'Update Project' : 'Add to Portfolio'}
                 </button>
               </div>
             </form>

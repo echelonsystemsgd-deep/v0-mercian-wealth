@@ -230,39 +230,51 @@ export function OutreachModal({
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-2xl bg-[#0b0f17] border border-gold/25 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.8),0_0_20px_rgba(212,175,55,0.15)] overflow-hidden z-10 flex flex-col max-h-[92vh]">
+      <div className="relative w-full max-w-2xl bg-[#0B0B0D] border border-white/10 rounded-2xl card-depth overflow-hidden z-10 flex flex-col max-h-[92vh]">
         {/* Header Strip */}
-        <div className="p-5 border-b border-gold/15 bg-gradient-to-r from-gold/10 via-white/[0.02] to-transparent flex items-start justify-between gap-4">
-          <div className="space-y-1">
+        <div className="p-5 border-b border-white/10 bg-[#141417]/50 flex items-start justify-between gap-4">
+          <div className="space-y-1.5">
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gold/15 text-gold border border-gold/30">
+              <span className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-[#141417] text-[#DAA640] border border-[#DAA640]/30">
                 {trade}
               </span>
               <span
-                className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-medium border ${
                   lead.status === 'Won'
-                    ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+                    ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
                     : lead.status === 'Lost'
-                    ? 'bg-rose-500/20 text-rose-400 border-rose-500/30'
+                    ? 'bg-rose-500/10 text-rose-400 border-rose-500/30'
                     : lead.status === 'Contacted'
-                    ? 'bg-amber-500/20 text-amber-400 border-amber-500/30'
-                    : 'bg-blue-500/20 text-blue-400 border-blue-500/30'
+                    ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                    : 'bg-white/5 text-muted-foreground border-white/10'
                 }`}
               >
+                <span
+                  className={`w-1.5 h-1.5 rounded-full ${
+                    lead.status === 'Won'
+                      ? 'bg-emerald-400'
+                      : lead.status === 'Lost'
+                      ? 'bg-rose-400'
+                      : lead.status === 'Contacted'
+                      ? 'bg-amber-400'
+                      : 'bg-[#DAA640]'
+                  }`}
+                />
                 {lead.status}
               </span>
               {!hasWebsite && (
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-red-500/15 text-red-400 border border-red-500/30 animate-pulse">
-                  🔥 No Website
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-medium bg-rose-500/10 text-rose-400 border border-rose-500/30">
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
+                  No Website
                 </span>
               )}
             </div>
             <h2 className="text-xl sm:text-2xl font-serif font-bold text-foreground">
               {businessName}
             </h2>
-            <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground pt-1">
-              <span className="flex items-center gap-1 text-amber-300 font-semibold">
-                <Star size={12} className="fill-amber-300" /> {rating} ({reviewsCount} reviews)
+            <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground pt-0.5">
+              <span className="flex items-center gap-1 text-foreground font-medium">
+                <Star size={12} className="fill-[#DAA640] text-[#DAA640]" /> {rating} ({reviewsCount} reviews)
               </span>
               <span>•</span>
               <span className="flex items-center gap-1">
@@ -273,94 +285,94 @@ export function OutreachModal({
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-xl text-muted-foreground hover:text-foreground hover:bg-white/10 transition-all cursor-pointer"
+            className="p-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-white/10 transition-all cursor-pointer"
           >
             <X size={18} />
           </button>
         </div>
 
         {/* Content Body */}
-        <div className="p-6 space-y-5 overflow-y-auto flex-1 discord-scroll">
+        <div className="p-6 space-y-6 overflow-y-auto flex-1 discord-scroll">
           {/* Telemetry / Info Bar */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3.5 rounded-xl bg-black/40 border border-white/5 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 rounded-xl bg-[#141417] border border-white/5 text-xs">
             <div>
-              <p className="text-[10px] uppercase font-bold text-muted-foreground">Digital Presence</p>
+              <p className="text-[11px] font-medium text-muted-foreground">Digital Presence</p>
               {hasWebsite ? (
                 <a
                   href={rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-blue-400 hover:underline flex items-center gap-1 font-medium mt-0.5 truncate"
+                  className="text-[#DAA640] hover:underline flex items-center gap-1 font-medium mt-1 truncate"
                 >
-                  <Globe size={11} /> {rawWebsite} <ExternalLink size={10} />
+                  <Globe size={12} /> {rawWebsite} <ExternalLink size={10} />
                 </a>
               ) : (
-                <span className="text-amber-400 font-bold flex items-center gap-1 mt-0.5">
-                  <AlertTriangle size={11} /> No custom storefront
+                <span className="text-amber-400 font-medium flex items-center gap-1 mt-1">
+                  <AlertTriangle size={12} /> No custom storefront
                 </span>
               )}
             </div>
 
             <div>
-              <p className="text-[10px] uppercase font-bold text-muted-foreground">Location</p>
-              <p className="text-foreground truncate flex items-center gap-1 mt-0.5">
-                <MapPin size={11} className="text-gold shrink-0" /> {address}
+              <p className="text-[11px] font-medium text-muted-foreground">Location</p>
+              <p className="text-foreground truncate flex items-center gap-1 mt-1">
+                <MapPin size={12} className="text-[#DAA640] shrink-0" /> {address}
               </p>
             </div>
 
             <div>
-              <p className="text-[10px] uppercase font-bold text-muted-foreground">Antigravity / Demo</p>
-              <div className="flex items-center gap-2 mt-0.5">
+              <p className="text-[11px] font-medium text-muted-foreground">Antigravity / Demo</p>
+              <div className="flex items-center gap-2 mt-1">
                 <button
                   type="button"
                   onClick={() => setIsPromptOpen(true)}
-                  className="text-gold hover:text-white hover:underline flex items-center gap-1 font-bold text-[11px] cursor-pointer"
+                  className="text-[#DAA640] hover:text-white hover:underline flex items-center gap-1 font-medium text-xs cursor-pointer"
                   title="Open Antigravity Vibecoding Prompts"
                 >
-                  <Sparkles size={11} className="text-gold" /> Vibecoding Prompt
+                  <Sparkles size={12} className="text-[#DAA640]" /> Vibecoding Prompt
                 </button>
                 <span className="text-muted-foreground">•</span>
                 <a
                   href={demoUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-amber-300 hover:text-amber-200 hover:underline flex items-center gap-1 font-bold text-[11px]"
+                  className="text-muted-foreground hover:text-white hover:underline flex items-center gap-1 font-medium text-xs"
                   title="Open Live Prototype Preview"
                 >
-                  Live Demo <ExternalLink size={9} />
+                  Live Demo <ExternalLink size={10} />
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Outreach Sequence Cockpit */}
+          {/* Outreach Sequence */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-gold flex items-center gap-1.5">
-                <Sparkles size={14} /> Sequence Cockpit (Outcomes Over Tools)
+              <span className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                Outreach Sequence
               </span>
-              <span className="text-[11px] text-muted-foreground">
-                Target: <strong className="text-foreground">{trade}</strong>
+              <span className="text-xs text-muted-foreground">
+                Target: <strong className="text-foreground font-medium">{trade}</strong>
               </span>
             </div>
 
             {/* Sequence Tabs */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 p-1 rounded-xl bg-black/50 border border-white/5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1 rounded-xl bg-[#141417] border border-white/5">
               <button
                 onClick={() => setActiveTab('stage1')}
-                className={`py-2 px-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer text-center ${
+                className={`py-2 px-3 text-xs font-medium rounded-lg transition-all cursor-pointer text-center ${
                   activeTab === 'stage1'
-                    ? 'bg-gold/20 text-gold border border-gold/30 shadow-sm'
+                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                 }`}
               >
-                1. Opener (Hi 👋)
+                1. Opener
               </button>
               <button
                 onClick={() => setActiveTab('stage2')}
-                className={`py-2 px-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer text-center ${
+                className={`py-2 px-3 text-xs font-medium rounded-lg transition-all cursor-pointer text-center ${
                   activeTab === 'stage2'
-                    ? 'bg-gold/20 text-gold border border-gold/30 shadow-sm'
+                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                 }`}
               >
@@ -368,9 +380,9 @@ export function OutreachModal({
               </button>
               <button
                 onClick={() => setActiveTab('followup')}
-                className={`py-2 px-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer text-center ${
+                className={`py-2 px-3 text-xs font-medium rounded-lg transition-all cursor-pointer text-center ${
                   activeTab === 'followup'
-                    ? 'bg-gold/20 text-gold border border-gold/30 shadow-sm'
+                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                 }`}
               >
@@ -378,9 +390,9 @@ export function OutreachModal({
               </button>
               <button
                 onClick={() => setActiveTab('voice')}
-                className={`py-2 px-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1 ${
+                className={`py-2 px-3 text-xs font-medium rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1.5 ${
                   activeTab === 'voice'
-                    ? 'bg-gold/20 text-gold border border-gold/30 shadow-sm'
+                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                 }`}
               >
@@ -390,111 +402,111 @@ export function OutreachModal({
 
             {/* Sub-selectors for Stage 2 & Follow-up */}
             {activeTab === 'stage2' && (
-              <div className="flex flex-wrap gap-1.5 p-1 rounded-lg bg-black/30 border border-white/5 text-[11px]">
+              <div className="flex flex-wrap gap-2 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs">
                 {lead.scraped_metadata?.stage_2_pitch && (
                   <button
                     onClick={() => setPitchType('scrapedCustom')}
-                    className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
-                      pitchType === 'scrapedCustom' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'text-muted-foreground hover:text-white'
+                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                      pitchType === 'scrapedCustom' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
                     }`}
                   >
-                    ✨ AI Bespoke Pitch
+                    Bespoke Pitch
                   </button>
                 )}
                 <button
                   onClick={() => setPitchType('noWebsite')}
-                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
-                    pitchType === 'noWebsite' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    pitchType === 'noWebsite' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
                   }`}
                 >
-                  🔥 No Website {hasWebsite && '(Override)'}
+                  No Website {hasWebsite && '(Override)'}
                 </button>
                 <button
                   onClick={() => setPitchType('brokenSite')}
-                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
-                    pitchType === 'brokenSite' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    pitchType === 'brokenSite' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
                   }`}
                 >
-                  {hasWebsite ? '⚡ Modern Redesign / Upgrade' : '⚠️ Broken / Outdated Site'}
+                  {hasWebsite ? 'Modern Redesign' : 'Outdated Website'}
                 </button>
                 <button
                   onClick={() => setPitchType('referral')}
-                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
-                    pitchType === 'referral' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    pitchType === 'referral' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
                   }`}
                 >
-                  🤝 Warm Referral
+                  Warm Referral
                 </button>
                 <button
                   onClick={() => setPitchType('automation')}
-                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
-                    pitchType === 'automation' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    pitchType === 'automation' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
                   }`}
                 >
-                  ⚡ Speed-to-Lead
+                  Speed-to-Lead
                 </button>
               </div>
             )}
 
             {activeTab === 'followup' && (
-              <div className="flex flex-wrap gap-1.5 p-1 rounded-lg bg-black/30 border border-white/5 text-[11px]">
+              <div className="flex flex-wrap gap-2 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs">
                 <button
                   onClick={() => setFollowupType('noResponse')}
-                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
-                    followupType === 'noResponse' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    followupType === 'noResponse' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
                   }`}
                 >
-                  ⏳ No Response (48h)
+                  No Response (48h)
                 </button>
                 <button
                   onClick={() => setFollowupType('final')}
-                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
-                    followupType === 'final' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    followupType === 'final' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
                   }`}
                 >
-                  🛑 Final Follow-up
+                  Final Follow-up
                 </button>
                 <button
                   onClick={() => setFollowupType('comeBack')}
-                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
-                    followupType === 'comeBack' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    followupType === 'comeBack' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
                   }`}
                 >
-                  📅 "I'll come back to you"
+                  Come Back Later
                 </button>
                 <button
                   onClick={() => setFollowupType('declined')}
-                  className={`px-2.5 py-1 rounded-md font-bold transition-all cursor-pointer ${
-                    followupType === 'declined' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'text-muted-foreground hover:text-white'
+                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    followupType === 'declined' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
                   }`}
                 >
-                  👍 Polite Close / Declined
+                  Polite Close
                 </button>
               </div>
             )}
 
             {/* Guidance Alert for Stage 1 */}
             {activeTab === 'stage1' && (
-              <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-center gap-2">
-                <Flame size={14} className="shrink-0 text-amber-400" />
+              <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
                 <span>
-                  <strong>Rule:</strong> Send alone, wait for their reply. When they ask "Who's this?", drop Stage 2.
+                  <strong>Protocol:</strong> Send initial opener, await reply before delivering Stage 2 pitch.
                 </span>
               </div>
             )}
 
             {/* Message Box */}
-            <div className="relative rounded-xl bg-[#06080d] border border-gold/15 p-4 space-y-3 shadow-inner">
-              <div className="flex items-center justify-between text-[11px] text-muted-foreground pb-2 border-b border-white/5">
-                <span className="font-semibold text-foreground/80">Message Body:</span>
-                <span className="text-[10px] text-gold/80">
+            <div className="relative rounded-xl bg-[#141417] border border-white/10 p-4 space-y-3">
+              <div className="flex items-center justify-between text-xs text-muted-foreground pb-2 border-b border-white/5">
+                <span className="font-medium text-foreground">Message Body</span>
+                <span className="text-[11px] text-[#DAA640]">
                   {activeTab === 'stage1'
-                    ? 'Curiosity Gap Opener'
+                    ? 'Opener'
                     : activeTab === 'stage2'
-                    ? 'Trojan Horse Demo Pitch'
+                    ? 'Value Pitch'
                     : activeTab === 'followup'
-                    ? 'Polite Follow-up Sequence'
-                    : '15-Second Voice Script'}
+                    ? 'Follow-up'
+                    : 'Voice Script'}
                 </span>
               </div>
 
@@ -503,16 +515,16 @@ export function OutreachModal({
               </p>
 
               {isLandline && (
-                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-300 text-[11px] flex items-center justify-between gap-2">
-                  <span className="flex items-center gap-1.5">
+                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-300 text-xs flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-2">
                     <Phone size={12} className="text-amber-400 shrink-0" />
-                    <span><strong>UK Landline Notice:</strong> {lead.phone} is a regional landline. If WhatsApp shows &quot;isn&apos;t on WhatsApp&quot;, dial directly to reach the business.</span>
+                    <span><strong>UK Landline Notice:</strong> {lead.phone} is a regional landline. If WhatsApp does not connect, dial directly.</span>
                   </span>
                   <a
                     href={`tel:${lead.phone}`}
-                    className="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 font-bold shrink-0 text-[11px] flex items-center gap-1"
+                    className="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 font-medium shrink-0 text-xs flex items-center gap-1"
                   >
-                    <Phone size={11} /> Call Directly
+                    <Phone size={12} /> Call Directly
                   </a>
                 </div>
               )}
@@ -520,10 +532,10 @@ export function OutreachModal({
               <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/5">
                 <button
                   onClick={handleCopy}
-                  className="px-3 py-1.5 rounded-lg border border-white/10 hover:border-gold/30 bg-white/5 hover:bg-gold/10 text-xs font-semibold text-foreground flex items-center gap-1.5 transition-all cursor-pointer"
+                  className="px-3 py-2 rounded-lg border border-white/10 hover:border-[#DAA640]/30 bg-white/5 hover:bg-[#DAA640]/10 text-xs font-medium text-foreground flex items-center gap-1.5 transition-all cursor-pointer"
                 >
-                  {copied ? <Check size={13} className="text-green-400" /> : <Copy size={13} />}
-                  {copied ? 'Copied!' : 'Copy Script'}
+                  {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
+                  {copied ? 'Copied' : 'Copy Script'}
                 </button>
 
                 {cleanDigits && (
@@ -531,7 +543,7 @@ export function OutreachModal({
                     {isLandline && (
                       <a
                         href={`tel:${lead.phone}`}
-                        className="px-3 py-1.5 rounded-lg bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 border border-blue-500/30 font-bold text-xs flex items-center gap-1.5 transition-all"
+                        className="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-foreground border border-white/10 font-medium text-xs flex items-center gap-1.5 transition-all"
                       >
                         <Phone size={13} /> Call {lead.phone}
                       </a>
@@ -539,10 +551,10 @@ export function OutreachModal({
 
                     <button
                       onClick={handleSendWhatsApp}
-                      className="px-4 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs flex items-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] transition-all cursor-pointer"
+                      className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer"
                       title={isLandline ? "Try WhatsApp (if registered as WhatsApp Business)" : "Open in WhatsApp"}
                     >
-                      <Send size={13} /> {activeTab === 'stage1' ? 'Send Hi 👋 via WhatsApp' : 'Send via WhatsApp'}
+                      <Send size={13} /> {activeTab === 'stage1' ? 'Send via WhatsApp' : 'Send via WhatsApp'}
                     </button>
                   </div>
                 )}
@@ -551,69 +563,69 @@ export function OutreachModal({
           </div>
 
           {/* Quick Outcome Bar */}
-          <div className="space-y-2 pt-2 border-t border-white/5">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-              Update Lead Outcome:
+          <div className="space-y-2.5 pt-2 border-t border-white/5">
+            <p className="text-xs font-medium text-muted-foreground">
+              Update Lead Status:
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
               <button
                 disabled={updating}
                 onClick={() => handleStatusClick('New')}
-                className={`py-2 px-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer ${
+                className={`py-2 px-3 rounded-xl border text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
                   lead.status === 'New'
-                    ? 'bg-blue-500 text-white border-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.4)]'
-                    : 'bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border-blue-500/30'
+                    ? 'bg-white/15 text-white border-white/30'
+                    : 'bg-white/5 hover:bg-white/10 text-muted-foreground border-white/10'
                 }`}
               >
-                <Clock size={13} /> New 🔵
+                <Clock size={13} /> New
               </button>
 
               <button
                 disabled={updating}
                 onClick={() => handleStatusClick('Contacted')}
-                className={`py-2 px-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer ${
+                className={`py-2 px-3 rounded-xl border text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
                   lead.status === 'Contacted'
-                    ? 'bg-amber-500 text-black border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.4)]'
-                    : 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border-amber-500/30'
+                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                    : 'bg-amber-500/5 hover:bg-amber-500/10 text-amber-400/80 border-amber-500/20'
                 }`}
               >
-                <MessageSquare size={13} /> Contacted 🟡
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Contacted
               </button>
 
               <button
                 disabled={updating}
                 onClick={() => handleStatusClick('Call Booked')}
-                className={`py-2 px-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer ${
+                className={`py-2 px-3 rounded-xl border text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
                   lead.status === 'Call Booked'
-                    ? 'bg-purple-500 text-white border-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.4)]'
-                    : 'bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border-purple-500/30'
+                    ? 'bg-[#DAA640]/20 text-[#DAA640] border-[#DAA640]/40'
+                    : 'bg-[#DAA640]/5 hover:bg-[#DAA640]/10 text-[#DAA640]/80 border-[#DAA640]/20'
                 }`}
               >
-                <Clock size={13} /> Booked 🟣
+                <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" /> Booked
               </button>
 
               <button
                 disabled={updating}
                 onClick={() => handleStatusClick('Won')}
-                className={`py-2 px-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer ${
+                className={`py-2 px-3 rounded-xl border text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
                   lead.status === 'Won'
-                    ? 'bg-emerald-500 text-black border-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.4)]'
-                    : 'bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+                    ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                    : 'bg-emerald-500/5 hover:bg-emerald-500/10 text-emerald-400/80 border-emerald-500/20'
                 }`}
               >
-                <CheckCircle2 size={13} /> Won 🟢
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Won
               </button>
 
               <button
                 disabled={updating}
                 onClick={() => handleStatusClick('Lost')}
-                className={`py-2 px-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer ${
+                className={`py-2 px-3 rounded-xl border text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
                   lead.status === 'Lost'
-                    ? 'bg-rose-500 text-white border-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.4)]'
-                    : 'bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border-rose-500/30'
+                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                    : 'bg-rose-500/5 hover:bg-rose-500/10 text-rose-400/80 border-rose-500/20'
                 }`}
               >
-                <XCircle size={13} /> Lost 🔴
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-400" /> Lost
               </button>
             </div>
           </div>

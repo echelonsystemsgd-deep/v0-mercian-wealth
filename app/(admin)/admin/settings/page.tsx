@@ -263,10 +263,7 @@ export default function SettingsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#DAA640] uppercase">
-            <Settings size={12} /> System Console Panel
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white mt-1">Settings</h1>
+          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white">Settings</h1>
           <p className="text-sm text-zinc-400">Configure personal profile, team permissions, cohort scarcity, and integrations.</p>
         </div>
       </div>
@@ -388,9 +385,6 @@ export default function SettingsPage() {
           {activeTab === 'cohort' && (
             <div className="rounded-2xl bg-[#0B0B0D] border border-white/10 p-6 max-w-2xl space-y-6">
               <div className="space-y-1">
-                <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest text-[#DAA640]">
-                  <Megaphone size={14} /> Telemetry & Scarcity Controls
-                </div>
                 <h2 className="font-serif text-xl font-bold text-white">Cohort Scarcity & Broadcast</h2>
                 <p className="text-xs text-zinc-400">Update scarcity counts displayed on the homepage hero, pricing tiers, and announcement bar.</p>
               </div>

@@ -305,45 +305,45 @@ export default function TestimonialsPage() {
             </div>
             <form onSubmit={handleSave} className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Client Name & Title *</label>
+                <label className="text-xs font-medium text-muted-foreground">Client Name & Title *</label>
                 <input required value={form.client_name} onChange={(e) => setForm((p) => ({ ...p, client_name: e.target.value }))}
                   placeholder="e.g. Sarah M., Founder"
-                  className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all" />
+                  className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640] rounded-xl px-4 py-2.5 text-sm text-foreground outline-none transition-all" />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Company & City</label>
+                  <label className="text-xs font-medium text-muted-foreground">Company & City</label>
                   <input value={form.company} onChange={(e) => setForm((p) => ({ ...p, company: e.target.value }))}
                     placeholder="e.g. The Artisan Patisserie Group · London"
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all" />
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640] rounded-xl px-4 py-2.5 text-sm text-foreground outline-none transition-all" />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">KPI Badge</label>
+                  <label className="text-xs font-medium text-muted-foreground">KPI Badge</label>
                   <input value={form.badge} onChange={(e) => setForm((p) => ({ ...p, badge: e.target.value }))}
                     placeholder="e.g. +38% Revenue Lift"
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all" />
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640] rounded-xl px-4 py-2.5 text-sm text-foreground outline-none transition-all" />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Testimonial Quote *</label>
+                <label className="text-xs font-medium text-muted-foreground">Testimonial Quote *</label>
                 <textarea required rows={4} value={form.testimonial} onChange={(e) => setForm((p) => ({ ...p, testimonial: e.target.value }))}
                   placeholder="Client feedback quote..."
-                  className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all resize-none" />
+                  className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640] rounded-xl px-4 py-2.5 text-sm text-foreground outline-none transition-all resize-none" />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Profile Image {editing && '(leave blank to keep current)'}</label>
+                <label className="text-xs font-medium text-muted-foreground">Profile Image {editing && '(leave blank to keep current)'}</label>
                 <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)}
-                  className="w-full text-sm text-muted-foreground file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border file:border-gold/25 file:bg-gold/5 file:text-xs file:font-semibold file:text-gold hover:file:bg-gold/10 transition-all cursor-pointer" />
+                  className="w-full text-sm text-muted-foreground file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border file:border-white/10 file:bg-white/5 file:text-xs file:font-medium file:text-foreground hover:file:bg-white/10 transition-all cursor-pointer" />
               </div>
 
               <div className="flex justify-end gap-3 pt-2">
-                <button type="button" onClick={() => setModal(null)} className="px-4 py-2 rounded-xl border border-gold/15 text-sm text-muted-foreground hover:text-foreground transition-all cursor-pointer">Cancel</button>
-                <button type="submit" disabled={saving} className="flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-gold to-gold-light text-background text-sm font-bold disabled:opacity-60 hover:shadow-[0_0_16px_rgba(212,175,55,0.3)] transition-all cursor-pointer">
+                <button type="button" onClick={() => setModal(null)} className="px-4 py-2 rounded-xl border border-white/10 text-sm text-muted-foreground hover:text-foreground transition-all cursor-pointer">Cancel</button>
+                <button type="submit" disabled={saving} className="flex items-center gap-2 px-5 py-2 rounded-xl bg-[#DAA640] text-black text-sm font-semibold disabled:opacity-60 hover:bg-[#DAA640]/90 transition-all cursor-pointer">
                   {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
-                  {modal === 'edit' ? 'Save Changes' : 'Add Testimonial'}
+                  {editing ? 'Update Testimonial' : 'Create Testimonial'}
                 </button>
               </div>
             </form>

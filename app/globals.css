@@ -350,9 +350,9 @@ input[type="range"]::-webkit-slider-thumb {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background-color: #D4AF37;
+  background-color: #DAA640;
   border: 2px solid #FFFFFF;
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.8);
+  box-shadow: 0 0 12px rgba(218, 166, 64, 0.5);
   cursor: pointer;
   transition: transform 0.15s ease, background-color 0.15s ease;
 }
@@ -370,9 +370,9 @@ input[type="range"]::-moz-range-thumb {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background-color: #D4AF37;
+  background-color: #DAA640;
   border: 2px solid #FFFFFF;
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.8);
+  box-shadow: 0 0 12px rgba(218, 166, 64, 0.5);
   cursor: pointer;
   transition: transform 0.15s ease, background-color 0.15s ease;
 }
@@ -489,15 +489,15 @@ input[type="range"]::-moz-range-thumb:active {
   background: transparent;
 }
 .discord-scroll::-webkit-scrollbar-thumb {
-  background: rgba(201, 162, 39, 0.2);
+  background: rgba(218, 166, 64, 0.2);
   border-radius: 9999px;
 }
 .discord-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(201, 162, 39, 0.4);
+  background: rgba(218, 166, 64, 0.4);
 }
 .discord-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(201, 162, 39, 0.2) transparent;
+  scrollbar-color: rgba(218, 166, 64, 0.2) transparent;
 }
 
 .portal-icon {
@@ -566,7 +566,7 @@ input[type="range"]::-moz-range-thumb:active {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(2, 14, 40, 0.6);
+  background: #0B0B0D;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -583,7 +583,7 @@ input[type="range"]::-moz-range-thumb:active {
 /* Firefox standard scrollbars */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(218, 166, 64, 0.3) rgba(2, 14, 40, 0.6);
+  scrollbar-color: rgba(218, 166, 64, 0.3) #0B0B0D;
 }
 
 /* Hide scrollbars utility class */
@@ -633,8 +633,8 @@ input[type="range"].mobile-touch-slider::-webkit-slider-thumb {
   border-radius: 9999px;
   cursor: pointer;
   background-color: var(--color-accent-gold);
-  border: 2px solid #09090B;
-  box-shadow: 0 0 10px rgba(220, 174, 83, 0.4);
+  border: 2px solid #0B0B0D;
+  box-shadow: 0 0 10px rgba(218, 166, 64, 0.4);
 }
 
 input[type="range"].mobile-touch-slider::-moz-range-thumb {
@@ -643,6 +643,6 @@ input[type="range"].mobile-touch-slider::-moz-range-thumb {
   border-radius: 9999px;
   cursor: pointer;
   background-color: var(--color-accent-gold);
-  border: 2px solid #09090B;
-  box-shadow: 0 0 10px rgba(220, 174, 83, 0.4);
+  border: 2px solid #0B0B0D;
+  box-shadow: 0 0 10px rgba(218, 166, 64, 0.4);
 }

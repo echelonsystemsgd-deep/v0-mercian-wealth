@@ -160,7 +160,7 @@ export function AdminSidebar() {
       {/* Floating Toggle Button for Mobile */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-2.5 z-50 p-3 w-11 h-11 rounded-xl bg-[#0A0A0A] border border-gold/35 text-gold hover:bg-gold/10 hover:text-gold-light transition-all duration-300 cursor-pointer flex items-center justify-center shadow-lg"
+        className="lg:hidden fixed top-3 z-50 p-3 w-10 h-10 rounded-xl bg-[#0B0B0D] border border-white/10 text-white hover:bg-white/5 transition-all duration-200 cursor-pointer flex items-center justify-center"
         style={{
           left: isOpen ? '268px' : '16px'
         }}
@@ -176,11 +176,11 @@ export function AdminSidebar() {
         />
       )}
 
-      <aside className={`flex flex-col h-dvh w-64 border-r border-slate-800 bg-[#09090B]/95 backdrop-blur-md fixed inset-y-0 z-40 transition-[left] duration-300 lg:left-auto ${isOpen ? 'left-0' : 'left-[-256px]'} lg:relative lg:left-0`}>
+      <aside className={`flex flex-col h-dvh w-64 border-r border-white/10 bg-[#0B0B0D] fixed inset-y-0 z-40 transition-[left] duration-300 lg:left-auto ${isOpen ? 'left-0' : 'left-[-256px]'} lg:relative lg:left-0`}>
         {/* Logo */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-800 shrink-0">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="relative h-9 w-9 shrink-0 rounded-lg overflow-hidden border border-slate-800">
+            <div className="relative h-9 w-9 shrink-0 rounded-lg overflow-hidden border border-white/10">
               <Image
                 src="/Logo1.jpeg"
                 alt="Mercian Wealth"
@@ -190,70 +190,67 @@ export function AdminSidebar() {
             </div>
             <div>
               <p className="font-sans text-sm font-bold text-white leading-tight">Mercian</p>
-              <p className="text-[10px] text-[#DCAE53] font-bold uppercase tracking-widest font-mono">Admin Portal</p>
+              <p className="text-[11px] text-zinc-400 font-mono">Operations</p>
             </div>
           </div>
         </div>
 
         {/* Console Switcher */}
-        <div className="px-4 py-3.5 border-b border-slate-800 relative shrink-0 z-50">
+        <div className="px-4 py-3 border-b border-white/10 relative shrink-0 z-50">
           <button
             onClick={() => setIsSwitcherOpen(!isSwitcherOpen)}
-            className="w-full flex items-center justify-between gap-2.5 px-3 py-2 rounded-xl bg-white/[0.02] border border-gold/15 hover:border-gold/30 hover:bg-white/[0.04] transition-all duration-200 text-left cursor-pointer"
+            className="w-full flex items-center justify-between gap-3 px-3 py-2 rounded-xl bg-white/[0.02] border border-white/10 hover:border-white/20 hover:bg-white/[0.04] transition-all duration-200 text-left cursor-pointer"
           >
-            <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-7 h-7 rounded-lg bg-gold/10 border border-gold/25 flex items-center justify-center text-gold shrink-0">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-7 h-7 rounded-lg bg-[#DAA640]/10 border border-[#DAA640]/25 flex items-center justify-center text-[#DAA640] shrink-0">
                 <ShieldAlert size={14} />
               </div>
               <div className="min-w-0">
-                <p className="text-[9px] text-gold/60 font-bold uppercase tracking-wider leading-none">Console</p>
-                <p className="text-xs font-semibold text-foreground truncate mt-1">Operations Terminal</p>
+                <p className="text-xs font-semibold text-white truncate">Operations Console</p>
               </div>
             </div>
-            <ChevronDown size={12} className={`text-muted-foreground transition-transform duration-200 shrink-0 ${isSwitcherOpen ? 'rotate-180' : ''}`} />
+            <ChevronDown size={12} className={`text-zinc-400 transition-transform duration-200 shrink-0 ${isSwitcherOpen ? 'rotate-180' : ''}`} />
           </button>
 
           {isSwitcherOpen && (
             <>
               <div className="fixed inset-0 z-40" onClick={() => setIsSwitcherOpen(false)} />
-              <div className="absolute left-4 right-4 mt-1 bg-[#0F0F0F] border border-gold/20 rounded-xl shadow-2xl p-1.5 z-50 space-y-0.5 animate-in fade-in slide-in-from-top-1 duration-150">
-                <p className="text-[8px] font-bold text-gold/40 px-2 py-1 uppercase tracking-widest leading-none mb-1">Available Terminals</p>
-                
+              <div className="absolute left-4 right-4 mt-1 bg-[#141417] border border-white/10 rounded-xl p-2 z-50 space-y-1 animate-in fade-in slide-in-from-top-1 duration-150">
                 <Link
                   href="/admin"
                   onClick={() => setIsSwitcherOpen(false)}
-                  className="flex items-center gap-2.5 px-2.5 py-2.5 rounded-lg bg-gold/10 border border-gold/20 text-gold text-xs font-medium transition-all"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#DAA640]/10 border border-[#DAA640]/20 text-[#DAA640] text-xs font-medium transition-all"
                 >
-                  <ShieldAlert size={14} className="shrink-0 text-gold" />
-                  <span>Operations Terminal</span>
+                  <ShieldAlert size={14} className="shrink-0 text-[#DAA640]" />
+                  <span>Operations Console</span>
                 </Link>
 
                 <Link
                   href="/client"
                   onClick={() => setIsSwitcherOpen(false)}
-                  className="flex items-center gap-2.5 px-2.5 py-2.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/5 text-xs font-medium transition-all"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/5 text-xs font-medium transition-all"
                 >
-                  <Briefcase size={14} className="shrink-0 text-gold/70" />
-                  <span>Sovereign Partner Console</span>
+                  <Briefcase size={14} className="shrink-0 text-zinc-400" />
+                  <span>Client Portal</span>
                 </Link>
 
                 <Link
                   href="/dashboard"
                   onClick={() => setIsSwitcherOpen(false)}
-                  className="flex items-center gap-2.5 px-2.5 py-2.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/5 text-xs font-medium transition-all"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/5 text-xs font-medium transition-all"
                 >
-                  <Terminal size={14} className="shrink-0 text-gold/70" />
+                  <Terminal size={14} className="shrink-0 text-zinc-400" />
                   <span>Vetting Terminal</span>
                 </Link>
 
-                <div className="h-px bg-purple-500/15 my-1" />
+                <div className="h-px bg-white/10 my-1" />
 
                 <Link
                   href="/"
                   onClick={() => setIsSwitcherOpen(false)}
-                  className="flex items-center gap-2.5 px-2.5 py-2.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/5 text-xs font-medium transition-all"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/5 text-xs font-medium transition-all"
                 >
-                  <Globe size={14} className="shrink-0 text-gold/70" />
+                  <Globe size={14} className="shrink-0 text-zinc-400" />
                   <span>Public Site</span>
                 </Link>
               </div>
@@ -262,7 +259,7 @@ export function AdminSidebar() {
         </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-3.5 overflow-y-auto">
+      <nav className="flex-1 px-3 py-4 space-y-4 overflow-y-auto">
         {sidebarGroups.map((group) => {
           const isGroupOpen = openGroups[group.key]
           return (
@@ -271,12 +268,12 @@ export function AdminSidebar() {
               <button
                 type="button"
                 onClick={() => toggleGroup(group.key)}
-                className="w-full flex items-center justify-between px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-purple-500/50 hover:text-gold transition-colors cursor-pointer text-left"
+                className="w-full flex items-center justify-between px-3 py-1 text-[11px] font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer text-left"
               >
                 <span>{group.title}</span>
                 <ChevronDown
                   size={10}
-                  className={`text-muted-foreground/40 transition-transform duration-200 ${isGroupOpen ? 'rotate-180' : ''}`}
+                  className={`text-zinc-500 transition-transform duration-200 ${isGroupOpen ? 'rotate-180' : ''}`}
                 />
               </button>
 
@@ -290,18 +287,18 @@ export function AdminSidebar() {
                         key={href}
                         href={href}
                         onClick={handleLinkClick}
-                        className={`group flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-200 ${
+                        className={`group flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-200 ${
                           isActive
-                            ? 'bg-gold/10 text-gold border border-gold/20'
-                            : 'text-muted-foreground hover:text-foreground hover:bg-white/5 border border-transparent'
+                            ? 'bg-[#DAA640]/10 text-[#DAA640] border border-[#DAA640]/25'
+                            : 'text-zinc-400 hover:text-white hover:bg-white/5 border border-transparent'
                         }`}
                       >
                         <Icon
                           size={14}
-                          className={`shrink-0 transition-colors ${isActive ? 'text-purple-400' : 'text-muted-foreground group-hover:text-foreground'}`}
+                          className={`shrink-0 transition-colors ${isActive ? 'text-[#DAA640]' : 'text-zinc-400 group-hover:text-white'}`}
                         />
                         <span className="flex-1 truncate">{label}</span>
-                        {isActive && <ChevronRight size={12} className="text-gold/50" />}
+                        {isActive && <ChevronRight size={12} className="text-[#DAA640]/50" />}
                       </Link>
                     )
                   })}
@@ -313,28 +310,28 @@ export function AdminSidebar() {
       </nav>
 
       {/* Footer Admin Profile Card */}
-      <div className="px-4 py-3.5 border-t border-purple-500/15 flex items-center justify-between gap-3 shrink-0 bg-white/[0.01]">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <div className="w-8 h-8 rounded-full bg-gold/10 border border-gold/20 overflow-hidden flex items-center justify-center relative shrink-0">
+      <div className="px-4 py-3 border-t border-white/10 flex items-center justify-between gap-3 shrink-0 bg-white/[0.01]">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 overflow-hidden flex items-center justify-center relative shrink-0">
             {adminProfile?.avatar_url ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={adminProfile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
             ) : (
-              <Users size={14} className="text-gold" />
+              <Users size={14} className="text-zinc-300" />
             )}
           </div>
           <div className="min-w-0">
-            <p className="text-[11px] font-semibold text-foreground truncate leading-none">
+            <p className="text-[11px] font-semibold text-white truncate leading-none">
               {adminProfile?.full_name || 'Administrator'}
             </p>
-            <p className="text-[9px] text-muted-foreground/60 truncate mt-1 leading-none font-mono">
+            <p className="text-[9px] text-zinc-400 truncate mt-1 leading-none font-mono">
               {adminProfile?.email || 'admin@wealthapp.com'}
             </p>
           </div>
         </div>
         <button
           onClick={handleSignOut}
-          className="p-2 rounded-lg hover:bg-red-500/10 text-muted-foreground hover:text-red-400 transition-all cursor-pointer shrink-0"
+          className="p-2 rounded-lg hover:bg-rose-500/10 text-zinc-400 hover:text-rose-400 transition-all cursor-pointer shrink-0"
           title="Sign Out"
         >
           <LogOut size={14} />

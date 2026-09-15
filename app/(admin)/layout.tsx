@@ -30,11 +30,11 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <InspectorProvider>
-      <div className="h-dvh bg-[#09090B] text-foreground flex relative overflow-hidden">
+      <div className="h-dvh bg-[#050505] text-foreground flex relative overflow-hidden">
         {/* Ambient background glow */}
         <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="absolute top-0 left-64 w-[500px] h-[500px] rounded-full bg-[#DCAE53]/5 blur-[160px]" />
-          <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-[#DCAE53]/4 blur-[120px]" />
+          <div className="absolute top-0 left-64 w-[500px] h-[500px] rounded-full bg-[#DAA640]/5 blur-[160px]" />
+          <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-[#DAA640]/4 blur-[120px]" />
         </div>
 
         {/* Zone 2: Navigation */}
@@ -43,14 +43,14 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         {/* Zone 3 & 4 Container */}
         <div className="flex-1 flex flex-col min-w-0 relative z-10 h-dvh">
           {/* Top bar */}
-          <header className="sticky top-0 z-20 h-14 border-b border-[#DCAE53]/15 bg-[#09090B]/90 backdrop-blur-md flex items-center px-4 sm:px-8 gap-4">
+          <header className="sticky top-0 z-20 h-14 border-b border-white/10 bg-[#0B0B0D]/90 backdrop-blur-md flex items-center px-4 sm:px-8 gap-4">
             <div className="w-10 lg:hidden shrink-0" />
             <div className="flex-1" />
-            <div className="flex items-center gap-3.5">
+            <div className="flex items-center gap-4">
               <InspectorToggle />
-              <div className="h-5 w-px bg-[#DCAE53]/20" />
+              <div className="h-5 w-px bg-white/10" />
               <NotificationCenter />
-              <div className="h-5 w-px bg-[#DCAE53]/20" />
+              <div className="h-5 w-px bg-white/10" />
               <UserProfileDropdown
                 fullName={profile.full_name}
                 email={user.email!}

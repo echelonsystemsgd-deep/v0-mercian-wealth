@@ -11,17 +11,22 @@ import { TransactionsFeed } from '@/components/admin/transactions-feed'
 import { OutreachFunnelChart } from '@/components/admin/charts/outreach-funnel-chart'
 import { OutreachAreaChart } from '@/components/admin/charts/outreach-area-chart'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function AdminDashboardPage() {
   const supabase = await createClient()
   const { data: { user: adminUser } } = await supabase.auth.getUser()
   const adminId = adminUser?.id
 
-  // ── DB Queries (all server-side) ──────────────────────────────────────────
+  // ── DB Queries (all server-side, dynamic real-time) ──────────────────────────
 
-  // KPI counts
+  // Active leads count (aligned identically with /admin/leads)
   const { count: leadsCount } = await supabase
     .from('leads')
     .select('*', { count: 'exact', head: true })
+    .eq('is_archived', false)
+    .neq('status', 'Spam')
 
   const { count: sessionsCount } = await supabase
     .from('strategy_sessions')
@@ -33,6 +38,7 @@ export default async function AdminDashboardPage() {
     .from('leads')
     .select('status')
     .eq('is_archived', false)
+    .neq('status', 'Spam')
 
   const freshLeadsCount = funnelLeads?.filter((l) => l.status === 'New').length || (leadsCount ?? 0)
   const contactedCount = funnelLeads?.filter((l) => l.status === 'Contacted').length || 0
@@ -51,10 +57,10 @@ export default async function AdminDashboardPage() {
 
   const funnelStages = [
     { label: 'Fresh Leads', shortLabel: 'Leads', count: totalOutreachPipeline, color: '#A1A1AA' },
-    { label: 'WhatsApp Contacted', shortLabel: 'Contacted', count: Math.max(contactedCount + bookedCount + proposalCount + wonCount, contactedCount || 12), color: '#F59E0B' },
-    { label: 'Strategy Call Booked', shortLabel: 'Booked', count: Math.max(bookedCount + proposalCount + wonCount, bookedCount || 6), color: '#DAA640' },
-    { label: 'Proposal Sent', shortLabel: 'Proposal', count: Math.max(proposalCount + wonCount, proposalCount || 3), color: '#DAA640' },
-    { label: 'Won Client Deals', shortLabel: 'Won', count: Math.max(wonCount, 2), color: '#10B981' },
+    { label: 'WhatsApp Contacted', shortLabel: 'Contacted', count: contactedCount + bookedCount + proposalCount + wonCount, color: '#F59E0B' },
+    { label: 'Strategy Call Booked', shortLabel: 'Booked', count: bookedCount + proposalCount + wonCount, color: '#DAA640' },
+    { label: 'Proposal Sent', shortLabel: 'Proposal', count: proposalCount + wonCount, color: '#DAA640' },
+    { label: 'Won Client Deals', shortLabel: 'Won', count: wonCount, color: '#10B981' },
   ]
 
   // Financials derived from a single projects query (true transactional data)

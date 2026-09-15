@@ -395,7 +395,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
         {isHomepage ? (
           <div className="pt-8 border-t border-white/10 text-center flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-zinc-400">
             <span className="font-mono text-[11px] text-[#DAA640]">
-              ✦ 99.98% Website Uptime SLA · Sub-Second Page Speeds Guaranteed
+              99.98% Website Uptime SLA · Sub-Second Page Speeds Guaranteed
             </span>
             <span className="hidden sm:inline text-white/20">•</span>
             <Link
@@ -412,7 +412,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
             
             {/* Header */}
             <div className="text-center mb-8 sm:mb-12">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141417] border border-[#DAA640]/30 text-[#DAA640] text-xs font-mono font-semibold tracking-wider uppercase mb-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#141417] border border-[#DAA640]/30 text-[#DAA640] text-xs font-mono font-semibold tracking-wider uppercase mb-3">
                 <Sliders className="w-3.5 h-3.5 text-[#DAA640]" />
                 <span>Interactive Technical Architecture Matrix</span>
               </div>
@@ -426,13 +426,13 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
 
             {/* FLOATING DROPDOWN & FILTER CONTROL BAR */}
             <div className="sticky top-20 z-30 mb-8 max-w-4xl mx-auto px-2">
-              <div className="p-2 sm:p-2.5 rounded-2xl bg-[#111115] border border-[#DAA640]/30 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="p-3 rounded-2xl bg-[#0B0B0D] card-depth border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
                 
                 {/* Floating Category Dropdown Menu */}
                 <div className="relative w-full sm:w-auto">
                   <button
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="w-full sm:w-auto min-h-[44px] flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-[#141417] border border-white/10 hover:border-[#DAA640]/50 text-white font-semibold text-xs transition-all cursor-pointer shadow-md"
+                    className="w-full sm:w-auto min-h-[44px] flex items-center justify-between gap-3 px-4 py-2 rounded-xl bg-[#141417] border border-white/10 hover:border-[#DAA640]/50 text-white font-semibold text-xs transition-all cursor-pointer"
                   >
                     <div className="flex items-center gap-2">
                       <Filter className="w-3.5 h-3.5 text-[#DAA640]" />

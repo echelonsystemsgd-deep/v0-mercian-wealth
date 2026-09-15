@@ -38,7 +38,7 @@ export function OutreachFunnelChart({
       <div className="flex items-center justify-between gap-4 mb-4 sm:mb-6">
         <div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#DAA640]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" />
             <h3 className="text-sm sm:text-base font-sans font-bold text-white tracking-tight">
               Outreach Conversion Funnel
             </h3>
@@ -47,7 +47,7 @@ export function OutreachFunnelChart({
             Real-time pipeline conversion velocity across client lifecycle stages.
           </p>
         </div>
-        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-[11px] font-mono text-zinc-300">
+        <div className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-[11px] font-mono text-zinc-300">
           <span>Overall Conversion:</span>
           <span className="font-bold text-emerald-400">
             {Math.round(((stages[stages.length - 1]?.count || 0) / baselineCount) * 100)}%

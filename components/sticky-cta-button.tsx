@@ -91,18 +91,18 @@ export function StickyCTAButton() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="sm:hidden fixed bottom-0 inset-x-0 z-[90] bg-[#09090B]/95 backdrop-blur-xl border-t border-[#DCAE53]/30 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] flex items-center justify-between gap-3 shadow-[0_-10px_30px_rgba(0,0,0,0.8)] pointer-events-auto"
+            className="sm:hidden fixed bottom-0 inset-x-0 z-[90] bg-[#0B0B0D]/95 backdrop-blur-xl border-t border-white/10 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] flex items-center justify-between gap-3 card-depth pointer-events-auto"
           >
             <a
               href="tel:+447851055929"
-              className="flex-1 py-3 px-3 rounded-xl bg-[#18181F] border border-[#DCAE53]/40 text-[#DCAE53] font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-transform"
+              className="flex-1 py-3 px-3 rounded-xl bg-[#141417] border border-white/10 text-[#DAA640] font-semibold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-1.5 active:scale-95 transition-transform"
             >
               <PhoneCall className="w-3.5 h-3.5" />
               <span>Call Direct</span>
             </a>
             <Link
               href="/book"
-              className="flex-1 py-3 px-3 rounded-xl bg-[#DCAE53] text-[#09090B] font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-1 shadow-md active:scale-95 transition-transform"
+              className="flex-1 py-3 px-3 rounded-xl bg-[#DAA640] text-black font-semibold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-1 active:scale-95 transition-transform"
             >
               <span>Book a call →</span>
             </Link>
@@ -118,7 +118,7 @@ export function StickyCTAButton() {
           >
             <button
               onClick={scrollToTop}
-              className="w-11 h-11 rounded-full bg-[#111115]/90 backdrop-blur-md border border-slate-800 hover:border-[#DCAE53]/50 text-slate-400 hover:text-[#DCAE53] flex items-center justify-center transition-all shadow-xl hover:scale-105 cursor-pointer"
+              className="w-11 h-11 rounded-full bg-[#141417]/90 backdrop-blur-md border border-white/10 hover:border-[#DAA640]/50 text-muted-foreground hover:text-[#DAA640] flex items-center justify-center transition-all hover:scale-105 cursor-pointer"
               aria-label="Scroll to top"
               title="Scroll to top"
             >

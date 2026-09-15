@@ -96,7 +96,7 @@ export function OutreachAreaChart({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#10B981]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
             <h3 className="text-sm sm:text-base font-sans font-bold text-white tracking-tight">
               Outreach Velocity & Pipeline Value
             </h3>
@@ -107,7 +107,7 @@ export function OutreachAreaChart({
         </div>
 
         {/* Dynamic Legend / Scrubber Readout */}
-        <div className="flex items-center gap-4 bg-white/5 border border-white/10 px-3 py-1.5 rounded-xl self-start sm:self-center">
+        <div className="flex items-center gap-4 bg-white/5 border border-white/10 px-3 py-2 rounded-xl self-start sm:self-center">
           <div className="flex items-center gap-1.5 text-xs">
             <span className="w-2 h-2 rounded-full bg-[#DAA640]" />
             <span className="text-zinc-400">Pipeline:</span>

@@ -857,16 +857,16 @@ export default function AdminQuotesPage() {
           <div className="grid md:grid-cols-3 gap-6">
             {/* System Build Tiers */}
             <div className="space-y-3">
-              <h3 className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-widest flex items-center gap-1.5">
+              <h3 className="text-xs font-mono font-bold text-[#DAA640] uppercase tracking-wider flex items-center gap-1.5">
                 <Layers size={14} />
                 <span>1. System Build (Fixed Setup)</span>
               </h3>
               <div className="space-y-3">
                 {catalog.filter((c) => c.model_type === 'system_build').map((item) => (
-                  <div key={item.id} className="p-4 rounded-2xl bg-[#111115] border border-white/8 space-y-2">
+                  <div key={item.id} className="p-4 rounded-2xl bg-[#0B0B0D] card-depth border border-white/10 space-y-2">
                     <div className="flex justify-between items-start">
                       <h4 className="font-bold text-white text-sm">{item.name}</h4>
-                      <span className="font-mono font-extrabold text-[#DCAE53] text-sm">
+                      <span className="font-mono font-extrabold text-[#DAA640] text-sm">
                         {formatCurrency(item.default_price)}
                       </span>
                     </div>
@@ -876,7 +876,7 @@ export default function AdminQuotesPage() {
                         setEditingCatalogItem(item)
                         setEditPrice(String(item.default_price))
                       }}
-                      className="text-[10px] font-mono text-slate-400 hover:text-[#DCAE53] transition-colors inline-flex items-center gap-1"
+                      className="text-[10px] font-mono text-slate-400 hover:text-[#DAA640] transition-colors inline-flex items-center gap-1"
                     >
                       <Edit2 size={11} /> Edit Base Price
                     </button>
@@ -887,16 +887,16 @@ export default function AdminQuotesPage() {
 
             {/* Growth Retainer Tiers */}
             <div className="space-y-3">
-              <h3 className="text-xs font-mono font-bold text-blue-400 uppercase tracking-widest flex items-center gap-1.5">
+              <h3 className="text-xs font-mono font-bold text-[#DAA640] uppercase tracking-wider flex items-center gap-1.5">
                 <Clock size={14} />
                 <span>2. Growth Retainer (Monthly)</span>
               </h3>
               <div className="space-y-3">
                 {catalog.filter((c) => c.model_type === 'growth_retainer').map((item) => (
-                  <div key={item.id} className="p-4 rounded-2xl bg-[#111115] border border-white/8 space-y-2">
+                  <div key={item.id} className="p-4 rounded-2xl bg-[#0B0B0D] card-depth border border-white/10 space-y-2">
                     <div className="flex justify-between items-start">
                       <h4 className="font-bold text-white text-sm">{item.name}</h4>
-                      <span className="font-mono font-extrabold text-blue-400 text-sm">
+                      <span className="font-mono font-extrabold text-white text-sm">
                         {formatCurrency(item.default_price)}/mo
                       </span>
                     </div>
@@ -906,7 +906,7 @@ export default function AdminQuotesPage() {
                         setEditingCatalogItem(item)
                         setEditPrice(String(item.default_price))
                       }}
-                      className="text-[10px] font-mono text-slate-400 hover:text-blue-400 transition-colors inline-flex items-center gap-1"
+                      className="text-[10px] font-mono text-slate-400 hover:text-[#DAA640] transition-colors inline-flex items-center gap-1"
                     >
                       <Edit2 size={11} /> Edit Base Price
                     </button>
@@ -917,13 +917,13 @@ export default function AdminQuotesPage() {
 
             {/* Revenue Share Tiers */}
             <div className="space-y-3">
-              <h3 className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest flex items-center gap-1.5">
+              <h3 className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
                 <Percent size={14} />
                 <span>3. Revenue Share (%)</span>
               </h3>
               <div className="space-y-3">
                 {catalog.filter((c) => c.model_type === 'rev_share').map((item) => (
-                  <div key={item.id} className="p-4 rounded-2xl bg-[#111115] border border-white/8 space-y-2">
+                  <div key={item.id} className="p-4 rounded-2xl bg-[#0B0B0D] card-depth border border-white/10 space-y-2">
                     <div className="flex justify-between items-start">
                       <h4 className="font-bold text-white text-sm">{item.name}</h4>
                       <span className="font-mono font-extrabold text-emerald-400 text-sm">
@@ -951,7 +951,7 @@ export default function AdminQuotesPage() {
       {/* MODAL: NEW QUOTE BUILDER */}
       {isNewQuoteOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-[#111115] border border-[#DCAE53]/30 rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 shadow-2xl relative">
+          <div className="bg-[#0B0B0D] border border-white/10 card-depth rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 relative">
             <button
               onClick={() => setIsNewQuoteOpen(false)}
               className="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors cursor-pointer"
@@ -960,17 +960,14 @@ export default function AdminQuotesPage() {
             </button>
 
             <div>
-              <span className="text-[10px] font-mono text-[#DCAE53] uppercase tracking-widest font-bold">
-                QUOTE BUILDER COMMAND
-              </span>
               <h2 className="text-2xl font-serif font-bold text-white">Assemble Custom Client Proposal</h2>
             </div>
 
             {/* SECTION 1: CLIENT SELECTION */}
-            <div className="p-5 rounded-2xl bg-[#18181F] border border-white/5 space-y-4">
+            <div className="p-5 rounded-2xl bg-[#141417] border border-white/5 space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-xs font-mono font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-                  <User size={14} className="text-[#DCAE53]" />
+                  <User size={14} className="text-[#DAA640]" />
                   <span>1. Client Information</span>
                 </span>
                 {clients.length > 0 && (
@@ -1294,17 +1291,17 @@ export default function AdminQuotesPage() {
               <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-white/10 pb-6">
                 <div className="space-y-2">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#111115] border border-[#DCAE53]/40 flex items-center justify-center p-1.5">
-                      <svg className="w-6 h-6 text-[#DCAE53]" viewBox="0 0 24 24" fill="currentColor">
+                    <div className="w-10 h-10 rounded-xl bg-[#141417] border border-[#DAA640]/40 flex items-center justify-center p-1.5">
+                      <svg className="w-6 h-6 text-[#DAA640]" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M4 4h16l-8 7.5L4 4zm0 16h16l-8-7.5L4 20z" opacity="0.9" />
-                        <circle cx="12" cy="11.5" r="1.5" fill="#DCAE53" />
+                        <circle cx="12" cy="11.5" r="1.5" fill="#DAA640" />
                       </svg>
                     </div>
                     <div>
                       <div className="font-sans font-black text-base tracking-wider text-white uppercase">
-                        MERCIAN <span className="text-[#DCAE53]">WEALTH</span>
+                        MERCIAN <span className="text-[#DAA640]">WEALTH</span>
                       </div>
-                      <p className="text-[10px] font-mono text-[#DCAE53] tracking-widest uppercase">
+                      <p className="text-[10px] font-mono text-[#DAA640] uppercase">
                         {MERCIAN_BANK_DETAILS.tagline}
                       </p>
                     </div>
@@ -1316,7 +1313,7 @@ export default function AdminQuotesPage() {
 
                 <div className="text-left sm:text-right space-y-1 font-mono text-xs w-full sm:w-auto">
                   <span className="text-xl font-bold text-white block tracking-wide">INVOICE</span>
-                  <span className="text-[#DCAE53] font-bold block">{viewingInvoice.invoice_number}</span>
+                  <span className="text-[#DAA640] font-bold block">{viewingInvoice.invoice_number}</span>
                   <span className="text-slate-400 block">
                     Issue Date: {new Date(viewingInvoice.issue_date).toLocaleDateString('en-GB')}
                   </span>

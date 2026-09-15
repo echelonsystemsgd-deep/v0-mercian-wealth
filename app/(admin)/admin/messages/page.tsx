@@ -349,15 +349,10 @@ export default function AdminMessageDesk() {
     <div className="space-y-6 h-[calc(100vh-140px)] flex flex-col min-h-[500px]">
       {/* Page Title */}
       <div className="shrink-0 flex items-center justify-between">
-        <div className="space-y-0.5">
-          <div className="flex items-center gap-1.5 text-xs font-bold tracking-widest text-gold uppercase">
-            <MessageSquare size={12} /> Communication Desk
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-foreground mt-0.5">Client Messages Center</h1>
+        <div className="space-y-1">
+          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-foreground">Client Messages</h1>
+          <p className="text-sm text-muted-foreground">Manage communications and inquiries with clients.</p>
         </div>
-        <span className="text-[10px] text-muted-foreground font-mono bg-white/[0.03] px-3 py-1 rounded-full border border-white/5 flex items-center gap-1.5 shrink-0">
-          <ShieldCheck size={11} className="text-gold" /> secure gateway
-        </span>
       </div>
 
       {/* Main Container Split Grid */}
@@ -511,12 +506,12 @@ export default function AdminMessageDesk() {
                         <div
                           className={`max-w-[75%] rounded-2xl px-4 py-3 text-xs leading-relaxed ${
                             isMe
-                              ? 'bg-[#1A0A2E]/60 border border-purple-500/25 text-foreground rounded-tr-none shadow-md shadow-purple-950/20'
-                              : 'bg-gold/10 border border-gold/25 text-foreground rounded-tl-none shadow-md shadow-amber-950/10'
+                              ? 'bg-[#141417] border border-white/15 text-foreground rounded-tr-none'
+                              : 'bg-[#DAA640]/10 border border-[#DAA640]/25 text-foreground rounded-tl-none'
                           }`}
                         >
                           {/* Sender title banner */}
-                          <span className={`text-[9px] font-bold block uppercase tracking-widest mb-1 ${isMe ? 'text-purple-400' : 'text-gold'}`}>
+                          <span className={`text-[10px] font-semibold block uppercase tracking-wider mb-1 ${isMe ? 'text-muted-foreground' : 'text-[#DAA640]'}`}>
                             {isMe ? 'Admin Support' : 'Client Representative'}
                           </span>
                           
@@ -529,7 +524,7 @@ export default function AdminMessageDesk() {
                               <button
                                 type="button"
                                 onClick={() => handleUnsendMessage(msg.id)}
-                                className="text-[8px] text-red-400/70 hover:text-red-400 transition-colors uppercase font-bold tracking-wider cursor-pointer font-sans"
+                                className="text-[10px] text-rose-400/70 hover:text-rose-400 transition-colors uppercase font-medium tracking-wider cursor-pointer font-sans"
                                 title="Unsend message"
                               >
                                 Unsend

@@ -54,21 +54,21 @@ interface ClientHealthGridProps {
 
 function getStageBadge(status: string) {
   const map: Record<string, { bg: string; text: string; border: string }> = {
-    Discovery: { bg: 'bg-blue-500/10', text: 'text-blue-400', border: 'border-blue-500/25' },
-    Design: { bg: 'bg-purple-500/10', text: 'text-purple-400', border: 'border-purple-500/25' },
-    Development: { bg: 'bg-amber-500/10', text: 'text-amber-400', border: 'border-amber-500/25' },
-    Revision: { bg: 'bg-orange-500/10', text: 'text-orange-400', border: 'border-orange-500/25' },
-    Complete: { bg: 'bg-green-500/10', text: 'text-green-400', border: 'border-green-500/25' },
+    Discovery: { bg: 'bg-white/5', text: 'text-zinc-300', border: 'border-white/10' },
+    Design: { bg: 'bg-white/5', text: 'text-zinc-300', border: 'border-white/10' },
+    Development: { bg: 'bg-[#DAA640]/10', text: 'text-[#DAA640]', border: 'border-[#DAA640]/25' },
+    Revision: { bg: 'bg-amber-400/10', text: 'text-amber-400', border: 'border-amber-400/25' },
+    Complete: { bg: 'bg-emerald-400/10', text: 'text-emerald-400', border: 'border-emerald-400/25' },
   }
-  return map[status] || { bg: 'bg-gold/10', text: 'text-gold', border: 'border-gold/25' }
+  return map[status] || { bg: 'bg-white/5', text: 'text-zinc-300', border: 'border-white/10' }
 }
 
 function getHealthBorder(project: ProjectWithHealth): string {
   const label = getHealthLabel(project)
-  if (label === 'Blocked') return 'border-l-red-500'
+  if (label === 'Blocked') return 'border-l-rose-500'
   if (label === 'Suspended') return 'border-l-zinc-500'
   if (label === 'Awaiting Client') return 'border-l-amber-400'
-  return 'border-l-green-500'
+  return 'border-l-emerald-500'
 }
 
 /**
@@ -236,19 +236,19 @@ export function ClientHealthGrid({
 
   if (clients.length === 0) {
     return (
-      <section className="p-6 bg-[#111115] rounded-2xl border border-slate-800 flex flex-col items-center justify-center text-center gap-4 min-h-[200px] shadow-xl">
-        <div className="w-12 h-12 rounded-2xl bg-[#18181F] border border-slate-800 flex items-center justify-center">
-          <Users size={22} className="text-[#DCAE53]" />
+      <section className="card-depth p-6 flex flex-col items-center justify-center text-center gap-4 min-h-[200px]">
+        <div className="w-12 h-12 rounded-2xl bg-[#141417] border border-white/10 flex items-center justify-center">
+          <Users size={22} className="text-[#DAA640]" />
         </div>
         <div>
           <p className="text-sm font-semibold text-white mb-1 font-sans">No Active Projects</p>
-          <p className="text-xs text-slate-400 leading-relaxed max-w-xs">
+          <p className="text-xs text-zinc-400 leading-relaxed max-w-xs">
             Deploy a new storefront or automation project from the Projects page to begin tracking.
           </p>
         </div>
         <Link
           href="/admin/projects?create=true&redirect=/admin"
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-xs font-bold text-[#09090B] transition-all duration-200 cursor-pointer shadow-md"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#DAA640] hover:bg-[#F5D90A] text-xs font-bold text-black transition-all duration-200 cursor-pointer"
         >
           <Plus size={12} />
           Deploy New Project
@@ -262,29 +262,30 @@ export function ClientHealthGrid({
       {/* Header */}
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-3">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-slate-400 font-mono flex items-center gap-2">
-            <Users size={13} className="text-[#DCAE53]" />
-            Client Health
+          <h2 className="text-sm font-sans font-bold text-white flex items-center gap-2">
+            <Users size={14} className="text-[#DAA640]" />
+            <span>Client Health</span>
           </h2>
-          <div className="flex items-center gap-1.5 font-mono">
+          <div className="flex items-center gap-2 font-mono">
             {blockedCount > 0 && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-red-500/10 border border-red-500/25 text-[9px] font-bold text-red-400 uppercase tracking-wide">
-                <AlertTriangle size={8} />
+              <span className="inline-flex items-center gap-1 text-[11px] font-mono text-rose-400">
+                <AlertTriangle size={10} />
                 {blockedCount} blocked
               </span>
             )}
             {attentionCount > 0 && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-[9px] font-bold text-amber-400 uppercase tracking-wide">
+              <span className="inline-flex items-center gap-1 text-[11px] font-mono text-amber-400">
                 {attentionCount} awaiting client
               </span>
             )}
             {suspendedCount > 0 && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-zinc-500/10 border border-zinc-500/25 text-[9px] font-bold text-zinc-400 uppercase tracking-wide">
+              <span className="inline-flex items-center gap-1 text-[11px] font-mono text-zinc-400">
                 {suspendedCount} suspended
               </span>
             )}
             {blockedCount === 0 && attentionCount === 0 && suspendedCount === 0 && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-[9px] font-bold text-emerald-400 uppercase tracking-wide">
+              <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-400">
+                <CheckCircle2 size={10} />
                 All clear
               </span>
             )}
@@ -294,7 +295,7 @@ export function ClientHealthGrid({
         {showViewAll && (
           <Link
             href="/admin/clients"
-            className="text-[10px] font-bold uppercase tracking-wider text-[#DCAE53] hover:underline transition-colors shrink-0 font-mono"
+            className="text-xs font-medium text-[#DAA640] hover:underline transition-colors shrink-0 font-mono"
           >
             View All ({clients.length}) →
           </Link>
@@ -332,11 +333,11 @@ export function ClientHealthGrid({
                     <img
                       src={project.clientAvatarUrl}
                       alt={project.client_name}
-                      className="w-9 h-9 rounded-xl object-cover border border-gold/20"
+                      className="w-9 h-9 rounded-xl object-cover border border-white/10"
                     />
                   ) : (
-                    <div className="w-9 h-9 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center">
-                      <span className="text-[11px] font-bold text-gold">{initials}</span>
+                    <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                      <span className="text-[11px] font-bold text-zinc-300">{initials}</span>
                     </div>
                   )}
                   {project.unreadMessageCount > 0 && (
@@ -346,7 +347,7 @@ export function ClientHealthGrid({
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-bold text-foreground truncate group-hover:text-gold transition-colors">
+                  <p className="text-xs font-bold text-white truncate group-hover:text-[#DAA640] transition-colors">
                     {project.client_name}
                   </p>
                   <p className="text-[10px] text-muted-foreground truncate">{project.project_name}</p>
