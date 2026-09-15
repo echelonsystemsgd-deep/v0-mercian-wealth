@@ -4,32 +4,32 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Design Tokens - Mercian Wealth Brand Suite (#020E28 Oxford Navy & #DAA640 Canonical Gold) */
-  --color-bg-primary: #020E28;      /* Oxford Navy Primary Background */
-  --color-bg-secondary: #071536;    /* Deep Navy Card / Section Surface */
-  --color-bg-tertiary: #0C1F4D;     /* Elevated Card / Modal Surface */
+  /* Design Tokens - Motion.dev Obsidian Black & Motion Gold Suite */
+  --color-bg-primary: #050505;      /* Obsidian Matte Black Primary Canvas */
+  --color-bg-secondary: #0B0B0D;    /* Carbon Zinc Card / Section Surface */
+  --color-bg-tertiary: #141417;     /* Elevated Card / Modal / Input Surface */
   --color-accent-purple: #DAA640;   /* Backward-compatible alias mapped to Canonical Gold */
   --color-accent-purple-glow: rgba(218, 166, 64, 0.12); /* Ambient Gold Glow */
-  --color-accent-gold: #DAA640;     /* Canonical Mercian Wealth Gold */
-  --color-accent-gold-muted: rgba(218, 166, 64, 0.35); /* Muted Gold Border */
+  --color-accent-gold: #DAA640;     /* Motion Electric Gold */
+  --color-accent-gold-muted: rgba(218, 166, 64, 0.25); /* Muted Gold Border */
   --color-accent-sage: #10B981;     /* Semantic Success Emerald */
   --color-accent-sage-muted: #059669;
   --color-accent-sage-glow: rgba(16, 185, 129, 0.15);
   --color-accent-sage-bg: rgba(16, 185, 129, 0.10);
   --color-text-primary: #FFFFFF;    /* Pure White Body / Heading Text */
-  --color-text-secondary: #94A3B8;  /* Slate Silver Accent */
+  --color-text-secondary: #A1A1AA;  /* Zinc-400 Dimmed Secondary Text */
   --color-text-gold: #E5B85C;       /* Highlighted Warm Gold Text */
   --color-text-sage: #10B981;       /* Success Emerald Text */
-  --color-border: rgba(218, 166, 64, 0.16); /* Subtle Gold-Navy Border */
-  --color-border-subtle: rgba(255, 255, 255, 0.08); /* Neutral Surface Border */
+  --color-border: rgba(255, 255, 255, 0.08); /* 1px Surgical Border */
+  --color-border-subtle: rgba(255, 255, 255, 0.05); /* Neutral Surface Border */
 
-  /* Strict Semantic Colors */
+  /* Strict Semantic Colors (6px Minimal Indicator System) */
   --semantic-success: #10B981;
   --semantic-warning: #F59E0B;
   --semantic-destructive: #EF4444;
-  --semantic-info: #94A3B8;
+  --semantic-info: #A1A1AA;
 
-  /* Modern High-Tech Theme - Standardized on Mercian Wealth brand variables */
+  /* Modern High-Tech Theme - Standardized on Motion.dev tokens */
   --background: var(--color-bg-primary);
   --foreground: var(--color-text-primary);
   --card: var(--color-bg-secondary);
@@ -37,13 +37,13 @@
   --popover: var(--color-bg-secondary);
   --popover-foreground: var(--color-text-primary);
   --primary: var(--color-accent-gold);
-  --primary-foreground: #020E28;
-  --secondary: var(--color-bg-secondary);
-  --secondary-foreground: var(--color-text-secondary);
-  --muted: var(--color-bg-secondary);
+  --primary-foreground: #050505;
+  --secondary: var(--color-bg-tertiary);
+  --secondary-foreground: var(--color-text-primary);
+  --muted: var(--color-bg-tertiary);
   --muted-foreground: var(--color-text-secondary);
   --accent: var(--color-accent-gold);
-  --accent-foreground: #020E28;
+  --accent-foreground: #050505;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
   --border: var(--color-border);
@@ -60,13 +60,13 @@
   --popover: var(--color-bg-secondary);
   --popover-foreground: var(--color-text-primary);
   --primary: var(--color-accent-gold);
-  --primary-foreground: #020E28;
-  --secondary: var(--color-bg-secondary);
-  --secondary-foreground: var(--color-text-secondary);
-  --muted: var(--color-bg-secondary);
+  --primary-foreground: #050505;
+  --secondary: var(--color-bg-tertiary);
+  --secondary-foreground: var(--color-text-primary);
+  --muted: var(--color-bg-tertiary);
   --muted-foreground: var(--color-text-secondary);
   --accent: var(--color-accent-gold);
-  --accent-foreground: #020E28;
+  --accent-foreground: #050505;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
   --border: var(--color-border);

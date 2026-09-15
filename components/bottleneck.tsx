@@ -30,7 +30,7 @@ export function Bottleneck() {
   ]
 
   return (
-    <section id="bottleneck" className="relative py-16 sm:py-24 overflow-hidden bg-[#09090B]">
+    <section id="bottleneck" className="relative py-16 sm:py-24 overflow-hidden bg-[#050505]">
       {/* Chapter Marker */}
       <SectionDivider chapter="II" title="REVENUE HAEMORRHAGE" />
 
@@ -38,7 +38,7 @@ export function Bottleneck() {
       <div 
         className="absolute inset-0 pointer-events-none z-0"
         style={{
-          background: "radial-gradient(circle at 50% 30%, rgba(220, 174, 83, 0.08) 0%, rgba(9, 9, 11, 0) 60%)"
+          background: "radial-gradient(circle at 50% 30%, rgba(218, 166, 64, 0.08) 0%, rgba(5, 5, 5, 0) 60%)"
         }}
       />
 
@@ -52,16 +52,16 @@ export function Bottleneck() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12 sm:mb-16 max-w-3xl mx-auto"
         >
-          <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.25em] text-[#DCAE53]">
+          <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.25em] text-[#DAA640]">
             [ {data.eyebrow} ]
           </span>
           <h2 className="font-sans text-3xl sm:text-5xl font-extrabold text-white mt-4 leading-[1.15] text-balance">
             {data.headline}
           </h2>
-          <p className="font-sans text-sm sm:text-base text-slate-300 leading-relaxed mt-4 max-w-2xl mx-auto">
+          <p className="font-sans text-sm sm:text-base text-zinc-400 leading-relaxed mt-4 max-w-2xl mx-auto">
             {data.subheadline}
           </p>
-          <p className="font-sans text-xs sm:text-sm text-[#DCAE53] font-medium mt-3 max-w-2xl mx-auto">
+          <p className="font-sans text-xs sm:text-sm text-[#DAA640] font-medium mt-3 max-w-2xl mx-auto">
             {data.goldSlogan}
           </p>
         </motion.div>
@@ -77,15 +77,15 @@ export function Bottleneck() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-5 flex justify-center min-w-0 max-w-full"
           >
-            <div className="relative w-full max-w-lg h-auto bg-[#111115] border border-slate-800 p-4 sm:p-6 rounded-2xl shadow-2xl flex flex-col justify-start items-center overflow-hidden min-w-0 max-w-full">
-              <div className="w-full flex items-center justify-between gap-2 mb-3 pb-3 border-b border-slate-800">
+            <div className="relative w-full max-w-lg h-auto bg-[#0B0B0D] border border-white/10 p-4 sm:p-6 rounded-2xl shadow-2xl flex flex-col justify-start items-center overflow-hidden min-w-0 max-w-full">
+              <div className="w-full flex items-center justify-between gap-2 mb-3 pb-3 border-b border-white/10">
                 <div className="flex items-center gap-2">
-                  <span className={`w-2.5 h-2.5 rounded-full ${isOrdered ? "bg-[#DCAE53] animate-pulse" : "bg-red-500 animate-pulse"}`} />
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-300">
+                  <span className={`w-2.5 h-2.5 rounded-full ${isOrdered ? "bg-[#DAA640] animate-pulse" : "bg-rose-500 animate-pulse"}`} />
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-300">
                     {isOrdered ? data.modeAutomated : data.modeManual}
                   </span>
                 </div>
-                <span className="text-[10px] font-mono text-[#DCAE53]">
+                <span className="text-[10px] font-mono text-[#DAA640]">
                   {isOrdered ? "Pipeline Streamlined" : "High Friction"}
                 </span>
               </div>
@@ -96,14 +96,14 @@ export function Bottleneck() {
                   {/* Connection Lines */}
                   {isOrdered ? (
                     <>
-                      <motion.line x1="50" y1="200" x2="170" y2="200" stroke="rgba(220, 174, 83, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
-                      <motion.line x1="170" y1="200" x2="290" y2="200" stroke="rgba(220, 174, 83, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.2 }} />
-                      <motion.line x1="200" y1="110" x2="170" y2="200" stroke="rgba(220, 174, 83, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
-                      <motion.line x1="200" y1="290" x2="170" y2="200" stroke="rgba(220, 174, 83, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
+                      <motion.line x1="50" y1="200" x2="170" y2="200" stroke="rgba(218, 166, 64, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
+                      <motion.line x1="170" y1="200" x2="290" y2="200" stroke="rgba(218, 166, 64, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.2 }} />
+                      <motion.line x1="200" y1="110" x2="170" y2="200" stroke="rgba(218, 166, 64, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
+                      <motion.line x1="200" y1="290" x2="170" y2="200" stroke="rgba(218, 166, 64, 0.4)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5 }} />
                       {/* Flow pulse dots */}
-                      <motion.circle r="4" fill="#DCAE53" animate={{ cx: [50, 170], cy: [200, 200] }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} />
-                      <motion.circle r="4" fill="#DCAE53" animate={{ cx: [200, 170], cy: [110, 200] }} transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }} />
-                      <motion.circle r="4" fill="#DCAE53" animate={{ cx: [200, 170], cy: [290, 200] }} transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }} />
+                      <motion.circle r="4" fill="#DAA640" animate={{ cx: [50, 170], cy: [200, 200] }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} />
+                      <motion.circle r="4" fill="#DAA640" animate={{ cx: [200, 170], cy: [110, 200] }} transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }} />
+                      <motion.circle r="4" fill="#DAA640" animate={{ cx: [200, 170], cy: [290, 200] }} transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }} />
                     </>
                   ) : (
                     <>
@@ -122,8 +122,8 @@ export function Bottleneck() {
                          cx={isOrdered ? node.order.x : node.chaos.x}
                          cy={isOrdered ? node.order.y : node.chaos.y}
                          r={isOrdered ? "12" : "8"}
-                         fill={isOrdered ? "#18181F" : "#09090B"}
-                         stroke={isOrdered ? "#DCAE53" : "#ef4444"}
+                         fill={isOrdered ? "#141417" : "#050505"}
+                         stroke={isOrdered ? "#DAA640" : "#ef4444"}
                          strokeWidth="2"
                         animate={{
                           cx: isOrdered ? node.order.x : node.chaos.x,
@@ -140,8 +140,8 @@ export function Bottleneck() {
                        cx="170"
                        cy="200"
                        r="16"
-                       fill="#DCAE53"
-                       stroke="#09090B"
+                       fill="#DAA640"
+                       stroke="#050505"
                        strokeWidth="2.5"
                       animate={{ scale: [1, 1.1, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
@@ -151,18 +151,18 @@ export function Bottleneck() {
               </div>
 
               {/* Toggle Switch */}
-              <div className="w-full border-t border-slate-800 pt-4 mt-4 flex flex-col sm:flex-row gap-3 items-center sm:justify-between bg-transparent relative z-20 shrink-0">
-                <span className="text-xs font-semibold text-slate-300">
+              <div className="w-full border-t border-white/10 pt-4 mt-4 flex flex-col sm:flex-row gap-3 items-center sm:justify-between bg-transparent relative z-20 shrink-0">
+                <span className="text-xs font-semibold text-zinc-300">
                   {isOrdered ? "Automated Response Active" : "Manual Scramble Active"}
                 </span>
                 <Button
                   onClick={() => setIsOrdered(!isOrdered)}
                   size="sm"
                   variant={isOrdered ? "default" : "outline"}
-                  className={`w-full sm:w-auto text-xs px-4 py-2 border transition-all shrink-0 cursor-pointer ${
+                  className={`w-full sm:w-auto text-xs px-4 py-2 border transition-all shrink-0 cursor-pointer min-h-[38px] ${
                     isOrdered 
-                      ? "bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C]" 
-                      : "bg-transparent border-red-500/50 text-red-400 hover:bg-red-500/10"
+                      ? "bg-[#DAA640] text-black hover:bg-[#E5B85C]" 
+                      : "bg-transparent border-rose-500/50 text-rose-400 hover:bg-rose-500/10"
                   }`}
                 >
                   {isOrdered ? data.triggerBtnActive : data.triggerBtnInactive}
@@ -184,24 +184,24 @@ export function Bottleneck() {
                 key={idx}
                 className={`p-4 sm:p-5 rounded-xl border transition-all duration-300 ${
                   isOrdered 
-                    ? "bg-[#111115] border-[#DCAE53]/30 shadow-md" 
-                    : "bg-[#18181F] border-slate-800"
+                    ? "bg-[#0B0B0D] border-[#DAA640]/40 shadow-md" 
+                    : "bg-[#0B0B0D] border-white/10"
                 }`}
               >
                 <div className="flex items-start gap-3.5">
-                  <div className={`p-2 rounded-lg shrink-0 mt-0.5 ${isOrdered ? "text-[#DCAE53] bg-[#DCAE53]/10" : "text-red-400 bg-red-500/10"}`}>
+                  <div className={`p-2 rounded-lg shrink-0 mt-0.5 ${isOrdered ? "text-[#DAA640] bg-[#DAA640]/10" : "text-rose-400 bg-rose-500/10"}`}>
                     {isOrdered ? <ShieldCheck size={18} /> : <AlertCircle size={18} />}
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <h3 className="font-sans font-bold text-sm sm:text-base text-white">{card.title}</h3>
                       <span className={`text-[9px] font-mono uppercase px-2 py-0.5 rounded font-bold ${
-                        isOrdered ? "bg-[#DCAE53]/10 text-[#DCAE53]" : "bg-red-500/10 text-red-400"
+                        isOrdered ? "bg-[#DAA640]/10 text-[#DAA640]" : "bg-rose-500/10 text-rose-400"
                       }`}>
                         {card.outcome}
                       </span>
                     </div>
-                    <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    <p className="font-sans text-xs sm:text-sm text-zinc-400 leading-relaxed">
                       {isOrdered ? orderedSolutions[idx] : card.description}
                     </p>
                   </div>
@@ -223,7 +223,7 @@ export function Bottleneck() {
           <Button
             asChild
             size="lg"
-            className="w-full sm:w-auto py-3.5 sm:py-4 px-8 text-sm font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] shadow-lg shadow-[#DCAE53]/20 rounded-lg cursor-pointer"
+            className="w-full sm:w-auto min-h-[44px] py-3.5 sm:py-4 px-8 text-sm font-semibold bg-[#DAA640] text-black hover:bg-[#E5B85C] shadow-lg shadow-[#DAA640]/20 rounded-xl cursor-pointer"
           >
             <Link href="/book" className="flex items-center justify-center gap-2">
               <span>Book a call</span>

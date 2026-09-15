@@ -155,52 +155,52 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
     : comparisonCategories.filter(c => c.id === activeCategoryFilter)
 
   return (
-    <section id="pricing" className="relative py-16 sm:py-24 lg:py-28 overflow-hidden bg-[#09090B]">
-      <div className="absolute -top-40 left-1/4 w-96 h-96 rounded-full bg-[#DCAE53]/5 blur-[120px] pointer-events-none" />
-      <div className="absolute -bottom-40 right-1/4 w-96 h-96 rounded-full bg-[#DCAE53]/5 blur-[120px] pointer-events-none" />
+    <section id="pricing" className="relative py-16 sm:py-24 lg:py-28 overflow-hidden bg-[#050505]">
+      <div className="absolute -top-40 left-1/4 w-96 h-96 rounded-full bg-[#DAA640]/5 blur-[120px] pointer-events-none" />
+      <div className="absolute -bottom-40 right-1/4 w-96 h-96 rounded-full bg-[#DAA640]/5 blur-[120px] pointer-events-none" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10">
         
         {/* Section Header (if isHomepage) */}
         {isHomepage && (
           <div className="text-center mb-10 lg:mb-12 max-w-3xl mx-auto">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#DCAE53] font-mono">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#DAA640] font-mono">
               [ {SITE_COPY.homepage.modelHint.eyebrow} ]
             </span>
             <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white mt-3 mb-3 leading-tight">
               {SITE_COPY.homepage.modelHint.headline}
             </h2>
-            <p className="font-sans text-xs sm:text-sm md:text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-400 max-w-xl mx-auto leading-relaxed">
               {SITE_COPY.homepage.modelHint.description}
             </p>
           </div>
         )}
 
         {/* Engineered Scope & Skin in the Game Framing Banner */}
-        <div className="max-w-3xl mx-auto mb-8 p-4 sm:p-5 rounded-2xl bg-[#111115] border border-[#DCAE53]/30 text-center space-y-1.5 shadow-xl">
-          <span className="text-[10px] font-mono text-[#DCAE53] uppercase tracking-widest font-bold block">
+        <div className="max-w-3xl mx-auto mb-8 p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-white/10 text-center space-y-1.5 shadow-xl">
+          <span className="text-[10px] font-mono text-[#DAA640] uppercase tracking-widest font-bold block">
             ENGINEERED SCOPE · NO GENERIC PRICE TAGS
           </span>
-          <p className="text-xs sm:text-sm text-slate-200 font-sans leading-relaxed">
+          <p className="text-xs sm:text-sm text-zinc-300 font-sans leading-relaxed">
             We do not build generic template sites, and we do not sell one-size-fits-all price tags. Every Mercian Wealth build is custom-engineered to your booking logic, customer volume, and operational bottlenecks. We scope fixed milestones on our discovery call — or, if you qualify, we tie our compensation directly to your growth through our <strong className="text-emerald-400">Revenue Share partnership (5%–10%)</strong>.
           </p>
         </div>
 
         {/* Billing Switcher Header (3 Tabs: Setup -> Retainer -> Revenue Share) */}
         <div className="flex justify-center mb-8 sm:mb-12 relative z-20">
-          <div className="inline-flex items-center justify-center p-1 rounded-xl sm:rounded-full bg-[#111115] border border-[#DCAE53]/25 relative shadow-lg max-w-full">
+          <div className="inline-flex items-center justify-center p-1 rounded-xl sm:rounded-full bg-[#0B0B0D] border border-white/10 relative shadow-lg max-w-full">
             <button
               suppressHydrationWarning
               onClick={() => setBillingCycle("revenueShare")}
-              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer ${
-                billingCycle === "revenueShare" ? "text-[#09090B] font-bold" : "text-slate-300 hover:text-white"
+              className={`px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[10px] sm:text-xs font-semibold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer min-h-[40px] ${
+                billingCycle === "revenueShare" ? "text-black font-bold" : "text-zinc-400 hover:text-white"
               }`}
             >
               {billingCycle === "revenueShare" && (
                 <motion.div
                   layoutId="pricingBillingBg"
-                  className="absolute inset-0 rounded-lg sm:rounded-full bg-[#DCAE53] z-[-1]"
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  className="absolute inset-0 rounded-lg sm:rounded-full bg-[#DAA640] z-[-1]"
+                  transition={{ type: "spring", stiffness: 350, damping: 25 }}
                 />
               )}
               <span className="hidden sm:inline">Revenue Share (5%–10%)</span>
@@ -209,15 +209,15 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
             <button
               suppressHydrationWarning
               onClick={() => setBillingCycle("oneTime")}
-              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer ${
-                billingCycle === "oneTime" ? "text-[#09090B] font-bold" : "text-slate-300 hover:text-white"
+              className={`px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[10px] sm:text-xs font-semibold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer min-h-[40px] ${
+                billingCycle === "oneTime" ? "text-black font-bold" : "text-zinc-400 hover:text-white"
               }`}
             >
               {billingCycle === "oneTime" && (
                 <motion.div
                   layoutId="pricingBillingBg"
-                  className="absolute inset-0 rounded-lg sm:rounded-full bg-[#DCAE53] z-[-1]"
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  className="absolute inset-0 rounded-lg sm:rounded-full bg-[#DAA640] z-[-1]"
+                  transition={{ type: "spring", stiffness: 350, damping: 25 }}
                 />
               )}
               <span className="hidden sm:inline">System Build (Custom Scope)</span>
@@ -226,15 +226,15 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
             <button
               suppressHydrationWarning
               onClick={() => setBillingCycle("monthly")}
-              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer ${
-                billingCycle === "monthly" ? "text-[#09090B] font-bold" : "text-slate-300 hover:text-white"
+              className={`px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[10px] sm:text-xs font-semibold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer min-h-[40px] ${
+                billingCycle === "monthly" ? "text-black font-bold" : "text-zinc-400 hover:text-white"
               }`}
             >
               {billingCycle === "monthly" && (
                 <motion.div
                   layoutId="pricingBillingBg"
-                  className="absolute inset-0 rounded-lg sm:rounded-full bg-[#DCAE53] z-[-1]"
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  className="absolute inset-0 rounded-lg sm:rounded-full bg-[#DAA640] z-[-1]"
+                  transition={{ type: "spring", stiffness: 350, damping: 25 }}
                 />
               )}
               <span className="hidden sm:inline">Growth Retainer (Managed Scope)</span>
@@ -255,12 +255,12 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                 transition={{ duration: 0.35, delay: idx * 0.08 }}
                 className={`flex flex-col relative rounded-2xl sm:rounded-3xl border transition-all duration-300 overflow-hidden ${
                   tier.featured
-                    ? "bg-[#111115] border-[#DCAE53] shadow-2xl shadow-[#DCAE53]/15 lg:-translate-y-2 z-10"
-                    : "bg-[#0c0c0e] border-slate-800/90 hover:border-slate-700 shadow-xl"
+                    ? "bg-[#0B0B0D] border-[#DAA640] shadow-2xl shadow-[#DAA640]/10 lg:-translate-y-2 z-10"
+                    : "bg-[#0B0B0D] border-white/10 hover:border-white/20 shadow-xl"
                 }`}
               >
                 {tier.featured && (
-                  <div className="bg-[#DCAE53] text-[#09090B] py-1.5 px-4 text-center text-[10px] sm:text-xs font-bold uppercase tracking-widest font-mono flex items-center justify-center gap-1.5 shadow-sm">
+                  <div className="bg-[#DAA640] text-black py-1.5 px-4 text-center text-[10px] sm:text-xs font-bold uppercase tracking-widest font-mono flex items-center justify-center gap-1.5 shadow-sm">
                     <Sparkles className="w-3.5 h-3.5" />
                     <span>Most High-Growth UK Operations</span>
                   </div>
@@ -270,7 +270,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                   <CardContent className="p-0 space-y-4 sm:space-y-5">
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-1.5 sm:mb-2">
-                        <span className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider">
+                        <span className="text-xs font-mono font-bold text-[#DAA640] uppercase tracking-wider">
                           [ {tier.highlight || `Tier 0${idx + 1}`} ]
                         </span>
                         {tier.featured && (
@@ -282,26 +282,26 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                       <h3 className="text-lg sm:text-2xl font-bold text-white tracking-tight">
                         {tier.name}
                       </h3>
-                      <p className="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed min-h-[36px]">
+                      <p className="text-xs sm:text-sm text-zinc-400 mt-1 leading-relaxed min-h-[36px]">
                         {tier.description}
                       </p>
                     </div>
 
                     {/* Price Block */}
-                    <div className="py-3 sm:py-4 border-y border-slate-800/80">
+                    <div className="py-3 sm:py-4 border-y border-white/10">
                       <div className="flex items-baseline gap-2 flex-wrap">
                         <span className={`text-xl sm:text-3xl font-extrabold font-mono tracking-tight ${
                           billingCycle === 'revenueShare' ? 'text-emerald-400' : 'text-white'
                         }`}>
                           {tier.price}
                         </span>
-                        <span className="text-xs text-slate-400 font-mono">
+                        <span className="text-xs text-zinc-400 font-mono">
                           {tier.interval}
                         </span>
                       </div>
                       {(tier as any).milestoneBreakdown && (
-                        <div className="mt-2 p-2 rounded-lg bg-[#18181F] border border-slate-800 text-[10px] sm:text-[11px] text-slate-300 leading-relaxed flex items-center gap-2 font-mono">
-                          <span className="text-[#DCAE53] font-bold shrink-0">⚡</span>
+                        <div className="mt-2 p-2 rounded-lg bg-[#141417] border border-white/10 text-[10px] sm:text-[11px] text-zinc-300 leading-relaxed flex items-center gap-2 font-mono">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640] shrink-0" />
                           <span>{(tier as any).milestoneBreakdown}</span>
                         </div>
                       )}
@@ -311,8 +311,8 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                     <div className="space-y-2 sm:space-y-2.5">
                       {tier.features.map((feature: string, i: number) => (
                         <div key={i} className="flex items-start gap-2.5">
-                          <span className="text-[#DCAE53] text-xs sm:text-sm shrink-0 mt-0.5 font-bold">✦</span>
-                          <span className="text-xs text-slate-200 leading-normal font-medium">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640] shrink-0 mt-1.5" />
+                          <span className="text-xs text-zinc-300 leading-normal font-medium">
                             {feature}
                           </span>
                         </div>
@@ -321,14 +321,14 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                   </CardContent>
 
                   {/* Tier Action CTA */}
-                  <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-slate-800/80">
+                  <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-white/10">
                     <Button
                       asChild
                       size="lg"
-                      className={`w-full py-5 text-xs font-bold rounded-xl transition-all ${
+                      className={`w-full min-h-[44px] py-4 text-xs font-semibold rounded-xl transition-all ${
                         tier.featured
-                          ? "bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] shadow-lg shadow-[#DCAE53]/20"
-                          : "border border-[#DCAE53]/40 bg-[#18181F] text-white hover:bg-[#DCAE53] hover:text-[#09090B]"
+                          ? "bg-[#DAA640] hover:bg-[#E5B85C] text-black shadow-lg shadow-[#DAA640]/20"
+                          : "border border-white/10 bg-[#141417] text-white hover:bg-white/10"
                       }`}
                     >
                       <Link href="/book">
@@ -343,48 +343,48 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
         </div>
 
         {/* Scope, Timelines & Additional Charges Transparency Callout */}
-        <div className="mb-12 p-5 sm:p-7 rounded-3xl bg-[#111115] border border-slate-800 shadow-xl space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+        <div className="mb-12 p-5 sm:p-7 rounded-2xl bg-[#0B0B0D] border border-white/10 shadow-xl space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
             <div className="flex items-center gap-2">
-              <span className="p-1 rounded-lg bg-[#DCAE53]/10 text-[#DCAE53]">
+              <span className="p-1 rounded-lg bg-[#141417] text-[#DAA640] border border-white/10">
                 <ShieldCheck className="w-4 h-4" />
               </span>
               <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
                 Deployment Scope &amp; Commercial Terms
               </span>
             </div>
-            <span className="text-[10px] font-mono text-[#DCAE53] bg-[#DCAE53]/10 px-2.5 py-0.5 rounded-full border border-[#DCAE53]/30 w-fit">
+            <span className="text-[10px] font-mono text-[#DAA640] bg-[#DAA640]/10 px-2.5 py-0.5 rounded-full border border-[#DAA640]/30 w-fit">
               100% Upfront Commercial Clarity
             </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-            <div className="p-4 rounded-2xl bg-[#0c0c0e] border border-slate-800/80 space-y-2">
+            <div className="p-4 rounded-xl bg-[#141417] border border-white/10 space-y-2">
               <div className="font-bold text-white flex items-center gap-2">
-                <span>⏱️</span>
+                <Clock className="w-4 h-4 text-[#DAA640]" />
                 <span>Realistic Build Timelines</span>
               </div>
-              <p className="text-slate-300 text-[11px] leading-relaxed">
+              <p className="text-zinc-400 text-[11px] leading-relaxed">
                 We work in rapid agile sprints. Standard setups aim for <strong className="text-white">5–7 business days</strong> once branding and service details are supplied. Complex multi-location portals take 10–14 days depending on technical scope.
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-[#0c0c0e] border border-slate-800/80 space-y-2">
+            <div className="p-4 rounded-xl bg-[#141417] border border-white/10 space-y-2">
               <div className="font-bold text-white flex items-center gap-2">
-                <span>⚡</span>
+                <Zap className="w-4 h-4 text-[#DAA640]" />
                 <span>Cloud Hosting &amp; Bandwidth</span>
               </div>
-              <p className="text-slate-300 text-[11px] leading-relaxed">
+              <p className="text-zinc-400 text-[11px] leading-relaxed">
                 Monthly retainers include unlimited global bandwidth, edge CDN delivery, and continuous speed optimization. Your site never slows down under high traffic spikes.
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-[#0c0c0e] border border-slate-800/80 space-y-2">
+            <div className="p-4 rounded-xl bg-[#141417] border border-white/10 space-y-2">
               <div className="font-bold text-white flex items-center gap-2">
-                <span>🛠️</span>
+                <Sliders className="w-4 h-4 text-[#DAA640]" />
                 <span>Additional Scope &amp; Bespoke Features</span>
               </div>
-              <p className="text-slate-300 text-[11px] leading-relaxed">
+              <p className="text-zinc-400 text-[11px] leading-relaxed">
                 Standard booking flows and WhatsApp alert webhooks are 100% included. Additional locations, custom ERP integrations, or specialized database programming outside agreed specifications are quoted clearly in advance.
               </p>
             </div>
@@ -393,57 +393,57 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
 
         {/* Homepage subtle link or Standalone Detailed Matrix */}
         {isHomepage ? (
-          <div className="pt-8 border-t border-slate-800 text-center flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-slate-400">
-            <span className="font-mono text-[11px] text-[#DCAE53]">
+          <div className="pt-8 border-t border-white/10 text-center flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-zinc-400">
+            <span className="font-mono text-[11px] text-[#DAA640]">
               ✦ 99.98% Website Uptime SLA · Sub-Second Page Speeds Guaranteed
             </span>
             <span className="hidden sm:inline text-white/20">•</span>
             <Link
               href="/pricing"
-              className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white transition-colors font-medium underline underline-offset-4"
+              className="inline-flex items-center gap-1.5 text-zinc-300 hover:text-white transition-colors font-medium underline underline-offset-4 min-h-[40px]"
             >
               <span>View Full Architecture Comparison Matrix</span>
-              <ArrowRight className="w-3.5 h-3.5 text-[#DCAE53]" />
+              <ArrowRight className="w-3.5 h-3.5 text-[#DAA640]" />
             </Link>
           </div>
         ) : (
           /* MODERN FLOATING DROPDOWN ARCHITECTURE MATRIX (No Static Rigid Table) */
-          <div className="border-t border-slate-800 pt-16 mt-4">
+          <div className="border-t border-white/10 pt-16 mt-4">
             
             {/* Header */}
             <div className="text-center mb-8 sm:mb-12">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111115] border border-[#DCAE53]/30 text-[#DCAE53] text-xs font-mono font-semibold tracking-wider uppercase mb-3">
-                <Sliders className="w-3.5 h-3.5 text-[#DCAE53]" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141417] border border-[#DAA640]/30 text-[#DAA640] text-xs font-mono font-semibold tracking-wider uppercase mb-3">
+                <Sliders className="w-3.5 h-3.5 text-[#DAA640]" />
                 <span>Interactive Technical Architecture Matrix</span>
               </div>
               <h3 className="text-2xl sm:text-4xl font-extrabold text-white mb-3 font-sans tracking-tight">
                 Technical Deliverables &amp; SLA Breakdown
               </h3>
-              <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto font-sans leading-relaxed">
+              <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl mx-auto font-sans leading-relaxed">
                 Compare page speed, booking flows, deposit capture, and managed website care SLAs across all tiers.
               </p>
             </div>
 
             {/* FLOATING DROPDOWN & FILTER CONTROL BAR */}
             <div className="sticky top-20 z-30 mb-8 max-w-4xl mx-auto px-2">
-              <div className="p-2 sm:p-2.5 rounded-2xl bg-[#111115] border border-[#DCAE53]/30 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="p-2 sm:p-2.5 rounded-2xl bg-[#111115] border border-[#DAA640]/30 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3">
                 
                 {/* Floating Category Dropdown Menu */}
                 <div className="relative w-full sm:w-auto">
                   <button
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="w-full sm:w-auto flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-[#18181F] border border-slate-800 hover:border-[#DCAE53]/50 text-white font-bold text-xs transition-all cursor-pointer shadow-md"
+                    className="w-full sm:w-auto min-h-[44px] flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-[#141417] border border-white/10 hover:border-[#DAA640]/50 text-white font-semibold text-xs transition-all cursor-pointer shadow-md"
                   >
                     <div className="flex items-center gap-2">
-                      <Filter className="w-3.5 h-3.5 text-[#DCAE53]" />
-                      <span className="text-slate-400 font-normal">Domain:</span>
-                      <span className="text-[#DCAE53]">
+                      <Filter className="w-3.5 h-3.5 text-[#DAA640]" />
+                      <span className="text-zinc-400 font-normal">Domain:</span>
+                      <span className="text-[#DAA640]">
                         {activeCategoryFilter === "all" 
                           ? "All Operational Domains (4)" 
                           : comparisonCategories.find(c => c.id === activeCategoryFilter)?.category}
                       </span>
                     </div>
-                    <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isDropdownOpen ? "rotate-180 text-[#DCAE53]" : ""}`} />
+                    <ChevronDown className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-200 ${isDropdownOpen ? "rotate-180 text-[#DAA640]" : ""}`} />
                   </button>
 
                   <AnimatePresence>
@@ -453,12 +453,12 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 6, scale: 0.98 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute left-0 top-full mt-2 w-full sm:w-72 bg-[#111115] border border-[#DCAE53]/40 rounded-2xl p-2 shadow-2xl z-50 space-y-1"
+                        className="absolute left-0 top-full mt-2 w-full sm:w-72 bg-[#0B0B0D] border border-white/10 rounded-2xl p-2 shadow-2xl z-50 space-y-1"
                       >
                         <button
                           onClick={() => handleSelectDomainFilter("all")}
-                          className={`w-full text-left px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-between cursor-pointer ${
-                            activeCategoryFilter === "all" ? "bg-[#DCAE53] text-[#09090B]" : "text-slate-300 hover:bg-[#18181F] hover:text-white"
+                          className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition-all flex items-center justify-between cursor-pointer min-h-[38px] ${
+                            activeCategoryFilter === "all" ? "bg-[#DAA640] text-black" : "text-zinc-300 hover:bg-white/5 hover:text-white"
                           }`}
                         >
                           <span>All Operational Domains</span>
@@ -468,8 +468,8 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                           <button
                             key={cat.id}
                             onClick={() => handleSelectDomainFilter(cat.id)}
-                            className={`w-full text-left px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-between cursor-pointer ${
-                              activeCategoryFilter === cat.id ? "bg-[#DCAE53] text-[#09090B]" : "text-slate-300 hover:bg-[#18181F] hover:text-white"
+                            className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition-all flex items-center justify-between cursor-pointer min-h-[38px] ${
+                              activeCategoryFilter === cat.id ? "bg-[#DAA640] text-black" : "text-zinc-300 hover:bg-white/5 hover:text-white"
                             }`}
                           >
                             <span className="truncate pr-2">{cat.category}</span>
@@ -481,30 +481,50 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                   </AnimatePresence>
                 </div>
 
-                {/* Tier Focus Pills */}
-                <div className="flex items-center gap-1 sm:gap-1.5 w-full sm:w-auto justify-between sm:justify-start">
-                  <span className="text-[10px] font-mono text-slate-400 mr-1 hidden md:inline">Highlight:</span>
-                  {(["all", "essential", "pro", "custom"] as const).map((tierKey) => (
+                {/* Tier Focus Pills & Expand Control */}
+                <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+                  <div className="flex items-center p-1 rounded-xl bg-[#141417] border border-white/10">
                     <button
-                      key={tierKey}
-                      onClick={() => setActiveTierFocus(tierKey)}
-                      className={`flex-1 sm:flex-none px-2.5 sm:px-3 py-1.5 rounded-lg text-[10px] sm:text-xs font-mono font-bold capitalize transition-all cursor-pointer ${
-                        activeTierFocus === tierKey
-                          ? "bg-[#DCAE53] text-[#09090B] shadow-sm"
-                          : "bg-[#18181F] text-slate-400 hover:text-white border border-slate-800"
+                      onClick={() => setActiveTierFocus("all")}
+                      className={`px-3 py-1 rounded-lg text-[10px] font-mono uppercase font-semibold transition-all cursor-pointer min-h-[32px] ${
+                        activeTierFocus === "all" ? "bg-[#DAA640] text-black" : "text-zinc-400 hover:text-white"
                       }`}
                     >
-                      {tierKey === "all" ? "All 3 Tiers" : tierKey === "essential" ? "Core" : tierKey === "pro" ? "Growth ★" : "Enterprise"}
+                      All Tiers
                     </button>
-                  ))}
+                    <button
+                      onClick={() => setActiveTierFocus("essential")}
+                      className={`px-3 py-1 rounded-lg text-[10px] font-mono uppercase font-semibold transition-all cursor-pointer min-h-[32px] ${
+                        activeTierFocus === "essential" ? "bg-[#DAA640] text-black" : "text-zinc-400 hover:text-white"
+                      }`}
+                    >
+                      Essential
+                    </button>
+                    <button
+                      onClick={() => setActiveTierFocus("pro")}
+                      className={`px-3 py-1 rounded-lg text-[10px] font-mono uppercase font-semibold transition-all cursor-pointer min-h-[32px] ${
+                        activeTierFocus === "pro" ? "bg-[#DAA640] text-black" : "text-zinc-400 hover:text-white"
+                      }`}
+                    >
+                      Pro
+                    </button>
+                    <button
+                      onClick={() => setActiveTierFocus("custom")}
+                      className={`px-3 py-1 rounded-lg text-[10px] font-mono uppercase font-semibold transition-all cursor-pointer min-h-[32px] ${
+                        activeTierFocus === "custom" ? "bg-[#DAA640] text-black" : "text-zinc-400 hover:text-white"
+                      }`}
+                    >
+                      Custom
+                    </button>
+                  </div>
 
                   {/* Expand / Collapse All */}
                   <button
                     onClick={toggleAllCategories}
-                    className="p-1.5 rounded-lg bg-[#18181F] text-slate-400 hover:text-[#DCAE53] border border-slate-800 transition-colors hidden lg:inline-flex"
+                    className="p-2 rounded-xl bg-[#141417] text-zinc-400 hover:text-[#DAA640] border border-white/10 transition-colors hidden lg:inline-flex min-h-[38px] min-w-[38px] items-center justify-center"
                     title="Toggle Expand All"
                   >
-                    <Layers className="w-3.5 h-3.5" />
+                    <Layers className="w-4 h-4" />
                   </button>
                 </div>
 
@@ -521,15 +541,15 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                   <motion.div
                     key={cat.id}
                     layout
-                    className="rounded-2xl sm:rounded-3xl border border-slate-800 bg-[#111115] shadow-xl overflow-hidden transition-all hover:border-[#DCAE53]/35"
+                    className="rounded-2xl border border-white/10 bg-[#0B0B0D] shadow-xl overflow-hidden transition-all hover:border-[#DAA640]/35"
                   >
                     {/* Floating Accordion Header Bar */}
                     <button
                       onClick={() => toggleCategory(cat.id)}
-                      className="w-full p-4 sm:p-6 flex items-center justify-between text-left cursor-pointer transition-colors hover:bg-[#18181F]/40"
+                      className="w-full p-4 sm:p-6 flex items-center justify-between text-left cursor-pointer transition-colors hover:bg-white/5"
                     >
                       <div className="flex items-center gap-3 sm:gap-4">
-                        <div className="p-2.5 sm:p-3 rounded-xl bg-[#18181F] border border-[#DCAE53]/30 text-[#DCAE53] shrink-0 shadow-md">
+                        <div className="p-2.5 sm:p-3 rounded-xl bg-[#141417] border border-white/10 text-[#DAA640] shrink-0 shadow-md">
                           <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />
                         </div>
                         <div>
@@ -537,21 +557,21 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                             <h4 className="text-sm sm:text-base font-bold text-white tracking-tight">
                               {cat.category}
                             </h4>
-                            <span className="hidden sm:inline-block font-mono text-[9px] text-[#DCAE53] bg-[#DCAE53]/10 px-2 py-0.5 rounded border border-[#DCAE53]/25 uppercase font-bold">
+                            <span className="hidden sm:inline-block font-mono text-[9px] text-[#DAA640] bg-[#DAA640]/10 px-2 py-0.5 rounded border border-[#DAA640]/25 uppercase font-bold">
                               {cat.badge}
                             </span>
                           </div>
-                          <p className="text-[11px] sm:text-xs text-slate-400 max-w-xl">
+                          <p className="text-[11px] sm:text-xs text-zinc-400 max-w-xl">
                             {cat.description}
                           </p>
                         </div>
                       </div>
 
                       <div className="flex items-center gap-3 shrink-0">
-                        <span className="font-mono text-[10px] text-slate-400 hidden sm:inline">
+                        <span className="font-mono text-[10px] text-zinc-400 hidden sm:inline">
                           {isOpen ? "Collapse" : "Expand Specs"}
                         </span>
-                        <div className={`p-1.5 sm:p-2 rounded-full border border-slate-800 bg-[#18181F] text-slate-300 transition-transform duration-300 ${isOpen ? "rotate-180 text-[#DCAE53]" : ""}`}>
+                        <div className={`p-1.5 sm:p-2 rounded-full border border-white/10 bg-[#141417] text-zinc-300 transition-transform duration-300 ${isOpen ? "rotate-180 text-[#DAA640]" : ""}`}>
                           <ChevronDown className="w-4 h-4" />
                         </div>
                       </div>
@@ -565,23 +585,23 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                           animate={{ opacity: 1, height: "auto" }}
                           exit={{ opacity: 0, height: 0 }}
                           transition={{ duration: 0.25 }}
-                          className="border-t border-slate-800/80 px-4 sm:px-6 py-4 space-y-4"
+                          className="border-t border-white/10 px-4 sm:px-6 py-4 space-y-4"
                         >
                           {cat.items.map((item, itemIdx) => (
                             <div
                               key={itemIdx}
-                              className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#0c0c0e] border border-slate-800/80 hover:border-slate-700 transition-all space-y-3"
+                              className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#141417] border border-white/10 hover:border-white/20 transition-all space-y-3"
                             >
                               {/* Capability Header */}
                               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                                 <div className="flex items-center gap-2">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-[#DCAE53]" />
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" />
                                   <h5 className="font-bold text-xs sm:text-sm text-white">
                                     {item.name}
                                   </h5>
                                 </div>
                                 {item.detail && (
-                                  <span className="text-[10px] sm:text-[11px] text-slate-400 font-mono">
+                                  <span className="text-[10px] sm:text-[11px] text-zinc-400 font-mono">
                                     {item.detail}
                                   </span>
                                 )}
@@ -594,11 +614,11 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                                 <div
                                   className={`p-3 rounded-xl border transition-all ${
                                     activeTierFocus === "essential" || activeTierFocus === "all"
-                                      ? "bg-[#111115] border-slate-800 text-slate-200"
-                                      : "bg-[#09090b] border-slate-900 opacity-40 text-slate-500"
+                                      ? "bg-[#0B0B0D] border-white/10 text-zinc-200"
+                                      : "bg-[#050505] border-white/5 opacity-40 text-zinc-600"
                                   }`}
                                 >
-                                  <div className="text-[9px] font-mono text-slate-400 uppercase font-bold mb-1">
+                                  <div className="text-[9px] font-mono text-zinc-400 uppercase font-bold mb-1">
                                     Essential Build
                                   </div>
                                   <div className="text-xs font-semibold">
@@ -610,15 +630,15 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                                 <div
                                   className={`p-3 rounded-xl border relative transition-all ${
                                     activeTierFocus === "pro" || activeTierFocus === "all"
-                                      ? "bg-[#DCAE53]/10 border-[#DCAE53]/50 shadow-md text-white"
-                                      : "bg-[#09090b] border-slate-900 opacity-40 text-slate-500"
+                                      ? "bg-[#DAA640]/10 border-[#DAA640]/50 shadow-md text-white"
+                                      : "bg-[#050505] border-white/5 opacity-40 text-zinc-600"
                                   }`}
                                 >
                                   <div className="flex items-center justify-between mb-1">
-                                    <span className="text-[9px] font-mono text-[#DCAE53] uppercase font-bold">
+                                    <span className="text-[9px] font-mono text-[#DAA640] uppercase font-bold">
                                       Growth System
                                     </span>
-                                    <span className="text-[8px] font-mono text-[#09090B] bg-[#DCAE53] px-1.5 rounded font-bold">
+                                    <span className="text-[8px] font-mono text-black bg-[#DAA640] px-1.5 rounded font-bold">
                                       RECOMMENDED
                                     </span>
                                   </div>
@@ -631,14 +651,14 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                                 <div
                                   className={`p-3 rounded-xl border transition-all ${
                                     activeTierFocus === "custom" || activeTierFocus === "all"
-                                      ? "bg-[#111115] border-slate-800 text-slate-200"
-                                      : "bg-[#09090b] border-slate-900 opacity-40 text-slate-500"
+                                      ? "bg-[#0B0B0D] border-white/10 text-zinc-200"
+                                      : "bg-[#050505] border-white/5 opacity-40 text-zinc-600"
                                   }`}
                                 >
-                                  <div className="text-[9px] font-mono text-slate-400 uppercase font-bold mb-1">
+                                  <div className="text-[9px] font-mono text-zinc-400 uppercase font-bold mb-1">
                                     Flagship Custom
                                   </div>
-                                  <div className="text-xs font-semibold text-slate-300">
+                                  <div className="text-xs font-semibold text-zinc-300">
                                     {item.custom}
                                   </div>
                                 </div>

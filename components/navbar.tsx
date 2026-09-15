@@ -166,13 +166,13 @@ export function Navbar() {
         <LiveTelemetryTicker />
       </div>
 
-      {/* Floating Pill Navbar Container (Solid Opaque, No Glassmorphism) */}
+      {/* Floating Pill Navbar Container (Carbon Zinc Surface) */}
       <div className="w-full flex justify-center px-3 sm:px-6 pt-2 sm:pt-3">
         <header
-          className={`pointer-events-auto w-full max-w-7xl transition-all duration-200 rounded-full border bg-[#09090B] shadow-2xl ${
+          className={`pointer-events-auto w-full max-w-7xl transition-all duration-200 rounded-full border bg-[#0B0B0D] shadow-2xl ${
             isScrolled
-              ? "border-[#DCAE53]/40 py-2 px-4 sm:px-6"
-              : "border-slate-800 py-2.5 px-4 sm:px-6"
+              ? "border-white/20 py-2 px-4 sm:px-6"
+              : "border-white/10 py-2.5 px-4 sm:px-6"
           } flex items-center justify-between flex-nowrap`}
         >
           {/* Brand Logo & Name */}
@@ -472,10 +472,10 @@ export function Navbar() {
             {/* Mobile Menu Hamburger Pill */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#18181F] text-slate-200 hover:text-white border border-[#DCAE53]/30 text-xs font-semibold transition-all cursor-pointer shadow-md"
+              className="lg:hidden min-h-[44px] flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#141417] text-zinc-200 hover:text-white border border-white/10 text-xs font-semibold transition-all cursor-pointer shadow-md"
               aria-label="Toggle Navigation Menu"
             >
-              {isMobileMenuOpen ? <X className="w-4 h-4 text-[#DCAE53]" /> : <Menu className="w-4 h-4 text-[#DCAE53]" />}
+              {isMobileMenuOpen ? <X className="w-4 h-4 text-[#DAA640]" /> : <Menu className="w-4 h-4 text-[#DAA640]" />}
               <span className="text-[11px] font-mono uppercase tracking-wider">{isMobileMenuOpen ? "Close" : "Menu"}</span>
             </button>
 
@@ -507,11 +507,11 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 300 }}
-              className="relative w-full max-w-[320px] sm:max-w-[360px] h-full bg-[#0c0c10] border-l border-slate-800 shadow-2xl flex flex-col justify-between p-4 sm:p-6 z-10 overflow-y-auto overscroll-contain touch-pan-y font-sans"
+              className="relative w-full max-w-[320px] sm:max-w-[360px] h-full bg-[#0B0B0D] border-l border-white/10 shadow-2xl flex flex-col justify-between p-4 sm:p-6 z-10 overflow-y-auto overscroll-contain touch-pan-y font-sans"
             >
               {/* Top Header */}
               <div>
-                <div className="flex items-center justify-between border-b border-slate-800/80 pb-4 mb-5">
+                <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-5">
                   <Link
                     href="/"
                     onClick={(e) => {
@@ -520,28 +520,28 @@ export function Navbar() {
                     }}
                     className="flex items-center gap-2.5"
                   >
-                    <div className="relative h-8 w-8 rounded-lg overflow-hidden border border-[#DCAE53]/40 shadow-md">
+                    <div className="relative h-8 w-8 rounded-lg overflow-hidden border border-[#DAA640]/40 shadow-md">
                       <BrandLogo variant="watermark" alt="Mercian Wealth" fill className="object-cover" priority />
                     </div>
                     <span className="font-sans text-sm font-extrabold tracking-tight text-white flex items-center gap-1 uppercase">
                       <span>Mercian</span>
-                      <span className="text-[#DCAE53]">Wealth</span>
+                      <span className="text-[#DAA640]">Wealth</span>
                     </span>
                   </Link>
 
                   <button
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="p-2 rounded-full bg-[#18181F] text-slate-300 hover:text-white border border-slate-800 hover:border-[#DCAE53]/40 transition-colors cursor-pointer"
+                    className="p-2 rounded-full bg-[#141417] text-zinc-300 hover:text-white border border-white/10 transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
                     aria-label="Close Navigation Menu"
                   >
-                    <X className="w-5 h-5 text-slate-300" />
+                    <X className="w-5 h-5 text-zinc-300" />
                   </button>
                 </div>
 
                 {/* Mission Badge */}
-                <div className="mb-5 p-3 rounded-xl bg-[#111115] border border-[#DCAE53]/25 flex items-center gap-2.5 text-xs">
+                <div className="mb-5 p-3 rounded-xl bg-[#141417] border border-white/10 flex items-center gap-2.5 text-xs">
                   <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                  <span className="text-[11px] font-mono text-slate-300">
+                  <span className="text-[11px] font-mono text-zinc-400">
                     24/7 AI Voice · Chatbots · Workflow Automation
                   </span>
                 </div>
@@ -564,17 +564,17 @@ export function Navbar() {
                         key={item.name}
                         href={item.href}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`flex items-center justify-between px-3.5 py-3 rounded-xl transition-all group cursor-pointer ${
+                        className={`flex items-center justify-between px-3.5 py-3 rounded-xl transition-all group cursor-pointer min-h-[44px] ${
                           isActive
-                            ? "bg-[#DCAE53]/15 text-[#DCAE53] font-bold border border-[#DCAE53]/30"
-                            : "text-slate-200 hover:bg-[#18181F] hover:text-white border border-transparent"
+                            ? "bg-[#DAA640]/15 text-[#DAA640] font-bold border border-[#DAA640]/30"
+                            : "text-zinc-300 hover:bg-white/5 hover:text-white border border-transparent"
                         }`}
                       >
                         <div className="flex items-center gap-3">
                           <div className={`p-2 rounded-lg border transition-colors ${
                             isActive 
-                              ? "bg-[#DCAE53] text-[#09090B] border-[#DCAE53]" 
-                              : "bg-[#18181F] text-[#DCAE53] border-slate-800 group-hover:border-[#DCAE53]/40"
+                              ? "bg-[#DAA640] text-black border-[#DAA640]" 
+                              : "bg-[#141417] text-[#DAA640] border-white/10 group-hover:border-[#DAA640]/40"
                           }`}>
                             <Icon className="w-4 h-4" />
                           </div>
@@ -583,11 +583,11 @@ export function Navbar() {
 
                         <div className="flex items-center gap-2">
                           {item.badge && (
-                            <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#18181F] border border-slate-800 text-slate-400 group-hover:text-[#DCAE53] transition-colors">
+                            <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#141417] border border-white/10 text-zinc-400 group-hover:text-[#DAA640] transition-colors">
                               {item.badge}
                             </span>
                           )}
-                          <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                          <ChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
                         </div>
                       </Link>
                     )
@@ -596,22 +596,22 @@ export function Navbar() {
               </div>
 
               {/* Bottom Action Deck */}
-              <div className="pt-5 border-t border-slate-800/80 shrink-0 space-y-2.5">
+              <div className="pt-5 border-t border-white/10 shrink-0 space-y-2.5">
                 <Link
                   href="/book"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full py-3.5 px-4 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-xs uppercase tracking-wider text-center shadow-lg shadow-[#DCAE53]/20 flex items-center justify-center gap-2 transition-all cursor-pointer"
+                  className="w-full py-3.5 px-4 rounded-xl bg-[#DAA640] hover:bg-[#E5B85C] text-black font-bold text-xs uppercase tracking-wider text-center shadow-lg shadow-[#DAA640]/20 flex items-center justify-center gap-2 transition-all cursor-pointer min-h-[44px]"
                 >
-                  <span>Book a call</span>
+                  <span>Book a Consultation</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
                 <div className="grid grid-cols-2 gap-2">
                   <a
                     href="tel:+447851055929"
-                    className="py-2.5 px-3 rounded-xl bg-[#18181F] hover:bg-[#22222d] text-slate-300 hover:text-white border border-slate-800 text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                    className="py-2.5 px-3 rounded-xl bg-[#141417] hover:bg-[#1c1c22] text-zinc-300 hover:text-white border border-white/10 text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors cursor-pointer min-h-[44px]"
                   >
-                    <PhoneCall className="w-3.5 h-3.5 text-[#DCAE53]" />
+                    <PhoneCall className="w-3.5 h-3.5 text-[#DAA640]" />
                     <span>Call Direct</span>
                   </a>
 
@@ -619,19 +619,19 @@ export function Navbar() {
                     href={SITE_COPY.navbar.whatsappHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-2.5 px-3 rounded-xl bg-[#18181F] hover:bg-[#22222d] text-slate-300 hover:text-white border border-slate-800 text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                    className="py-2.5 px-3 rounded-xl bg-[#141417] hover:bg-[#1c1c22] text-zinc-300 hover:text-white border border-white/10 text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors cursor-pointer min-h-[44px]"
                   >
-                    <MessageSquare className="w-3.5 h-3.5 text-[#DCAE53]" />
+                    <MessageSquare className="w-3.5 h-3.5 text-[#DAA640]" />
                     <span>WhatsApp</span>
                   </a>
                 </div>
 
-                <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 pt-2 px-1">
-                  <span>Berkshire, UK</span>
+                <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 pt-2 px-1">
+                  <span>Berkshire &amp; London, UK</span>
                   <Link
                     href="/login"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-slate-400 hover:text-[#DCAE53] transition-colors"
+                    className="text-zinc-400 hover:text-[#DAA640] transition-colors"
                   >
                     Client Login →
                   </Link>

@@ -24,7 +24,7 @@ export default async function Home() {
   const { setupTiers, retainerTiers } = await getPricingTiers()
 
   return (
-    <main className="min-h-screen bg-[#09090B] text-slate-100 overflow-x-hidden font-sans">
+    <main className="min-h-screen bg-[#050505] text-white overflow-x-hidden font-sans selection:bg-[#DAA640] selection:text-black">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

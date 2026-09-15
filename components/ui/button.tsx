@@ -10,24 +10,24 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-gradient-to-r from-[#D9A74A] via-[#E5A93C] to-[#B8860B] text-slate-950 border border-amber-300/40 rounded-xl hover:from-[#E5A93C] hover:to-[#D9A74A] hover:shadow-[0_0_20px_rgba(217,167,74,0.35)] font-bold tracking-wider uppercase transition-all duration-300 shadow-lg',
+          'bg-[#DAA640] hover:bg-[#E5B85C] text-black font-semibold rounded-xl border border-[#DAA640]/40 transition-all duration-200 shadow-md hover:shadow-[0_0_15px_rgba(218,166,64,0.25)]',
         destructive:
-          'bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 rounded-xl',
+          'bg-rose-600/90 text-white hover:bg-rose-600 border border-rose-500/20 focus-visible:ring-rose-500/20 rounded-xl transition-all',
         outline:
-          'bg-slate-900/80 border border-[#D9A74A]/40 text-white hover:bg-[#D9A74A]/10 hover:border-[#D9A74A] rounded-xl font-bold tracking-wider uppercase transition-all duration-300',
+          'bg-transparent border border-white/10 hover:bg-white/5 text-zinc-200 hover:text-white rounded-xl font-medium transition-all duration-200',
         secondary:
-          'bg-[#0D1635] text-slate-300 border border-[#D9A74A]/20 hover:bg-[#131E42] hover:text-white rounded-xl transition-all duration-300',
+          'bg-[#141417] text-zinc-200 border border-white/10 hover:bg-[#1C1C22] hover:text-white rounded-xl font-medium transition-all duration-200',
         ghost:
-          'hover:bg-[#0D1635] hover:text-[#D9A74A] rounded-xl transition-all duration-300',
-        link: 'text-[#D9A74A] underline-offset-4 hover:underline rounded-xl',
+          'hover:bg-white/5 text-zinc-300 hover:text-white rounded-xl transition-all duration-200',
+        link: 'text-[#DAA640] underline-offset-4 hover:underline rounded-xl',
       },
       size: {
-        default: 'h-10 px-5 py-2.5 has-[>svg]:px-3.5',
-        sm: 'h-8 gap-1.5 px-3 has-[>svg]:px-2.5 text-xs',
-        lg: 'h-14 px-8 py-4 has-[>svg]:px-6 text-sm',
+        default: 'h-10 px-4 py-2 has-[>svg]:px-3 text-sm',
+        sm: 'h-8 gap-1.5 px-3 has-[>svg]:px-2 text-xs',
+        lg: 'h-12 px-6 py-3 has-[>svg]:px-5 text-sm font-semibold',
         icon: 'size-10',
         'icon-sm': 'size-8',
-        'icon-lg': 'size-14',
+        'icon-lg': 'size-12',
       },
     },
     defaultVariants: {

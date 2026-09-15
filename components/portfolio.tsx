@@ -523,22 +523,22 @@ export function Portfolio({ limit }: { limit?: number }) {
 
   return (
     <>
-      <section id="portfolio" className="relative py-20 lg:py-28 overflow-hidden bg-[#09090B] border-t border-slate-800/80">
+      <section id="portfolio" className="relative py-20 lg:py-28 overflow-hidden bg-[#050505] border-t border-white/10">
         {/* Ambient background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#DCAE53]/5 rounded-full blur-[140px] pointer-events-none z-0" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#DAA640]/5 rounded-full blur-[140px] pointer-events-none z-0" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10">
           
           {/* Section Header */}
           <div className="text-center mb-12 sm:mb-14">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#111115] border border-[#DCAE53]/30 text-[#DCAE53] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-3">
-              <Sparkles size={13} className="text-[#DCAE53]" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#141417] border border-[#DAA640]/30 text-[#DAA640] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-3">
+              <Sparkles size={13} className="text-[#DAA640]" />
               <span>[ SYSTEM IV · INTERACTIVE PROTOTYPE BUILDS ]</span>
             </div>
             <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4 tracking-tight">
               Websites Engineered to Convert Visitors
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+            <p className="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
               Every prototype is live, responsive, and ready for you to test. Hover over any card to stop the animation and launch the interactive sandbox.
             </p>
 
@@ -547,7 +547,7 @@ export function Portfolio({ limit }: { limit?: number }) {
               <button
                 type="button"
                 onClick={() => setIsPaused((prev) => !prev)}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#111115] border border-slate-800 hover:border-[#DCAE53]/50 text-slate-300 hover:text-white transition-all text-xs font-mono cursor-pointer"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141417] border border-white/10 hover:border-[#DAA640]/50 text-zinc-300 hover:text-white transition-all text-xs font-mono cursor-pointer min-h-[36px]"
                 title={isPaused ? "Resume auto-scroll" : "Pause auto-scroll"}
               >
                 {isPaused ? (
@@ -557,8 +557,8 @@ export function Portfolio({ limit }: { limit?: number }) {
                   </>
                 ) : (
                   <>
-                    <Pause size={12} className="text-[#DCAE53]" />
-                    <span className="text-[11px] text-slate-400">Moving Carousel · Hover to Stop</span>
+                    <Pause size={12} className="text-[#DAA640]" />
+                    <span className="text-[11px] text-zinc-400">Moving Carousel · Hover to Stop</span>
                   </>
                 )}
               </button>
@@ -568,7 +568,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                   type="button"
                   onClick={() => handleScroll("left")}
                   aria-label="Previous Build"
-                  className="w-8 h-8 rounded-full bg-[#111115] border border-slate-800 hover:border-[#DCAE53] text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
+                  className="w-9 h-9 rounded-full bg-[#141417] border border-white/10 hover:border-[#DAA640] text-zinc-300 hover:text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
                 >
                   <ChevronLeft size={16} />
                 </button>
@@ -576,7 +576,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                   type="button"
                   onClick={() => handleScroll("right")}
                   aria-label="Next Build"
-                  className="w-8 h-8 rounded-full bg-[#111115] border border-slate-800 hover:border-[#DCAE53] text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
+                  className="w-9 h-9 rounded-full bg-[#141417] border border-white/10 hover:border-[#DAA640] text-zinc-300 hover:text-white flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-95"
                 >
                   <ChevronRight size={16} />
                 </button>
@@ -588,8 +588,8 @@ export function Portfolio({ limit }: { limit?: number }) {
         {/* Continuous Moving Carousel Track with Card-Level Hover Pause */}
         <div className="relative w-full overflow-hidden py-4 z-10">
           {/* Edge fade gradients for luxury seamless transition */}
-          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-r from-[#09090B] to-transparent z-20 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-l from-[#09090B] to-transparent z-20 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-r from-[#050505] to-transparent z-20 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-l from-[#050505] to-transparent z-20 pointer-events-none" />
 
           <div
             ref={scrollRef}
@@ -610,7 +610,7 @@ export function Portfolio({ limit }: { limit?: number }) {
               return (
                 <div
                   key={`${item.title}-${index}`}
-                  className="portfolio-card group relative flex-shrink-0 w-[85vw] sm:w-[500px] md:w-[560px] lg:w-[600px] aspect-[16/10] rounded-2xl border border-slate-800 hover:border-[#DCAE53] transition-all duration-300 bg-[#111115] overflow-hidden shadow-2xl cursor-pointer"
+                  className="portfolio-card group relative flex-shrink-0 w-[85vw] sm:w-[500px] md:w-[560px] lg:w-[600px] aspect-[16/10] rounded-2xl border border-white/10 hover:border-[#DAA640] transition-all duration-300 bg-[#0B0B0D] overflow-hidden shadow-2xl cursor-pointer"
                   onMouseEnter={() => setIsPaused(true)}
                   onMouseLeave={() => setIsPaused(false)}
                   onClick={() => {
