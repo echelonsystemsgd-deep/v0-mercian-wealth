@@ -116,7 +116,8 @@
       "position": [
         1100,
         220
-      ]
+      ],
+      "continueOnFail": true
     },
     {
       "parameters": {

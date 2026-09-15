@@ -13,6 +13,63 @@
 var SUPABASE_URL = "https://ladebhmyywkcqtyazxxk.supabase.co";
 var SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhZGViaG15eXdrY3F0eWF6eHhrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTY4NTAzNSwiZXhwIjoyMDk3MjYxMDM1fQ.m_FBVwQCgj9OWqz1dajV7pGpoA5yF1Hyir71gibCKEE";
 
+/**
+ * Webhook endpoint for n8n: Receives incoming scraped lead objects and appends to Sheet
+ */
+function doPost(e) {
+  try {
+    var lock = LockService.getScriptLock();
+    lock.waitLock(30000);
+    
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getActiveSheet();
+    
+    var raw = (e && e.postData && e.postData.contents) ? e.postData.contents : '{}';
+    var data = JSON.parse(raw);
+    
+    // Auto-create header row if sheet is completely empty
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow([
+        'Business Name', 'Phone', 'Channel', 'WhatsApp Link', 'Reviews',
+        'Rating', 'Website', 'Address', 'Trade', 'Classification',
+        'Stage 1 Opener', 'Stage 2 Pitch', 'Follow Up 1', 'Follow Up Final', 'Status'
+      ]);
+    }
+    
+    var row = [
+      data['Business Name'] || data.business_name || '',
+      data['Phone'] || data.phone || '',
+      data['Channel'] || '',
+      data['WhatsApp Link'] || data.whatsapp_direct_url || '',
+      data['Reviews'] || data.reviews || 0,
+      data['Rating'] || data.rating || 5.0,
+      data['Website'] || data.website || 'None',
+      data['Address'] || data.address || '',
+      data['Trade'] || data.trade || '',
+      data['Classification'] || data.classification || '',
+      data['Stage 1 Opener'] || '',
+      data['Stage 2 Pitch'] || '',
+      data['Follow Up 1'] || '',
+      data['Follow Up Final'] || '',
+      data['Status'] || 'New'
+    ];
+    
+    sheet.appendRow(row);
+    lock.releaseLock();
+    
+    return ContentService.createTextOutput(JSON.stringify({ status: 'success', row: sheet.getLastRow() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ status: 'error', error: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({ status: 'ok', service: 'Mercian Wealth Lead Sync' }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
 function onOpen() {
   var ui = SpreadsheetApp.getUi();
   ui.createMenu('Mercian Wealth')
