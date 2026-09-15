@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { motion } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
 import {
   User, Shield, UserX, UserCheck, Save, Loader2, Key, Check, AlertCircle, Upload, Settings, Calendar, CheckCircle2, ScrollText, Sparkles, Flame, Megaphone, Copy
@@ -252,100 +253,79 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="space-y-6 sm:space-y-10 relative">
+    <div className="space-y-6 sm:space-y-8 relative">
       {toast && (
-        <div className="fixed top-4 left-4 z-50 px-4 py-3 rounded-xl bg-green-500/15 border border-green-500/30 text-sm font-medium text-green-400 shadow-xl flex items-center gap-2 animate-fade-in">
-          <CheckCircle2 size={14} className="text-green-400" /> {toast}
+        <div className="fixed top-4 left-4 z-50 px-4 py-3 rounded-xl bg-[#0B0B0D]/95 border border-emerald-500/30 text-sm font-medium text-emerald-400 shadow-2xl flex items-center gap-2 animate-fade-in backdrop-blur-md">
+          <CheckCircle2 size={16} className="text-emerald-400" /> {toast}
         </div>
       )}
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-bold tracking-[0.2em] text-gold/80 uppercase">
+          <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#DAA640] uppercase">
             <Settings size={12} /> System Console Panel
           </div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-foreground mt-1">Settings</h1>
-          <p className="text-sm text-muted-foreground">Configure your personal profile, team permissions, cohort scarcity, and sitewide telemetry.</p>
+          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white mt-1">Settings</h1>
+          <p className="text-sm text-zinc-400">Configure personal profile, team permissions, cohort scarcity, and integrations.</p>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex border-b border-gold/15 overflow-x-auto scrollbar-none gap-1 sm:gap-2 pb-0.5">
-        <button
-          onClick={() => setActiveTab('profile')}
-          className={`px-4 py-2.5 border-b-2 text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
-            activeTab === 'profile'
-              ? 'border-gold text-gold bg-gold/10 rounded-t-lg'
-              : 'border-transparent text-muted-foreground hover:text-foreground'
-          }`}
-        >
-          <User size={14} /> Profile
-        </button>
-        <button
-          onClick={() => setActiveTab('cohort')}
-          className={`px-4 py-2.5 border-b-2 text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
-            activeTab === 'cohort'
-              ? 'border-gold text-gold bg-gold/10 rounded-t-lg'
-              : 'border-transparent text-muted-foreground hover:text-foreground'
-          }`}
-        >
-          <Flame size={14} /> Cohort & Scarcity
-        </button>
-        <button
-          onClick={() => setActiveTab('team')}
-          className={`px-4 py-2.5 border-b-2 text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
-            activeTab === 'team'
-              ? 'border-gold text-gold bg-gold/10 rounded-t-lg'
-              : 'border-transparent text-muted-foreground hover:text-foreground'
-          }`}
-        >
-          <Shield size={14} /> Team
-        </button>
-        <button
-          onClick={() => setActiveTab('system')}
-          className={`px-4 py-2.5 border-b-2 text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
-            activeTab === 'system'
-              ? 'border-gold text-gold bg-gold/10 rounded-t-lg'
-              : 'border-transparent text-muted-foreground hover:text-foreground'
-          }`}
-        >
-          <Settings size={14} /> Integrations
-        </button>
-        <button
-          onClick={() => setActiveTab('logs')}
-          className={`px-4 py-2.5 border-b-2 text-xs sm:text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
-            activeTab === 'logs'
-              ? 'border-gold text-gold bg-gold/10 rounded-t-lg'
-              : 'border-transparent text-muted-foreground hover:text-foreground'
-          }`}
-        >
-          <ScrollText size={14} /> Logs
-        </button>
+      {/* Motion Tabs */}
+      <div className="p-1 rounded-2xl bg-[#0B0B0D] border border-white/10 w-fit overflow-x-auto max-w-full flex items-center gap-1">
+        {[
+          { key: 'profile', label: 'Profile', icon: User },
+          { key: 'cohort', label: 'Cohort & Scarcity', icon: Megaphone },
+          { key: 'team', label: 'Team', icon: Shield },
+          { key: 'system', label: 'Integrations', icon: Settings },
+          { key: 'logs', label: 'Logs', icon: ScrollText },
+        ].map((t) => {
+          const isActive = activeTab === t.key
+          const Icon = t.icon
+          return (
+            <button
+              key={t.key}
+              onClick={() => setActiveTab(t.key as any)}
+              className={`relative px-4 py-2 rounded-xl text-xs font-medium transition-colors cursor-pointer flex items-center gap-2 whitespace-nowrap ${
+                isActive ? 'text-white font-semibold' : 'text-zinc-400 hover:text-white'
+              }`}
+            >
+              {isActive && (
+                <motion.div
+                  layoutId="activeSettingsTab"
+                  className="absolute inset-0 bg-[#141417] border border-white/15 rounded-xl shadow-sm"
+                  transition={{ type: 'spring', bounce: 0.2, duration: 0.35 }}
+                />
+              )}
+              <Icon size={14} className="relative z-10" />
+              <span className="relative z-10">{t.label}</span>
+            </button>
+          )
+        })}
       </div>
 
       {loading ? (
-        <div className="glass rounded-2xl border border-gold/10 p-12 flex flex-col items-center justify-center space-y-4">
-          <Loader2 size={36} className="text-gold animate-spin" />
-          <p className="text-sm text-muted-foreground animate-pulse">Loading settings panel...</p>
+        <div className="rounded-2xl bg-[#0B0B0D] border border-white/10 p-12 flex flex-col items-center justify-center space-y-4">
+          <Loader2 size={32} className="text-[#DAA640] animate-spin" />
+          <p className="text-sm text-zinc-400 font-mono animate-pulse">Loading settings...</p>
         </div>
       ) : (
         <div className="space-y-6">
           {activeTab === 'profile' && currentUser && (
-            <div className="glass rounded-2xl border border-gold/15 p-5 sm:p-6 max-w-2xl space-y-5">
-              <h2 className="font-serif text-lg sm:text-xl font-bold text-foreground">Edit Profile Information</h2>
+            <div className="rounded-2xl bg-[#0B0B0D] border border-white/10 p-5 sm:p-6 max-w-2xl space-y-5">
+              <h2 className="font-serif text-lg sm:text-xl font-bold text-white">Edit Profile Information</h2>
               <form onSubmit={handleUpdateProfile} className="space-y-4">
                 <div className="flex items-center gap-4 flex-wrap">
-                  <div className="w-14 h-14 rounded-full bg-gold/10 border border-gold/25 overflow-hidden flex items-center justify-center relative shrink-0">
+                  <div className="w-14 h-14 rounded-full bg-[#141417] border border-white/10 overflow-hidden flex items-center justify-center relative shrink-0">
                     {displayAvatarUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={displayAvatarUrl} alt="Avatar" className="w-full h-full object-cover" />
                     ) : (
-                      <User size={24} className="text-gold" />
+                      <User size={24} className="text-[#DAA640]" />
                     )}
                   </div>
                   <div className="space-y-1 flex-1 min-w-[200px]">
-                    <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground block">Upload Avatar</label>
+                    <label className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 block">Upload Avatar</label>
                     <input
                       type="file"
                       accept="image/*"
@@ -357,25 +337,25 @@ export default function SettingsPage() {
                           setDisplayAvatarUrl(localUrl)
                         }
                       }}
-                      className="text-xs text-muted-foreground max-w-full file:mr-3 file:py-1 file:px-2.5 file:rounded-lg file:border file:border-gold/25 file:bg-gold/10 file:text-[11px] file:font-semibold file:text-gold hover:file:bg-gold/20 transition-all cursor-pointer"
+                      className="text-xs text-zinc-400 max-w-full file:mr-3 file:py-1 file:px-2.5 file:rounded-lg file:border file:border-white/10 file:bg-[#141417] file:text-[11px] file:font-semibold file:text-white hover:file:bg-white/10 transition-all cursor-pointer"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Full Display Name</label>
+                  <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Full Display Name</label>
                   <input
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 focus:border-gold rounded-xl px-3.5 py-2 text-sm text-foreground outline-none focus:ring-1 focus:ring-gold/30 transition-all"
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl px-3.5 py-2.5 text-sm text-white outline-none transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">User ID Reference</label>
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/10 text-xs">
-                    <code className="text-xs font-mono text-slate-300 truncate max-w-[240px] sm:max-w-md select-all">
+                  <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">User ID Reference</label>
+                  <div className="flex items-center justify-between p-3 rounded-xl bg-[#141417] border border-white/10 text-xs">
+                    <code className="text-xs font-mono text-zinc-300 truncate max-w-[240px] sm:max-w-md select-all">
                       {currentUser.id}
                     </code>
                     <button
@@ -384,7 +364,7 @@ export default function SettingsPage() {
                         navigator.clipboard.writeText(currentUser.id)
                         showToast('User ID copied to clipboard.')
                       }}
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white text-[11px] font-mono transition-all cursor-pointer shrink-0 ml-2"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white text-[11px] font-mono border border-white/10 transition-all cursor-pointer shrink-0 ml-2"
                     >
                       <Copy size={11} /> Copy
                     </button>
@@ -395,7 +375,7 @@ export default function SettingsPage() {
                   <button
                     type="submit"
                     disabled={saving}
-                    className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-xs sm:text-sm font-bold disabled:opacity-50 hover:brightness-110 shadow-[0_0_16px_rgba(218,166,64,0.25)] transition-all cursor-pointer"
+                    className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#DAA640] hover:bg-[#F5D90A] text-black text-xs sm:text-sm font-bold disabled:opacity-50 transition-all cursor-pointer"
                   >
                     {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
                     Save Changes
@@ -406,19 +386,19 @@ export default function SettingsPage() {
           )}
 
           {activeTab === 'cohort' && (
-            <div className="glass rounded-2xl border border-gold/10 p-6 max-w-2xl space-y-6">
+            <div className="rounded-2xl bg-[#0B0B0D] border border-white/10 p-6 max-w-2xl space-y-6">
               <div className="space-y-1">
-                <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-gold">
-                  <Flame size={14} /> Telemetry & Scarcity Controls
+                <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest text-[#DAA640]">
+                  <Megaphone size={14} /> Telemetry & Scarcity Controls
                 </div>
-                <h2 className="font-serif text-xl font-bold text-foreground">Cohort Scarcity & Sitewide Announcement</h2>
-                <p className="text-xs text-muted-foreground">Directly update scarcity counts displayed on the homepage hero, pricing tiers, and announcement bar.</p>
+                <h2 className="font-serif text-xl font-bold text-white">Cohort Scarcity & Broadcast</h2>
+                <p className="text-xs text-zinc-400">Update scarcity counts displayed on the homepage hero, pricing tiers, and announcement bar.</p>
               </div>
 
               <form onSubmit={handleUpdateCohort} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground block">
+                    <label className="text-xs font-mono uppercase tracking-wider text-zinc-400 block">
                       Total Monthly Quota
                     </label>
                     <input
@@ -428,14 +408,14 @@ export default function SettingsPage() {
                       required
                       value={cohortQuota}
                       onChange={(e) => setCohortQuota(e.target.value)}
-                      className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all font-mono"
+                      className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all font-mono"
                     />
-                    <p className="text-[10px] text-muted-foreground">Default is 2 partners per month.</p>
+                    <p className="text-[10px] text-zinc-500">Default is 2 partners per month.</p>
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground block">
-                      Manual Slots Override (Optional)
+                    <label className="text-xs font-mono uppercase tracking-wider text-zinc-400 block">
+                      Manual Slots Override
                     </label>
                     <input
                       type="number"
@@ -444,20 +424,20 @@ export default function SettingsPage() {
                       placeholder="Leave blank for auto CRM count"
                       value={cohortOverride}
                       onChange={(e) => setCohortOverride(e.target.value)}
-                      className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all font-mono"
+                      className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all font-mono"
                     />
-                    <p className="text-[10px] text-muted-foreground">Forces remaining slots counter (e.g. 1 or 0).</p>
+                    <p className="text-[10px] text-zinc-500">Forces remaining slots counter (e.g. 1 or 0).</p>
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground block">
+                  <label className="text-xs font-mono uppercase tracking-wider text-zinc-400 block">
                     Cohort Status
                   </label>
                   <select
                     value={cohortStatus}
                     onChange={(e: any) => setCohortStatus(e.target.value)}
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all cursor-pointer"
                   >
                     <option value="open">Open (Active Intake)</option>
                     <option value="closing_soon">Closing Soon (Final Slot)</option>
@@ -465,11 +445,11 @@ export default function SettingsPage() {
                   </select>
                 </div>
 
-                <div className="pt-4 border-t border-gold/10 space-y-4">
+                <div className="pt-4 border-t border-white/5 space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-widest text-foreground">Sitewide Announcement Bar</p>
-                      <p className="text-[11px] text-muted-foreground">Top header promotional banner across all public pages.</p>
+                      <p className="text-xs font-mono uppercase tracking-wider text-white">Announcement Bar</p>
+                      <p className="text-[11px] text-zinc-400">Top header promotional banner across all public pages.</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -478,28 +458,28 @@ export default function SettingsPage() {
                         onChange={(e) => setBannerActive(e.target.checked)}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-background after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gold"></div>
+                      <div className="w-11 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-background after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#DAA640]"></div>
                     </label>
                   </div>
 
                   {bannerActive && (
                     <>
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground block">Banner Headline</label>
+                        <label className="text-xs font-mono uppercase tracking-wider text-zinc-400 block">Banner Headline</label>
                         <input
                           value={bannerText}
                           onChange={(e) => setBannerText(e.target.value)}
-                          className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+                          className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all"
                         />
                       </div>
 
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground block">Target Link Destination</label>
+                        <label className="text-xs font-mono uppercase tracking-wider text-zinc-400 block">Target Link Destination</label>
                         <input
                           value={bannerLink}
                           onChange={(e) => setBannerLink(e.target.value)}
                           placeholder="/local or /book"
-                          className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all font-mono"
+                          className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all font-mono"
                         />
                       </div>
                     </>
@@ -510,7 +490,7 @@ export default function SettingsPage() {
                   <button
                     type="submit"
                     disabled={saving}
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold to-gold-light text-background text-sm font-bold disabled:opacity-50 hover:shadow-[0_0_16px_rgba(212,175,55,0.3)] transition-all cursor-pointer"
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#DAA640] hover:bg-[#F5D90A] text-black text-sm font-bold disabled:opacity-50 transition-all cursor-pointer"
                   >
                     {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
                     Save Telemetry & Scarcity
@@ -521,46 +501,50 @@ export default function SettingsPage() {
           )}
 
           {activeTab === 'team' && (
-            <div className="glass rounded-2xl border border-gold/10 p-6 space-y-4">
-              <h2 className="font-serif text-xl font-bold text-foreground">Manage Console Roles</h2>
+            <div className="rounded-2xl bg-[#0B0B0D] border border-white/10 p-6 space-y-4">
+              <h2 className="font-serif text-xl font-bold text-white">Manage Console Roles</h2>
               {/* Desktop Table view */}
               <div className="hidden md:block overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-gold/10 text-xxs font-bold uppercase tracking-widest text-muted-foreground bg-white/[0.01]">
+                    <tr className="border-b border-white/10 text-[11px] font-mono font-bold uppercase tracking-widest text-zinc-400 bg-[#141417]/50">
                       <th className="py-3 px-4">User</th>
                       <th className="py-3 px-4">Status</th>
                       <th className="py-3 px-4">Access Level</th>
                       <th className="py-3 px-4 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gold/5 text-sm">
+                  <tbody className="divide-y divide-white/5 text-sm">
                     {profiles.map((profile) => (
-                      <tr key={profile.id} className="hover:bg-white/[0.02] transition-colors">
+                      <tr key={profile.id} className="hover:bg-[#141417]/40 transition-colors">
                         <td className="py-3.5 px-4 flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-gold/10 border border-gold/20 overflow-hidden flex items-center justify-center shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-[#141417] border border-white/10 overflow-hidden flex items-center justify-center shrink-0">
                             {profile.avatar_url ? (
                               // eslint-disable-next-line @next/next/no-img-element
                               <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
                             ) : (
-                              <span className="text-xs font-bold text-gold">{profile.full_name?.[0] ?? 'U'}</span>
+                              <span className="text-xs font-bold text-zinc-300">{profile.full_name?.[0] ?? 'U'}</span>
                             )}
                           </div>
                           <div>
-                            <p className="font-semibold text-foreground">{profile.full_name || 'Anonymous User'}</p>
-                            <p className="text-[10px] text-muted-foreground break-all">{profile.id}</p>
+                            <p className="font-medium text-white">{profile.full_name || 'Anonymous User'}</p>
+                            <p className="text-[10px] text-zinc-500 font-mono break-all">{profile.id}</p>
                           </div>
                         </td>
                         <td className="py-3.5 px-4">
                           {profile.is_suspended ? (
-                            <span className="px-2.5 py-0.5 rounded-full bg-red-500/10 border border-red-500/30 text-xxs font-semibold text-red-400">Suspended</span>
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-[10px] font-mono uppercase font-semibold text-rose-400">
+                              <span className="w-1.5 h-1.5 rounded-full bg-rose-500" /> Suspended
+                            </span>
                           ) : (
-                            <span className="px-2.5 py-0.5 rounded-full bg-green-500/10 border border-green-500/30 text-xxs font-semibold text-green-400">Active</span>
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-mono uppercase font-semibold text-emerald-400">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Active
+                            </span>
                           )}
                         </td>
                         <td className="py-3.5 px-4">
-                          <span className={`px-2.5 py-0.5 rounded-full text-xxs font-semibold ${
-                            profile.role === 'admin' ? 'bg-gold/15 border border-gold/30 text-gold' : 'bg-white/5 border border-gold/10 text-muted-foreground'
+                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase font-semibold border ${
+                            profile.role === 'admin' ? 'bg-[#141417] border-white/20 text-white' : 'bg-white/5 border-white/10 text-zinc-400'
                           }`}>
                             {profile.role.toUpperCase()}
                           </span>
@@ -570,7 +554,7 @@ export default function SettingsPage() {
                             <button
                               onClick={() => toggleUserRole(profile)}
                               disabled={profile.id === currentUser?.id}
-                              className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-muted-foreground hover:text-foreground transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                              className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white border border-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
                               title="Toggle admin role status"
                             >
                               <Shield size={14} />
@@ -578,8 +562,8 @@ export default function SettingsPage() {
                             <button
                               onClick={() => toggleUserSuspension(profile)}
                               disabled={profile.id === currentUser?.id}
-                              className={`p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer ${
-                                profile.is_suspended ? 'text-green-400' : 'text-red-400'
+                              className={`p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer ${
+                                profile.is_suspended ? 'text-emerald-400' : 'text-zinc-400 hover:text-rose-400'
                               }`}
                               title={profile.is_suspended ? 'Activate Account' : 'Suspend Account'}
                             >
@@ -594,37 +578,39 @@ export default function SettingsPage() {
               </div>
 
               {/* Mobile Card List view */}
-              <div className="block md:hidden space-y-4">
+              <div className="block md:hidden space-y-3">
                 {profiles.map((profile) => (
                   <div
                     key={profile.id}
-                    className="p-4 glass rounded-xl border border-gold/10 hover:border-gold/25 transition-all space-y-3"
+                    className="p-4 rounded-xl bg-[#141417] border border-white/10 space-y-3"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gold/10 border border-gold/20 overflow-hidden flex items-center justify-center shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-[#0B0B0D] border border-white/10 overflow-hidden flex items-center justify-center shrink-0">
                         {profile.avatar_url ? (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
                         ) : (
-                          <span className="text-xs font-bold text-gold">{profile.full_name?.[0] ?? 'U'}</span>
+                          <span className="text-xs font-bold text-zinc-300">{profile.full_name?.[0] ?? 'U'}</span>
                         )}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="font-semibold text-foreground text-sm truncate">{profile.full_name || 'Anonymous User'}</p>
-                        <p className="text-[10px] text-muted-foreground truncate">{profile.id}</p>
+                        <p className="font-semibold text-white text-sm truncate">{profile.full_name || 'Anonymous User'}</p>
+                        <p className="text-[10px] text-zinc-500 font-mono truncate">{profile.id}</p>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between pt-2 border-t border-gold/5 text-xs">
+                    <div className="flex items-center justify-between pt-2 border-t border-white/5 text-xs">
                       <div className="flex gap-2">
                         {profile.is_suspended ? (
-                          <span className="px-2.5 py-0.5 rounded-full bg-red-500/10 border border-red-500/30 text-[10px] font-semibold text-red-400">Suspended</span>
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-[10px] font-mono text-rose-400">
+                            <span className="w-1 h-1 rounded-full bg-rose-500" /> Suspended
+                          </span>
                         ) : (
-                          <span className="px-2.5 py-0.5 rounded-full bg-green-500/10 border border-green-500/30 text-[10px] font-semibold text-green-400">Active</span>
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-mono text-emerald-400">
+                            <span className="w-1 h-1 rounded-full bg-emerald-400" /> Active
+                          </span>
                         )}
-                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${
-                          profile.role === 'admin' ? 'bg-gold/15 border border-gold/30 text-gold' : 'bg-white/5 border border-gold/10 text-muted-foreground'
-                        }`}>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-mono border border-white/10 bg-white/5 text-zinc-300">
                           {profile.role.toUpperCase()}
                         </span>
                       </div>
@@ -633,20 +619,18 @@ export default function SettingsPage() {
                         <button
                           onClick={() => toggleUserRole(profile)}
                           disabled={profile.id === currentUser?.id}
-                          className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-muted-foreground hover:text-foreground transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
-                          title="Toggle admin role status"
+                          className="p-1.5 rounded-lg bg-white/5 text-zinc-400 hover:text-white border border-white/10 transition-all disabled:opacity-30 cursor-pointer"
                         >
-                          <Shield size={14} />
+                          <Shield size={13} />
                         </button>
                         <button
                           onClick={() => toggleUserSuspension(profile)}
                           disabled={profile.id === currentUser?.id}
-                          className={`p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer ${
-                            profile.is_suspended ? 'text-green-400' : 'text-red-400'
+                          className={`p-1.5 rounded-lg bg-white/5 border border-white/10 transition-all disabled:opacity-30 cursor-pointer ${
+                            profile.is_suspended ? 'text-emerald-400' : 'text-zinc-400 hover:text-rose-400'
                           }`}
-                          title={profile.is_suspended ? 'Activate Account' : 'Suspend Account'}
                         >
-                          {profile.is_suspended ? <UserCheck size={14} /> : <UserX size={14} />}
+                          {profile.is_suspended ? <UserCheck size={13} /> : <UserX size={13} />}
                         </button>
                       </div>
                     </div>
@@ -657,42 +641,42 @@ export default function SettingsPage() {
           )}
 
           {activeTab === 'system' && (
-            <div className="glass rounded-2xl border border-gold/10 p-6 max-w-2xl space-y-6">
-              <h2 className="font-serif text-xl font-bold text-foreground">Integrations & Dashboard Configuration</h2>
+            <div className="rounded-2xl bg-[#0B0B0D] border border-white/10 p-6 max-w-2xl space-y-6">
+              <h2 className="font-serif text-xl font-bold text-white">Integrations &amp; Dashboard Configuration</h2>
               <form onSubmit={handleUpdateSystem} className="space-y-4">
                 <div className="space-y-1.5">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                    <Calendar size={13} className="text-gold" />
+                  <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-zinc-400">
+                    <Calendar size={13} className="text-[#DAA640]" />
                     <span>Calendly Booking URL</span>
                   </div>
                   <input
                     value={calendlyUrl}
                     onChange={(e) => setCalendlyUrl(e.target.value)}
                     placeholder="https://calendly.com/your-agency/strategy-session"
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all"
                   />
-                  <p className="text-[10px] text-muted-foreground">Used directly by the public booking scheduler modal/page.</p>
+                  <p className="text-[10px] text-zinc-500">Used directly by the public booking scheduler modal/page.</p>
                 </div>
 
                 <div className="space-y-1.5">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                    <Shield size={13} className="text-gold" />
+                  <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-zinc-400">
+                    <Shield size={13} className="text-[#DAA640]" />
                     <span>Lead Threshold (Target Leads Month)</span>
                   </div>
                   <input
                     type="number"
                     value={leadThreshold}
                     onChange={(e) => setLeadThreshold(e.target.value)}
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all font-mono"
                   />
-                  <p className="text-[10px] text-muted-foreground">Sets the denominator target for the active month KPIs.</p>
+                  <p className="text-[10px] text-zinc-500">Sets the denominator target for the active month KPIs.</p>
                 </div>
 
                 <div className="pt-2">
                   <button
                     type="submit"
                     disabled={saving}
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold to-gold-light text-background text-sm font-bold disabled:opacity-50 hover:shadow-[0_0_16px_rgba(212,175,55,0.3)] transition-all cursor-pointer"
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#DAA640] hover:bg-[#F5D90A] text-black text-sm font-bold disabled:opacity-50 transition-all cursor-pointer"
                   >
                     {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
                     Save Configurations
@@ -701,48 +685,49 @@ export default function SettingsPage() {
               </form>
             </div>
           )}
+
           {activeTab === 'logs' && (
-            <div className="glass rounded-2xl border border-gold/10 p-6 space-y-6">
+            <div className="rounded-2xl bg-[#0B0B0D] border border-white/10 p-6 space-y-6">
               <div>
-                <h2 className="font-serif text-xl font-bold text-foreground">Operational Audit Trail</h2>
-                <p className="text-[10px] text-muted-foreground mt-0.5">Real-time system telemetry and transaction records</p>
+                <h2 className="font-serif text-xl font-bold text-white">Operational Audit Trail</h2>
+                <p className="text-[10px] text-zinc-400 mt-0.5 font-mono">Real-time system telemetry and transaction records</p>
               </div>
 
               {logsLoading ? (
                 <div className="py-12 flex flex-col items-center justify-center space-y-4">
-                  <Loader2 size={24} className="text-gold animate-spin" />
-                  <p className="text-xs text-muted-foreground font-mono">Syncing log records...</p>
+                  <Loader2 size={24} className="text-[#DAA640] animate-spin" />
+                  <p className="text-xs text-zinc-400 font-mono">Syncing log records...</p>
                 </div>
               ) : logs.length === 0 ? (
-                <div className="py-12 text-center text-xs text-muted-foreground italic border border-dashed border-gold/10 rounded-xl">
+                <div className="py-12 text-center text-xs text-zinc-500 italic border border-dashed border-white/10 rounded-xl">
                   No activity records logged in this segment.
                 </div>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse text-xs">
                     <thead>
-                      <tr className="border-b border-gold/10 text-[9px] font-bold uppercase tracking-widest text-muted-foreground bg-white/[0.01]">
+                      <tr className="border-b border-white/10 text-[10px] font-mono uppercase tracking-widest text-zinc-400 bg-[#141417]/50">
                         <th className="py-2.5 px-3">Date</th>
                         <th className="py-2.5 px-3">User</th>
                         <th className="py-2.5 px-3">Action</th>
                         <th className="py-2.5 px-3">Target Table</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gold/5 font-mono text-[11px]">
+                    <tbody className="divide-y divide-white/5 font-mono text-[11px]">
                       {logs.map((log) => (
-                        <tr key={log.id} className="hover:bg-white/[0.01] transition-colors">
-                          <td className="py-2.5 px-3 text-muted-foreground">
+                        <tr key={log.id} className="hover:bg-[#141417]/30 transition-colors">
+                          <td className="py-2.5 px-3 text-zinc-400">
                             {new Date(log.created_at).toLocaleString('en-GB', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}
                           </td>
-                          <td className="py-2.5 px-3 text-foreground font-sans font-semibold">
+                          <td className="py-2.5 px-3 text-white font-sans font-medium">
                             {log.profiles?.full_name || 'System Operator'}
                           </td>
                           <td className="py-2.5 px-3">
-                            <span className="px-1.5 py-0.5 rounded bg-gold/5 text-gold border border-gold/20 text-[9px] font-bold">
+                            <span className="px-1.5 py-0.5 rounded bg-white/5 text-white border border-white/10 text-[9px] font-bold">
                               {log.action_type}
                             </span>
                           </td>
-                          <td className="py-2.5 px-3 text-muted-foreground">
+                          <td className="py-2.5 px-3 text-zinc-400">
                             {log.target_table}
                           </td>
                         </tr>

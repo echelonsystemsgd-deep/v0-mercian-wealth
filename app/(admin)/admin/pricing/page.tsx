@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { motion } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
 import {
   DollarSign, Save, Loader2, RefreshCw, Check, Plus, X, Star,
@@ -64,20 +65,20 @@ function TierCard({
   }
 
   return (
-    <div className={`rounded-2xl border transition-all duration-300 ${
+    <div className={`rounded-2xl border transition-all duration-200 ${
       tier.featured
-        ? 'border-[#DAA640]/50 bg-gradient-to-b from-[#DAA640]/8 to-[#07153B]/60 shadow-[0_0_40px_rgba(218,166,64,0.08)]'
-        : 'border-white/8 bg-[#07153B]/50'
+        ? 'border-[#DAA640]/50 bg-[#0B0B0D] shadow-[0_0_30px_rgba(218,166,64,0.06)]'
+        : 'border-white/10 bg-[#0B0B0D]'
     }`}>
-      {/* Card Header — always visible */}
+      {/* Card Header */}
       <button
         onClick={() => setExpanded(e => !e)}
-        className="w-full flex items-center justify-between px-4 sm:px-6 py-4 sm:py-5 cursor-pointer group"
+        className="w-full flex items-center justify-between px-4 sm:px-6 py-4 sm:py-5 cursor-pointer group text-left min-h-[56px]"
       >
         <div className="flex items-center gap-3 min-w-0">
           {tier.featured && (
-            <span className="shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#DAA640]/15 border border-[#DAA640]/30 text-[#DAA640] text-[10px] font-bold uppercase tracking-wider">
-              <Star size={10} fill="currentColor" /> Featured
+            <span className="shrink-0 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#DAA640]/15 border border-[#DAA640]/30 text-[#DAA640] text-[10px] font-bold uppercase tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" /> Featured
             </span>
           )}
           <span className="font-sans font-bold text-white text-base sm:text-lg truncate">
@@ -85,10 +86,10 @@ function TierCard({
           </span>
         </div>
         <div className="flex items-center gap-3 shrink-0 ml-3">
-          <span className="font-mono font-extrabold text-lg sm:text-xl" style={{ color: cfg.color }}>
+          <span className="font-mono font-bold text-lg sm:text-xl" style={{ color: cfg.color }}>
             {cfg.prefix}{tier.price}{cfg.suffix}
           </span>
-          {expanded ? <ChevronUp size={16} className="text-white/40" /> : <ChevronDown size={16} className="text-white/40" />}
+          {expanded ? <ChevronUp size={16} className="text-zinc-400" /> : <ChevronDown size={16} className="text-zinc-400" />}
         </div>
       </button>
 
@@ -98,26 +99,26 @@ function TierCard({
           {/* Row 1: Name + Featured toggle */}
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1 space-y-1.5">
-              <label className="text-[10px] font-bold uppercase tracking-wider text-white/40">Tier Name</label>
+              <label className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">Tier Name</label>
               <input
-                className="w-full bg-[#020E28] border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#DAA640]/50 transition-colors"
+                className="w-full bg-[#141417] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white/20 transition-colors"
                 value={tier.name}
                 onChange={e => update({ name: e.target.value })}
                 placeholder="e.g. Essential Storefront"
               />
             </div>
-            <div className="sm:w-40 space-y-1.5">
-              <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Highlight Status</label>
+            <div className="sm:w-44 space-y-1.5">
+              <label className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">Featured Tier</label>
               <button
                 type="button"
                 onClick={() => update({ featured: !tier.featured })}
-                className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+                className={`w-full flex items-center justify-center gap-2 py-2.5 min-h-[44px] rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
                   tier.featured
-                    ? 'bg-amber-500/15 border-amber-500/40 text-amber-300'
-                    : 'bg-white/[0.03] border-white/10 text-muted-foreground hover:text-foreground'
+                    ? 'bg-[#DAA640]/15 border-[#DAA640]/40 text-[#DAA640]'
+                    : 'bg-[#141417] border-white/10 text-zinc-400 hover:text-white'
                 }`}
               >
-                <Star size={13} fill={tier.featured ? 'currentColor' : 'none'} />
+                <span className={`w-1.5 h-1.5 rounded-full ${tier.featured ? 'bg-[#DAA640]' : 'bg-zinc-600'}`} />
                 {tier.featured ? 'Featured Tier' : 'Standard Tier'}
               </button>
             </div>
@@ -125,18 +126,18 @@ function TierCard({
 
           {/* Row 2: Price + Interval */}
           <div className="flex flex-col sm:flex-row gap-3">
-            <div className="sm:w-36 space-y-1.5">
-              <label className="text-[10px] font-bold uppercase tracking-wider text-white/40">
+            <div className="sm:w-40 space-y-1.5">
+              <label className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">
                 Price {cfg.prefix && `(${cfg.prefix})`}{cfg.suffix && `/ ${cfg.suffix}`}
               </label>
               <div className="relative">
                 {cfg.prefix && (
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-bold" style={{ color: cfg.color }}>
+                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-bold font-mono text-zinc-400">
                     {cfg.prefix}
                   </span>
                 )}
                 <input
-                  className={`w-full bg-[#020E28] border border-white/10 rounded-xl py-2.5 text-sm text-white focus:outline-none focus:border-[#DAA640]/50 transition-colors ${cfg.prefix ? 'pl-7' : 'pl-3'} pr-3`}
+                  className={`w-full bg-[#141417] border border-white/10 rounded-xl py-2.5 text-sm text-white font-mono focus:outline-none focus:border-white/20 transition-colors ${cfg.prefix ? 'pl-8' : 'pl-3.5'} pr-3.5`}
                   value={tier.price}
                   onChange={e => update({ price: e.target.value })}
                   placeholder="e.g. 495"
@@ -144,9 +145,9 @@ function TierCard({
               </div>
             </div>
             <div className="flex-1 space-y-1.5">
-              <label className="text-[10px] font-bold uppercase tracking-wider text-white/40">Interval Label</label>
+              <label className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">Interval Label</label>
               <input
-                className="w-full bg-[#020E28] border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#DAA640]/50 transition-colors"
+                className="w-full bg-[#141417] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white/20 transition-colors"
                 value={tier.interval}
                 onChange={e => update({ interval: e.target.value })}
                 placeholder="e.g. one-time setup fee"
@@ -156,9 +157,9 @@ function TierCard({
 
           {/* Row 3: Milestone */}
           <div className="space-y-1.5">
-            <label className="text-[10px] font-bold uppercase tracking-wider text-white/40">Milestone / Subheading</label>
+            <label className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">Milestone / Subheading</label>
             <input
-              className="w-full bg-[#020E28] border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#DAA640]/50 transition-colors"
+              className="w-full bg-[#141417] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white/20 transition-colors"
               value={tier.milestoneBreakdown || ''}
               onChange={e => update({ milestoneBreakdown: e.target.value })}
               placeholder="e.g. Complete build & launch in 7 days"
@@ -167,10 +168,10 @@ function TierCard({
 
           {/* Row 4: Description */}
           <div className="space-y-1.5">
-            <label className="text-[10px] font-bold uppercase tracking-wider text-white/40">Description</label>
+            <label className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">Description</label>
             <textarea
               rows={2}
-              className="w-full bg-[#020E28] border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#DAA640]/50 transition-colors resize-none"
+              className="w-full bg-[#141417] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white/20 transition-colors resize-none"
               value={tier.description}
               onChange={e => update({ description: e.target.value })}
               placeholder="Short paragraph describing this tier..."
@@ -179,41 +180,41 @@ function TierCard({
 
           {/* Row 5: Features */}
           <div className="space-y-2">
-            <label className="text-[10px] font-bold uppercase tracking-wider text-white/40">
-              Features ({tier.features?.length || 0})
+            <label className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">
+              Deliverables & Features ({tier.features?.length || 0})
             </label>
             <div className="space-y-2">
               {(tier.features || []).map((f, fi) => (
                 <div key={fi} className="flex items-center gap-2">
-                  <span className="text-[#DAA640]/60 text-xs shrink-0">✓</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640] shrink-0 ml-1" />
                   <input
-                    className="flex-1 bg-[#020E28] border border-white/8 rounded-lg px-3 py-2 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#DAA640]/40 transition-colors"
+                    className="flex-1 bg-[#141417] border border-white/10 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white/20 transition-colors"
                     value={f}
                     onChange={e => updateFeature(fi, e.target.value)}
                     placeholder={`Feature ${fi + 1}`}
                   />
                   <button
                     onClick={() => removeFeature(fi)}
-                    className="shrink-0 p-1.5 rounded-lg text-white/30 hover:text-red-400 hover:bg-red-400/10 transition-all cursor-pointer"
+                    className="shrink-0 p-2 min-h-[40px] min-w-[40px] flex items-center justify-center rounded-lg text-zinc-400 hover:text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
                   >
-                    <X size={13} />
+                    <X size={14} />
                   </button>
                 </div>
               ))}
             </div>
             <button
               onClick={addFeature}
-              className="flex items-center gap-1.5 text-xs font-semibold text-[#DAA640]/70 hover:text-[#DAA640] transition-colors cursor-pointer mt-1"
+              className="flex items-center gap-1.5 text-xs font-semibold text-[#DAA640] hover:text-[#c49535] transition-colors cursor-pointer mt-1.5 py-1"
             >
-              <Plus size={13} /> Add Feature
+              <Plus size={14} /> Add Feature Line
             </button>
           </div>
 
           {/* Row 6: CTA */}
           <div className="space-y-1.5">
-            <label className="text-[10px] font-bold uppercase tracking-wider text-white/40">CTA Button Text</label>
+            <label className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">CTA Button Text</label>
             <input
-              className="w-full bg-[#020E28] border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#DAA640]/50 transition-colors"
+              className="w-full bg-[#141417] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white/20 transition-colors"
               value={tier.cta}
               onChange={e => update({ cta: e.target.value })}
               placeholder="e.g. Book your free 15 minute audit"
@@ -221,14 +222,14 @@ function TierCard({
           </div>
 
           {/* Save Tier Button */}
-          <div className="flex justify-end pt-2">
+          <div className="flex justify-end pt-2 border-t border-white/5">
             <button
               onClick={onSave}
               disabled={saving}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#DAA640] text-[#020E28] text-xs font-bold hover:bg-[#EBB755] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_20px_rgba(218,166,64,0.25)]"
+              className="flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] rounded-xl bg-[#DAA640] text-black text-xs font-semibold hover:bg-[#c49535] transition-colors cursor-pointer disabled:opacity-50"
             >
               {saved ? <Check size={14} /> : saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
-              {saved ? 'Saved!' : saving ? 'Saving...' : 'Save Tier'}
+              <span>{saved ? 'Saved!' : saving ? 'Saving...' : 'Save Tier'}</span>
             </button>
           </div>
         </div>
@@ -249,7 +250,7 @@ export default function PricingManagerPage() {
     revShare: [...DEFAULTS.revShare],
   })
   const [loadingModel, setLoadingModel] = useState<BillingModel | null>(null)
-  const [savingTier, setSavingTier] = useState<string | null>(null)  // `${model}-${index}`
+  const [savingTier, setSavingTier] = useState<string | null>(null)
   const [savedTier, setSavedTier] = useState<string | null>(null)
   const [savingAll, setSavingAll] = useState(false)
   const [syncing, setSyncing] = useState(false)
@@ -275,7 +276,6 @@ export default function PricingManagerPage() {
         if (data?.content && Array.isArray(data.content) && data.content.length > 0) {
           setAllTiers(prev => ({ ...prev, [model]: data.content }))
         }
-        // else: keep DEFAULTS already set
       } catch { /* keep defaults */ }
     }
     setLoadingModel(null)
@@ -292,7 +292,7 @@ export default function PricingManagerPage() {
     })
   }
 
-  // Save a single tier (upserts the whole model array)
+  // Save a single tier
   const handleSaveTier = async (model: BillingModel, idx: number) => {
     const key = `${model}-${idx}`
     setSavingTier(key)
@@ -327,7 +327,7 @@ export default function PricingManagerPage() {
     }
     setSavingAll(false)
     if (errorMsg) { showToast(`Error: ${errorMsg}`); return }
-    showToast('✓ All pricing saved — live site updating now.')
+    showToast('✓ All pricing saved — live site updated.')
     triggerRevalidate()
   }
 
@@ -376,160 +376,167 @@ export default function PricingManagerPage() {
   const isLoading = loadingModel !== null
 
   return (
-    <div className="min-h-screen bg-[#020E28] text-white pb-32 lg:pb-8">
+    <div className="space-y-6 sm:space-y-8 pb-32 lg:pb-8 relative">
       {/* Toast */}
       {toast && (
-        <div className="fixed top-4 right-4 z-[200] flex items-center gap-2.5 px-4 py-3 rounded-xl bg-[#07153B] border border-[#DAA640]/30 text-sm font-semibold text-[#DAA640] shadow-2xl animate-in slide-in-from-top-2 duration-300">
-          <Check size={15} />
-          {toast}
+        <div className="fixed top-4 right-4 z-[200] flex items-center gap-2.5 px-4 py-3 rounded-xl bg-[#0B0B0D] border border-white/10 text-sm font-medium text-white shadow-2xl animate-in slide-in-from-top-2 duration-200">
+          <Check size={15} className="text-[#DAA640]" />
+          <span>{toast}</span>
         </div>
       )}
 
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-6 lg:py-8 space-y-6 lg:space-y-8">
-
-        {/* Page Header */}
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-            <div className="space-y-1">
-              <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.2em] text-[#DAA640]/80 uppercase">
-                <DollarSign size={12} /> Pricing Manager
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white">Pricing Control Centre</h1>
-              <p className="text-sm text-white/50">Edit all three billing models — changes save to the live site instantly.</p>
+      {/* Page Header */}
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-[10px] sm:text-xs font-bold tracking-[0.2em] text-[#DAA640] uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" />
+              <span>Commercial Strategy</span>
             </div>
-
-            {/* Action Buttons — desktop */}
-            <div className="hidden sm:flex items-center gap-2 shrink-0">
-              <button
-                onClick={handleSyncFromSiteCopy}
-                disabled={syncing}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-white/50 hover:text-white hover:bg-white/8 transition-all cursor-pointer disabled:opacity-50"
-              >
-                {syncing ? <Loader2 size={13} className="animate-spin" /> : <Zap size={13} />}
-                {syncing ? 'Syncing...' : 'Sync Defaults'}
-              </button>
-              <button
-                onClick={handleResetAll}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-white/50 hover:text-white hover:bg-white/8 transition-all cursor-pointer"
-              >
-                <RefreshCw size={13} /> Reset All
-              </button>
-              <button
-                onClick={handleSaveAll}
-                disabled={savingAll}
-                className="flex items-center gap-2 px-5 py-2 rounded-xl bg-[#DAA640] text-[#020E28] text-xs font-extrabold hover:bg-[#EBB755] transition-all cursor-pointer disabled:opacity-50 shadow-[0_4px_20px_rgba(218,166,64,0.3)]"
-              >
-                {savingAll ? <Loader2 size={13} className="animate-spin" /> : <Save size={13} />}
-                {savingAll ? 'Saving...' : 'Save All'}
-              </button>
-            </div>
+            <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">Pricing Control Centre</h1>
+            <p className="text-sm text-zinc-400">Live tier pricing, milestone schedules, and billing models.</p>
           </div>
 
-          {/* Stats row */}
-          <div className="grid grid-cols-3 gap-3">
-            {(Object.entries(MODEL_CONFIG) as [BillingModel, typeof MODEL_CONFIG[BillingModel]][]).map(([model, cfg]) => (
-              <div key={model} className="rounded-xl bg-[#07153B]/60 border border-white/6 px-3 py-3">
-                <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: cfg.color }}>{cfg.label}</p>
-                <p className="text-xl font-extrabold text-white mt-0.5">{allTiers[model].length}</p>
-                <p className="text-[10px] text-white/30 mt-0.5">tiers</p>
+          {/* Action Buttons — desktop */}
+          <div className="hidden sm:flex items-center gap-2 shrink-0">
+            <button
+              onClick={handleSyncFromSiteCopy}
+              disabled={syncing}
+              className="flex items-center gap-2 px-3.5 py-2.5 min-h-[44px] rounded-xl bg-[#141417] border border-white/10 text-xs font-semibold text-zinc-300 hover:text-white hover:bg-white/[0.08] transition-colors cursor-pointer disabled:opacity-50"
+            >
+              {syncing ? <Loader2 size={13} className="animate-spin" /> : <Zap size={13} />}
+              <span>{syncing ? 'Syncing...' : 'Sync Defaults'}</span>
+            </button>
+            <button
+              onClick={handleResetAll}
+              className="flex items-center gap-2 px-3.5 py-2.5 min-h-[44px] rounded-xl bg-[#141417] border border-white/10 text-xs font-semibold text-zinc-300 hover:text-white hover:bg-white/[0.08] transition-colors cursor-pointer"
+            >
+              <RefreshCw size={13} />
+              <span>Reset All</span>
+            </button>
+            <button
+              onClick={handleSaveAll}
+              disabled={savingAll}
+              className="flex items-center gap-2 px-5 py-2.5 min-h-[44px] rounded-xl bg-[#DAA640] text-black text-xs font-semibold hover:bg-[#c49535] transition-colors cursor-pointer disabled:opacity-50 shadow-md"
+            >
+              {savingAll ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
+              <span>{savingAll ? 'Saving...' : 'Save All Models'}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Stats row */}
+        <div className="grid grid-cols-3 gap-3">
+          {(Object.entries(MODEL_CONFIG) as [BillingModel, typeof MODEL_CONFIG[BillingModel]][]).map(([model, cfg]) => (
+            <div key={model} className="rounded-2xl bg-[#0B0B0D] border border-white/10 p-3.5 sm:p-4">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 truncate">{cfg.label}</span>
+                <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: cfg.color }} />
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Billing Model Tabs */}
-        <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
-          <div className="flex gap-1 min-w-max sm:min-w-0 bg-[#07153B]/60 p-1 rounded-2xl border border-white/6">
-            {(Object.entries(MODEL_CONFIG) as [BillingModel, typeof MODEL_CONFIG[BillingModel]][]).map(([model, cfg]) => (
-              <button
-                key={model}
-                onClick={() => setActiveModel(model)}
-                className={`flex-1 flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer whitespace-nowrap ${
-                  activeModel === model
-                    ? 'bg-[#020E28] text-white shadow-lg'
-                    : 'text-white/40 hover:text-white/70'
-                }`}
-              >
-                <span
-                  className="w-2 h-2 rounded-full shrink-0"
-                  style={{ backgroundColor: activeModel === model ? cfg.color : 'rgba(255,255,255,0.15)' }}
-                />
-                {cfg.label}
-                <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
-                  activeModel === model ? 'bg-white/10 text-white/60' : 'bg-white/5 text-white/20'
-                }`}>
-                  {allTiers[model].length}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Active Model Header */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: MODEL_CONFIG[activeModel].color }} />
-            <h2 className="font-sans font-bold text-white text-lg">
-              {MODEL_CONFIG[activeModel].label} Tiers
-            </h2>
-            {isLoading && <Loader2 size={14} className="animate-spin text-white/30" />}
-          </div>
-          {activeModel === 'revShare' && (
-            <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/20 text-emerald-400 text-[10px] font-bold uppercase tracking-wider">
-              <Sparkles size={10} /> Performance Model
-            </span>
-          )}
-        </div>
-
-        {/* Tier Cards */}
-        <div className="space-y-4">
-          {currentTiers.map((tier, idx) => (
-            <TierCard
-              key={`${activeModel}-${tier.id || idx}`}
-              tier={tier}
-              model={activeModel}
-              index={idx}
-              onChange={updated => handleTierChange(activeModel, idx, updated)}
-              onSave={() => handleSaveTier(activeModel, idx)}
-              saving={savingTier === `${activeModel}-${idx}`}
-              saved={savedTier === `${activeModel}-${idx}`}
-            />
+              <p className="text-xl sm:text-2xl font-bold text-white mt-1.5 font-sans">{allTiers[model].length}</p>
+              <p className="text-[11px] text-zinc-500 font-mono mt-0.5">active tiers</p>
+            </div>
           ))}
-        </div>
-
-        {/* Info notice */}
-        <div className="flex items-start gap-3 p-4 rounded-xl bg-blue-400/5 border border-blue-400/15">
-          <AlertTriangle size={14} className="text-blue-400/70 mt-0.5 shrink-0" />
-          <p className="text-xs text-white/40 leading-relaxed">
-            Changes save to Supabase and are reflected on the public pricing page within 60 seconds (via cache revalidation). 
-            Use <strong className="text-white/60">"Save Tier"</strong> for quick per-card saves or <strong className="text-white/60">"Save All"</strong> to push all three models at once.
-          </p>
         </div>
       </div>
 
+      {/* Motion Segmented Model Tabs */}
+      <div className="flex items-center gap-1.5 p-1 bg-[#141417] border border-white/10 rounded-xl overflow-x-auto">
+        {(Object.entries(MODEL_CONFIG) as [BillingModel, typeof MODEL_CONFIG[BillingModel]][]).map(([model, cfg]) => (
+          <button
+            key={model}
+            onClick={() => setActiveModel(model)}
+            className="relative flex-1 flex items-center justify-center gap-2 px-4 py-2.5 min-h-[44px] rounded-lg text-xs sm:text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap"
+          >
+            {activeModel === model && (
+              <motion.div
+                layoutId="activePricingModel"
+                className="absolute inset-0 bg-[#0B0B0D] border border-white/10 rounded-lg shadow-sm"
+                transition={{ type: 'spring', stiffness: 450, damping: 35 }}
+              />
+            )}
+            <span
+              className="w-1.5 h-1.5 rounded-full relative z-10 shrink-0"
+              style={{ backgroundColor: activeModel === model ? cfg.color : 'rgba(255,255,255,0.2)' }}
+            />
+            <span className={`relative z-10 ${activeModel === model ? 'text-white' : 'text-zinc-400 hover:text-white'}`}>
+              {cfg.label}
+            </span>
+            <span className={`relative z-10 text-[10px] font-mono px-1.5 py-0.5 rounded-md ${
+              activeModel === model ? 'bg-white/10 text-white' : 'bg-white/5 text-zinc-500'
+            }`}>
+              {allTiers[model].length}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/* Active Model Header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: MODEL_CONFIG[activeModel].color }} />
+          <h2 className="font-sans font-bold text-white text-base sm:text-lg">
+            {MODEL_CONFIG[activeModel].label} Tiers
+          </h2>
+          {isLoading && <Loader2 size={14} className="animate-spin text-zinc-400 ml-1" />}
+        </div>
+        {activeModel === 'revShare' && (
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase tracking-wider">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Performance Model
+          </span>
+        )}
+      </div>
+
+      {/* Tier Cards */}
+      <div className="space-y-4">
+        {currentTiers.map((tier, idx) => (
+          <TierCard
+            key={`${activeModel}-${tier.id || idx}`}
+            tier={tier}
+            model={activeModel}
+            index={idx}
+            onChange={updated => handleTierChange(activeModel, idx, updated)}
+            onSave={() => handleSaveTier(activeModel, idx)}
+            saving={savingTier === `${activeModel}-${idx}`}
+            saved={savedTier === `${activeModel}-${idx}`}
+          />
+        ))}
+      </div>
+
+      {/* Info notice */}
+      <div className="flex items-start gap-3 p-4 rounded-xl bg-[#0B0B0D] border border-white/10">
+        <AlertTriangle size={15} className="text-[#DAA640] mt-0.5 shrink-0" />
+        <p className="text-xs text-zinc-400 leading-relaxed">
+          Changes save directly to Supabase and propagate to the public pricing page within 60 seconds (via cache revalidation). 
+          Use <strong className="text-white">"Save Tier"</strong> for individual tier edits or <strong className="text-white">"Save All Models"</strong> to persist all three billing models simultaneously.
+        </p>
+      </div>
+
       {/* Mobile Sticky Save Bar */}
-      <div className="fixed bottom-0 left-0 right-0 sm:hidden z-50 px-4 pb-safe-area-inset-bottom pb-4 pt-3 bg-[#020E28]/95 backdrop-blur-md border-t border-white/8">
+      <div className="fixed bottom-0 left-0 right-0 sm:hidden z-50 px-4 pb-safe-area-inset-bottom pb-4 pt-3 bg-[#050505]/95 backdrop-blur-md border-t border-white/10">
         <div className="flex items-center gap-2 max-w-lg mx-auto">
           <button
             onClick={handleResetAll}
-            className="flex-none flex items-center justify-center gap-1.5 px-3 py-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-white/50 transition-all cursor-pointer"
+            className="flex-none flex items-center justify-center min-h-[44px] min-w-[44px] rounded-xl bg-[#141417] border border-white/10 text-xs font-semibold text-zinc-300 transition-colors cursor-pointer"
+            title="Reset to Defaults"
           >
-            <RefreshCw size={14} />
+            <RefreshCw size={15} />
           </button>
           <button
             onClick={handleSyncFromSiteCopy}
             disabled={syncing}
-            className="flex-none flex items-center justify-center gap-1.5 px-3 py-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-white/50 transition-all cursor-pointer disabled:opacity-50"
+            className="flex-none flex items-center justify-center min-h-[44px] min-w-[44px] rounded-xl bg-[#141417] border border-white/10 text-xs font-semibold text-zinc-300 transition-colors cursor-pointer disabled:opacity-50"
+            title="Sync Defaults"
           >
-            {syncing ? <Loader2 size={14} className="animate-spin" /> : <Zap size={14} />}
+            {syncing ? <Loader2 size={15} className="animate-spin" /> : <Zap size={15} />}
           </button>
           <button
             onClick={handleSaveAll}
             disabled={savingAll}
-            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-[#DAA640] text-[#020E28] text-sm font-extrabold hover:bg-[#EBB755] transition-all cursor-pointer disabled:opacity-50 shadow-[0_4px_20px_rgba(218,166,64,0.3)]"
+            className="flex-1 flex items-center justify-center gap-2 min-h-[44px] px-4 py-3 rounded-xl bg-[#DAA640] text-black text-xs font-bold hover:bg-[#c49535] transition-colors cursor-pointer disabled:opacity-50 shadow-md"
           >
-            {savingAll ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
-            {savingAll ? 'Saving All...' : 'Save All Pricing'}
+            {savingAll ? <Loader2 size={15} className="animate-spin" /> : <Save size={15} />}
+            <span>{savingAll ? 'Saving...' : 'Save All Pricing'}</span>
           </button>
         </div>
       </div>

@@ -431,7 +431,7 @@ export function ClientHealthGrid({
         {hiddenCount > 0 && (
           <Link
             href="/admin/clients"
-            className="p-4 glass rounded-2xl border border-purple-500/15 border-dashed hover:border-purple-500/30 transition-all duration-300 flex flex-col items-center justify-center gap-2 text-center group min-h-[100px]"
+            className="p-4 glass rounded-2xl border border-white/10 border-dashed hover:border-white/20 transition-all duration-300 flex flex-col items-center justify-center gap-2 text-center group min-h-[100px]"
           >
             <div className="w-9 h-9 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center group-hover:bg-gold/15 transition-all">
               <Users size={16} className="text-gold" />
@@ -452,7 +452,7 @@ export function ClientHealthGrid({
           <div className="w-full max-w-lg glass border border-gold/20 rounded-2xl shadow-2xl p-6 relative flex flex-col max-h-[85vh] overflow-hidden">
             
             {/* Modal Header */}
-            <div className="flex items-start justify-between border-b border-purple-500/15 pb-4">
+            <div className="flex items-start justify-between border-b border-white/10 pb-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center">
                   <span className="text-xs font-bold text-gold">
@@ -477,71 +477,35 @@ export function ClientHealthGrid({
             </div>
 
             {/* Modal Body */}
-            <div className="flex-1 overflow-y-auto py-4 space-y-5 scrollbar-thin">
-              
-              {/* Project Status */}
-              <div className="space-y-1.5">
-                <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">
-                  Current Stage
-                </p>
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${
-                      getStageBadge(selectedProject.status).bg
-                    } ${getStageBadge(selectedProject.status).text} ${
-                      getStageBadge(selectedProject.status).border
-                    }`}
-                  >
-                    {selectedProject.status}
-                  </span>
+            <div className="flex-1 overflow-y-auto py-5 space-y-5 scrollbar-thin">
+              {/* Quick Health Breakdown */}
+              <div className="p-4 rounded-xl bg-white/[0.01] border border-gold/10 flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground">Current Stage</p>
+                  <p className="text-sm font-serif font-bold text-foreground mt-0.5">{selectedProject.status}</p>
                 </div>
-              </div>
-
-              {/* Message Summary */}
-              <div className="space-y-1.5 bg-white/[0.01] border border-gold/5 p-3 rounded-xl">
-                <div className="flex items-center justify-between">
-                  <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">
-                    Telemetry Status
+                <div>
+                  <p className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground">Unread Comms</p>
+                  <p className="text-sm font-serif font-bold text-gold mt-0.5">{selectedProject.unreadMessageCount} messages</p>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground">Client Response</p>
+                  <p className="text-sm font-serif font-bold text-foreground mt-0.5">
+                    {selectedProject.daysSinceLastMessage !== null
+                      ? `${selectedProject.daysSinceLastMessage}d ago`
+                      : 'Never'}
                   </p>
-                  {selectedProject.daysSinceLastMessage !== null && (
-                    <span className="text-[10px] text-muted-foreground font-mono">
-                      Last contact: {selectedProject.daysSinceLastMessage} days ago
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2 mt-1">
-                  {selectedProject.unreadMessageCount > 0 ? (
-                    <div className="flex items-center justify-between w-full gap-2">
-                      <p className="text-xs text-amber-400 font-medium flex items-center gap-1.5">
-                        <MessageSquare size={13} />
-                        {selectedProject.unreadMessageCount} unread message{selectedProject.unreadMessageCount > 1 ? 's' : ''} from client.
-                      </p>
-                      <button
-                        onClick={() => handleMarkMessagesRead(selectedProject.id)}
-                        disabled={markingRead}
-                        className="px-3 py-1.5 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 rounded-xl text-[10px] font-bold uppercase tracking-wider text-emerald-400 hover:text-emerald-300 transition-all cursor-pointer disabled:opacity-50 flex items-center gap-1.5 shadow-sm"
-                      >
-                        <CheckCircle2 size={12} />
-                        {markingRead ? 'Unblocking...' : 'Unblock Client'}
-                      </button>
-                    </div>
-                  ) : (
-                    <p className="text-xs text-muted-foreground italic flex items-center gap-1.5">
-                      <CheckCircle2 size={13} className="text-green-400" />
-                      All messages processed and answered.
-                    </p>
-                  )}
                 </div>
               </div>
 
-              {/* Action Requests */}
+              {/* Action Requests Subsection */}
               <div className="space-y-3">
-                <p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-gold/70">
                   Action Requests & Submissions
                 </p>
 
                 {selectedProject.actionRequests.length === 0 ? (
-                  <p className="text-xs text-muted-foreground italic bg-white/[0.01] border border-dashed border-purple-500/15 p-4 rounded-xl text-center">
+                  <p className="text-xs text-muted-foreground italic bg-white/[0.01] border border-dashed border-white/10 p-4 rounded-xl text-center">
                     No active action requests registered for this client.
                   </p>
                 ) : (
@@ -552,7 +516,7 @@ export function ClientHealthGrid({
                         className={`p-4 rounded-xl border flex flex-col gap-3 transition-all ${
                           req.status === 'submitted'
                             ? 'bg-amber-500/[0.03] border-amber-500/25'
-                            : 'bg-white/[0.02] border-purple-500/15'
+                            : 'bg-white/[0.02] border-white/10'
                         }`}
                       >
                         <div className="flex items-start justify-between gap-3">
@@ -613,7 +577,7 @@ export function ClientHealthGrid({
             </div>
 
             {/* Modal Footer */}
-            <div className="border-t border-purple-500/15 pt-4 flex flex-col sm:flex-row gap-3 justify-between items-stretch sm:items-center">
+            <div className="border-t border-white/10 pt-4 flex flex-col sm:flex-row gap-3 justify-between items-stretch sm:items-center">
               <button
                 onClick={() => setSelectedProject(null)}
                 className="px-4 py-2.5 rounded-xl border border-gold/15 hover:bg-white/5 text-xs text-muted-foreground hover:text-foreground transition-all cursor-pointer order-last sm:order-first"

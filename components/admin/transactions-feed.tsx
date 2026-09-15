@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { PoundSterling, X, Calendar, FileText } from 'lucide-react'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -36,36 +37,39 @@ export function TransactionsFeed({
   const displayPayments = payments.slice(0, 3)
 
   return (
-    <section className="p-4 sm:p-5 bg-[#111115] rounded-2xl border border-slate-800 space-y-4 hover:scale-[1.01] hover:-translate-y-0.5 transition-all duration-300 shadow-xl">
-      <h2 className="text-base font-sans font-bold text-white flex items-center gap-2">
-        <PoundSterling size={15} className="text-[#DCAE53]" />
-        Recent Sales
-      </h2>
+    <section className="p-4 sm:p-5 bg-[#0B0B0D] rounded-2xl border border-white/10 space-y-4">
+      <div className="flex items-center justify-between">
+        <h2 className="text-sm font-sans font-bold text-white flex items-center gap-2">
+          <PoundSterling size={15} className="text-[#DAA640]" />
+          <span>Recent Sales</span>
+        </h2>
+        <span className="text-[11px] font-mono text-zinc-500">Live Ledger</span>
+      </div>
 
-      <div className="divide-y divide-gold/10">
+      <div className="divide-y divide-white/5">
         {displayPayments.length > 0 ? (
           displayPayments.map((payment) => (
             <div
               key={payment.id}
-              className="py-3 flex items-center justify-between gap-3 first:pt-0 last:pb-0 transition-all hover:bg-white/[0.01]"
+              className="py-3 flex items-center justify-between gap-3 first:pt-0 last:pb-0 transition-colors hover:bg-white/[0.01]"
             >
               <div className="min-w-0">
-                <p className="text-xs font-bold text-foreground truncate">
-                  {payment.projects?.project_name || 'Custom Project'}
+                <p className="text-xs font-semibold text-white truncate">
+                  {payment.projects?.project_name || 'Custom Mandate'}
                 </p>
-                <p className="text-[10px] text-muted-foreground truncate mt-0.5">
+                <p className="text-[11px] text-zinc-400 truncate mt-0.5">
                   {payment.notes || 'Milestone payment'}
                 </p>
-                <p className="text-[9px] text-gold/60 font-mono mt-0.5">
+                <p className="text-[10px] text-zinc-500 font-mono mt-0.5">
                   {new Date(payment.created_at).toLocaleDateString('en-GB')}
                 </p>
               </div>
               <div className="text-right shrink-0">
-                <span className="text-sm font-serif font-bold text-gold flex items-center gap-1 justify-end">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shrink-0" />
+                <span className="text-sm font-mono font-bold text-emerald-400 flex items-center gap-1.5 justify-end">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                   +£{Number(payment.amount).toLocaleString('en-GB')}
                 </span>
-                <span className="block text-[8px] uppercase tracking-wider text-green-400 font-bold mt-0.5">
+                <span className="block text-[10px] font-mono uppercase tracking-wider text-zinc-400 mt-0.5">
                   {payment.status}
                 </span>
               </div>
@@ -73,8 +77,8 @@ export function TransactionsFeed({
           ))
         ) : (
           <div className="py-6 text-center px-4">
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              No transactions recorded yet. Revenue logs will populate as project milestones are completed.
+            <p className="text-xs text-zinc-500 leading-relaxed">
+              No transactions recorded yet. Revenue logs populate as project milestones are completed.
             </p>
           </div>
         )}
@@ -82,16 +86,16 @@ export function TransactionsFeed({
 
       {/* Collection Rate Bar */}
       {totalContractValue > 0 && (
-        <div className="space-y-1.5 pt-1 border-t border-purple-500/15">
-          <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+        <div className="space-y-1.5 pt-2 border-t border-white/5">
+          <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400">
             <span>
-              £{totalCollected.toLocaleString('en-GB')} Realised · £{Math.max(0, totalContractValue - totalCollected).toLocaleString('en-GB')} Projected Pipeline
+              £{totalCollected.toLocaleString('en-GB')} / £{totalContractValue.toLocaleString('en-GB')}
             </span>
-            <span className="font-bold text-gold">{collectionRate}%</span>
+            <span className="font-bold text-white">{collectionRate}%</span>
           </div>
-          <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+          <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-purple-600 to-gold rounded-full transition-all duration-700"
+              className="h-full bg-[#DAA640] rounded-full transition-all duration-500"
               style={{ width: `${Math.min(collectionRate, 100)}%` }}
             />
           </div>
@@ -99,10 +103,10 @@ export function TransactionsFeed({
       )}
 
       {payments.length > 0 && (
-        <div className="flex justify-end">
+        <div className="flex justify-end pt-1">
           <button
             onClick={() => setShowModal(true)}
-            className="text-[10px] font-bold uppercase tracking-wider text-gold/60 hover:text-gold transition-colors cursor-pointer bg-transparent border-none outline-none"
+            className="text-xs font-semibold text-[#DAA640] hover:text-[#c49535] transition-colors cursor-pointer bg-transparent border-none outline-none py-1"
           >
             View All Transactions →
           </button>
@@ -110,73 +114,81 @@ export function TransactionsFeed({
       )}
 
       {/* ── All Transactions Modal ─────────────────────────────────────────── */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs animate-in fade-in duration-200">
-          <div className="w-full max-w-xl glass border border-gold/20 rounded-2xl shadow-2xl p-6 relative flex flex-col max-h-[80vh] overflow-hidden">
-            
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-purple-500/15 pb-4 shrink-0">
-              <div className="flex items-center gap-2">
-                <PoundSterling size={18} className="text-gold" />
-                <h3 className="font-serif text-base font-bold text-foreground">
-                  Transactions Ledger
-                </h3>
-              </div>
-              <button
-                onClick={() => setShowModal(false)}
-                className="p-1 rounded-lg hover:bg-white/5 text-muted-foreground hover:text-foreground transition-all cursor-pointer border-none bg-transparent"
-              >
-                <X size={16} />
-              </button>
-            </div>
-
-            {/* List */}
-            <div className="flex-1 overflow-y-auto py-4 space-y-3.5 scrollbar-thin">
-              {payments.map((payment) => (
-                <div
-                  key={payment.id}
-                  className="p-3.5 rounded-xl border border-purple-500/15 bg-white/[0.01] hover:bg-white/[0.02] flex items-center justify-between gap-4 transition-all"
-                >
-                  <div className="min-w-0 space-y-1">
-                    <p className="text-xs font-bold text-foreground truncate">
-                      {payment.projects?.project_name || 'Custom Project'}
-                    </p>
-                    {payment.notes && (
-                      <p className="text-[10px] text-muted-foreground flex items-center gap-1">
-                        <FileText size={10} className="text-gold/40" />
-                        {payment.notes}
-                      </p>
-                    )}
-                    <p className="text-[9px] text-muted-foreground flex items-center gap-1 font-mono">
-                      <Calendar size={9} />
-                      {new Date(payment.created_at).toLocaleDateString('en-GB')} at {new Date(payment.created_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
-                    </p>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <span className="text-sm font-serif font-bold text-gold">
-                      +£{Number(payment.amount).toLocaleString('en-GB')}
-                    </span>
-                    <span className="block text-[8px] uppercase tracking-wider text-green-400 font-bold mt-0.5">
-                      {payment.status}
-                    </span>
-                  </div>
+      <AnimatePresence>
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="w-full max-w-xl bg-[#0B0B0D] border border-white/10 rounded-2xl shadow-2xl p-6 relative flex flex-col max-h-[80vh] overflow-hidden"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-white/10 pb-4 shrink-0">
+                <div className="flex items-center gap-2">
+                  <PoundSterling size={16} className="text-[#DAA640]" />
+                  <h3 className="text-base font-serif font-bold text-white">
+                    Transactions Ledger
+                  </h3>
                 </div>
-              ))}
-            </div>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-colors cursor-pointer border-none bg-transparent"
+                >
+                  <X size={16} />
+                </button>
+              </div>
 
-            {/* Footer */}
-            <div className="border-t border-purple-500/15 pt-4 flex justify-end shrink-0">
-              <button
-                onClick={() => setShowModal(false)}
-                className="px-4 py-2 rounded-xl bg-gold/10 hover:bg-gold/20 text-gold border border-gold/20 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
-              >
-                Close Ledger
-              </button>
-            </div>
+              {/* List */}
+              <div className="flex-1 overflow-y-auto py-4 space-y-2.5">
+                {payments.map((payment) => (
+                  <div
+                    key={payment.id}
+                    className="p-3.5 rounded-xl border border-white/10 bg-[#141417] flex items-center justify-between gap-4"
+                  >
+                    <div className="min-w-0 space-y-0.5">
+                      <p className="text-xs font-semibold text-white truncate">
+                        {payment.projects?.project_name || 'Custom Mandate'}
+                      </p>
+                      {payment.notes && (
+                        <p className="text-[11px] text-zinc-400 flex items-center gap-1.5 truncate">
+                          <FileText size={11} className="text-zinc-500 shrink-0" />
+                          <span>{payment.notes}</span>
+                        </p>
+                      )}
+                      <p className="text-[10px] text-zinc-500 flex items-center gap-1.5 font-mono">
+                        <Calendar size={10} className="shrink-0" />
+                        <span>{new Date(payment.created_at).toLocaleDateString('en-GB')} at {new Date(payment.created_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}</span>
+                      </p>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <span className="text-sm font-mono font-bold text-emerald-400">
+                        +£{Number(payment.amount).toLocaleString('en-GB')}
+                      </span>
+                      <div className="flex items-center justify-end gap-1 mt-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400">
+                          {payment.status}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
+              {/* Footer */}
+              <div className="border-t border-white/10 pt-4 flex justify-end shrink-0">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="px-4 py-2.5 min-h-[44px] rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/10 text-xs font-semibold transition-colors cursor-pointer"
+                >
+                  Close Ledger
+                </button>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </section>
   )
 }

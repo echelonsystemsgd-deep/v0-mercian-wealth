@@ -442,20 +442,20 @@ export default function AdminQuotesPage() {
   return (
     <div className="space-y-8 max-w-7xl mx-auto pb-12 font-sans">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#DCAE53]/15 pb-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/10 pb-6">
         <div>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#111115] border border-[#DCAE53]/30 flex items-center justify-center text-[#DCAE53]">
+            <div className="w-10 h-10 rounded-xl bg-[#0B0B0D] border border-white/10 flex items-center justify-center text-[#DAA640]">
               <Receipt className="w-5 h-5" />
             </div>
             <div>
               <h1 className="text-2xl font-serif font-bold text-white tracking-tight flex items-center gap-2">
                 <span>Quotes &amp; Invoice Suite</span>
-                <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-[#DCAE53]/10 border border-[#DCAE53]/25 text-[#DCAE53]">
+                <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-[#141417] border border-white/10 text-zinc-300">
                   Internal Command
                 </span>
               </h1>
-              <p className="text-xs font-mono text-[#DCAE53]/80 uppercase tracking-widest mt-0.5">
+              <p className="text-xs font-mono text-zinc-400 uppercase tracking-widest mt-0.5">
                 {MERCIAN_BANK_DETAILS.tagline}
               </p>
             </div>
@@ -465,7 +465,7 @@ export default function AdminQuotesPage() {
         <div className="flex items-center gap-3">
           <button
             onClick={handleOpenNewQuote}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#DAA640] to-[#B88528] hover:from-[#E5B85C] hover:to-[#C99632] text-[#09090B] text-xs font-mono font-bold uppercase tracking-wider shadow-lg shadow-[#DAA640]/20 transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#DAA640] hover:bg-[#F5D90A] text-black text-xs font-mono font-bold uppercase tracking-wider shadow transition-all cursor-pointer"
           >
             <Plus size={15} />
             <span>Build New Quote</span>
@@ -476,13 +476,13 @@ export default function AdminQuotesPage() {
       {/* Tabs & Search Filter Bar */}
       <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
         {/* Navigation Tabs */}
-        <div className="flex items-center p-1 rounded-2xl bg-[#111115] border border-white/8 w-fit">
+        <div className="flex items-center p-1 rounded-2xl bg-[#0B0B0D] border border-white/10 w-fit">
           <button
             onClick={() => setActiveTab('quotes')}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
               activeTab === 'quotes'
-                ? 'bg-[#18181F] text-[#DCAE53] shadow-md border border-[#DCAE53]/30'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#141417] text-white shadow-sm border border-white/15'
+                : 'text-zinc-400 hover:text-white'
             }`}
           >
             <FileText size={13} />
@@ -492,8 +492,8 @@ export default function AdminQuotesPage() {
             onClick={() => setActiveTab('invoices')}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
               activeTab === 'invoices'
-                ? 'bg-[#18181F] text-[#DCAE53] shadow-md border border-[#DCAE53]/30'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#141417] text-white shadow-sm border border-white/15'
+                : 'text-zinc-400 hover:text-white'
             }`}
           >
             <Receipt size={13} />
@@ -503,8 +503,8 @@ export default function AdminQuotesPage() {
             onClick={() => setActiveTab('catalog')}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${
               activeTab === 'catalog'
-                ? 'bg-[#18181F] text-[#DCAE53] shadow-md border border-[#DCAE53]/30'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#141417] text-white shadow-sm border border-white/15'
+                : 'text-zinc-400 hover:text-white'
             }`}
           >
             <Layers size={13} />
@@ -515,13 +515,13 @@ export default function AdminQuotesPage() {
         {/* Search input */}
         {activeTab !== 'catalog' && (
           <div className="relative w-full sm:w-72">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by client or reference..."
-              className="w-full pl-10 pr-4 py-2 rounded-xl bg-[#111115] border border-white/8 hover:border-white/15 focus:border-[#DCAE53]/50 text-xs text-white placeholder:text-slate-500 outline-none transition-all"
+              className="w-full pl-10 pr-4 py-2 rounded-xl bg-[#0B0B0D] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 text-xs text-white placeholder:text-zinc-500 outline-none transition-all"
             />
           </div>
         )}
@@ -531,21 +531,21 @@ export default function AdminQuotesPage() {
       {activeTab === 'quotes' && (
         <div className="space-y-4">
           {loading ? (
-            <div className="p-12 text-center text-slate-400 font-mono text-xs flex items-center justify-center gap-2">
-              <Loader2 className="w-4 h-4 animate-spin text-[#DCAE53]" />
+            <div className="p-12 text-center text-zinc-400 font-mono text-xs flex items-center justify-center gap-2">
+              <Loader2 className="w-4 h-4 animate-spin text-[#DAA640]" />
               <span>Loading quotes registry...</span>
             </div>
           ) : filteredQuotes.length === 0 ? (
-            <div className="p-12 rounded-3xl bg-[#111115] border border-white/8 text-center space-y-3">
-              <FileText className="w-10 h-10 text-slate-500 mx-auto" />
+            <div className="p-12 rounded-3xl bg-[#0B0B0D] border border-white/10 text-center space-y-3">
+              <FileText className="w-10 h-10 text-zinc-500 mx-auto" />
               <h3 className="text-base font-serif font-bold text-white">No Quotes Found</h3>
-              <p className="text-xs text-slate-400 max-w-sm mx-auto font-sans">
+              <p className="text-xs text-zinc-400 max-w-sm mx-auto font-sans">
                 {searchQuery ? 'No quotes match your search query.' : 'Build your first client quote to generate an interactive proposal and branded invoice.'}
               </p>
               {!searchQuery && (
                 <button
                   onClick={() => setIsNewQuoteOpen(true)}
-                  className="px-4 py-2 rounded-xl bg-[#18181F] border border-[#DCAE53]/30 text-[#DCAE53] text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#DCAE53]/10 transition-colors cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-[#141417] border border-white/10 text-zinc-300 text-xs font-mono font-bold uppercase tracking-wider hover:text-white transition-colors cursor-pointer"
                 >
                   + Build New Quote
                 </button>
@@ -555,25 +555,23 @@ export default function AdminQuotesPage() {
             <div className="grid gap-4">
               {filteredQuotes.map((q) => {
                 const clientPortalUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/quote/${q.secure_token}`
+                const isAccepted = q.status === 'invoiced' || q.status === 'accepted'
                 return (
                   <div
                     key={q.id}
-                    className="p-5 sm:p-6 rounded-2xl bg-[#111115] border border-white/8 hover:border-[#DCAE53]/30 transition-all space-y-4"
+                    className="p-5 sm:p-6 rounded-2xl bg-[#0B0B0D] border border-white/10 hover:border-white/20 transition-all space-y-4"
                   >
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                       <div>
                         <div className="flex items-center gap-2.5 flex-wrap">
-                          <span className="font-mono text-xs font-bold text-[#DCAE53] bg-[#DCAE53]/10 border border-[#DCAE53]/25 px-2.5 py-0.5 rounded-lg">
+                          <span className="font-mono text-xs font-bold text-[#DAA640] bg-[#141417] border border-white/10 px-2.5 py-0.5 rounded-lg">
                             {q.quote_number}
                           </span>
-                          <span className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded-full font-bold ${
-                            q.status === 'invoiced' || q.status === 'accepted'
-                              ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/25'
-                              : 'bg-slate-800 text-slate-300 border border-slate-700'
-                          }`}>
-                            ● {q.status}
+                          <span className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full font-semibold bg-[#141417] text-zinc-300 border border-white/10">
+                            <span className={`w-1.5 h-1.5 rounded-full ${isAccepted ? 'bg-emerald-400' : 'bg-zinc-400'}`} />
+                            {q.status}
                           </span>
-                          <span className="text-xs text-slate-400 font-mono">
+                          <span className="text-xs text-zinc-400 font-mono">
                             {new Date(q.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
                           </span>
                         </div>
@@ -585,18 +583,18 @@ export default function AdminQuotesPage() {
                       {/* Financial Badges */}
                       <div className="flex items-center gap-3 font-mono text-right">
                         <div>
-                          <span className="text-[10px] text-slate-400 uppercase block">Implementation</span>
+                          <span className="text-[10px] text-zinc-400 uppercase block">Implementation</span>
                           <span className="text-base font-extrabold text-white">{formatCurrency(q.one_time_subtotal)}</span>
                         </div>
                         {q.monthly_subtotal > 0 && (
                           <div className="border-l border-white/10 pl-3">
-                            <span className="text-[10px] text-slate-400 uppercase block">Retainer</span>
-                            <span className="text-sm font-bold text-blue-400">{formatCurrency(q.monthly_subtotal)}/mo</span>
+                            <span className="text-[10px] text-zinc-400 uppercase block">Retainer</span>
+                            <span className="text-sm font-bold text-[#DAA640]">{formatCurrency(q.monthly_subtotal)}/mo</span>
                           </div>
                         )}
                         {q.rev_share_percentage > 0 && (
                           <div className="border-l border-white/10 pl-3">
-                            <span className="text-[10px] text-slate-400 uppercase block">Rev Share ({q.rev_share_percentage}%)</span>
+                            <span className="text-[10px] text-zinc-400 uppercase block">Rev Share ({q.rev_share_percentage}%)</span>
                             <span className="text-sm font-bold text-emerald-400">Est. {formatCurrency(q.estimated_rev_share_monthly)}/mo</span>
                           </div>
                         )}
@@ -605,9 +603,9 @@ export default function AdminQuotesPage() {
 
                     {/* Scope Items Snapshot */}
                     {q.items && q.items.length > 0 && (
-                      <div className="p-3 rounded-xl bg-[#18181F] border border-white/5 flex flex-wrap gap-2 text-xs font-mono">
+                      <div className="p-3 rounded-xl bg-[#141417] border border-white/5 flex flex-wrap gap-2 text-xs font-mono">
                         {q.items.map((it, idx) => (
-                          <span key={idx} className="px-2 py-1 rounded bg-[#09090B] border border-white/5 text-slate-300">
+                          <span key={idx} className="px-2 py-1 rounded bg-[#0B0B0D] border border-white/5 text-zinc-300">
                             {it.name} ({formatCurrency(it.unit_price)})
                           </span>
                         ))}
@@ -625,7 +623,7 @@ export default function AdminQuotesPage() {
                             toast.success('Copied secret client quote portal link!')
                             setTimeout(() => setCopiedLinkToken(null), 2000)
                           }}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#18181F] border border-white/10 hover:border-[#DCAE53]/40 text-slate-300 hover:text-white text-xs font-mono transition-all cursor-pointer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141417] border border-white/10 hover:border-white/20 text-zinc-300 hover:text-white text-xs font-mono transition-all cursor-pointer"
                         >
                           {copiedLinkToken === q.id ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
                           <span>{copiedLinkToken === q.id ? 'Link Copied' : 'Copy Client Portal Link'}</span>
@@ -635,7 +633,7 @@ export default function AdminQuotesPage() {
                           href={`/quote/${q.secure_token}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#18181F] border border-white/10 hover:border-[#DCAE53]/40 text-slate-300 hover:text-[#DCAE53] text-xs font-mono transition-all"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#141417] border border-white/10 hover:border-white/20 text-zinc-300 hover:text-[#DAA640] text-xs font-mono transition-all"
                         >
                           <ExternalLink size={12} />
                           <span>View as Client</span>
@@ -645,14 +643,14 @@ export default function AdminQuotesPage() {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => handleGenerateInvoiceFromQuote(q)}
-                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#DCAE53]/15 hover:bg-[#DCAE53]/25 border border-[#DCAE53]/40 text-[#DCAE53] text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer"
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-mono font-semibold uppercase tracking-wider transition-all cursor-pointer"
                         >
                           <Receipt size={12} />
                           <span>Generate Branded Invoice</span>
                         </button>
                         <button
                           onClick={() => handleDeleteQuote(q.id)}
-                          className="p-1.5 rounded-lg hover:bg-red-500/10 text-slate-500 hover:text-red-400 transition-colors cursor-pointer"
+                          className="p-1.5 rounded-lg hover:bg-rose-500/10 text-zinc-500 hover:text-rose-400 transition-colors cursor-pointer"
                         >
                           <Trash2 size={14} />
                         </button>
@@ -670,23 +668,23 @@ export default function AdminQuotesPage() {
       {activeTab === 'invoices' && (
         <div className="space-y-4">
           {loading ? (
-            <div className="p-12 text-center text-slate-400 font-mono text-xs flex items-center justify-center gap-2">
-              <Loader2 className="w-4 h-4 animate-spin text-[#DCAE53]" />
+            <div className="p-12 text-center text-zinc-400 font-mono text-xs flex items-center justify-center gap-2">
+              <Loader2 className="w-4 h-4 animate-spin text-[#DAA640]" />
               <span>Loading invoice records...</span>
             </div>
           ) : filteredInvoices.length === 0 ? (
-            <div className="p-12 rounded-3xl bg-[#111115] border border-white/8 text-center space-y-3">
-              <Receipt className="w-10 h-10 text-slate-500 mx-auto" />
+            <div className="p-12 rounded-3xl bg-[#0B0B0D] border border-white/10 text-center space-y-3">
+              <Receipt className="w-10 h-10 text-zinc-500 mx-auto" />
               <h3 className="text-base font-serif font-bold text-white">No Invoices Issued</h3>
-              <p className="text-xs text-slate-400 max-w-sm mx-auto font-sans">
+              <p className="text-xs text-zinc-400 max-w-sm mx-auto font-sans">
                 Invoices will populate here once quotes are finalized and issued to clients.
               </p>
             </div>
           ) : (
-            <div className="rounded-2xl border border-white/10 overflow-hidden bg-card">
+            <div className="rounded-2xl border border-white/10 overflow-hidden bg-[#0B0B0D]">
               {/* Desktop Table View (>= 768px) */}
               <div className="hidden md:block overflow-x-auto">
-                <div className="grid grid-cols-12 px-5 py-3 bg-white/[0.02] border-b border-white/5 text-[11px] font-mono text-muted-foreground uppercase tracking-wider">
+                <div className="grid grid-cols-12 px-5 py-3 bg-[#141417]/70 border-b border-white/10 text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
                   <div className="col-span-2">Invoice Ref</div>
                   <div className="col-span-4">Client / Company</div>
                   <div className="col-span-2 text-right">Deposit Due</div>
@@ -696,26 +694,23 @@ export default function AdminQuotesPage() {
 
                 <div className="divide-y divide-white/5">
                   {filteredInvoices.map((inv) => (
-                    <div key={inv.id} className="grid grid-cols-12 px-5 py-4 items-center text-xs font-mono gap-2 hover:bg-white/[0.01] transition-colors">
-                      <div className="col-span-2 font-bold text-gold flex items-center gap-2">
-                        <Receipt size={14} className="shrink-0" />
+                    <div key={inv.id} className="grid grid-cols-12 px-5 py-4 items-center text-xs font-mono gap-2 hover:bg-[#141417]/50 transition-colors">
+                      <div className="col-span-2 font-bold text-white flex items-center gap-2">
+                        <Receipt size={14} className="shrink-0 text-zinc-400" />
                         <span className="truncate">{inv.invoice_number}</span>
                       </div>
                       <div className="col-span-4 font-sans">
-                        <span className="font-bold text-foreground block truncate">{inv.client_business || inv.client_name}</span>
-                        <span className="text-[11px] text-muted-foreground font-mono block truncate">
+                        <span className="font-semibold text-white block truncate">{inv.client_business || inv.client_name}</span>
+                        <span className="text-[11px] text-zinc-400 font-mono block truncate">
                           {inv.client_email || 'No email on file'}
                         </span>
                       </div>
-                      <div className="col-span-2 text-right font-bold text-foreground">
+                      <div className="col-span-2 text-right font-bold text-white">
                         {formatCurrency(inv.deposit_amount)}
                       </div>
                       <div className="col-span-1 text-center">
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] uppercase font-bold border ${
-                          inv.status === 'paid'
-                            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25'
-                            : 'bg-amber-500/10 text-amber-300 border-amber-500/25'
-                        }`}>
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase font-semibold bg-[#141417] text-zinc-300 border border-white/10">
+                          <span className={`w-1.5 h-1.5 rounded-full ${inv.status === 'paid' ? 'bg-emerald-400' : 'bg-amber-400'}`} />
                           {inv.status}
                         </span>
                       </div>
@@ -723,7 +718,7 @@ export default function AdminQuotesPage() {
                         <button
                           onClick={() => handleCopyInvoiceLink(inv.id)}
                           title="Copy Client Invoice Link"
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-foreground text-[11px] font-mono transition-all cursor-pointer"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#141417] hover:bg-white/10 text-zinc-300 hover:text-white text-[11px] font-mono border border-white/10 transition-all cursor-pointer"
                         >
                           {copiedLinkToken === inv.id ? (
                             <>
@@ -742,21 +737,21 @@ export default function AdminQuotesPage() {
                           target="_blank"
                           rel="noopener noreferrer"
                           title="View Live Client Invoice"
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-foreground text-[11px] font-mono transition-all cursor-pointer"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#141417] hover:bg-white/10 text-zinc-300 hover:text-white text-[11px] font-mono border border-white/10 transition-all cursor-pointer"
                         >
                           <ExternalLink size={12} />
                           <span>View</span>
                         </a>
                         <button
                           onClick={() => setViewingInvoice(inv)}
-                          className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200 hover:text-foreground text-[11px] font-medium transition-all cursor-pointer"
+                          className="px-2.5 py-1 rounded-lg bg-[#141417] hover:bg-white/10 text-zinc-300 hover:text-white text-[11px] font-mono border border-white/10 transition-all cursor-pointer"
                         >
                           Print
                         </button>
                         {inv.status !== 'paid' && (
                           <button
                             onClick={() => handleMarkInvoicePaid(inv.id)}
-                            className="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 text-[11px] font-bold border border-emerald-500/25 transition-all cursor-pointer"
+                            className="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 text-[11px] font-semibold border border-emerald-500/25 transition-all cursor-pointer"
                           >
                             Mark Paid
                           </button>
@@ -764,7 +759,7 @@ export default function AdminQuotesPage() {
                         <button
                           onClick={() => handleDeleteInvoice(inv.id)}
                           title="Delete Invoice"
-                          className="p-1.5 rounded-lg hover:bg-red-500/10 text-slate-500 hover:text-red-400 transition-colors cursor-pointer"
+                          className="p-1.5 rounded-lg hover:bg-rose-500/10 text-zinc-500 hover:text-rose-400 transition-colors cursor-pointer"
                         >
                           <Trash2 size={14} />
                         </button>
@@ -779,27 +774,24 @@ export default function AdminQuotesPage() {
                 {filteredInvoices.map((inv) => (
                   <div key={inv.id} className="p-4 space-y-3">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1.5 font-bold text-gold text-xs font-mono">
-                        <Receipt size={14} className="shrink-0" />
+                      <div className="flex items-center gap-1.5 font-bold text-white text-xs font-mono">
+                        <Receipt size={14} className="shrink-0 text-zinc-400" />
                         <span>{inv.invoice_number}</span>
                       </div>
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] uppercase font-bold border ${
-                        inv.status === 'paid'
-                          ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25'
-                          : 'bg-amber-500/10 text-amber-300 border-amber-500/25'
-                      }`}>
+                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase font-semibold bg-[#141417] text-zinc-300 border border-white/10">
+                        <span className={`w-1.5 h-1.5 rounded-full ${inv.status === 'paid' ? 'bg-emerald-400' : 'bg-amber-400'}`} />
                         {inv.status}
                       </span>
                     </div>
 
                     <div className="flex items-baseline justify-between gap-2">
                       <div className="min-w-0 flex-1">
-                        <p className="font-bold text-sm text-foreground truncate">{inv.client_business || inv.client_name}</p>
-                        <p className="text-[11px] text-muted-foreground font-mono truncate">{inv.client_email || 'No email on file'}</p>
+                        <p className="font-semibold text-sm text-white truncate">{inv.client_business || inv.client_name}</p>
+                        <p className="text-[11px] text-zinc-400 font-mono truncate">{inv.client_email || 'No email on file'}</p>
                       </div>
                       <div className="text-right shrink-0">
-                        <span className="text-[10px] uppercase tracking-wider text-muted-foreground block">Deposit Due</span>
-                        <span className="font-bold text-sm text-foreground font-mono">{formatCurrency(inv.deposit_amount)}</span>
+                        <span className="text-[10px] uppercase tracking-wider text-zinc-400 block font-mono">Deposit Due</span>
+                        <span className="font-bold text-sm text-white font-mono">{formatCurrency(inv.deposit_amount)}</span>
                       </div>
                     </div>
 
@@ -807,7 +799,7 @@ export default function AdminQuotesPage() {
                       <div className="flex items-center gap-1.5 flex-wrap">
                         <button
                           onClick={() => handleCopyInvoiceLink(inv.id)}
-                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/5 text-slate-300 hover:text-foreground text-[11px] font-mono"
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#141417] text-zinc-300 hover:text-white text-[11px] font-mono border border-white/10"
                         >
                           {copiedLinkToken === inv.id ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
                           <span>{copiedLinkToken === inv.id ? 'Copied' : 'Link'}</span>
@@ -816,14 +808,14 @@ export default function AdminQuotesPage() {
                           href={`/invoice/${inv.id}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/5 text-slate-300 hover:text-foreground text-[11px] font-mono"
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#141417] text-zinc-300 hover:text-white text-[11px] font-mono border border-white/10"
                         >
                           <ExternalLink size={12} />
                           <span>View</span>
                         </a>
                         <button
                           onClick={() => setViewingInvoice(inv)}
-                          className="px-2.5 py-1.5 rounded-lg bg-white/5 text-slate-300 hover:text-foreground text-[11px] font-mono"
+                          className="px-2.5 py-1.5 rounded-lg bg-[#141417] text-zinc-300 hover:text-white text-[11px] font-mono border border-white/10"
                         >
                           Print
                         </button>

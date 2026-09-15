@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
+import { motion } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
 import {
   Search,
@@ -27,13 +28,20 @@ import {
   Globe,
   Star,
   ExternalLink,
-  Flame,
   Send,
   MapPin,
   Laptop,
   Check,
   FileSpreadsheet,
+  MoreHorizontal,
 } from 'lucide-react'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu'
 import { useInspector } from '@/hooks/use-inspector'
 import { OutreachModal, OutreachLead } from '@/components/admin/outreach-modal'
 import { AntigravityPromptModal } from '@/components/admin/antigravity-prompt-modal'
@@ -41,17 +49,27 @@ import { GoogleSheetSyncModal } from '@/components/admin/google-sheet-sync-modal
 
 export type Lead = OutreachLead
 
-const STATUS_COLORS: Record<string, string> = {
-  New: 'bg-slate-500/15 text-slate-300 border-slate-500/25',
-  Contacted: 'bg-amber-500/15 text-amber-300 border-amber-500/30 font-semibold',
-  'Call Booked': 'bg-amber-500/20 text-amber-300 border-amber-500/35 font-bold',
-  'Proposal Sent': 'bg-amber-500/20 text-amber-300 border-amber-500/35 font-bold',
-  Won: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/35 font-bold shadow-[0_0_12px_rgba(16,185,129,0.15)]',
-  Lost: 'bg-rose-500/15 text-rose-400 border-rose-500/25',
-  Spam: 'bg-slate-500/10 text-slate-400/60 border-slate-500/15'
+const STATUS_DOT_COLORS: Record<string, string> = {
+  New: 'bg-zinc-400',
+  Contacted: 'bg-amber-400',
+  'Call Booked': 'bg-amber-400',
+  'Proposal Sent': 'bg-amber-400',
+  Won: 'bg-emerald-400',
+  Lost: 'bg-rose-500',
+  Spam: 'bg-zinc-600',
 }
 
 const ALL_STATUSES = ['New', 'Contacted', 'Call Booked', 'Proposal Sent', 'Won', 'Lost', 'Spam']
+
+function StatusBadge({ status }: { status: string }) {
+  const dotColor = STATUS_DOT_COLORS[status] || 'bg-zinc-400'
+  return (
+    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-[#141417] text-zinc-300 border border-white/10 shrink-0">
+      <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
+      <span>{status}</span>
+    </span>
+  )
+}
 
 function getInitials(name: string): string {
   const clean = (name || '').replace(/[^a-zA-Z0-9\s]/g, '').trim()
@@ -427,144 +445,129 @@ export default function LeadsPage() {
   // AMBIENT CARD STYLING HELPER
   const getCardBorderClass = (status: string) => {
     if (status === 'Won') {
-      return 'border-emerald-500/50 bg-[#07130e]/80 shadow-[0_0_25px_rgba(16,185,129,0.15)] hover:border-emerald-400'
+      return 'border-emerald-500/30 bg-[#0B0B0D] hover:border-emerald-500/50 shadow-sm'
     }
-    if (status === 'Lost' || status === 'Spam') {
-      return 'border-rose-500/35 bg-[#12080a]/60 shadow-[0_0_20px_rgba(244,63,94,0.08)] hover:border-rose-400 opacity-80'
-    }
-    if (status === 'Contacted') {
-      return 'border-amber-500/40 bg-[#120f09]/70 shadow-[0_0_20px_rgba(245,158,11,0.1)] hover:border-amber-400'
-    }
-    if (status === 'Call Booked' || status === 'Proposal Sent') {
-      return 'border-purple-500/40 bg-[#100814]/70 shadow-[0_0_20px_rgba(168,85,247,0.1)] hover:border-purple-400'
-    }
-    return 'border-gold/15 bg-[#0b0f17]/90 shadow-[0_0_25px_rgba(0,0,0,0.6)] hover:border-gold/35'
+    return 'border-white/10 bg-[#0B0B0D] hover:border-white/20 shadow-sm'
   }
 
   // AMBIENT TABLE ROW STYLING HELPER
   const getRowHighlightClass = (status: string, isChecked: boolean, isInspected: boolean) => {
     if (isInspected) {
-      return 'bg-gold/[0.05] border-l-4 border-l-gold shadow-[inset_3px_0_0_rgba(212,175,55,1),0_0_20px_rgba(212,175,55,0.06)]'
+      return 'bg-[#141417] border-l-2 border-l-[#DAA640]'
     }
     if (isChecked) {
-      return 'bg-gold/10 border-l-4 border-l-gold/60'
+      return 'bg-[#141417] border-l-2 border-l-white/40'
     }
-    if (status === 'Won') {
-      return 'bg-emerald-500/[0.09] hover:bg-emerald-500/[0.15] border-l-4 border-l-emerald-500 shadow-[inset_3px_0_0_rgba(16,185,129,0.8),0_0_16px_rgba(16,185,129,0.05)] transition-all'
-    }
-    if (status === 'Lost' || status === 'Spam') {
-      return 'bg-rose-500/[0.06] hover:bg-rose-500/[0.12] border-l-4 border-l-rose-500/80 opacity-75 transition-all'
-    }
-    if (status === 'Contacted') {
-      return 'bg-amber-500/[0.07] hover:bg-amber-500/[0.13] border-l-4 border-l-amber-500 transition-all'
-    }
-    if (status === 'Call Booked' || status === 'Proposal Sent') {
-      return 'bg-purple-500/[0.07] hover:bg-purple-500/[0.13] border-l-4 border-l-purple-500 transition-all'
-    }
-    return 'hover:bg-white/[0.02] border-l-4 border-l-transparent transition-all'
+    return 'hover:bg-[#141417]/60 border-l-2 border-l-transparent transition-colors'
   }
 
   return (
     <div className="space-y-6 sm:space-y-8 relative">
       {/* Toast Alert */}
       {toast && (
-        <div className="fixed top-4 left-4 z-50 px-4 py-3 rounded-xl bg-black/90 border border-gold/40 text-sm font-semibold text-foreground shadow-[0_0_30px_rgba(0,0,0,0.9)] flex items-center gap-2 animate-fade-in backdrop-blur-md">
-          <CheckCircle2 size={16} className="text-gold" /> {toast}
+        <div className="fixed top-4 left-4 z-50 px-4 py-3 rounded-xl bg-[#0B0B0D]/95 border border-[#DAA640]/40 text-sm font-semibold text-white shadow-2xl flex items-center gap-2 animate-fade-in backdrop-blur-md">
+          <CheckCircle2 size={16} className="text-[#DAA640]" /> {toast}
         </div>
       )}
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-bold tracking-widest text-gold uppercase">
+          <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#DAA640] uppercase">
             <Sparkles size={12} /> Local Business Outreach Engine
           </div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-foreground mt-1">Lead Outreach Ledger</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white mt-1">Lead Outreach Ledger</h1>
+          <p className="text-sm text-zinc-400">
             Execute verified WhatsApp outreach, build instant digital storefront prototypes, and close local business clients.
           </p>
         </div>
-        <div className="flex items-center gap-2 self-end sm:self-center">
+        <div className="flex items-center gap-2 self-start sm:self-center flex-wrap">
           <button
             onClick={() => setIsSheetSyncOpen(true)}
-            className="flex items-center gap-2 px-3.5 py-2.5 text-xs font-bold rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25 transition-all cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.15)]"
-            title="Sync 224 leads from Google Sheets"
+            className="flex items-center gap-2 px-3.5 py-2.5 text-xs font-medium rounded-xl bg-[#141417] border border-white/10 text-zinc-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer"
+            title="Sync leads from Google Sheets"
           >
-            <FileSpreadsheet size={14} /> Sync Google Sheet
+            <FileSpreadsheet size={14} className="text-emerald-400" />
+            <span>Sync Sheet</span>
           </button>
           <button
             onClick={() => {
               setLeadForm({ name: '', business_name: '', email: '', phone: '', website: '', service_interested: '', source: 'manual', status: 'New', notes: '' })
               setShowNewModal(true)
             }}
-            className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-gold to-gold-light text-background shadow-[0_0_16px_rgba(212,175,55,0.25)] hover:shadow-[0_0_24px_rgba(212,175,55,0.45)] transition-all cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-xl bg-[#DAA640] hover:bg-[#F5D90A] text-black shadow-sm transition-all cursor-pointer"
           >
-            <Plus size={14} /> Add Lead
+            <Plus size={14} />
+            <span>Add Lead</span>
           </button>
         </div>
       </div>
 
-      {/* Visual Pipeline Headers */}
-      <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+      {/* Motion Stats Grid */}
+      <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4">
         {[
-          { key: 'New', label: 'Fresh Leads', color: 'text-slate-300' },
-          { key: 'Contacted', label: 'Contacted', color: 'text-amber-300' },
-          { key: 'Call Booked', label: 'Call Booked', color: 'text-amber-300' },
-          { key: 'Proposal Sent', label: 'Proposal Sent', color: 'text-amber-300' },
-          { key: 'Won', label: 'Won / Closed', color: 'text-emerald-400 font-bold' },
-          { key: 'Lost', label: 'Lost / Closed', color: 'text-rose-400' },
+          { key: 'New', label: 'Fresh Leads', dot: 'bg-zinc-400' },
+          { key: 'Contacted', label: 'Contacted', dot: 'bg-amber-400' },
+          { key: 'Call Booked', label: 'Call Booked', dot: 'bg-amber-400' },
+          { key: 'Proposal Sent', label: 'Proposal Sent', dot: 'bg-amber-400' },
+          { key: 'Won', label: 'Won Deals', dot: 'bg-emerald-400' },
+          { key: 'Lost', label: 'Lost', dot: 'bg-rose-500' },
         ].map((item) => {
           const count = statusCounts[item.key] || 0
           const isSelected = statusFilter.includes(item.key)
           return (
-            <div
+            <button
+              type="button"
               key={item.key}
               onClick={() => toggleStatus(item.key)}
-              className={`p-4 glass rounded-2xl flex flex-col justify-between transition-all cursor-pointer border ${
+              className={`p-4 rounded-2xl flex flex-col justify-between text-left transition-all cursor-pointer bg-[#0B0B0D] border relative group ${
                 isSelected
-                  ? 'border-gold bg-gold/10 shadow-[0_0_20px_rgba(212,175,55,0.15)]'
-                  : 'border-gold/10 hover:border-gold/25 hover:bg-white/[0.02]'
+                  ? 'border-[#DAA640] ring-1 ring-[#DAA640]/40 shadow-sm'
+                  : 'border-white/10 hover:border-white/20'
               }`}
             >
-              <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">
-                {item.label}
-              </span>
-              <span className={`text-2xl font-serif font-bold mt-1.5 ${item.color}`}>
+              <div className="flex items-center justify-between gap-1 w-full">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-medium truncate">
+                  {item.label}
+                </span>
+                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.dot}`} />
+              </div>
+              <span className="text-2xl font-bold text-white mt-3 font-sans">
                 {count}
               </span>
-            </div>
+            </button>
           )
         })}
       </section>
 
       {/* Tabs Menu */}
-      <div className="flex border-b border-gold/10 overflow-x-auto scrollbar-none gap-2">
+      <div className="flex border-b border-white/10 overflow-x-auto scrollbar-none gap-2">
         <button
           onClick={() => setActiveTab('active')}
-          className={`px-5 py-3 border-b-2 text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all cursor-pointer ${
+          className={`px-4 py-2.5 border-b-2 text-xs font-semibold flex items-center gap-2 whitespace-nowrap transition-colors cursor-pointer ${
             activeTab === 'active'
-              ? 'border-gold text-gold bg-gold/5'
-              : 'border-transparent text-muted-foreground hover:text-foreground'
+              ? 'border-[#DAA640] text-[#DAA640] bg-[#DAA640]/5'
+              : 'border-transparent text-zinc-400 hover:text-white'
           }`}
         >
-          <Inbox size={14} /> Active Outreach Pipeline
+          <Inbox size={14} /> Active Pipeline
         </button>
         <button
           onClick={() => setActiveTab('archived')}
-          className={`px-5 py-3 border-b-2 text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all cursor-pointer ${
+          className={`px-4 py-2.5 border-b-2 text-xs font-semibold flex items-center gap-2 whitespace-nowrap transition-colors cursor-pointer ${
             activeTab === 'archived'
-              ? 'border-gold text-gold bg-gold/5'
-              : 'border-transparent text-muted-foreground hover:text-foreground'
+              ? 'border-[#DAA640] text-[#DAA640] bg-[#DAA640]/5'
+              : 'border-transparent text-zinc-400 hover:text-white'
           }`}
         >
           <Archive size={14} /> Archived
         </button>
         <button
           onClick={() => setActiveTab('spam')}
-          className={`px-5 py-3 border-b-2 text-sm font-semibold flex items-center gap-2 whitespace-nowrap transition-all cursor-pointer ${
+          className={`px-4 py-2.5 border-b-2 text-xs font-semibold flex items-center gap-2 whitespace-nowrap transition-colors cursor-pointer ${
             activeTab === 'spam'
-              ? 'border-gold text-gold bg-gold/5'
-              : 'border-transparent text-muted-foreground hover:text-foreground'
+              ? 'border-[#DAA640] text-[#DAA640] bg-[#DAA640]/5'
+              : 'border-transparent text-zinc-400 hover:text-white'
           }`}
         >
           <Ban size={14} /> Spam / Disqualified
@@ -575,16 +578,16 @@ export default function LeadsPage() {
       <div className="flex flex-wrap items-center gap-3">
         {/* Search */}
         <div className="relative flex-1 min-w-[220px]">
-          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+          <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" />
           <input
             type="text"
             placeholder="Search business name, phone, trade, postcode…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 bg-card border border-gold/15 hover:border-gold/25 rounded-xl text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+            className="w-full pl-9 pr-4 py-2.5 bg-[#0B0B0D] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl text-sm text-white placeholder:text-zinc-500 outline-none transition-all"
           />
           {search && (
-            <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+            <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white">
               <X size={14} />
             </button>
           )}
@@ -592,59 +595,63 @@ export default function LeadsPage() {
 
         {/* Filter toggle */}
         {activeTab !== 'spam' && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <button
               onClick={() => setShowFilters((v) => !v)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-all cursor-pointer ${showFilters ? 'bg-gold/10 border-gold/30 text-gold' : 'bg-card border-gold/15 text-muted-foreground hover:text-foreground hover:border-gold/25'}`}
+              className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl border text-xs font-medium transition-all cursor-pointer ${
+                showFilters
+                  ? 'bg-[#141417] border-[#DAA640]/40 text-[#DAA640]'
+                  : 'bg-[#0B0B0D] border-white/10 text-zinc-300 hover:text-white hover:border-white/20'
+              }`}
             >
-              <Filter size={15} /> Filters {(statusFilter.length > 0) && '(Active)'}
+              <Filter size={14} /> Filters {statusFilter.length > 0 && `(${statusFilter.length})`}
             </button>
 
             {/* Smart Follow-Up Filter */}
             <button
               onClick={() => setFollowupOnly((v) => !v)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl border text-xs font-medium transition-all cursor-pointer ${
                 followupOnly
-                  ? 'bg-amber-500/20 border-amber-500/40 text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.25)]'
-                  : 'bg-card border-gold/15 text-muted-foreground hover:text-foreground hover:border-gold/25'
+                  ? 'bg-[#141417] border-amber-500/50 text-amber-300 shadow-sm'
+                  : 'bg-[#0B0B0D] border-white/10 text-zinc-300 hover:text-white hover:border-white/20'
               }`}
               title="Filter leads in Contacted status awaiting stage 3 follow-up"
             >
-              <Clock size={14} className={followupOnly ? 'text-amber-400' : 'text-gold'} />
-              <span>🔔 Due for Follow-Up ({statusCounts['Contacted'] || 0})</span>
+              <Clock size={14} className={followupOnly ? 'text-amber-400' : 'text-zinc-400'} />
+              <span>Due Follow-Up ({statusCounts['Contacted'] || 0})</span>
             </button>
           </div>
         )}
 
-        {/* Triple View Toggle (Deal Cards vs Table vs Kanban) */}
+        {/* View Toggle */}
         {activeTab === 'active' && (
-          <div className="flex items-center gap-1 bg-[#0A0A0A]/80 p-1 rounded-xl border border-gold/15 ml-auto shadow-inner">
+          <div className="flex items-center gap-1 bg-[#0B0B0D] p-1 rounded-xl border border-white/10 ml-auto">
             <button
               onClick={() => setViewMode('cards')}
-              className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
                 viewMode === 'cards'
-                  ? 'bg-gold/20 text-gold border border-gold/40 shadow-sm font-extrabold'
-                  : 'text-muted-foreground hover:text-foreground border border-transparent'
+                  ? 'bg-[#141417] text-white border border-white/15 shadow-sm'
+                  : 'text-zinc-400 hover:text-white border border-transparent'
               }`}
             >
-              <LayoutGrid size={13} /> Deal Cards
+              <LayoutGrid size={13} /> Cards
             </button>
             <button
               onClick={() => setViewMode('table')}
-              className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
                 viewMode === 'table'
-                  ? 'bg-gold/20 text-gold border border-gold/40 shadow-sm font-extrabold'
-                  : 'text-muted-foreground hover:text-foreground border border-transparent'
+                  ? 'bg-[#141417] text-white border border-white/15 shadow-sm'
+                  : 'text-zinc-400 hover:text-white border border-transparent'
               }`}
             >
               <List size={13} /> Table
             </button>
             <button
               onClick={() => setViewMode('kanban')}
-              className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
                 viewMode === 'kanban'
-                  ? 'bg-gold/20 text-gold border border-gold/40 shadow-sm font-extrabold'
-                  : 'text-muted-foreground hover:text-foreground border border-transparent'
+                  ? 'bg-[#141417] text-white border border-white/15 shadow-sm'
+                  : 'text-zinc-400 hover:text-white border border-transparent'
               }`}
             >
               <Columns size={13} /> Board
@@ -654,77 +661,56 @@ export default function LeadsPage() {
       </div>
 
       {/* ───────────────────────────────────────────────────────────────────────── */}
-      {/* QUICK PIPELINE SEGMENTS (No Website Blitz vs WhatsApp vs Landline vs All)  */}
+      {/* MOTION SLIDING SEGMENTED CONTROL (No Gimmick Emojis)                      */}
       {/* ───────────────────────────────────────────────────────────────────────── */}
       {activeTab === 'active' && (
-        <div className="flex flex-wrap items-center justify-between gap-3 p-2.5 rounded-2xl bg-[#080b11] border border-gold/15">
-          <div className="flex flex-wrap items-center gap-1.5 text-xs">
-            <span className="text-[11px] font-extrabold uppercase tracking-wider text-muted-foreground px-2">
-              Pipeline Queue:
-            </span>
-            <button
-              onClick={() => setSegmentFilter('all')}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
-                segmentFilter === 'all'
-                  ? 'bg-gold/20 text-gold border border-gold/30 shadow-sm'
-                  : 'text-muted-foreground hover:text-white bg-white/5 border border-transparent'
-              }`}
-            >
-              All Leads ({segmentCounts.total})
-            </button>
-            <button
-              onClick={() => setSegmentFilter('no_website')}
-              className={`px-3 py-1.5 rounded-xl font-extrabold transition-all cursor-pointer flex items-center gap-1.5 ${
-                segmentFilter === 'no_website'
-                  ? 'bg-amber-500/25 text-amber-300 border border-amber-500/40 shadow-[0_0_12px_rgba(245,158,11,0.25)]'
-                  : 'text-amber-400/90 hover:text-amber-300 bg-amber-500/10 border border-amber-500/20'
-              }`}
-            >
-              <Flame size={13} className="text-red-400" /> 🔥 No Website Only ({segmentCounts.noWeb})
-            </button>
-            <button
-              onClick={() => setSegmentFilter('mobile')}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                segmentFilter === 'mobile'
-                  ? 'bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 shadow-[0_0_12px_rgba(16,185,129,0.25)]'
-                  : 'text-emerald-400/90 hover:text-emerald-300 bg-emerald-500/10 border border-emerald-500/20'
-              }`}
-            >
-              <MessageSquare size={13} /> 📱 WhatsApp Ready ({segmentCounts.mobile})
-            </button>
-            <button
-              onClick={() => setSegmentFilter('landline')}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                segmentFilter === 'landline'
-                  ? 'bg-blue-500/25 text-blue-300 border border-blue-500/40 shadow-[0_0_12px_rgba(59,130,246,0.25)]'
-                  : 'text-blue-400/90 hover:text-blue-300 bg-blue-500/10 border border-blue-500/20'
-              }`}
-            >
-              <Phone size={13} /> ☎️ Landlines ({segmentCounts.landline})
-            </button>
-            <button
-              onClick={() => setSegmentFilter('has_website')}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                segmentFilter === 'has_website'
-                  ? 'bg-purple-500/25 text-purple-300 border border-purple-500/40 shadow-sm'
-                  : 'text-purple-400/80 hover:text-purple-300 bg-purple-500/10 border border-purple-500/20'
-              }`}
-            >
-              <Globe size={13} /> 🌐 Has Website ({segmentCounts.hasWeb})
-            </button>
+        <div className="p-1.5 rounded-2xl bg-[#0B0B0D] border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
+          <div className="flex flex-wrap items-center gap-1">
+            {[
+              { key: 'all', label: 'All Leads', count: segmentCounts.total },
+              { key: 'no_website', label: 'No Website', count: segmentCounts.noWeb },
+              { key: 'mobile', label: 'WhatsApp Ready', count: segmentCounts.mobile },
+              { key: 'landline', label: 'Landlines', count: segmentCounts.landline },
+              { key: 'has_website', label: 'Has Website', count: segmentCounts.hasWeb },
+            ].map((seg) => {
+              const isActive = segmentFilter === seg.key
+              return (
+                <button
+                  key={seg.key}
+                  onClick={() => setSegmentFilter(seg.key as any)}
+                  className={`relative px-3 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
+                    isActive ? 'text-white font-semibold' : 'text-zinc-400 hover:text-zinc-200'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeSegment"
+                      className="absolute inset-0 bg-[#141417] border border-white/15 rounded-xl shadow-sm"
+                      transition={{ type: 'spring', bounce: 0.2, duration: 0.35 }}
+                    />
+                  )}
+                  <span className="relative z-10">{seg.label}</span>
+                  <span className={`relative z-10 text-[10px] font-mono px-1.5 py-0.2 rounded-md ${
+                    isActive ? 'bg-white/10 text-white' : 'bg-white/5 text-zinc-400'
+                  }`}>
+                    {seg.count}
+                  </span>
+                </button>
+              )
+            })}
           </div>
 
-          <span className="text-[11px] text-muted-foreground font-mono px-2 hidden md:inline">
-            Showing {displayedLeads.length} of {leads.length} leads
+          <span className="text-[11px] text-zinc-400 font-mono px-3 hidden lg:inline">
+            {displayedLeads.length} of {leads.length} leads
           </span>
         </div>
       )}
 
       {/* Filter Options Accordion */}
       {showFilters && activeTab !== 'spam' && (
-        <div className="glass p-5 rounded-2xl border border-gold/15 space-y-4 animate-fade-in">
+        <div className="p-4 rounded-2xl bg-[#0B0B0D] border border-white/10 space-y-3 animate-fade-in">
           <div>
-            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground block mb-2">Filter by Pipeline Stage:</label>
+            <label className="text-xs font-mono uppercase tracking-wider text-zinc-400 block mb-2">Filter by Pipeline Stage:</label>
             <div className="flex flex-wrap gap-2">
               {ALL_STATUSES.filter(s => s !== 'Spam').map((s) => {
                 const isSelected = statusFilter.includes(s)
@@ -732,13 +718,14 @@ export default function LeadsPage() {
                   <button
                     key={s}
                     onClick={() => toggleStatus(s)}
-                    className={`px-3 py-1 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+                    className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer flex items-center gap-1.5 ${
                       isSelected
-                        ? 'bg-gold/20 border-gold text-gold font-bold shadow-sm'
-                        : 'bg-white/5 border-white/10 text-muted-foreground hover:text-foreground hover:bg-white/10'
+                        ? 'bg-[#141417] border-[#DAA640] text-white'
+                        : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
                     }`}
                   >
-                    {s} ({statusCounts[s] || 0})
+                    <span className={`w-1.5 h-1.5 rounded-full ${STATUS_DOT_COLORS[s] || 'bg-zinc-400'}`} />
+                    <span>{s} ({statusCounts[s] || 0})</span>
                   </button>
                 )
               })}
@@ -748,27 +735,27 @@ export default function LeadsPage() {
       )}
 
       {/* ───────────────────────────────────────────────────────────────────────── */}
-      {/* 1. DEAL CARDS GRID VIEW (SiteDrop-style, Luxury Bespoke Edition)          */}
+      {/* 1. DEAL CARDS GRID VIEW (2 Purposeful Actions + Overflow Menu)             */}
       {/* ───────────────────────────────────────────────────────────────────────── */}
       {viewMode === 'cards' && activeTab === 'active' ? (
         loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="h-64 rounded-2xl bg-white/[0.02] border border-white/5 animate-pulse p-6" />
+              <div key={i} className="h-64 rounded-2xl bg-[#0B0B0D] border border-white/5 animate-pulse p-6" />
             ))}
           </div>
         ) : leads.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-center px-6 space-y-4 max-w-md mx-auto glass rounded-2xl border border-gold/15">
-            <div className="w-14 h-14 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center text-gold">
-              <Inbox size={24} />
+          <div className="flex flex-col items-center justify-center py-20 text-center px-6 space-y-4 max-w-md mx-auto rounded-2xl bg-[#0B0B0D] border border-white/10">
+            <div className="w-12 h-12 rounded-full bg-[#141417] border border-white/10 flex items-center justify-center text-zinc-400">
+              <Inbox size={22} />
             </div>
-            <h3 className="font-serif text-lg font-bold text-foreground">No Leads in Pipeline</h3>
-            <p className="text-xs text-muted-foreground">
-              Run your n8n Lead Machine to scrape 120 fresh leads or adjust your filters above.
+            <h3 className="font-serif text-lg font-bold text-white">No Leads in Pipeline</h3>
+            <p className="text-xs text-zinc-400">
+              Run your lead finder scrape or add a manual lead above.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
             {displayedLeads.map((lead) => {
               const businessName = lead.business_name || lead.name
               const trade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Business'
@@ -807,120 +794,73 @@ export default function LeadsPage() {
               return (
                 <div
                   key={lead.id}
-                  className={`rounded-2xl border transition-all duration-200 p-5 space-y-4 flex flex-col justify-between relative group ${getCardBorderClass(lead.status)}`}
+                  className={`rounded-2xl border p-4 sm:p-5 flex flex-col justify-between transition-all duration-200 group relative ${getCardBorderClass(lead.status)}`}
                 >
                   {/* Top: Monogram Avatar + Title + Rating */}
                   <div className="space-y-3">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3 min-w-0">
-                        {/* Squircle Monogram Avatar */}
-                        <div className={`w-11 h-11 rounded-xl flex items-center justify-center font-bold text-sm tracking-wider shrink-0 border ${
-                          lead.status === 'Won' ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.3)]' :
-                          lead.status === 'Lost' ? 'bg-rose-500/20 text-rose-400 border-rose-500/40' :
-                          lead.status === 'Contacted' ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-[0_0_15px_rgba(245,158,11,0.2)]' :
-                          'bg-gradient-to-br from-gold/20 via-gold/10 to-transparent text-gold border-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.15)]'
-                        }`}>
+                        {/* Monogram Avatar */}
+                        <div className="w-10 h-10 rounded-xl bg-[#141417] border border-white/10 text-zinc-200 flex items-center justify-center font-bold text-xs tracking-wider shrink-0">
                           {getInitials(businessName)}
                         </div>
 
                         <div className="min-w-0">
-                          <h3 className="font-serif font-bold text-base text-foreground leading-tight truncate group-hover:text-gold transition-colors">
+                          <h3 className="font-sans font-semibold text-base text-white leading-tight truncate group-hover:text-[#DAA640] transition-colors">
                             {businessName}
                           </h3>
                           <div className="flex items-center gap-2 mt-1">
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 text-gold/90 border border-white/5 uppercase tracking-wider">
+                            <span className="text-[10px] font-medium text-zinc-400 bg-white/5 border border-white/5 px-2 py-0.5 rounded-md uppercase tracking-wider">
                               {trade}
                             </span>
-                            <span className="flex items-center gap-1 text-amber-300 font-bold text-xs">
-                              <Star size={11} className="fill-amber-300" /> {rating} ({reviews})
+                            <span className="flex items-center gap-1 text-amber-400 font-semibold text-xs">
+                              <Star size={11} className="fill-amber-400 text-amber-400" /> {rating} ({reviews})
                             </span>
                           </div>
                         </div>
                       </div>
 
-                      {/* Status Pill */}
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider border shrink-0 ${
-                        STATUS_COLORS[lead.status] || 'bg-card text-muted-foreground'
-                      }`}>
-                        {lead.status}
-                      </span>
+                      {/* Status Badge with 6px Dot */}
+                      <StatusBadge status={lead.status} />
                     </div>
 
-                    {/* HERO ACTION STRIP (The SiteDrop Signature, Elevated) */}
+                    {/* Website / Opportunity Strip */}
                     <div className="rounded-xl overflow-hidden">
                       {!hasWebsite ? (
-                        <div className="p-3 bg-gradient-to-r from-amber-500/15 via-red-500/10 to-transparent border border-amber-500/30 rounded-xl space-y-2">
-                          <div className="flex items-center justify-between text-[11px] font-extrabold">
-                            <span className="text-amber-300 flex items-center gap-1.5 uppercase tracking-wider">
-                              <Flame size={13} className="text-red-400 animate-pulse" /> Prime Target: No Website
-                            </span>
-                            <span className="text-[9px] text-amber-400/80 font-mono">HIGH CONVERSION</span>
-                          </div>
-
-                          <div className="grid grid-cols-2 gap-2 pt-1">
-                            {/* Action 1: 1-Click WhatsApp (Stage 1: Hi alone) */}
-                            <button
-                              onClick={() => handleQuickWhatsApp(lead)}
-                              className="py-2 px-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.35)] hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] transition-all cursor-pointer"
-                              title={isLandline ? "Open WhatsApp (Note: UK Landlines might not be registered on WhatsApp)" : "Launch WhatsApp with Stage 1 Opener ('Hi 👋' alone)"}
-                            >
-                              <MessageSquare size={13} /> {isLandline ? '💬 WhatsApp' : '💬 WhatsApp (Hi 👋)'}
-                            </button>
-
-                            {/* Action 2: Dynamic Live Demo & Antigravity Vibecoding Cockpit */}
-                            <button
-                              onClick={() => handleOpenPrompt(lead)}
-                              className="py-2 px-3 rounded-lg bg-gold/15 hover:bg-gold/25 text-gold border border-gold/35 font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all text-center cursor-pointer shadow-sm"
-                              title="Open live prototype demo and Antigravity Vibecoding prompts"
-                            >
-                              <Laptop size={13} /> ⚡ Demo Site →
-                            </button>
-                          </div>
+                        <div className="px-3 py-2 rounded-xl bg-[#141417] border border-white/5 flex items-center justify-between text-xs text-zinc-400">
+                          <span className="flex items-center gap-1.5">
+                            <Globe size={13} className="text-zinc-500" />
+                            <span>No website detected</span>
+                          </span>
+                          <span className="text-[10px] font-mono text-[#DAA640] uppercase tracking-wider font-medium">Opportunity</span>
                         </div>
                       ) : (
-                        <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-xl flex items-center justify-between gap-2">
-                          <div className="flex items-center gap-1.5 text-xs text-blue-300 truncate">
-                            <Globe size={13} className="shrink-0 text-blue-400" />
-                            <a
-                              href={rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite}`}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="hover:underline font-medium truncate"
-                            >
-                              {rawWebsite.replace(/^https?:\/\//, '')}
-                            </a>
-                          </div>
-
-                          <div className="flex items-center gap-1.5 shrink-0">
-                            <button
-                              onClick={() => handleQuickWhatsApp(lead)}
-                              className="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold border border-emerald-500/30 flex items-center gap-1 cursor-pointer"
-                              title={isLandline ? "Open WhatsApp" : "Send Hi 👋 via WhatsApp"}
-                            >
-                              <MessageSquare size={12} /> WhatsApp
-                            </button>
-                            <button
-                              onClick={() => handleOpenPrompt(lead)}
-                              className="px-2.5 py-1 rounded-lg bg-gold/15 hover:bg-gold/25 text-gold text-xs font-bold border border-gold/30 flex items-center gap-1 cursor-pointer"
-                              title="Open Antigravity Vibecoding Prompt & Demo"
-                            >
-                              <Laptop size={12} /> Demo
-                            </button>
-                          </div>
+                        <div className="px-3 py-2 rounded-xl bg-[#141417] border border-white/5 flex items-center justify-between text-xs text-zinc-400">
+                          <a
+                            href={rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center gap-1.5 hover:text-white transition-colors truncate max-w-[200px]"
+                          >
+                            <Globe size={13} className="shrink-0 text-zinc-500" />
+                            <span className="truncate">{rawWebsite.replace(/^https?:\/\//, '')}</span>
+                            <ExternalLink size={10} className="shrink-0 text-zinc-500" />
+                          </a>
+                          <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">Live</span>
                         </div>
                       )}
                     </div>
 
                     {/* Telemetry / Contact Info */}
-                    <div className="space-y-1.5 text-xs text-muted-foreground pt-1">
+                    <div className="space-y-1.5 text-xs text-zinc-400 pt-1">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <span className="flex items-center gap-1.5 font-mono text-foreground/90 font-medium">
-                            <Phone size={12} className="text-gold" /> {phone || 'No phone'}
+                          <span className="flex items-center gap-1.5 font-mono text-zinc-300 font-medium">
+                            <Phone size={12} className="text-zinc-500" /> {phone || 'No phone'}
                           </span>
                           {phone && (
-                            <span className={`px-1.5 py-0.2 rounded text-[9px] font-extrabold ${isMobile ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}`}>
-                              {isMobile ? '📱 Mobile' : '☎️ Landline'}
+                            <span className="px-1.5 py-0.2 rounded text-[9px] font-medium bg-white/5 text-zinc-400">
+                              {isMobile ? 'Mobile' : 'Landline'}
                             </span>
                           )}
                         </div>
@@ -929,7 +869,7 @@ export default function LeadsPage() {
                           {isLandline && (
                             <a
                               href={`tel:${phone}`}
-                              className="px-2 py-0.5 rounded bg-blue-500/15 hover:bg-blue-500/25 text-blue-300 text-[10px] font-bold border border-blue-500/30 flex items-center gap-1 transition-all"
+                              className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-zinc-300 text-[10px] font-medium border border-white/10 flex items-center gap-1 transition-all"
                               title="Direct dial landline number"
                             >
                               <Phone size={10} /> Call
@@ -940,7 +880,7 @@ export default function LeadsPage() {
                               href={mapsUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="text-gold hover:underline flex items-center gap-1 font-semibold text-[11px]"
+                              className="text-zinc-400 hover:text-[#DAA640] flex items-center gap-1 font-medium text-[11px]"
                             >
                               <MapPin size={11} /> Maps <ExternalLink size={9} />
                             </a>
@@ -948,47 +888,91 @@ export default function LeadsPage() {
                         </div>
                       </div>
 
-                      <p className="text-[11px] text-muted-foreground/80 truncate flex items-center gap-1">
-                        <MapPin size={11} className="shrink-0 text-muted-foreground/50" /> {address}
+                      <p className="text-[11px] text-zinc-500 truncate flex items-center gap-1">
+                        <MapPin size={11} className="shrink-0 text-zinc-600" /> {address}
                       </p>
                     </div>
                   </div>
 
-                  {/* Bottom: 1-Click Outcome Bar & Cockpit Trigger */}
-                  <div className="pt-3 border-t border-white/5 flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-1.5">
-                      <button
-                        onClick={() => handleUpdateLeadStatus(lead.id, 'Won')}
-                        className={`px-2.5 py-1 rounded-lg border text-[10px] font-extrabold flex items-center gap-1 transition-all cursor-pointer ${
-                          lead.status === 'Won'
-                            ? 'bg-emerald-500 text-black border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.5)]'
-                            : 'bg-emerald-500/10 hover:bg-emerald-500/25 text-emerald-400 border-emerald-500/30'
-                        }`}
-                        title="Mark this deal as WON"
-                      >
-                        <Check size={11} /> Won 🟢
-                      </button>
-
-                      <button
-                        onClick={() => handleUpdateLeadStatus(lead.id, 'Lost')}
-                        className={`px-2.5 py-1 rounded-lg border text-[10px] font-extrabold flex items-center gap-1 transition-all cursor-pointer ${
-                          lead.status === 'Lost'
-                            ? 'bg-rose-500 text-white border-rose-400 shadow-[0_0_12px_rgba(244,63,94,0.5)]'
-                            : 'bg-rose-500/10 hover:bg-rose-500/25 text-rose-400 border-rose-500/30'
-                        }`}
-                        title="Mark this deal as Lost"
-                      >
-                        <X size={11} /> Lost 🔴
-                      </button>
-                    </div>
-
+                  {/* Bottom: 2 Purposeful Actions + Overflow Menu */}
+                  <div className="pt-3 mt-3 border-t border-white/5 flex items-center gap-2">
+                    {/* Primary Action: WhatsApp */}
                     <button
-                      onClick={() => handleOpenOutreach(lead)}
-                      className="px-3 py-1 rounded-lg bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 text-[10px] font-bold flex items-center gap-1.5 transition-all shadow-sm cursor-pointer ml-auto"
-                      title="Open Multi-Stage Outreach Sequence"
+                      onClick={() => handleQuickWhatsApp(lead)}
+                      className="flex-1 py-2 px-3.5 rounded-xl bg-white hover:bg-zinc-200 text-black font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm cursor-pointer"
+                      title={isLandline ? "Open WhatsApp" : "Launch WhatsApp opener"}
                     >
-                      <Send size={11} /> Pitch
+                      <MessageSquare size={13} />
+                      <span>WhatsApp</span>
                     </button>
+
+                    {/* Secondary Action: Pitch Demo */}
+                    <button
+                      onClick={() => handleOpenPrompt(lead)}
+                      className="py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 font-medium text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                      title="Open Demo Site and Outreach Pitch"
+                    >
+                      <Laptop size={13} />
+                      <span>Demo</span>
+                    </button>
+
+                    {/* Overflow Menu: Radix Dropdown */}
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <button
+                          className="w-8 h-8 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white flex items-center justify-center transition-all cursor-pointer shrink-0"
+                          title="More options"
+                        >
+                          <MoreHorizontal size={14} />
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-48 bg-[#141417] border border-white/10 text-zinc-300">
+                        <DropdownMenuItem
+                          onClick={() => handleUpdateLeadStatus(lead.id, 'Won')}
+                          className="cursor-pointer text-xs flex items-center gap-2 focus:bg-white/10 focus:text-white"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                          <span>Mark as Won</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => handleUpdateLeadStatus(lead.id, 'Lost')}
+                          className="cursor-pointer text-xs flex items-center gap-2 focus:bg-white/10 focus:text-white"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
+                          <span>Mark as Lost</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => handleUpdateLeadStatus(lead.id, 'Contacted')}
+                          className="cursor-pointer text-xs flex items-center gap-2 focus:bg-white/10 focus:text-white"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                          <span>Mark as Contacted</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator className="bg-white/10" />
+                        <DropdownMenuItem
+                          onClick={() => handleOpenOutreach(lead)}
+                          className="cursor-pointer text-xs flex items-center gap-2 focus:bg-white/10 focus:text-white"
+                        >
+                          <Send size={12} className="text-zinc-400" />
+                          <span>Multi-Stage Pitch</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => handleInspectLead(lead.id)}
+                          className="cursor-pointer text-xs flex items-center gap-2 focus:bg-white/10 focus:text-white"
+                        >
+                          <Info size={12} className="text-zinc-400" />
+                          <span>Inspect Lead Details</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator className="bg-white/10" />
+                        <DropdownMenuItem
+                          onClick={() => handleDeleteLead(lead.id)}
+                          className="cursor-pointer text-xs flex items-center gap-2 text-rose-400 focus:bg-rose-500/10 focus:text-rose-300"
+                        >
+                          <Trash2 size={12} />
+                          <span>Delete Lead</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                 </div>
               )
@@ -1004,18 +988,13 @@ export default function LeadsPage() {
             {['New', 'Contacted', 'Call Booked', 'Proposal Sent', 'Won', 'Lost'].map((columnStatus) => {
               const columnLeads = displayedLeads.filter((l) => l.status === columnStatus)
               return (
-                <div key={columnStatus} className="glass rounded-2xl border border-gold/10 p-3.5 space-y-3 flex flex-col min-h-[450px] bg-white/[0.01]">
-                  <div className="flex items-center justify-between pb-2 border-b border-gold/5">
+                <div key={columnStatus} className="rounded-2xl border border-white/10 p-3.5 space-y-3 flex flex-col min-h-[450px] bg-[#0B0B0D]">
+                  <div className="flex items-center justify-between pb-2 border-b border-white/5">
                     <div className="flex items-center gap-1.5">
-                      <span className={`w-2.5 h-2.5 rounded-full ${
-                        columnStatus === 'Won' ? 'bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.6)]' :
-                        columnStatus === 'Lost' ? 'bg-rose-400' :
-                        columnStatus === 'Contacted' ? 'bg-amber-400' :
-                        'bg-blue-400'
-                      }`} />
-                      <h3 className="font-bold text-xs text-foreground uppercase tracking-wider">{columnStatus}</h3>
+                      <span className={`w-1.5 h-1.5 rounded-full ${STATUS_DOT_COLORS[columnStatus] || 'bg-zinc-400'}`} />
+                      <h3 className="font-semibold text-xs text-white uppercase tracking-wider">{columnStatus}</h3>
                     </div>
-                    <span className="px-1.5 py-0.5 rounded bg-white/5 text-[10px] font-mono text-muted-foreground font-bold">
+                    <span className="px-1.5 py-0.5 rounded bg-white/5 text-[10px] font-mono text-zinc-400 font-medium">
                       {columnLeads.length}
                     </span>
                   </div>
@@ -1025,15 +1004,11 @@ export default function LeadsPage() {
                       <div
                         key={lead.id}
                         onClick={() => handleOpenOutreach(lead)}
-                        className={`p-3 rounded-xl border transition-all cursor-pointer space-y-2.5 ${
-                          lead.status === 'Won' ? 'bg-emerald-500/10 border-emerald-500/30 hover:border-emerald-500/50' :
-                          lead.status === 'Lost' ? 'bg-rose-500/5 border-rose-500/20 hover:border-rose-500/40 opacity-75' :
-                          'bg-card/70 border-gold/10 hover:border-gold/30'
-                        }`}
+                        className="p-3 rounded-xl border border-white/5 bg-[#141417] hover:border-white/15 transition-all cursor-pointer space-y-2.5"
                       >
                         <div>
-                          <h4 className="font-bold text-xs text-foreground line-clamp-1">{lead.business_name || lead.name}</h4>
-                          <p className="text-[10px] text-muted-foreground truncate">{lead.phone || lead.email}</p>
+                          <h4 className="font-semibold text-xs text-white line-clamp-1">{lead.business_name || lead.name}</h4>
+                          <p className="text-[10px] text-zinc-400 truncate">{lead.phone || lead.email}</p>
                         </div>
                         <div className="flex items-center justify-between pt-2 border-t border-white/5">
                           <button
@@ -1041,11 +1016,11 @@ export default function LeadsPage() {
                               e.stopPropagation()
                               handleQuickWhatsApp(lead)
                             }}
-                            className="px-2 py-1 rounded bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 text-[9px] font-bold flex items-center gap-1"
+                            className="px-2 py-1 rounded bg-white/5 hover:bg-white/10 text-white text-[10px] font-medium flex items-center gap-1 transition-colors"
                           >
                             <MessageSquare size={10} /> WhatsApp
                           </button>
-                          <span className="text-[9px] font-bold text-gold flex items-center gap-1"><Send size={9} /> Pitch</span>
+                          <span className="text-[10px] font-medium text-[#DAA640] flex items-center gap-1"><Send size={9} /> Pitch</span>
                         </div>
                       </div>
                     ))}
@@ -1059,9 +1034,9 @@ export default function LeadsPage() {
         /* ───────────────────────────────────────────────────────────────────────── */
         /* 3. DENSE DATA TABLE VIEW                                                  */
         /* ───────────────────────────────────────────────────────────────────────── */
-        <div className="glass rounded-2xl border border-gold/15 overflow-hidden relative shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+        <div className="rounded-2xl border border-white/10 overflow-hidden relative bg-[#0B0B0D]">
           {loading ? (
-            <div className="divide-y divide-gold/5">
+            <div className="divide-y divide-white/5">
               {[...Array(5)].map((_, i) => (
                 <div key={i} className="px-6 py-5 flex items-center gap-4 animate-pulse">
                   <div className="h-4 w-4 bg-white/5 rounded shrink-0" />
@@ -1073,12 +1048,12 @@ export default function LeadsPage() {
             </div>
           ) : displayedLeads.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-center px-6 space-y-4 max-w-md mx-auto">
-              <div className="w-12 h-12 rounded-full bg-gold/5 border border-gold/15 flex items-center justify-center text-gold/40">
+              <div className="w-12 h-12 rounded-full bg-[#141417] border border-white/10 flex items-center justify-center text-zinc-400">
                 <Inbox size={20} />
               </div>
               <div>
-                <h3 className="font-serif text-sm font-bold text-foreground">No Leads Found</h3>
-                <p className="text-xs text-muted-foreground mt-1">
+                <h3 className="font-serif text-sm font-bold text-white">No Leads Found</h3>
+                <p className="text-xs text-zinc-400 mt-1">
                   Run the lead finder machine in n8n or adjust your search filters above.
                 </p>
               </div>
@@ -1087,24 +1062,23 @@ export default function LeadsPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-gold/15 bg-black/40 text-[10px] font-extrabold uppercase tracking-widest text-muted-foreground">
-                    <th className="w-10 px-4 py-4">
+                  <tr className="border-b border-white/10 bg-[#141417]/50 text-[11px] font-mono uppercase tracking-wider text-zinc-400">
+                    <th className="w-10 px-4 py-3.5">
                       <input
                         type="checkbox"
                         checked={selectedIds.length === displayedLeads.length && displayedLeads.length > 0}
                         onChange={(e) => handleSelectAll(e.target.checked)}
-                        className="w-4 h-4 accent-gold cursor-pointer rounded border-gold/25 bg-background text-gold focus:ring-0"
+                        className="w-4 h-4 accent-[#DAA640] cursor-pointer rounded border-white/20 bg-background text-[#DAA640] focus:ring-0"
                       />
                     </th>
-                    <th className="px-4 py-4 min-w-[220px]">Business & Trade</th>
-                    <th className="px-4 py-4 min-w-[200px]">Phone & WhatsApp</th>
-                    <th className="px-4 py-4 min-w-[150px]">Storefront Presence</th>
-                    <th className="px-4 py-4 min-w-[130px]">Status</th>
-                    <th className="px-4 py-4 min-w-[160px] text-center">1-Click Outcome</th>
-                    <th className="px-4 py-4 text-right min-w-[140px]">Actions</th>
+                    <th className="px-4 py-3.5 min-w-[220px]">Business & Trade</th>
+                    <th className="px-4 py-3.5 min-w-[180px]">Phone & WhatsApp</th>
+                    <th className="px-4 py-3.5 min-w-[150px]">Storefront Presence</th>
+                    <th className="px-4 py-3.5 min-w-[130px]">Status</th>
+                    <th className="px-4 py-3.5 text-right min-w-[140px]">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gold/5 text-xs">
+                <tbody className="divide-y divide-white/5 text-xs">
                   {displayedLeads.map((lead) => {
                     const isChecked = selectedIds.includes(lead.id)
                     const isInspected = searchParams.get('leadId') === lead.id
@@ -1127,7 +1101,7 @@ export default function LeadsPage() {
                             type="checkbox"
                             checked={isChecked}
                             onChange={(e) => handleSelectRow(lead.id, e.target.checked)}
-                            className="w-4 h-4 accent-gold cursor-pointer rounded border-gold/25 bg-background text-gold focus:ring-0"
+                            className="w-4 h-4 accent-[#DAA640] cursor-pointer rounded border-white/20 bg-background text-[#DAA640] focus:ring-0"
                           />
                         </td>
 
@@ -1135,21 +1109,21 @@ export default function LeadsPage() {
                         <td className="px-4 py-3.5">
                           <div className="space-y-1">
                             <div className="flex items-center gap-1.5">
-                              <span className="font-bold text-sm text-foreground hover:text-gold transition-colors">
+                              <span className="font-semibold text-sm text-white hover:text-[#DAA640] transition-colors">
                                 {lead.business_name || lead.name}
                               </span>
                               {lead.status === 'Won' && (
-                                <span className="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-emerald-500/25 text-emerald-300 border border-emerald-500/40">
-                                  WON 🟢
+                                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                  <span className="w-1 h-1 rounded-full bg-emerald-400" /> WON
                                 </span>
                               )}
                             </div>
-                            <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
-                              <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/5 font-semibold text-gold/80 uppercase tracking-wider text-[9px]">
+                            <div className="flex items-center gap-2 text-[11px] text-zinc-400">
+                              <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/5 font-medium text-zinc-400 uppercase tracking-wider text-[9px]">
                                 {trade}
                               </span>
-                              <span className="flex items-center gap-1 text-amber-300 font-semibold text-[10px]">
-                                <Star size={10} className="fill-amber-300" /> {rating} ({reviews})
+                              <span className="flex items-center gap-1 text-amber-400 font-medium text-[10px]">
+                                <Star size={10} className="fill-amber-400 text-amber-400" /> {rating} ({reviews})
                               </span>
                             </div>
                           </div>
@@ -1157,17 +1131,17 @@ export default function LeadsPage() {
 
                         {/* Phone & Direct WhatsApp */}
                         <td className="px-4 py-3.5" onClick={(e) => e.stopPropagation()}>
-                          <div className="space-y-1.5">
-                            <div className="flex items-center gap-1.5 font-mono text-xs text-foreground/90 font-semibold">
-                              <Phone size={11} className="text-gold" />
-                              {phone || <span className="text-muted-foreground italic">No phone</span>}
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-1.5 font-mono text-xs text-zinc-200">
+                              <Phone size={11} className="text-zinc-500" />
+                              {phone || <span className="text-zinc-500 italic">No phone</span>}
                             </div>
                             {phone && (
                               <button
                                 onClick={() => handleQuickWhatsApp(lead)}
-                                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 hover:text-emerald-300 border border-emerald-500/30 text-[10px] font-extrabold shadow-sm transition-all cursor-pointer"
+                                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 text-[10px] font-medium transition-all cursor-pointer"
                               >
-                                <MessageSquare size={11} /> 💬 Chat WhatsApp
+                                <MessageSquare size={10} /> Chat WhatsApp
                               </button>
                             )}
                           </div>
@@ -1181,13 +1155,13 @@ export default function LeadsPage() {
                               target="_blank"
                               rel="noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[10px] font-medium hover:underline max-w-[160px] truncate"
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#141417] text-zinc-300 border border-white/10 text-[10px] font-medium hover:text-white max-w-[160px] truncate"
                             >
-                              <Globe size={10} /> {rawWebsite.replace(/^https?:\/\//, '')} <ExternalLink size={9} />
+                              <Globe size={10} className="text-zinc-500" /> {rawWebsite.replace(/^https?:\/\//, '')} <ExternalLink size={9} />
                             </a>
                           ) : (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-red-500/15 text-red-400 border border-red-500/30 font-extrabold text-[10px] tracking-wider uppercase shadow-[0_0_10px_rgba(239,68,68,0.15)] animate-pulse">
-                              <Flame size={10} /> NO WEBSITE
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#141417] text-zinc-400 border border-white/5 text-[10px] font-medium">
+                              No website detected
                             </span>
                           )}
                         </td>
@@ -1197,67 +1171,29 @@ export default function LeadsPage() {
                           <select
                             value={lead.status}
                             onChange={(e) => handleUpdateLeadStatus(lead.id, e.target.value)}
-                            className={`text-[10px] font-bold border rounded-lg px-2.5 py-1 outline-none cursor-pointer [color-scheme:dark] transition-all ${
-                              STATUS_COLORS[lead.status] || 'bg-card text-muted-foreground'
-                            }`}
+                            className="text-[10px] font-medium border border-white/10 bg-[#141417] text-zinc-300 rounded-lg px-2.5 py-1 outline-none cursor-pointer [color-scheme:dark] transition-all"
                           >
                             {ALL_STATUSES.map((s) => (
-                              <option key={s} value={s} className="bg-[#0C0C0C] text-foreground font-semibold">
+                              <option key={s} value={s} className="bg-[#0B0B0D] text-white">
                                 {s}
                               </option>
                             ))}
                           </select>
                         </td>
 
-                        {/* 1-Click Outcome Buttons */}
-                        <td className="px-4 py-3.5" onClick={(e) => e.stopPropagation()}>
-                          <div className="flex items-center justify-center gap-1.5">
-                            <button
-                              onClick={() => handleUpdateLeadStatus(lead.id, 'Won')}
-                              className={`px-2.5 py-1 rounded-lg border text-[10px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                                lead.status === 'Won'
-                                  ? 'bg-emerald-500 text-black border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.5)]'
-                                  : 'bg-emerald-500/10 hover:bg-emerald-500/25 text-emerald-400 border-emerald-500/30'
-                              }`}
-                            >
-                              <Check size={11} /> Win 🟢
-                            </button>
-
-                            <button
-                              onClick={() => handleOpenOutreach(lead)}
-                              className="px-2.5 py-1 rounded-lg bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 text-[10px] font-bold flex items-center gap-1 transition-all shadow-sm cursor-pointer"
-                              title="Open Multi-Stage Outreach Sequence"
-                            >
-                              <Send size={11} /> Pitch
-                            </button>
-
-                            <button
-                              onClick={() => handleUpdateLeadStatus(lead.id, 'Lost')}
-                              className={`px-2.5 py-1 rounded-lg border text-[10px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                                lead.status === 'Lost'
-                                  ? 'bg-rose-500 text-white border-rose-400 shadow-[0_0_12px_rgba(244,63,94,0.5)]'
-                                  : 'bg-rose-500/10 hover:bg-rose-500/25 text-rose-400 border-rose-500/30'
-                              }`}
-                            >
-                              <X size={11} /> Lost 🔴
-                            </button>
-                          </div>
-                        </td>
-
                         {/* Actions */}
                         <td className="px-4 py-3.5 text-right" onClick={(e) => e.stopPropagation()}>
                           <div className="flex items-center justify-end gap-1.5">
                             <button
-                              onClick={() => handleOpenOutreach(lead)}
-                              className="px-2.5 py-1 rounded-lg bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 text-[10px] font-extrabold flex items-center gap-1 transition-all shadow-sm cursor-pointer"
+                              onClick={() => handleOpenPrompt(lead)}
+                              className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 text-[10px] font-medium transition-all cursor-pointer"
                             >
-                              <Sparkles size={11} /> Cockpit ⚡
+                              Demo
                             </button>
-
                             <button
                               onClick={() => handleInspectLead(lead.id)}
                               className={`w-7 h-7 rounded-lg border flex items-center justify-center transition-all cursor-pointer ${
-                                isInspected ? 'bg-gold/25 border-gold text-gold' : 'bg-white/5 border-white/10 text-muted-foreground hover:text-foreground'
+                                isInspected ? 'bg-[#DAA640]/20 border-[#DAA640] text-[#DAA640]' : 'bg-[#141417] border-white/10 text-zinc-400 hover:text-white'
                               }`}
                             >
                               <Info size={12} />
@@ -1289,30 +1225,30 @@ export default function LeadsPage() {
 
       {/* FLOATING BULK ACTIONS TOOLBAR */}
       {selectedIds.length > 0 && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-[#0c1017] border border-gold/30 shadow-[0_0_50px_rgba(0,0,0,0.9)] px-5 py-3 rounded-2xl flex items-center gap-5 sm:gap-8 animate-fade-in w-[90%] max-w-xl justify-between backdrop-blur-md">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-[#0B0B0D]/95 border border-white/15 shadow-2xl px-5 py-3 rounded-2xl flex items-center gap-5 sm:gap-8 animate-fade-in w-[90%] max-w-xl justify-between backdrop-blur-md">
           <div className="flex items-center gap-2">
-            <span className="w-5 h-5 rounded-full bg-gold text-background text-xxs font-bold flex items-center justify-center">
+            <span className="w-5 h-5 rounded-full bg-[#DAA640] text-black text-[10px] font-bold flex items-center justify-center">
               {selectedIds.length}
             </span>
-            <span className="text-xs text-foreground font-semibold">Selected</span>
+            <span className="text-xs text-white font-medium">Selected</span>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={() => handleBulkStatusUpdate('Won')}
-              className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500 text-xs font-bold transition-all cursor-pointer"
+              className="px-3 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
             >
-              Mark Won 🟢
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Mark Won
             </button>
             <button
               onClick={() => handleBulkStatusUpdate('Lost')}
-              className="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 hover:bg-rose-500 text-xs font-bold transition-all cursor-pointer"
+              className="px-3 py-1 rounded-lg bg-rose-500/15 border border-rose-500/30 text-rose-400 hover:bg-rose-500/25 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
             >
-              Mark Lost 🔴
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500" /> Mark Lost
             </button>
             <button
               onClick={handleBulkDelete}
-              className="px-2.5 py-1 rounded-lg bg-red-500/20 hover:bg-red-500 text-red-300 text-xs font-bold transition-all cursor-pointer"
+              className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-rose-500/20 text-zinc-300 hover:text-rose-300 text-xs font-medium transition-all cursor-pointer"
             >
               Delete
             </button>
@@ -1323,12 +1259,12 @@ export default function LeadsPage() {
       {/* Manual Creation Modal */}
       {showNewModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="w-full max-w-lg glass border border-gold/25 rounded-2xl overflow-hidden shadow-2xl p-6 space-y-5">
-            <div className="flex justify-between items-center border-b border-gold/10 pb-3">
-              <h2 className="font-serif text-lg font-bold text-foreground">Add New Lead</h2>
+          <div className="w-full max-w-lg bg-[#0B0B0D] border border-white/10 rounded-2xl overflow-hidden shadow-2xl p-6 space-y-5">
+            <div className="flex justify-between items-center border-b border-white/5 pb-3">
+              <h2 className="font-serif text-lg font-bold text-white">Add New Lead</h2>
               <button
                 onClick={() => setShowNewModal(false)}
-                className="text-muted-foreground hover:text-foreground text-sm cursor-pointer"
+                className="text-zinc-400 hover:text-white text-sm cursor-pointer"
               >
                 ✕
               </button>
@@ -1337,77 +1273,77 @@ export default function LeadsPage() {
             <form onSubmit={handleCreateLead} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Full Name *</label>
+                  <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Full Name *</label>
                   <input
                     required
                     value={leadForm.name}
                     onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
                     placeholder="John Doe"
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all"
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Email Address *</label>
+                  <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Email Address *</label>
                   <input
                     type="email"
                     required
                     value={leadForm.email}
                     onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
                     placeholder="john@example.com"
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Business Name</label>
+                  <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Business Name</label>
                   <input
                     value={leadForm.business_name}
                     onChange={(e) => setLeadForm({ ...leadForm, business_name: e.target.value })}
                     placeholder="e.g. Solihull Roofing Ltd"
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all"
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Phone Number</label>
+                  <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Phone Number</label>
                   <input
                     value={leadForm.phone}
                     onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
                     placeholder="+44 7123 456789"
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl px-4 py-2 text-sm text-white outline-none transition-all"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Website URL</label>
+                  <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Website URL</label>
                   <input
                     value={leadForm.website}
                     onChange={(e) => setLeadForm({ ...leadForm, website: e.target.value })}
                     placeholder="https://example.com"
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all"
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Service Interested</label>
+                  <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Service Interested</label>
                   <input
                     value={leadForm.service_interested}
                     onChange={(e) => setLeadForm({ ...leadForm, service_interested: e.target.value })}
                     placeholder="e.g. Digital Storefront"
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Source</label>
+                  <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Source</label>
                   <select
                     value={leadForm.source}
                     onChange={(e) => setLeadForm({ ...leadForm, source: e.target.value })}
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all cursor-pointer"
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all cursor-pointer"
                   >
                     <option value="manual">Manual Intake</option>
                     <option value="google_maps_outreach">Google Maps Outreach</option>
@@ -1417,11 +1353,11 @@ export default function LeadsPage() {
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Pipeline Status</label>
+                  <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Pipeline Status</label>
                   <select
                     value={leadForm.status}
                     onChange={(e) => setLeadForm({ ...leadForm, status: e.target.value })}
-                    className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all cursor-pointer"
+                    className="w-full bg-[#141417] border border-white/10 hover:border-white/20 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all cursor-pointer"
                   >
                     {ALL_STATUSES.map((s) => (
                       <option key={s} value={s}>{s}</option>
@@ -1431,28 +1367,28 @@ export default function LeadsPage() {
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Notes / Qualifier Answers</label>
+                <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">Notes</label>
                 <textarea
                   value={leadForm.notes}
                   onChange={(e) => setLeadForm({ ...leadForm, notes: e.target.value })}
                   placeholder="Additional context or qualification details..."
                   rows={3}
-                  className="w-full bg-background/60 border border-gold/15 hover:border-gold/25 rounded-xl px-4 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-gold/20 transition-all resize-none"
+                  className="w-full bg-[#141417] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-all resize-none"
                 />
               </div>
 
-              <div className="pt-3 flex justify-end gap-3 border-t border-gold/10">
+              <div className="pt-3 flex justify-end gap-3 border-t border-white/5">
                 <button
                   type="button"
                   onClick={() => setShowNewModal(false)}
-                  className="px-4 py-2 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  className="px-4 py-2 text-xs font-medium text-zinc-400 hover:text-white transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={savingLead}
-                  className="px-5 py-2 text-xs font-bold bg-gradient-to-r from-gold to-gold-light text-background rounded-lg shadow-lg hover:shadow-[0_0_16px_rgba(212,175,55,0.2)] transition-all cursor-pointer disabled:opacity-50"
+                  className="px-5 py-2 text-xs font-bold bg-[#DAA640] hover:bg-[#F5D90A] text-black rounded-xl shadow transition-all cursor-pointer disabled:opacity-50"
                 >
                   {savingLead ? 'Creating...' : 'Create Lead'}
                 </button>
@@ -1465,54 +1401,54 @@ export default function LeadsPage() {
       {/* ── GAMIFIED REVENUE WON CELEBRATION MODAL ── */}
       {wonDeal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-          <div className="relative w-full max-w-md bg-[#0B0F17] border border-emerald-500/40 rounded-3xl p-6 sm:p-8 space-y-6 shadow-[0_0_60px_rgba(16,185,129,0.3)] text-center">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto shadow-[0_0_25px_rgba(16,185,129,0.4)]">
-              <Sparkles size={32} />
+          <div className="relative w-full max-w-md bg-[#0B0B0D] border border-emerald-500/30 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl text-center">
+            <div className="w-14 h-14 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto">
+              <Sparkles size={28} />
             </div>
 
             <div className="space-y-1.5">
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-400 bg-emerald-500/15 px-3 py-1 rounded-full border border-emerald-500/30">
-                🎉 Deal Won & Locked In!
+              <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/25">
+                Deal Won & Closed
               </span>
               <h3 className="font-serif text-2xl font-bold text-white pt-2">
                 {wonDeal.businessName}
               </h3>
-              <p className="text-xs text-muted-foreground">
-                Successfully converted into your client portfolio. Deal economics added to your engine:
+              <p className="text-xs text-zinc-400">
+                Successfully converted into your client portfolio. Deal economics added:
               </p>
             </div>
 
             {/* Deal Economics Cards */}
             <div className="grid grid-cols-2 gap-3 text-left">
-              <div className="p-3.5 rounded-2xl bg-black/60 border border-emerald-500/20 space-y-1">
-                <span className="text-[10px] font-bold text-muted-foreground uppercase">Setup Cashflow</span>
-                <p className="font-serif text-xl font-black text-emerald-400">£1,200</p>
-                <p className="text-[10px] text-muted-foreground/80">Paid upon launch</p>
+              <div className="p-3.5 rounded-2xl bg-[#141417] border border-white/5 space-y-1">
+                <span className="text-[10px] font-mono uppercase text-zinc-400">Setup Cashflow</span>
+                <p className="font-sans text-xl font-bold text-emerald-400">£1,200</p>
+                <p className="text-[10px] text-zinc-500">Paid upon launch</p>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-black/60 border border-amber-500/20 space-y-1">
-                <span className="text-[10px] font-bold text-muted-foreground uppercase">Monthly Retainer</span>
-                <p className="font-serif text-xl font-black text-amber-300">£150<span className="text-xs font-normal">/mo</span></p>
-                <p className="text-[10px] text-muted-foreground/80">Hosting & Speed-to-Lead</p>
+              <div className="p-3.5 rounded-2xl bg-[#141417] border border-white/5 space-y-1">
+                <span className="text-[10px] font-mono uppercase text-zinc-400">Monthly Retainer</span>
+                <p className="font-sans text-xl font-bold text-amber-300">£150<span className="text-xs font-normal">/mo</span></p>
+                <p className="text-[10px] text-zinc-500">Hosting & Speed-to-Lead</p>
               </div>
             </div>
 
             {/* Progress to £10k */}
-            <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 space-y-2 text-left text-xs">
-              <div className="flex justify-between font-bold">
-                <span className="text-muted-foreground">Progress to £10,000/Month Target:</span>
-                <span className="text-gold">1 Deal Closer ⚡</span>
+            <div className="p-3.5 rounded-2xl bg-[#141417] border border-white/5 space-y-2 text-left text-xs">
+              <div className="flex justify-between font-medium">
+                <span className="text-zinc-400">Target Progress (£10,000/mo):</span>
+                <span className="text-[#DAA640] font-mono font-bold">+1 Deal</span>
               </div>
-              <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-emerald-500 to-gold rounded-full w-[25%]" />
+              <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-emerald-500 to-[#DAA640] rounded-full w-[25%]" />
               </div>
             </div>
 
             <button
               onClick={() => setWonDeal(null)}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500 text-black font-extrabold text-sm shadow-[0_0_20px_rgba(16,185,129,0.35)] transition-all cursor-pointer"
+              className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-sm transition-all cursor-pointer"
             >
-              Log Client & Continue Outreaching →
+              Continue Outreach
             </button>
           </div>
         </div>

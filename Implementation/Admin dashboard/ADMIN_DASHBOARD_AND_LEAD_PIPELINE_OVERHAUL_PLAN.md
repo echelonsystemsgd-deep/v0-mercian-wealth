@@ -1,107 +1,110 @@
-# Admin Dashboard Design System & n8n Lead Pipeline Overhaul
+# Admin Dashboard Design System & Motion.dev Black & Gold Overhaul Plan
 
-Comprehensive architectural plan to resolve data loss and inaccuracy in the lead generation machine, fix the Supabase schema relationship bug, standardize the admin dashboard and sitewide design system on shadcn/ui + Oxford Navy (#020E28) & Gold (#DAA640), enforce an 8px rem grid, and resolve all screen-by-screen issues.
+Comprehensive architectural and design plan to eliminate the "vibecoded" appearance flagged in peer review by Cedric and G. Standardizing sitewide on **Motion.dev (`https://motion.dev/`)**, utilizing the existing `framer-motion` engine and Radix primitives, establishing an **Obsidian Black & Motion Gold** color palette, enforcing a mathematical **8px rem spacing grid**, purging decorative gimmick pills, and elevating the entire admin suite into a clean, cohesive, enterprise-grade application.
+
+---
 
 ## User Review Required
 
 > [!IMPORTANT]
-> 1. **n8n Workflow Replacement**: An updated, sanitized, quality-gated workflow JSON file will be generated for direct import into your n8n workspace to replace the current workflow.
-> 2. **Database Migration**: A foreign key constraint will be added to link `public.user_notifications(user_id)` to `public.profiles(id)` ON DELETE CASCADE, resolving the schema cache error shown in Image 4.
-> 3. **Lead Deduplication**: A unique index on `leads(phone)` will prevent duplicate leads from being ingested during future workflow runs.
+> 1. **Single Committed Design System**: Standardize 100% on **Motion.dev (`https://motion.dev/`)** aesthetics using native `framer-motion` components + Radix UI primitives.
+> 2. **Elimination of Rainbow Clutter**: Remove all decorative multi-colored glowing pills (e.g. orange flame pills, green boxes, blue landline badges, purple website pills, and rainbow lead card buttons) in favor of a unified obsidian carbon palette with subtle 6px semantic indicator dots.
+> 3. **Mathematical 8px Grid**: All padding, margins, and gaps locked strictly into `rem` multiples of 8px (`0.5rem`, `1rem`, `1.5rem`, `2rem`), eliminating arbitrary pixel offsets (`p-2.5`, `py-0.2`, `px-3.5`).
+> 4. **No Code Modification During Planning**: This update strictly formalizes the design specifications and implementation plan; no source code will be altered until approved.
 
 ---
 
-## Phase 1: Database & Backend Fixes
+## 1. Design Foundations: Motion.dev Black & Gold Palette
 
-### 1. Supabase Foreign Key & Constraint Migration
-- Apply migration via SQL:
-  - Add foreign key `fk_user_notifications_profiles` referencing `profiles(id)` on `user_notifications.user_id`.
-  - Add unique constraint/index on `public.leads(phone)`.
-  - Deduplicate existing duplicate rows in `leads`.
-  - Correct `outreach_category` for the 122 leads with real websites.
-
----
-
-## Phase 2: n8n Workflow Overhaul (`Implementation/General/n8n-lead-finder-machine.json`)
-
-### 1. Crawl Ceiling & Multi-Bounding Box
-- Increase `max_leads` to 300.
-- Allow postal-code subdivision for comprehensive local area coverage.
-
-### 2. Code Node Sanitization & Quality Filter
-- Filter out 0-review ghost listings (`reviewsCount >= 2` minimum).
-- Accurate categorization:
-  - `has_website`: independent commercial domain.
-  - `social_only`: Facebook, Instagram, Yell, Checkatrade.
-  - `no_website`: confirmed zero website presence.
-- Construct the final JSON payload safely via `JSON.stringify` to prevent malformed string interpolations.
-- Ensure phone numbers are normalized with valid UK format (`+447...` for mobile, `+441...`/`+442...` for landlines).
+| Token Name | Value | Role & Usage |
+| :--- | :--- | :--- |
+| **Canvas Background** | `#050505` | Obsidian Matte Black. Provides a deep, executive backdrop without muddy grey or washed-out navy tones. |
+| **Card Surface** | `#0B0B0D` | Solid Carbon Zinc surface for all cards, containers, panels, and data blocks. |
+| **Elevated Surface** | `#141417` | Hover states, active dropdowns, popovers, and search inputs. |
+| **Subtle Borders** | `rgba(255, 255, 255, 0.08)` | Razor-thin 1px surgical border. Completely replaces all glowing gold/blue outlines. |
+| **Brand Accent** | `#DAA640` / `#F5D90A` | **Motion Electric Gold**. Strictly reserved for primary CTAs (`+ Add Lead`), the gliding active tab indicator, and brand accents. |
+| **Primary Typography** | `#FFFFFF` | Crisp, high-contrast white for headers, company titles, and primary numbers. |
+| **Dimmed Typography** | `#A1A1AA` | Neutral Zinc 400 for metadata, telephone numbers, and labels. |
+| **Semantic Indicator Dots** | `#10B981` (Won), `#F59E0B` (Pending), `#EF4444` (Lost) | **Minimal 6px status dots only**. No full-card rainbow fills. |
 
 ---
 
-## Phase 3: Sitewide Design System & Spacing (`app/globals.css`)
+## 2. 8px Rem-Based Spacing Grid
 
-### 1. Palette Alignment
-- Canvas Background: `#020E28` (Oxford Navy)
-- Card Surfaces: `#071536`
-- Popovers / Modals: `#0C1F4D`
-- Borders: `rgba(218, 166, 64, 0.16)` and `rgba(255, 255, 255, 0.08)`
-- Primary Brand Accent: `#DAA640` (Mercian Gold)
-- Typography: Primary `#FFFFFF`, Secondary Slate `#94A3B8`, Gold Highlight `#E5B85C`
+Cedric flagged inconsistent, random padding across the dashboard. All spacing is locked into an exact 8px mathematical scale:
 
-### 2. Strict Semantic Palette
-- Success: Emerald `#10B981`
-- Warning: Amber `#F59E0B`
-- Destructive: Rose `#EF4444`
-- Neutral / Info: Slate `#94A3B8`
-
-### 3. Spacing Grid (8px in `rem`)
-- Base tokens: `0.25rem` (4px), `0.5rem` (8px), `0.75rem` (12px), `1rem` (16px), `1.5rem` (24px), `2rem` (32px), `3rem` (48px), `4rem` (64px).
-- Audit and replace ad-hoc arbitrary pixel values (`p-[18px]`, `mt-[13px]`, `gap-[7px]`).
+- **`0.25rem` (4px)**: Micro spacing between icons and accompanying text.
+- **`0.5rem` (8px)**: Compact padding and tight element spacing (`gap-2`, `p-2`).
+- **`1rem` (16px)**: Standard card interior padding (`p-4`, `gap-4`).
+- **`1.5rem` (24px)**: Section margins and grid column spacing (`p-6`, `gap-6`).
+- **`2rem` (32px)**: Outer page margins and header breathing room (`mb-8`, `gap-8`).
 
 ---
 
-## Phase 4: Screen-by-Screen Rework
+## 3. Screen-by-Screen Execution Plan
 
-### 1. Lead Outreach Ledger (`app/(admin)/admin/leads/page.tsx`)
-- Replace Option 1 copy ("£10k/month deal targets", "High-Ticket Deal Flow Terminal", "🎉 High-Ticket Deal Won") with Option 2 local business copy.
-- Replace decorative "Cockpit ⚡" gold pills with functional "Outbound Pitch" / "Outreach" buttons.
-- Harmonize pipeline header badges to use clean semantic badges instead of decorative rainbow colors.
-- Standardize on 8px grid spacing.
+### A. Lead Outreach Ledger (`app/(admin)/admin/leads/page.tsx`)
 
-### 2. Settings (`app/(admin)/admin/settings/page.tsx`)
-- Mobile tabs: implement responsive scroll and clean tab indicators.
-- Avatar upload: remove raw filename string overflow; add clean avatar preview and "Upload New" button.
-- User ID: convert raw UUID input box into a compact metadata row with 1-click copy action.
-- Normalize button sizing and form padding.
+#### 1. Top KPI Summary (Motion Stats Grid)
+- Replace the 6 disparate colored boxes with a unified **Motion Stats Grid** (`#0B0B0D` carbon surface, 1px `border-white/10`).
+- Uppercase dimmed label (`text-[11px] font-mono tracking-wider text-zinc-400`).
+- Large crisp white numbers (`text-2xl font-bold text-white`).
+- Active selection indicated by a subtle gold motion border rather than jarring color floods.
 
-### 3. Pricing Control Centre (`app/(admin)/admin/pricing/page.tsx`)
-- Update tier names from Option 1 ("Launch Catalyst", "System Leverage", "Enterprise Partner") to Option 2:
-  1. Essential Storefront
-  2. Pro Order Builder
-  3. Full Custom Build
-- Remove decorative "☆ Not Featured" buttons.
-- Fix mobile layout so the sticky footer button doesn't block inputs (`pb-24`).
+#### 2. Pipeline Segment Filters (Motion Sliding Segmented Control)
+- Purge the 5 glowing rainbow boxes (`🔥 No Website Only`, `📱 WhatsApp Ready`, `☎️ Landlines`, `🌐 Has Website`).
+- Implement a single unified segmented control bar.
+- Inactive segments share identical clean zinc styling (`text-zinc-400 hover:text-white`).
+- Integrate a smooth Motion sliding pill (`layoutId="activeFilter"`) that glides under the active segment with fluid spring physics.
+- Replace flame, phone, and flag emojis with clean numeric badge counters.
 
-### 4. Notifications Logs (`app/(admin)/admin/notifications/page.tsx`)
-- Verify relationship query resolves cleanly with the new foreign key constraint.
-- Add code fallback to prevent unhandled UI crashes.
-- Clean up filters, badges, and spacing.
+#### 3. Lead Cards: From 6 Competing Buttons to 2 Purposeful Actions
+- **Header**: High-contrast business title (`text-white font-semibold`), subtle category tag (`text-zinc-400 border-zinc-800`), clean star rating.
+- **Body**: Phone, location, and website formatted with clean 8px icon spacing. If no website exists, a subtle muted tag `"No website detected"` displays instead of a pulsing red flame.
+- **Footer Action Strip**:
+  - **Primary Action**: Single clean **WhatsApp** button (`bg-white hover:bg-zinc-200 text-black` or `bg-gold hover:bg-gold-light text-black`).
+  - **Secondary Action**: Single clean **Pitch Demo** button (`border border-white/10 hover:bg-white/5 text-zinc-300`).
+  - **Overflow Menu (`···`)**: DropdownMenu containing "Mark as Won", "Mark as Lost", "Inspect Lead", and "Archive".
+  - *Eliminates all 6 clashing buttons per card.*
 
-### 5. Invoices List (`app/(admin)/admin/quotes/page.tsx`)
-- Fix 12-column grid collision on mobile:
-  - Desktop (`>= 768px`): clean data table with fixed column widths.
-  - Mobile (`< 768px`): responsive vertical invoice cards.
-- Organize action buttons into a tidy dropdown or responsive button row.
-
-### 6. Command Center (`app/(admin)/admin/page.tsx` & components)
-- Clean up KPI cards: remove redundant icon clutter.
-- Harmonize cards to `#071536` with `#DAA640` accents.
-- Enforce consistent 8px grid spacing across sections.
+#### 4. Purge Gimmick Pills
+- Strip out all occurrences of "cockpit", "Prime Target", "HIGH CONVERSION", and decorative emojis (`🔥`, `⚡`, `📱`, `☎️`, `🌐`).
 
 ---
 
-## Phase 5: Verification & Delivery
-- Execute Next.js build / typecheck to verify zero errors.
-- Export the updated `n8n-lead-finder-machine.json`.
-- Deliver walkthrough report with instructions for importing into n8n.
+### B. Invoices & Quotes (`app/(admin)/admin/quotes/page.tsx`)
+- Align table header and row surfaces to `#0B0B0D` with `border-white/10`.
+- Maintain clean mobile card layout (`block md:hidden`) and structured desktop table (`hidden md:block`).
+- Standardize status badges (Paid, Pending, Overdue) using the strict semantic dot system.
+
+---
+
+### C. Settings & Profile (`app/(admin)/admin/settings/page.tsx`)
+- Standardize tabs to the Motion sliding indicator system.
+- Clean form inputs with carbon background `#0B0B0D` and subtle `border-white/10`.
+- Keep the compact User ID card with 1-click copy action.
+
+---
+
+### D. Notifications Center (`app/(admin)/admin/notifications/page.tsx`)
+- Harmonize log rows with the carbon surface and 8px spacing.
+- Ensure filter buttons adhere to the uniform segmented control pattern.
+
+---
+
+### E. Pricing Control Centre (`app/(admin)/admin/pricing/page.tsx`)
+- Ensure Option 2 tiers (Essential Storefront £495, Pro Order Builder £995, Full Custom Build £1,995) use clean Motion Cards.
+- Remove all remaining decorative "☆ Not Featured" badges.
+
+---
+
+### F. Command Center (`app/(admin)/admin/page.tsx`)
+- Apply the Motion Stats Grid to the top telemetry cards.
+- Align all chart containers and live pipeline modules to the Obsidian Black and Motion Gold theme.
+
+---
+
+## 4. Verification & Quality Assurance
+- Run `npx tsc --noEmit` to guarantee zero TypeScript errors.
+- Run `next build` to confirm all 73 routes compile cleanly.
+- Verify in browser that the visual theme is completely unified, high-contrast, free of random colors, and aligned with Cedric's review.

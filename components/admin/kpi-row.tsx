@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
 import {
   PoundSterling,
@@ -9,7 +10,6 @@ import {
   Users,
   FolderKanban,
   Calendar,
-  Info,
   ChevronDown,
   ChevronUp,
   X,
@@ -123,493 +123,478 @@ export function AdminKpiRow({
   }
 
   return (
-    <section className="space-y-3">
-      {/* KPI Cards Row */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5 sm:gap-6">
-        {/* Hero: Capital Realised */}
-        {/* Hero: Capital Realised */}
+    <section className="space-y-4">
+      {/* Motion Stats Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+        {/* Revenue Realized */}
         <button
           onClick={() => togglePanel('sales')}
-          className={`p-3.5 sm:p-6 bg-card rounded-2xl border transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left hover:scale-[1.01] shadow-lg ${
+          className={`p-4 sm:p-5 bg-[#0B0B0D] rounded-2xl border transition-colors flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[105px] ${
             expandedPanel === 'sales'
-              ? 'border-gold shadow-[0_0_25px_rgba(218,166,64,0.15)]'
-              : 'border-white/10 hover:border-gold/30'
+              ? 'border-[#DAA640]/50 ring-1 ring-[#DAA640]/20'
+              : 'border-white/10 hover:border-white/20'
           }`}
         >
-          <div className="space-y-1 sm:space-y-1.5 min-w-0">
-            <div className="flex items-center gap-1">
-              <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground font-mono font-bold">
-                Revenue Realized
-              </span>
-              <Info size={11} className="text-muted-foreground group-hover:text-gold transition-colors shrink-0" />
+          <div className="flex items-center justify-between w-full">
+            <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
+              Revenue Realized
+            </span>
+            <div className="flex items-center gap-1 shrink-0 ml-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              {expandedPanel === 'sales' ? (
+                <ChevronUp size={12} className="text-[#DAA640]" />
+              ) : (
+                <ChevronDown size={12} className="text-zinc-500" />
+              )}
             </div>
-            <p className="text-lg sm:text-2xl font-sans font-bold text-foreground truncate">
-              £{totalSales.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-            </p>
           </div>
-          <div className="flex flex-col items-center gap-1 shrink-0">
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center group-hover:border-gold/40 transition-all">
-              <PoundSterling size={18} className="text-gold" />
-            </div>
-            {expandedPanel === 'sales' ? (
-              <ChevronUp size={10} className="text-gold" />
-            ) : (
-              <ChevronDown size={10} className="text-muted-foreground" />
-            )}
-          </div>
+          <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
+            £{totalSales.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+          </p>
         </button>
 
-        {/* Hero: Pipeline Value */}
+        {/* Pipeline Value */}
         <button
           onClick={() => togglePanel('pipeline')}
-          className={`p-3.5 sm:p-6 bg-card rounded-2xl border transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left hover:scale-[1.01] shadow-lg ${
+          className={`p-4 sm:p-5 bg-[#0B0B0D] rounded-2xl border transition-colors flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[105px] ${
             expandedPanel === 'pipeline'
-              ? 'border-gold shadow-[0_0_25px_rgba(218,166,64,0.15)]'
-              : 'border-white/10 hover:border-gold/30'
+              ? 'border-[#DAA640]/50 ring-1 ring-[#DAA640]/20'
+              : 'border-white/10 hover:border-white/20'
           }`}
         >
-          <div className="space-y-1 sm:space-y-1.5 min-w-0">
-            <div className="flex items-center gap-1">
-              <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground font-mono font-bold">
-                Pipeline Value
-              </span>
-              <Info size={11} className="text-muted-foreground group-hover:text-gold transition-colors shrink-0" />
+          <div className="flex items-center justify-between w-full">
+            <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
+              Pipeline Value
+            </span>
+            <div className="flex items-center gap-1 shrink-0 ml-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" />
+              {expandedPanel === 'pipeline' ? (
+                <ChevronUp size={12} className="text-[#DAA640]" />
+              ) : (
+                <ChevronDown size={12} className="text-zinc-500" />
+              )}
             </div>
-            <p className="text-lg sm:text-2xl font-sans font-bold text-foreground truncate">
-              £{totalPipeline.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-            </p>
           </div>
-          <div className="flex flex-col items-center gap-1 shrink-0">
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center group-hover:border-gold/40 transition-all">
-              <Sparkles size={18} className="text-gold" />
-            </div>
-            {expandedPanel === 'pipeline' ? (
-              <ChevronUp size={10} className="text-gold" />
-            ) : (
-              <ChevronDown size={10} className="text-muted-foreground" />
-            )}
-          </div>
+          <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
+            £{totalPipeline.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+          </p>
         </button>
 
-        {/* Standard: Inbound Leads */}
+        {/* Inbound Leads */}
         <button
           onClick={() => handleOpenPreviewModal('leads')}
-          className="p-3.5 sm:p-6 bg-card rounded-2xl border border-white/10 hover:border-gold/30 hover:scale-[1.01] transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-lg"
+          className="p-4 sm:p-5 bg-[#0B0B0D] rounded-2xl border border-white/10 hover:border-white/20 transition-colors flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[105px]"
         >
-          <div className="space-y-1 sm:space-y-1.5 min-w-0">
-            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground font-mono font-bold block">
+          <div className="flex items-center justify-between w-full">
+            <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
               Inbound Leads
             </span>
-            <p className="text-lg sm:text-2xl font-sans font-bold text-foreground truncate">
-              {leadsCount ?? 0}
-            </p>
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
           </div>
-          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-gold/40 transition-all">
-            <Users size={18} className="text-gold" />
-          </div>
+          <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
+            {leadsCount ?? 0}
+          </p>
         </button>
 
-        {/* Standard: Active Projects */}
+        {/* Active Projects */}
         <button
           onClick={() => handleOpenPreviewModal('projects')}
-          className="p-3.5 sm:p-6 bg-card rounded-2xl border border-white/10 hover:border-gold/30 hover:scale-[1.01] transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-lg"
+          className="p-4 sm:p-5 bg-[#0B0B0D] rounded-2xl border border-white/10 hover:border-white/20 transition-colors flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[105px]"
         >
-          <div className="space-y-1 sm:space-y-1.5 min-w-0">
-            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground font-mono font-bold block">
+          <div className="flex items-center justify-between w-full">
+            <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
               Active Projects
             </span>
-            <p className="text-lg sm:text-2xl font-sans font-bold text-foreground truncate">
-              {projectsCount ?? 0}
-            </p>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
           </div>
-          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-gold/40 transition-all">
-            <FolderKanban size={18} className="text-gold" />
-          </div>
+          <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
+            {projectsCount ?? 0}
+          </p>
         </button>
 
-        {/* Standard: Booked Audits */}
+        {/* Booked Audits */}
         <button
           onClick={() => handleOpenPreviewModal('bookings')}
-          className="p-3.5 sm:p-6 bg-card rounded-2xl border border-white/10 hover:border-gold/30 hover:scale-[1.01] transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-lg"
+          className="p-4 sm:p-5 bg-[#0B0B0D] rounded-2xl border border-white/10 hover:border-white/20 transition-colors flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[105px]"
         >
-          <div className="space-y-1 sm:space-y-1.5 min-w-0">
-            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground font-mono font-bold block">
+          <div className="flex items-center justify-between w-full">
+            <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
               Booked Audits
             </span>
-            <p className="text-lg sm:text-2xl font-sans font-bold text-foreground truncate">
-              {sessionsCount ?? 0}
-            </p>
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
           </div>
-          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-gold/40 transition-all">
-            <Calendar size={18} className="text-gold" />
-          </div>
+          <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
+            {sessionsCount ?? 0}
+          </p>
         </button>
 
-        {/* Standard: Monthly Retainers */}
+        {/* Monthly Retainers */}
         <button
           onClick={() => handleOpenPreviewModal('mrr')}
-          className="p-3.5 sm:p-6 bg-card rounded-2xl border border-white/10 hover:border-gold/30 hover:scale-[1.01] transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 relative group cursor-pointer text-left w-full shadow-lg"
+          className="p-4 sm:p-5 bg-[#0B0B0D] rounded-2xl border border-white/10 hover:border-white/20 transition-colors flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[105px]"
         >
-          <div className="space-y-1 sm:space-y-1.5 min-w-0">
-            <span className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground font-mono font-bold block">
-              Monthly Retainers
+          <div className="flex items-center justify-between w-full">
+            <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
+              Monthly MRR
             </span>
-            <p className="text-lg sm:text-2xl font-sans font-bold text-gold truncate">
-              £{projectedMRR.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-            </p>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" />
           </div>
-          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center shrink-0 group-hover:border-gold/40 transition-all">
-            <TrendingUp size={18} className="text-gold" />
-          </div>
+          <p className="text-xl sm:text-2xl font-sans font-bold text-[#DAA640] tracking-tight truncate">
+            £{projectedMRR.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+          </p>
         </button>
       </div>
 
       {/* Inline Expand Panels */}
-      {expandedPanel === 'sales' && (
-        <div
-          className="glass border border-purple-500/20 rounded-2xl p-5 sm:p-6 space-y-4 animate-in slide-in-from-top-2 duration-300"
-          style={{ overflow: 'hidden' }}
-        >
-          <div className="flex items-center justify-between">
-            <h3 className="font-serif text-base font-bold text-foreground">Capital Realised Breakdown</h3>
-            <button
-              onClick={() => setExpandedPanel(null)}
-              className="p-1.5 rounded-lg hover:bg-white/5 text-muted-foreground hover:text-foreground transition-all"
-            >
-              <X size={14} />
-            </button>
-          </div>
-
-          <div className="divide-y divide-gold/10">
-            {recentPayments && recentPayments.length > 0 ? (
-              recentPayments.map((payment) => (
-                <div key={payment.id} className="py-3 flex items-center justify-between gap-3 first:pt-0 last:pb-0">
-                  <div className="min-w-0">
-                    <p className="text-xs font-bold text-foreground truncate">
-                      {payment.projects?.project_name || 'Custom Project'}
-                    </p>
-                    <p className="text-[10px] text-muted-foreground truncate mt-0.5">
-                      {payment.notes || 'Milestone payment'}
-                    </p>
-                    <p className="text-[9px] text-gold/60 font-mono mt-0.5">
-                      {new Date(payment.created_at).toLocaleDateString('en-GB')}
-                    </p>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <span className="text-sm font-serif font-bold text-gold">
-                      +£{Number(payment.amount).toLocaleString('en-GB')}
-                    </span>
-                    <span className="block text-[8px] uppercase tracking-wider text-green-400 font-bold mt-0.5">
-                      {payment.status}
-                    </span>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p className="py-6 text-center text-xs text-muted-foreground">No payments recorded yet.</p>
-            )}
-          </div>
-
-        </div>
-      )}
-
-      {expandedPanel === 'pipeline' && (
-        <div
-          className="glass border border-purple-500/20 rounded-2xl p-5 sm:p-6 space-y-4 animate-in slide-in-from-top-2 duration-300"
-          style={{ overflow: 'hidden' }}
-        >
-          <div className="flex items-center justify-between">
-            <h3 className="font-serif text-base font-bold text-foreground">Active Projects Pipeline</h3>
-            <button
-              onClick={() => setExpandedPanel(null)}
-              className="p-1.5 rounded-lg hover:bg-white/5 text-muted-foreground hover:text-foreground transition-all"
-            >
-              <X size={14} />
-            </button>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-xs">
-              <thead>
-                <tr className="border-b border-purple-500/15 text-[10px] font-bold uppercase tracking-widest text-muted-foreground bg-white/[0.01]">
-                  <th className="py-3 px-3">Project</th>
-                  <th className="py-3 px-3">Client</th>
-                  <th className="py-3 px-3">Status</th>
-                  <th className="py-3 px-3">Contract</th>
-                  <th className="py-3 px-3">Paid</th>
-                  <th className="py-3 px-3 text-right font-bold text-gold">Balance</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gold/5">
-                {projectsFinancials && projectsFinancials.length > 0 ? (
-                  projectsFinancials.map((p) => {
-                    const hasEnrolled = !!p.contract_type
-                    const projectedValue = hasEnrolled && Number(p.contract_value) > 0
-                      ? Number(p.contract_value)
-                      : (Number(p.one_time_fee) || 0)
-                    const balance = projectedValue - (Number(p.amount_paid) || 0)
-
-                    return (
-                      <tr key={p.id} className="hover:bg-white/[0.01] transition-colors">
-                        <td className="py-3 px-3 font-semibold text-foreground">{p.project_name}</td>
-                        <td className="py-3 px-3 text-muted-foreground">{p.client_name}</td>
-                        <td className="py-3 px-3">
-                          <span className="px-2 py-0.5 rounded bg-gold/5 border border-purple-500/15 text-[9px] font-bold text-gold">
-                            {p.status}
-                          </span>
-                        </td>
-                        <td className="py-3 px-3 text-muted-foreground">
-                          {p.contract_type === 'retainer' ? (
-                            <span className="font-mono">£{(Number(p.contract_value) || 0).toLocaleString('en-GB')}/mo</span>
-                          ) : p.contract_type === 'one_time' ? (
-                            <span className="font-mono">£{(Number(p.contract_value) || 0).toLocaleString('en-GB')}</span>
-                          ) : p.contract_type === 'rev_share' ? (
-                            <span className="font-mono">PRY ({p.rev_share_percentage}%)</span>
-                          ) : (
-                            <div className="text-[10px] leading-normal font-sans space-y-0.5 text-muted-foreground/80">
-                              {Number(p.one_time_fee) > 0 && <div>One-Time: £{Number(p.one_time_fee).toLocaleString('en-GB')}</div>}
-                              {Number(p.retainer_amount) > 0 && <div>Retainer: £{Number(p.retainer_amount).toLocaleString('en-GB')}/mo</div>}
-                              {Number(p.rev_share_percentage) > 0 && <div>PRY: {p.rev_share_percentage}%</div>}
-                              {!p.one_time_fee && !p.retainer_amount && !p.rev_share_percentage && <span>Pending Setup</span>}
-                            </div>
-                          )}
-                        </td>
-                        <td className="py-3 px-3 font-mono text-muted-foreground">
-                          £{(Number(p.amount_paid) || 0).toLocaleString('en-GB')}
-                        </td>
-                        <td className="py-3 px-3 text-right">
-                          <div className="font-mono font-bold text-gold">
-                            £{balance.toLocaleString('en-GB')}
-                          </div>
-                          {!hasEnrolled && (Number(p.one_time_fee) > 0 || Number(p.retainer_amount) > 0) && (
-                            <div className="text-[8px] text-muted-foreground/60 uppercase tracking-wider">Projected</div>
-                          )}
-                        </td>
-                      </tr>
-                    )
-                  })
-                ) : (
-                  <tr>
-                    <td colSpan={6} className="py-8 text-center text-muted-foreground text-xs">
-                      No active mandates in pipeline.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="flex justify-end pt-1">
-            <Link
-              href="/admin/projects"
-              className="text-[10px] text-gold/70 hover:text-gold transition-colors font-semibold uppercase tracking-wider"
-            >
-              View All Projects →
-            </Link>
-          </div>
-        </div>
-      )}
-
-      {/* ── Metric Cards Detail Preview Modal ───────────────────────────────── */}
-      {activeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs animate-in fade-in duration-200">
-          <div className="w-full max-w-lg glass border border-purple-500/15 rounded-2xl shadow-2xl p-6 relative flex flex-col max-h-[85vh] overflow-hidden">
-            {/* Header */}
-            <div className="flex items-start justify-between border-b border-purple-500/15 pb-4">
+      <AnimatePresence>
+        {expandedPanel === 'sales' && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            className="bg-[#0B0B0D] border border-white/10 rounded-2xl p-5 sm:p-6 space-y-4"
+          >
+            <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-serif text-base font-bold text-foreground">
-                  {activeModal === 'leads'
-                    ? 'Inbound Pipelines Telemetry'
-                    : activeModal === 'projects'
-                    ? 'Active Mandates Summary'
-                    : activeModal === 'bookings'
-                    ? 'Upcoming Strategy Briefings'
-                    : 'MRR Goal Target Tracker'}
-                </h3>
-                <p className="text-[10px] text-muted-foreground mt-0.5">
-                  {activeModal === 'leads'
-                    ? 'Recently intercepted marketing and sales leads'
-                    : activeModal === 'projects'
-                    ? 'Latest active client dev mandates'
-                    : activeModal === 'bookings'
-                    ? 'Next scheduled strategic vetting calls'
-                    : 'Retainer metrics relative to £10,000/mo baseline'}
-                </p>
+                <h3 className="text-sm font-bold text-white">Revenue Realized Ledger</h3>
+                <p className="text-xs text-zinc-400 mt-0.5">Direct client payments logged across active mandates.</p>
               </div>
               <button
-                onClick={() => setActiveModal(null)}
-                className="p-1 rounded-lg hover:bg-white/5 text-muted-foreground hover:text-foreground transition-all cursor-pointer"
+                onClick={() => setExpandedPanel(null)}
+                className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-colors cursor-pointer"
               >
-                <X size={16} />
+                <X size={15} />
               </button>
             </div>
 
-            {/* Content */}
-            <div className="flex-1 overflow-y-auto py-6 space-y-4">
-              {modalLoading ? (
-                <div className="py-12 flex flex-col items-center justify-center gap-3">
-                  <Loader2 className="animate-spin text-gold" size={24} />
-                  <p className="text-xxs font-bold text-gold/60 uppercase tracking-widest animate-pulse font-mono">Syncing telemetry...</p>
-                </div>
-              ) : activeModal === 'mrr' ? (
-                (() => {
-                  const currentMRR = modalData.reduce((sum, p) => sum + (Number(p.retainer_amount) || 0), 0)
-                  const targetMRR = 10000
-                  const percentage = Math.min(Math.round((currentMRR / targetMRR) * 100), 100)
-                  return (
-                    <div className="space-y-5">
-                      {/* Goal Meter */}
-                      <div className="p-4 rounded-xl bg-gold/5 border border-purple-500/15 space-y-3">
-                        <div className="flex items-center justify-between text-xs font-bold text-foreground font-serif">
-                          <span>£10,000/mo Monthly Profit Target</span>
-                          <span className="text-gold font-mono">{percentage}% Achieved</span>
-                        </div>
-                        <div className="w-full h-2.5 rounded-full bg-white/5 overflow-hidden border border-purple-500/15">
-                          <div className="h-full bg-gradient-to-r from-gold to-gold-light transition-all duration-500" style={{ width: `${percentage}%` }} />
-                        </div>
-                        <div className="flex justify-between text-[10px] text-muted-foreground font-mono">
-                          <span>Current MRR: £{currentMRR.toLocaleString('en-GB')}</span>
-                          <span>Remaining: £{Math.max(targetMRR - currentMRR, 0).toLocaleString('en-GB')}</span>
-                        </div>
-                      </div>
-
-                      {/* Retainer List */}
-                      <div className="space-y-2.5">
-                        <label className="text-[10px] font-bold uppercase tracking-widest text-gold/70 block">Retainer Clients Breakdown</label>
-                        {modalData.length === 0 ? (
-                          <div className="py-8 text-center text-xs text-muted-foreground/60 italic border border-dashed border-purple-500/15 rounded-xl">
-                            No active projects on monthly retainers.
-                          </div>
-                        ) : (
-                          <div className="space-y-2 max-h-[220px] overflow-y-auto pr-1">
-                            {modalData.map((item) => (
-                              <div key={item.id} className="p-3.5 rounded-xl border border-purple-500/15 bg-white/[0.01] hover:border-purple-500/15 flex items-center justify-between gap-3 transition-all">
-                                <div className="min-w-0">
-                                  <h4 className="text-xs font-bold text-foreground truncate">{item.project_name}</h4>
-                                  <p className="text-[10px] text-muted-foreground truncate">Client: {item.client_name}</p>
-                                </div>
-                                <div className="flex items-center gap-3 shrink-0">
-                                  <span className="text-xs font-mono font-bold text-gold">£{Number(item.retainer_amount).toLocaleString('en-GB')}/mo</span>
-                                  <Link
-                                    href={`/admin/projects/${item.id}`}
-                                    onClick={() => setActiveModal(null)}
-                                    className="p-1.5 rounded-lg hover:bg-white/5 text-muted-foreground hover:text-gold transition-all"
-                                    title="Adjust Retainer Settings"
-                                  >
-                                    <ExternalLink size={12} />
-                                  </Link>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
+            <div className="divide-y divide-white/5">
+              {recentPayments && recentPayments.length > 0 ? (
+                recentPayments.map((payment) => (
+                  <div key={payment.id} className="py-3 flex items-center justify-between gap-3 first:pt-0 last:pb-0">
+                    <div className="min-w-0">
+                      <p className="text-xs font-semibold text-white truncate">
+                        {payment.projects?.project_name || 'Custom Mandate'}
+                      </p>
+                      <p className="text-[11px] text-zinc-400 truncate mt-0.5">
+                        {payment.notes || 'Milestone payment'}
+                      </p>
+                      <p className="text-[10px] text-zinc-500 font-mono mt-0.5">
+                        {new Date(payment.created_at).toLocaleDateString('en-GB')}
+                      </p>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <span className="text-sm font-bold font-mono text-emerald-400">
+                        +£{Number(payment.amount).toLocaleString('en-GB')}
+                      </span>
+                      <div className="flex items-center justify-end gap-1.5 mt-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        <span className="text-[10px] uppercase tracking-wider text-zinc-400 font-mono">
+                          {payment.status}
+                        </span>
                       </div>
                     </div>
-                  )
-                })()
-              ) : modalData.length === 0 ? (
-                <div className="py-12 text-center text-xs text-muted-foreground/60 italic border border-dashed border-purple-500/15 rounded-xl">
-                  No active logs found in this channel.
-                </div>
+                  </div>
+                ))
               ) : (
-                <div className="space-y-3">
-                  {modalData.map((item) => (
-                    <div
-                      key={item.id}
-                      className="p-4 rounded-xl border border-purple-500/15 bg-white/[0.01] hover:border-purple-500/20 transition-all flex flex-col gap-2"
-                    >
-                      <div className="flex items-center justify-between gap-3">
-                        <h4 className="text-xs font-bold text-foreground truncate">
-                          {activeModal === 'leads' ? item.name : activeModal === 'projects' ? item.project_name : item.client_name}
-                        </h4>
-                        <span className={`px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider ${
-                          activeModal === 'leads'
-                            ? item.status === 'New' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'bg-gold/10 text-gold border border-purple-500/15'
-                            : activeModal === 'projects'
-                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                            : 'bg-purple-500/10 text-purple-400 border border-purple-500/20'
-                        }`}>
-                          {activeModal === 'leads' ? item.status : activeModal === 'projects' ? item.status : item.status}
-                        </span>
-                      </div>
-                      
-                      <div className="flex items-center justify-between text-[10px] text-muted-foreground font-mono">
-                        <span>
-                          {activeModal === 'leads'
-                            ? item.business_name || 'Direct Personal'
-                            : activeModal === 'projects'
-                            ? `Client: ${item.client_name}`
-                            : item.business_name}
-                        </span>
-                        <span>
-                          {activeModal === 'leads'
-                            ? new Date(item.created_at).toLocaleDateString('en-GB')
-                            : activeModal === 'projects'
-                            ? `Valuation: £${(item.contract_value || 0).toLocaleString('en-GB')}`
-                            : new Date(item.scheduled_at).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <p className="py-6 text-center text-xs text-zinc-400">No payment transactions recorded yet.</p>
               )}
             </div>
+          </motion.div>
+        )}
 
-            {/* Footer */}
-            <div className="border-t border-purple-500/15 pt-4 flex flex-col sm:flex-row gap-3 justify-between items-stretch sm:items-center">
+        {expandedPanel === 'pipeline' && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            className="bg-[#0B0B0D] border border-white/10 rounded-2xl p-5 sm:p-6 space-y-4"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-bold text-white">Active Projects Pipeline Breakdown</h3>
+                <p className="text-xs text-zinc-400 mt-0.5">Committed contract values, realised amounts, and balance due.</p>
+              </div>
               <button
-                onClick={() => setActiveModal(null)}
-                className="px-4 py-2.5 rounded-xl border border-purple-500/15 hover:bg-white/5 text-xs text-muted-foreground hover:text-foreground transition-all cursor-pointer order-last sm:order-first"
+                onClick={() => setExpandedPanel(null)}
+                className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-colors cursor-pointer"
               >
-                Close
+                <X size={15} />
               </button>
-              
-              <div className="flex flex-col sm:flex-row gap-2 flex-1 sm:justify-end">
-                <Link
-                  href={
-                    activeModal === 'leads'
-                      ? '/admin/leads?status=New'
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr className="border-b border-white/10 text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400 bg-white/[0.01]">
+                    <th className="py-3 px-3">Project</th>
+                    <th className="py-3 px-3">Client</th>
+                    <th className="py-3 px-3">Status</th>
+                    <th className="py-3 px-3">Contract</th>
+                    <th className="py-3 px-3">Paid</th>
+                    <th className="py-3 px-3 text-right">Balance</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  {projectsFinancials && projectsFinancials.length > 0 ? (
+                    projectsFinancials.map((p) => {
+                      const hasEnrolled = !!p.contract_type
+                      const projectedValue = hasEnrolled && Number(p.contract_value) > 0
+                        ? Number(p.contract_value)
+                        : (Number(p.one_time_fee) || 0)
+                      const balance = projectedValue - (Number(p.amount_paid) || 0)
+
+                      return (
+                        <tr key={p.id} className="hover:bg-white/[0.02] transition-colors">
+                          <td className="py-3 px-3 font-semibold text-white">{p.project_name}</td>
+                          <td className="py-3 px-3 text-zinc-400">{p.client_name}</td>
+                          <td className="py-3 px-3">
+                            <span className="inline-flex items-center gap-1.5 text-[11px] text-zinc-300">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                              {p.status}
+                            </span>
+                          </td>
+                          <td className="py-3 px-3 text-zinc-400 font-mono">
+                            {p.contract_type === 'retainer' ? (
+                              <span>£{(Number(p.contract_value) || 0).toLocaleString('en-GB')}/mo</span>
+                            ) : p.contract_type === 'one_time' ? (
+                              <span>£{(Number(p.contract_value) || 0).toLocaleString('en-GB')}</span>
+                            ) : p.contract_type === 'rev_share' ? (
+                              <span>{p.rev_share_percentage}% rev-share</span>
+                            ) : (
+                              <span>£{(Number(p.one_time_fee) || 0).toLocaleString('en-GB')}</span>
+                            )}
+                          </td>
+                          <td className="py-3 px-3 font-mono text-zinc-400">
+                            £{(Number(p.amount_paid) || 0).toLocaleString('en-GB')}
+                          </td>
+                          <td className="py-3 px-3 text-right">
+                            <span className="font-mono font-bold text-[#DAA640]">
+                              £{balance.toLocaleString('en-GB')}
+                            </span>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan={6} className="py-8 text-center text-zinc-400 text-xs">
+                        No active mandates in pipeline.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="flex justify-end pt-2 border-t border-white/5">
+              <Link
+                href="/admin/projects"
+                className="text-xs text-[#DAA640] hover:text-[#c49535] transition-colors font-semibold flex items-center gap-1"
+              >
+                <span>View All Projects</span>
+                <ExternalLink size={12} />
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Metric Cards Detail Preview Modal ───────────────────────────────── */}
+      <AnimatePresence>
+        {activeModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="w-full max-w-lg bg-[#0B0B0D] border border-white/10 rounded-2xl shadow-2xl p-6 relative flex flex-col max-h-[85vh] overflow-hidden"
+            >
+              {/* Header */}
+              <div className="flex items-start justify-between border-b border-white/10 pb-4">
+                <div>
+                  <h3 className="text-base font-serif font-bold text-white">
+                    {activeModal === 'leads'
+                      ? 'Inbound Leads Telemetry'
                       : activeModal === 'projects'
-                      ? '/admin/projects?filter=active'
+                      ? 'Active Projects Summary'
                       : activeModal === 'bookings'
-                      ? '/admin/bookings?status=Scheduled'
-                      : '/admin/projects?filter=retainer'
-                  }
+                      ? 'Scheduled Audit Briefings'
+                      : 'MRR Growth Target'}
+                  </h3>
+                  <p className="text-xs text-zinc-400 mt-0.5">
+                    {activeModal === 'leads'
+                      ? 'Recent marketing and direct pipeline inquiries.'
+                      : activeModal === 'projects'
+                      ? 'Active client development mandates.'
+                      : activeModal === 'bookings'
+                      ? 'Upcoming strategy consultation calls.'
+                      : 'Retainer recurring revenue progress.'}
+                  </p>
+                </div>
+                <button
                   onClick={() => setActiveModal(null)}
-                  className="px-4 py-2.5 rounded-xl bg-gold/10 hover:bg-gold/20 text-gold border border-purple-500/20 hover:border-purple-500/30 text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5"
+                  className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-colors cursor-pointer"
                 >
-                  {activeModal === 'mrr' ? 'Manage Active Retainers' : 'Open Console'} <ExternalLink size={11} />
-                </Link>
-                
-                {activeModal === 'leads' && (
-                  <Link
-                    href="/admin/leads?create=true"
-                    className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-gold to-gold-light text-background hover:shadow-[0_0_16px_rgba(212,175,55,0.3)] text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5"
-                  >
-                    Add Manual Lead <Plus size={11} />
-                  </Link>
-                )}
-                {activeModal === 'projects' && (
-                  <Link
-                    href="/admin/projects?create=true"
-                    className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-gold to-gold-light text-background hover:shadow-[0_0_16px_rgba(212,175,55,0.3)] text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5"
-                  >
-                    Provision Mandate <Plus size={11} />
-                  </Link>
-                )}
-                {activeModal === 'bookings' && (
-                  <Link
-                    href="/admin/bookings?schedule=true"
-                    className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-gold to-gold-light text-background hover:shadow-[0_0_16px_rgba(212,175,55,0.3)] text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5"
-                  >
-                    Book Vetting Call <Plus size={11} />
-                  </Link>
+                  <X size={16} />
+                </button>
+              </div>
+
+              {/* Content */}
+              <div className="flex-1 overflow-y-auto py-5 space-y-4">
+                {modalLoading ? (
+                  <div className="py-12 flex flex-col items-center justify-center gap-3">
+                    <Loader2 className="animate-spin text-[#DAA640]" size={24} />
+                    <p className="text-xs text-zinc-400 font-mono">Syncing telemetry data...</p>
+                  </div>
+                ) : activeModal === 'mrr' ? (
+                  (() => {
+                    const currentMRR = modalData.reduce((sum, p) => sum + (Number(p.retainer_amount) || 0), 0)
+                    const targetMRR = 10000
+                    const percentage = Math.min(Math.round((currentMRR / targetMRR) * 100), 100)
+                    return (
+                      <div className="space-y-4">
+                        <div className="p-4 rounded-xl bg-[#141417] border border-white/10 space-y-3">
+                          <div className="flex items-center justify-between text-xs font-semibold text-white">
+                            <span>£10,000/mo Retainer Target</span>
+                            <span className="text-[#DAA640] font-mono">{percentage}% Achieved</span>
+                          </div>
+                          <div className="w-full h-2 rounded-full bg-white/5 overflow-hidden">
+                            <div className="h-full bg-[#DAA640] transition-all duration-500 rounded-full" style={{ width: `${percentage}%` }} />
+                          </div>
+                          <div className="flex justify-between text-[11px] text-zinc-400 font-mono">
+                            <span>Current: £{currentMRR.toLocaleString('en-GB')}</span>
+                            <span>Remaining: £{Math.max(targetMRR - currentMRR, 0).toLocaleString('en-GB')}</span>
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 block">Retainer Clients</span>
+                          {modalData.length === 0 ? (
+                            <div className="py-8 text-center text-xs text-zinc-500 bg-[#141417] border border-white/5 rounded-xl">
+                              No active projects on monthly retainers.
+                            </div>
+                          ) : (
+                            <div className="space-y-2 max-h-[220px] overflow-y-auto pr-1">
+                              {modalData.map((item) => (
+                                <div key={item.id} className="p-3.5 rounded-xl border border-white/10 bg-[#141417] flex items-center justify-between gap-3">
+                                  <div className="min-w-0">
+                                    <h4 className="text-xs font-semibold text-white truncate">{item.project_name}</h4>
+                                    <p className="text-[11px] text-zinc-400 truncate mt-0.5">Client: {item.client_name}</p>
+                                  </div>
+                                  <div className="flex items-center gap-2 shrink-0">
+                                    <span className="text-xs font-mono font-bold text-[#DAA640]">£{Number(item.retainer_amount).toLocaleString('en-GB')}/mo</span>
+                                    <Link
+                                      href={`/admin/projects/${item.id}`}
+                                      onClick={() => setActiveModal(null)}
+                                      className="p-1.5 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-colors"
+                                    >
+                                      <ExternalLink size={13} />
+                                    </Link>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  })()
+                ) : modalData.length === 0 ? (
+                  <div className="py-10 text-center text-xs text-zinc-500 bg-[#141417] border border-white/5 rounded-xl">
+                    No active records found.
+                  </div>
+                ) : (
+                  <div className="space-y-2.5">
+                    {modalData.map((item) => (
+                      <div
+                        key={item.id}
+                        className="p-3.5 rounded-xl border border-white/10 bg-[#141417] flex flex-col gap-2"
+                      >
+                        <div className="flex items-center justify-between gap-3">
+                          <h4 className="text-xs font-semibold text-white truncate">
+                            {activeModal === 'leads' ? item.name : activeModal === 'projects' ? item.project_name : item.client_name}
+                          </h4>
+                          <span className="inline-flex items-center gap-1 text-[10px] text-zinc-300 font-mono">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" />
+                            {item.status}
+                          </span>
+                        </div>
+                        
+                        <div className="flex items-center justify-between text-[11px] text-zinc-400 font-mono">
+                          <span className="truncate">
+                            {activeModal === 'leads'
+                              ? item.business_name || 'Direct Contact'
+                              : activeModal === 'projects'
+                              ? `Client: ${item.client_name}`
+                              : item.business_name}
+                          </span>
+                          <span className="shrink-0 ml-2">
+                            {activeModal === 'leads'
+                              ? new Date(item.created_at).toLocaleDateString('en-GB')
+                              : activeModal === 'projects'
+                              ? `£${(item.contract_value || 0).toLocaleString('en-GB')}`
+                              : new Date(item.scheduled_at).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
-            </div>
+
+              {/* Footer */}
+              <div className="border-t border-white/10 pt-4 flex flex-col sm:flex-row gap-2 justify-between items-stretch sm:items-center">
+                <button
+                  onClick={() => setActiveModal(null)}
+                  className="px-4 py-2.5 min-h-[44px] rounded-xl border border-white/10 hover:bg-white/5 text-xs text-zinc-400 hover:text-white transition-colors cursor-pointer order-last sm:order-first"
+                >
+                  Close
+                </button>
+                
+                <div className="flex flex-col sm:flex-row gap-2 flex-1 sm:justify-end">
+                  <Link
+                    href={
+                      activeModal === 'leads'
+                        ? '/admin/leads'
+                        : activeModal === 'projects'
+                        ? '/admin/projects'
+                        : activeModal === 'bookings'
+                        ? '/admin/bookings'
+                        : '/admin/projects'
+                    }
+                    onClick={() => setActiveModal(null)}
+                    className="px-4 py-2.5 min-h-[44px] rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/10 text-xs font-semibold transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <span>{activeModal === 'mrr' ? 'Manage Retainers' : 'View Full Console'}</span>
+                    <ExternalLink size={12} />
+                  </Link>
+                  
+                  {activeModal === 'leads' && (
+                    <Link
+                      href="/admin/leads?create=true"
+                      onClick={() => setActiveModal(null)}
+                      className="px-4 py-2.5 min-h-[44px] rounded-xl bg-[#DAA640] text-black hover:bg-[#c49535] text-xs font-semibold transition-colors flex items-center justify-center gap-1.5"
+                    >
+                      <Plus size={14} />
+                      <span>Add Lead</span>
+                    </Link>
+                  )}
+                  {activeModal === 'projects' && (
+                    <Link
+                      href="/admin/projects?create=true"
+                      onClick={() => setActiveModal(null)}
+                      className="px-4 py-2.5 min-h-[44px] rounded-xl bg-[#DAA640] text-black hover:bg-[#c49535] text-xs font-semibold transition-colors flex items-center justify-center gap-1.5"
+                    >
+                      <Plus size={14} />
+                      <span>New Project</span>
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </section>
   )
 }
