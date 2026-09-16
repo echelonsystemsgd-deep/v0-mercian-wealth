@@ -73,9 +73,9 @@ async function findLeads() {
         ? `https://wa.me/${waDigits}?text=${encodeURIComponent('Hi 👋')}`
         : null;
 
-      // 5. Generate tailored Two-Stage Pitch per Mercian Wealth SOP
+      // 5. Generate tailored Outreach Messages per Mercian Wealth SOP
       const tradeNoun = detectTradeNoun(data.categoryName, query, businessName);
-      const stage1 = 'Hi 👋';
+      const stage1 = `Hi 👋, is this ${businessName}?`;
       const stage2 = generateStage2Pitch(businessName, classification, tradeNoun, rawWebsite);
 
       qualified.push({
@@ -169,11 +169,7 @@ function classifyOnlinePresence(website) {
 }
 
 function generateStage2Pitch(businessName, classification, tradeNoun, website) {
-  if (classification === 'no_website') {
-    return `Came across ${businessName} — had a look for a website, couldn't find one. Here's the bit that actually matters: every day someone searches for a ${tradeNoun} near them, sees you're not there, and books with whoever showed up instead. That's not a maybe — it's happening right now, on jobs you'll never even know you lost.\n\nI build the site before I ever ask for money — I don't sell direction I haven't already shown. If it's not for you, no pressure at all, just glad I flagged it. If it is, we take it from there.`;
-  }
-  const specificIssue = getSpecificIssue(website);
-  return `Came across ${businessName} — went to check out the site, but ${specificIssue}. That's not just a rough edge — it's the exact moment someone decides you're not worth the call, and picks the next result instead. Happening on repeat, quietly, without you ever seeing it.\n\nI build the site before I ever ask for money — I don't sell direction I haven't already shown. If it's not for you, no pressure at all, just glad I flagged it. If it is, we take it from there.`;
+  return `That's fine for now, but it means anyone who Googles a ${tradeNoun} in your area before messaging will land on a competitor's site instead of yours, even if you're the better choice. A proper site means people can find you, see your work, and message you straight away — more jobs landing in your inbox instead of going elsewhere first.\n\nHappy to put a free working example together for you, no cost, no obligation — built around how you already work, nothing generic.`;
 }
 
 function cleanSlug(str) {

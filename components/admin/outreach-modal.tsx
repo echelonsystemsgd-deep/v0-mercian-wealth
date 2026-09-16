@@ -72,9 +72,12 @@ export function OutreachModal({
   onUpdateStatus,
   onDeleteLead,
 }: OutreachModalProps) {
-  const [activeTab, setActiveTab] = useState<'stage1' | 'stage2' | 'followup' | 'voice'>('stage1')
-  const [pitchType, setPitchType] = useState<'noWebsite' | 'brokenSite' | 'referral' | 'automation' | 'scrapedCustom'>('noWebsite')
-  const [followupType, setFollowupType] = useState<'noResponse' | 'final' | 'comeBack' | 'declined'>('noResponse')
+  const [activeTab, setActiveTab] = useState<'stage1' | 'stage2' | 'stage3' | 'followup' | 'closing' | 'voice'>('stage1')
+  const [stage1Step, setStage1Step] = useState<'1a_confirm' | '1b_no_website' | '1b_broken_website'>('1a_confirm')
+  const [stage2Variant, setStage2Variant] = useState<'combined' | 'soft_no'>('combined')
+  const [followupStep, setFollowupStep] = useState<'followup1' | 'followup2' | 'followup3'>('followup1')
+  const [closingBranch, setClosingBranch] = useState<'yes' | 'no'>('yes')
+  const [customObservation, setCustomObservation] = useState('')
   const [copied, setCopied] = useState(false)
   const [updating, setUpdating] = useState(false)
   const [isPromptOpen, setIsPromptOpen] = useState(false)
@@ -84,12 +87,8 @@ export function OutreachModal({
     if (lead) {
       const rawWeb = (lead.website || '').trim()
       const hasWeb = rawWeb !== '' && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' && !rawWeb.toLowerCase().includes('facebook.com') && !rawWeb.toLowerCase().includes('instagram.com')
-      if (lead.scraped_metadata?.stage_2_pitch) {
-        setPitchType('scrapedCustom')
-      } else if (hasWeb) {
-        setPitchType('brokenSite')
-      } else {
-        setPitchType('noWebsite')
+      if (hasWeb) {
+        setCustomObservation("it's not loading properly on mobile, slow to respond, and hasn't been updated recently")
       }
     }
   }, [lead])
@@ -149,51 +148,79 @@ export function OutreachModal({
   const domain = rawWebsite.replace(/^https?:\/\//, '').replace(/\/$/, '')
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // EXACT OUTREACH SCRIPTS
+  // EXACT OUTREACH SCRIPTS (Full Standardized Framework)
   // ─────────────────────────────────────────────────────────────────────────────
 
-  // STAGE 1: OPENER (send alone, wait for reply)
+  // STAGE 1: CONFIRM + INTRO
   const ownerName = lead.name && lead.name !== lead.business_name && !lead.name.includes('Owner') ? lead.name.split(' ')[0] : ''
-  const stage1Text = ownerName ? `Hi ${ownerName} 👋` : 'Hi 👋'
+  const stage1Text =
+    stage1Step === '1a_confirm'
+      ? `Hi 👋, is this ${businessName}?`
+      : stage1Step === '1b_no_website'
+      ? `Ah perfect 👍 I build websites for roofers, tradespeople, and construction businesses, and had a quick look but couldn't find a site for you — just WhatsApp/social by the looks of it.`
+      : `Ah perfect 👍 I build websites for roofers, tradespeople, and construction businesses, and had a quick look at yours, but ${customObservation.trim() || "it's not loading on mobile, throwing a server error, hasn't been touched since 2023"}.`
 
-  // STAGE 2: THE PITCH (send only after they reply)
-  let stage2Text = ''
-  if (pitchType === 'scrapedCustom' && lead.scraped_metadata?.stage_2_pitch) {
-    stage2Text = `${lead.scraped_metadata.stage_2_pitch}\n\nLive prototype for ${businessName}:\n${demoUrl}`
-  } else if (pitchType === 'noWebsite') {
-    stage2Text = `Came across ${businessName} — had a look for a website, couldn't find one. Here's the bit that actually matters: every day someone searches for a ${trade} near them, sees you're not there, and books with whoever showed up instead. That's not a maybe — it's happening right now, on jobs you'll never even know you lost.\n\nI build the site before I ever ask for money — I don't sell direction I haven't already shown. Put together this live prototype for ${businessName}:\n${demoUrl}\n\nIf it's not for you, no pressure at all, just glad I flagged it. If it is, we take it from there.`
-  } else if (pitchType === 'brokenSite') {
-    stage2Text = `Came across ${businessName} — saw your site at ${domain || 'online'}, noticed it isn't set up for instant mobile quotes or fast lead capture. That's not just a rough edge — it's the exact moment someone decides you're not worth the call, and picks the next result instead. Happening on repeat, quietly, without you ever seeing it.\n\nI build the upgraded storefront before I ever ask for money — I don't sell direction I haven't already shown. Here is what a high-converting version looks like for ${businessName}:\n${demoUrl}\n\nIf it's not for you, no pressure at all, just glad I flagged it. If it is, we take it from there.`
-  } else if (pitchType === 'referral') {
-    stage2Text = `Passed your number — said you might be after a modern website.\n\nI build the site before I ever ask for money — you're not paying for an idea, you're looking at something real. Took a few minutes to stage a prototype for ${businessName}:\n${demoUrl}\n\nIf it's useful, we take it from there and talk price. If not, no pressure at all.`
-  } else {
-    // Broader automation pitch
-    stage2Text = `Came across ${businessName} — noticed you're getting steady interest, but every missed call or slow reply is a job going to whoever picked up faster.\n\nI build speed-to-lead systems that fix exactly that: faster response, less admin, more of what's already coming in actually turning into paying work.\n\nI show you a working version before anything's agreed — no cost, no pressure. If it's useful, we take it further. If not, no worries at all.`
-  }
+  // STAGE 2: PAIN POINT + OUTCOME + PROTOTYPE OFFER (single combined message)
+  const tradeNoun = trade || 'tradesperson'
+  const stage2Text = `That's fine for now, but it means anyone who Googles a ${tradeNoun} in your area before messaging will land on a competitor's site instead of yours, even if you're the better choice. A proper site means people can find you, see your work, and message you straight away — more jobs landing in your inbox instead of going elsewhere first.\n\nHappy to put a free working example together for you, no cost, no obligation — built around how you already work, nothing generic.`
 
-  // FOLLOW-UPS
-  let followupText = ''
-  if (followupType === 'noResponse') {
-    followupText = `Hey — following up on ${businessName}'s site. No pressure at all, just wanted to check it landed and see where you're at.`
-  } else if (followupType === 'final') {
-    followupText = `Last one from me on this — if it's not a priority right now, that's completely fair. If it ever is, the offer stands, just say the word.`
-  } else if (followupType === 'comeBack') {
-    followupText = `No rush at all — happy to wait until you're ready. Just didn't want it to go unsaid: every day without it is a day someone's landing somewhere else instead of you. Whenever you're ready, everything's exactly as we left it.`
-  } else {
-    followupText = `No worries at all, appreciate you letting me know 👍 If that ever changes, feel free to reach out — all the best with the business!`
-  }
+  // STAGE 3: SEND THE SITE (once built, then wait)
+  const stage3Text = `Here you go 👇 ${demoUrl}\n\nHad a proper look at what you do and built it around that — your trade, your area, and a WhatsApp button so people can message you straight away instead of filling out a form. Have a look when you get a minute and let me know what you think.`
+
+  // FOLLOW-UPS (if no response after Stage 3)
+  const followupText =
+    followupStep === 'followup1'
+      ? `Hey — just checking this landed okay. No rush, just wanted to make sure you'd seen it.`
+      : followupStep === 'followup2'
+      ? `Hey again 👋 Totally understand if you've been busy — just wanted to check whether you'd had a chance to look at the site, or if you've got any questions on it.`
+      : `Last one from me on this — if it's not the right time, that's completely fair, no hard feelings. If you ever do want to take it further, the offer's still open, just say the word.`
+
+  // CLOSING BRANCHES
+  const closingText =
+    closingBranch === 'yes'
+      ? `Great stuff 👍 Let's get it locked in properly — I'll send over what I need from you and we'll go from there. What's the best way to reach you if I've got quick questions along the way?`
+      : `No worries at all, appreciate you letting me know 👍 If that ever changes, feel free to reach out — all the best with the business!`
 
   // VOICE NOTE PROMPTER (15s)
-  const voiceNoteScript = `🎙️ 15-SECOND VOICE NOTE SCRIPT (Speak naturally):\n\n"Hey ${ownerName || 'mate'}, quick voice note — it's Gurtej from Mercian Wealth in Worcestershire.\nSaw your 5-star reviews on Google but noticed you don't have a website up yet.\nPut together a live preview for ${businessName} so you stop losing local jobs to competitors.\nSent you the link above, have a look whenever you're off the tools and let me know what you think!"`
+  const voiceNoteScript = `🎙️ 15-SECOND VOICE NOTE SCRIPT (Speak naturally):\n\n"Hey ${ownerName || 'mate'}, quick voice note — it's Gurtej from Mercian Wealth.\nHad a quick look for ${businessName} online and noticed you don't have a dedicated website up yet.\nPut together a free working prototype for you so you stop losing local ${tradeNoun} enquiries to competitors.\nSent you the link above, have a look when you get a minute off the tools and let me know what you think!"`
 
   const currentMessageText =
     activeTab === 'stage1'
       ? stage1Text
       : activeTab === 'stage2'
       ? stage2Text
+      : activeTab === 'stage3'
+      ? stage3Text
       : activeTab === 'followup'
       ? followupText
+      : activeTab === 'closing'
+      ? closingText
       : voiceNoteScript
+
+  const currentBadgeText =
+    activeTab === 'stage1'
+      ? stage1Step === '1a_confirm'
+        ? 'Stage 1 · 1A Confirm Name'
+        : stage1Step === '1b_no_website'
+        ? 'Stage 1 · 1B Intro (No Site)'
+        : 'Stage 1 · 1B Intro (Outdated Site)'
+      : activeTab === 'stage2'
+      ? stage2Variant === 'combined'
+        ? 'Stage 2 · Pain Point & Prototype Offer'
+        : 'Stage 2 · Soft No Re-Pitch'
+      : activeTab === 'stage3'
+      ? 'Stage 3 · Send The Working Site'
+      : activeTab === 'followup'
+      ? followupStep === 'followup1'
+        ? 'Follow-Up 1 · Check-In'
+        : followupStep === 'followup2'
+        ? 'Follow-Up 2 · Busy Check'
+        : 'Follow-Up 3 · Final Break-Up'
+      : activeTab === 'closing'
+      ? closingBranch === 'yes'
+        ? 'Closing · Branch YES (Lock In)'
+        : 'Closing · Branch NO (Polite Decline)'
+      : 'Voice Note Script'
 
   const handleCopy = () => {
     navigator.clipboard.writeText(currentMessageText)
@@ -357,140 +384,237 @@ export function OutreachModal({
             </div>
 
             {/* Sequence Tabs */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1 rounded-xl bg-[#141417] border border-white/5">
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5 p-1 rounded-xl bg-[#141417] border border-white/5">
               <button
                 onClick={() => setActiveTab('stage1')}
-                className={`py-2 px-3 text-xs font-medium rounded-lg transition-all cursor-pointer text-center ${
+                className={`py-2 px-1.5 text-[11px] sm:text-xs font-medium rounded-lg transition-all cursor-pointer text-center truncate ${
                   activeTab === 'stage1'
-                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30'
+                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                 }`}
               >
-                1. Opener
+                1. Confirm & Intro
               </button>
               <button
                 onClick={() => setActiveTab('stage2')}
-                className={`py-2 px-3 text-xs font-medium rounded-lg transition-all cursor-pointer text-center ${
+                className={`py-2 px-1.5 text-[11px] sm:text-xs font-medium rounded-lg transition-all cursor-pointer text-center truncate ${
                   activeTab === 'stage2'
-                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30'
+                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                 }`}
               >
                 2. The Pitch
               </button>
               <button
-                onClick={() => setActiveTab('followup')}
-                className={`py-2 px-3 text-xs font-medium rounded-lg transition-all cursor-pointer text-center ${
-                  activeTab === 'followup'
-                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30'
+                onClick={() => setActiveTab('stage3')}
+                className={`py-2 px-1.5 text-[11px] sm:text-xs font-medium rounded-lg transition-all cursor-pointer text-center truncate ${
+                  activeTab === 'stage3'
+                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                 }`}
               >
-                3. Follow-Ups
+                3. Send Site
+              </button>
+              <button
+                onClick={() => setActiveTab('followup')}
+                className={`py-2 px-1.5 text-[11px] sm:text-xs font-medium rounded-lg transition-all cursor-pointer text-center truncate ${
+                  activeTab === 'followup'
+                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                }`}
+              >
+                4. Follow-Ups
+              </button>
+              <button
+                onClick={() => setActiveTab('closing')}
+                className={`py-2 px-1.5 text-[11px] sm:text-xs font-medium rounded-lg transition-all cursor-pointer text-center truncate ${
+                  activeTab === 'closing'
+                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                }`}
+              >
+                5. Closing
               </button>
               <button
                 onClick={() => setActiveTab('voice')}
-                className={`py-2 px-3 text-xs font-medium rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1.5 ${
+                className={`py-2 px-1.5 text-[11px] sm:text-xs font-medium rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1 truncate ${
                   activeTab === 'voice'
-                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30'
+                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                 }`}
               >
-                <Mic size={12} /> 4. Voice Note
+                <Mic size={12} className="shrink-0" /> Voice Note
               </button>
             </div>
 
-            {/* Sub-selectors for Stage 2 & Follow-up */}
-            {activeTab === 'stage2' && (
-              <div className="flex flex-wrap gap-2 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs">
-                {lead.scraped_metadata?.stage_2_pitch && (
+            {/* Sub-selectors and Protocol Guidance */}
+            {activeTab === 'stage1' && (
+              <div className="space-y-2.5">
+                <div className="flex flex-wrap gap-2 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs">
                   <button
-                    onClick={() => setPitchType('scrapedCustom')}
+                    onClick={() => setStage1Step('1a_confirm')}
                     className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
-                      pitchType === 'scrapedCustom' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
+                      stage1Step === '1a_confirm' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
                     }`}
                   >
-                    Bespoke Pitch
+                    1A. Confirm Name
                   </button>
+                  <button
+                    onClick={() => setStage1Step('1b_no_website')}
+                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                      stage1Step === '1b_no_website' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    1B. Intro (No Website)
+                  </button>
+                  <button
+                    onClick={() => setStage1Step('1b_broken_website')}
+                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                      stage1Step === '1b_broken_website' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    1B. Intro (Broken / Outdated Site)
+                  </button>
+                </div>
+
+                {stage1Step === '1b_broken_website' && (
+                  <div className="flex items-center gap-2 p-2.5 rounded-xl bg-[#141417] border border-white/10 text-xs">
+                    <span className="text-muted-foreground shrink-0 font-medium text-[11px]">Specific Observation:</span>
+                    <input
+                      type="text"
+                      value={customObservation}
+                      onChange={(e) => setCustomObservation(e.target.value)}
+                      placeholder="e.g. it's not loading, throwing a server error, hasn't been touched since 2023"
+                      className="w-full bg-transparent border-none outline-none text-xs text-foreground placeholder:text-zinc-500 font-sans"
+                    />
+                  </div>
                 )}
-                <button
-                  onClick={() => setPitchType('noWebsite')}
-                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
-                    pitchType === 'noWebsite' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
-                  }`}
-                >
-                  No Website {hasWebsite && '(Override)'}
-                </button>
-                <button
-                  onClick={() => setPitchType('brokenSite')}
-                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
-                    pitchType === 'brokenSite' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
-                  }`}
-                >
-                  {hasWebsite ? 'Modern Redesign' : 'Outdated Website'}
-                </button>
-                <button
-                  onClick={() => setPitchType('referral')}
-                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
-                    pitchType === 'referral' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
-                  }`}
-                >
-                  Warm Referral
-                </button>
-                <button
-                  onClick={() => setPitchType('automation')}
-                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
-                    pitchType === 'automation' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
-                  }`}
-                >
-                  Speed-to-Lead
-                </button>
+
+                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
+                  <span>
+                    <strong>Stage 1 Protocol:</strong> Send <strong>1A</strong> and (wait for confirmation). Once confirmed, send <strong>1B</strong> and (wait for response).
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'stage2' && (
+              <div className="space-y-2.5">
+                <div className="flex flex-wrap gap-2 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs">
+                  <button
+                    onClick={() => setStage2Variant('combined')}
+                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                      stage2Variant === 'combined' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    Combined Pain Point + Offer
+                  </button>
+                  <button
+                    onClick={() => setStage2Variant('soft_no')}
+                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                      stage2Variant === 'soft_no' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    Soft No / Re-Pitch
+                  </button>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-[#DAA640]/10 border border-[#DAA640]/20 text-[#DAA640] text-xs flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640] shrink-0" />
+                  <span>
+                    <strong>Stage 2 Protocol:</strong> Single combined message. (Wait for response — re-use this exact message if the first reaction is a soft/unsure no, before treating as a genuine decline).
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'stage3' && (
+              <div className="space-y-2.5">
+                <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
+                  <span>
+                    <strong>Stage 3 Protocol:</strong> Send once the prototype site is staged, then wait for their feedback.
+                  </span>
+                </div>
               </div>
             )}
 
             {activeTab === 'followup' && (
-              <div className="flex flex-wrap gap-2 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs">
-                <button
-                  onClick={() => setFollowupType('noResponse')}
-                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
-                    followupType === 'noResponse' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
-                  }`}
-                >
-                  No Response (48h)
-                </button>
-                <button
-                  onClick={() => setFollowupType('final')}
-                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
-                    followupType === 'final' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
-                  }`}
-                >
-                  Final Follow-up
-                </button>
-                <button
-                  onClick={() => setFollowupType('comeBack')}
-                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
-                    followupType === 'comeBack' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
-                  }`}
-                >
-                  Come Back Later
-                </button>
-                <button
-                  onClick={() => setFollowupType('declined')}
-                  className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
-                    followupType === 'declined' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
-                  }`}
-                >
-                  Polite Close
-                </button>
+              <div className="space-y-2.5">
+                <div className="flex flex-wrap gap-2 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs">
+                  <button
+                    onClick={() => setFollowupStep('followup1')}
+                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                      followupStep === 'followup1' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    Follow-up 1 (Check-in)
+                  </button>
+                  <button
+                    onClick={() => setFollowupStep('followup2')}
+                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                      followupStep === 'followup2' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    Follow-up 2 (Busy Check)
+                  </button>
+                  <button
+                    onClick={() => setFollowupStep('followup3')}
+                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                      followupStep === 'followup3' ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30' : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    Follow-up 3 (Final Break-up)
+                  </button>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400 shrink-0" />
+                  <span>
+                    <strong>Follow-Ups Protocol:</strong> Send sequentially if no response after delivering Stage 3.
+                  </span>
+                </div>
               </div>
             )}
 
-            {/* Guidance Alert for Stage 1 */}
-            {activeTab === 'stage1' && (
-              <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
+            {activeTab === 'closing' && (
+              <div className="space-y-2.5">
+                <div className="flex flex-wrap gap-2 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs">
+                  <button
+                    onClick={() => setClosingBranch('yes')}
+                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
+                      closingBranch === 'yes' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    <ThumbsUp size={12} /> Branch YES (Lock In)
+                  </button>
+                  <button
+                    onClick={() => setClosingBranch('no')}
+                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
+                      closingBranch === 'no' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    <XCircle size={12} /> Branch NO (Genuine Decline)
+                  </button>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+                  <span>
+                    {closingBranch === 'yes'
+                      ? 'Branch YES: Great stuff! Lock it in properly and capture their onboarding requirements.'
+                      : 'Branch NO: Polite, professional exit. Only send after Stage 2 has already been delivered.'}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'voice' && (
+              <div className="p-2.5 rounded-xl bg-[#DAA640]/10 border border-[#DAA640]/20 text-[#DAA640] text-xs flex items-center gap-2">
+                <Mic size={13} className="shrink-0" />
                 <span>
-                  <strong>Protocol:</strong> Send initial opener, await reply before delivering Stage 2 pitch.
+                  <strong>Voice Note Protocol:</strong> Speak naturally off the cuff. Keep it under 15 seconds.
                 </span>
               </div>
             )}
@@ -499,14 +623,8 @@ export function OutreachModal({
             <div className="relative rounded-xl bg-[#141417] border border-white/10 p-4 space-y-3">
               <div className="flex items-center justify-between text-xs text-muted-foreground pb-2 border-b border-white/5">
                 <span className="font-medium text-foreground">Message Body</span>
-                <span className="text-[11px] text-[#DAA640]">
-                  {activeTab === 'stage1'
-                    ? 'Opener'
-                    : activeTab === 'stage2'
-                    ? 'Value Pitch'
-                    : activeTab === 'followup'
-                    ? 'Follow-up'
-                    : 'Voice Script'}
+                <span className="text-[11px] font-mono text-[#DAA640]">
+                  {currentBadgeText}
                 </span>
               </div>
 
