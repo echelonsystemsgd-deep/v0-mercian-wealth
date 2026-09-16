@@ -30,7 +30,7 @@ This document records the comprehensive resolution of the Demos/Portfolio page i
 
 | Build Title | Live Domain | Real Preview Asset | Feature Highlight |
 | :--- | :--- | :--- | :--- |
-| **PRINCEPS** | `princeps-ecom.vercel.app` | `/princeps-preview-real.jpg` | Kinetic Shell Visualizer & Dynamic Cart |
+| **VEYRA** | `veyra-premium-3-d-jewellery-e-comme.vercel.app` | `/veyra-jewellery-preview-real.jpg` | Real-Time 3D Atelier & Interactive Model |
 | **Meridian Dental** | `dental-clinic-prototype-zeta.vercel.app` | `/meridian-dental-preview-real.jpg` | 60-Second Smile Assessment & Treatment Guide |
 | **Vanguard Construction** | `premium-local-construction-business.vercel.app` | `/vanguard-construction-preview-real.jpg` | Instant Sub-Second Project Scope & Quote Engine |
 | **Home Solutions Roofing** | `home-solutions-roofing.vercel.app` | `/home-solutions-roofing-preview-real.jpg` | Emergency Repair Dispatch & Diagnostics Intake |

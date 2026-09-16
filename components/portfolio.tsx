@@ -33,14 +33,14 @@ export type PortfolioItem = {
 
 export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   {
-    title: "PRINCEPS — Luxury Techwear & Outerwear",
-    category: "Luxury E-Commerce & Sovereign Techwear · Live Sandbox",
-    gradient: "from-zinc-800/40 to-cyan-950/40",
-    href: "https://princeps-ecom.vercel.app/",
-    image: "/princeps-preview-real.jpg",
+    title: "VEYRA — Solid Cast Permanent Jewellery",
+    category: "Luxury 3D E-Commerce & Permanent Jewellery · Live Sandbox",
+    gradient: "from-stone-900/40 to-amber-950/40",
+    href: "https://veyra-premium-3-d-jewellery-e-comme.vercel.app/",
+    image: "/veyra-jewellery-preview-real.jpg",
     underConstruction: false,
-    metric: "Kinetic Shell Visualizer & Dynamic Cart",
-    domain: "princeps-ecom.vercel.app",
+    metric: "Real-Time 3D Atelier & Interactive Model",
+    domain: "veyra-premium-3-d-jewellery-e-comme.vercel.app",
   },
   {
     title: "Meridian Dental — Private Cosmetic & Restorative Dentistry",

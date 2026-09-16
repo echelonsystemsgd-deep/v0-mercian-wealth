@@ -8,11 +8,11 @@ This document establishes the architecture, legal safeguards, and deployment gui
 ## 1. Prototype Showcase & Lead Architecture
 
 ### Portfolio Lineup (Direct Live Sandbox Clickthrough)
-1. **PRINCEPS — Luxury Techwear & Outerwear**
-   * **Domain / Category:** `princeps-ecom.vercel.app` · Luxury E-Commerce & Sovereign Techwear
-   * **Benchmark:** Kinetic Shell Visualizer & Dynamic Cart
-   * **Preview Asset:** `/princeps-preview-real.jpg` (authentic live landing page capture)
-   * **Link Status:** Direct new-tab launch (`https://princeps-ecom.vercel.app/`).
+1. **VEYRA — Solid Cast Permanent Jewellery Atelier**
+   * **Domain / Category:** `veyra-premium-3-d-jewellery-e-comme.vercel.app` · Luxury 3D E-Commerce & Permanent Jewellery
+   * **Benchmark:** Real-Time 3D Atelier & Interactive Model
+   * **Preview Asset:** `/veyra-jewellery-preview-real.jpg` (authentic live landing page capture)
+   * **Link Status:** Direct new-tab launch (`https://veyra-premium-3-d-jewellery-e-comme.vercel.app/`).
 
 2. **Meridian Dental — Private Cosmetic & Restorative Dentistry**
    * **Domain / Category:** `dental-clinic-prototype-zeta.vercel.app` · Private Healthcare & Aesthetic Dentistry

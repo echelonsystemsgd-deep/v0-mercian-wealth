@@ -24,13 +24,13 @@ type PortfolioItem = {
 
 const DEFAULT_FRONTEND_PROJECTS = [
   {
-    project_name: "PRINCEPS — Luxury Techwear & Outerwear",
-    client_name: "Luxury Techwear · Live Sandbox",
-    description: "Sovereign techwear and performance adaptive outerwear storefront with sub-second variant switching, kinetic shell visualizer, and dynamic cart.",
-    industry: "Luxury E-Commerce & Techwear · Live Sandbox",
-    website_link: "https://princeps-ecom.vercel.app/",
-    cover_image: "/princeps-preview-real.jpg",
-    metric: "Kinetic Shell Visualizer & Dynamic Cart",
+    project_name: "VEYRA — Solid Cast Permanent Jewellery",
+    client_name: "Permanent Jewellery Atelier · Live Sandbox",
+    description: "Solid cast, unplated permanent jewellery engineered with intentional mass, real-time 3D model interaction, and bespoke atelier checkout.",
+    industry: "Luxury 3D E-Commerce & Permanent Jewellery · Live Sandbox",
+    website_link: "https://veyra-premium-3-d-jewellery-e-comme.vercel.app/",
+    cover_image: "/veyra-jewellery-preview-real.jpg",
+    metric: "Real-Time 3D Atelier & Interactive Model",
     under_construction: false,
     badge_type: "Live Interactive Sandbox",
     is_featured: true,
