@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import {
-  Plus, Edit2, Archive, ArchiveRestore, Star, Loader2, MessageSquareQuote, X, Save, CheckCircle2, RefreshCw, Sparkles, ShieldCheck
+  Plus, Edit2, Archive, ArchiveRestore, Star, Loader2, MessageSquareQuote, X, Save, CheckCircle2, RefreshCw, Sparkles, ShieldCheck, Trash2
 } from 'lucide-react'
 
 type Testimonial = {
@@ -161,14 +161,95 @@ export default function TestimonialsPage() {
   }
 
   const toggleFeatured = async (item: Testimonial) => {
-    await supabase.from('testimonials').update({ is_featured: !item.is_featured }).eq('id', item.id)
-    fetch()
+    const nextFeatured = !item.is_featured
+    setItems((prev) =>
+      prev.map((i) => (i.id === item.id ? { ...i, is_featured: nextFeatured } : i))
+    )
+
+    try {
+      if (item.id.startsWith('default-')) {
+        const { error } = await supabase.from('testimonials').insert({
+          client_name: item.client_name,
+          company: item.company,
+          testimonial: item.testimonial,
+          badge: item.badge,
+          profile_image: item.profile_image,
+          is_featured: nextFeatured,
+          is_archived: false,
+        })
+        if (error) throw error
+      } else {
+        const { error } = await supabase
+          .from('testimonials')
+          .update({ is_featured: nextFeatured })
+          .eq('id', item.id)
+        if (error) throw error
+      }
+      showToast(nextFeatured ? 'Testimonial marked as featured.' : 'Testimonial unfeatured.')
+      fetch()
+    } catch (err: any) {
+      setItems((prev) =>
+        prev.map((i) => (i.id === item.id ? { ...i, is_featured: item.is_featured } : i))
+      )
+      showToast(`Action failed: ${err.message}`)
+    }
   }
 
   const toggleArchive = async (item: Testimonial) => {
-    await supabase.from('testimonials').update({ is_archived: !item.is_archived }).eq('id', item.id)
-    fetch()
-    showToast(item.is_archived ? 'Restored.' : 'Archived.')
+    const nextArchived = !item.is_archived
+    setItems((prev) => prev.filter((i) => i.id !== item.id))
+
+    try {
+      if (item.id.startsWith('default-')) {
+        const { error } = await supabase.from('testimonials').insert({
+          client_name: item.client_name,
+          company: item.company,
+          testimonial: item.testimonial,
+          badge: item.badge,
+          profile_image: item.profile_image,
+          is_featured: item.is_featured,
+          is_archived: nextArchived,
+        })
+        if (error) throw error
+      } else {
+        const { error } = await supabase
+          .from('testimonials')
+          .update({ is_archived: nextArchived })
+          .eq('id', item.id)
+        if (error) throw error
+      }
+      showToast(nextArchived ? 'Testimonial archived.' : 'Testimonial restored.')
+      fetch()
+    } catch (err: any) {
+      showToast(`Archive failed: ${err.message}`)
+      fetch()
+    }
+  }
+
+  const handleDelete = async (item: Testimonial) => {
+    if (typeof window !== 'undefined' && !window.confirm(`Are you sure you want to permanently delete this testimonial from "${item.client_name}"?`)) {
+      return
+    }
+
+    setItems((prev) => prev.filter((i) => i.id !== item.id))
+
+    if (item.id.startsWith('default-')) {
+      showToast('Testimonial removed.')
+      return
+    }
+
+    try {
+      const { error } = await supabase.from('testimonials').delete().eq('id', item.id)
+      if (error) throw error
+      showToast('Testimonial permanently deleted.')
+      if (modal === 'edit' && editing?.id === item.id) {
+        setModal(null)
+      }
+      fetch()
+    } catch (err: any) {
+      showToast(`Delete failed: ${err.message}`)
+      fetch()
+    }
   }
 
   return (
@@ -283,8 +364,11 @@ export default function TestimonialsPage() {
                   <button onClick={() => toggleFeatured(item)} className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg border text-xs transition-all cursor-pointer ${item.is_featured ? 'bg-gold/10 border-gold/30 text-gold' : 'bg-white/5 border-gold/15 text-muted-foreground hover:text-foreground'}`}>
                     <Star size={11} className={item.is_featured ? 'fill-gold' : ''} /> {item.is_featured ? 'Unfeature' : 'Feature'}
                   </button>
-                  <button onClick={() => toggleArchive(item)} className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/5 border border-gold/15 text-xs text-muted-foreground hover:text-foreground transition-all cursor-pointer">
+                  <button onClick={() => toggleArchive(item)} className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/5 border border-gold/15 text-xs text-muted-foreground hover:text-foreground transition-all cursor-pointer" title={item.is_archived ? 'Restore' : 'Archive'}>
                     {item.is_archived ? <ArchiveRestore size={11} /> : <Archive size={11} />}
+                  </button>
+                  <button onClick={() => handleDelete(item)} className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-red-500/10 border border-red-500/20 text-xs text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-all cursor-pointer" title="Permanently delete testimonial">
+                    <Trash2 size={11} />
                   </button>
                 </div>
                 <div className="flex items-center gap-1 text-[10px] font-mono text-gold">

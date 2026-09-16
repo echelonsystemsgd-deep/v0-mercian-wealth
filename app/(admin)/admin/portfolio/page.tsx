@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import {
-  Plus, Edit2, Archive, ArchiveRestore, Star, Loader2, ImageIcon, ExternalLink, X, Save, CheckCircle2, Sparkles, RefreshCw
+  Plus, Edit2, Archive, ArchiveRestore, Star, Loader2, ImageIcon, ExternalLink, X, Save, CheckCircle2, Sparkles, RefreshCw, Trash2
 } from 'lucide-react'
 
 type PortfolioItem = {
@@ -36,18 +36,6 @@ const DEFAULT_FRONTEND_PROJECTS = [
     is_featured: true,
   },
   {
-    project_name: "Meridian Dental — Private Cosmetic & Restorative Dentistry",
-    client_name: "Meridian Dental Marylebone · Live Sandbox",
-    description: "Private dental practice patient intake engine with 60-second interactive smile candidacy assessment and personalized clinical treatment guides.",
-    industry: "Private Healthcare & Aesthetic Dentistry · Live Sandbox",
-    website_link: "https://dental-clinic-prototype-zeta.vercel.app/",
-    cover_image: "/meridian-dental-preview-real.jpg",
-    metric: "60s Smile Assessment & Treatment Guide",
-    under_construction: false,
-    badge_type: "Live Interactive Sandbox",
-    is_featured: true,
-  },
-  {
     project_name: "Vanguard Construction — House Extensions & Loft Conversions",
     client_name: "Vanguard Construction Surrey · Live Sandbox",
     description: "Architectural house extensions, dormer loft conversions, and turnkey structural renovations built with fixed-price programme certainty.",
@@ -55,30 +43,6 @@ const DEFAULT_FRONTEND_PROJECTS = [
     website_link: "https://premium-local-construction-business.vercel.app/",
     cover_image: "/vanguard-construction-preview-real.jpg",
     metric: "Instant Sub-Second Project Quote Engine",
-    under_construction: false,
-    badge_type: "Live Interactive Sandbox",
-    is_featured: true,
-  },
-  {
-    project_name: "Home Solutions Roofing — Roofing Systems & Leak Diagnostics",
-    client_name: "Home Solutions Roofing Ltd · Live Sandbox",
-    description: "Professional roofing installations, rapid leak diagnostics, emergency repair dispatch, and nationwide non-destructive spray foam removal.",
-    industry: "Commercial & Residential Roofing · Live Sandbox",
-    website_link: "https://home-solutions-roofing.vercel.app/",
-    cover_image: "/home-solutions-roofing-preview-real.jpg",
-    metric: "Emergency Repair Dispatch & Diagnostics Intake",
-    under_construction: false,
-    badge_type: "Live Interactive Sandbox",
-    is_featured: true,
-  },
-  {
-    project_name: "M.E Building Services — Specialist Residential Building Contractor",
-    client_name: "M.E Building Services · Live Sandbox",
-    description: "Specialist residential building contractor for quality home extensions, loft conversions, silicone rendering, bespoke kitchens, and porcelain patios.",
-    industry: "Surrey & South London Structural Extensions · Live Sandbox",
-    website_link: "https://me-building-services.vercel.app/",
-    cover_image: "/me-building-services-preview-real.jpg",
-    metric: "Turnkey Scope Estimator & Milestone Billing",
     under_construction: false,
     badge_type: "Live Interactive Sandbox",
     is_featured: true,
@@ -183,22 +147,31 @@ export default function PortfolioPage() {
   const handleSeedDefaults = async () => {
     setSeeding(true)
     try {
+      // Check existing to prevent duplicate insertions
+      const { data: existing } = await supabase.from('portfolio_items').select('project_name')
+      const existingNames = new Set((existing || []).map((e: any) => e.project_name))
+
+      let insertedCount = 0
       for (const p of DEFAULT_FRONTEND_PROJECTS) {
-        await supabase.from('portfolio_items').insert({
-          project_name: p.project_name,
-          client_name: p.client_name,
-          description: p.description,
-          industry: p.industry,
-          website_link: p.website_link,
-          cover_image: p.cover_image,
-          metric: p.metric,
-          under_construction: p.under_construction,
-          badge_type: p.badge_type,
-          is_featured: p.is_featured,
-          is_archived: false,
-        })
+        if (!existingNames.has(p.project_name)) {
+          const { error } = await supabase.from('portfolio_items').insert({
+            project_name: p.project_name,
+            client_name: p.client_name,
+            description: p.description,
+            industry: p.industry,
+            website_link: p.website_link,
+            cover_image: p.cover_image,
+            metric: p.metric,
+            under_construction: p.under_construction,
+            badge_type: p.badge_type,
+            is_featured: p.is_featured,
+            is_archived: false,
+          })
+          if (error) throw error
+          insertedCount++
+        }
       }
-      showToast('Frontend showcase projects imported into database.')
+      showToast(insertedCount > 0 ? `${insertedCount} showcase project(s) imported into database.` : 'All showcase projects already exist in database.')
       fetch()
     } catch (err: any) {
       showToast(`Import failed: ${err.message}`)
@@ -218,7 +191,7 @@ export default function PortfolioPage() {
       website_link: item.website_link ?? '',
       metric: item.metric ?? '',
       under_construction: !!item.under_construction,
-      badge_type: item.badge_type ?? 'Interactive Sandbox',
+      badge_type: item.badge_type ?? 'Live Interactive Sandbox',
     })
     setCoverFile(null)
     setModal('edit')
@@ -228,52 +201,154 @@ export default function PortfolioPage() {
     e.preventDefault()
     setSaving(true)
 
-    let cover_image = editing?.cover_image ?? ''
+    try {
+      let cover_image = editing?.cover_image ?? ''
 
-    if (coverFile) {
-      const path = `portfolio/${Date.now()}-${coverFile.name}`
-      await supabase.storage.from('portfolio').upload(path, coverFile, { upsert: true })
-      const { data: { publicUrl } } = supabase.storage.from('portfolio').getPublicUrl(path)
-      cover_image = publicUrl
+      if (coverFile) {
+        const path = `portfolio/${Date.now()}-${coverFile.name}`
+        const { error: uploadError } = await supabase.storage.from('portfolio').upload(path, coverFile, { upsert: true })
+        if (!uploadError) {
+          const { data: { publicUrl } } = supabase.storage.from('portfolio').getPublicUrl(path)
+          cover_image = publicUrl
+        }
+      }
+
+      if (!cover_image && !editing) {
+        cover_image = '/placeholder.jpg'
+      }
+
+      const payload = {
+        project_name: form.project_name,
+        client_name: form.client_name || null,
+        description: form.description || null,
+        industry: form.industry || null,
+        website_link: form.website_link || null,
+        metric: form.metric || null,
+        under_construction: form.under_construction,
+        badge_type: form.badge_type,
+        cover_image: cover_image || '/placeholder.jpg',
+      }
+
+      if (editing && !editing.id.startsWith('default-')) {
+        const { error } = await supabase.from('portfolio_items').update(payload).eq('id', editing.id)
+        if (error) throw error
+      } else {
+        const { error } = await supabase.from('portfolio_items').insert(payload)
+        if (error) throw error
+      }
+
+      setModal(null)
+      showToast(editing ? 'Portfolio item updated.' : 'Portfolio item added.')
+      fetch()
+    } catch (err: any) {
+      showToast(`Save failed: ${err.message}`)
+    } finally {
+      setSaving(false)
     }
-
-    if (!cover_image && !editing) {
-      cover_image = '/placeholder.jpg'
-    }
-
-    const payload = {
-      project_name: form.project_name,
-      client_name: form.client_name || null,
-      description: form.description || null,
-      industry: form.industry || null,
-      website_link: form.website_link || null,
-      metric: form.metric || null,
-      under_construction: form.under_construction,
-      badge_type: form.badge_type,
-      cover_image: cover_image || '/placeholder.jpg',
-    }
-
-    if (editing && !editing.id.startsWith('default-')) {
-      await supabase.from('portfolio_items').update(payload).eq('id', editing.id)
-    } else {
-      await supabase.from('portfolio_items').insert(payload)
-    }
-
-    setSaving(false)
-    setModal(null)
-    fetch()
-    showToast(editing ? 'Portfolio item updated.' : 'Portfolio item added.')
   }
 
   const toggleFeatured = async (item: PortfolioItem) => {
-    await supabase.from('portfolio_items').update({ is_featured: !item.is_featured }).eq('id', item.id)
-    fetch()
+    const nextFeatured = !item.is_featured
+    // Optimistic UI update
+    setItems((prev) =>
+      prev.map((i) => (i.id === item.id ? { ...i, is_featured: nextFeatured } : i))
+    )
+
+    try {
+      if (item.id.startsWith('default-')) {
+        const { error } = await supabase.from('portfolio_items').insert({
+          project_name: item.project_name,
+          client_name: item.client_name,
+          description: item.description,
+          industry: item.industry,
+          website_link: item.website_link,
+          cover_image: item.cover_image,
+          metric: item.metric,
+          under_construction: item.under_construction,
+          badge_type: item.badge_type || 'Live Interactive Sandbox',
+          is_featured: nextFeatured,
+          is_archived: false,
+        })
+        if (error) throw error
+      } else {
+        const { error } = await supabase
+          .from('portfolio_items')
+          .update({ is_featured: nextFeatured })
+          .eq('id', item.id)
+        if (error) throw error
+      }
+      showToast(nextFeatured ? 'Project marked as featured.' : 'Project unfeatured.')
+      fetch()
+    } catch (err: any) {
+      // Revert optimistic update
+      setItems((prev) =>
+        prev.map((i) => (i.id === item.id ? { ...i, is_featured: item.is_featured } : i))
+      )
+      showToast(`Failed to update status: ${err.message}`)
+    }
   }
 
   const toggleArchive = async (item: PortfolioItem) => {
-    await supabase.from('portfolio_items').update({ is_archived: !item.is_archived }).eq('id', item.id)
-    fetch()
-    showToast(item.is_archived ? 'Item restored.' : 'Item archived.')
+    const nextArchived = !item.is_archived
+    // Optimistic UI update
+    setItems((prev) => prev.filter((i) => i.id !== item.id))
+
+    try {
+      if (item.id.startsWith('default-')) {
+        const { error } = await supabase.from('portfolio_items').insert({
+          project_name: item.project_name,
+          client_name: item.client_name,
+          description: item.description,
+          industry: item.industry,
+          website_link: item.website_link,
+          cover_image: item.cover_image,
+          metric: item.metric,
+          under_construction: item.under_construction,
+          badge_type: item.badge_type || 'Live Interactive Sandbox',
+          is_featured: item.is_featured,
+          is_archived: nextArchived,
+        })
+        if (error) throw error
+      } else {
+        const { error } = await supabase
+          .from('portfolio_items')
+          .update({ is_archived: nextArchived })
+          .eq('id', item.id)
+        if (error) throw error
+      }
+      showToast(nextArchived ? 'Project archived.' : 'Project restored.')
+      fetch()
+    } catch (err: any) {
+      showToast(`Failed to update archive: ${err.message}`)
+      fetch()
+    }
+  }
+
+  const handleDelete = async (item: PortfolioItem) => {
+    if (typeof window !== 'undefined' && !window.confirm(`Are you sure you want to permanently delete "${item.project_name}"? This action cannot be undone.`)) {
+      return
+    }
+
+    // Optimistic UI update
+    setItems((prev) => prev.filter((i) => i.id !== item.id))
+
+    if (item.id.startsWith('default-')) {
+      showToast('Project removed.')
+      return
+    }
+
+    try {
+      const { error } = await supabase.from('portfolio_items').delete().eq('id', item.id)
+      if (error) throw error
+      showToast('Project deleted successfully.')
+      if (modal === 'edit' && editing?.id === item.id) {
+        setModal(null)
+      }
+      fetch()
+    } catch (err: any) {
+      showToast(`Failed to delete: ${err.message}`)
+      fetch()
+    }
   }
 
   return (
@@ -399,6 +474,9 @@ export default function PortfolioPage() {
                     {item.is_archived ? <ArchiveRestore size={11} /> : <Archive size={11} />}
                     {item.is_archived ? 'Restore' : 'Archive'}
                   </button>
+                  <button onClick={() => handleDelete(item)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-500/10 border border-red-500/20 text-xs text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-all cursor-pointer" title="Permanently delete project">
+                    <Trash2 size={11} /> Delete
+                  </button>
                   {item.website_link && (
                     <a href={item.website_link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-gold/15 text-xs text-gold hover:bg-gold/10 transition-all">
                       <ExternalLink size={11} /> View
@@ -473,12 +551,23 @@ export default function PortfolioPage() {
                   className="w-full text-sm text-muted-foreground file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border file:border-white/10 file:bg-white/5 file:text-xs file:font-medium file:text-foreground hover:file:bg-white/10 transition-all cursor-pointer" />
               </div>
 
-              <div className="flex justify-end gap-3 pt-2">
-                <button type="button" onClick={() => setModal(null)} className="px-4 py-2 rounded-xl border border-white/10 text-sm text-muted-foreground hover:text-foreground transition-all cursor-pointer">Cancel</button>
-                <button type="submit" disabled={saving} className="flex items-center gap-2 px-5 py-2 rounded-xl bg-[#DAA640] text-black text-sm font-semibold disabled:opacity-60 hover:bg-[#DAA640]/90 transition-all cursor-pointer">
-                  {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
-                  {editing ? 'Update Project' : 'Add to Portfolio'}
-                </button>
+              <div className="flex items-center justify-between gap-3 pt-2">
+                {editing ? (
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(editing)}
+                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-red-500/10 border border-red-500/20 text-xs text-red-400 hover:bg-red-500/20 transition-all cursor-pointer"
+                  >
+                    <Trash2 size={13} /> Delete Project
+                  </button>
+                ) : <div />}
+                <div className="flex items-center gap-2">
+                  <button type="button" onClick={() => setModal(null)} className="px-4 py-2 rounded-xl border border-white/10 text-sm text-muted-foreground hover:text-foreground transition-all cursor-pointer">Cancel</button>
+                  <button type="submit" disabled={saving} className="flex items-center gap-2 px-5 py-2 rounded-xl bg-[#DAA640] text-black text-sm font-semibold disabled:opacity-60 hover:bg-[#DAA640]/90 transition-all cursor-pointer">
+                    {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
+                    {editing ? 'Update Project' : 'Add to Portfolio'}
+                  </button>
+                </div>
               </div>
             </form>
           </div>

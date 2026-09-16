@@ -14,6 +14,7 @@ import {
   Pause,
   ShieldCheck,
   Sparkles,
+  Star,
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
@@ -29,6 +30,7 @@ export type PortfolioItem = {
   underConstruction: boolean
   metric?: string | null
   domain?: string
+  isFeatured?: boolean
 }
 
 export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
@@ -41,16 +43,7 @@ export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     underConstruction: false,
     metric: "Real-Time 3D Atelier & Interactive Model",
     domain: "veyra-premium-3-d-jewellery-e-comme.vercel.app",
-  },
-  {
-    title: "Meridian Dental — Private Cosmetic & Restorative Dentistry",
-    category: "Private Healthcare & Aesthetic Dentistry · Live Sandbox",
-    gradient: "from-emerald-950/40 to-teal-950/40",
-    href: "https://dental-clinic-prototype-zeta.vercel.app/",
-    image: "/meridian-dental-preview-real.jpg",
-    underConstruction: false,
-    metric: "60s Smile Assessment & Treatment Guide",
-    domain: "dental-clinic-prototype-zeta.vercel.app",
+    isFeatured: true,
   },
   {
     title: "Vanguard Construction — House Extensions & Loft Conversions",
@@ -61,26 +54,7 @@ export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     underConstruction: false,
     metric: "Instant Sub-Second Project Quote Engine",
     domain: "premium-local-construction-business.vercel.app",
-  },
-  {
-    title: "Home Solutions Roofing — Roofing Systems & Leak Diagnostics",
-    category: "Commercial & Residential Roofing · Live Sandbox",
-    gradient: "from-blue-950/40 to-indigo-950/40",
-    href: "https://home-solutions-roofing.vercel.app/",
-    image: "/home-solutions-roofing-preview-real.jpg",
-    underConstruction: false,
-    metric: "Emergency Repair Dispatch & Diagnostics Intake",
-    domain: "home-solutions-roofing.vercel.app",
-  },
-  {
-    title: "M.E Building Services — Specialist Residential Building Contractor",
-    category: "Surrey & South London Structural Extensions · Live Sandbox",
-    gradient: "from-amber-950/40 to-orange-950/40",
-    href: "https://me-building-services.vercel.app/",
-    image: "/me-building-services-preview-real.jpg",
-    underConstruction: false,
-    metric: "Turnkey Scope Estimator & Milestone Billing",
-    domain: "me-building-services.vercel.app",
+    isFeatured: true,
   },
   {
     title: "AURĒLIA — Cellular Longevity & Precision Nootropics",
@@ -91,6 +65,7 @@ export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     underConstruction: false,
     metric: "Duodenal Delivery & Automated Subscriptions",
     domain: "premium-supplement-commerce.vercel.app",
+    isFeatured: true,
   },
 ]
 
@@ -422,6 +397,7 @@ export function Portfolio({ limit }: { limit?: number }) {
             underConstruction: Boolean(d.under_construction),
             metric: d.metric || d.case_study_metrics || null,
             domain: d.website_link ? new URL(d.website_link).hostname : undefined,
+            isFeatured: Boolean(d.is_featured),
           }))
           setItems(mapped)
         }
@@ -430,6 +406,33 @@ export function Portfolio({ limit }: { limit?: number }) {
       }
     }
     loadPortfolio()
+
+    // Real-time synchronization when admin toggles featured or updates items
+    const channel = supabase
+      .channel("public:portfolio_items")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "portfolio_items" },
+        () => {
+          loadPortfolio()
+        }
+      )
+      .subscribe()
+
+    // Sync on tab focus
+    const onFocus = () => loadPortfolio()
+    if (typeof window !== "undefined") {
+      window.addEventListener("focus", onFocus)
+      document.addEventListener("visibilitychange", onFocus)
+    }
+
+    return () => {
+      supabase.removeChannel(channel)
+      if (typeof window !== "undefined") {
+        window.removeEventListener("focus", onFocus)
+        document.removeEventListener("visibilitychange", onFocus)
+      }
+    }
   }, [supabase])
 
   const displayItems = limit ? items.slice(0, limit) : items
@@ -610,7 +613,11 @@ export function Portfolio({ limit }: { limit?: number }) {
               return (
                 <div
                   key={`${item.title}-${index}`}
-                  className="portfolio-card group relative flex-shrink-0 w-[85vw] sm:w-[500px] md:w-[560px] lg:w-[600px] aspect-[16/10] rounded-2xl border border-white/10 hover:border-[#DAA640] transition-all duration-300 bg-[#0B0B0D] overflow-hidden shadow-2xl cursor-pointer"
+                  className={`portfolio-card group relative flex-shrink-0 w-[85vw] sm:w-[500px] md:w-[560px] lg:w-[600px] aspect-[16/10] rounded-2xl border transition-all duration-300 bg-[#0B0B0D] overflow-hidden shadow-2xl cursor-pointer ${
+                    item.isFeatured
+                      ? "border-[#DAA640]/40 hover:border-[#DAA640] shadow-[0_0_24px_rgba(218,166,64,0.12)]"
+                      : "border-white/10 hover:border-white/30"
+                  }`}
                   onMouseEnter={() => setIsPaused(true)}
                   onMouseLeave={() => setIsPaused(false)}
                   onClick={() => {
@@ -636,11 +643,19 @@ export function Portfolio({ limit }: { limit?: number }) {
                         {domain}
                       </div>
 
-                      {/* Live Badge */}
-                      <span className="text-[7.5px] sm:text-[9px] font-mono font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-1.5 sm:px-2 py-0.5 rounded-full flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        <span className="hidden xs:inline">Live</span> Sandbox
-                      </span>
+                      {/* Badges: Featured & Live */}
+                      <div className="flex items-center gap-1.5">
+                        {item.isFeatured && (
+                          <span className="text-[7.5px] sm:text-[9px] font-mono font-bold uppercase tracking-wider text-[#DAA640] bg-[#DAA640]/10 border border-[#DAA640]/30 px-1.5 sm:px-2 py-0.5 rounded-full flex items-center gap-1">
+                            <Star size={9} className="fill-[#DAA640] text-[#DAA640]" />
+                            <span>Featured</span>
+                          </span>
+                        )}
+                        <span className="text-[7.5px] sm:text-[9px] font-mono font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-1.5 sm:px-2 py-0.5 rounded-full flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          <span className="hidden xs:inline">Live</span> Sandbox
+                        </span>
+                      </div>
                     </div>
 
                     {/* Screenshot Body */}
@@ -660,6 +675,12 @@ export function Portfolio({ limit }: { limit?: number }) {
                   <div className="absolute inset-0 bg-[#09090B]/92 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hidden md:flex flex-col justify-center items-center p-8 text-center space-y-4">
                     <div className="translate-y-3 group-hover:translate-y-0 transition-transform duration-300 space-y-3 max-w-lg">
                       <div className="flex items-center justify-center gap-2 flex-wrap">
+                        {item.isFeatured && (
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-[#DAA640] bg-[#DAA640]/15 border border-[#DAA640]/40 px-2.5 py-0.5 rounded-full font-mono flex items-center gap-1">
+                            <Star size={9} className="fill-[#DAA640] text-[#DAA640]" />
+                            Featured Showcase
+                          </span>
+                        )}
                         <p className="text-xs uppercase tracking-widest text-[#DCAE53] font-semibold font-mono">
                           {item.category}
                         </p>
