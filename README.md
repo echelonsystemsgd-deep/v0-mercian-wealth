@@ -87,5 +87,11 @@ npx next build
 
 ---
 
+## 💎 Dynamic Previews & Sandbox Prototypes
+* **Trades & Field Services:** `/preview/demo?name=[Business]&trade=[Trade]`
+* **Independent Jewellery Ateliers:** `/preview/jewellery?name=[Business]&city=[City]`
+
+---
+
 ## 📄 License & Ownership
 Mercian Wealth © 2026. All Rights Reserved. Engineered in Berkshire, United Kingdom.
