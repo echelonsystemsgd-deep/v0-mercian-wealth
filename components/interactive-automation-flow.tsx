@@ -13,7 +13,7 @@ const FLOW_STEPS = [
     icon: MessageSquare,
     tag: "INSTANT TRIGGER",
     headline: "Customer Enquires After Hours (e.g. 8:30 PM)",
-    description: "An enquiry arrives via your website AI chat widget or WhatsApp while your team is on-site, driving, or closed for the evening.",
+    description: "An enquiry arrives via your website AI chat widget or WhatsApp while your team is busy serving clients, in consultations, or closed for the evening.",
     payloadTitle: "Inbound Event Telemetry",
     payloadData: {
       channel: "Website AI Chat & WhatsApp Channel",

@@ -40,7 +40,7 @@ const DEFAULT_FRONTEND_PROJECTS = [
     client_name: "Vanguard Construction Surrey · Live Sandbox",
     description: "Architectural house extensions, dormer loft conversions, and turnkey structural renovations built with fixed-price programme certainty.",
     industry: "Architectural Extensions & Renovations · Live Sandbox",
-    website_link: "https://premium-local-construction-business.vercel.app/",
+    website_link: "https://premium-local-construction-business-plum.vercel.app/",
     cover_image: "/vanguard-construction-preview-real.jpg",
     metric: "Instant Sub-Second Project Quote Engine",
     under_construction: false,

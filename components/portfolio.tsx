@@ -49,11 +49,11 @@ export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     title: "Vanguard Construction — House Extensions & Loft Conversions",
     category: "Architectural Extensions & Turnkey Renovations · Live Sandbox",
     gradient: "from-amber-950/40 to-yellow-950/40",
-    href: "https://premium-local-construction-business.vercel.app/",
+    href: "https://premium-local-construction-business-plum.vercel.app/",
     image: "/vanguard-construction-preview-real.jpg",
     underConstruction: false,
     metric: "Instant Sub-Second Project Quote Engine",
-    domain: "premium-local-construction-business.vercel.app",
+    domain: "premium-local-construction-business-plum.vercel.app",
     isFeatured: true,
   },
   {

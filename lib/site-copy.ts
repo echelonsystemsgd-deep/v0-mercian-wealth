@@ -179,8 +179,8 @@ export const SITE_COPY = {
           outcome: "Time Wasted",
           tag: "MISSED INBOUND CALLS",
           metric: "5–12 calls/wk",
-          title: "Unanswered Phone Calls on Job Sites",
-          description: "Calls missed while driving, on a job, or after 5 PM. Callers rarely leave voicemails—they immediately call your nearest competitor.",
+          title: "Unanswered Phone Calls During Busy Hours",
+          description: "Calls missed while serving clients, in consultations, or after hours. Callers rarely leave voicemails—they immediately call your nearest competitor.",
         },
         {
           id: "cost-leak",
@@ -268,7 +268,7 @@ export const SITE_COPY = {
           problem: "High-ticket contractors on job sites miss valuable commercial enquiries to whoever answers first.",
           solution: "Interactive sub-second project quote builder with automated qualification and instant WhatsApp team dispatch.",
           image: "/vanguard-construction-preview.png",
-          liveUrl: "https://premium-local-construction-business.vercel.app/",
+          liveUrl: "https://premium-local-construction-business-plum.vercel.app/",
           isPrototype: true,
         },
       ],
@@ -296,7 +296,7 @@ export const SITE_COPY = {
       standardAgency: {
         title: "Traditional Web / Admin Setup",
         items: [
-          "Misses calls while on-site or after hours, losing jobs to rivals.",
+          "Misses calls during busy hours or after closing, losing enquiries to rivals.",
           "Leaves website contact forms sitting unread for hours or days.",
           "Relies on manual staff time for repetitive scheduling and data entry.",
           "Lets issued quotes sit cold with zero structured follow-up calls.",
@@ -448,7 +448,7 @@ export const SITE_COPY = {
     headerTitle: "Missed phone calls, slow response times, and manual admin are costing you revenue.",
     headerHighlight: "Here is what we build.",
     headerSubtitle: "We build and deploy 24/7 AI voice receptionists, enquiry chatbots, email outreach engines, and workflow automation for ambitious UK businesses.",
-    objectionCallout: "Traditional setups rely on staff who cannot answer calls at 8 PM or during busy jobs. We engineer 24/7 autonomous infrastructure that captures leads, answers questions, and confirms bookings around the clock.",
+    objectionCallout: "Traditional setups rely on staff who cannot answer calls at 8 PM, during appointments, or while serving clients. We engineer 24/7 autonomous infrastructure that captures leads, answers questions, and confirms bookings around the clock.",
     
     list: [
       {
@@ -586,7 +586,7 @@ export const SITE_COPY = {
     headerTitle: "Explore our recent AI systems and automation deployments.",
     headerHighlight: "Engineered For Revenue",
     headerSubtitle: "Bespoke AI voice receptionists, enquiry chatbots, and automated workflows deployed for UK local businesses.",
-    noticeTitle: "Configured Specifically To Your Trade & Services",
+    noticeTitle: "Configured Specifically To Your Business & Services",
     noticeDescription: "Every AI assistant is trained on your exact business services, pricing rules, calendar availability, and brand tone. Explore our case studies below or test a free working prototype.",
     constructionTitle: "Request A Free Working AI Prototype",
     constructionDescription: "Want to see how an AI phone receptionist and enquiry chatbot would handle your customer enquiries? We build a working prototype within 48 hours.",
@@ -665,7 +665,7 @@ export const SITE_COPY = {
         price: "1,995",
         interval: "bespoke scope",
         milestoneBreakdown: "Milestone-based delivery for custom multi-service operations",
-        description: "End-to-end custom operational automation, multi-trade workflows, or multi-location booking infrastructure.",
+        description: "End-to-end custom operational automation, multi-service workflows, or multi-location booking infrastructure.",
         features: [
           "Bespoke Multi-Location Web Architecture",
           "Autonomous Subagent & CRM Pipelines",
