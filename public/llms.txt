@@ -1,0 +1,35 @@
+# Mercian Wealth
+
+> Sub-second mobile storefronts, 3-tap booking builders, instant WhatsApp lead capture, and upfront deposit engines for UK local businesses and trade contractors.
+
+## Overview
+Mercian Wealth designs, builds, and deploys high-converting mobile digital storefronts and speed-to-lead booking automation for UK businesses. Based in the West Midlands, we serve tradespeople, contractors, boutique retailers, and private medical clinics across the United Kingdom.
+
+## Core Services & Solutions
+- **Essential Storefront (£495 setup, £195/mo)**: Single-day mobile storefront, sub-second load speeds, direct WhatsApp routing, and foundational analytics.
+- **Pro Order Builder (£995 setup, £495/mo)**: Interactive 3-tap order/quote builder, automated Stripe deposit collection, automated Google review sequences, and real-time SMS & WhatsApp lead notifications.
+- **Full Custom Build (£1,995 setup, £995/mo)**: Full custom web app architecture, multi-location calendar routing, CRM integration, and priority SLA engineering support.
+
+## 7-Day Deployment Protocol
+1. **Day 1 - Spec & Wireframe**: Friction audit, domain verification, brand asset ingestion.
+2. **Day 2–3 - Engine Build**: Mobile-first responsive UI, sub-second asset optimization, database integration.
+3. **Day 4 - Checkout & Automation**: Stripe checkout configuration, WhatsApp notifications, review automation.
+4. **Day 5–6 - Testing & Polish**: End-to-end booking smoke tests, page speed optimization (95+ Google PageSpeed).
+5. **Day 7 - Live Handover**: Production DNS cutover, team onboarding, live monitoring.
+
+## Verified Key Pages
+- [Homepage](https://mercianwealth.com/): Overview of mobile storefronts and booking infrastructure.
+- [Services](https://mercianwealth.com/services): Detailed feature list and technical capabilities.
+- [Protocol](https://mercianwealth.com/process): The 7-day zero-downtime engineering workflow.
+- [Portfolio](https://mercianwealth.com/portfolio): Live prototypes and case studies across UK industries.
+- [Pricing](https://mercianwealth.com/pricing): Transparent tiered pricing and growth retainers.
+- [Cohort Status](https://mercianwealth.com/cohort-status): Real-time deployment pipeline and client outcomes.
+- [Order Engine Demo](https://mercianwealth.com/local): Interactive 3-tap order builder demonstration.
+- [Contact Gateway](https://mercianwealth.com/contact): Direct email, phone, and WhatsApp contact details.
+- [Book Discovery Call](https://mercianwealth.com/book): 15-minute operational consultation and prototype review.
+
+## Contact Information
+- **Location**: West Midlands, United Kingdom (Serving all UK regions)
+- **Email**: mercianwealthgs@gmail.com
+- **Phone**: +44 7851 055929
+- **WhatsApp**: https://wa.me/447851055929

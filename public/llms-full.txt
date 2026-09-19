@@ -1,0 +1,67 @@
+# Mercian Wealth — Comprehensive Knowledge Base & System Specifications
+
+> Autonomous mobile storefronts, 3-tap booking builders, instant WhatsApp lead capture, and upfront deposit engines for UK local businesses and trade contractors.
+
+## 1. Company Information
+- **Brand Name**: Mercian Wealth
+- **Legal Operating Model**: Private Digital Infrastructure Agency
+- **Headquarters**: West Midlands, United Kingdom
+- **Geographic Coverage**: Nationwide across England, Scotland, Wales, and Northern Ireland
+- **Primary Contact Email**: mercianwealthgs@gmail.com
+- **Direct Phone**: +44 7851 055929
+- **Direct WhatsApp**: https://wa.me/447851055929
+- **Official Website**: https://mercianwealth.com
+
+---
+
+## 2. Core Service Offerings & Pricing
+
+### Essential Storefront
+- **Setup Fee**: £495 (One-time)
+- **Ongoing Retainer**: £195/month
+- **Turnaround**: Delivered within 24–48 hours
+- **Features**:
+  - Ultra-fast, single-page mobile storefront (<0.8s load time)
+  - Direct 1-tap WhatsApp click-to-chat routing
+  - Tap-to-call direct dial buttons
+  - Custom brand aesthetics and copywriting
+  - Foundational Google Analytics & speed telemetry
+
+### Pro Order Builder (Most Popular)
+- **Setup Fee**: £995 (One-time)
+- **Ongoing Retainer**: £495/month
+- **Turnaround**: 7-Day Deployment
+- **Features**:
+  - Interactive 3-tap order/quote builder
+  - Upfront Stripe deposit collection (0% transaction fee from Mercian Wealth)
+  - Instant lead alerts via SMS & WhatsApp webhook integration
+  - Automated post-service Google review collection sequence
+  - Complete local SEO schema (LocalBusiness, AggregateRating, PostalAddress)
+
+### Full Custom Build & Growth Engine
+- **Setup Fee**: £1,995 (One-time)
+- **Ongoing Retainer**: £995/month
+- **Turnaround**: 10–14 Business Days
+- **Features**:
+  - Full custom multi-page web application architecture
+  - Multi-location routing and staff availability calendars
+  - Custom CRM synchronization (HubSpot, Airtable, Google Sheets)
+  - High-volume booking engine with SLA monitoring and priority engineer support
+
+---
+
+## 3. The 7-Day Deployment Protocol
+Mercian Wealth operates on a fixed 7-day engineering protocol to ensure zero downtime and minimal friction:
+- **Day 1**: Ingestion & Scope. Friction audit, domain configuration, brand assets ingested.
+- **Day 2–3**: System Build. Mobile responsive design, speed optimization, and database routing.
+- **Day 4**: Payments & Automations. Stripe setup, WhatsApp webhooks, and review workflows.
+- **Day 5–6**: QA & Smoke Tests. Mobile device testing, payment dry runs, speed score validation (95+ Google PageSpeed).
+- **Day 7**: Production Launch. DNS handover, staff walkthrough, and real-time monitoring.
+
+---
+
+## 4. Architectural & Security Principles
+- **Framework**: Next.js (React 19 / App Router)
+- **Hosting**: Edge CDN Deployment with 99.9% uptime
+- **Security**: Strict HTTPS/TLS 1.3, CSP headers, Content Security Policy, and GDPR-compliant lead handling.
+- **Data Protection**: Zero customer data sharing, encrypted form submissions.

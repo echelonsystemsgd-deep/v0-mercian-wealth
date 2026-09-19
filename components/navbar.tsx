@@ -453,6 +453,7 @@ export function Navbar() {
             ) : (
               <Link
                 href="/login"
+                rel="nofollow"
                 className="hidden xl:inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-slate-800 bg-[#18181F] text-slate-300 hover:text-white hover:border-[#DCAE53]/40 text-xs font-semibold transition-all whitespace-nowrap"
               >
                 <User size={12} className="text-[#DCAE53]" />
@@ -618,7 +619,7 @@ export function Navbar() {
                   <a
                     href={SITE_COPY.navbar.whatsappHref}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer nofollow"
                     className="py-2.5 px-3 rounded-xl bg-[#141417] hover:bg-[#1c1c22] text-zinc-300 hover:text-white border border-white/10 text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors cursor-pointer min-h-[44px]"
                   >
                     <MessageSquare className="w-3.5 h-3.5 text-[#DAA640]" />
@@ -630,6 +631,7 @@ export function Navbar() {
                   <span>West Midlands &amp; Across UK</span>
                   <Link
                     href="/login"
+                    rel="nofollow"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="text-zinc-400 hover:text-[#DAA640] transition-colors"
                   >

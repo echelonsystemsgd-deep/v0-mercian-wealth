@@ -179,6 +179,67 @@ export default function BookPage() {
 
         </div>
 
+        {/* What to Expect Breakdown (Expands page depth & SEO indexability) */}
+        <section className="mt-20 border-t border-slate-800 pt-16">
+          <div className="max-w-3xl mb-10 space-y-3">
+            <p className="text-xs font-bold uppercase tracking-widest text-[#DCAE53] font-mono">
+              [ DIRECT CONSULTATION AGENDA ]
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
+              What to expect in your 15-minute discovery session
+            </h2>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              We respect your operating schedule. Every consultation is structured, data-driven, and focused entirely on commercial outcomes rather than abstract technology.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-6 rounded-2xl bg-[#111115] border border-slate-800 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono text-[#DCAE53] font-bold">Phase 01</span>
+                <span className="text-[11px] font-mono text-slate-400">Minutes 0–4</span>
+              </div>
+              <h3 className="text-base font-bold text-white">Current Pipeline &amp; Friction Audit</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                We review how prospective clients discover and contact your business today. We identify the exact points where visitors bounce—such as slow contact forms, unformatted mobile menus, or phone calls missed while on-site.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[#111115] border border-slate-800 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono text-[#DCAE53] font-bold">Phase 02</span>
+                <span className="text-[11px] font-mono text-slate-400">Minutes 4–9</span>
+              </div>
+              <h3 className="text-base font-bold text-white">Live Prototype Demonstration</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                We walk you through an interactive mobile prototype tailored to your exact industry. You will test how a 3-tap order builder lets high-intent buyers configure their requirement and submit instant deposits within seconds.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[#111115] border border-slate-800 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono text-[#DCAE53] font-bold">Phase 03</span>
+                <span className="text-[11px] font-mono text-slate-400">Minutes 9–12</span>
+              </div>
+              <h3 className="text-base font-bold text-white">Automations &amp; Revenue Stack</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                We demonstrate how instant WhatsApp routing pings your phone the moment an order arrives, how automated Google review triggers collect 5-star feedback, and how upfront Stripe deposits completely eliminate customer no-shows.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[#111115] border border-slate-800 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono text-[#DCAE53] font-bold">Phase 04</span>
+                <span className="text-[11px] font-mono text-slate-400">Minutes 12–15</span>
+              </div>
+              <h3 className="text-base font-bold text-white">7-Day Deployment &amp; Commercial Fit</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                If the solution aligns with your commercial targets, we schedule your 7-day build cohort. If it is not a fit, you walk away with our full architectural audit and recommendations with zero obligation.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Objections Handling FAQ Section */}
         <div className="mt-20 border-t border-slate-800 pt-16">
           {data.faq ? <PageFAQ data={data.faq} /> : null}

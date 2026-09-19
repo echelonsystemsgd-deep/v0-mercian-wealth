@@ -23,8 +23,11 @@ export function Footer() {
   const quickLinks = [
     { name: "Home", href: "/" },
     { name: "Services", href: "/services" },
+    { name: "Process", href: "/process" },
     { name: "Portfolio", href: "/portfolio" },
     { name: "Pricing", href: "/pricing" },
+    { name: "Cohort Status", href: "/cohort-status" },
+    { name: "Coverage", href: "/local" },
     { name: "Contact", href: "/contact" },
   ]
 
@@ -92,7 +95,7 @@ export function Footer() {
                 <a 
                   href={data.whatsappLink} 
                   target="_blank" 
-                  rel="noopener noreferrer" 
+                  rel="noopener noreferrer nofollow" 
                   className="flex items-center gap-2 hover:text-[#34A88E] transition-colors"
                 >
                   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-[#DCAE53]">
@@ -107,7 +110,7 @@ export function Footer() {
                 <a 
                   href={data.instagramLink} 
                   target="_blank" 
-                  rel="noopener noreferrer" 
+                  rel="noopener noreferrer nofollow" 
                   className="hover:text-[#34A88E] transition-colors"
                   aria-label="Instagram"
                 >
@@ -118,7 +121,7 @@ export function Footer() {
                 <a 
                   href={data.linkedinLink} 
                   target="_blank" 
-                  rel="noopener noreferrer" 
+                  rel="noopener noreferrer nofollow" 
                   className="hover:text-[#34A88E] transition-colors"
                   aria-label="LinkedIn"
                 >

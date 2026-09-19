@@ -11,40 +11,40 @@ export const SITE_COPY = {
   // Global Meta Info
   metadata: {
     layout: {
-      defaultTitle: "Mercian Wealth · Mobile Storefronts & Booking Engines for UK Local Businesses",
+      defaultTitle: "Mercian Wealth · Local Storefronts & Booking",
       titleTemplate: "%s · Mercian Wealth",
       description: "We build sub-second mobile storefronts, 3-tap booking builders, instant WhatsApp lead capture, and upfront deposit engines for UK local businesses. Test a live prototype on your phone.",
     },
     home: {
-      title: "Mercian Wealth · Mobile Storefronts & Booking Engines for UK Local Businesses",
+      title: "Mercian Wealth · Local Storefronts & Booking",
       description: "We help UK local businesses stop losing jobs to slow response. Mobile storefronts, 3-tap booking builders, instant WhatsApp alerts, and deposit collection.",
     },
     services: {
-      title: "Booking Engines, Storefronts & Growth Systems · Mercian Wealth",
+      title: "Storefronts & Booking Engines",
       description: "Custom mobile storefronts, interactive order builders, instant WhatsApp lead capture, upfront Stripe deposit collection, and automated Google review workflows.",
     },
     process: {
-      title: "7-Day Storefront Deployment Protocol · Mercian Wealth",
+      title: "7-Day Deployment Protocol",
       description: "From custom mobile prototype to fully functioning online order or booking builder in 7 business days. Zero operational disruption to your business.",
     },
     portfolio: {
-      title: "Live Prototypes & Client Deployments · Mercian Wealth",
+      title: "Client Prototypes & Work",
       description: "Explore live interactive sandboxes and verified client storefronts built for UK bakeries, bespoke jewellers, construction contractors, and clinics.",
     },
     pricing: {
-      title: "Storefront Packages & Growth Retainers · Mercian Wealth",
+      title: "Packages & Growth Retainers",
       description: "Essential Storefront (£495), Pro Order Builder (£995), Full Custom Build (£1,995). Transparent pricing with optional revenue-share partnerships.",
     },
     testimonials: {
-      title: "Operational Outcomes & Verified Client Data · Mercian Wealth",
+      title: "Client Outcomes & Results",
       description: "Real operational outcomes for UK local businesses: 499 admin hours saved, £32,400 captured orders, and zero unreturned customer enquiries.",
     },
     contact: {
-      title: "Direct WhatsApp & Engineering Gateway · Mercian Wealth",
+      title: "Contact & Engineering Gateway",
       description: "Connect directly with our UK engineering team, request a custom working prototype for your business, or enquire via WhatsApp.",
     },
     book: {
-      title: "Book a 15-Minute Operational Discovery Call · Mercian Wealth",
+      title: "Book a 15-Minute Discovery Call",
       description: "Schedule a 15-minute call to identify your enquiry bottlenecks and test a custom mobile storefront prototype built for your business.",
     },
   },

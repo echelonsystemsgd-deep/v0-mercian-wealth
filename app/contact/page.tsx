@@ -54,8 +54,16 @@ export default function ContactPage() {
       "@type": "ProfessionalService",
       "@id": "https://mercianwealth.com/#organization",
       "name": "Mercian Wealth",
+      "url": "https://mercianwealth.com",
       "telephone": "+447851055929",
       "email": "operations@mercianwealth.com",
+      "priceRange": "£495 - £1995",
+      "image": "https://mercianwealth.com/Logo2.jpeg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "West Midlands",
+        "addressCountry": "GB"
+      }
     },
   }
 
@@ -109,7 +117,7 @@ export default function ContactPage() {
                     <a href="tel:+447851055929" className="text-sm font-semibold text-white hover:text-[#DCAE53] transition-colors font-mono">
                       +44 7851 055929
                     </a>
-                    <a href="https://wa.me/447851055929?text=Hi%20Mercian%20Wealth,%20I'd%20like%20to%20inquire%20about%20your%20services." target="_blank" rel="noopener noreferrer" className="block text-xs text-[#DCAE53] hover:underline mt-1 font-mono">
+                    <a href="https://wa.me/447851055929?text=Hi%20Mercian%20Wealth,%20I'd%20like%20to%20inquire%20about%20your%20services." target="_blank" rel="noopener noreferrer nofollow" className="block text-xs text-[#DCAE53] hover:underline mt-1 font-mono">
                       Chat on WhatsApp →
                     </a>
                   </div>

@@ -32,7 +32,7 @@ export function SocialMediaLinks({ className = "", iconSize = 18 }: SocialMediaL
             <Link
               href={social.href}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer nofollow"
               className="w-10 h-10 rounded-full border border-gold/20 flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold/50 transition-colors duration-300 shadow-[0_0_10px_rgba(212,175,55,0.05)] hover:shadow-[0_0_15px_rgba(212,175,55,0.2)]"
               aria-label={social.ariaLabel}
             >

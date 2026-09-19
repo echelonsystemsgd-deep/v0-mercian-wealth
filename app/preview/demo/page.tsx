@@ -65,7 +65,7 @@ function DemoContent() {
             <a
               href="https://wa.me/447700185966?text=Hi%20Gurtej,%20I%20saw%20the%20live%20prototype%20for%20my%20business%20and%20want%20to%20discuss%20taking%20it%20live"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer nofollow"
               className="bg-black text-amber-300 hover:text-white px-3 py-1 rounded-full font-bold flex items-center gap-1.5 shadow transition-all text-[11px]"
             >
               <MessageSquare size={12} /> Claim This Storefront →

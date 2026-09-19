@@ -67,7 +67,7 @@ function JewelleryDemoContent() {
             <a
               href={`https://wa.me/447851055929?text=Hi%20Gurtej,%20I%20saw%20the%20jewellery%20prototype%20for%20${encodeURIComponent(businessName)}%20and%20would%20like%20to%20discuss%20taking%20it%20forward`}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer nofollow"
               className="bg-black text-amber-300 hover:text-white px-3 py-1 rounded-full font-bold flex items-center gap-1.5 shadow transition-all text-[11px]"
             >
               <MessageSquare size={12} /> Claim This Concept →

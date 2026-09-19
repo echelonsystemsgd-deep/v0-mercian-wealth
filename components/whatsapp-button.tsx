@@ -127,7 +127,7 @@ export function WhatsAppButton({
                 suppressHydrationWarning
                 href={formattedUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 onClick={() => setIsOpen(false)}
                 className="w-full py-2.5 sm:py-3 px-4 rounded-xl bg-gradient-to-r from-[#25D366] via-emerald-600 to-teal-700 hover:from-[#20bd5a] hover:to-emerald-600 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(37,211,102,0.35)] hover:shadow-[0_0_35px_rgba(37,211,102,0.55)] transition-all duration-300 transform active:scale-[0.98]"
               >

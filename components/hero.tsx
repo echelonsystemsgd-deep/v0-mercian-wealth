@@ -78,7 +78,7 @@ export function Hero() {
           <a
             href={data.whatsappHref || "https://wa.me/447851055929"}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer nofollow"
             className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-3 sm:px-5 sm:py-3.5 text-xs sm:text-sm font-medium text-zinc-200 bg-[#141417] border border-white/10 hover:bg-[#1C1C22] hover:text-white rounded-xl transition-all text-center"
           >
             <MessageSquare size={15} className="text-[#DAA640] shrink-0" />

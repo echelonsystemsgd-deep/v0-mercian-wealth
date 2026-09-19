@@ -70,7 +70,7 @@ export function CTA() {
             <a
               href={SITE_COPY.navbar.whatsappHref}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer nofollow"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 text-sm sm:text-base font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 rounded-xl transition-all"
             >
               <MessageSquare size={16} className="shrink-0" />
