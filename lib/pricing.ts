@@ -29,6 +29,7 @@ export type PricingTier = {
   featured: boolean
   tag?: string
   highlight?: string
+  domainHostingNote?: string
 }
 
 import { SITE_COPY } from "./site-copy"
@@ -97,9 +98,9 @@ export async function getPricingTiers(): Promise<{
     fetchSection('pricing_revshare_tiers'),
   ])
 
-  // Validate DB content against current brand tier names; fall back to site-copy if stale
-  const isSetupValid = setup && setup.length > 0 && setup[0]?.name === FALLBACK_SETUP_TIERS[0]?.name
-  const isRetainerValid = retainer && retainer.length > 0 && retainer[0]?.name === FALLBACK_RETAINER_TIERS[0]?.name
+  // Validate DB content against current brand tier names and price structure; fall back to site-copy if stale
+  const isSetupValid = setup && setup.length > 0 && setup[0]?.name === FALLBACK_SETUP_TIERS[0]?.name && (setup[0] as any)?.domainHostingNote !== undefined
+  const isRetainerValid = retainer && retainer.length > 0 && retainer[0]?.name === FALLBACK_RETAINER_TIERS[0]?.name && retainer[0]?.price !== "Managed Scope" && Boolean(retainer[0]?.price)
   const isRevshareValid = revshare && revshare.length > 0 && revshare[0]?.name === FALLBACK_REVSHARE_TIERS[0]?.name
 
   return {
