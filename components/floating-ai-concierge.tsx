@@ -38,7 +38,7 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
     id: "pricing-setup",
     keywords: ["price", "pricing", "cost", "how much", "rate", "rates", "fee", "fees", "package", "packages", "tier", "tiers", "investment", "setup fee"],
     question: "What are your fixed setup packages and prices?",
-    answer: "We offer three fixed-investment packages with zero hidden fees:\n\n• Starter AI Engine (£495) — 24/7 conversational chatbot, lead qualification, and instant WhatsApp alerts.\n• Complete AI Operations (£895) — Adds two-way Google/Outlook calendar booking, Stripe deposit capture, and automated Google review extraction.\n• Autonomous Enterprise (£1,495) — Full bespoke architecture, multi-location territory routing, and custom CRM/ERP integrations.\n\nAll builds include our 48-hour working prototype guarantee before you commit.",
+    answer: "We offer three fixed-investment packages with zero hidden fees:\n\n• Starter (£495) — Sub-second mobile storefront, 3-tap booking flow, and instant WhatsApp lead dispatch.\n• Growth (£995) — Full multi-service order builder, Stripe upfront deposit collection, calendar synchronization, and automated Google review extraction.\n• Scale (£1,995) — Advanced multi-location infrastructure, custom CRM/ERP integration, and high-volume order flows.\n\nAll builds include our 48-hour working prototype guarantee before you commit.",
     actionUrl: "/pricing",
     actionLabel: "View Full Pricing Matrix"
   },
@@ -46,7 +46,7 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
     id: "pricing-retainers",
     keywords: ["retainer", "retainers", "monthly", "maintenance", "ongoing", "support cost", "care plan", "subscription", "cancel", "notice"],
     question: "How do the monthly retainers work?",
-    answer: "All retainers are billed month-to-month with 30 days notice and zero long-term lock-in contracts:\n\n• Chatbot Care (£95/mo) — Covers dedicated model compute, 1,000 monthly chat conversations, and monthly knowledge base updates.\n• Full AI Retainer (£395/mo) — Includes continuous prompt refinement, transcript audits, and webhook maintenance.\n• Enterprise Growth (£695/mo) — Dedicated engineer hotline, guaranteed same-day SLA, and monthly executive revenue reviews.",
+    answer: "All retainers are billed month-to-month with 30 days notice and zero long-term lock-in contracts:\n\n• Maintenance Retainer (£195/mo) — Covers cloud hosting, uptime monitoring, security updates, and monthly conversion tuning.\n• Growth Retainer (£495/mo) — Includes continuous intake flow optimization, catalog updates, and monthly performance reviews.\n• Scale Retainer (£995/mo) — Dedicated engineer hotline, guaranteed same-day SLA, and continuous multi-channel conversion engineering.",
     actionUrl: "/pricing",
     actionLabel: "Compare Retainer Plans"
   },
@@ -62,22 +62,22 @@ const KNOWLEDGE_BASE: KnowledgeTopic[] = [
     id: "whatsapp-alerts",
     keywords: ["whatsapp", "alert", "alerts", "notification", "notifications", "phone ping", "mobile alert", "sms", "text message", "smartphone"],
     question: "How do instant WhatsApp smartphone alerts work?",
-    answer: "When a customer submits an enquiry or books an appointment, our webhook engine formats their full specifications (name, phone, required service, urgency, postcode, and deposit status) and dispatches it straight to your WhatsApp in under 2 seconds.\n\nYour engineers or directors get all necessary context instantly on their phone with zero manual CRM data entry.",
+    answer: "When a customer submits an enquiry or books an appointment, our webhook engine formats their full specifications (name, phone, required service, urgency, postcode, and deposit status) and dispatches it straight to your WhatsApp in under 5 seconds.\n\nYour engineers or directors get all necessary context instantly on their phone with zero manual CRM data entry.",
   },
   {
-    id: "chatbots-triage",
-    keywords: ["chatbot", "chatbots", "bot", "triage", "qualify", "qualification", "intake", "screen", "filter", "tire kickers", "questions"],
-    question: "How do your conversational chatbots qualify leads?",
-    answer: "Our chatbots operate 24/7 on your website and WhatsApp in natural, polite British English. They ask your exact scoping questions, provide instant pricing guidance, screen out unqualified enquiries, and route genuine buyers directly to your live booking diary.",
-    actionUrl: "/services#chatbots",
-    actionLabel: "Explore Chatbot Systems"
+    id: "builders-intake",
+    keywords: ["builder", "builders", "order builder", "booking", "triage", "qualify", "qualification", "intake", "screen", "filter", "tire kickers", "questions"],
+    question: "How do your 3-tap builders qualify leads?",
+    answer: "Our 3-tap order and booking builders replace clunky contact forms with visual smartphone selection cards. They ask your exact scoping questions, provide instant pricing guidance, filter out time-wasters automatically, and route genuine buyers directly to your live booking diary.",
+    actionUrl: "/services#builders",
+    actionLabel: "Explore Order Builders"
   },
   {
     id: "calendar-booking",
     keywords: ["calendar", "booking", "diary", "schedule", "scheduling", "appointment", "appointments", "google calendar", "outlook", "slots"],
     question: "How does calendar booking and scheduling work?",
     answer: "Our system syncs bi-directionally with Google Calendar and Microsoft Outlook in real-time. It only offers genuine open slots, locks confirmed appointments immediately to prevent double-booking, and triggers automated SMS and WhatsApp confirmation reminders to slash no-show rates.",
-    actionUrl: "/services#workflows",
+    actionUrl: "/services#builders",
     actionLabel: "Inspect Workflow Sync"
   },
   {
@@ -159,7 +159,7 @@ export function FloatingAiConcierge() {
     {
       id: "welcome",
       sender: "ai",
-      text: "Hello! I'm the Mercian Wealth assistant. Ask me anything about our automated booking systems, 24/7 enquiry chatbots, instant WhatsApp alerts, pricing packages, or our 48-hour working prototype guarantee.",
+      text: "Hello! I'm the Mercian Wealth assistant. Ask me anything about our sub-second mobile storefronts, 3-tap booking builders, upfront Stripe deposits, pricing packages, or our 48-hour working prototype guarantee.",
       timestamp: "Just now"
     }
   ])
@@ -312,7 +312,7 @@ export function FloatingAiConcierge() {
       {
         id: `welcome-${Date.now()}`,
         sender: "ai",
-        text: "Conversation reset. Ask me anything about our automated booking systems, 24/7 enquiry chatbots, instant WhatsApp alerts, or our 48-hour working prototype guarantee.",
+        text: "Conversation reset. Ask me anything about our sub-second mobile storefronts, 3-tap booking builders, upfront Stripe deposits, or our 48-hour working prototype guarantee.",
         timestamp: "Just now"
       }
     ])

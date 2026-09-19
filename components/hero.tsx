@@ -22,25 +22,19 @@ export function Hero() {
 
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 z-10 text-center flex flex-col items-center">
         
-        {/* Eyebrow & Bold Proof Badge */}
+        {/* Eyebrow Outcome Badge */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center justify-center gap-1.5 sm:gap-2 mb-4 sm:mb-5 text-center max-w-full px-2"
+          className="flex items-center justify-center mb-4 sm:mb-5 text-center max-w-full px-2"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#141417] border border-[#DAA640]/30 text-[#DAA640] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141417] border border-[#DAA640]/30 text-[#DAA640] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest shadow-sm">
             {/* Geometric bowtie glyph */}
             <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#DAA640]" viewBox="0 0 24 24" fill="currentColor">
               <path d="M4 4h16l-8 7.5L4 4zm0 16h16l-8-7.5L4 20z" />
             </svg>
             <span>{data.eyebrow}</span>
-          </div>
-
-          {/* Proof Badge */}
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full max-w-full text-center">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-            <span>{data.proofBadge}</span>
           </div>
         </motion.div>
 
@@ -105,12 +99,12 @@ export function Hero() {
                 <Clock className="w-4 h-4" />
               </div>
               <span className="text-[10px] font-mono text-emerald-400 font-semibold bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
-                24/7 Coverage
+                Sub-Second Speed
               </span>
             </div>
-            <h2 className="text-xs sm:text-sm font-bold text-white">1. 24/7 AI Voice &amp; Chat Response</h2>
+            <h2 className="text-xs sm:text-sm font-bold text-white">1. Sub-Second Mobile Storefront</h2>
             <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
-              Never let an enquiry go cold. AI phone receptionists and web chatbots answer on ring one and qualify leads 24/7.
+              Never lose a mobile visitor to slow loading. High-performance storefronts load in under 400ms and convert traffic instantly.
             </p>
           </div>
 
@@ -140,7 +134,7 @@ export function Hero() {
             </div>
             <h2 className="text-xs sm:text-sm font-bold text-white">3. Instant WhatsApp Alerts &amp; CRM</h2>
             <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
-              Full customer intake specs, call summary, and booking details sent straight to your phone via WhatsApp in seconds.
+              Full customer intake specs, quote request details, and booking confirmations sent straight to your phone via WhatsApp in seconds.
             </p>
           </div>
         </motion.div>

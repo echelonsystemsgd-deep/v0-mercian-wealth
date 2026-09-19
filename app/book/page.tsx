@@ -3,12 +3,38 @@ import Link from "next/link"
 import { BrandLogo } from "@/components/brand-logo"
 import { ArrowLeft, Shield, Clock, Star } from "lucide-react"
 import { BookingFlow } from "@/components/booking-flow"
-import { FAQHome } from "@/components/faq-home"
+import { PageFAQ } from "@/components/page-faq"
 import { SITE_COPY } from "@/lib/site-copy"
 
 export const metadata: Metadata = {
   title: SITE_COPY.metadata.book.title,
   description: SITE_COPY.metadata.book.description,
+  alternates: {
+    canonical: 'https://mercianwealth.com/book',
+  },
+  openGraph: {
+    title: SITE_COPY.metadata.book.title,
+    description: SITE_COPY.metadata.book.description,
+    url: 'https://mercianwealth.com/book',
+    siteName: 'Mercian Wealth',
+    images: [
+      {
+        url: '/Logo2.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Mercian Wealth | Book a 15-Minute Operational Discovery Call',
+      },
+    ],
+    locale: 'en_GB',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE_COPY.metadata.book.title,
+    description: SITE_COPY.metadata.book.description,
+    images: ['/Logo2.jpeg'],
+    creator: '@mercianwealth',
+  },
 }
 
 export default function BookPage() {
@@ -19,8 +45,36 @@ export default function BookPage() {
     text
   }))
 
+  const reserveSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "15-Minute Operational Discovery Call",
+    "provider": {
+      "@id": "https://mercianwealth.com/#organization"
+    },
+    "potentialAction": {
+      "@type": "ReserveAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://mercianwealth.com/book",
+        "actionPlatform": [
+          "http://schema.org/DesktopWebPlatform",
+          "http://schema.org/MobileWebPlatform"
+        ]
+      },
+      "result": {
+        "@type": "Reservation",
+        "name": "Operational Discovery Session"
+      }
+    }
+  }
+
   return (
     <main className="min-h-screen bg-[#09090B] relative overflow-hidden text-slate-100">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reserveSchema) }}
+      />
       {/* Background Decor */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#DCAE53]/30 to-transparent" />
@@ -127,7 +181,7 @@ export default function BookPage() {
 
         {/* Objections Handling FAQ Section */}
         <div className="mt-20 border-t border-slate-800 pt-16">
-          <FAQHome />
+          {data.faq ? <PageFAQ data={data.faq} /> : null}
         </div>
       </div>
     </main>

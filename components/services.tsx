@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
-import { PhoneCall, Bot, Zap, PhoneOutgoing, Mail, Globe, X, CheckCircle2, ArrowRight } from "lucide-react"
+import { Globe, Smartphone, MessageSquare, CreditCard, Star, Zap, X, CheckCircle2, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { SITE_COPY } from "@/lib/site-copy"
 
-const icons = [PhoneCall, Bot, Zap, PhoneOutgoing, Mail, Globe]
+const icons = [Globe, Smartphone, MessageSquare, CreditCard, Star, Zap]
 
 export function Services({ limit }: { limit?: number }) {
   const [activeService, setActiveService] = useState<number | null>(null)
@@ -23,19 +23,19 @@ export function Services({ limit }: { limit?: number }) {
   }))
 
   const displayServices = limit ? servicesList.slice(0, limit) : servicesList
-  const cardIds = ["voice", "chatbots", "workflows", "outbound", "email", "web"]
+  const cardIds = ["storefronts", "builders", "whatsapp", "deposits", "reviews", "retainers"]
 
   // Listen to ?solution= query param to automatically open or highlight target service
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search)
       const solution = params.get("solution")
-      if (solution === "voice" || solution === "inbound") setActiveService(0)
-      else if (solution === "chatbots" || solution === "chat") setActiveService(1)
-      else if (solution === "workflows" || solution === "automation") setActiveService(2)
-      else if (solution === "outbound" || solution === "reactivation") setActiveService(3)
-      else if (solution === "email" || solution === "outreach") setActiveService(4)
-      else if (solution === "web" || solution === "websites") setActiveService(5)
+      if (solution === "storefronts" || solution === "mobile" || solution === "web") setActiveService(0)
+      else if (solution === "builders" || solution === "booking" || solution === "orders") setActiveService(1)
+      else if (solution === "whatsapp" || solution === "alerts") setActiveService(2)
+      else if (solution === "deposits" || solution === "stripe" || solution === "checkout") setActiveService(3)
+      else if (solution === "reviews" || solution === "google") setActiveService(4)
+      else if (solution === "retainers" || solution === "optimization") setActiveService(5)
     }
   }, [])
 
@@ -74,13 +74,13 @@ export function Services({ limit }: { limit?: number }) {
         {/* Section Header */}
         <div className="text-center mb-8 sm:mb-12">
           <p className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#DCAE53] mb-2 sm:mb-3 font-mono">
-            [ Core AI &amp; Automation Infrastructure ]
+            [ Core Conversion &amp; Booking Infrastructure ]
           </p>
           <h2 className="font-sans text-xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-3">
-            Autonomous Systems Built For Direct Cash Flow
+            High-Conversion Systems Built For Direct Cash Flow
           </h2>
           <p className="text-slate-300 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
-            24/7 AI voice receptionists, enquiry chatbots, email outreach engines, and hands-off workflow automation engineered for UK local businesses.
+            Sub-second mobile storefronts, 3-tap order builders, WhatsApp lead dispatch, and upfront deposit checkout systems engineered for UK local businesses.
           </p>
         </div>
 

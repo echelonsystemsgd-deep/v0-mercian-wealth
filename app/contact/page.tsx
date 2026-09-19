@@ -7,15 +7,64 @@ import { CopyEmailButton } from "@/components/copy-email-button"
 
 import { SITE_COPY } from "@/lib/site-copy"
 
-export const metadata = {
+import type { Metadata } from "next"
+import { PageFAQ } from "@/components/page-faq"
+
+export const metadata: Metadata = {
   title: SITE_COPY.metadata.contact.title,
   description: SITE_COPY.metadata.contact.description,
+  alternates: {
+    canonical: 'https://mercianwealth.com/contact',
+  },
+  openGraph: {
+    title: SITE_COPY.metadata.contact.title,
+    description: SITE_COPY.metadata.contact.description,
+    url: 'https://mercianwealth.com/contact',
+    siteName: 'Mercian Wealth',
+    images: [
+      {
+        url: '/Logo2.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Mercian Wealth | Direct WhatsApp & Engineering Gateway',
+      },
+    ],
+    locale: 'en_GB',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE_COPY.metadata.contact.title,
+    description: SITE_COPY.metadata.contact.description,
+    images: ['/Logo2.jpeg'],
+    creator: '@mercianwealth',
+  },
 }
 
 export default function ContactPage() {
   const data = SITE_COPY.contactPage
+
+  const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Mercian Wealth",
+    "description": "Connect directly with our UK engineering team via WhatsApp, phone, or direct email.",
+    "url": "https://mercianwealth.com/contact",
+    "mainEntity": {
+      "@type": "ProfessionalService",
+      "@id": "https://mercianwealth.com/#organization",
+      "name": "Mercian Wealth",
+      "telephone": "+447851055929",
+      "email": "operations@mercianwealth.com",
+    },
+  }
+
   return (
     <main className="min-h-screen bg-[#09090B] text-slate-100 overflow-x-hidden font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
+      />
       <Navbar />
       
       <PageHeader 
@@ -105,6 +154,8 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {data.faq && <PageFAQ data={data.faq} />}
 
       <Footer />
     </main>

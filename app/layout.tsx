@@ -33,16 +33,16 @@ export const metadata: Metadata = {
   description: SITE_COPY.metadata.layout.description,
   applicationName: 'Mercian Wealth',
   keywords: [
-    "AI automation agency UK",
-    "AI voice receptionist UK",
-    "24/7 AI phone answering",
-    "customer support chatbots UK",
-    "workflow automation for local businesses",
-    "outbound speed to lead AI",
-    "automated appointment booking UK",
-    "WhatsApp lead alerts UK",
-    "cold email outreach engines",
-    "lead conversion systems UK"
+    "mobile storefronts UK",
+    "3-tap booking builder",
+    "WhatsApp lead capture UK",
+    "upfront deposit collection",
+    "local business websites UK",
+    "automated Google review systems",
+    "trade contractor quote engines",
+    "bakery order builder UK",
+    "local SEO structured schema",
+    "speed to lead automation"
   ],
   authors: [{ name: 'Mercian Wealth' }],
   creator: 'Mercian Wealth',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         url: '/Logo2.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Mercian Wealth | AI Voice, Chatbots & Automation Infrastructure',
+        alt: 'Mercian Wealth | Mobile Storefronts & Booking Engines for UK Local Businesses',
       },
     ],
     locale: 'en_GB',
@@ -118,15 +118,21 @@ const jsonLd = {
   '@id': 'https://mercianwealth.com/#organization',
   url: 'https://mercianwealth.com',
   telephone: '+447851055929',
-  priceRange: '£££',
+  email: 'operations@mercianwealth.com',
+  priceRange: '£495 - £1,995',
   address: {
     '@type': 'PostalAddress',
+    addressRegion: 'West Midlands',
     addressCountry: 'GB',
   },
   geo: {
     '@type': 'GeoCoordinates',
     latitude: 52.4862,
     longitude: -1.8904,
+  },
+  areaServed: {
+    '@type': 'Country',
+    name: 'United Kingdom',
   },
   openingHoursSpecification: {
     '@type': 'OpeningHoursSpecification',
@@ -142,9 +148,10 @@ const jsonLd = {
     opens: '00:00',
     closes: '23:59'
   },
-  description: 'Mobile storefronts, 3-tap booking builders, instant WhatsApp alerts, and automated Google review systems for premier local businesses and service operators across Berkshire & the UK.',
+  description: 'Sub-second mobile storefronts, 3-tap order and booking builders, instant WhatsApp lead capture, upfront Stripe deposit collection, and automated Google review systems for UK local businesses.',
   sameAs: [
-    'https://wa.me/447851055929'
+    'https://wa.me/447851055929',
+    'https://www.linkedin.com/in/gs-legacy-wealth/'
   ]
 }
 

@@ -5,22 +5,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()
 
   const routes = [
-    '',
-    '/services',
-    '/process',
-    '/portfolio',
-    '/pricing',
-    '/contact',
-    '/book',
-    '/testimonials',
-    '/terms',
-    '/privacy',
+    { path: '', priority: 1.0, changeFrequency: 'daily' as const },
+    { path: '/services', priority: 0.9, changeFrequency: 'weekly' as const },
+    { path: '/pricing', priority: 0.9, changeFrequency: 'weekly' as const },
+    { path: '/book', priority: 0.9, changeFrequency: 'weekly' as const },
+    { path: '/process', priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: '/portfolio', priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: '/cohort-status', priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: '/contact', priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: '/local', priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: '/terms', priority: 0.3, changeFrequency: 'monthly' as const },
+    { path: '/privacy', priority: 0.3, changeFrequency: 'monthly' as const },
   ]
 
   return routes.map((route) => ({
-    url: `${baseUrl}${route}`,
+    url: `${baseUrl}${route.path}`,
     lastModified,
-    changeFrequency: route === '' ? 'daily' : 'weekly',
-    priority: route === '' ? 1.0 : route === '/book' || route === '/pricing' ? 0.9 : 0.8,
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
   }))
 }

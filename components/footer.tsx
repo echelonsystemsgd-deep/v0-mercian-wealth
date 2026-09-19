@@ -174,14 +174,14 @@ export function Footer() {
               UK Support: 08:00 - 18:00 GMT
             </span>
             <span className="hidden sm:inline-block text-slate-600">•</span>
-            <span className="text-slate-400">Berkshire, UK</span>
+            <span className="text-slate-400">West Midlands, UK</span>
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-800/80 text-center md:flex md:justify-between md:items-center text-xs text-slate-400">
           <p>
-            © {new Date().getFullYear()} Mercian Wealth. All Rights Reserved. Engineered in Berkshire, United Kingdom.
+            © {new Date().getFullYear()} Mercian Wealth. All Rights Reserved. Engineered in the West Midlands, United Kingdom.
           </p>
           <div className="flex justify-center gap-6 mt-4 md:mt-0">
             <Link href="/privacy" className="hover:text-[#34A88E] transition-colors">

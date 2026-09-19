@@ -240,22 +240,37 @@ export function Navbar() {
                     </div>
 
                     <Link
-                      href="/services#voice"
+                      href="/services#storefronts"
                       onClick={() => setActiveDropdown(null)}
                       prefetch={true}
                       className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
-                        <PhoneCall className="w-4 h-4" />
+                        <Globe className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">24/7 AI Phone Receptionist</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">Answers on ring one, qualifies leads &amp; books into your live calendar.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Sub-Second Mobile Storefronts</div>
+                        <p className="text-[11px] text-slate-400 leading-snug">Loads in &lt;400ms to eliminate mobile visitor bounce rates completely.</p>
                       </div>
                     </Link>
 
                     <Link
-                      href="/services#chatbots"
+                      href="/services#builders"
+                      onClick={() => setActiveDropdown(null)}
+                      prefetch={true}
+                      className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
+                    >
+                      <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
+                        <Smartphone className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">3-Tap Order &amp; Booking Builders</div>
+                        <p className="text-[11px] text-slate-400 leading-snug">Interactive intake flows that let clients configure and book in seconds.</p>
+                      </div>
+                    </Link>
+
+                    <Link
+                      href="/services#whatsapp"
                       onClick={() => setActiveDropdown(null)}
                       prefetch={true}
                       className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
@@ -264,38 +279,23 @@ export function Navbar() {
                         <MessageSquare className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Chatbots &amp; Support Triage</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">Instant qualification across web &amp; WhatsApp so leads never go cold.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Instant WhatsApp Lead Dispatch</div>
+                        <p className="text-[11px] text-slate-400 leading-snug">Full customer intake specs pushed to your smartphone in under 5 seconds.</p>
                       </div>
                     </Link>
 
                     <Link
-                      href="/services#workflows"
+                      href="/services#deposits"
                       onClick={() => setActiveDropdown(null)}
                       prefetch={true}
                       className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
                     >
                       <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
-                        <Zap className="w-4 h-4" />
+                        <CreditCard className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Workflow &amp; Admin Automation</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">Hands-off CRM syncing, SMS reminders &amp; automated 5-star review collection.</p>
-                      </div>
-                    </Link>
-
-                    <Link
-                      href="/services#outbound"
-                      onClick={() => setActiveDropdown(null)}
-                      prefetch={true}
-                      className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#18181F] transition-all group text-left"
-                    >
-                      <div className="p-2 rounded-lg bg-[#18181F] group-hover:bg-[#DCAE53] text-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
-                        <Activity className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">AI Outbound Speed-to-Lead</div>
-                        <p className="text-[11px] text-slate-400 leading-snug">Sub-30s callback on form fills &amp; automated phone reactivation for quiet quotes.</p>
+                        <div className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Upfront Stripe Deposit Checkout</div>
+                        <p className="text-[11px] text-slate-400 leading-snug">Lock deposits with 1-click Apple &amp; Google Pay to eliminate no-shows.</p>
                       </div>
                     </Link>
                   </motion.div>
@@ -542,7 +542,7 @@ export function Navbar() {
                 <div className="mb-5 p-3 rounded-xl bg-[#141417] border border-white/10 flex items-center gap-2.5 text-xs">
                   <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
                   <span className="text-[11px] font-mono text-zinc-400">
-                    24/7 AI Voice · Chatbots · Workflow Automation
+                    Mobile Storefronts · Order Builders · WhatsApp Dispatch
                   </span>
                 </div>
 
@@ -627,7 +627,7 @@ export function Navbar() {
                 </div>
 
                 <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 pt-2 px-1">
-                  <span>Berkshire &amp; London, UK</span>
+                  <span>West Midlands &amp; Across UK</span>
                   <Link
                     href="/login"
                     onClick={() => setIsMobileMenuOpen(false)}

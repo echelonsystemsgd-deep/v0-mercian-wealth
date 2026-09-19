@@ -72,7 +72,7 @@ const challengeOptions: { value: Challenge; label: string; description: string }
   { value: "No website yet",                        label: "No website yet",      description: "Brand new website from scratch" },
   { value: "Outdated website",                      label: "Outdated website",    description: "Premium modern redesign update" },
   { value: "Not getting leads",                     label: "Not getting leads",   description: "Site exists but isn't converting" },
-  { value: "Want to modernise / add AI features",   label: "Add AI & automation", description: "AI chatbots, calendars or CRM sync" },
+  { value: "Want to modernise / add AI features",   label: "Add booking & conversion tools", description: "3-tap order builders, WhatsApp alerts & Stripe deposits" },
 ]
 
 const revenueOptions: { value: Revenue; label: string; description: string }[] = [

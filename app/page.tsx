@@ -18,7 +18,41 @@ import { FloatingAiConcierge } from "@/components/floating-ai-concierge"
 import { getPricingTiers } from "@/lib/pricing"
 import { Suspense } from "react"
 
+import { SITE_COPY } from "@/lib/site-copy"
+import type { Metadata } from "next"
+
 export const revalidate = 60
+
+export const metadata: Metadata = {
+  title: SITE_COPY.metadata.home.title,
+  description: SITE_COPY.metadata.home.description,
+  alternates: {
+    canonical: 'https://mercianwealth.com',
+  },
+  openGraph: {
+    title: SITE_COPY.metadata.home.title,
+    description: SITE_COPY.metadata.home.description,
+    url: 'https://mercianwealth.com',
+    siteName: 'Mercian Wealth',
+    images: [
+      {
+        url: '/Logo2.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Mercian Wealth | Mobile Storefronts & Booking Engines for UK Local Businesses',
+      },
+    ],
+    locale: 'en_GB',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE_COPY.metadata.home.title,
+    description: SITE_COPY.metadata.home.description,
+    images: ['/Logo2.jpeg'],
+    creator: '@mercianwealth',
+  },
+}
 
 export default async function Home() {
   const { setupTiers, retainerTiers } = await getPricingTiers()
@@ -51,7 +85,7 @@ export default async function Home() {
                 "@id": "https://mercianwealth.com/#website",
                 "url": "https://mercianwealth.com",
                 "name": "Mercian Wealth",
-                "description": "24/7 AI Voice Receptionists, Enquiry Chatbots, and Workflow Automation for UK Businesses. See a working prototype before committing.",
+                "description": "Sub-second mobile storefronts, 3-tap order and booking builders, instant WhatsApp lead capture, upfront Stripe deposit collection, and automated Google review systems for UK local businesses.",
                 "publisher": {
                   "@id": "https://mercianwealth.com/#organization"
                 }
@@ -60,14 +94,14 @@ export default async function Home() {
                 "@type": "WebPage",
                 "@id": "https://mercianwealth.com/#webpage",
                 "url": "https://mercianwealth.com",
-                "name": "Mercian Wealth | AI Voice, Chatbots & Automation Infrastructure",
+                "name": "Mercian Wealth | Mobile Storefronts & Booking Engines for UK Local Businesses",
                 "isPartOf": {
                   "@id": "https://mercianwealth.com/#website"
                 },
                 "about": {
                   "@id": "https://mercianwealth.com/#organization"
                 },
-                "description": "24/7 AI Voice Receptionists, Enquiry Chatbots, and Workflow Automation for UK Businesses. See a working prototype before committing."
+                "description": "Sub-second mobile storefronts, 3-tap order and booking builders, instant WhatsApp lead capture, upfront Stripe deposit collection, and automated Google review systems for UK local businesses."
               }
             ]
           })

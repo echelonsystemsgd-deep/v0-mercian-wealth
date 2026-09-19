@@ -3,9 +3,37 @@ import { Footer } from "@/components/footer"
 import { FieldSalesDemo } from "@/components/local/field-sales-demo"
 import { BrandLogo } from "@/components/brand-logo"
 
-export const metadata = {
-  title: "Local Business AI Automation Demo | Mercian Wealth",
-  description: "Interactive 3-tap order engine, instant WhatsApp alerts, and Google review automation live demo for local businesses.",
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Local Business Order Engine Demo | Mercian Wealth",
+  description: "Interactive 3-tap order builder, instant WhatsApp alerts, and Google review automation live demo for local businesses.",
+  alternates: {
+    canonical: 'https://mercianwealth.com/local',
+  },
+  openGraph: {
+    title: "Local Business Order Engine Demo | Mercian Wealth",
+    description: "Interactive 3-tap order builder, instant WhatsApp alerts, and Google review automation live demo for local businesses.",
+    url: 'https://mercianwealth.com/local',
+    siteName: 'Mercian Wealth',
+    images: [
+      {
+        url: '/Logo2.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Mercian Wealth | Local Business Order Engine Demo',
+      },
+    ],
+    locale: 'en_GB',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Local Business Order Engine Demo | Mercian Wealth",
+    description: "Interactive 3-tap order builder, instant WhatsApp alerts, and Google review automation live demo for local businesses.",
+    images: ['/Logo2.jpeg'],
+    creator: '@mercianwealth',
+  },
 }
 
 export default function LocalPage() {
