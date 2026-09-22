@@ -378,6 +378,8 @@ function syncAllLeadsToAdminBackend() {
 
   var toInsert = [];
   var updatedCount = 0;
+  var seenBatchPhones = {};
+  var seenBatchNames = {};
 
   leads.forEach(function(lead) {
     var digits = lead.phone ? String(lead.phone).replace(/[^0-9]/g, '') : '';
@@ -405,6 +407,11 @@ function syncAllLeadsToAdminBackend() {
       });
       updatedCount++;
     } else {
+      // Deduplicate within the batch itself so unique constraint is never violated
+      if (digits && seenBatchPhones[digits]) return;
+      if (nameKey && seenBatchNames[nameKey]) return;
+      if (digits) seenBatchPhones[digits] = true;
+      if (nameKey) seenBatchNames[nameKey] = true;
       toInsert.push(lead);
     }
   });
