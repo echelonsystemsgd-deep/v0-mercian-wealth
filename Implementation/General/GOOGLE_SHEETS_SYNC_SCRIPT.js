@@ -283,7 +283,15 @@ function extractLeadsFromSheet() {
     var rawWeb = colWebsite !== -1 ? String(row[colWebsite] || '').trim() : '';
     var website = (rawWeb && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' && rawWeb !== 'null' && rawWeb !== 'undefined') ? rawWeb : null;
 
-    var trade = (colTrade !== -1 ? String(row[colTrade] || '') : '').trim() || 'Local Business';
+    var trade = (colTrade !== -1 ? String(row[colTrade] || '') : '').trim();
+    var nameLower = businessName.toLowerCase();
+    if (!trade || trade.toLowerCase() === 'tradesperson' || trade.toLowerCase() === 'local business' || nameLower.includes('jewel') || nameLower.includes('gold') || nameLower.includes('diamond') || nameLower.includes('silver') || nameLower.includes('ring') || nameLower.includes('watch') || nameLower.includes('gem')) {
+      if (nameLower.includes('jewel') || nameLower.includes('gold') || nameLower.includes('diamond') || nameLower.includes('silver') || nameLower.includes('ring') || nameLower.includes('watch') || nameLower.includes('gem')) {
+        trade = 'Jeweller';
+      } else {
+        trade = trade || 'Local Business';
+      }
+    }
     var rawStatus = colStatus !== -1 ? String(row[colStatus] || '').trim() : '';
     var status = rawStatus || 'New';
 
