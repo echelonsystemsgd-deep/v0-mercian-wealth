@@ -25,7 +25,7 @@
             {
               "id": "field-query",
               "name": "query",
-              "value": "roofers",
+              "value": "jewellers",
               "type": "string"
             },
             {
@@ -81,7 +81,11 @@
         300
       ],
       "id": "node-get-coordinates",
-      "name": "Get Coordinates"
+      "name": "Get Coordinates",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1500,
+      "continueOnFail": true
     },
     {
       "parameters": {
@@ -92,7 +96,7 @@
           "parameters": [
             {
               "name": "X-API-KEY",
-              "value": "={{ $('Edit Fields').item.json.Serper_API_Key }}"
+              "value": "={{ $('Edit Fields').first().json.Serper_API_Key }}"
             },
             {
               "name": "Content-Type",
@@ -105,7 +109,10 @@
         "jsonBody": "={{ (() => {\n  const vars = $('Edit Fields').first().json;\n  const geo = $('Get Coordinates').first().json;\n  const geoItem = Array.isArray(geo) ? geo[0] : geo;\n  const payload = {\n    q: `${vars.query} in ${vars.location}`,\n    gl: 'gb',\n    hl: 'en'\n  };\n  if (geoItem && geoItem.lat && geoItem.lon) {\n    payload.ll = `@${geoItem.lat},${geoItem.lon},13z`;\n  }\n  return JSON.stringify(payload);\n})() }}",
         "options": {
           "timeout": 30000
-        }
+        },
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 1500
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -114,7 +121,11 @@
         300
       ],
       "id": "node-get-places",
-      "name": "Get Places"
+      "name": "Get Places",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1500,
+      "continueOnFail": true
     },
     {
       "parameters": {
@@ -128,12 +139,13 @@
         300
       ],
       "id": "node-split-out",
-      "name": "Split Out"
+      "name": "Split Out",
+      "continueOnFail": true
     },
     {
       "parameters": {
         "mode": "runOnceForAllItems",
-        "jsCode": "/**\n * BULLETPROOF LEAD QUALIFIER & VERIFIER\n * 1. Eliminates corporate call centers (0800, 0845, 0870, 0300) so you only reach direct trade owners\n * 2. Normalizes phone numbers to standard UK format (+44...)\n * 3. Identifies UK mobiles (+447...) and generates 1-click WhatsApp links\n * 4. Accurately detects 'no_website' vs 'social_only' vs 'has_website'\n * 5. Deduplicates by phone and business name\n * 6. Generates custom cold outreach pitch\n */\n\nconst items = $input.all();\nconst config = $('Edit Fields').first().json || {};\nconst query = config.query || 'roofers';\nconst location = config.location || 'london';\nconst minReviews = Number(config.min_reviews || 1);\nconst onlyNoWebsite = Boolean(config.only_no_website === true);\n\nfunction detectTrade(name, category, q) {\n  const text = `${name || ''} ${category || ''} ${q || ''}`.toLowerCase();\n  if (text.includes('roof')) return 'Roofer';\n  if (text.includes('plumb') || text.includes('drain') || text.includes('heat') || text.includes('boiler')) return 'Plumber';\n  if (text.includes('electr')) return 'Electrician';\n  if (text.includes('dent') || text.includes('smile') || text.includes('implant')) return 'Dentist';\n  if (text.includes('account') || text.includes('tax') || text.includes('bookkeep')) return 'Accountant';\n  if (text.includes('build') || text.includes('construct') || text.includes('loft') || text.includes('extension')) return 'Builder';\n  if (text.includes('carpent') || text.includes('joiner')) return 'Carpenter';\n  if (text.includes('landscap') || text.includes('tree') || text.includes('garden')) return 'Landscaper';\n  if (text.includes('clean')) return 'Cleaner';\n  if (text.includes('paint') || text.includes('decorat')) return 'Decorator';\n  return 'Tradesperson';\n}\n\nconst validatedLeads = [];\nconst seenPhones = new Set();\nconst seenNames = new Set();\n\nfor (const item of items) {\n  const place = item.json || {};\n  const businessName = (place.title || place.name || '').trim();\n  const rawPhone = (place.phoneNumber || place.phone || '').trim();\n  const rawWebsite = (place.website || '').trim();\n  const rating = Number(place.rating || 0);\n  const reviewsCount = Number(place.ratingCount || place.user_ratings_total || 0);\n  const address = (place.address || place.formatted_address || location).trim();\n  const category = place.category || place.type || '';\n  \n  // Quality Gate 1: Require business name and contact phone\n  if (!businessName || !rawPhone) continue;\n  \n  // Quality Gate 2: Exclude 0-review ghost listings if min_reviews set\n  if (reviewsCount < minReviews) continue;\n  \n  // Quality Gate 3: Reject call centers & switchboards (0800, 0845, 0870, 0300, 0345)\n  const cleanDigits = rawPhone.replace(/[^0-9]/g, '');\n  if (\n    cleanDigits.startsWith('0800') ||\n    cleanDigits.startsWith('0808') ||\n    cleanDigits.startsWith('0845') ||\n    cleanDigits.startsWith('0870') ||\n    cleanDigits.startsWith('0300') ||\n    cleanDigits.startsWith('0345') ||\n    cleanDigits.startsWith('44800') ||\n    cleanDigits.startsWith('44845') ||\n    cleanDigits.startsWith('44300')\n  ) {\n    continue;\n  }\n  \n  // Quality Gate 4: Normalize phone to UK format (+44...)\n  let formattedPhone = rawPhone.replace(/[^0-9+]/g, '');\n  if (formattedPhone.startsWith('0')) {\n    formattedPhone = '+44' + formattedPhone.substring(1);\n  } else if (!formattedPhone.startsWith('+44')) {\n    formattedPhone = '+44' + formattedPhone.replace(/^\\+/, '');\n  }\n  const digitsOnly = formattedPhone.replace(/[^0-9]/g, '');\n  \n  // Quality Gate 5: Deduplicate within current run\n  const nameKey = businessName.toLowerCase().replace(/[^a-z0-9]/g, '');\n  if (seenPhones.has(digitsOnly) || seenNames.has(nameKey)) {\n    continue;\n  }\n  seenPhones.add(digitsOnly);\n  seenNames.add(nameKey);\n  \n  // Quality Gate 6: Online Presence Classification\n  let hasWebsite = true;\n  let classification = 'has_website';\n  \n  if (!rawWebsite || rawWebsite === '' || rawWebsite.toLowerCase() === 'none' || rawWebsite.toLowerCase() === 'null') {\n    hasWebsite = false;\n    classification = 'no_website';\n  } else {\n    const w = rawWebsite.toLowerCase();\n    if (\n      w.includes('facebook.com') ||\n      w.includes('instagram.com') ||\n      w.includes('yell.com') ||\n      w.includes('checkatrade.com') ||\n      w.includes('trustatrader.com') ||\n      w.includes('bark.com') ||\n      w.includes('mybuilder.com') ||\n      w.includes('ratedpeople.com')\n    ) {\n      hasWebsite = false;\n      classification = 'social_only';\n    }\n  }\n  \n  // Filter by user preference\n  if (onlyNoWebsite && hasWebsite) {\n    continue;\n  }\n  \n  const isMobile = digitsOnly.startsWith('447');\n  const channel = isMobile ? 'WhatsApp / SMS' : 'Landline / Direct Call';\n  const waLink = isMobile ? `https://wa.me/${digitsOnly}?text=${encodeURIComponent('Hi 👋')}` : 'N/A';\n  const trade = detectTrade(businessName, category, query);\n  \n  // Tailored cold outreach pitch\n  const stage1Opener = 'Hi 👋';\n  const stage2Pitch = !hasWebsite\n    ? `Came across ${businessName} — had a look for your website, couldn't find one. Every day someone searches for a ${trade.toLowerCase()} near them in ${location}, sees you're not there, and books with whoever showed up instead. I build the digital storefront and speed-to-lead booking system before asking for anything. If it's not for you, no pressure at all.`\n    : `Came across ${businessName} — saw your site, but noticed it isn't optimized for automated instant mobile quotes and speed-to-lead. We automate customer booking from enquiry to booked job.`;\n  \n  const followUp1 = `Hey — following up on ${businessName}. No pressure at all, just wanted to check if this landed and see where you're at.`;\n  const followUpFinal = `Last one from me on this — if it's not a priority right now, that's completely fair. If it ever is, the offer stands, just say the word.`;\n  \n  // Supabase Payload for instant dashboard sync\n  const supabasePayload = {\n    name: 'Owner / Director',\n    business_name: businessName,\n    phone: formattedPhone,\n    website: hasWebsite ? rawWebsite : (classification === 'social_only' ? rawWebsite : null),\n    service_interested: 'Digital Storefront & Speed-to-Lead Automation',\n    notes: `${address} · ★${rating} (${reviewsCount} reviews)`,\n    status: 'New',\n    source: 'google_maps_outreach',\n    lead_type: 'local',\n    local_business_niche: trade,\n    outreach_category: classification,\n    outreach_stage: 'uncontacted',\n    whatsapp_direct_url: isMobile ? waLink : null,\n    scraped_metadata: {\n      address: address,\n      rating: rating,\n      reviews: reviewsCount,\n      reviews_count: reviewsCount,\n      rating_reviews: `${reviewsCount} (★${rating})`,\n      trade: trade,\n      channel: channel,\n      stage_1_opener: stage1Opener,\n      stage_2_pitch: stage2Pitch,\n      follow_up_1: followUp1,\n      follow_up_final: followUpFinal\n    }\n  };\n  \n  validatedLeads.push({\n    json: {\n      \"Business Name\": businessName,\n      \"Phone\": formattedPhone,\n      \"Channel\": channel,\n      \"WhatsApp Link\": waLink,\n      \"Reviews\": reviewsCount,\n      \"Rating\": rating,\n      \"Website\": rawWebsite || 'None',\n      \"Address\": address,\n      \"Trade\": trade,\n      \"Classification\": classification,\n      \"Stage 1 Opener\": stage1Opener,\n      \"Stage 2 Pitch\": stage2Pitch,\n      \"Follow Up 1\": followUp1,\n      \"Follow Up Final\": followUpFinal,\n      \"Status\": 'New',\n      \"supabase_payload\": supabasePayload\n    }\n  });\n}\n\nreturn validatedLeads;"
+        "jsCode": "/**\n * BULLETPROOF JEWELLERY LEAD QUALIFIER & VERIFIER\n * Tailored for UK Independent & Bespoke Jewellers (Hatton Garden, Birmingham JQ, Mayfair)\n * 1. Eliminates corporate call centers (0800, 0845, 0870, 0300) so you only reach atelier owners\n * 2. Normalizes phone numbers to standard UK format (+44...)\n * 3. Identifies UK mobiles (+447...) and generates 1-click WhatsApp links\n * 4. Accurately detects 'no_website' (Branch B) vs 'social_only' vs 'has_website' (Branch A)\n * 5. Generates consultative luxury outreach pitches with Veyra 3D Prototype\n */\n\nconst items = $input.all();\nconst config = $('Edit Fields').first().json || {};\nconst query = config.query || 'jewellers';\nconst location = config.location || 'london';\nconst minReviews = Number(config.min_reviews || 1);\nconst onlyNoWebsite = Boolean(config.only_no_website === true);\n\nfunction detectTrade(name, category, q) {\n  const text = `${name || ''} ${category || ''} ${q || ''}`.toLowerCase();\n  if (text.includes('jewel') || text.includes('diamond') || text.includes('ring') || text.includes('gold') || text.includes('watch') || text.includes('gem') || text.includes('atelier')) return 'Jeweller';\n  if (text.includes('roof')) return 'Roofer';\n  if (text.includes('plumb')) return 'Plumber';\n  if (text.includes('electr')) return 'Electrician';\n  return 'Jeweller';\n}\n\nconst validatedLeads = [];\nconst seenPhones = new Set();\nconst seenNames = new Set();\n\nfor (const item of items) {\n  const place = item.json || {};\n  const businessName = (place.title || place.name || '').trim();\n  const rawPhone = (place.phoneNumber || place.phone || '').trim();\n  const rawWebsite = (place.website || '').trim();\n  const rating = Number(place.rating || 0);\n  const reviewsCount = Number(place.ratingCount || place.user_ratings_total || 0);\n  const address = (place.address || place.formatted_address || location).trim();\n  const category = place.category || place.type || '';\n  \n  if (!businessName || !rawPhone) continue;\n  if (reviewsCount < minReviews) continue;\n  \n  // Reject call centers & switchboards\n  const cleanDigits = rawPhone.replace(/[^0-9]/g, '');\n  if (\n    cleanDigits.startsWith('0800') ||\n    cleanDigits.startsWith('0808') ||\n    cleanDigits.startsWith('0845') ||\n    cleanDigits.startsWith('0870') ||\n    cleanDigits.startsWith('0300') ||\n    cleanDigits.startsWith('0345') ||\n    cleanDigits.startsWith('44800') ||\n    cleanDigits.startsWith('44845') ||\n    cleanDigits.startsWith('44300')\n  ) {\n    continue;\n  }\n  \n  // Normalize phone\n  let formattedPhone = rawPhone.replace(/[^0-9+]/g, '');\n  if (formattedPhone.startsWith('0')) {\n    formattedPhone = '+44' + formattedPhone.substring(1);\n  } else if (!formattedPhone.startsWith('+44')) {\n    formattedPhone = '+44' + formattedPhone.replace(/^\\+/, '');\n  }\n  const digitsOnly = formattedPhone.replace(/[^0-9]/g, '');\n  \n  // Deduplicate\n  const nameKey = businessName.toLowerCase().replace(/[^a-z0-9]/g, '');\n  if (seenPhones.has(digitsOnly) || seenNames.has(nameKey)) continue;\n  seenPhones.add(digitsOnly);\n  seenNames.add(nameKey);\n  \n  // Classification\n  let hasWebsite = true;\n  let classification = 'has_website';\n  \n  if (!rawWebsite || rawWebsite === '' || rawWebsite.toLowerCase() === 'none' || rawWebsite.toLowerCase() === 'null') {\n    hasWebsite = false;\n    classification = 'no_website';\n  } else {\n    const w = rawWebsite.toLowerCase();\n    if (\n      w.includes('facebook.com') ||\n      w.includes('instagram.com') ||\n      w.includes('yell.com')\n    ) {\n      hasWebsite = false;\n      classification = 'social_only';\n    }\n  }\n  \n  if (onlyNoWebsite && hasWebsite) continue;\n  \n  const isMobile = digitsOnly.startsWith('447');\n  const channel = isMobile ? 'WhatsApp / SMS' : 'Landline / Direct Call';\n  const trade = detectTrade(businessName, category, query);\n  \n  // Veyra Dynamic Prototype URL\n  const veyraProtoUrl = `https://veyra-premium-3-d-jewellery-e-comme.vercel.app/?client=${encodeURIComponent(businessName)}`;\n  \n  // Tailored Luxury Jeweller Consultative Pitches\n  let stage1Opener = '';\n  let stage2Pitch = '';\n  \n  if (!hasWebsite) {\n    // Branch B: No Website / Social Only\n    stage1Opener = `Hi 👋 Came across ${businessName} on Instagram — stunning work. Had a quick search for your website to view the full collection, couldn't find one. Do you take all your bespoke commissions through WhatsApp / Instagram directly?`;\n    stage2Pitch = `The pieces look exceptional. We put together a private interactive 3D concept prototype showing how ${businessName} could showcase custom rings and bespoke pieces with a dedicated online storefront: ${veyraProtoUrl} — take a look when you have a moment, no pressure at all.`;\n  } else {\n    // Branch A: Has Website\n    stage1Opener = `Hi 👋 Came across ${businessName} — love the craftsmanship in your pieces. Had a quick look through your site, had a small question about how you showcase your bespoke commissions online if you have 30 seconds?`;\n    stage2Pitch = `Loved looking through your catalogue. We noticed that high-ticket bespoke jewellery often loses that in-person luxury feel on standard mobile galleries. We built an interactive 3D concept prototype demonstrating how ${businessName}'s collection could be presented: ${veyraProtoUrl} — thought you might enjoy seeing it.`;\n  }\n  \n  const followUp1 = `Hey — following up on ${businessName}. No pressure at all, just wanted to check if this landed and see what you thought of the 3D prototype.`;\n  const followUpFinal = `Last one from me on this — if an elevated digital showroom isn't a priority right now, that's completely fair. If it ever is, the offer stands. All the best with the atelier!`;\n  \n  const waLink = isMobile ? `https://wa.me/${digitsOnly}?text=${encodeURIComponent(stage1Opener)}` : 'N/A';\n  \n  // Supabase Payload\n  const supabasePayload = {\n    name: 'Owner / Creative Director',\n    business_name: businessName,\n    phone: formattedPhone,\n    website: hasWebsite ? rawWebsite : (classification === 'social_only' ? rawWebsite : null),\n    service_interested: 'Interactive 3D Digital Atelier & Bespoke Commission Portal',\n    notes: `${address} · ★${rating} (${reviewsCount} reviews) · Branch: ${classification === 'has_website' ? 'Branch A (Has Site)' : 'Branch B (No Site)'}`,\n    status: 'New',\n    source: 'google_maps_outreach',\n    lead_type: 'jewellery',\n    local_business_niche: 'Jeweller',\n    outreach_category: classification,\n    outreach_stage: 'uncontacted',\n    prototype_url: veyraProtoUrl,\n    whatsapp_direct_url: isMobile ? waLink : null,\n    scraped_metadata: {\n      address: address,\n      rating: rating,\n      reviews: reviewsCount,\n      reviews_count: reviewsCount,\n      rating_reviews: `${reviewsCount} (★${rating})`,\n      trade: 'Jeweller',\n      channel: channel,\n      stage_1_opener: stage1Opener,\n      stage_2_pitch: stage2Pitch,\n      follow_up_1: followUp1,\n      follow_up_final: followUpFinal,\n      prototype_url: veyraProtoUrl\n    }\n  };\n  \n  validatedLeads.push({\n    json: {\n      \"Business Name\": businessName,\n      \"Phone\": formattedPhone,\n      \"Channel\": channel,\n      \"WhatsApp Link\": waLink,\n      \"Reviews\": reviewsCount,\n      \"Rating\": rating,\n      \"Website\": rawWebsite || 'None',\n      \"Address\": address,\n      \"Trade\": 'Jeweller',\n      \"Classification\": classification,\n      \"Stage 1 Opener\": stage1Opener,\n      \"Stage 2 Pitch\": stage2Pitch,\n      \"Follow Up 1\": followUp1,\n      \"Follow Up Final\": followUpFinal,\n      \"Prototype URL\": veyraProtoUrl,\n      \"Status\": 'New',\n      \"supabase_payload\": supabasePayload\n    }\n  });\n}\n\nreturn validatedLeads;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -185,11 +197,11 @@
           "parameters": [
             {
               "name": "apikey",
-              "value": "YOUR_SUPABASE_SERVICE_ROLE_KEY"
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhZGViaG15eXdrY3F0eWF6eHhrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTY4NTAzNSwiZXhwIjoyMDk3MjYxMDM1fQ.m_FBVwQCgj9OWqz1dajV7pGpoA5yF1Hyir71gibCKEE"
             },
             {
               "name": "Authorization",
-              "value": "Bearer YOUR_SUPABASE_SERVICE_ROLE_KEY"
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhZGViaG15eXdrY3F0eWF6eHhrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTY4NTAzNSwiZXhwIjoyMDk3MjYxMDM1fQ.m_FBVwQCgj9OWqz1dajV7pGpoA5yF1Hyir71gibCKEE"
             },
             {
               "name": "Content-Type",
@@ -197,7 +209,7 @@
             },
             {
               "name": "Prefer",
-              "value": "resolution=merge-duplicates"
+              "value": "resolution=ignore-duplicates"
             }
           ]
         },

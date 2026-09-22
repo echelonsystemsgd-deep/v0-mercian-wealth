@@ -11,7 +11,7 @@
  */
 
 var SUPABASE_URL = "https://ladebhmyywkcqtyazxxk.supabase.co";
-var SUPABASE_KEY = "YOUR_SUPABASE_SERVICE_ROLE_KEY";
+var SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhZGViaG15eXdrY3F0eWF6eHhrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTY4NTAzNSwiZXhwIjoyMDk3MjYxMDM1fQ.m_FBVwQCgj9OWqz1dajV7pGpoA5yF1Hyir71gibCKEE";
 
 /**
  * Webhook endpoint for n8n: Receives incoming scraped lead objects and appends to Sheet
@@ -63,11 +63,53 @@ function doPost(e) {
       ]);
     }
     
+    // Deduplication Protection: Collect all existing phones and names from the sheet
+    var existingPhones = {};
+    var existingNames = {};
+    var lastRow = sheet.getLastRow();
+    
+    if (lastRow > 1) {
+      var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+      var nameColIdx = -1;
+      var phoneColIdx = -1;
+      
+      for (var h = 0; h < headers.length; h++) {
+        var headerStr = String(headers[h]).toLowerCase().trim();
+        if (headerStr.indexOf('phone') !== -1) phoneColIdx = h;
+        if (headerStr.indexOf('business') !== -1 || headerStr === 'name') nameColIdx = h;
+      }
+      
+      if (nameColIdx === -1) nameColIdx = 0;
+      if (phoneColIdx === -1) phoneColIdx = 1;
+      
+      var existingData = sheet.getRange(2, 1, lastRow - 1, sheet.getLastColumn()).getValues();
+      for (var r = 0; r < existingData.length; r++) {
+        var rawExistingPhone = String(existingData[r][phoneColIdx] || '').replace(/[^0-9]/g, '');
+        var rawExistingName = String(existingData[r][nameColIdx] || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        if (rawExistingPhone) existingPhones[rawExistingPhone] = true;
+        if (rawExistingName) existingNames[rawExistingName] = true;
+      }
+    }
+    
     var itemsToInsert = Array.isArray(data) ? data : (data.leads && Array.isArray(data.leads) ? data.leads : [data]);
     var rows = [];
+    var skippedDuplicates = 0;
     
     for (var i = 0; i < itemsToInsert.length; i++) {
       var item = itemsToInsert[i];
+      var itemPhone = String(item['Phone'] || item.phone || '').replace(/[^0-9]/g, '');
+      var itemName = String(item['Business Name'] || item.business_name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+      
+      // STRICT SKIP: If phone or business name already exists in the sheet, do not re-add or overwrite!
+      if ((itemPhone && existingPhones[itemPhone]) || (itemName && existingNames[itemName])) {
+        skippedDuplicates++;
+        continue;
+      }
+      
+      // Register so duplicates in the same payload are also filtered
+      if (itemPhone) existingPhones[itemPhone] = true;
+      if (itemName) existingNames[itemName] = true;
+      
       rows.push([
         item['Business Name'] || item.business_name || '',
         item['Phone'] || item.phone || '',
@@ -93,8 +135,12 @@ function doPost(e) {
     
     lock.releaseLock();
     
-    return ContentService.createTextOutput(JSON.stringify({ status: 'success', inserted: rows.length, row: sheet.getLastRow() }))
-      .setMimeType(ContentService.MimeType.JSON);
+    return ContentService.createTextOutput(JSON.stringify({ 
+      status: 'success', 
+      inserted: rows.length, 
+      skipped_duplicates: skippedDuplicates,
+      total_rows: sheet.getLastRow() 
+    })).setMimeType(ContentService.MimeType.JSON);
   } catch (err) {
     return ContentService.createTextOutput(JSON.stringify({ status: 'error', error: err.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
