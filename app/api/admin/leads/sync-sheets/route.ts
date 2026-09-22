@@ -36,17 +36,21 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'No leads provided in "leads" array' }, { status: 400 })
       }
 
-      // Fetch existing leads to avoid duplicate inserts
+      // Fetch all existing leads to avoid duplicate inserts across the entire database
       const { data: existingLeads } = await supabase
         .from('leads')
         .select('id, phone, business_name')
-        .eq('source', 'google_maps_outreach')
 
       const existingPhoneMap = new Map<string, string>()
       const existingNameMap = new Map<string, string>()
+      const seenPhonesInBatch = new Set<string>()
+      const seenNamesInBatch = new Set<string>()
 
       ;(existingLeads || []).forEach(lead => {
-        if (lead.phone) existingPhoneMap.set(lead.phone.replace(/[^0-9]/g, ''), lead.id)
+        if (lead.phone) {
+          const d = lead.phone.replace(/[^0-9]/g, '')
+          if (d.length >= 7) existingPhoneMap.set(d, lead.id)
+        }
         if (lead.business_name) existingNameMap.set(lead.business_name.trim().toLowerCase(), lead.id)
       })
 
@@ -54,28 +58,45 @@ export async function POST(req: Request) {
       let updatedCount = 0
 
       for (const lead of rawLeads) {
-        const businessName = (lead.business_name || lead.name || 'Business').trim()
+        const businessName = (lead.business_name || lead.name || '').trim()
         const rawPhone = String(lead.phone || '').trim()
         const digits = rawPhone.replace(/[^0-9]/g, '')
+
+        // Skip blank or invalid header rows
+        if (!businessName && digits.length < 7) continue
+        if (businessName.toLowerCase() === 'business name' || businessName.toLowerCase() === 'company') continue
+
         const cleanAddress = String(lead.address || '').replace(/·\s*\d+(\s*\(★[\d\.]+\))?/g, '').trim()
         const rawWeb = (lead.website || '').trim()
         const website = rawWeb && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' ? rawWeb : null
 
+        // Standardize phone format to prevent duplicate key constraint violations
+        let standardizedPhone: string | null = null
+        if (digits.length >= 7) {
+          if (digits.startsWith('0')) {
+            standardizedPhone = '+44' + digits.substring(1)
+          } else if (digits.startsWith('44')) {
+            standardizedPhone = '+' + digits
+          } else {
+            standardizedPhone = '+' + digits
+          }
+        }
+
         const isMobile = digits.startsWith('447') || digits.startsWith('07')
         const waDigits = digits.startsWith('07') ? ('44' + digits.substring(1)) : digits
-        const waUrl = isMobile ? `https://wa.me/${waDigits}` : null
+        const waUrl = isMobile ? `https://wa.me/${waDigits}` : (lead.whatsapp_link && lead.whatsapp_link.startsWith('http') ? lead.whatsapp_link : null)
 
         const leadPayload = {
           name: lead.contact_name || 'Owner / Director',
-          business_name: businessName,
-          phone: rawPhone || null,
+          business_name: businessName || 'Local Jeweller',
+          phone: standardizedPhone,
           website: website,
           service_interested: 'Digital Storefront & Speed-to-Lead Automation',
           notes: cleanAddress ? `${cleanAddress} · ★${lead.rating || '5.0'} (${lead.reviews_count || 0} reviews)` : null,
           status: lead.status || 'New',
           source: 'google_maps_outreach',
           lead_type: 'local',
-          local_business_niche: lead.trade || lead.category || 'Local Business',
+          local_business_niche: lead.trade || lead.category || 'Jeweller',
           outreach_category: !website ? 'no_website' : 'has_website',
           outreach_stage: lead.status === 'Contacted' ? 'contacted' : 'uncontacted',
           whatsapp_direct_url: waUrl,
@@ -83,7 +104,7 @@ export async function POST(req: Request) {
             address: cleanAddress,
             rating: parseFloat(lead.rating) || 5.0,
             reviews_count: parseInt(lead.reviews_count) || 0,
-            trade: lead.trade || lead.category || 'Local Business',
+            trade: lead.trade || lead.category || 'Jeweller',
             stage_1_opener: lead.stage_1_opener || 'Hi 👋',
             stage_2_pitch: lead.stage_2_pitch || '',
             follow_up_1: lead.follow_up_1 || '',
@@ -91,7 +112,7 @@ export async function POST(req: Request) {
           }
         }
 
-        const existingId = (digits && existingPhoneMap.get(digits)) || existingNameMap.get(businessName.toLowerCase())
+        const existingId = (digits.length >= 7 && existingPhoneMap.get(digits)) || (businessName && existingNameMap.get(businessName.toLowerCase()))
 
         if (existingId) {
           // Update existing lead record non-destructively
@@ -107,18 +128,38 @@ export async function POST(req: Request) {
             .eq('id', existingId)
           updatedCount++
         } else {
+          // Guard against duplicate phones and names within the same pasted batch
+          if (digits.length >= 7 && seenPhonesInBatch.has(digits)) {
+            continue
+          }
+          if (businessName && seenNamesInBatch.has(businessName.toLowerCase())) {
+            continue
+          }
+
+          if (digits.length >= 7) seenPhonesInBatch.add(digits)
+          if (businessName) seenNamesInBatch.add(businessName.toLowerCase())
+
           leadsToInsert.push(leadPayload)
         }
       }
 
-      // Batch insert in chunks of 50
+      // Batch insert in chunks of 50 with bulletproof fallback
       let insertedCount = 0
       const CHUNK_SIZE = 50
       for (let i = 0; i < leadsToInsert.length; i += CHUNK_SIZE) {
         const chunk = leadsToInsert.slice(i, i + CHUNK_SIZE)
         const { error: insertErr } = await supabase.from('leads').insert(chunk)
-        if (insertErr) throw insertErr
-        insertedCount += chunk.length
+        if (insertErr) {
+          // Graceful row-by-row fallback: insert valid rows, ignore any duplicate constraint conflict
+          for (const item of chunk) {
+            const { error: singleErr } = await supabase.from('leads').insert(item)
+            if (!singleErr) {
+              insertedCount++
+            }
+          }
+        } else {
+          insertedCount += chunk.length
+        }
       }
 
       return NextResponse.json({

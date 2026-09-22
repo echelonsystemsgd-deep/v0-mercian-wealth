@@ -115,24 +115,31 @@ export function GoogleSheetSyncModal({
 
       const colName = isHeaderRow ? findCol(['business name', 'company', 'business', 'name']) : 0
       const colPhone = isHeaderRow ? findCol(['phone', 'tel', 'mobile']) : 1
-      const colRatingReviews = isHeaderRow ? findCol(['reviews & rating', 'rating & reviews', 'reviews']) : 4
-      const colWebsite = isHeaderRow ? findCol(['website', 'site', 'url']) : 5
-      const colAddress = isHeaderRow ? findCol(['address', 'location']) : 6
-      const colTrade = isHeaderRow ? findCol(['trade', 'category']) : 7
+      const colReviews = isHeaderRow ? findCol(['reviews', 'review count']) : 4
+      const colRating = isHeaderRow ? findCol(['rating', 'score', 'stars']) : 5
+      const colWebsite = isHeaderRow ? findCol(['website', 'site', 'url']) : 6
+      const colAddress = isHeaderRow ? findCol(['address', 'location']) : 7
+      const colTrade = isHeaderRow ? findCol(['trade', 'category', 'niche']) : 8
+      const colWhatsApp = isHeaderRow ? findCol(['whatsapp link', 'wa link', 'whatsapp']) : 3
+
+      const seenClientPhones = new Set<string>()
+      const seenClientNames = new Set<string>()
 
       const leads = dataRows.map(rowLine => {
         const cols = parseRow(rowLine)
         const businessName = (cols[colName >= 0 ? colName : 0] || '').trim()
         const rawPhone = (cols[colPhone >= 0 ? colPhone : 1] || '').trim()
-        const rawWeb = (cols[colWebsite >= 0 ? colWebsite : 5] || '').trim()
-        const rawAddr = (cols[colAddress >= 0 ? colAddress : 6] || '').trim()
-        const rawReviews = (cols[colRatingReviews >= 0 ? colRatingReviews : 4] || '').trim()
-        const rawTrade = (cols[colTrade >= 0 ? colTrade : 7] || 'Local Business').trim()
+        const rawWeb = (cols[colWebsite >= 0 ? colWebsite : 6] || '').trim()
+        const rawAddr = (cols[colAddress >= 0 ? colAddress : 7] || '').trim()
+        const rawReviews = (cols[colReviews >= 0 ? colReviews : 4] || '').trim()
+        const rawRating = (cols[colRating >= 0 ? colRating : 5] || '').trim()
+        const rawTrade = (cols[colTrade >= 0 ? colTrade : 8] || 'Jeweller').trim()
+        const rawWhatsApp = (cols[colWhatsApp >= 0 ? colWhatsApp : 3] || '').trim()
 
         // Extract rating & review count
         let rating = 5.0
         let reviewsCount = 0
-        const rMatch = rawReviews.match(/([0-5]\.[0-9]|[0-5])/)
+        const rMatch = rawRating.match(/([0-5]\.[0-9]|[0-5])/) || rawReviews.match(/([0-5]\.[0-9]|[0-5])/)
         if (rMatch) rating = parseFloat(rMatch[1])
         const revMatch = rawReviews.match(/(\d+)\s*reviews?/i) || rawReviews.match(/^(\d+)/)
         if (revMatch) reviewsCount = parseInt(revMatch[1], 10)
@@ -148,9 +155,23 @@ export function GoogleSheetSyncModal({
           rating,
           reviews_count: reviewsCount,
           trade: rawTrade,
+          whatsapp_link: rawWhatsApp.startsWith('http') ? rawWhatsApp : null,
           status: 'New'
         }
-      }).filter(l => l.business_name || l.phone)
+      }).filter(l => {
+        if (!l.business_name && !l.phone) return false
+        if (l.business_name.toLowerCase() === 'business name') return false
+
+        // Deduplicate locally in pasted batch
+        const phoneDigits = l.phone.replace(/[^0-9]/g, '')
+        const normName = l.business_name.toLowerCase()
+        if (phoneDigits.length >= 7 && seenClientPhones.has(phoneDigits)) return false
+        if (normName && seenClientNames.has(normName)) return false
+
+        if (phoneDigits.length >= 7) seenClientPhones.add(phoneDigits)
+        if (normName) seenClientNames.add(normName)
+        return true
+      })
 
       if (leads.length === 0) throw new Error('No valid lead rows could be extracted.')
 
