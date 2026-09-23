@@ -153,21 +153,34 @@ export function OutreachModal({
   // EXACT OUTREACH SCRIPTS (Full Standardized Framework)
   // ─────────────────────────────────────────────────────────────────────────────
 
+  const isJewellery = trade.includes('jewel') || trade.includes('diamond') || trade.includes('gold') || trade.includes('gem') || trade.includes('atelier') || trade.includes('watch')
+  const protoUrl = lead.prototype_url || (isJewellery
+    ? `https://veyra-premium-3-d-jewellery-e-comme.vercel.app/?client=${encodeURIComponent(businessName)}`
+    : demoUrl)
+
   // STAGE 1: CONFIRM + INTRO
   const ownerName = lead.name && lead.name !== lead.business_name && !lead.name.includes('Owner') ? lead.name.split(' ')[0] : ''
   const stage1Text =
     stage1Step === '1a_confirm'
       ? `Hi 👋, is this ${businessName}?`
+      : isJewellery
+      ? (!hasWebsite
+          ? `Hi 👋 Came across ${businessName} on Instagram — stunning work. Had a quick search for your website to view the full collection, couldn't find one. Do you take all your bespoke commissions through WhatsApp / Instagram directly?`
+          : `Hi 👋 Came across ${businessName} — love the craftsmanship in your pieces. Had a quick look through your site, had a small question about how you showcase your bespoke commissions online if you have 30 seconds?`)
       : stage1Step === '1b_no_website'
-      ? `Ah perfect 👍 I build websites for roofers, tradespeople, and construction businesses, and had a quick look but couldn't find a site for you — just WhatsApp/social by the looks of it.`
-      : `Ah perfect 👍 I build websites for roofers, tradespeople, and construction businesses, and had a quick look at yours, but ${customObservation.trim() || "it's not loading on mobile, throwing a server error, hasn't been touched since 2023"}.`
+      ? `Ah perfect 👍 I build websites for ${trade} businesses, and had a quick look but couldn't find a site for you — just WhatsApp/social by the looks of it.`
+      : `Ah perfect 👍 I build websites for ${trade} businesses, and had a quick look at yours, but ${customObservation.trim() || "it's not loading properly on mobile, throwing a server error, or hasn't been updated recently"}.`
 
   // STAGE 2: PAIN POINT + OUTCOME + PROTOTYPE OFFER (single combined message)
-  const tradeNoun = trade || 'tradesperson'
-  const stage2Text = `That's fine for now, but it means anyone who Googles a ${tradeNoun} in your area before messaging will land on a competitor's site instead of yours, even if you're the better choice. A proper site means people can find you, see your work, and message you straight away — more jobs landing in your inbox instead of going elsewhere first.\n\nHappy to put a free working example together for you, no cost, no obligation — built around how you already work, nothing generic.`
+  const tradeNoun = trade || 'business'
+  const stage2Text = isJewellery
+    ? (!hasWebsite
+        ? `The pieces look exceptional. We put together a private interactive 3D concept prototype showing how ${businessName} could showcase custom rings and bespoke pieces with a dedicated online storefront: ${protoUrl} — take a look when you have a moment, no pressure at all.`
+        : `Loved looking through your catalogue. We noticed that high-ticket bespoke jewellery often loses that in-person luxury feel on standard mobile galleries. We built an interactive 3D concept prototype demonstrating how ${businessName}'s collection could be presented: ${protoUrl} — thought you might enjoy seeing it.`)
+    : `That's fine for now, but it means anyone who Googles a ${tradeNoun} in your area before messaging will land on a competitor's site instead of yours, even if you're the better choice. A proper site means people can find you, see your work, and message you straight away — more jobs landing in your inbox instead of going elsewhere first.\n\nHappy to put a free working example together for you, no cost, no obligation — built around how you already work, nothing generic.`
 
   // STAGE 3: SEND THE SITE (once built, then wait)
-  const stage3Text = `Here you go 👇 ${demoUrl}\n\nHad a proper look at what you do and built it around that — your trade, your area, and a WhatsApp button so people can message you straight away instead of filling out a form. Have a look when you get a minute and let me know what you think.`
+  const stage3Text = `Here you go 👇 ${protoUrl}\n\nHad a proper look at what you do and built it around that — your trade, your area, and a WhatsApp button so people can message you straight away instead of filling out a form. Have a look when you get a minute and let me know what you think.`
 
   // FOLLOW-UPS (if no response after Stage 3)
   const followupText =
@@ -184,7 +197,9 @@ export function OutreachModal({
       : `No worries at all, appreciate you letting me know 👍 If that ever changes, feel free to reach out — all the best with the business!`
 
   // VOICE NOTE PROMPTER (15s)
-  const voiceNoteScript = `🎙️ 15-SECOND VOICE NOTE SCRIPT (Speak naturally):\n\n"Hey ${ownerName || 'mate'}, quick voice note — it's Gurtej from Mercian Wealth.\nHad a quick look for ${businessName} online and noticed you don't have a dedicated website up yet.\nPut together a free working prototype for you so you stop losing local ${tradeNoun} enquiries to competitors.\nSent you the link above, have a look when you get a minute off the tools and let me know what you think!"`
+  const voiceNoteScript = isJewellery
+    ? `🎙️ 15-SECOND VOICE NOTE SCRIPT (Speak naturally):\n\n"Hey ${ownerName || 'there'}, quick voice note — it's Gurtej from Mercian Wealth.\nHad a look at ${businessName}'s custom pieces online — exceptional craftsmanship.\nPut together a private interactive 3D concept prototype for you showing how custom rings can be showcased in full 3D.\nSent you the preview link above, take a look when you have a moment and let me know what you think!"`
+    : `🎙️ 15-SECOND VOICE NOTE SCRIPT (Speak naturally):\n\n"Hey ${ownerName || 'mate'}, quick voice note — it's Gurtej from Mercian Wealth.\nHad a quick look for ${businessName} online and noticed you don't have a dedicated website up yet.\nPut together a free working prototype for you so you stop losing local ${tradeNoun} enquiries to competitors.\nSent you the link above, have a look when you get a minute off the tools and let me know what you think!"`
 
   const currentMessageText =
     activeTab === 'stage1'
