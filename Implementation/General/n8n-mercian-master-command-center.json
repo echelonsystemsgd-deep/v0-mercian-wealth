@@ -25,13 +25,19 @@
             {
               "id": "field-query",
               "name": "query",
-              "value": "jewellers",
+              "value": "bespoke jewellers",
+              "type": "string"
+            },
+            {
+              "id": "field-execution-mode",
+              "name": "execution_mode",
+              "value": "single_city",
               "type": "string"
             },
             {
               "id": "field-location",
               "name": "location",
-              "value": "london",
+              "value": "Birmingham",
               "type": "string"
             },
             {
@@ -59,11 +65,25 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        400,
+        380,
         200
       ],
       "id": "node-edit-fields",
       "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "/**\n * OFFICIAL UK CITIES DIRECTORY & DISPATCHER (All 76 Cities)\n * England (55), Northern Ireland (6), Scotland (8), Wales (7)\n */\nconst config = $input.first().json;\nconst mode = config.execution_mode || 'single_city';\n\nconst allUkCities = [\n  // England\n  \"Bath\", \"Birmingham\", \"Bradford\", \"Brighton & Hove\", \"Bristol\", \"Cambridge\", \"Canterbury\", \"Carlisle\",\n  \"Chelmsford\", \"Chester\", \"Chichester\", \"Colchester\", \"Coventry\", \"Derby\", \"Doncaster\", \"Durham\",\n  \"Ely\", \"Exeter\", \"Gloucester\", \"Hereford\", \"Kingston-upon-Hull\", \"Lancaster\", \"Leeds\", \"Leicester\",\n  \"Lichfield\", \"Lincoln\", \"Liverpool\", \"London\", \"Manchester\", \"Milton Keynes\", \"Newcastle-upon-Tyne\",\n  \"Norwich\", \"Nottingham\", \"Oxford\", \"Peterborough\", \"Plymouth\", \"Portsmouth\", \"Preston\", \"Ripon\",\n  \"Salford\", \"Salisbury\", \"Sheffield\", \"Southampton\", \"Southend-on-Sea\", \"St Albans\", \"Stoke on Trent\",\n  \"Sunderland\", \"Truro\", \"Wakefield\", \"Wells\", \"Westminster\", \"Winchester\", \"Wolverhampton\", \"Worcester\", \"York\",\n  \n  // Northern Ireland\n  \"Armagh\", \"Bangor\", \"Belfast\", \"Lisburn\", \"Londonderry\", \"Newry\",\n  \n  // Scotland\n  \"Aberdeen\", \"Dundee\", \"Dunfermline\", \"Edinburgh\", \"Glasgow\", \"Inverness\", \"Perth\", \"Stirling\",\n  \n  // Wales\n  \"Bangor\", \"Cardiff\", \"Newport\", \"St Asaph\", \"St Davids\", \"Swansea\", \"Wrexham\"\n];\n\nconst topJewelleryHubs = [\n  \"Birmingham\", // Jewellery Quarter\n  \"London\", // Hatton Garden & Mayfair\n  \"Manchester\",\n  \"Edinburgh\",\n  \"Glasgow\",\n  \"Leeds\",\n  \"Bristol\",\n  \"Bath\",\n  \"York\",\n  \"Chester\",\n  \"Brighton & Hove\",\n  \"Cardiff\",\n  \"Belfast\"\n];\n\nlet targetList = [];\nif (mode === 'single_city') {\n  targetList = [config.location || 'Birmingham'];\n} else if (mode === 'top_jewellery_hubs') {\n  targetList = topJewelleryHubs;\n} else if (mode === 'all_uk_cities') {\n  targetList = allUkCities;\n} else {\n  targetList = [config.location || 'Birmingham'];\n}\n\nreturn targetList.map(city => ({\n  json: {\n    ...config,\n    location: city,\n    target_city: city\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        200
+      ],
+      "id": "node-cities-dispatcher",
+      "name": "UK Cities Directory & Dispatcher"
     },
     {
       "parameters": {
@@ -77,7 +97,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        620,
+        740,
         200
       ],
       "id": "node-get-coordinates",
@@ -106,7 +126,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ (() => {\n  const vars = $('Edit Fields').first().json;\n  const geo = $('Get Coordinates').first().json;\n  const geoItem = Array.isArray(geo) ? geo[0] : geo;\n  const payload = {\n    q: `${vars.query} in ${vars.location}`,\n    gl: 'gb',\n    hl: 'en'\n  };\n  if (geoItem && geoItem.lat && geoItem.lon) {\n    payload.ll = `@${geoItem.lat},${geoItem.lon},13z`;\n  }\n  return JSON.stringify(payload);\n})() }}",
+        "jsonBody": "={{ (() => {\n  const cityItem = $('UK Cities Directory & Dispatcher').item.json;\n  const geoItem = $json;\n  const geoData = Array.isArray(geoItem) ? geoItem[0] : geoItem;\n  const payload = {\n    q: `${cityItem.query || 'bespoke jewellers'} in ${cityItem.location}`,\n    gl: 'gb',\n    hl: 'en'\n  };\n  if (geoData && geoData.lat && geoData.lon) {\n    payload.ll = `@${geoData.lat},${geoData.lon},13z`;\n  }\n  return JSON.stringify(payload);\n})() }}",
         "options": {
           "timeout": 30000
         },
@@ -117,7 +137,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        840,
+        920,
         200
       ],
       "id": "node-get-places",
@@ -564,6 +584,17 @@
   ],
   "connections": {
     "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "UK Cities Directory & Dispatcher",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UK Cities Directory & Dispatcher": {
       "main": [
         [
           {
