@@ -44,8 +44,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { useScrollDirection } from "@/hooks/use-scroll-direction"
 
 export function Navbar() {
+  const { scrollDirection, isAtTop } = useScrollDirection({ threshold: 12, topThreshold: 60 })
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<"solutions" | "sandboxes" | null>(null)
@@ -159,7 +161,13 @@ export function Navbar() {
   }
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[100] flex flex-col font-sans pointer-events-none">
+    <div
+      className={`fixed top-0 left-0 right-0 z-[100] flex flex-col font-sans pointer-events-none transition-transform duration-300 ease-in-out ${
+        !isAtTop && scrollDirection === "down" && !isMobileMenuOpen
+          ? "-translate-y-full"
+          : "translate-y-0"
+      }`}
+    >
       
       {/* Top Telemetry Ticker (Pointers enabled) */}
       <div className="pointer-events-auto">

@@ -10,7 +10,7 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, subtitle, highlight }: PageHeaderProps) {
   return (
-    <section className="relative pt-32 pb-16 lg:pt-48 lg:pb-24 overflow-hidden bg-[#09090B]">
+    <section className="relative pt-36 pb-16 lg:pt-48 lg:pb-24 overflow-hidden bg-[#09090B]">
       {/* Background elements */}
       <div className="absolute inset-0 bg-[#09090B]" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-[#DCAE53]/30 to-transparent" />

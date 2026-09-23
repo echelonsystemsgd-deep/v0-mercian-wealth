@@ -11,7 +11,7 @@ export function Hero() {
   const data = SITE_COPY.homepage.hero
 
   return (
-    <section id="home" className="relative min-h-[80vh] flex items-center justify-center pt-24 sm:pt-32 lg:pt-36 pb-12 sm:pb-16 lg:pb-20 overflow-hidden bg-[#050505]">
+    <section id="home" className="relative min-h-[80vh] flex items-center justify-center pt-36 sm:pt-40 lg:pt-44 pb-12 sm:pb-16 lg:pb-20 overflow-hidden bg-[#050505]">
       {/* Ambient Geometric Bowtie Watermark Background */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] sm:w-[580px] sm:h-[580px] opacity-10 pointer-events-none z-0 rounded-full overflow-hidden blur-[1px]">
         <BrandLogo variant="watermark" fill className="object-cover" priority />

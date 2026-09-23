@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { usePathname } from "next/navigation"
 import { MessageSquare, X, Send, ShieldCheck } from "lucide-react"
+import { useScrollDirection } from "@/hooks/use-scroll-direction"
 
 interface WhatsAppButtonProps {
   phoneNumber?: string
@@ -15,6 +16,7 @@ export function WhatsAppButton({
   defaultMessage = "Hi Gurtej, I saw the Mercian Wealth platform and would like to discuss a free working prototype for my business.",
 }: WhatsAppButtonProps) {
   const pathname = usePathname()
+  const { scrollDirection, isAtTop, scrollY } = useScrollDirection({ threshold: 12, topThreshold: 180 })
   const [isOpen, setIsOpen] = useState(false)
   const [customText, setCustomText] = useState("")
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -50,8 +52,21 @@ export function WhatsAppButton({
   const messageToSend = customText.trim() || defaultMessage
   const formattedUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(messageToSend)}`
 
+  const isHidden = !isOpen && !isAtTop && scrollDirection === "down"
+  const isStickyBarActive = scrollY > 200 && scrollDirection === "up"
+
   return (
-    <div className="flex fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] sm:bottom-6 right-3 sm:right-6 z-40 flex-col items-end gap-3 font-sans pointer-events-auto">
+    <div
+      className={`flex fixed right-3 sm:right-6 z-40 flex-col items-end gap-3 font-sans transition-all duration-300 ease-in-out pointer-events-auto ${
+        isStickyBarActive
+          ? "bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] sm:bottom-6"
+          : "bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] sm:bottom-6"
+      } ${
+        isHidden
+          ? "translate-y-28 opacity-0 pointer-events-none"
+          : "translate-y-0 opacity-100 pointer-events-auto"
+      }`}
+    >
       {/* Premium Luxury Popup Card */}
       <AnimatePresence>
         {isOpen && (
@@ -73,7 +88,7 @@ export function WhatsAppButton({
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5 font-serif">
-                    Gurtej Gill · Mercian Wealth
+                    Gurtej Singh · Mercian Wealth
                     <ShieldCheck size={14} className="text-[#DAA640]" />
                   </h4>
                   <p className="text-[10px] sm:text-[11px] text-emerald-400 font-medium tracking-wide">

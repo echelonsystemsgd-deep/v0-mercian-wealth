@@ -51,7 +51,7 @@ export function WhyMercianWealth() {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-white text-base sm:text-lg">Gurtej Gill</span>
+                  <span className="font-bold text-white text-base sm:text-lg">Gurtej Singh</span>
                   <span className="text-[10px] font-mono text-[#DCAE53] bg-[#DCAE53]/10 px-2 py-0.5 rounded border border-[#DCAE53]/30">FOUNDER &amp; ARCHITECT</span>
                 </div>
                 <p className="text-xs text-zinc-400 font-mono">Bespoke Storefronts &amp; Direct Local Systems</p>

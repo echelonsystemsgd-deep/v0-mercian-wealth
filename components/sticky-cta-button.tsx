@@ -5,14 +5,16 @@ import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ChevronUp, PhoneCall, Calendar } from "lucide-react"
+import { useScrollDirection } from "@/hooks/use-scroll-direction"
 
 export function StickyCTAButton() {
   const pathname = usePathname()
+  const { scrollDirection } = useScrollDirection({ threshold: 12, topThreshold: 180 })
   const [scrolledPastHero, setScrolledPastHero] = useState(false)
   const [footerVisible, setFooterVisible] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  const isVisible = scrolledPastHero && !footerVisible && !isMobileMenuOpen
+  const isVisible = scrolledPastHero && !footerVisible && !isMobileMenuOpen && scrollDirection === "up"
 
   useEffect(() => {
     const checkMenu = () => {
