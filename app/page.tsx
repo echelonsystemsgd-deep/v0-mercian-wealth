@@ -15,7 +15,6 @@ import { PrototypeRequestModal } from "@/components/prototype-request-modal"
 import { ZeroDisruptionGuarantee } from "@/components/zero-disruption"
 import { FAQHome } from "@/components/faq-home"
 import { FloatingAiConcierge } from "@/components/floating-ai-concierge"
-import { FloatingWhatsAppPill } from "@/components/floating-whatsapp-pill"
 import { getPricingTiers } from "@/lib/pricing"
 import { Suspense } from "react"
 
@@ -159,9 +158,6 @@ export default async function Home() {
 
       {/* Bottom-Left Questions Assistant (Hidden on mobile <640px) */}
       <FloatingAiConcierge />
-
-      {/* Floating Direct WhatsApp Line Pill (Mobile & Desktop) */}
-      <FloatingWhatsAppPill />
     </main>
   )
 }
