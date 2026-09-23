@@ -26,13 +26,13 @@ import {
 
 const STATUS_OPTIONS = ['New', 'Contacted', 'Call Booked', 'Proposal Sent', 'Won', 'Lost', 'Spam']
 const STATUS_COLORS: Record<string, string> = {
-  New: 'bg-blue-500/15 text-blue-400 border-blue-500/25',
-  Contacted: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/25',
-  'Call Booked': 'bg-purple-500/15 text-purple-400 border-purple-500/25',
-  'Proposal Sent': 'bg-orange-500/15 text-orange-400 border-orange-500/25',
-  Won: 'bg-green-500/15 text-green-400 border-green-500/25',
-  Lost: 'bg-red-500/15 text-red-400 border-red-500/25',
-  Spam: 'bg-red-500/10 text-red-400/70 border-red-500/20',
+  New: 'bg-white/5 text-zinc-300 border-white/10',
+  Contacted: 'bg-amber-400/10 text-amber-400 border-amber-400/25',
+  'Call Booked': 'bg-[#DAA640]/10 text-[#DAA640] border-[#DAA640]/25',
+  'Proposal Sent': 'bg-[#DAA640]/10 text-[#DAA640] border-[#DAA640]/25',
+  Won: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25',
+  Lost: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
+  Spam: 'bg-zinc-800/50 text-zinc-500 border-white/5',
 }
 
 type Lead = {

@@ -403,7 +403,7 @@ export default function AdminMessageDesk() {
                       isActive 
                         ? 'bg-gold/10 border-gold/40 text-gold shadow-[0_0_8px_rgba(201,162,39,0.15)]' 
                         : conv.isUnread 
-                          ? 'bg-[#1A0A2E]/50 border-purple-500/30 text-purple-400' 
+                          ? 'bg-[#DAA640]/10 border-[#DAA640]/30 text-[#DAA640]' 
                           : 'bg-white/[0.02] border-white/5 text-muted-foreground/50'
                     }`}>
                       <FolderKanban size={16} />

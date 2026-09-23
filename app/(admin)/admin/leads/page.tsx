@@ -36,6 +36,7 @@ import {
   MoreHorizontal,
   Trophy,
   Calendar,
+  ArrowUpRight,
 } from 'lucide-react'
 import {
   DropdownMenu,
@@ -535,12 +536,12 @@ export default function LeadsPage() {
       {/* Motion Stats Grid (Obsidian / Rexora Standard with Metric Icons) */}
       <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
         {[
-          { key: 'New', label: 'Fresh Leads', dot: 'bg-zinc-400', icon: Inbox, iconColor: 'text-zinc-300', iconBg: 'bg-white/5' },
-          { key: 'Contacted', label: 'Contacted', dot: 'bg-amber-400', icon: MessageSquare, iconColor: 'text-amber-400', iconBg: 'bg-amber-400/10' },
-          { key: 'Call Booked', label: 'Call Booked', dot: 'bg-amber-400', icon: Calendar, iconColor: 'text-amber-400', iconBg: 'bg-amber-400/10' },
-          { key: 'Proposal Sent', label: 'Proposal Sent', dot: 'bg-amber-400', icon: Send, iconColor: 'text-amber-400', iconBg: 'bg-amber-400/10' },
-          { key: 'Won', label: 'Won Deals', dot: 'bg-emerald-400', icon: Trophy, iconColor: 'text-emerald-400', iconBg: 'bg-emerald-400/10' },
-          { key: 'Lost', label: 'Lost', dot: 'bg-rose-500', icon: XCircle, iconColor: 'text-rose-400', iconBg: 'bg-rose-500/10' },
+          { key: 'New', label: 'Fresh Leads', dot: 'bg-zinc-400', icon: Inbox, iconColor: 'text-zinc-300', iconBg: 'bg-white/5', trend: 'Uncontacted' },
+          { key: 'Contacted', label: 'Contacted', dot: 'bg-amber-400', icon: MessageSquare, iconColor: 'text-amber-400', iconBg: 'bg-amber-400/10', trend: 'Outreach Sent' },
+          { key: 'Call Booked', label: 'Call Booked', dot: 'bg-amber-400', icon: Calendar, iconColor: 'text-amber-400', iconBg: 'bg-amber-400/10', trend: 'Audit Set' },
+          { key: 'Proposal Sent', label: 'Proposal Sent', dot: 'bg-amber-400', icon: Send, iconColor: 'text-amber-400', iconBg: 'bg-amber-400/10', trend: 'Pending Sign' },
+          { key: 'Won', label: 'Won Deals', dot: 'bg-emerald-400', icon: Trophy, iconColor: 'text-emerald-400', iconBg: 'bg-emerald-400/10', trend: 'Retainer Active' },
+          { key: 'Lost', label: 'Lost', dot: 'bg-rose-500', icon: XCircle, iconColor: 'text-rose-400', iconBg: 'bg-rose-500/10', trend: 'Disqualified' },
         ].map((item) => {
           const Icon = item.icon
           const count = statusCounts[item.key] || 0
@@ -550,7 +551,7 @@ export default function LeadsPage() {
               type="button"
               key={item.key}
               onClick={() => toggleStatus(item.key)}
-              className={`p-4 sm:p-5 flex flex-col justify-between text-left transition-all cursor-pointer card-depth relative group min-h-[110px] ${
+              className={`p-4 sm:p-5 flex flex-col justify-between text-left transition-all cursor-pointer card-depth relative group min-h-[132px] ${
                 isSelected ? 'card-depth-active' : ''
               }`}
             >
@@ -558,15 +559,25 @@ export default function LeadsPage() {
                 <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-medium truncate">
                   {item.label}
                 </span>
-                <div className={`w-7 h-7 rounded-xl ${item.iconBg} border border-white/10 flex items-center justify-center shrink-0 ${item.iconColor} group-hover:scale-105 transition-transform`}>
-                  <Icon size={13} />
+                <div className={`w-8 h-8 rounded-xl ${item.iconBg} border border-white/10 flex items-center justify-center shrink-0 ${item.iconColor} group-hover:scale-105 transition-transform`}>
+                  <Icon size={14} />
                 </div>
               </div>
-              <div className="flex items-baseline justify-between mt-3">
-                <span className="text-2xl font-bold text-white font-sans">
+              <div className="my-1">
+                <span className="text-2xl font-bold text-white font-sans tracking-tight">
                   {count}
                 </span>
-                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.dot}`} />
+              </div>
+              <div className="flex items-center justify-between pt-2 border-t border-white/5 w-full">
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-zinc-400 truncate">
+                  <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.dot}`} />
+                  {item.trend}
+                </span>
+                <span className={`text-[10px] font-mono transition-colors flex items-center gap-0.5 ${
+                  isSelected ? 'text-[#DAA640] font-bold' : 'text-zinc-500 group-hover:text-zinc-300'
+                }`}>
+                  {isSelected ? 'Active' : 'Filter'} <ArrowUpRight size={10} />
+                </span>
               </div>
             </button>
           )

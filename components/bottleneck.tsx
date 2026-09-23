@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { AlertCircle, ShieldCheck } from "lucide-react"
+import { AlertCircle, ShieldCheck, TrendingDown, Clock, AlertTriangle, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { SITE_COPY } from "@/lib/site-copy"
@@ -50,7 +50,7 @@ export function Bottleneck() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 sm:mb-16 max-w-3xl mx-auto"
+          className="text-center mb-10 sm:mb-14 max-w-3xl mx-auto"
         >
           <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.25em] text-[#DAA640]">
             [ {data.eyebrow} ]
@@ -64,6 +64,59 @@ export function Bottleneck() {
           <p className="font-sans text-xs sm:text-sm text-[#DAA640] font-medium mt-3 max-w-2xl mx-auto">
             {data.goldSlogan}
           </p>
+        </motion.div>
+
+        {/* ── System Vulnerabilities Diagnostic Grid ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+          className="mb-12 sm:mb-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
+        >
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-rose-500/20 hover:border-rose-500/40 transition-all duration-300 shadow-lg">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] font-mono text-rose-400 font-bold uppercase tracking-wider">// 01 LATENCY ABANDONMENT</span>
+              <TrendingDown className="w-4 h-4 text-rose-400 shrink-0" />
+            </div>
+            <div className="text-3xl font-mono font-bold text-white mb-1 tracking-tight">42%</div>
+            <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
+              of high-intent local customer enquiries permanently bounce to competitors if not answered within 10 minutes.
+            </p>
+          </div>
+
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300 shadow-lg">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">// 02 SUNDAY NIGHT BLEED</span>
+              <Clock className="w-4 h-4 text-amber-400 shrink-0" />
+            </div>
+            <div className="text-3xl font-mono font-bold text-white mb-1 tracking-tight">75%+</div>
+            <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
+              of high-intent searches happen on mobile phones in evenings &amp; weekends when premises are closed.
+            </p>
+          </div>
+
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-rose-500/20 hover:border-rose-500/40 transition-all duration-300 shadow-lg">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] font-mono text-rose-400 font-bold uppercase tracking-wider">// 03 UNCOLLECTED DEPOSITS</span>
+              <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+            </div>
+            <div className="text-3xl font-mono font-bold text-white mb-1 tracking-tight">£3,000+</div>
+            <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
+              lost every single year to no-shows and uncommitted calendar bookings without upfront Stripe deposit locks.
+            </p>
+          </div>
+
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300 shadow-lg">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">// 04 MOBILE FRICTION</span>
+              <Zap className="w-4 h-4 text-amber-400 shrink-0" />
+            </div>
+            <div className="text-3xl font-mono font-bold text-white mb-1 tracking-tight">53%</div>
+            <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
+              of mobile visitors abandon if a site takes over 3 seconds to load on smartphone 4G/5G connections.
+            </p>
+          </div>
         </motion.div>
 
         {/* ── Visual + Cards side-by-side ── */}

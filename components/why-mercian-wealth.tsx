@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { RefreshCw, Landmark } from "lucide-react"
+import { RefreshCw, Landmark, MessageSquare, ShieldCheck, CheckCircle2, ArrowRight } from "lucide-react"
 import { SITE_COPY } from "@/lib/site-copy"
 import { BrandLogo } from "@/components/brand-logo"
 
@@ -37,27 +37,85 @@ export function WhyMercianWealth() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-10 sm:mb-14 p-4 sm:p-7 rounded-xl sm:rounded-2xl border border-slate-800/90 border-l-4 border-l-[#DCAE53] bg-[#111115] backdrop-blur-md shadow-2xl flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-8 text-left max-w-5xl mx-auto hover:border-slate-700/80 transition-colors"
+          className="mb-10 sm:mb-14 p-5 sm:p-8 rounded-2xl border border-slate-800/90 border-l-4 border-l-[#DCAE53] bg-[#111115] backdrop-blur-md shadow-2xl space-y-6 text-left max-w-5xl mx-auto hover:border-slate-700/80 transition-colors"
         >
-          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-[#18181F] border border-[#DCAE53]/30 p-2 shrink-0 shadow-lg relative overflow-hidden flex items-center justify-center">
-            <BrandLogo 
-              variant="watermark"
-              alt="Mercian Wealth Logo"
-              fill
-              className="object-contain p-1"
-            />
-          </div>
-          <div className="space-y-2 flex-1">
-            <div className="inline-flex items-center gap-2 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[9px] sm:text-[10px] font-mono text-[#DCAE53] uppercase tracking-wider font-bold">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#DCAE53]" />
-              <span>FOUNDER &amp; OPERATOR COMMITMENT</span>
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-white/10 pb-5">
+            <div className="flex items-center gap-3.5">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#18181F] border border-[#DCAE53]/30 p-2 shrink-0 shadow-lg relative overflow-hidden flex items-center justify-center">
+                <BrandLogo 
+                  variant="watermark"
+                  alt="Mercian Wealth Logo"
+                  fill
+                  className="object-contain p-1"
+                />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-white text-base sm:text-lg">Gurtej Gill</span>
+                  <span className="text-[10px] font-mono text-[#DCAE53] bg-[#DCAE53]/10 px-2 py-0.5 rounded border border-[#DCAE53]/30">FOUNDER &amp; ARCHITECT</span>
+                </div>
+                <p className="text-xs text-zinc-400 font-mono">Bespoke Storefronts &amp; Direct Local Systems</p>
+              </div>
             </div>
-            <h3 className="font-sans text-base sm:text-xl lg:text-2xl font-extrabold text-white leading-tight">
-              &quot;We don&apos;t talk about agents, models, or workflows — that&apos;s our job, not yours.&quot;
+
+            {/* Live Direct Line Status */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>DIRECT LINE ACTIVE · UK TIME</span>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <h3 className="font-sans text-lg sm:text-2xl font-extrabold text-white leading-tight">
+              &quot;We don&apos;t talk about code, agents, or frameworks — that&apos;s our job, not yours.&quot;
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
-              We talk about what changes for you: faster response times, fewer missed leads, more bookings closed, less time spent chasing admin. If a system doesn&apos;t save time, cut cost, grow revenue, or remove a risk, it doesn&apos;t go on your site.
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans max-w-3xl">
+              Every system is architected, tested, and deployed directly by the founder. No offshore hand-offs, no multi-week agency runarounds, and zero technical jargon. We talk strictly about measurable business outcomes: faster mobile speed-to-lead, upfront Stripe card deposits, and zero missed enquiries when your doors are shut.
             </p>
+          </div>
+
+          {/* Satisfaction Protocol & Guarantee Strip */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            <div className="p-3 rounded-xl bg-black/40 border border-white/10 flex items-start gap-2.5">
+              <CheckCircle2 size={16} className="text-[#DCAE53] shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-bold text-white font-sans">Satisfaction Protocol</p>
+                <p className="text-[11px] text-zinc-400 leading-snug">Unlimited revisions until live &amp; 100% satisfied.</p>
+              </div>
+            </div>
+
+            <div className="p-3 rounded-xl bg-black/40 border border-white/10 flex items-start gap-2.5">
+              <ShieldCheck size={16} className="text-[#DCAE53] shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-bold text-white font-sans">1-Job Payoff Anchor</p>
+                <p className="text-[11px] text-zinc-400 leading-snug">Securing just 1 or 2 jobs pays for the entire build.</p>
+              </div>
+            </div>
+
+            <div className="p-3 rounded-xl bg-black/40 border border-white/10 flex items-start gap-2.5">
+              <MessageSquare size={16} className="text-emerald-400 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-bold text-white font-sans">Direct WhatsApp Line</p>
+                <p className="text-[11px] text-zinc-400 leading-snug">Direct founder access with &lt;15 min priority response.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Row */}
+          <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
+            <a
+              href="https://wa.me/447851055929?text=Hi%20Gurtej%2C%20I%20saw%20the%20Mercian%20Wealth%20platform%20and%20would%20like%20to%20discuss%20a%20free%20working%20prototype%20for%20my%20business."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs sm:text-sm transition-all shadow-md cursor-pointer"
+            >
+              <MessageSquare size={15} />
+              <span>Message Gurtej on WhatsApp</span>
+              <ArrowRight size={14} />
+            </a>
+            <span className="text-[11px] font-mono text-zinc-500">
+              No commitment · Staged in 24–48 hours · 100% bespoke to your brand
+            </span>
           </div>
         </motion.div>
 

@@ -12,11 +12,11 @@ import { toast } from 'sonner'
 
 const STATUS_STEPS = ['Discovery', 'Design', 'Development', 'Revision', 'Complete']
 const STATUS_COLORS: Record<string, string> = {
-  Discovery: 'bg-blue-500/15 text-blue-400 border-blue-500/25',
-  Design: 'bg-purple-500/15 text-purple-400 border-purple-500/25',
-  Development: 'bg-orange-500/15 text-orange-400 border-orange-500/25',
-  Revision: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/25',
-  Complete: 'bg-green-500/15 text-green-400 border-green-500/25',
+  Discovery: 'bg-white/5 text-zinc-300 border-white/10',
+  Design: 'bg-white/5 text-zinc-300 border-white/10',
+  Development: 'bg-[#DAA640]/10 text-[#DAA640] border-[#DAA640]/25',
+  Revision: 'bg-amber-400/10 text-amber-400 border-amber-400/25',
+  Complete: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25',
 }
 
 type Project = {

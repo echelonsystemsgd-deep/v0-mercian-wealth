@@ -17,6 +17,7 @@ import {
   Loader2,
   Plus,
   ExternalLink,
+  ArrowUpRight,
 } from 'lucide-react'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -129,7 +130,7 @@ export function AdminKpiRow({
         {/* Revenue Realized */}
         <button
           onClick={() => togglePanel('sales')}
-          className={`card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[125px] relative group ${
+          className={`card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[132px] relative group ${
             expandedPanel === 'sales' ? 'card-depth-active' : ''
           }`}
         >
@@ -145,17 +146,21 @@ export function AdminKpiRow({
             <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
               £{totalSales.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
             </p>
-            <div className="flex items-center gap-1 mt-1 text-[10px] font-mono text-emerald-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span>Collected Funds</span>
-            </div>
+          </div>
+          <div className="flex items-center justify-between pt-2 border-t border-white/5 w-full">
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+              <TrendingUp size={10} /> Collected
+            </span>
+            <span className="text-[10px] font-mono text-zinc-500 group-hover:text-emerald-400 transition-colors flex items-center gap-0.5">
+              Ledger <ArrowUpRight size={10} />
+            </span>
           </div>
         </button>
 
         {/* Pipeline Value */}
         <button
           onClick={() => togglePanel('pipeline')}
-          className={`card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[125px] relative group ${
+          className={`card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[132px] relative group ${
             expandedPanel === 'pipeline' ? 'card-depth-active' : ''
           }`}
         >
@@ -171,17 +176,21 @@ export function AdminKpiRow({
             <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
               £{totalPipeline.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
             </p>
-            <div className="flex items-center gap-1 mt-1 text-[10px] font-mono text-[#DAA640]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" />
-              <span>Contracted Deal Volume</span>
-            </div>
+          </div>
+          <div className="flex items-center justify-between pt-2 border-t border-white/5 w-full">
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono text-[#DAA640] bg-[#DAA640]/10 px-1.5 py-0.5 rounded border border-[#DAA640]/20">
+              <TrendingUp size={10} /> Weighted
+            </span>
+            <span className="text-[10px] font-mono text-zinc-500 group-hover:text-[#DAA640] transition-colors flex items-center gap-0.5">
+              Pipeline <ArrowUpRight size={10} />
+            </span>
           </div>
         </button>
 
         {/* Inbound Leads */}
         <button
           onClick={() => handleOpenPreviewModal('leads')}
-          className="card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[125px] relative group"
+          className="card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[132px] relative group"
         >
           <div className="flex items-start justify-between w-full">
             <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
@@ -195,17 +204,21 @@ export function AdminKpiRow({
             <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
               {leadsCount ?? 0}
             </p>
-            <div className="flex items-center gap-1 mt-1 text-[10px] font-mono text-zinc-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
-              <span>Active Database</span>
-            </div>
+          </div>
+          <div className="flex items-center justify-between pt-2 border-t border-white/5 w-full">
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono text-zinc-300 bg-white/5 px-1.5 py-0.5 rounded border border-white/10">
+              Active CRM
+            </span>
+            <span className="text-[10px] font-mono text-zinc-500 group-hover:text-white transition-colors flex items-center gap-0.5">
+              Preview <ArrowUpRight size={10} />
+            </span>
           </div>
         </button>
 
         {/* Active Projects */}
         <button
           onClick={() => handleOpenPreviewModal('projects')}
-          className="card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[125px] relative group"
+          className="card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[132px] relative group"
         >
           <div className="flex items-start justify-between w-full">
             <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
@@ -219,17 +232,21 @@ export function AdminKpiRow({
             <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
               {projectsCount ?? 0}
             </p>
-            <div className="flex items-center gap-1 mt-1 text-[10px] font-mono text-emerald-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span>In Production</span>
-            </div>
+          </div>
+          <div className="flex items-center justify-between pt-2 border-t border-white/5 w-full">
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+              Production
+            </span>
+            <span className="text-[10px] font-mono text-zinc-500 group-hover:text-emerald-400 transition-colors flex items-center gap-0.5">
+              Inspect <ArrowUpRight size={10} />
+            </span>
           </div>
         </button>
 
         {/* Booked Audits */}
         <button
           onClick={() => handleOpenPreviewModal('bookings')}
-          className="card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[125px] relative group"
+          className="card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[132px] relative group"
         >
           <div className="flex items-start justify-between w-full">
             <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
@@ -243,17 +260,21 @@ export function AdminKpiRow({
             <p className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight truncate">
               {sessionsCount ?? 0}
             </p>
-            <div className="flex items-center gap-1 mt-1 text-[10px] font-mono text-amber-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-              <span>Strategy Sessions</span>
-            </div>
+          </div>
+          <div className="flex items-center justify-between pt-2 border-t border-white/5 w-full">
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded border border-amber-400/20">
+              Audits Set
+            </span>
+            <span className="text-[10px] font-mono text-zinc-500 group-hover:text-amber-400 transition-colors flex items-center gap-0.5">
+              Schedule <ArrowUpRight size={10} />
+            </span>
           </div>
         </button>
 
         {/* Monthly Retainers */}
         <button
           onClick={() => handleOpenPreviewModal('mrr')}
-          className="card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[125px] relative group"
+          className="card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[132px] relative group"
         >
           <div className="flex items-start justify-between w-full">
             <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 truncate">
@@ -267,10 +288,14 @@ export function AdminKpiRow({
             <p className="text-xl sm:text-2xl font-sans font-bold text-[#DAA640] tracking-tight truncate">
               £{projectedMRR.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
             </p>
-            <div className="flex items-center gap-1 mt-1 text-[10px] font-mono text-[#DAA640]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" />
-              <span>Recurring Retainers</span>
-            </div>
+          </div>
+          <div className="flex items-center justify-between pt-2 border-t border-white/5 w-full">
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono text-[#DAA640] bg-[#DAA640]/10 px-1.5 py-0.5 rounded border border-[#DAA640]/20">
+              <TrendingUp size={10} /> Retainers
+            </span>
+            <span className="text-[10px] font-mono text-zinc-500 group-hover:text-[#DAA640] transition-colors flex items-center gap-0.5">
+              Forecast <ArrowUpRight size={10} />
+            </span>
           </div>
         </button>
       </div>

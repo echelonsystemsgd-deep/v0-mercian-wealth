@@ -2,61 +2,68 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Check, Star, ShieldCheck, ArrowRight } from "lucide-react"
+import { Check, Star, ShieldCheck, ArrowRight, Sparkles, TrendingUp } from "lucide-react"
 
 export const LOCAL_PRICING_TIERS = [
   {
-    name: "Local Storefront",
-    tagline: "Essential Digital Presence",
-    setupPrice: "495",
-    retainerPrice: "99",
-    description: "A fast 3-page mobile website, Google Maps optimization, and automated review collection system.",
+    name: "Complete Asset Ownership",
+    tagline: "One-Off Capital Asset (Zero Agency Lock-In)",
+    setupPrice: "995",
+    retainerPrice: "12",
+    retainerPeriod: "/month optional hosting",
+    termsNote: "50% deposit (£497.50) · 50% on live launch & 100% satisfaction",
+    description: "100% asset ownership of your website code, domain, and customer database. Built for business owners wanting zero ongoing agency fees.",
     featured: false,
-    badge: null,
+    badge: "CAPITAL ASSET OWNERSHIP",
     features: [
-      "Custom Fast 3-Page Website",
-      "Google Business Profile Setup",
-      "Automated Google Review Engine",
-      "Click-to-Call & Location Maps",
-      "Discreet \"Built by Mercian Wealth\" Seal",
-      "Hosting & Maintenance Included",
+      "100% Code & Domain Asset Ownership",
+      "Fast 3 to 5 Page Mobile Digital Storefront",
+      "Google Business Profile & Local Maps Sync",
+      "Direct Click-to-WhatsApp & Calling Setup",
+      "Stripe or Bank Deposit Payout Integration",
+      "Optional £12/mo Edge Hosting & SSL Renewal",
+      "1-to-2 Client Orders Completely Pays Off Build",
     ],
-    ctaText: "Select Local Storefront",
+    ctaText: "Select Asset Ownership",
   },
   {
-    name: "Pro Quote & Deposit Engine",
-    tagline: "Complete Storefront & Automation",
-    setupPrice: "895",
+    name: "Fully Managed Growth Retainer",
+    tagline: "100% Hands-Off Managed Storefront",
+    setupPrice: "495",
     retainerPrice: "195",
-    description: "Your complete online quote & booking engine, upfront Stripe deposits, and instant WhatsApp alerts.",
+    retainerPeriod: "/month rolling retainer",
+    termsNote: "Reduced upfront build · Rolling monthly, cancel anytime",
+    description: "Best for busy owners who want zero tech headaches. Unlimited monthly stock & content updates handled via direct WhatsApp line within 24h.",
     featured: true,
-    badge: "RECOMMENDED FOR LOCAL BUSINESSES & SERVICES",
+    badge: "MOST POPULAR FOR LOCAL BUSINESSES",
     features: [
-      "Everything in Local Storefront",
-      "Interactive Quote & Service Package Configurator",
-      "Integrated Stripe Deposit Payments",
-      "Instant WhatsApp & SMS Phone Alerts",
-      "Automated Calendar & Booking Scheduler",
-      "Complimentary White-Labeling Option",
-      "Priority 24h Edits SLA",
+      "Complete Online Quote & Deposit Engine",
+      "Reduced £495 Upfront Build Cost",
+      "Unlimited WhatsApp Stock & Content Updates (24h SLA)",
+      "High-Speed Edge Cloud Hosting & SSL Included",
+      "Integrated Stripe Deposit & Card Payments",
+      "Continuous Local Google Ranking & SEO Tuning",
+      "Priority 24/7 Monitoring & Direct WhatsApp Channel",
     ],
-    ctaText: "Get Pro Quote Engine",
+    ctaText: "Get Fully Managed Retainer",
   },
   {
     name: "Full Local Domination",
     tagline: "Storefront + Multi-Branch & Marketing",
     setupPrice: "1,495",
     retainerPrice: "395",
-    description: "Everything in Pro Quote Engine plus multi-service architecture, custom CRM/Xero sync, and local Google Ads setup.",
+    retainerPeriod: "/month managed retainer",
+    termsNote: "Complete multi-channel infrastructure & advertising",
+    description: "Multi-service architecture, custom CRM/Xero sync, and local Google Ads campaign setup for high-volume trade and healthcare firms.",
     featured: false,
-    badge: null,
+    badge: "MULTI-LOCATION & EXPANSION",
     features: [
-      "Everything in Pro Quote Engine",
+      "Everything in Fully Managed Retainer",
       "Multi-Service / Multi-Location Setup",
       "Xero / QuickBooks UK Auto-Sync",
-      "Google Local Ads Campaign Setup",
+      "Google Local Ads Campaign Architecture",
       "100% White-Labeled Infrastructure",
-      "Dedicated Account Manager",
+      "Dedicated Account Manager & VIP SLA",
     ],
     ctaText: "Select Full Domination",
   },
@@ -68,16 +75,30 @@ export function LocalPricing() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/30 text-accent-gold text-xs font-mono font-bold uppercase tracking-wider mb-4">
             <ShieldCheck size={14} />
-            <span>Transparent Local Business Investment</span>
+            <span>Dual Commercial Pathways · Zero Surprises</span>
           </div>
           <h2 className="font-serif text-2xl sm:text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">
-            Accessible Pricing. Zero Surprises.
+            Accessible Pricing. Uncompromising ROI.
           </h2>
           <p className="text-base sm:text-lg text-text-secondary">
-            One-time setup fee for your custom digital build + accessible monthly retainer for hosting, security, and updates.
+            Choose complete asset ownership with zero agency lock-in, or a 100% hands-off managed growth retainer.
+          </p>
+        </div>
+
+        {/* Commercial Math Unit Economics Callout */}
+        <div className="mb-12 max-w-2xl mx-auto p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-accent-gold/15 via-[#161208] to-accent-gold/15 border border-accent-gold/40 text-center shadow-[0_0_25px_rgba(212,175,55,0.12)]">
+          <div className="flex items-center justify-center gap-2 text-accent-gold font-mono font-bold text-xs uppercase tracking-wider mb-1.5">
+            <Sparkles size={15} />
+            <span>The Commercial Math Guarantee</span>
+          </div>
+          <p className="text-white font-medium text-sm sm:text-base leading-snug">
+            &ldquo;Securing just 1 or 2 new client orders pays for the entire build. Everything after is pure profit.&rdquo;
+          </p>
+          <p className="text-xs text-text-secondary mt-1.5 font-mono">
+            Anchored against zero ongoing loss · Built to capture missed evening &amp; weekend mobile searches
           </p>
         </div>
 
@@ -97,7 +118,7 @@ export function LocalPricing() {
               }`}
             >
               {tier.badge && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-accent-gold text-black text-[10px] font-mono font-bold uppercase tracking-wider shadow-md">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-accent-gold text-black text-[10px] font-mono font-bold uppercase tracking-wider shadow-md whitespace-nowrap">
                   {tier.badge}
                 </div>
               )}
@@ -112,11 +133,16 @@ export function LocalPricing() {
                 <div className="mb-6 pb-6 border-b border-white/10">
                   <div className="flex items-baseline gap-1">
                     <span className="text-3xl sm:text-4xl font-mono font-bold text-white">£{tier.setupPrice}</span>
-                    <span className="text-xs text-text-secondary">one-time setup</span>
+                    <span className="text-xs text-text-secondary">one-time build</span>
                   </div>
                   <div className="mt-2 text-xs text-accent-gold font-mono font-semibold">
-                    + £{tier.retainerPrice}/month retainer
+                    + £{tier.retainerPrice}{tier.retainerPeriod}
                   </div>
+                  {tier.termsNote && (
+                    <div className="mt-1 text-[11px] text-text-secondary font-sans italic">
+                      {tier.termsNote}
+                    </div>
+                  )}
                 </div>
 
                 <p className="text-xs sm:text-sm text-text-secondary leading-relaxed mb-6 font-sans">
@@ -154,7 +180,7 @@ export function LocalPricing() {
 
         {/* Footnote */}
         <div className="mt-12 text-center text-xs text-text-secondary font-mono">
-          All local packages include dedicated hosting, SSL encryption, and direct phone/WhatsApp support.
+          All local packages include dedicated edge cloud hosting, SSL encryption, and direct phone/WhatsApp support.
         </div>
       </div>
     </section>
