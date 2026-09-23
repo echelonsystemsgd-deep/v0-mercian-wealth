@@ -194,8 +194,25 @@ export function OutreachModal({
       }
       setTicketValue(nicheProfile.defaultTicket)
       setMissedEnquiries(nicheProfile.missedDefault)
+      setSelectedText('')
+      setCopied(false)
+      setActiveTab('stage1')
+      setStage1Step('1a_confirm')
     }
   }, [lead?.id])
+
+  // Clear transient selection & copy state when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setSelectedText('')
+      setCopied(false)
+    }
+  }, [isOpen])
+
+  // Clear text selection when switching stages or sub-steps
+  useEffect(() => {
+    setSelectedText('')
+  }, [activeTab, stage1Step, qualifyStep, stage3Variant])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -276,7 +293,7 @@ export function OutreachModal({
 
   // STAGE 1: HOOK & OFFER
   const stage1ConfirmText = `Hi 👋, is this ${businessName}?`
-  const stage1AskStorefrontText = `Hi 👋 Came across ${businessName} — love your work.\n\nDo you have a website or storefront I could look at where you showcase your ${nicheProfile.coreOffering}?`
+  const stage1AskStorefrontText = `Great, thanks! Came across ${businessName} — love your work.\n\nDo you have a website or storefront I could look at where you showcase your ${nicheProfile.coreOffering}?`
   const stage1PitchPrototypeText = `I had a look around ${businessName} and that's actually what caught my attention. You've already got the reputation and the business behind it, but when someone discovers you online in the evening and wants to properly look through what you offer, there's no dedicated place for them to do that. They can't easily browse your work, understand what you offer, build confidence, and take the next step.\n\nIt’s not about having a website just to say you've got one. It's about making sure that when someone is already interested, you've got somewhere that presents your business properly, builds trust, and turns that interest into a deposit or confirmed booking.\n\nRather than just tell you what I mean, I'd be happy to put together a quick working prototype so you can actually see it on your phone.\n\nIt wouldn't be a finished website — just something to show how your ${nicheProfile.coreOffering} could be presented and how customers might browse, decide, and get in touch.\n\nCompletely free, no obligation at all. Want me to put one together for you?`
   const stage1BrokenText = `Hi 👋 Came across ${businessName} — love the craftsmanship in your work. Had a quick look at your site, but ${customObservation.trim() || "it's not loading properly on mobile, slow to respond, and hasn't been updated recently"}.\n\nWhen high-intent customers find you on their phone in the evening, they want to browse your work, build confidence, and book or enquire right then.\n\nRather than just tell you what I mean, I'd be happy to put together a quick working prototype so you can actually see it on your phone — completely free, no obligation at all. Want me to put one together for you?`
 
@@ -374,7 +391,7 @@ export function OutreachModal({
 
   const handleCopy = (overrideText?: string | React.MouseEvent) => {
     const customStr = typeof overrideText === 'string' ? overrideText : undefined
-    const textToCopy = customStr || (selectedText.trim() ? selectedText.trim() : currentMessageText)
+    const textToCopy = customStr || currentMessageText
     navigator.clipboard.writeText(textToCopy)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
@@ -383,7 +400,7 @@ export function OutreachModal({
   const handleSendWhatsApp = async (overrideText?: string | React.MouseEvent) => {
     if (!cleanDigits) return
     const customStr = typeof overrideText === 'string' ? overrideText : undefined
-    const textToSend = customStr || (selectedText.trim() ? selectedText.trim() : (activeTab === 'voice' ? stage1Text : currentMessageText))
+    const textToSend = customStr || (activeTab === 'voice' ? stage1Text : currentMessageText)
     const url = `https://wa.me/${cleanDigits}?text=${encodeURIComponent(textToSend)}`
     window.open(url, '_blank')
 

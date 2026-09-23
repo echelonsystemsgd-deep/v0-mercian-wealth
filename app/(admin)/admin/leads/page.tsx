@@ -1331,6 +1331,7 @@ export default function LeadsPage() {
 
       {/* DEDICATED OUTREACH COCKPIT MODAL */}
       <OutreachModal
+        key={outreachLead?.id || 'none'}
         isOpen={isOutreachOpen}
         onClose={() => setIsOutreachOpen(false)}
         lead={outreachLead}

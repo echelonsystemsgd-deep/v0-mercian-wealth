@@ -41,6 +41,17 @@ This plan addresses and permanently resolves all discrepancies in lead classific
   - **No Website Mode**: Standard Greenfield Luxury Local Storefront.
   - **Site Redesign Mode**: Extracts existing website URL, audits weaknesses, and builds a modern mobile-optimized conversion engine.
 
+### 7. Outreach Cockpit State Isolation & Cross-Lead Leaking Prevention
+- **Problem**: When an operator selected/highlighted text inside the message prompter (e.g. for *BillandBerts*), `selectedText` remained persisted in component state. Opening a completely different lead (e.g. *evajewelery*) retained the previous lead's yellow `SELECTED` snippet bar. Furthermore, clicking the main `[Copy Script]` or `[Send via WhatsApp]` buttons erroneously defaulted to copying/sending the stale selection snippet instead of the full script for the new lead.
+- **Fix**:
+  - In `app/(admin)/admin/leads/page.tsx`, keyed `<OutreachModal key={outreachLead?.id || 'none'}>` to guarantee React completely unmounts and remounts the modal on lead switch with brand-new clean state.
+  - In `components/admin/outreach-modal.tsx`, added `useEffect` reset hooks ensuring `selectedText`, `copied`, and sub-step stages reset immediately on `lead?.id` change, modal close (`!isOpen`), and step/tab transitions.
+  - Decoupled `handleCopy` and `handleSendWhatsApp` from `selectedText` so that main action buttons always copy/send the complete stage script unless specifically invoked from the dedicated "Copy Selection" or "Send Selection" buttons.
+
+### 8. Conversational Flow Naturalization (Double "Hi 👋" Elimination)
+- **Problem**: In Stage 1 Playbook, Step 1A opens with *"Hi 👋, is this [Business]?"*. Once confirmed with *"Yes"*, Step 1B redundantly repeated *"Hi 👋 Came across [Business] — love your work..."*, creating an unnatural, robotic double-greeting sequence in live WhatsApp chats.
+- **Fix**: Updated Step 1B to naturally acknowledge confirmation: *"Great, thanks! Came across [Business] — love your work.\n\nDo you have a website or storefront I could look at where you showcase your [coreOffering]?"*.
+
 ---
 
 ## Execution Steps
@@ -49,4 +60,6 @@ This plan addresses and permanently resolves all discrepancies in lead classific
 3. Update `components/admin/antigravity-prompt-modal.tsx` with dual-mode build prompts.
 4. Update `Implementation/General/n8n-lead-finder-machine.json` and `n8n-uk-lead-finder.json` with strict qualification parameters.
 5. Clean up corrupted data records in Supabase (reset Leeways Roofing & Cleaning to `New` with sanitized metadata).
-6. Verify code compiles with `npx tsc --noEmit` (0 errors) and test dev server.
+6. Implement `OutreachModal` state isolation, cross-lead reset hooks, and keying.
+7. Naturalize Stage 1B script opener to eliminate robotic double greeting.
+8. Verify code compiles with `npx tsc --noEmit` (0 errors) and Next.js production build (`npm run build`).
