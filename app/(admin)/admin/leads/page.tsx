@@ -1025,15 +1025,15 @@ export default function LeadsPage() {
                       <span>WhatsApp</span>
                     </button>
 
-                    {/* Secondary Action: Pitch Demo */}
-                    <button
-                      onClick={() => handleOpenPrompt(lead)}
+                    {/* Secondary Action: Open Workspace */}
+                    <Link
+                      href={`/admin/leads/${lead.id}`}
                       className="py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 font-medium text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
-                      title="Open Demo Site and Outreach Pitch"
+                      title="Open Lead Workspace"
                     >
-                      <Laptop size={13} />
-                      <span>Demo</span>
-                    </button>
+                      <ArrowUpRight size={13} />
+                      <span>Open</span>
+                    </Link>
 
                     {/* Overflow Menu: Radix Dropdown */}
                     <DropdownMenu>
@@ -1075,12 +1075,11 @@ export default function LeadsPage() {
                           <Send size={12} className="text-zinc-400" />
                           <span>Multi-Stage Pitch</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onClick={() => handleInspectLead(lead.id)}
-                          className="cursor-pointer text-xs flex items-center gap-2 focus:bg-white/10 focus:text-white"
-                        >
-                          <Info size={12} className="text-zinc-400" />
-                          <span>Inspect Lead Details</span>
+                         <DropdownMenuItem asChild className="cursor-pointer text-xs flex items-center gap-2 focus:bg-white/10 focus:text-white">
+                          <Link href={`/admin/leads/${lead.id}`}>
+                            <Info size={12} className="text-zinc-400" />
+                            <span>Open Workspace</span>
+                          </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator className="bg-white/10" />
                         <DropdownMenuItem
@@ -1120,10 +1119,10 @@ export default function LeadsPage() {
 
                   <div className="space-y-2.5 flex-1 overflow-y-auto max-h-[500px] scrollbar-thin">
                     {columnLeads.map((lead) => (
-                      <div
+                      <Link
                         key={lead.id}
-                        onClick={() => handleOpenOutreach(lead)}
-                        className="p-3 rounded-xl border border-white/5 bg-[#141417] hover:border-white/15 transition-all cursor-pointer space-y-2.5"
+                        href={`/admin/leads/${lead.id}`}
+                        className="p-3 rounded-xl border border-white/5 bg-[#141417] hover:border-white/15 transition-all cursor-pointer space-y-2.5 block"
                       >
                         <div>
                           <h4 className="font-semibold text-xs text-white line-clamp-1">{lead.business_name || lead.name}</h4>
@@ -1132,6 +1131,7 @@ export default function LeadsPage() {
                         <div className="flex items-center justify-between pt-2 border-t border-white/5">
                           <button
                             onClick={(e) => {
+                              e.preventDefault()
                               e.stopPropagation()
                               handleQuickWhatsApp(lead)
                             }}
@@ -1139,9 +1139,9 @@ export default function LeadsPage() {
                           >
                             <MessageSquare size={10} /> WhatsApp
                           </button>
-                          <span className="text-[10px] font-medium text-[#DAA640] flex items-center gap-1"><Send size={9} /> Pitch</span>
+                          <span className="text-[10px] font-medium text-[#DAA640] flex items-center gap-1"><ArrowUpRight size={9} /> Open</span>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -1229,9 +1229,12 @@ export default function LeadsPage() {
                         <td className="px-4 py-3.5">
                           <div className="space-y-1">
                             <div className="flex items-center gap-1.5">
-                              <span className="font-semibold text-sm text-white hover:text-[#DAA640] transition-colors">
+                              <Link
+                                href={`/admin/leads/${lead.id}`}
+                                className="font-semibold text-sm text-white hover:text-[#DAA640] transition-colors"
+                              >
                                 {lead.business_name || lead.name}
-                              </span>
+                              </Link>
                               {lead.status === 'Won' && (
                                 <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                                   <span className="w-1 h-1 rounded-full bg-emerald-400" /> WON
@@ -1304,6 +1307,13 @@ export default function LeadsPage() {
                         {/* Actions */}
                         <td className="px-4 py-3.5 text-right" onClick={(e) => e.stopPropagation()}>
                           <div className="flex items-center justify-end gap-1.5">
+                            <Link
+                              href={`/admin/leads/${lead.id}`}
+                              className="px-2.5 py-1 rounded-lg bg-[#DAA640]/15 hover:bg-[#DAA640]/25 text-[#DAA640] border border-[#DAA640]/30 text-[10px] font-semibold transition-all cursor-pointer inline-flex items-center gap-1"
+                              title="Open Lead Workspace"
+                            >
+                              <ArrowUpRight size={10} /> Open
+                            </Link>
                             <button
                               onClick={() => handleOpenPrompt(lead)}
                               className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 text-[10px] font-medium transition-all cursor-pointer"
