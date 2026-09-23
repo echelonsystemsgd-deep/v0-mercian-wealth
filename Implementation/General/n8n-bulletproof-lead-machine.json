@@ -87,28 +87,6 @@
     },
     {
       "parameters": {
-        "url": "=https://nominatim.openstreetmap.org/search?q={{ encodeURIComponent($json.location) }}&format=json&limit=1",
-        "options": {
-          "headers": {
-            "User-Agent": "MercianWealth-LeadFinder/1.0"
-          }
-        }
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        2048,
-        2736
-      ],
-      "id": "3fe954d8-7cfd-4118-87f3-e5c31d26fedb",
-      "name": "Get Coordinates",
-      "retryOnFail": true,
-      "maxTries": 3,
-      "waitBetweenTries": 1500,
-      "continueOnFail": true
-    },
-    {
-      "parameters": {
         "method": "POST",
         "url": "https://google.serper.dev/maps",
         "sendHeaders": true,
@@ -116,7 +94,7 @@
           "parameters": [
             {
               "name": "X-API-KEY",
-              "value": "={{ $('Edit Fields').first().json.Serper_API_Key }}"
+              "value": "={{ $json.Serper_API_Key || $('Edit Fields').first().json.Serper_API_Key }}"
             },
             {
               "name": "Content-Type",
@@ -126,7 +104,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ (() => {\n  const cityItem = $('UK Cities Directory & Dispatcher').item.json;\n  const geoItem = $json;\n  const geoData = Array.isArray(geoItem) ? geoItem[0] : geoItem;\n  const payload = {\n    q: `${cityItem.query || 'bespoke jewellers'} in ${cityItem.location}`,\n    gl: 'gb',\n    hl: 'en'\n  };\n  if (geoData && geoData.lat && geoData.lon) {\n    payload.ll = `@${geoData.lat},${geoData.lon},13z`;\n  }\n  return JSON.stringify(payload);\n})() }}",
+        "jsonBody": "={{ JSON.stringify({\n  q: `${$json.query || 'bespoke jewellers'} in ${$json.location}`,\n  gl: 'gb',\n  hl: 'en'\n}) }}",
         "options": {
           "timeout": 30000
         },
@@ -137,7 +115,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2240,
+        2112,
         2736
       ],
       "id": "80917a25-d7d9-4941-b3da-6ad6e580484b",
@@ -576,17 +554,6 @@
       ]
     },
     "UK Cities Directory & Dispatcher": {
-      "main": [
-        [
-          {
-            "node": "Get Coordinates",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get Coordinates": {
       "main": [
         [
           {
