@@ -83,7 +83,7 @@ export function OutreachModal({
   >('1a_confirm')
   const [pitchScenario, setPitchScenario] = useState<'general' | 'linktree' | 'password'>('general')
   const [selectedText, setSelectedText] = useState('')
-  const [qualifyStep, setQualifyStep] = useState<'all' | 'q1' | 'q2' | 'q3' | 'q4'>('all')
+  const [qualifyStep, setQualifyStep] = useState<'all' | 'intro' | 'q1' | 'q2' | 'q3' | 'q4' | 'q5'>('all')
   const [stage3Variant, setStage3Variant] = useState<'both' | 'option1' | 'option2'>('both')
   const [customObservation, setCustomObservation] = useState('')
 
@@ -349,30 +349,45 @@ export function OutreachModal({
       ? stage1LinktreeText
       : stage1PasswordText
 
-  // STAGE 2: SEND PROTOTYPE
-  const stage2Text = `Hi ${ownerName || 'there'},\n\nI’ve put together that prototype for ${businessName} so you can see firsthand how this would work for your business:\n\n👉 ${protoUrl}\n\nRather than a generic template, I engineered it specifically around how high-intent customers make buying decisions today:\n\n1. Captures Evening & Mobile Traffic: Over 75% of local searches in ${city} happen on mobile phones outside normal working hours. Customers can explore your exact ${nicheProfile.offeringBenefits} and build trust before contacting you.\n2. Direct Action & Deposit Locks: Customers can ${nicheProfile.keyAction1} or secure their slot instantly with an upfront ${nicheProfile.depositPercentage} so you stop time-wasters.\n3. Sub-Second Speed: Built to load in under 400ms on 4G/5G phones with zero friction or clunky forms.\n\n(Note: The photos and items currently on there are realistic placeholders just to show you the layout and customer journey).\n\nWhen it comes to taking this live, we work around whatever fits your schedule best:\n• If you want full ownership, we build it, hand over the keys completely, and you have zero monthly agency lock-in.\n• If you prefer a hands-off managed setup, you just WhatsApp us photos and prices of new ${nicheProfile.itemsOrJobs} as they come in, and we handle all uploads, updates, and maintenance for you.\n\nHave a browse through on your phone and let me know how you find it 👍`
-
-  // STAGE 3: REVENUE LEAKAGE QUALIFYING FRAMEWORK
+  // STAGE 2: REVENUE LEAKAGE QUALIFYING FRAMEWORK (Run before building/delivering prototype)
   const closedContext = isJewellery ? 'the showroom is closed / shop is shut' : isContractor ? "you're off the tools" : 'your premises are closed'
   const freeTimeContext = isJewellery ? 'between showroom clients' : isContractor ? 'off the tools' : 'with a spare minute'
 
-  const q1Text = `Before we talk about the build, just to understand the economics of your business — roughly what is an average ${nicheProfile.ticketLabel} worth to you in revenue or gross margin?`
-  const q2Text = `Right now, over 75% of high-intent searches in ${city} happen on smartphones in the evening or on weekends when ${closedContext}. When someone discovers ${businessName} on Sunday at 9 PM, what actually happens? Can they explore your work and lock in a consultation, or do they bounce to whoever answers online first?`
-  const q3Text = `Realistically, how many potential high-ticket enquiries do you think slip through the cracks each month simply because there's no fast digital storefront capturing them outside working hours?\n\n(Math Anchor: ${missedEnquiries} missed ${nicheProfile.itemsOrJobs} × £${ticketValue.toLocaleString()} = £${monthlyBleed.toLocaleString()}/month or £${annualBleed.toLocaleString()}/year in leaking revenue).`
-  const q4Text = `So if having this dedicated system captures literally ONE single customer over the next 90 days that would have otherwise gone to a competitor — that completely pays off the entire project, and everything after that is pure profit, right?`
+  const qualifyIntroText = `Brilliant. Before I put it together on my end — I don't build generic cookie-cutter templates. I engineer each system specifically around the exact customer journey and economics of ${businessName}.\n\nQuick 2-minute diagnostic so I get the prototype 100% dialled in for you:`
 
-  const qualifyFullText = `🔥 4-QUESTION REVENUE LEAKAGE DIAGNOSTIC (Run before presenting price):\n\n1. Question 1 (Ticket Anchor):\n"${q1Text}"\n→ Target: "Around £${ticketValue.toLocaleString()}"\n\n2. Question 2 (Sunday Evening Reality):\n"${q2Text}"\n→ Target: "They probably bounce / message someone else / wait until Monday"\n\n3. Question 3 (Quantifying Monthly Bleed):\n"${q3Text}"\n→ Target: "Probably 2 or 3 a month" (£${monthlyBleed.toLocaleString()}/mo | £${annualBleed.toLocaleString()}/year loss)\n\n4. Question 4 (The 1-Job Payoff Pre-Close):\n"${q4Text}"\n→ Target: "Yeah, absolutely."\n\n[Prospect has now pre-closed themselves before seeing the £995 or £495 price tag].`
+  const q1Text = isDiamond || isJewellery
+    ? `1. What's your primary high-ticket focus right now — is it bespoke commissions / engagement rings, or finished showroom stock? And roughly what is an average commission/order worth to you in gross revenue?`
+    : `1. What's your primary high-ticket focus right now — is it bespoke commissions / installations, or smaller general work? And roughly what is an average ${nicheProfile.ticketLabel} worth to you in gross revenue?`
+
+  const q2Text = isDiamond || isJewellery
+    ? `2. When a client wants to discuss a bespoke ring or high-value piece, do they currently just send a DM or drop in, or do you have a dedicated private showroom consultation booking where they can secure their slot or pay a holding deposit?`
+    : `2. When a client wants to discuss a high-value project, do they currently just message back and forth, or do you have a dedicated booking system with a holding deposit to lock in surveys and eliminate no-shows?`
+
+  const q3Text = `3. Right now, over 75% of high-intent searches in ${city} happen on smartphones in the evening or on weekends when ${closedContext}.\n\nWhen someone discovers ${businessName} on Sunday at 9 PM, what actually happens? Can they explore your work, build confidence, and lock in a consultation, or do they bounce to whoever answers online first?`
+
+  const q4Text = `4. Realistically, how many potential high-ticket enquiries or clients do you think slip through the cracks each month simply because there's no fast digital storefront capturing them outside working hours?\n\n(Math Anchor: ${missedEnquiries} missed ${nicheProfile.itemsOrJobs} × £${ticketValue.toLocaleString()} = £${monthlyBleed.toLocaleString()}/month or £${annualBleed.toLocaleString()}/year in leaking revenue).`
+
+  const q5Text = `5. So if having this dedicated system captures literally ONE single customer over the next 90 days that would have otherwise gone to a competitor — that completely pays off the entire project, and everything after that is pure profit, right?`
+
+  const qualifyFullText = `🔥 REVENUE LEAKAGE DIAGNOSTIC (Run before delivering prototype):\n\n${qualifyIntroText}\n\n1. Question 1 (High-Ticket Focus & Ticket Anchor):\n"${q1Text}"\n→ Target: "Mainly bespoke commissions, around £${ticketValue.toLocaleString()}"\n\n2. Question 2 (Booking & Commitment Model):\n"${q2Text}"\n→ Target: "They usually just DM / drop by, we don't have a deposit system"\n\n3. Question 3 (Sunday Evening Reality):\n"${q3Text}"\n→ Target: "They probably bounce / message someone else / wait until Monday"\n\n4. Question 4 (Quantifying Monthly Bleed):\n"${q4Text}"\n→ Target: "Probably 2 or 3 a month" (£${monthlyBleed.toLocaleString()}/mo | £${annualBleed.toLocaleString()}/year loss)\n\n5. Question 5 (The 1-Job Payoff Pre-Close):\n"${q5Text}"\n→ Target: "Yeah, absolutely."\n\n[Prospect has now pre-closed themselves on the commercial ROI before seeing the £995 or £495 build fee].`
 
   const qualifyText =
     qualifyStep === 'all'
       ? qualifyFullText
+      : qualifyStep === 'intro'
+      ? qualifyIntroText
       : qualifyStep === 'q1'
       ? q1Text
       : qualifyStep === 'q2'
       ? q2Text
       : qualifyStep === 'q3'
       ? q3Text
-      : q4Text
+      : qualifyStep === 'q4'
+      ? q4Text
+      : q5Text
+
+  // STAGE 3: SEND PROTOTYPE (Delivered once diagnostic answers are received)
+  const stage2Text = `Hi ${ownerName || 'there'},\n\nI’ve put together that bespoke prototype for ${businessName} so you can see firsthand how this would work for your business:\n\n👉 ${protoUrl}\n\nRather than a generic template, I engineered it specifically around how high-intent clients make buying decisions today:\n\n1. Captures Evening & Mobile Traffic: Over 75% of local searches in ${city} happen on mobile phones outside normal working hours. Clients can explore your exact ${nicheProfile.offeringBenefits} and build trust before contacting you.\n2. Direct Action & Deposit Locks: Clients can ${nicheProfile.keyAction1} or secure their slot instantly with an upfront ${nicheProfile.depositPercentage} so you eliminate no-shows and time-wasters.\n3. Sub-Second Speed: Built to load in under 400ms on 4G/5G mobile phones with zero friction or clunky forms.\n\n(Note: The photos and items currently on there are realistic placeholders just to show you the layout and customer journey).\n\nWhen it comes to taking this live, we work around whatever fits your schedule best:\n• If you want full ownership, we build it, hand over the keys completely, and you have zero monthly agency lock-in.\n• If you prefer a hands-off managed setup, you just WhatsApp us photos and prices of new ${nicheProfile.itemsOrJobs} as they come in, and we handle all uploads, updates, and maintenance for you.\n\nHave a browse through on your phone and let me know how you find it 👍`
 
   // STAGE 4: DUAL PRICING PITCH
   const pricingOption1Text = `Option 1: Complete Asset Ownership (One-Off Investment)\nBest if you want a permanent asset with zero ongoing agency fees.\n\n• Build Fee: £995 one-off (or £495 for Essential 3-page builds)\n• Payment Terms: 50% initial deposit (£497.50) to begin uploading your actual photos/content and configuring payment payouts; remaining 50% only when the site is fully live and you are 100% satisfied.\n• 100% Asset Ownership: You own the website code, domain, and customer data completely.\n• Domain & Running Fees: You can manage your own domain/hosting, or if you prefer me to manage edge cloud servers & SSL renewals, it's just £12/month (or £120/year).\n• The Commercial Math: Securing just ${nicheProfile.theMath} pays for the entire build fee. Everything after that is pure profit.`
@@ -396,10 +411,10 @@ export function OutreachModal({
   const currentMessageText =
     activeTab === 'stage1'
       ? stage1Text
-      : activeTab === 'stage2'
-      ? stage2Text
       : activeTab === 'qualify'
       ? qualifyText
+      : activeTab === 'stage2'
+      ? stage2Text
       : activeTab === 'stage3'
       ? stage3Text
       : activeTab === 'stage4'
@@ -421,12 +436,22 @@ export function OutreachModal({
         : stage1Step === '1e_linktree'
         ? 'Stage 1 · 1E Linktree / Social-Only Hook'
         : 'Stage 1 · 1F Password-Locked Store Hook'
-      : activeTab === 'stage2'
-      ? 'Stage 2 · Deliver Working Prototype'
       : activeTab === 'qualify'
       ? qualifyStep === 'all'
-        ? 'Stage 3 · Full Leakage Diagnostic'
-        : `Stage 3 · ${qualifyStep.toUpperCase()} Question`
+        ? 'Stage 2 · Full Leakage Diagnostic'
+        : qualifyStep === 'intro'
+        ? 'Stage 2 · Diagnostic Hook'
+        : qualifyStep === 'q1'
+        ? 'Stage 2 · Q1 High-Ticket Focus'
+        : qualifyStep === 'q2'
+        ? 'Stage 2 · Q2 Booking & Deposit'
+        : qualifyStep === 'q3'
+        ? 'Stage 2 · Q3 Sunday Evening Reality'
+        : qualifyStep === 'q4'
+        ? 'Stage 2 · Q4 Monthly Bleed Loss'
+        : 'Stage 2 · Q5 1-Job Pre-Close'
+      : activeTab === 'stage2'
+      ? 'Stage 3 · Deliver Bespoke Prototype'
       : activeTab === 'stage3'
       ? stage3Variant === 'both'
         ? 'Stage 4 · Dual Pricing Pitch'
@@ -434,10 +459,10 @@ export function OutreachModal({
         ? 'Stage 4 · Option 1 Asset Ownership'
         : 'Stage 4 · Option 2 Managed Retainer'
       : activeTab === 'stage4'
-      ? 'Stage 5 · 3-Step Onboarding'
+      ? 'Stage 5 · 3-Step Frictionless Onboarding'
       : activeTab === 'stage5'
       ? 'Stage 6 · 48h Machiavellian Scarcity'
-      : 'Voice Note Prompter'
+      : 'Voice Note Prompter (15s)'
 
   const handleCopy = (overrideText?: string | React.MouseEvent) => {
     const customStr = typeof overrideText === 'string' ? overrideText : undefined
@@ -612,10 +637,10 @@ export function OutreachModal({
             </div>
 
             {/* Sequence Tabs Bar */}
-            <div className="grid grid-cols-3 sm:grid-cols-7 gap-1 p-1 rounded-xl bg-[#141417] border border-white/5">
+            <div className="flex items-center gap-1.5 p-1.5 rounded-xl bg-[#141417] border border-white/5 overflow-x-auto scrollbar-none sm:grid sm:grid-cols-7 sm:overflow-visible">
               <button
                 onClick={() => setActiveTab('stage1')}
-                className={`py-2 px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center truncate ${
+                className={`py-2 px-2.5 sm:px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center shrink-0 sm:shrink min-w-[76px] sm:min-w-0 ${
                   activeTab === 'stage1'
                     ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
@@ -624,30 +649,30 @@ export function OutreachModal({
                 1. Hook
               </button>
               <button
+                onClick={() => setActiveTab('qualify')}
+                className={`py-2 px-2.5 sm:px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1 shrink-0 sm:shrink min-w-[85px] sm:min-w-0 ${
+                  activeTab === 'qualify'
+                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold shadow-[0_0_12px_rgba(245,158,11,0.2)]'
+                    : 'text-amber-400/80 hover:text-amber-300 hover:bg-amber-500/10'
+                }`}
+                title="Mandatory Diagnostic: Qualify Leakage before delivering prototype!"
+              >
+                <Flame size={12} className="text-amber-400 shrink-0" />
+                <span>2. Qualify</span>
+              </button>
+              <button
                 onClick={() => setActiveTab('stage2')}
-                className={`py-2 px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center truncate ${
+                className={`py-2 px-2.5 sm:px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center shrink-0 sm:shrink min-w-[88px] sm:min-w-0 ${
                   activeTab === 'stage2'
                     ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                 }`}
               >
-                2. Prototype
-              </button>
-              <button
-                onClick={() => setActiveTab('qualify')}
-                className={`py-2 px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1 truncate ${
-                  activeTab === 'qualify'
-                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold shadow-[0_0_12px_rgba(245,158,11,0.2)]'
-                    : 'text-amber-400/80 hover:text-amber-300 hover:bg-amber-500/10'
-                }`}
-                title="Mandatory Diagnostic: Qualify Leakage before pricing!"
-              >
-                <Flame size={12} className="text-amber-400 shrink-0" />
-                <span className="truncate">3. Qualify</span>
+                3. Prototype
               </button>
               <button
                 onClick={() => setActiveTab('stage3')}
-                className={`py-2 px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center truncate ${
+                className={`py-2 px-2.5 sm:px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center shrink-0 sm:shrink min-w-[78px] sm:min-w-0 ${
                   activeTab === 'stage3'
                     ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
@@ -657,7 +682,7 @@ export function OutreachModal({
               </button>
               <button
                 onClick={() => setActiveTab('stage4')}
-                className={`py-2 px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center truncate ${
+                className={`py-2 px-2.5 sm:px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center shrink-0 sm:shrink min-w-[80px] sm:min-w-0 ${
                   activeTab === 'stage4'
                     ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
@@ -667,7 +692,7 @@ export function OutreachModal({
               </button>
               <button
                 onClick={() => setActiveTab('stage5')}
-                className={`py-2 px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center truncate ${
+                className={`py-2 px-2.5 sm:px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center shrink-0 sm:shrink min-w-[78px] sm:min-w-0 ${
                   activeTab === 'stage5'
                     ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
@@ -677,7 +702,7 @@ export function OutreachModal({
               </button>
               <button
                 onClick={() => setActiveTab('voice')}
-                className={`py-2 px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1 truncate ${
+                className={`py-2 px-2.5 sm:px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1 shrink-0 sm:shrink min-w-[72px] sm:min-w-0 ${
                   activeTab === 'voice'
                     ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
@@ -690,10 +715,10 @@ export function OutreachModal({
             {/* TAB 1: HOOK SUB-SELECTORS */}
             {activeTab === 'stage1' && (
               <div className="space-y-2.5">
-                <div className="flex flex-wrap gap-1.5 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs">
+                <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs overflow-x-auto scrollbar-none sm:flex-wrap">
                   <button
                     onClick={() => setStage1Step('1a_confirm')}
-                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                       stage1Step === '1a_confirm'
                         ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
@@ -703,7 +728,7 @@ export function OutreachModal({
                   </button>
                   <button
                     onClick={() => setStage1Step('1b_ask')}
-                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                       stage1Step === '1b_ask'
                         ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
@@ -713,7 +738,7 @@ export function OutreachModal({
                   </button>
                   <button
                     onClick={() => setStage1Step('1c_pitch')}
-                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                       stage1Step === '1c_pitch'
                         ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
@@ -723,7 +748,7 @@ export function OutreachModal({
                   </button>
                   <button
                     onClick={() => setStage1Step('1d_broken')}
-                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                       stage1Step === '1d_broken'
                         ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
@@ -733,7 +758,7 @@ export function OutreachModal({
                   </button>
                   <button
                     onClick={() => setStage1Step('1e_linktree')}
-                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                       stage1Step === '1e_linktree'
                         ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
@@ -743,7 +768,7 @@ export function OutreachModal({
                   </button>
                   <button
                     onClick={() => setStage1Step('1f_password')}
-                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                       stage1Step === '1f_password'
                         ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
@@ -755,14 +780,14 @@ export function OutreachModal({
 
                 {/* Scenario switcher for 1C: Pitch Prototype */}
                 {stage1Step === '1c_pitch' && (
-                  <div className="flex flex-wrap items-center gap-1.5 p-2 rounded-xl bg-black/40 border border-white/5 text-xs">
+                  <div className="flex items-center gap-1.5 p-2 rounded-xl bg-black/40 border border-white/5 text-xs overflow-x-auto scrollbar-none sm:flex-wrap">
                     <span className="text-muted-foreground text-[10px] uppercase font-mono tracking-wider shrink-0 mr-1">
                       Prospect Reply:
                     </span>
                     <button
                       type="button"
                       onClick={() => setPitchScenario('general')}
-                      className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all cursor-pointer ${
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                         pitchScenario === 'general'
                           ? 'bg-[#DAA640] text-black font-semibold'
                           : 'bg-white/5 hover:bg-white/10 text-zinc-300'
@@ -773,7 +798,7 @@ export function OutreachModal({
                     <button
                       type="button"
                       onClick={() => setPitchScenario('linktree')}
-                      className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all cursor-pointer ${
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                         pitchScenario === 'linktree'
                           ? 'bg-[#DAA640] text-black font-semibold'
                           : 'bg-white/5 hover:bg-white/10 text-zinc-300'
@@ -784,7 +809,7 @@ export function OutreachModal({
                     <button
                       type="button"
                       onClick={() => setPitchScenario('password')}
-                      className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all cursor-pointer ${
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                         pitchScenario === 'password'
                           ? 'bg-[#DAA640] text-black font-semibold'
                           : 'bg-white/5 hover:bg-white/10 text-zinc-300'
@@ -844,21 +869,16 @@ export function OutreachModal({
               </div>
             )}
 
-            {/* TAB 2: PROTOTYPE PROTOCOL */}
-            {activeTab === 'stage2' && (
-              <div className="space-y-2.5">
-                <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
-                  <span>
-                    <strong>Stage 2 Protocol:</strong> Send the live prototype link highlighting Evening Mobile Traffic, Direct Action & Deposit Locks, and Sub-Second Speed.
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* TAB 3: REVENUE LEAKAGE DIAGNOSTIC & CALCULATOR */}
+            {/* TAB 2: REVENUE LEAKAGE DIAGNOSTIC & CALCULATOR (STAGE 2) */}
             {activeTab === 'qualify' && (
               <div className="space-y-3">
+                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-center gap-2">
+                  <Flame size={14} className="shrink-0 text-amber-400" />
+                  <span>
+                    <strong>Stage 2 Diagnostic Protocol:</strong> When they say &ldquo;Yes&rdquo; to the prototype, run this 2-minute diagnostic BEFORE building or sending the link. Anchor their high-ticket economics and get them to pre-close themselves!
+                  </span>
+                </div>
+
                 {/* Interactive Revenue Leakage Diagnostic Engine */}
                 <div className="p-3.5 rounded-xl bg-gradient-to-br from-amber-500/10 via-[#181512] to-amber-500/5 border border-amber-500/30 space-y-3">
                   <div className="flex items-center justify-between">
@@ -931,70 +951,102 @@ export function OutreachModal({
                 </div>
 
                 {/* Sub-steps Selector */}
-                <div className="flex flex-wrap gap-1.5 p-1 rounded-lg bg-[#141417] border border-white/5 text-xs">
+                <div className="flex items-center gap-1.5 p-1 rounded-lg bg-[#141417] border border-white/5 text-xs overflow-x-auto scrollbar-none sm:flex-wrap">
                   <button
                     onClick={() => setQualifyStep('all')}
-                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                       qualifyStep === 'all'
                         ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
                         : 'text-muted-foreground hover:text-white'
                     }`}
                   >
-                    Full 4-Step Walkthrough
+                    Full 5-Question Diagnostic
+                  </button>
+                  <button
+                    onClick={() => setQualifyStep('intro')}
+                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
+                      qualifyStep === 'intro'
+                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                        : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    Diagnostic Hook
                   </button>
                   <button
                     onClick={() => setQualifyStep('q1')}
-                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                       qualifyStep === 'q1'
                         ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
                         : 'text-muted-foreground hover:text-white'
                     }`}
                   >
-                    Q1: Ticket Anchor
+                    Q1: Ticket Focus
                   </button>
                   <button
                     onClick={() => setQualifyStep('q2')}
-                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                       qualifyStep === 'q2'
                         ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
                         : 'text-muted-foreground hover:text-white'
                     }`}
                   >
-                    Q2: Sunday Evening
+                    Q2: Booking & Deposit
                   </button>
                   <button
                     onClick={() => setQualifyStep('q3')}
-                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                       qualifyStep === 'q3'
                         ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
                         : 'text-muted-foreground hover:text-white'
                     }`}
                   >
-                    Q3: Monthly Bleed
+                    Q3: Sunday Evening
                   </button>
                   <button
                     onClick={() => setQualifyStep('q4')}
-                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                       qualifyStep === 'q4'
                         ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
                         : 'text-muted-foreground hover:text-white'
                     }`}
                   >
-                    Q4: 1-Job Pre-Close
+                    Q4: Monthly Bleed
+                  </button>
+                  <button
+                    onClick={() => setQualifyStep('q5')}
+                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
+                      qualifyStep === 'q5'
+                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                        : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    Q5: 1-Job Payoff
                   </button>
                 </div>
               </div>
             )}
 
-            {/* TAB 4: DUAL PRICING SUB-SELECTORS */}
+            {/* TAB 3: PROTOTYPE PROTOCOL (STAGE 3) */}
+            {activeTab === 'stage2' && (
+              <div className="space-y-2.5">
+                <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
+                  <span>
+                    <strong>Stage 3 Prototype Protocol:</strong> Deliver the bespoke prototype link tailored around their diagnostic answers. Highlights Evening Mobile Traffic, Direct Action & Deposit Locks, and Sub-Second Speed.
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 4: DUAL PRICING SUB-SELECTORS (STAGE 4) */}
             {activeTab === 'stage3' && (
               <div className="space-y-2.5">
-                <div className="flex flex-wrap gap-2 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs">
+                <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs overflow-x-auto scrollbar-none sm:flex-wrap">
                   <button
                     onClick={() => setStage3Variant('both')}
-                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                       stage3Variant === 'both'
-                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30'
+                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
                     }`}
                   >
@@ -1002,9 +1054,9 @@ export function OutreachModal({
                   </button>
                   <button
                     onClick={() => setStage3Variant('option1')}
-                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                       stage3Variant === 'option1'
-                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30'
+                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
                     }`}
                   >
@@ -1012,9 +1064,9 @@ export function OutreachModal({
                   </button>
                   <button
                     onClick={() => setStage3Variant('option2')}
-                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
                       stage3Variant === 'option2'
-                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30'
+                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
                     }`}
                   >
@@ -1129,7 +1181,7 @@ export function OutreachModal({
                 </div>
               )}
 
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/5">
+              <div className="flex flex-wrap items-center justify-end gap-2 pt-2 border-t border-white/5">
                 <button
                   onClick={handleCopy}
                   className="px-3 py-2 rounded-lg border border-white/10 hover:border-[#DAA640]/30 bg-white/5 hover:bg-[#DAA640]/10 text-xs font-medium text-foreground flex items-center gap-1.5 transition-all cursor-pointer"
@@ -1139,7 +1191,7 @@ export function OutreachModal({
                 </button>
 
                 {cleanDigits && (
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     {isLandline && (
                       <a
                         href={`tel:${lead.phone}`}
