@@ -78,7 +78,8 @@ export function OutreachModal({
   >('stage1')
 
   // Sub-step states
-  const [stage1Step, setStage1Step] = useState<'1a_confirm' | '1b_hook' | '1b_broken'>('1a_confirm')
+  const [stage1Step, setStage1Step] = useState<'1a_confirm' | '1b_ask' | '1c_pitch' | '1d_broken'>('1a_confirm')
+  const [selectedText, setSelectedText] = useState('')
   const [qualifyStep, setQualifyStep] = useState<'all' | 'q1' | 'q2' | 'q3' | 'q4'>('all')
   const [stage3Variant, setStage3Variant] = useState<'both' | 'option1' | 'option2'>('both')
   const [customObservation, setCustomObservation] = useState('')
@@ -274,12 +275,19 @@ export function OutreachModal({
   // ─────────────────────────────────────────────────────────────────────────────
 
   // STAGE 1: HOOK & OFFER
+  const stage1ConfirmText = `Hi 👋, is this ${businessName}?`
+  const stage1AskStorefrontText = `Hi 👋 Came across ${businessName} — love your work.\n\nDo you have a website or storefront I could look at where you showcase your ${nicheProfile.coreOffering}?`
+  const stage1PitchPrototypeText = `I had a look around ${businessName} and that's actually what caught my attention. You've already got the reputation and the business behind it, but when someone discovers you online in the evening and wants to properly look through what you offer, there's no dedicated place for them to do that. They can't easily browse your work, understand what you offer, build confidence, and take the next step.\n\nIt’s not about having a website just to say you've got one. It's about making sure that when someone is already interested, you've got somewhere that presents your business properly, builds trust, and turns that interest into a deposit or confirmed booking.\n\nRather than just tell you what I mean, I'd be happy to put together a quick working prototype so you can actually see it on your phone.\n\nIt wouldn't be a finished website — just something to show how your ${nicheProfile.coreOffering} could be presented and how customers might browse, decide, and get in touch.\n\nCompletely free, no obligation at all. Want me to put one together for you?`
+  const stage1BrokenText = `Hi 👋 Came across ${businessName} — love the craftsmanship in your work. Had a quick look at your site, but ${customObservation.trim() || "it's not loading properly on mobile, slow to respond, and hasn't been updated recently"}.\n\nWhen high-intent customers find you on their phone in the evening, they want to browse your work, build confidence, and book or enquire right then.\n\nRather than just tell you what I mean, I'd be happy to put together a quick working prototype so you can actually see it on your phone — completely free, no obligation at all. Want me to put one together for you?`
+
   const stage1Text =
     stage1Step === '1a_confirm'
-      ? `Hi 👋, is this ${businessName}?`
-      : stage1Step === '1b_broken'
-      ? `Hi 👋 Came across ${businessName} — love the craftsmanship in your work. Had a quick look at your site, but ${customObservation.trim() || "it's not loading properly on mobile, slow to respond, and hasn't been updated recently"}.\n\nWhen high-intent customers find you on their phone in the evening, they want to browse your work, build confidence, and book or enquire right then.\n\nRather than just tell you what I mean, I'd be happy to put together a quick working prototype so you can actually see it on your phone — completely free, no obligation at all. Want me to put one together for you?`
-      : `Hi 👋 Came across ${businessName} — love your work.\n\nDo you have a website or storefront I could look at where you showcase your ${nicheProfile.coreOffering}?\n\n(Wait for them to respond: "No / just social / visit shop")\n\nI had a look around ${businessName} and that's actually what caught my attention. You've already got the reputation and the business behind it, but when someone discovers you online in the evening and wants to properly look through what you offer, there's no dedicated place for them to do that. They can't easily browse your work, understand what you offer, build confidence, and take the next step.\n\nIt’s not about having a website just to say you've got one. It's about making sure that when someone is already interested, you've got somewhere that presents your business properly, builds trust, and turns that interest into a deposit or confirmed booking.\n\nRather than just tell you what I mean, I'd be happy to put together a quick working prototype so you can actually see it on your phone.\n\nIt wouldn't be a finished website — just something to show how your ${nicheProfile.coreOffering} could be presented and how customers might browse, decide, and get in touch.\n\nCompletely free, no obligation at all. Want me to put one together for you?`
+      ? stage1ConfirmText
+      : stage1Step === '1b_ask'
+      ? stage1AskStorefrontText
+      : stage1Step === '1c_pitch'
+      ? stage1PitchPrototypeText
+      : stage1BrokenText
 
   // STAGE 2: SEND PROTOTYPE
   const stage2Text = `Hi ${ownerName || 'there'},\n\nI’ve put together that prototype for ${businessName} so you can see firsthand how this would work for your business:\n\n👉 ${protoUrl}\n\nRather than a generic template, I engineered it specifically around how high-intent customers make buying decisions today:\n\n1. Captures Evening & Mobile Traffic: Over 75% of local searches in ${city} happen on mobile phones outside normal working hours. Customers can explore your exact ${nicheProfile.offeringBenefits} and build trust before contacting you.\n2. Direct Action & Deposit Locks: Customers can ${nicheProfile.keyAction1} or secure their slot instantly with an upfront ${nicheProfile.depositPercentage} so you stop time-wasters.\n3. Sub-Second Speed: Built to load in under 400ms on 4G/5G phones with zero friction or clunky forms.\n\n(Note: The photos and items currently on there are realistic placeholders just to show you the layout and customer journey).\n\nWhen it comes to taking this live, we work around whatever fits your schedule best:\n• If you want full ownership, we build it, hand over the keys completely, and you have zero monthly agency lock-in.\n• If you prefer a hands-off managed setup, you just WhatsApp us photos and prices of new ${nicheProfile.itemsOrJobs} as they come in, and we handle all uploads, updates, and maintenance for you.\n\nHave a browse through on your phone and let me know how you find it 👍`
@@ -341,9 +349,11 @@ export function OutreachModal({
     activeTab === 'stage1'
       ? stage1Step === '1a_confirm'
         ? 'Stage 1 · 1A Confirm Name'
-        : stage1Step === '1b_hook'
-        ? 'Stage 1 · 1B Core Hook & Offer'
-        : 'Stage 1 · 1B Outdated/Broken Site Hook'
+        : stage1Step === '1b_ask'
+        ? 'Stage 1 · 1B Ask For Storefront'
+        : stage1Step === '1c_pitch'
+        ? 'Stage 1 · 1C Pitch Working Prototype'
+        : 'Stage 1 · 1D Outdated/Broken Site Hook'
       : activeTab === 'stage2'
       ? 'Stage 2 · Deliver Working Prototype'
       : activeTab === 'qualify'
@@ -362,20 +372,32 @@ export function OutreachModal({
       ? 'Stage 6 · 48h Machiavellian Scarcity'
       : 'Voice Note Prompter'
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(currentMessageText)
+  const handleCopy = (overrideText?: string | React.MouseEvent) => {
+    const customStr = typeof overrideText === 'string' ? overrideText : undefined
+    const textToCopy = customStr || (selectedText.trim() ? selectedText.trim() : currentMessageText)
+    navigator.clipboard.writeText(textToCopy)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const handleSendWhatsApp = async () => {
+  const handleSendWhatsApp = async (overrideText?: string | React.MouseEvent) => {
     if (!cleanDigits) return
-    const textToSend = activeTab === 'voice' ? stage1Text : currentMessageText
+    const customStr = typeof overrideText === 'string' ? overrideText : undefined
+    const textToSend = customStr || (selectedText.trim() ? selectedText.trim() : (activeTab === 'voice' ? stage1Text : currentMessageText))
     const url = `https://wa.me/${cleanDigits}?text=${encodeURIComponent(textToSend)}`
     window.open(url, '_blank')
 
     if (lead.status === 'New' && isMobile) {
       await onUpdateStatus(lead.id, 'Contacted')
+    }
+  }
+
+  const handleTextSelection = () => {
+    if (typeof window !== 'undefined') {
+      const sel = window.getSelection()?.toString() || ''
+      if (sel.trim().length > 0) {
+        setSelectedText(sel.trim())
+      }
     }
   }
 
@@ -606,35 +628,45 @@ export function OutreachModal({
                     onClick={() => setStage1Step('1a_confirm')}
                     className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                       stage1Step === '1a_confirm'
-                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30'
+                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
                     }`}
                   >
                     1A. Confirm Name
                   </button>
                   <button
-                    onClick={() => setStage1Step('1b_hook')}
+                    onClick={() => setStage1Step('1b_ask')}
                     className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
-                      stage1Step === '1b_hook'
-                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30'
+                      stage1Step === '1b_ask'
+                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
                     }`}
                   >
-                    1B. Hook & Free Prototype Offer
+                    1B. Ask For Storefront
                   </button>
                   <button
-                    onClick={() => setStage1Step('1b_broken')}
+                    onClick={() => setStage1Step('1c_pitch')}
                     className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
-                      stage1Step === '1b_broken'
-                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30'
+                      stage1Step === '1c_pitch'
+                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
                     }`}
                   >
-                    1B. Hook (Outdated / Broken Site)
+                    1C. Pitch Free Prototype
+                  </button>
+                  <button
+                    onClick={() => setStage1Step('1d_broken')}
+                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                      stage1Step === '1d_broken'
+                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
+                        : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    1D. Outdated/Broken Site
                   </button>
                 </div>
 
-                {stage1Step === '1b_broken' && (
+                {stage1Step === '1d_broken' && (
                   <div className="flex items-center gap-2 p-2.5 rounded-xl bg-[#141417] border border-white/10 text-xs">
                     <span className="text-muted-foreground shrink-0 font-medium text-[11px]">Specific Observation:</span>
                     <input
@@ -650,7 +682,7 @@ export function OutreachModal({
                 <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
                   <span>
-                    <strong>Stage 1 Protocol:</strong> Send <strong>1A</strong> and wait for their confirmation. Once confirmed, send <strong>1B</strong> to propose the free working prototype.
+                    <strong>Stage 1 Conversational Flow:</strong> Send <strong>1A</strong> (Confirm Name). When confirmed, send <strong>1B</strong> (Ask for storefront). When they reply &ldquo;No / just social / visit shop&rdquo;, send <strong>1C</strong> (Pitch working prototype).
                   </span>
                 </div>
               </div>
@@ -880,7 +912,47 @@ export function OutreachModal({
                 <span className="text-[11px] font-mono text-[#DAA640]">{currentBadgeText}</span>
               </div>
 
-              <p className="text-xs sm:text-sm text-foreground/90 font-sans leading-relaxed whitespace-pre-line select-all">
+              {/* Text Snippet Helper when user highlights any text */}
+              {selectedText && (
+                <div className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-[#DAA640]/15 border border-[#DAA640]/40 text-xs text-white animate-fade-in">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-[10px] font-mono uppercase bg-[#DAA640] text-black px-1.5 py-0.5 rounded font-bold shrink-0">
+                      Selected
+                    </span>
+                    <span className="truncate text-zinc-200 text-xs font-mono">
+                      &ldquo;{selectedText.slice(0, 45)}...&rdquo;
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <button
+                      onClick={() => handleCopy(selectedText)}
+                      className="px-2.5 py-1 rounded-lg bg-[#DAA640] hover:bg-[#F5D90A] text-black font-semibold text-xs flex items-center gap-1 transition-all cursor-pointer"
+                    >
+                      <Copy size={11} /> Copy Selection
+                    </button>
+                    {cleanDigits && (
+                      <button
+                        onClick={() => handleSendWhatsApp(selectedText)}
+                        className="px-2.5 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs flex items-center gap-1 transition-all cursor-pointer"
+                      >
+                        <Send size={11} /> Send Selection
+                      </button>
+                    )}
+                    <button
+                      onClick={() => setSelectedText('')}
+                      className="p-1 rounded hover:bg-white/10 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                      title="Clear selection"
+                    >
+                      <X size={12} />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <p
+                onMouseUp={handleTextSelection}
+                className="text-xs sm:text-sm text-foreground/90 font-sans leading-relaxed whitespace-pre-line select-text cursor-text p-2 rounded-lg bg-black/20 border border-white/5"
+              >
                 {currentMessageText}
               </p>
 
