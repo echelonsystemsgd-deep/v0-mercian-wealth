@@ -106,7 +106,9 @@ export function OutreachModal({
   if (!isOpen || !lead) return null
 
   const businessName = lead.business_name || 'Local Business'
-  const trade = (lead.local_business_niche || lead.scraped_metadata?.trade || 'tradesperson').toLowerCase()
+  const rawTrade = lead.local_business_niche || lead.scraped_metadata?.trade || 'jeweller'
+  const cleanTrade = (!rawTrade || rawTrade.length > 30 || rawTrade.startsWith('Hi ') || rawTrade.toLowerCase().includes('came across')) ? 'jeweller' : rawTrade
+  const trade = cleanTrade.toLowerCase()
   const rawWebsite = (lead.website || '').trim()
   const hasWebsite = rawWebsite !== '' && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE' && !rawWebsite.toLowerCase().includes('facebook.com') && !rawWebsite.toLowerCase().includes('instagram.com')
   

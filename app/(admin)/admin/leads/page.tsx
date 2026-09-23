@@ -98,7 +98,7 @@ export default function LeadsPage() {
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [toast, setToast] = useState<string | null>(null)
   const [followupOnly, setFollowupOnly] = useState(false)
-  const [segmentFilter, setSegmentFilter] = useState<'all' | 'no_website' | 'mobile' | 'landline' | 'has_website'>('all')
+  const [segmentFilter, setSegmentFilter] = useState<'all' | 'hot' | 'no_website' | 'mobile' | 'landline' | 'has_website'>('all')
   const [wonDeal, setWonDeal] = useState<{ businessName: string } | null>(null)
   
   // Views: 'cards' (Deal Cards Grid), 'table' (Dense Table), 'kanban' (Pipeline Columns)
@@ -361,7 +361,15 @@ export default function LeadsPage() {
     if (followupOnly) {
       list = list.filter(l => l.status === 'Contacted')
     }
-    if (segmentFilter === 'no_website') {
+    if (segmentFilter === 'hot') {
+      list = list.filter(l => {
+        const rawWeb = (l.website || '').trim()
+        const isWeb = Boolean(rawWeb && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' && !rawWeb.toLowerCase().includes('facebook.com') && !rawWeb.toLowerCase().includes('instagram.com'))
+        const clean = (l.phone || '').replace(/[^0-9]/g, '')
+        const isMob = clean.startsWith('447') || clean.startsWith('07')
+        return isMob && !isWeb
+      })
+    } else if (segmentFilter === 'no_website') {
       list = list.filter(l => {
         const rawWeb = (l.website || '').trim()
         return !rawWeb || rawWeb === 'None' || rawWeb === 'NO WEBSITE' || rawWeb.toLowerCase().includes('facebook.com') || rawWeb.toLowerCase().includes('instagram.com')
@@ -391,6 +399,7 @@ export default function LeadsPage() {
     let hasWeb = 0
     let mobile = 0
     let landline = 0
+    let hot = 0
     leads.forEach(l => {
       const rawWeb = (l.website || '').trim()
       const isWeb = Boolean(rawWeb && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' && !rawWeb.toLowerCase().includes('facebook.com') && !rawWeb.toLowerCase().includes('instagram.com'))
@@ -401,8 +410,10 @@ export default function LeadsPage() {
       const isMob = clean.startsWith('447') || clean.startsWith('07')
       if (isMob) mobile++
       else if (clean.length > 5) landline++
+
+      if (isMob && !isWeb) hot++
     })
-    return { noWeb, hasWeb, mobile, landline, total: leads.length }
+    return { noWeb, hasWeb, mobile, landline, hot, total: leads.length }
   }, [leads])
 
   const toggleStatus = (s: string) =>
@@ -689,11 +700,12 @@ export default function LeadsPage() {
         <div className="p-1.5 rounded-2xl bg-[#0B0B0D] border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
           <div className="flex flex-wrap items-center gap-1">
             {[
-              { key: 'all', label: 'All Leads', count: segmentCounts.total },
-              { key: 'no_website', label: 'No Website', count: segmentCounts.noWeb },
-              { key: 'mobile', label: 'WhatsApp Ready', count: segmentCounts.mobile },
-              { key: 'landline', label: 'Landlines', count: segmentCounts.landline },
-              { key: 'has_website', label: 'Has Website', count: segmentCounts.hasWeb },
+              { key: 'all', label: 'All Leads', count: segmentCounts.total, highlight: false },
+              { key: 'hot', label: '⚡ WhatsApp + No Website', count: segmentCounts.hot, highlight: true },
+              { key: 'no_website', label: 'No Website Only', count: segmentCounts.noWeb, highlight: false },
+              { key: 'mobile', label: 'WhatsApp Ready', count: segmentCounts.mobile, highlight: false },
+              { key: 'has_website', label: 'Has Website', count: segmentCounts.hasWeb, highlight: false },
+              { key: 'landline', label: 'Landlines', count: segmentCounts.landline, highlight: false },
             ].map((seg) => {
               const isActive = segmentFilter === seg.key
               return (
@@ -701,19 +713,25 @@ export default function LeadsPage() {
                   key={seg.key}
                   onClick={() => setSegmentFilter(seg.key as any)}
                   className={`relative px-3 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
-                    isActive ? 'text-white font-semibold' : 'text-zinc-400 hover:text-zinc-200'
+                    isActive
+                      ? (seg.highlight ? 'text-amber-300 font-bold' : 'text-white font-semibold')
+                      : (seg.highlight ? 'text-amber-400 hover:text-amber-300' : 'text-zinc-400 hover:text-zinc-200')
                   }`}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="activeSegment"
-                      className="absolute inset-0 bg-[#141417] border border-white/15 rounded-xl shadow-sm"
+                      className={`absolute inset-0 rounded-xl shadow-sm ${
+                        seg.highlight ? 'bg-amber-400/15 border border-amber-400/30' : 'bg-[#141417] border border-white/15'
+                      }`}
                       transition={{ type: 'spring', bounce: 0.2, duration: 0.35 }}
                     />
                   )}
                   <span className="relative z-10">{seg.label}</span>
                   <span className={`relative z-10 text-[10px] font-mono px-1.5 py-0.2 rounded-md ${
-                    isActive ? 'bg-white/10 text-white' : 'bg-white/5 text-zinc-400'
+                    isActive
+                      ? (seg.highlight ? 'bg-amber-400/25 text-amber-300 font-bold' : 'bg-white/10 text-white')
+                      : (seg.highlight ? 'bg-amber-400/10 text-amber-400 font-semibold' : 'bg-white/5 text-zinc-400')
                   }`}>
                     {seg.count}
                   </span>
@@ -730,7 +748,7 @@ export default function LeadsPage() {
 
       {/* Filter Options Accordion */}
       {showFilters && activeTab !== 'spam' && (
-        <div className="p-4 rounded-2xl bg-[#0B0B0D] border border-white/10 space-y-3 animate-fade-in">
+        <div className="p-4 rounded-2xl bg-[#0B0B0D] border border-white/10 space-y-4 animate-fade-in">
           <div>
             <label className="text-xs font-mono uppercase tracking-wider text-zinc-400 block mb-2">Filter by Pipeline Stage:</label>
             <div className="flex flex-wrap gap-2">
@@ -751,6 +769,72 @@ export default function LeadsPage() {
                   </button>
                 )
               })}
+            </div>
+          </div>
+
+          <div>
+            <label className="text-xs font-mono uppercase tracking-wider text-zinc-400 block mb-2">Filter by Website Presence & Channel:</label>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setSegmentFilter('all')}
+                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
+                  segmentFilter === 'all'
+                    ? 'bg-[#141417] border-[#DAA640] text-white font-semibold'
+                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
+                }`}
+              >
+                All Leads ({segmentCounts.total})
+              </button>
+              <button
+                onClick={() => setSegmentFilter('hot')}
+                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
+                  segmentFilter === 'hot'
+                    ? 'bg-amber-400/20 border-amber-400 text-amber-300 font-bold'
+                    : 'bg-[#141417]/50 border-amber-400/30 text-amber-400 hover:text-amber-300'
+                }`}
+              >
+                ⚡ WhatsApp + No Website ({segmentCounts.hot})
+              </button>
+              <button
+                onClick={() => setSegmentFilter('no_website')}
+                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
+                  segmentFilter === 'no_website'
+                    ? 'bg-[#141417] border-[#DAA640] text-white font-semibold'
+                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
+                }`}
+              >
+                No Website Only ({segmentCounts.noWeb})
+              </button>
+              <button
+                onClick={() => setSegmentFilter('mobile')}
+                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
+                  segmentFilter === 'mobile'
+                    ? 'bg-[#141417] border-[#DAA640] text-white font-semibold'
+                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
+                }`}
+              >
+                WhatsApp Ready ({segmentCounts.mobile})
+              </button>
+              <button
+                onClick={() => setSegmentFilter('has_website')}
+                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
+                  segmentFilter === 'has_website'
+                    ? 'bg-[#141417] border-[#DAA640] text-white font-semibold'
+                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
+                }`}
+              >
+                Has Website ({segmentCounts.hasWeb})
+              </button>
+              <button
+                onClick={() => setSegmentFilter('landline')}
+                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
+                  segmentFilter === 'landline'
+                    ? 'bg-[#141417] border-[#DAA640] text-white font-semibold'
+                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
+                }`}
+              >
+                Landlines ({segmentCounts.landline})
+              </button>
             </div>
           </div>
         </div>
@@ -780,7 +864,8 @@ export default function LeadsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
             {displayedLeads.map((lead) => {
               const businessName = lead.business_name || lead.name
-              const trade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Business'
+              const rawTrade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Jeweller'
+              const trade = (!rawTrade || rawTrade.length > 30 || rawTrade.startsWith('Hi ') || rawTrade.toLowerCase().includes('came across')) ? 'Jeweller' : rawTrade
               const rawWebsite = (lead.website || '').trim()
               const hasWebsite = rawWebsite !== '' && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE' && !rawWebsite.toLowerCase().includes('facebook.com') && !rawWebsite.toLowerCase().includes('instagram.com')
               
@@ -832,10 +917,10 @@ export default function LeadsPage() {
                             {businessName}
                           </h3>
                           <div className="flex items-center gap-2 mt-1">
-                            <span className="text-[10px] font-medium text-zinc-400 bg-white/5 border border-white/5 px-2 py-0.5 rounded-md uppercase tracking-wider">
+                            <span className="text-[10px] font-medium text-zinc-400 bg-white/5 border border-white/5 px-2 py-0.5 rounded-md uppercase tracking-wider max-w-[130px] truncate">
                               {trade}
                             </span>
-                            <span className="flex items-center gap-1 text-amber-400 font-semibold text-xs">
+                            <span className="flex items-center gap-1 text-amber-400 font-semibold text-xs shrink-0">
                               <Star size={11} className="fill-amber-400 text-amber-400" /> {rating} ({reviews})
                             </span>
                           </div>
@@ -1104,7 +1189,8 @@ export default function LeadsPage() {
                   {displayedLeads.map((lead) => {
                     const isChecked = selectedIds.includes(lead.id)
                     const isInspected = searchParams.get('leadId') === lead.id
-                    const trade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Business'
+                    const rawTrade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Jeweller'
+                    const trade = (!rawTrade || rawTrade.length > 30 || rawTrade.startsWith('Hi ') || rawTrade.toLowerCase().includes('came across')) ? 'Jeweller' : rawTrade
                     const rawWebsite = lead.website
                     const hasWebsite = rawWebsite && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE'
                     const rating = lead.scraped_metadata?.rating ?? 5.0
@@ -1141,7 +1227,7 @@ export default function LeadsPage() {
                               )}
                             </div>
                             <div className="flex items-center gap-2 text-[11px] text-zinc-400">
-                              <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/5 font-medium text-zinc-400 uppercase tracking-wider text-[9px]">
+                              <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/5 font-medium text-zinc-400 uppercase tracking-wider text-[9px] max-w-[120px] truncate">
                                 {trade}
                               </span>
                               <span className="flex items-center gap-1 text-amber-400 font-medium text-[10px]">

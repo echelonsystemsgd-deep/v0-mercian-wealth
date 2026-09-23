@@ -158,7 +158,10 @@ export function GoogleSheetSyncModal({
         const rawAddr = (cols[colAddress >= 0 ? colAddress : 7] || '').trim()
         const rawReviews = (cols[colReviews >= 0 ? colReviews : 4] || '').trim()
         const rawRating = (cols[colRating >= 0 ? colRating : 5] || '').trim()
-        const rawTrade = (cols[colTrade >= 0 ? colTrade : 8] || 'Jeweller').trim()
+        const rawTradeVal = (cols[colTrade >= 0 ? colTrade : 8] || '').trim()
+        const rawTrade = (!rawTradeVal || rawTradeVal.length > 30 || rawTradeVal.toLowerCase().startsWith('hi ') || rawTradeVal.toLowerCase().includes('came across'))
+          ? 'Jeweller'
+          : rawTradeVal
         const rawWhatsApp = (cols[colWhatsApp >= 0 ? colWhatsApp : 3] || '').trim()
 
         // Extract rating & review count

@@ -43,7 +43,8 @@ export function AntigravityPromptModal({
   if (!isOpen || !lead) return null
 
   const businessName = lead.business_name || lead.name || 'Local Business'
-  const trade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Roofing & Building'
+  const rawTrade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Jeweller'
+  const trade = (!rawTrade || rawTrade.length > 30 || rawTrade.startsWith('Hi ') || rawTrade.toLowerCase().includes('came across')) ? 'Jeweller' : rawTrade
   const rawWebsite = (lead.website || '').trim()
   const hasWebsite = rawWebsite !== '' && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE' && !rawWebsite.toLowerCase().includes('facebook.com') && !rawWebsite.toLowerCase().includes('instagram.com')
   

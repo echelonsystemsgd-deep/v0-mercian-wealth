@@ -86,6 +86,11 @@ export async function POST(req: Request) {
         const waDigits = digits.startsWith('07') ? ('44' + digits.substring(1)) : digits
         const waUrl = isMobile ? `https://wa.me/${waDigits}` : (lead.whatsapp_link && lead.whatsapp_link.startsWith('http') ? lead.whatsapp_link : null)
 
+        const candidateTrade = (lead.trade || lead.category || 'Jeweller').trim()
+        const cleanTrade = (!candidateTrade || candidateTrade.length > 30 || candidateTrade.toLowerCase().startsWith('hi ') || candidateTrade.toLowerCase().includes('came across'))
+          ? 'Jeweller'
+          : candidateTrade
+
         const leadPayload = {
           name: lead.contact_name || 'Owner / Director',
           business_name: businessName || 'Local Jeweller',
@@ -96,7 +101,7 @@ export async function POST(req: Request) {
           status: lead.status || 'New',
           source: 'google_maps_outreach',
           lead_type: 'local',
-          local_business_niche: lead.trade || lead.category || 'Jeweller',
+          local_business_niche: cleanTrade,
           outreach_category: !website ? 'no_website' : 'has_website',
           outreach_stage: lead.status === 'Contacted' ? 'contacted' : 'uncontacted',
           whatsapp_direct_url: waUrl,
@@ -104,7 +109,7 @@ export async function POST(req: Request) {
             address: cleanAddress,
             rating: parseFloat(lead.rating) || 5.0,
             reviews_count: parseInt(lead.reviews_count) || 0,
-            trade: lead.trade || lead.category || 'Jeweller',
+            trade: cleanTrade,
             stage_1_opener: lead.stage_1_opener || 'Hi 👋',
             stage_2_pitch: lead.stage_2_pitch || '',
             follow_up_1: lead.follow_up_1 || '',
@@ -208,7 +213,7 @@ export async function POST(req: Request) {
           status: 'New',
           source: 'google_maps_outreach',
           lead_type: 'local',
-          local_business_niche: lead.trade || lead.category || 'Local Business',
+          local_business_niche: (!lead.trade || lead.trade.length > 30 || lead.trade.startsWith('Hi ') ? 'Jeweller' : lead.trade),
           outreach_category: !website ? 'no_website' : 'has_website',
           outreach_stage: 'uncontacted',
           whatsapp_direct_url: waUrl,
@@ -216,7 +221,7 @@ export async function POST(req: Request) {
             address: cleanAddress,
             rating: parseFloat(lead.rating) || 5.0,
             reviews_count: parseInt(lead.reviews_count) || 0,
-            trade: lead.trade || lead.category || 'Local Business',
+            trade: (!lead.trade || lead.trade.length > 30 || lead.trade.startsWith('Hi ') ? 'Jeweller' : lead.trade),
             stage_1_opener: lead.stage_1_opener || 'Hi 👋',
             stage_2_pitch: lead.stage_2_pitch || '',
             follow_up_1: lead.follow_up_1 || '',
