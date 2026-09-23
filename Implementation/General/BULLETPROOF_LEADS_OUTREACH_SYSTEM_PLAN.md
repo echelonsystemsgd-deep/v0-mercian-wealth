@@ -52,6 +52,20 @@ This plan addresses and permanently resolves all discrepancies in lead classific
 - **Problem**: In Stage 1 Playbook, Step 1A opens with *"Hi 👋, is this [Business]?"*. Once confirmed with *"Yes"*, Step 1B redundantly repeated *"Hi 👋 Came across [Business] — love your work..."*, creating an unnatural, robotic double-greeting sequence in live WhatsApp chats.
 - **Fix**: Updated Step 1B to naturally acknowledge confirmation: *"Great, thanks! Came across [Business] — love your work.\n\nDo you have a website or storefront I could look at where you showcase your [coreOffering]?"*.
 
+### 9. Diamond Atelier & Fine Jewellery Vertical Tailoring
+- **Problem**: Diamond specialists like *Elysium Diamonds* were receiving scripts referencing "curated pre-loved gold, watches & estate pieces", while diagnostic questions and voice prompters used tradesman slang ("when you're off the tools").
+- **Fix**:
+  - Added dedicated `isDiamond` detection recognizing diamond ateliers, custom engagement ring workshops, and fine gem studios.
+  - Tailored value proposition to *4Cs certified diamond grading, bespoke commissions, and private showroom viewings*.
+  - Replaced contractor jargon with high-status showroom phrasing (*"when the showroom is closed"* and *"between showroom clients"*).
+
+### 10. Situational Hooks: Password-Locked Stores & Linktree Presets
+- **Problem**: Prospects like *Elysium Diamonds* have registered domains (`elysiumdiamonds.com`) that sit locked behind a Shopify password screen (`/password`), while falling back to a Linktree (`linktr.ee/elysiumdiamondsuk`) with only social links. General "No Website" scripts miss this immense commercial leverage.
+- **Fix**:
+  - Added **1E. Linktree / Social-Only Hook**: Addresses the friction of asking high-ticket diamond clients to scroll feeds or DM on Instagram rather than booking through a dedicated mobile showcase.
+  - Added **1F. Password-Locked Store Hook**: Specifically calls out that their Shopify storefront is locked behind a password screen, causing evening mobile traffic to bounce.
+  - Added **Stage 1C Scenario Switcher**: Instant chips to respond to prospect replies (*General "No Website"*, *"We use Linktree / Instagram"*, or *"Website is locked / being built"*).
+
 ---
 
 ## Execution Steps
@@ -62,4 +76,5 @@ This plan addresses and permanently resolves all discrepancies in lead classific
 5. Clean up corrupted data records in Supabase (reset Leeways Roofing & Cleaning to `New` with sanitized metadata).
 6. Implement `OutreachModal` state isolation, cross-lead reset hooks, and keying.
 7. Naturalize Stage 1B script opener to eliminate robotic double greeting.
-8. Verify code compiles with `npx tsc --noEmit` (0 errors) and Next.js production build (`npm run build`).
+8. Add Diamond Atelier vertical profile, 1E (Linktree) and 1F (Password Locked) hooks, and 1C scenario chips.
+9. Verify code compiles with `npx tsc --noEmit` (0 errors) and Next.js production build (`npm run build`).

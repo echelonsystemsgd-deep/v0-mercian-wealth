@@ -78,7 +78,10 @@ export function OutreachModal({
   >('stage1')
 
   // Sub-step states
-  const [stage1Step, setStage1Step] = useState<'1a_confirm' | '1b_ask' | '1c_pitch' | '1d_broken'>('1a_confirm')
+  const [stage1Step, setStage1Step] = useState<
+    '1a_confirm' | '1b_ask' | '1c_pitch' | '1d_broken' | '1e_linktree' | '1f_password'
+  >('1a_confirm')
+  const [pitchScenario, setPitchScenario] = useState<'general' | 'linktree' | 'password'>('general')
   const [selectedText, setSelectedText] = useState('')
   const [qualifyStep, setQualifyStep] = useState<'all' | 'q1' | 'q2' | 'q3' | 'q4'>('all')
   const [stage3Variant, setStage3Variant] = useState<'both' | 'option1' | 'option2'>('both')
@@ -101,12 +104,16 @@ export function OutreachModal({
       : rawTrade
   const trade = cleanTrade.toLowerCase()
 
-  const isJewellery =
-    trade.includes('jewel') ||
+  const isDiamond =
     trade.includes('diamond') ||
-    trade.includes('gold') ||
+    businessName.toLowerCase().includes('diamond') ||
     trade.includes('gem') ||
-    trade.includes('atelier') ||
+    trade.includes('atelier')
+
+  const isJewellery =
+    isDiamond ||
+    trade.includes('jewel') ||
+    trade.includes('gold') ||
     trade.includes('watch')
   const isContractor =
     trade.includes('build') ||
@@ -125,7 +132,20 @@ export function OutreachModal({
     trade.includes('salon') ||
     trade.includes('spa')
 
-  const nicheProfile = isJewellery
+  const nicheProfile = isDiamond
+    ? {
+        nicheName: 'Diamond Atelier & Fine Jeweller',
+        coreOffering: 'bespoke diamond commissions, engagement rings & fine jewellery',
+        offeringBenefits: '4Cs grading, certified diamond carats & bespoke atelier craftsmanship',
+        keyAction1: 'book a private showroom consultation or appointment',
+        depositPercentage: '20% holding deposit or bespoke design lock',
+        theMath: 'securing 1 bespoke diamond ring or custom piece',
+        defaultTicket: 3000,
+        ticketLabel: 'bespoke diamond ring or custom commission',
+        itemsOrJobs: 'pieces',
+        missedDefault: 2,
+      }
+    : isJewellery
     ? {
         nicheName: 'High-End Jeweller',
         coreOffering: 'curated pre-loved gold, watches & bespoke pieces',
@@ -198,6 +218,7 @@ export function OutreachModal({
       setCopied(false)
       setActiveTab('stage1')
       setStage1Step('1a_confirm')
+      setPitchScenario('general')
     }
   }, [lead?.id])
 
@@ -212,7 +233,7 @@ export function OutreachModal({
   // Clear text selection when switching stages or sub-steps
   useEffect(() => {
     setSelectedText('')
-  }, [activeTab, stage1Step, qualifyStep, stage3Variant])
+  }, [activeTab, stage1Step, qualifyStep, stage3Variant, pitchScenario])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -294,8 +315,26 @@ export function OutreachModal({
   // STAGE 1: HOOK & OFFER
   const stage1ConfirmText = `Hi 👋, is this ${businessName}?`
   const stage1AskStorefrontText = `Great, thanks! Came across ${businessName} — love your work.\n\nDo you have a website or storefront I could look at where you showcase your ${nicheProfile.coreOffering}?`
-  const stage1PitchPrototypeText = `I had a look around ${businessName} and that's actually what caught my attention. You've already got the reputation and the business behind it, but when someone discovers you online in the evening and wants to properly look through what you offer, there's no dedicated place for them to do that. They can't easily browse your work, understand what you offer, build confidence, and take the next step.\n\nIt’s not about having a website just to say you've got one. It's about making sure that when someone is already interested, you've got somewhere that presents your business properly, builds trust, and turns that interest into a deposit or confirmed booking.\n\nRather than just tell you what I mean, I'd be happy to put together a quick working prototype so you can actually see it on your phone.\n\nIt wouldn't be a finished website — just something to show how your ${nicheProfile.coreOffering} could be presented and how customers might browse, decide, and get in touch.\n\nCompletely free, no obligation at all. Want me to put one together for you?`
+
+  // 1C: Dynamic reply pitch based on what the prospect replied
+  const stage1PitchGeneralText = `I had a look around ${businessName} and that's actually what caught my attention. You've already got the reputation and the business behind it, but when someone discovers you online in the evening and wants to properly look through what you offer, there's no dedicated place for them to do that. They can't easily browse your work, understand what you offer, build confidence, and take the next step.\n\nIt’s not about having a website just to say you've got one. It's about making sure that when someone is already interested, you've got somewhere that presents your business properly, builds trust, and turns that interest into a deposit or confirmed booking.\n\nRather than just tell you what I mean, I'd be happy to put together a quick working prototype so you can actually see it on your phone.\n\nIt wouldn't be a finished website — just something to show how your ${nicheProfile.coreOffering} could be presented and how customers might browse, decide, and get in touch.\n\nCompletely free, no obligation at all. Want me to put one together for you?`
+
+  const stage1PitchLinktreeText = `Had a look through your Linktree and social profiles — love the craftsmanship in your ${isJewellery ? 'diamond pieces' : 'work'}!\n\nThe challenge with relying on Linktree and social DMs is when an evening buyer is ready to invest in a ${nicheProfile.ticketLabel}, having to scroll feeds or message back and forth creates friction. They want a dedicated, high-speed digital showcase where they can explore certified specifications, build trust, and reserve a private consultation or piece instantly.\n\nRather than just explain what I mean, I put together a quick working mobile prototype for ${businessName} showing how this could work.\n\nCompletely free, no obligation at all — want me to send the preview link over so you can test it on your phone?`
+
+  const stage1PitchPasswordText = `Completely understand — noticed ${hasWebsite ? rawWebsite.replace(/^https?:\/\//, '').replace(/\/.*$/, '') : 'your storefront'} is currently sitting behind a password screen! The reality is while that Shopify store is locked or under construction, high-intent clients looking for ${nicheProfile.coreOffering} in the evening hit that password wall and bounce straight to competitors.\n\nRather than waiting weeks for a clunky template, I’d be happy to put together a fast working mobile prototype for ${businessName} showing how your collections could be showcased and how customers could browse, decide, and book private consultations.\n\nCompletely free, zero obligation. Want me to send the preview over so you can test it on your phone?`
+
+  const stage1PitchPrototypeText =
+    pitchScenario === 'linktree'
+      ? stage1PitchLinktreeText
+      : pitchScenario === 'password'
+      ? stage1PitchPasswordText
+      : stage1PitchGeneralText
+
   const stage1BrokenText = `Hi 👋 Came across ${businessName} — love the craftsmanship in your work. Had a quick look at your site, but ${customObservation.trim() || "it's not loading properly on mobile, slow to respond, and hasn't been updated recently"}.\n\nWhen high-intent customers find you on their phone in the evening, they want to browse your work, build confidence, and book or enquire right then.\n\nRather than just tell you what I mean, I'd be happy to put together a quick working prototype so you can actually see it on your phone — completely free, no obligation at all. Want me to put one together for you?`
+
+  const stage1LinktreeText = `Hi 👋 Came across ${businessName} — love the craftsmanship in your ${isJewellery ? 'diamond pieces' : 'work'}. Had a look through your Linktree, but noticed there's no dedicated digital showcase or private consultation booking where evening clients can properly browse your collections outside showroom hours.\n\nWhen high-intent clients find you on their phone in the evening, relying solely on social DMs or Linktree creates friction when someone is ready to book or reserve a piece.\n\nRather than just tell you what I mean, I'd be happy to put together a quick working mobile prototype showing how your ${nicheProfile.coreOffering} and private bookings could be presented — completely free, no obligation at all. Want me to send the preview over?`
+
+  const stage1PasswordText = `Hi 👋 Came across ${businessName} — love the craftsmanship in your ${isJewellery ? 'diamond pieces' : 'work'}. Had a quick look for your storefront online, but noticed ${hasWebsite ? rawWebsite.replace(/^https?:\/\//, '').replace(/\/.*$/, '') : 'your website'} is currently locked behind a password screen, so clients visiting from your bio or Google can't actually view any pieces.\n\nWhen high-intent clients discover you on their phone in the evening, hitting a locked page causes them to bounce immediately.\n\nRather than just tell you what I mean, I'd be happy to put together a quick working mobile prototype showing how your ${nicheProfile.coreOffering} can be showcased and how customers could browse, decide, and book — completely free, no obligation at all. Want me to send the preview over?`
 
   const stage1Text =
     stage1Step === '1a_confirm'
@@ -304,14 +343,21 @@ export function OutreachModal({
       ? stage1AskStorefrontText
       : stage1Step === '1c_pitch'
       ? stage1PitchPrototypeText
-      : stage1BrokenText
+      : stage1Step === '1d_broken'
+      ? stage1BrokenText
+      : stage1Step === '1e_linktree'
+      ? stage1LinktreeText
+      : stage1PasswordText
 
   // STAGE 2: SEND PROTOTYPE
   const stage2Text = `Hi ${ownerName || 'there'},\n\nI’ve put together that prototype for ${businessName} so you can see firsthand how this would work for your business:\n\n👉 ${protoUrl}\n\nRather than a generic template, I engineered it specifically around how high-intent customers make buying decisions today:\n\n1. Captures Evening & Mobile Traffic: Over 75% of local searches in ${city} happen on mobile phones outside normal working hours. Customers can explore your exact ${nicheProfile.offeringBenefits} and build trust before contacting you.\n2. Direct Action & Deposit Locks: Customers can ${nicheProfile.keyAction1} or secure their slot instantly with an upfront ${nicheProfile.depositPercentage} so you stop time-wasters.\n3. Sub-Second Speed: Built to load in under 400ms on 4G/5G phones with zero friction or clunky forms.\n\n(Note: The photos and items currently on there are realistic placeholders just to show you the layout and customer journey).\n\nWhen it comes to taking this live, we work around whatever fits your schedule best:\n• If you want full ownership, we build it, hand over the keys completely, and you have zero monthly agency lock-in.\n• If you prefer a hands-off managed setup, you just WhatsApp us photos and prices of new ${nicheProfile.itemsOrJobs} as they come in, and we handle all uploads, updates, and maintenance for you.\n\nHave a browse through on your phone and let me know how you find it 👍`
 
   // STAGE 3: REVENUE LEAKAGE QUALIFYING FRAMEWORK
+  const closedContext = isJewellery ? 'the showroom is closed / shop is shut' : isContractor ? "you're off the tools" : 'your premises are closed'
+  const freeTimeContext = isJewellery ? 'between showroom clients' : isContractor ? 'off the tools' : 'with a spare minute'
+
   const q1Text = `Before we talk about the build, just to understand the economics of your business — roughly what is an average ${nicheProfile.ticketLabel} worth to you in revenue or gross margin?`
-  const q2Text = `Right now, over 75% of high-intent searches in ${city} happen on smartphones in the evening or on weekends when you're off the tools / shop is closed. When someone discovers ${businessName} on Sunday at 9 PM, what actually happens? Can they explore your work and lock in a consultation, or do they bounce to whoever answers online first?`
+  const q2Text = `Right now, over 75% of high-intent searches in ${city} happen on smartphones in the evening or on weekends when ${closedContext}. When someone discovers ${businessName} on Sunday at 9 PM, what actually happens? Can they explore your work and lock in a consultation, or do they bounce to whoever answers online first?`
   const q3Text = `Realistically, how many potential high-ticket enquiries do you think slip through the cracks each month simply because there's no fast digital storefront capturing them outside working hours?\n\n(Math Anchor: ${missedEnquiries} missed ${nicheProfile.itemsOrJobs} × £${ticketValue.toLocaleString()} = £${monthlyBleed.toLocaleString()}/month or £${annualBleed.toLocaleString()}/year in leaking revenue).`
   const q4Text = `So if having this dedicated system captures literally ONE single customer over the next 90 days that would have otherwise gone to a competitor — that completely pays off the entire project, and everything after that is pure profit, right?`
 
@@ -345,7 +391,7 @@ export function OutreachModal({
   const stage5Text = `No problem at all, completely respect your decision.\n\nJust keep one commercial reality in mind: over 75% of customers in ${city} now research on their smartphones in the evening before ever making a phone call or visiting a premises.\n\nWhen someone is actively looking for ${nicheProfile.coreOffering} on a Sunday evening, they don't wait — they go to whoever shows their work, proves their credibility, and allows them to book or enquire right then. Every week without a high-converting digital storefront is essentially handing those lucrative jobs to whoever answers online first.\n\nI’ll keep this prototype active for the next 48 hours in case you reconsider. After that, I’ll be archiving the demo and offering the ${city} catchment slot to another local ${trade} in the area so we don't build competing systems in the same territory.\n\nWishing you and ${businessName} all the best with business.`
 
   // VOICE NOTE SCRIPT (15s)
-  const voiceNoteScript = `🎙️ 15-SECOND VOICE NOTE SCRIPT (Speak naturally):\n\n"Hey ${ownerName || 'there'}, quick voice note — it's Gurtej from Mercian Wealth.\nHad a quick look for ${businessName} online and put together a free working prototype for you showing how your ${nicheProfile.coreOffering} can be showcased to capture evening mobile traffic in ${city}.\nSent you the preview link above, take a look on your phone when you get a minute off the tools and let me know what you think!"`
+  const voiceNoteScript = `🎙️ 15-SECOND VOICE NOTE SCRIPT (Speak naturally):\n\n"Hey ${ownerName || 'there'}, quick voice note — it's Gurtej from Mercian Wealth.\nHad a quick look for ${businessName} online and put together a free working prototype for you showing how your ${nicheProfile.coreOffering} can be showcased to capture evening mobile traffic in ${city}.\nSent you the preview link above, take a look on your phone when you get a minute ${freeTimeContext} and let me know what you think!"`
 
   const currentMessageText =
     activeTab === 'stage1'
@@ -369,8 +415,12 @@ export function OutreachModal({
         : stage1Step === '1b_ask'
         ? 'Stage 1 · 1B Ask For Storefront'
         : stage1Step === '1c_pitch'
-        ? 'Stage 1 · 1C Pitch Working Prototype'
-        : 'Stage 1 · 1D Outdated/Broken Site Hook'
+        ? `Stage 1 · 1C Pitch (${pitchScenario === 'linktree' ? 'Linktree Reply' : pitchScenario === 'password' ? 'Locked Site Reply' : 'Standard'})`
+        : stage1Step === '1d_broken'
+        ? 'Stage 1 · 1D Outdated/Broken Site Hook'
+        : stage1Step === '1e_linktree'
+        ? 'Stage 1 · 1E Linktree / Social-Only Hook'
+        : 'Stage 1 · 1F Password-Locked Store Hook'
       : activeTab === 'stage2'
       ? 'Stage 2 · Deliver Working Prototype'
       : activeTab === 'qualify'
@@ -640,10 +690,10 @@ export function OutreachModal({
             {/* TAB 1: HOOK SUB-SELECTORS */}
             {activeTab === 'stage1' && (
               <div className="space-y-2.5">
-                <div className="flex flex-wrap gap-2 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs">
+                <div className="flex flex-wrap gap-1.5 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs">
                   <button
                     onClick={() => setStage1Step('1a_confirm')}
-                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                       stage1Step === '1a_confirm'
                         ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
@@ -653,7 +703,7 @@ export function OutreachModal({
                   </button>
                   <button
                     onClick={() => setStage1Step('1b_ask')}
-                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                       stage1Step === '1b_ask'
                         ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
@@ -663,43 +713,132 @@ export function OutreachModal({
                   </button>
                   <button
                     onClick={() => setStage1Step('1c_pitch')}
-                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                       stage1Step === '1c_pitch'
                         ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
                     }`}
                   >
-                    1C. Pitch Free Prototype
+                    1C. Pitch Prototype
                   </button>
                   <button
                     onClick={() => setStage1Step('1d_broken')}
-                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
                       stage1Step === '1d_broken'
                         ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
                         : 'text-muted-foreground hover:text-white'
                     }`}
                   >
-                    1D. Outdated/Broken Site
+                    1D. Outdated Site
+                  </button>
+                  <button
+                    onClick={() => setStage1Step('1e_linktree')}
+                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                      stage1Step === '1e_linktree'
+                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
+                        : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    1E. Linktree / Social
+                  </button>
+                  <button
+                    onClick={() => setStage1Step('1f_password')}
+                    className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                      stage1Step === '1f_password'
+                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
+                        : 'text-muted-foreground hover:text-white'
+                    }`}
+                  >
+                    1F. Password Locked
                   </button>
                 </div>
 
+                {/* Scenario switcher for 1C: Pitch Prototype */}
+                {stage1Step === '1c_pitch' && (
+                  <div className="flex flex-wrap items-center gap-1.5 p-2 rounded-xl bg-black/40 border border-white/5 text-xs">
+                    <span className="text-muted-foreground text-[10px] uppercase font-mono tracking-wider shrink-0 mr-1">
+                      Prospect Reply:
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setPitchScenario('general')}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all cursor-pointer ${
+                        pitchScenario === 'general'
+                          ? 'bg-[#DAA640] text-black font-semibold'
+                          : 'bg-white/5 hover:bg-white/10 text-zinc-300'
+                      }`}
+                    >
+                      General &quot;No Website&quot;
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setPitchScenario('linktree')}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all cursor-pointer ${
+                        pitchScenario === 'linktree'
+                          ? 'bg-[#DAA640] text-black font-semibold'
+                          : 'bg-white/5 hover:bg-white/10 text-zinc-300'
+                      }`}
+                    >
+                      &quot;We use Linktree / Instagram&quot;
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setPitchScenario('password')}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all cursor-pointer ${
+                        pitchScenario === 'password'
+                          ? 'bg-[#DAA640] text-black font-semibold'
+                          : 'bg-white/5 hover:bg-white/10 text-zinc-300'
+                      }`}
+                    >
+                      &quot;Website locked / being built&quot;
+                    </button>
+                  </div>
+                )}
+
+                {/* Specific Observation for 1D: Outdated / Broken Site */}
                 {stage1Step === '1d_broken' && (
-                  <div className="flex items-center gap-2 p-2.5 rounded-xl bg-[#141417] border border-white/10 text-xs">
-                    <span className="text-muted-foreground shrink-0 font-medium text-[11px]">Specific Observation:</span>
-                    <input
-                      type="text"
-                      value={customObservation}
-                      onChange={(e) => setCustomObservation(e.target.value)}
-                      placeholder="e.g. it's not loading, slow to respond, hasn't been updated recently"
-                      className="w-full bg-transparent border-none outline-none text-xs text-foreground placeholder:text-zinc-500 font-sans"
-                    />
+                  <div className="space-y-2 p-2.5 rounded-xl bg-[#141417] border border-white/10 text-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="text-muted-foreground shrink-0 font-medium text-[11px]">Observation:</span>
+                      <input
+                        type="text"
+                        value={customObservation}
+                        onChange={(e) => setCustomObservation(e.target.value)}
+                        placeholder="e.g. it's locked behind a password screen, slow on mobile"
+                        className="w-full bg-transparent border-none outline-none text-xs text-foreground placeholder:text-zinc-500 font-sans"
+                      />
+                    </div>
+                    <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-white/5 text-[10px]">
+                      <span className="text-zinc-500 font-mono">Quick Pick:</span>
+                      <button
+                        type="button"
+                        onClick={() => setCustomObservation("it's currently locked behind a password screen and visitors can't view any pieces")}
+                        className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white"
+                      >
+                        🔒 Password-Locked
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setCustomObservation("there's only a Linktree with social DMs rather than a dedicated storefront")}
+                        className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white"
+                      >
+                        🌲 Linktree Only
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setCustomObservation("it's not loading properly on mobile and slow to respond")}
+                        className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white"
+                      >
+                        📱 Slow Mobile
+                      </button>
+                    </div>
                   </div>
                 )}
 
                 <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
                   <span>
-                    <strong>Stage 1 Conversational Flow:</strong> Send <strong>1A</strong> (Confirm Name). When confirmed, send <strong>1B</strong> (Ask for storefront). When they reply &ldquo;No / just social / visit shop&rdquo;, send <strong>1C</strong> (Pitch working prototype).
+                    <strong>Stage 1 Conversational Flow:</strong> Send <strong>1A</strong> (Confirm Name) → <strong>1B</strong> (Ask for storefront). When they reply, pick the matching <strong>1C</strong> response. Or if you already noticed a Linktree or locked site, use <strong>1E</strong> or <strong>1F</strong> directly!
                   </span>
                 </div>
               </div>
