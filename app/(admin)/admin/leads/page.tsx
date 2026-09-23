@@ -221,7 +221,8 @@ export default function LeadsPage() {
 
     const isMobile = cleanDigits.startsWith('447') || cleanDigits.startsWith('07')
     const ownerName = lead.name && lead.name !== lead.business_name && !lead.name.includes('Owner') ? lead.name.split(' ')[0] : ''
-    const opener = ownerName ? `Hi ${ownerName} 👋` : 'Hi 👋'
+    const businessName = lead.business_name || 'your business'
+    const opener = ownerName ? `Hi ${ownerName} 👋, is this ${businessName}?` : `Hi 👋, is this ${businessName}?`
     const url = `https://wa.me/${cleanDigits}?text=${encodeURIComponent(opener)}`
     window.open(url, '_blank')
 

@@ -6,44 +6,114 @@ Simply replace the bracketed variables (e.g. `[BUSINESS_NAME]`, `[CITY]`, `[CORE
 
 ---
 
-### Core Pitching Principles
+### Core Pitching Principles (Module 1 & 2 Translation to WhatsApp)
 1. **Sell the Outcome, Never the Tool:** Never mention code, React, Next.js, WordPress, or design plugins. Talk exclusively about **speed-to-lead**, **capturing evening mobile searches**, **eliminating no-shows via deposits**, and **stopping leads leaking to competitors**.
 2. **The Unit Economics Anchor:** Always demonstrate that **1 to 2 customer orders/jobs** completely pays off the entire build fee.
-3. **Qualify Before Delivering:** When the prospect agrees to see a prototype, execute the 2-minute diagnostic first. This anchors their ticket economics, quantifies their monthly bleed, and gets them to pre-close themselves before they ever see the link or price tag.
-4. **Dual Commercial Paths:** Give every prospect the choice between **Complete Asset Ownership** (£995 one-off capital asset) and a **Fully Managed Retainer** (£495 setup + £195/mo rolling).
-5. **Machiavellian Scarcity:** Never chase. If they decline or stall, calmly revoke access and introduce 48-hour regional exclusivity (giving the catchment slot to their nearest competitor).
+3. **Accuracy Over Personalization (Module 2):** Avoid generic compliments or fake statistics. Ground your message in 1 observable, decision-tied friction point on 1 specific page.
+4. **Never Ask for a Call in Message 1 (Module 2):** WhatsApp Message 1 has only one objective: get the **Micro-Yes** (permission to send a 30s mobile concept). Asking for a call in Message 1 triggers the sales-pitch defense and gets you blocked.
+5. **The Call Booking Bridge (Stage 3 & 4):** Calls are booked after the prospect sees the prototype or during pricing discussions, framed as a **10-minute technical walkthrough & lead routing handover** with a binary choice (`10:30 AM or 3:15 PM`).
+6. **Dual Commercial Paths:** Give every prospect the choice between **Complete Asset Ownership** (£995 one-off capital asset) and a **Fully Managed Retainer** (£495 setup + £195/mo rolling).
+7. **Machiavellian Scarcity:** Never chase. If they decline or stall, calmly revoke access and introduce 48-hour regional exclusivity (giving the catchment slot to their nearest competitor).
 
 ---
 
-## 📩 STAGE 1: The Conversation Hook & Free Prototype Offer
-*(Send when you find a business with no website, an outdated site, linktree-only, or password-locked store)*
+## 📩 STAGE 1: The WhatsApp Conversation Hook & Micro-Yes Offer
 
-### 1A. Confirm Name
-> Hi 👋 Is this **[BUSINESS_NAME]**?
->
-> *(Wait for them to confirm: "Yes")*
+WhatsApp messages must remain under 65 words with zero external links on Message 1. Choose either **Track A** (if they have a website) or **Track B** (if they have no website).
 
-### 1B. Ask For Storefront
-> Great, thanks! Came across **[BUSINESS_NAME]** — love your work.
->
-> Do you have a website or storefront I could look at where you showcase your **[CORE_OFFERING: e.g. bespoke diamond commissions / jewellery collection / recent building projects / treatment menu]**?
->
-> *(They respond: "Unfortunately no" or "We just have our Instagram/Facebook/visit the shop")*
+---
 
-### 1C. Pitch Prototype (Dynamic Reply)
-> I had a look around **[BUSINESS_NAME]** and that's actually what caught my attention.
->
-> You've already got the reputation and the business behind it, but when someone discovers you online in the evening and wants to properly look through what you offer, there's no dedicated place for them to do that. They can't easily browse your work, understand what you offer, build confidence, and take the next step.
->
-> It’s not about having a website just to say you've got one. It's about making sure that when someone is already interested, you've got somewhere that presents your business properly, builds trust, and turns that interest into a deposit or confirmed booking.
->
-> Rather than just tell you what I mean, I'd be happy to put together a quick working prototype so you can actually see it on your phone.
->
-> It wouldn't be a finished website — just something to show how your **[CORE_OFFERING]** could be presented and how customers might browse, decide, and get in touch.
->
-> Completely free, no obligation at all. Want me to put one together for you?
+### 🅰️ TRACK A: Prospects WITH an Existing Website
 
-*(Alternative Situational Hooks available in Cockpit: 1D Outdated Site, 1E Linktree / Social-Only, 1F Password-Locked Shopify Store).*
+#### A1. Clunky Mobile Quote / Enquiry Form
+> Hi **[NAME / there]**, came across **[BUSINESS_NAME]** — quick observation:
+>
+> Noticed your quote page on mobile has a long form that takes quite a bit of pinching and scrolling to fill out on a smartphone.
+>
+> Usually when high-intent clients search on their phone at 9 PM, having to type detailed specs on a small screen causes hesitation, so they drop off and message whoever has instant booking.
+>
+> Engineered a fast 30-second mobile concept showing how clients could explore your **[CORE_OFFERING]** and lock in an appointment in 2 taps.
+>
+> Open to taking a quick look on your phone? (If not, no worries at all 👍)
+
+#### A2. Password-Locked Storefront (e.g. Elysium Diamonds Shopify Wall)
+> Hi **[NAME / there]**, came across **[BUSINESS_NAME]** — quick observation:
+>
+> Noticed **[WEBSITE_DOMAIN]** is currently locked behind a password screen, so clients visiting from your Instagram bio or Google Maps can't actually view any pieces.
+>
+> Usually when someone is looking for **[CORE_OFFERING]** in the evening, hitting a password wall creates immediate friction, and they bounce to another local atelier.
+>
+> Put together a quick 30-second mobile prototype showing how **[BUSINESS_NAME]** could showcase your collections and let clients reserve private showroom consultations directly.
+>
+> Open to having a quick look on your phone? (If not, no stress at all 👍)
+
+#### A3. Linktree / Social Bio DM Only (e.g. Second Shine)
+> Hi team at **[BUSINESS_NAME]**, love the curation of your recent pieces.
+>
+> Quick observation — noticed your bio points to a Linktree where evening clients have to message back and forth on Instagram just to check prices or reserve a piece.
+>
+> With high-value **[ITEMS / JOBS]**, having to wait hours for a DM reply causes buyers to hesitate and look elsewhere before you can respond.
+>
+> Put together a quick mobile prototype showing how **[BUSINESS_NAME]** could let clients browse verified pieces and lock in a holding deposit or showroom viewing directly on their phone.
+>
+> Open to seeing a quick 30-second preview link? (If not, no worries at all 👍)
+
+#### A4. Custom Technical Friction Hook
+> Hi **[NAME / there]**, came across **[BUSINESS_NAME]** — quick observation:
+>
+> Noticed **[OBSERVABLE_FRICTION: e.g. your mobile menu is unresponsive / quote button leads to broken form]**.
+>
+> Usually when high-intent evening clients search on their phone, that friction causes hesitation, so they leave and message whoever answers first.
+>
+> Put together a fast 30-second mobile concept showing how **[BUSINESS_NAME]** could streamline that step and capture bookings directly.
+>
+> Open to taking a quick look on your phone? (If not, no worries at all 👍)
+
+---
+
+### 🅱️ TRACK B: Prospects with NO Website (Google Maps / Word-of-Mouth)
+
+#### B1. 2-Step Handshake (Recommended for Maximum Response Rates)
+* **Step B1-A (Confirm Name):**
+  > Hi 👋, is this **[BUSINESS_NAME]**?
+  *(Prospect replies: "Yes, who is this?" or "Yes it is")*
+
+* **Step B1-B (Ask Storefront):**
+  > Great! Came across **[BUSINESS_NAME]** — love the work you do.
+  >
+  > Quick question: do you have a dedicated mobile storefront where evening clients can browse your **[CORE_OFFERING]** and book, or do you handle everything strictly over the phone?
+  *(Prospect replies: "Just phone / word of mouth / no website")*
+
+* **Step B1-C (Pitch Prototype):**
+  > Completely makes sense — that's actually why I reached out. You've clearly got the reputation, but over 75% of high-intent searches in **[CITY]** happen on smartphones in the evening when your phone is off.
+  >
+  > When someone is ready to book on a Sunday night, having no digital storefront means they can't take action, so they slip through to whoever takes online bookings first.
+  >
+  > Rather than talk theory, I put together a quick working mobile prototype for **[BUSINESS_NAME]** showing how clients could browse your work and lock in a booking directly.
+  >
+  > Open to taking a quick look on your phone? (Zero obligation at all 👍)
+
+#### B2. Sunday 9 PM Dead-End (Direct Single-Message Observation)
+> Hi 👋 Came across **[BUSINESS_NAME]** — great reputation in **[CITY]**.
+>
+> Quick observation: over 75% of local searches happen outside operating hours, but right now there's no digital storefront for evening clients to explore your **[CORE_OFFERING]** or lock in an appointment on a Sunday at 9 PM.
+>
+> Usually when someone discovers you after hours and hits a dead end, they bounce to whoever accepts online bookings first.
+>
+> Put together a quick working mobile prototype for **[BUSINESS_NAME]** showing how clients could browse your work and confirm a booking directly on their phone.
+>
+> Open to seeing a 30-second preview? (Zero obligation 👍)
+
+#### B3. Direct 5-Part WhatsApp X (Formulaic Skeleton)
+> Hi **[NAME / there]**, came across **[BUSINESS_NAME]** on Google — quick observation:
+>
+> You've got top reviews, but no mobile storefront where clients searching on a Sunday evening can browse your **[CORE_OFFERING]** or lock in a slot.
+>
+> Usually when someone searches after hours, having no digital booking means they bounce to whoever takes online requests first.
+>
+> Put together a quick 30-second mobile concept showing how **[BUSINESS_NAME]** could capture those evening enquiries automatically.
+>
+> Open to having a quick look on your phone? (If not, no worries at all 👍)
 
 ---
 
@@ -97,6 +167,13 @@ Simply replace the bracketed variables (e.g. `[BUSINESS_NAME]`, `[CITY]`, `[CORE
 >
 > Have a browse through on your phone and let me know how you find it 👍
 
+### 📞 The Stage 3 Call Booking Bridge (10-Minute Walkthrough)
+*(Send after they view the prototype or reply about the link)*
+
+> Would it be worth hopping on a quick 10-minute screen share or phone call tomorrow so I can show you how the WhatsApp lead alerts & deposit routing work behind the scenes?
+>
+> I've got **10:30 AM** or **3:15 PM** — do either of those work for you?
+
 ---
 
 ## 💳 STAGE 4: The Pricing & Dual-Pathway Pitch
@@ -135,6 +212,13 @@ Simply replace the bracketed variables (e.g. `[BUSINESS_NAME]`, `[CITY]`, `[CORE
 > If you want to own it outright, Option 1 is best. If you want someone to actively manage the updates and running fees for you hands-free, Option 2 is ideal.
 >
 > Which setup suits you best?
+
+### 📞 The Stage 4 Call Booking Bridge (Pricing Review)
+*(Send if they hesitate on price or want a live walkthrough before deciding)*
+
+> Rather than going back and forth on text, let's jump on a quick 10-minute walkthrough call. I'll share my screen, show you how the enquiries route directly to your WhatsApp, and answer any questions.
+>
+> I can do tomorrow at **10:30 AM** or **3:15 PM** — which works better for you?
 
 ---
 

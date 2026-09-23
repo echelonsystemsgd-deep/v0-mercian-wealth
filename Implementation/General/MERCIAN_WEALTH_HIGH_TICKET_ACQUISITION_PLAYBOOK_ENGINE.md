@@ -11,16 +11,20 @@
 
 The **Mercian Wealth High-Ticket Acquisition Engine** is a high-status, consultative sales architecture designed to transition cold or inbound local business leads into high-margin clients without sounding like a transactional web designer or software vendor.
 
-### Core Sales Axioms
+### Core Sales Axioms & WhatsApp Translation (From Outreach Engine Modules 1 & 2)
 1. **Sell the Outcome, Never the Tool:**  
    Never mention code, React, Next.js, WordPress, or design plugins. Talk exclusively about **speed-to-lead**, **capturing evening mobile searches**, **eliminating no-shows via holding deposits**, and **stopping leads leaking to competitors**.
 2. **The Unit Economics Anchor:**  
    Always demonstrate that **1 single customer order/job** completely pays off the entire build fee. Everything after that is pure profit.
-3. **Qualify Before Delivering:**  
-   *Never deliver the prototype before running the diagnostic.* When a prospect agrees to see a prototype, execute the 2-minute diagnostic first. This anchors their ticket economics, quantifies their monthly bleed, and gets them to pre-close themselves before they ever see the link or price tag.
-4. **Dual Commercial Paths:**  
+3. **Accuracy Over Personalization (Module 2):**  
+   Never include fake metrics ("I saw you had 1,400 visitors") or generic flattery ("Love your inspiring feed"). Focus on 1 observable, decision-tied friction point on 1 specific page.
+4. **Never Ask for a Call in Message 1 (Module 2):**  
+   WhatsApp Message 1 has exactly ONE job: get the **Micro-Yes** (permission to send free value). Asking for a 15-minute call in message 1 triggers the prospect's "sales pitch trap" filter and burns the lead.
+5. **The Call Booking Bridge (Stage 3/4):**  
+   Calls are booked *after* delivering the prototype or during the pricing discussion. The call is framed not as a "sales call", but as a **10-minute technical walkthrough & lead routing handover** with a binary time choice (`10:30 AM or 3:15 PM`).
+6. **Dual Commercial Paths:**  
    Give every prospect the choice between **Complete Asset Ownership** (£995 one-off) and a **Fully Managed Retainer** (£495 setup + £195/mo rolling).
-5. **Machiavellian Territory Scarcity:**  
+7. **Machiavellian Territory Scarcity:**  
    If a prospect hesitates or passes, never chase. Calmly introduce the 48-hour territory expiration rule: the prototype is archived and the city catchment slot is reallocated to their nearest competitor.
 
 ---
@@ -29,16 +33,16 @@ The **Mercian Wealth High-Ticket Acquisition Engine** is a high-status, consulta
 
 ```mermaid
 flowchart TD
-    Stage1["Stage 1: Hook & Offer\n(1A Confirm -> 1B Ask -> 1C Pitch Prototype / 1D, 1E, 1F)"]
+    Stage1["Stage 1: Hook & Offer (WhatsApp X / Y)\n[Track A: Has Website (A1-A4) | Track B: No Website (B1-B3)]"]
     Stage2["Stage 2: Qualify & Diagnostic\n(Intro -> Q1 Ticket -> Q2 Booking -> Q3 Sunday -> Q4 Bleed -> Q5 Pre-Close)"]
-    Stage3["Stage 3: Bespoke Prototype Delivery\n(Veyra 3D Engine / Dynamic Demo + 3 Pillars)"]
-    Stage4["Stage 4: Dual Pricing Pitch\n(Option 1: £995 Asset vs Option 2: £195/mo Retainer)"]
+    Stage3["Stage 3: Bespoke Prototype Delivery\n(Veyra 3D Engine / Dynamic Demo) + Call Booking Bridge"]
+    Stage4["Stage 4: Dual Pricing Pitch\n(Option 1: £995 Asset vs Option 2: £195/mo Retainer) + Call Bridge"]
     Stage5["Stage 5: Frictionless Onboarding\n(3-Step Checklist + 50% Deposit Invoice)"]
     Stage6["Stage 6: 48h Machiavellian Scarcity\n(Territory Archival & Competitor Reallocation)"]
 
-    Stage1 -->|Prospect Agrees to Prototype| Stage2
+    Stage1 -->|Micro-Yes Received| Stage2
     Stage2 -->|Diagnostic Answered & Pre-Closed| Stage3
-    Stage3 -->|Prospect Reviews & Asks Pricing| Stage4
+    Stage3 -->|Prototype Reviewed + 10m Call Booked| Stage4
     Stage4 -->|Prospect Selects Option 1 or 2| Stage5
     Stage4 -->|Prospect Hesitates / Objections| Stage6
 ```
@@ -47,26 +51,35 @@ flowchart TD
 
 ## 3. Detailed Stage Specifications & Scripts
 
-### Stage 1: Hook & Offer
-Designed to initiate natural engagement without triggering spam defences.
+### Stage 1: Hook & Offer (Track A vs Track B)
+WhatsApp DM-tailored (50–65 words, first 8–10 words push preview, zero links on Message 1).
 
-- **1A. Confirm Name:**  
-  `Hi 👋, is this [BUSINESS_NAME]?`
-- **1B. Ask For Storefront:**  
-  `Great, thanks! Came across [BUSINESS_NAME] — love your work. Do you have a website or storefront I could look at where you showcase your [CORE_OFFERING]?`
-- **1C. Pitch Prototype (Dynamic Replies):**  
-  - *General "No Website":* Explains that reputation exists, but evening phone searchers have nowhere to browse or commit. Offers free mobile working prototype.
-  - *Linktree / Instagram Reply:* Addresses friction in browsing social feeds vs. instant certified specifications and consultation bookings.
-  - *Password-Locked Reply:* Highlights that evening searchers bounce immediately from locked screens to competitors.
-- **Situational Direct Hooks:**  
-  - **1D. Outdated Site Hook:** Tailored observation (slow on mobile, broken layout).
-  - **1E. Linktree / Social-Only Hook:** Immediate hook for accounts relying solely on bio links.
-  - **1F. Password-Locked Store Hook:** Immediate hook for Shopify/storefronts sitting behind password gates.
+#### Track A: Prospects WITH an Existing Website
+Targeting 1 observable, decision-tied friction point in 1 lane:
+- **A1. Clunky Mobile Form:**  
+  Identifies long multi-field quote forms that require pinching/scrolling on smartphones. Explains that evening 9 PM searchers drop off to instant-booking competitors. Offers a 30s mobile concept.
+- **A2. Password-Locked Storefront (Elysium Case Study):**  
+  Identifies Shopify/eCommerce storefronts gated behind password walls where traffic from Instagram/Google Maps hits a dead end. Offers a 30s mobile showroom concept with private consultation booking.
+- **A3. Linktree / Social DM Only (Second Shine Case Study):**  
+  Observes social bio links that force customers into slow back-and-forth DM messaging. Offers a mobile concept for certified specifications and holding deposits.
+- **A4. Custom Friction Hook:**  
+  Live-editable observation textarea allowing the operator to input any custom technical friction point noticed during prospecting.
+
+#### Track B: Prospects with NO Website (Google Maps / Word-of-Mouth)
+Respects word-of-mouth reputation while anchoring evening search bleed:
+- **B1. 2-Step Handshake (Recommended for High Conversions):**  
+  - *B1-A. Confirm Name:* `Hi 👋, is this [BUSINESS_NAME]?` (Generates instant reply).  
+  - *B1-B. Ask Storefront:* `Great! Came across [BUSINESS_NAME] — love the work you do. Quick question: do you have a dedicated mobile storefront where evening clients can browse your [CORE_OFFERING] and book, or do you handle everything strictly over the phone?`  
+  - *B1-C. Pitch Prototype:* Explains that 75% of searches happen outside hours when phones are off, and offers a 30-second working prototype.
+- **B2. Sunday 9 PM Dead-End (Direct Single Message):**  
+  Direct observation: Top reputation in [CITY], but 75% of local searches happen outside operating hours with no digital storefront. Offers 30s preview.
+- **B3. Direct 5-Part WhatsApp X (Skeleton):**  
+  Greeting -> Observation (No mobile booking) -> Mechanics (Clients bounce after hours) -> Free Value Offer (30s mobile concept) -> Micro-Yes (`Open to having a quick look on your phone?`).
 
 ---
 
 ### Stage 2: Qualify & Revenue Leakage Diagnostic
-*Executed immediately when prospect says "Yes, send it over" or "Put one together".*
+*Executed immediately when prospect gives the Micro-Yes ("Sure, send it over") — BEFORE delivering the link.*
 
 - **Diagnostic Hook:**  
   `Brilliant. Before I put it together on my end — I don't build generic cookie-cutter templates. I engineer each system specifically around the exact customer journey and economics of [BUSINESS_NAME]. Quick 2-minute diagnostic so I get the prototype 100% dialled in for you:`
@@ -84,19 +97,32 @@ Designed to initiate natural engagement without triggering spam defences.
 
 ---
 
-### Stage 3: Bespoke Prototype Delivery
-Delivered once the diagnostic answers have been received and incorporated.
+### Stage 3: Bespoke Prototype Delivery & Call Booking Bridge
+Delivered once diagnostic answers have been received and incorporated.
 
-- Points to either the **Veyra 3D Diamond/Jewellery Engine** (`https://veyra-premium-3-d-jewellery-e-comme.vercel.app/?client=[BUSINESS_NAME]`) or the dynamic local demo preview.
-- Anchors the 3 pillars:
-  1. **Captures Evening & Mobile Traffic:** Over 75% of local searches happen outside operating hours.
-  2. **Direct Action & Deposit Locks:** Customers schedule appointments or lock pieces with holding deposits.
-  3. **Sub-Second Speed:** Loads in under 400ms on 4G/5G mobile phones.
+#### 1. Prototype Delivery
+- Points to the live interactive engine:
+  - **Diamond/Jewellery:** `https://veyra-premium-3-d-jewellery-e-comme.vercel.app/?client=[BUSINESS_NAME]`
+  - **Contractors/Clinics:** Dynamic Local Demo (`/preview/demo?name=[BUSINESS_NAME]&trade=[TRADE]&city=[CITY]...`)
+- Highlights the 3 pillars: Evening mobile traffic capture, Direct action & deposit locks, Sub-400ms loading speed.
+
+#### 2. Call Booking Bridge (Sub-Selector)
+Locks in a 10-minute technical walkthrough:
+> "Would it be worth hopping on a quick 10-minute screen share or phone call tomorrow so I can show you how the WhatsApp lead alerts & deposit routing work behind the scenes?
+> 
+> I've got 10:30 AM or 3:15 PM — do either of those work for you?"
 
 ---
 
-### Stage 4: Dual-Pathway Commercial Pitch
-Presented when prospect asks for rates or how implementation works.
+### Stage 4: Dual-Pathway Commercial Pitch & Call Bridge
+Presented when the prospect asks for rates or how implementation works. Sub-selectors:
+- **Option 1: Complete Asset Ownership (£995 one-off)**
+- **Option 2: Fully Managed Growth Retainer (£495 setup + £195/mo)**
+- **Side-by-Side Comparison**
+- **Call Booking Bridge (Pricing Review):**
+  > "Rather than going back and forth on text, let's jump on a quick 10-minute walkthrough call. I'll share my screen, show you how the enquiries route directly to your WhatsApp, and answer any questions.
+  > 
+  > I can do tomorrow at 10:30 AM or 3:15 PM — which works better for you?"
 
 #### Option 1: Complete Asset Ownership (One-Off Investment)
 - **Build Fee:** £995 one-off (or £495 for Essential 3-page builds)
