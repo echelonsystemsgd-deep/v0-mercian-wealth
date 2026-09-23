@@ -296,6 +296,21 @@ export async function POST(req: Request) {
       })
     }
 
+    // Mode 5: Clear all scraped outreach leads (clean reset)
+    if (body.action === 'clear_outreach' || body.action === 'clear_all') {
+      const { error: delErr } = await supabase
+        .from('leads')
+        .delete()
+        .eq('source', 'google_maps_outreach')
+
+      if (delErr) throw delErr
+
+      return NextResponse.json({
+        success: true,
+        message: 'Successfully cleared all outreach leads from database.'
+      })
+    }
+
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 })
   } catch (err: any) {
     console.error('Error syncing leads with Google Sheets:', err)

@@ -13,7 +13,8 @@ import {
   AlertTriangle,
   UploadCloud,
   Layers,
-  ArrowRight
+  ArrowRight,
+  Trash2
 } from 'lucide-react'
 
 interface GoogleSheetSyncModalProps {
@@ -62,6 +63,30 @@ export function GoogleSheetSyncModal({
     await fetchLiveCount()
     onSuccess()
     setTimeout(() => setIsRefreshing(false), 500)
+  }
+
+  const handleClearOutreachLeads = async () => {
+    if (!window.confirm('Are you sure you want to clear all outreach leads from the database? This resets the dashboard lead count to 0.')) return
+    setIsRefreshing(true)
+    setFeedback(null)
+    try {
+      const res = await fetch('/api/admin/leads/sync-sheets', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'clear_outreach' })
+      })
+      if (!res.ok) {
+        const errData = await res.json()
+        throw new Error(errData.error || 'Failed to clear leads')
+      }
+      setLiveDbCount(0)
+      setFeedback({ type: 'success', message: 'All outreach leads cleared from database successfully!' })
+      onSuccess()
+    } catch (e: any) {
+      setFeedback({ type: 'error', message: e.message || 'Failed to clear leads' })
+    } finally {
+      setIsRefreshing(false)
+    }
   }
 
   if (!isOpen) return null
@@ -230,9 +255,19 @@ export function GoogleSheetSyncModal({
 
         {/* Live Status Bar */}
         <div className="px-6 py-3 bg-[#080b11] border-b border-gold/10 flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2 text-muted-foreground">
+          <div className="flex items-center gap-3 text-muted-foreground">
             <span>Database Status:</span>
             <span className="font-bold text-foreground">{liveDbCount} Active Leads in DB</span>
+            {liveDbCount > 0 && (
+              <button
+                onClick={handleClearOutreachLeads}
+                disabled={isRefreshing}
+                className="text-[11px] text-rose-400/90 hover:text-rose-300 underline underline-offset-2 flex items-center gap-1 transition-colors cursor-pointer ml-1"
+                title="Wipe all scraper leads from the database"
+              >
+                <Trash2 size={11} /> Clear All DB Leads
+              </button>
+            )}
           </div>
           <a
             href={GOOGLE_SHEET_URL}
