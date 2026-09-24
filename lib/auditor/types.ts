@@ -90,7 +90,23 @@ export interface EmailXOutreach {
   variableY: VariableY
 }
 
+export interface WhatsAppMessageBlock {
+  step: 1 | 2 | 3
+  label: string
+  sublabel: string
+  whenToSend: string
+  text: string
+}
+
+export interface WhatsApp3MessageSequence {
+  message1: WhatsAppMessageBlock
+  message2: WhatsAppMessageBlock
+  message3: WhatsAppMessageBlock
+  fullSequenceText: string
+}
+
 export interface WhatsAppXOutreach {
+  sequence: WhatsApp3MessageSequence
   greeting: string
   observation: string
   mechanics: string

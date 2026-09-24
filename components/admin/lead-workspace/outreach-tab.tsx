@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Phone, MessageSquare, Mail, ChevronDown, ChevronUp, Calculator, Globe } from 'lucide-react'
 import { OutreachMessageCard } from './outreach-message-card'
 import { CallOutcomeSheet } from './call-outcome-sheet'
+import { WhatsAppSequenceBlocks } from '@/components/admin/whatsapp-sequence-blocks'
 import type { PlaybookEngine } from '@/hooks/use-playbook-engine'
 
 interface OutreachTabProps {
@@ -175,13 +176,10 @@ export function OutreachTab({ lead, engine, onOutcomeRecorded, onStatusUpdate, o
             </div>
           )}
 
-          <OutreachMessageCard
-            channel="whatsapp"
-            message={whatsappMessage}
-            whyThisAngle={hasWebsite ? 'Point out one specific observable friction. Never pitch a new product in message 1.' : 'Build rapport first. Offer the prototype without obligation.'}
-            evidenceTags={evidenceItems.slice(0, 3)}
-            onSend={() => handleWhatsApp()}
-            sendLabel={`Open WhatsApp${lead.phone ? ` · ${lead.phone}` : ''}`}
+          <WhatsAppSequenceBlocks
+            sequence={engine.whatsAppSequence}
+            phone={lead.phone}
+            onSendWhatsApp={(text) => handleWhatsApp(text)}
           />
 
           {/* Record outcome after sending */}

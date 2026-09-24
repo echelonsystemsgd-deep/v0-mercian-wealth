@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import type { WhatsApp3MessageSequence, VariableY } from '@/lib/auditor/types'
+import { buildWhatsApp3MessageSequence } from '@/lib/auditor/deterministic'
 
 export interface OutreachLead {
   id: string
@@ -87,6 +89,7 @@ export interface PlaybookEngine {
   // Current message for selected channel
   callOpener: string
   whatsappMessage: string
+  whatsAppSequence: WhatsApp3MessageSequence
   emailSubject: string
   emailXMessage: string
 
@@ -336,21 +339,6 @@ export function usePlaybookEngine(lead: OutreachLead | null): PlaybookEngine {
 
   const trackACustom = `Hi ${ownerName || 'there'}, came across ${businessName} — quick observation:\n\nNoticed ${customObservation.trim() || "your mobile layout is slow to respond and has no direct reservation mechanism"}.\n\nWhen high-intent evening clients search on their phone, that friction causes hesitation, so they leave and message whoever answers first.\n\nPut together a fast 30-second mobile concept showing how ${businessName} could streamline that step and capture bookings directly.\n\nOpen to taking a quick look on your phone? (If not, no worries at all 👍)`
 
-  // Determine primary outreach messages
-  const callOpener = hasWebsite
-    ? `Hi, is this ${businessName}? I was looking at your website and noticed something specific — ${trackAStep === 'a1_mobile' ? 'your mobile form is quite complex to fill out on a phone' : trackAStep === 'a2_password' ? "it's currently password protected so clients can't browse" : trackAStep === 'a3_linktree' ? 'you\'re directing clients to a Linktree rather than a dedicated storefront' : customObservation || 'there\'s a friction point in the customer journey'}. Is that something you\'re aware of?`
-    : `Hi, is this ${businessName}? Quick one — I noticed you've got a strong reputation on Google Maps with ${reviewsCount > 0 ? `${reviewsCount} reviews` : 'good reviews'}, but there's no dedicated digital storefront for customers who find you in the evening. I put together a quick prototype to show you what that could look like. Are you open to taking a look?`
-
-  const whatsappMessage = hasWebsite
-    ? trackAStep === 'a1_mobile'
-      ? trackAMobile
-      : trackAStep === 'a2_password'
-      ? trackAPassword
-      : trackAStep === 'a3_linktree'
-      ? trackALinktree
-      : trackACustom
-    : trackBPitchPrototype
-
   // Email X / Variable Y (Outreach #1 Written Pathway from PDFs)
   const emailPage = hasWebsite
     ? trackAStep === 'a1_mobile'
@@ -385,6 +373,35 @@ export function usePlaybookEngine(lead: OutreachLead | null): PlaybookEngine {
   const emailGreeting = ownerName ? `Hi ${ownerName},` : 'Hi,'
   const emailXMessage = `${emailGreeting}\n\nI noticed ${emailProblem} on ${emailPage}, and because ${emailReason}, ${emailConsequence}.\n\nI put together a quick 30-second mobile concept showing how ${businessName} could resolve this on ${emailPage}. You can review it fast, and if it's not useful, ignore it and it ends.\n\nOpen to taking a quick look?\n\nBest regards,\nGurtej\nMercian Wealth`
 
+  // ── Unified 3-Message WhatsApp Sequence (Single Source of Truth) ─────────
+  const engineVariableY: VariableY = {
+    name: ownerName || undefined,
+    company: businessName,
+    website: hasWebsite ? rawWebsite.replace(/^https?:\/\//, '').replace(/\/.*$/, '') : 'None',
+    page: emailPage,
+    websiteProblem: emailProblem,
+    evidence: hasWebsite ? `Observed on ${emailPage}` : 'Public Google Maps listing verified',
+    customerNextStep: hasWebsite ? 'Request quote or book online' : 'Find and browse services after hours',
+    lane: hasWebsite ? 'Mobile browsing & conversion lane' : 'Initial trust & verification',
+    recognizableReason: emailReason,
+    consequenceMechanics: emailConsequence,
+    subjectLine: emailSubject,
+  }
+
+  const whatsAppSequence = buildWhatsApp3MessageSequence(
+    engineVariableY,
+    hasWebsite ? 'HAS_WEBSITE' : 'NO_WEBSITE',
+    trade,
+    city
+  )
+
+  const whatsappMessage = whatsAppSequence.message1.text
+
+  // Call Opener
+  const callOpener = hasWebsite
+    ? `Hi, is this ${businessName}? I was looking at your website and noticed something specific — ${trackAStep === 'a1_mobile' ? 'your mobile form is quite complex to fill out on a phone' : trackAStep === 'a2_password' ? "it's currently password protected so clients can't browse" : trackAStep === 'a3_linktree' ? 'you\'re directing clients to a Linktree rather than a dedicated storefront' : customObservation || 'there\'s a friction point in the customer journey'}. Is that something you\'re aware of?`
+    : `Hi, is this ${businessName}? Quick one — I noticed you've got a strong reputation on Google Maps with ${reviewsCount > 0 ? `${reviewsCount} reviews` : 'good reviews'}, but there's no dedicated digital storefront for customers who find you in the evening. I put together a quick prototype to show you what that could look like. Are you open to taking a look?`
+
   // Evidence items
   const evidenceItems: EvidenceItem[] = [
     ...(hasWebsite
@@ -407,11 +424,9 @@ export function usePlaybookEngine(lead: OutreachLead | null): PlaybookEngine {
   const nextActionReason = !hasWebsite
     ? `No digital storefront detected${reviewsCount > 0 ? ` — ${reviewsCount} Google reviews show established reputation` : ''}`
     : `Website detected — mobile friction angle available`
-  const suggestedAngle = !hasWebsite
-    ? `How do new customers currently find and browse your work?`
-    : `How do customers typically browse and enquire on mobile?`
+  const suggestedAngle = whatsAppSequence.message1.text
   const recommendedApproach = !hasWebsite
-    ? `Lead with digital presence opportunity. ${businessName} has an established local reputation but no digital storefront for evening customers. Offer to show the prototype.`
+    ? `Lead with digital presence opportunity. ${businessName} has an established local reputation but no digital storefront for evening customers. Offer the prototype.`
     : `Lead with one specific observation about ${trackAStep === 'a1_mobile' ? 'mobile form friction' : trackAStep === 'a2_password' ? 'password lock on storefront' : trackAStep === 'a3_linktree' ? 'Linktree rather than dedicated storefront' : 'observed friction point'}. Never pitch on message 1.`
 
   // Pipeline messages (collapsed section — operator-facing labels only)
@@ -495,6 +510,7 @@ export function usePlaybookEngine(lead: OutreachLead | null): PlaybookEngine {
     evidenceItems,
     callOpener,
     whatsappMessage,
+    whatsAppSequence,
     emailSubject,
     emailXMessage,
     pipelineMessages,

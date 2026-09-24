@@ -31,9 +31,11 @@ import type { FrictionFinding, PipelineClassification } from '@/lib/auditor/type
 import {
   formatEmailXOutreach,
   formatWhatsAppXOutreach,
+  buildWhatsApp3MessageSequence,
   buildNoWebsiteIntelligence,
   identifyDeterministicFrictions
 } from '@/lib/auditor/deterministic'
+import { WhatsAppSequenceBlocks } from '@/components/admin/whatsapp-sequence-blocks'
 
 export interface OutreachLead {
   id: string
@@ -280,14 +282,25 @@ export function OutreachModal({
     city,
   ])
 
-  // Generated Messaging
+  const isEarlyStage =
+    !lead?.status ||
+    lead.status === 'New' ||
+    lead.status === 'Contacted' ||
+    lead.status.toLowerCase() === 'uncontacted'
+
+  // Unified WhatsApp 3-Message Sequence (Single Source of Truth)
+  const whatsAppSequence = useMemo(() => {
+    return buildWhatsApp3MessageSequence(
+      currentVariableY,
+      classification,
+      trade,
+      city
+    )
+  }, [currentVariableY, classification, trade, city])
+
   const generatedWhatsApp = useMemo(() => {
-    if (classification === 'NO_WEBSITE') {
-      const waGreeting = ownerName ? `Hi ${ownerName},` : 'Hi,'
-      return `${waGreeting} came across ${businessName} — great reputation in ${city}.\n\nQuick observation: had a look for your dedicated site to check your past work and booking info, but couldn't find one active.\n\nUsually when a customer is comparing local ${trade} specialists in the evening, having no dedicated place to quickly confirm services and booking availability means they have less certainty at that decision point, so they continue looking at alternatives.\n\nPut together a quick 30-second mobile concept showing how ${businessName} could showcase your work and let clients request bookings directly on their phone.\n\nOpen to taking a quick look? (Zero obligation at all 👍)`
-    }
-    return formatWhatsAppXOutreach(currentVariableY).fullWhatsAppText
-  }, [classification, ownerName, businessName, city, trade, currentVariableY])
+    return whatsAppSequence.fullSequenceText
+  }, [whatsAppSequence])
 
   const generatedEmail = useMemo(() => {
     return formatEmailXOutreach(currentVariableY).fullEmailText
@@ -305,7 +318,7 @@ export function OutreachModal({
   const currentDisplayScript = useMemo(() => {
     switch (activeChannelTab) {
       case 'whatsapp':
-        return generatedWhatsApp
+        return whatsAppSequence.fullSequenceText
       case 'email':
         return generatedEmail
       case 'call_bridge':
@@ -313,9 +326,9 @@ export function OutreachModal({
       case 'prototype_task':
         return prototypeTask
       default:
-        return generatedWhatsApp
+        return whatsAppSequence.fullSequenceText
     }
-  }, [activeChannelTab, generatedWhatsApp, generatedEmail, callBridgeScript, prototypeTask])
+  }, [activeChannelTab, whatsAppSequence, generatedEmail, callBridgeScript, prototypeTask])
 
   // Clipboard handler
   const handleCopy = () => {
@@ -325,10 +338,13 @@ export function OutreachModal({
   }
 
   // WhatsApp sender
-  const handleSendWhatsApp = () => {
+  const handleSendWhatsApp = (text?: string) => {
+    const msg = text || whatsAppSequence.message1.text
     const cleanDigits = (lead?.phone || '').replace(/[^0-9]/g, '')
     const targetPhone = cleanDigits.startsWith('07') ? `44${cleanDigits.slice(1)}` : cleanDigits
-    const url = `https://wa.me/${targetPhone}?text=${encodeURIComponent(currentDisplayScript)}`
+    const url = targetPhone
+      ? `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`
+      : `https://wa.me/?text=${encodeURIComponent(msg)}`
     window.open(url, '_blank', 'noopener,noreferrer')
   }
 
@@ -636,8 +652,8 @@ export function OutreachModal({
 
           {/* Generated Channel Outreach Tabs */}
           <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <button
                   onClick={() => setActiveChannelTab('whatsapp')}
                   className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
@@ -647,7 +663,7 @@ export function OutreachModal({
                   }`}
                 >
                   <MessageSquare size={14} className="text-[#DCAE53]" />
-                  <span>WhatsApp Outreach (5-Part)</span>
+                  <span>WhatsApp Outreach (3-Message)</span>
                 </button>
 
                 <button
@@ -672,6 +688,11 @@ export function OutreachModal({
                 >
                   <Phone size={14} className="text-[#DCAE53]" />
                   <span>Discovery Call Bridge</span>
+                  {isEarlyStage && (
+                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono">
+                      🔒 Stage 3
+                    </span>
+                  )}
                 </button>
 
                 <button
@@ -693,16 +714,16 @@ export function OutreachModal({
                   className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white text-xs font-semibold transition-all flex items-center gap-1.5 border border-white/10 cursor-pointer"
                 >
                   {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
-                  <span>{copied ? 'Copied to Clipboard' : 'Copy Script'}</span>
+                  <span>{copied ? 'Copied to Clipboard' : activeChannelTab === 'whatsapp' ? 'Copy All 3 Messages' : 'Copy Script'}</span>
                 </button>
 
                 {activeChannelTab === 'whatsapp' && (
                   <button
-                    onClick={handleSendWhatsApp}
+                    onClick={() => handleSendWhatsApp(whatsAppSequence.message1.text)}
                     className="px-4 py-1.5 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-[#DCAE53]/20 cursor-pointer"
                   >
                     <Send size={13} />
-                    <span>Send via WhatsApp</span>
+                    <span>Send Message 1</span>
                   </button>
                 )}
 
@@ -718,20 +739,51 @@ export function OutreachModal({
               </div>
             </div>
 
-            {/* Script Display Box */}
-            <div className="relative rounded-2xl bg-[#070709] border border-white/10 p-4 font-mono text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
-              {currentDisplayScript}
-            </div>
+            {/* Tab Body */}
+            {activeChannelTab === 'whatsapp' ? (
+              <WhatsAppSequenceBlocks
+                sequence={whatsAppSequence}
+                phone={lead.phone}
+                onSendWhatsApp={handleSendWhatsApp}
+                showFullCopy={false}
+              />
+            ) : activeChannelTab === 'call_bridge' ? (
+              <div className="space-y-3">
+                {isEarlyStage && (
+                  <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs space-y-2">
+                    <div className="flex items-center gap-2 font-bold uppercase tracking-wider text-[11px]">
+                      <AlertCircle size={15} />
+                      <span>🔒 Pipeline Stage Guard: Recommended for Stage 3 (After Prototype is Shown)</span>
+                    </div>
+                    <p className="text-zinc-300 leading-relaxed font-sans">
+                      This lead is currently at stage: <span className="font-semibold text-white">{lead.status || 'New'}</span>. Pitching or asking for a 10-minute discovery call on touch 1 dramatically lowers reply rates. The methodology requires earning permission with free value first (the 30s prototype preview) before introducing a discovery call.
+                    </p>
+                    <div className="flex items-center gap-2 pt-0.5 text-[11px] font-mono text-amber-400/90">
+                      <span>Recommended sequence: WhatsApp Msg 1 (Opener) → Msg 2 (Observation) → Msg 3 (30s Prototype) → Discovery Call Bridge</span>
+                    </div>
+                  </div>
+                )}
+                <div className="relative rounded-2xl bg-[#070709] border border-white/10 p-4 font-mono text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
+                  {currentDisplayScript}
+                </div>
+              </div>
+            ) : (
+              <div className="relative rounded-2xl bg-[#070709] border border-white/10 p-4 font-mono text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
+                {currentDisplayScript}
+              </div>
+            )}
 
             {/* Educational methodology prompt badge */}
             <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between text-[11px] font-mono text-zinc-400">
               <div className="flex items-center gap-2">
                 <ShieldCheck size={14} className="text-[#DCAE53]" />
                 <span>
-                  {activeChannelTab === 'whatsapp' || activeChannelTab === 'email'
+                  {activeChannelTab === 'whatsapp'
+                    ? 'Rule: 3-step cadence. Opener → Wait for reply → 1 Observable friction → 30s Preview micro-yes.'
+                    : activeChannelTab === 'email'
                     ? 'Rule: 1 friction only. Asks for a micro-yes (permission). Does not sell the website on touch 1.'
                     : activeChannelTab === 'call_bridge'
-                    ? 'Goal: Show possibilities & demonstrate how this is value added to the business, not an expense.'
+                    ? 'Goal: Show possibilities & demonstrate how this adds value to the business, not an expense.'
                     : 'Feeds the prototype builder with the exact friction so the free value demonstrates real ROI.'}
                 </span>
               </div>

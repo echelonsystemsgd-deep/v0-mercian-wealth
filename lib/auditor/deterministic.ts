@@ -5,6 +5,8 @@ import type {
   VariableY,
   EmailXOutreach,
   WhatsAppXOutreach,
+  WhatsApp3MessageSequence,
+  WhatsAppMessageBlock,
   OutreachIntelligence,
   PipelineClassification,
 } from './types'
@@ -171,22 +173,97 @@ export function formatEmailXOutreach(
   }
 }
 
-export function formatWhatsAppXOutreach(variableY: VariableY): WhatsAppXOutreach {
+export function buildWhatsApp3MessageSequence(
+  variableY: VariableY,
+  classification: PipelineClassification = 'HAS_WEBSITE',
+  trade = 'local services',
+  city = 'your area'
+): WhatsApp3MessageSequence {
+  const company = variableY.company || 'your business'
+  const name = variableY.name?.trim()
+  const nameSalutation = name ? `Hi ${name} 👋` : 'Hi 👋'
+  const isNoWebsite = classification === 'NO_WEBSITE'
+
+  // Message 1 (Opener - Send First):
+  // Short conversational question confirming interest/identity (based on Overview "Next Action" style).
+  // Never pitch on message 1.
+  const msg1Text = isNoWebsite
+    ? `${nameSalutation} Came across ${company} — quick question: how do new customers currently find and browse your work outside working hours?`
+    : `${nameSalutation} Came across ${company} — quick question: how do customers typically browse and enquire on mobile for you?`
+
+  // Message 2 (Observation - Send after they reply):
+  // State one specific, observable friction in plain language (no offer yet).
+  const pageStr = variableY.page && variableY.page !== 'None' ? variableY.page : 'your site'
+  const problemStr = variableY.websiteProblem || 'friction in your customer booking journey'
+
+  const msg2Text = isNoWebsite
+    ? `Makes total sense! I actually had a look for your dedicated website to see your recent work and booking details, but couldn't find one active.`
+    : `Makes total sense! I had a quick look through on my phone and noticed ${problemStr} on ${pageStr}.`
+
+  // Message 3 (Mechanics + Micro-Yes Offer - Send once engaged):
+  // Cause-and-effect reasoning + 30s free prototype preview offer + single low-commitment micro-yes question.
+  const reasonStr = variableY.recognizableReason || 'customers comparing options in the evening want fast certainty'
+  const consequenceStr = variableY.consequenceMechanics || 'having points of friction causes them to hesitate and compare alternatives'
+
+  const msg3Text = isNoWebsite
+    ? `Usually when customers compare local ${trade} specialists in the evening, having no dedicated place to confirm services and availability means they hesitate at that decision point and look at alternatives.\n\nPut together a quick 30-second mobile concept showing how ${company} could showcase your work and capture those enquiries directly.\n\nOpen to seeing a quick 30-second preview? (Zero obligation at all 👍)`
+    : `Usually when ${reasonStr}, ${consequenceStr}.\n\nPut together a quick 30-second mobile concept showing how to streamline that step for ${company}.\n\nOpen to taking a quick look on your phone? (Zero obligation at all 👍)`
+
+  const message1: WhatsAppMessageBlock = {
+    step: 1,
+    label: 'Message 1: Opener',
+    sublabel: 'Conversational Hook',
+    whenToSend: 'Send first',
+    text: msg1Text,
+  }
+
+  const message2: WhatsAppMessageBlock = {
+    step: 2,
+    label: 'Message 2: Observation',
+    sublabel: '1 Specific Friction',
+    whenToSend: 'Send after they reply',
+    text: msg2Text,
+  }
+
+  const message3: WhatsAppMessageBlock = {
+    step: 3,
+    label: 'Message 3: Mechanics & Micro-Yes',
+    sublabel: 'Cause & Effect + Free 30s Preview',
+    whenToSend: 'Send once engaged',
+    text: msg3Text,
+  }
+
+  const fullSequenceText = `--- MESSAGE 1 (${message1.whenToSend.toUpperCase()}) ---\n${message1.text}\n\n--- MESSAGE 2 (${message2.whenToSend.toUpperCase()}) ---\n${message2.text}\n\n--- MESSAGE 3 (${message3.whenToSend.toUpperCase()}) ---\n${message3.text}`
+
+  return {
+    message1,
+    message2,
+    message3,
+    fullSequenceText,
+  }
+}
+
+export function formatWhatsAppXOutreach(
+  variableY: VariableY,
+  classification: PipelineClassification = 'HAS_WEBSITE',
+  trade = 'local services',
+  city = 'your area'
+): WhatsAppXOutreach {
+  const sequence = buildWhatsApp3MessageSequence(variableY, classification, trade, city)
   const greeting = variableY.name ? `Hi ${variableY.name},` : 'Hi,'
   const observation = `noticed ${variableY.websiteProblem} on ${variableY.page}`
   const mechanics = `Usually when ${variableY.recognizableReason}, ${variableY.consequenceMechanics}.`
   const freeValueOffer = `Put together a quick 30-second mobile preview showing how to resolve this on ${variableY.page}.`
   const microYes = 'Open to taking a quick look on your phone? (Zero obligation at all 👍)'
 
-  const fullWhatsAppText = `${greeting} came across ${variableY.company} — quick observation:\n\n${observation}.\n\n${mechanics}\n\n${freeValueOffer}\n\n${microYes}`
-
   return {
+    sequence,
     greeting,
     observation,
     mechanics,
     freeValueOffer,
     microYes,
-    fullWhatsAppText,
+    fullWhatsAppText: sequence.message1.text,
     variableY,
   }
 }
@@ -233,20 +310,7 @@ export function buildNoWebsiteIntelligence(
   }
 
   const emailX = formatEmailXOutreach(variableY)
-
-  // WhatsApp adapted for No Website: respectful of reputation, focused on customer decision mechanism
-  const waGreeting = ownerName ? `Hi ${ownerName},` : 'Hi,'
-  const waFull = `${waGreeting} came across ${businessName} — great reputation in ${city}.\n\nQuick observation: had a look for your dedicated site to check your past work and booking info, but couldn't find one active.\n\nUsually when a customer is comparing local ${trade} specialists in the evening, having no dedicated place to quickly confirm services and booking availability means they have less certainty at that decision point, so they continue looking at alternatives.\n\nPut together a quick 30-second mobile concept showing how ${businessName} could showcase your work and let clients request bookings directly on their phone.\n\nOpen to taking a quick look? (Zero obligation at all 👍)`
-
-  const whatsAppX: WhatsAppXOutreach = {
-    greeting: waGreeting,
-    observation: `couldn't find a dedicated website active for ${businessName}`,
-    mechanics: `when customers search in the evening, having no place to verify work causes hesitation at the decision point`,
-    freeValueOffer: `put together a quick 30-second mobile concept showing how to capture those enquiries`,
-    microYes: 'Open to taking a quick look? (Zero obligation at all 👍)',
-    fullWhatsAppText: waFull,
-    variableY,
-  }
+  const whatsAppX = formatWhatsAppXOutreach(variableY, 'NO_WEBSITE', trade, city)
 
   const callBridgeScript = `Hi ${ownerName || 'there'}, glad you checked out the preview. The goal isn't to add an extra marketing expense to your business — it's simply to show you what's possible when high-intent evening clients can explore your work and book directly. Happy to hop on a short 10-15 minute screen-share to walk you through the possibilities and see if it makes commercial sense for ${businessName}.`
 
