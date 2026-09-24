@@ -122,13 +122,13 @@ const jsonLd = {
   priceRange: '£495 - £1,995',
   address: {
     '@type': 'PostalAddress',
-    addressRegion: 'West Midlands',
+    addressRegion: 'Berkshire',
     addressCountry: 'GB',
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 52.4862,
-    longitude: -1.8904,
+    latitude: 51.4543,
+    longitude: -0.9781,
   },
   areaServed: {
     '@type': 'Country',

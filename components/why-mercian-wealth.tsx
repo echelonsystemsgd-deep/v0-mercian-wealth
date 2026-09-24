@@ -59,8 +59,8 @@ export function WhyMercianWealth() {
             </div>
 
             {/* Live Direct Line Status */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[10px] font-mono text-[#DCAE53] font-bold uppercase tracking-wider">
+              <span className="w-2 h-2 rounded-full bg-[#DCAE53] animate-pulse" />
               <span>DIRECT LINE ACTIVE · UK TIME</span>
             </div>
           </div>
@@ -93,7 +93,7 @@ export function WhyMercianWealth() {
             </div>
 
             <div className="p-3 rounded-xl bg-black/40 border border-white/10 flex items-start gap-2.5">
-              <MessageSquare size={16} className="text-emerald-400 shrink-0 mt-0.5" />
+              <MessageSquare size={16} className="text-[#DCAE53] shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs font-bold text-white font-sans">Direct WhatsApp Line</p>
                 <p className="text-[11px] text-zinc-400 leading-snug">Direct founder access with &lt;15 min priority response.</p>
@@ -107,7 +107,7 @@ export function WhyMercianWealth() {
               href="https://wa.me/447851055929?text=Hi%20Gurtej%2C%20I%20saw%20the%20Mercian%20Wealth%20platform%20and%20would%20like%20to%20discuss%20a%20free%20working%20prototype%20for%20my%20business."
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs sm:text-sm transition-all shadow-md cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-xs sm:text-sm transition-all shadow-lg shadow-[#DCAE53]/20 cursor-pointer"
             >
               <MessageSquare size={15} />
               <span>Message Gurtej on WhatsApp</span>

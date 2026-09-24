@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
     const { pages, checks } = await crawlWebsite(targetUrl)
 
     // 2. Run Groq reasoning pipeline
-    const { frictions, outreachAngles, confidenceScore } = await runGroqFrictionReasoning(
+    const intelligence = await runGroqFrictionReasoning(
       targetUrl,
       businessName,
       trade,
@@ -64,6 +64,17 @@ export async function POST(req: NextRequest) {
       checks,
       contactName
     )
+
+    const frictions = intelligence.candidates
+    const confidenceScore = intelligence.confidence === 'High' ? 95 : intelligence.confidence === 'Medium' ? 75 : 45
+    const outreachAngles = {
+      emailX: intelligence.emailX,
+      whatsAppX: intelligence.whatsAppX,
+      coldCallOpener: intelligence.callBridgeScript,
+      whatsappOpener: intelligence.whatsAppX.observation,
+      primaryAngleSummary: intelligence.friction,
+      targetLane: intelligence.lane,
+    }
 
     const contactEmail = checks.foundEmails[0] || undefined
     const contactPhone = checks.foundPhones[0] || undefined

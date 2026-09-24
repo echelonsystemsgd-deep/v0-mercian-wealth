@@ -71,9 +71,9 @@ export function CTA() {
               href={SITE_COPY.navbar.whatsappHref}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 text-sm sm:text-base font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 rounded-xl transition-all"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 text-sm sm:text-base font-semibold text-[#DCAE53] bg-[#141417] border border-[#DCAE53]/40 hover:bg-[#1C1C22] hover:border-[#DCAE53] rounded-xl transition-all shadow-lg"
             >
-              <MessageSquare size={16} className="shrink-0" />
+              <MessageSquare size={16} className="shrink-0 text-[#DCAE53]" />
               <span>{data.whatsappButtonText}</span>
             </a>
           </div>

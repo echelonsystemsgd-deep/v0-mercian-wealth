@@ -14,7 +14,7 @@ export function StickyCTAButton() {
   const [footerVisible, setFooterVisible] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  const isVisible = scrolledPastHero && !footerVisible && !isMobileMenuOpen && scrollDirection === "up"
+  const isVisible = scrolledPastHero && !footerVisible && !isMobileMenuOpen
 
   useEffect(() => {
     const checkMenu = () => {

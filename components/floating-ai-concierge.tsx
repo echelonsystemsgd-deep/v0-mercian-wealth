@@ -318,23 +318,58 @@ export function FloatingAiConcierge() {
     ])
   }
 
+  const [footerVisible, setFooterVisible] = useState(false)
+
+  // Coordinate clean hide when site footer enters view
+  useEffect(() => {
+    let observer: IntersectionObserver | null = null
+
+    const timer = setTimeout(() => {
+      const footer = document.querySelector("footer")
+      if (!footer) {
+        setFooterVisible(false)
+        return
+      }
+
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          setFooterVisible(entry.isIntersecting)
+        },
+        { rootMargin: "0px 0px 50px 0px", threshold: 0 }
+      )
+
+      observer.observe(footer)
+    }, 150)
+
+    return () => {
+      clearTimeout(timer)
+      if (observer) observer.disconnect()
+    }
+  }, [])
+
   return (
     <>
-      {/* Floating Trigger Button at Bottom Left (Hidden on mobile <640px to prevent clutter) */}
-      <div className="fixed bottom-5 left-5 z-30 hidden sm:block font-sans">
+      {/* Floating Trigger Button at Bottom Left */}
+      <div
+        className={`fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] sm:bottom-5 left-3 sm:left-5 z-30 font-sans transition-all duration-300 ease-in-out ${
+          footerVisible || isOpen
+            ? "translate-y-20 opacity-0 pointer-events-none"
+            : "translate-y-0 opacity-100 pointer-events-auto"
+        }`}
+      >
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={() => setIsOpen(true)}
-          className="relative group px-4 py-3 rounded-full bg-[#111115] border border-slate-700 hover:border-[#DCAE53]/60 text-slate-200 hover:text-white shadow-2xl flex items-center gap-2.5 cursor-pointer transition-colors"
+          className="relative group px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full bg-[#111115] border border-slate-700 hover:border-[#DCAE53]/60 text-slate-200 hover:text-white shadow-2xl flex items-center gap-2 sm:gap-2.5 cursor-pointer transition-colors"
           aria-label="Open Questions Assistant"
         >
           <div className="relative flex items-center justify-center">
             <MessageSquareText className="w-4 h-4 text-[#DCAE53]" />
-            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400" />
+            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#DCAE53]" />
           </div>
-          <span className="font-mono text-xs font-semibold tracking-wide">
-            Questions? Ask Assistant
+          <span className="font-mono text-[11px] sm:text-xs font-semibold tracking-wide">
+            <span className="hidden sm:inline">Questions? </span>Ask Assistant
           </span>
         </motion.button>
       </div>

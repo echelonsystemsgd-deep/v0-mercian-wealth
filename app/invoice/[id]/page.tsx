@@ -138,7 +138,7 @@ export default function ClientInvoicePage({
                 </div>
               </div>
               <p className="text-[11px] font-mono text-slate-400">
-                West Midlands, United Kingdom · operations@mercianwealth.com
+                Berkshire, United Kingdom · operations@mercianwealth.com
               </p>
             </div>
 

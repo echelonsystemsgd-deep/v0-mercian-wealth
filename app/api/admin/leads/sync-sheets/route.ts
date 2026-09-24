@@ -102,7 +102,7 @@ export async function POST(req: Request) {
           source: 'google_maps_outreach',
           lead_type: 'local',
           local_business_niche: cleanTrade,
-          outreach_category: !website ? 'no_website' : 'has_website',
+          outreach_category: (!businessName || !standardizedPhone) ? 'needs_review' : (!website ? 'no_website' : 'has_website'),
           outreach_stage: lead.status === 'Contacted' ? 'contacted' : 'uncontacted',
           whatsapp_direct_url: waUrl,
           scraped_metadata: {
@@ -214,7 +214,7 @@ export async function POST(req: Request) {
           source: 'google_maps_outreach',
           lead_type: 'local',
           local_business_niche: (!lead.trade || lead.trade.length > 30 || lead.trade.startsWith('Hi ') ? 'Jeweller' : lead.trade),
-          outreach_category: !website ? 'no_website' : 'has_website',
+          outreach_category: (!businessName || !rawPhone || digits.length < 7) ? 'needs_review' : (!website ? 'no_website' : 'has_website'),
           outreach_stage: 'uncontacted',
           whatsapp_direct_url: waUrl,
           scraped_metadata: {

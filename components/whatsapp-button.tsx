@@ -21,6 +21,8 @@ export function WhatsAppButton({
   const [customText, setCustomText] = useState("")
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+  const [footerVisible, setFooterVisible] = useState(false)
+
   // 1. Exclude on portal/admin/booking routes matching MOBILE_AUDIT_FIXES
   const excludedPrefixes = [
     '/admin',
@@ -47,13 +49,41 @@ export function WhatsAppButton({
     return () => observer.disconnect()
   }, [])
 
+  // 3. Coordinate clean hide when site footer enters view
+  useEffect(() => {
+    let observer: IntersectionObserver | null = null
+
+    const timer = setTimeout(() => {
+      const footer = document.querySelector("footer")
+      if (!footer) {
+        setFooterVisible(false)
+        return
+      }
+
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          setFooterVisible(entry.isIntersecting)
+        },
+        { rootMargin: "0px 0px 50px 0px", threshold: 0 }
+      )
+
+      observer.observe(footer)
+    }, 150)
+
+    return () => {
+      clearTimeout(timer)
+      if (observer) observer.disconnect()
+    }
+  }, [pathname])
+
   if (isExcluded || isMobileMenuOpen) return null
 
   const messageToSend = customText.trim() || defaultMessage
   const formattedUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(messageToSend)}`
 
-  const isHidden = !isOpen && !isAtTop && scrollDirection === "down"
-  const isStickyBarActive = scrollY > 200 && scrollDirection === "up"
+  // Stay visible at all times above footer; disappear cleanly when footer enters view
+  const isHidden = footerVisible && !isOpen
+  const isStickyBarActive = scrollY > 200
 
   return (
     <div
@@ -63,7 +93,7 @@ export function WhatsAppButton({
           : "bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] sm:bottom-6"
       } ${
         isHidden
-          ? "translate-y-28 opacity-0 pointer-events-none"
+          ? "translate-y-20 opacity-0 pointer-events-none"
           : "translate-y-0 opacity-100 pointer-events-auto"
       }`}
     >
@@ -144,7 +174,7 @@ export function WhatsAppButton({
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 onClick={() => setIsOpen(false)}
-                className="w-full py-2.5 sm:py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(16,185,129,0.35)] hover:shadow-[0_0_35px_rgba(16,185,129,0.55)] transition-all duration-300 transform active:scale-[0.98] cursor-pointer"
+                className="w-full py-2.5 sm:py-3 px-4 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#DCAE53]/20 transition-all duration-200 transform active:scale-[0.98] cursor-pointer"
               >
                 <span>Continue to WhatsApp</span>
                 <Send size={13} />

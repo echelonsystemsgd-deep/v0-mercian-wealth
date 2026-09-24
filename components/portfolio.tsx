@@ -708,7 +708,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                               window.open(item.href, "_blank", "noopener,noreferrer")
                             }
                           }}
-                          className="bg-emerald-500 hover:bg-emerald-400 text-[#09090B] font-bold px-5 py-2 rounded-xl transition-all cursor-pointer shadow-lg shadow-emerald-500/20"
+                          className="bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold px-5 py-2 rounded-xl transition-all cursor-pointer shadow-lg shadow-[#DCAE53]/20"
                         >
                           <span className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
                             Launch Live Sandbox
@@ -732,7 +732,7 @@ export function Portfolio({ limit }: { limit?: number }) {
 
                     <button
                       type="button"
-                      className="shrink-0 flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-[#09090B] bg-emerald-400 px-3 py-1.5 rounded-lg active:scale-95 transition-transform cursor-pointer font-sans"
+                      className="shrink-0 flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-[#09090B] bg-[#DCAE53] hover:bg-[#E5B85C] px-3 py-1.5 rounded-lg active:scale-95 transition-transform cursor-pointer font-sans"
                       onClick={(e) => {
                         e.stopPropagation()
                         if (item.href) {

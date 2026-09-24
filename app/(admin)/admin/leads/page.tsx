@@ -23,6 +23,7 @@ import {
   Columns,
   Info,
   Sparkles,
+  AlertTriangle,
   MessageSquare,
   Phone,
   Globe,
@@ -81,6 +82,25 @@ function getInitials(name: string): string {
   return (clean || 'MW').slice(0, 2).toUpperCase()
 }
 
+export function getLeadPathway(lead: Lead): 'HAS_WEBSITE' | 'NO_WEBSITE' | 'NEEDS_REVIEW' {
+  if (lead.outreach_category === 'needs_review') return 'NEEDS_REVIEW'
+  if (lead.outreach_category === 'has_website') return 'HAS_WEBSITE'
+  if (lead.outreach_category === 'no_website') return 'NO_WEBSITE'
+
+  const rawName = (lead.business_name || lead.name || '').trim()
+  const rawWeb = (lead.website || '').trim()
+  const isWeb = Boolean(rawWeb && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' && !rawWeb.toLowerCase().includes('facebook.com') && !rawWeb.toLowerCase().includes('instagram.com'))
+  const cleanPhone = (lead.phone || '').replace(/[^0-9]/g, '')
+
+  if (!rawName || (!cleanPhone && !isWeb)) {
+    return 'NEEDS_REVIEW'
+  }
+  if (isWeb) {
+    return 'HAS_WEBSITE'
+  }
+  return 'NO_WEBSITE'
+}
+
 export default function LeadsPage() {
   const supabase = createClient()
   const router = useRouter()
@@ -99,7 +119,7 @@ export default function LeadsPage() {
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [toast, setToast] = useState<string | null>(null)
   const [followupOnly, setFollowupOnly] = useState(false)
-  const [segmentFilter, setSegmentFilter] = useState<'all' | 'hot' | 'no_website' | 'mobile' | 'landline' | 'has_website'>('all')
+  const [segmentFilter, setSegmentFilter] = useState<'all' | 'hot' | 'no_website' | 'mobile' | 'landline' | 'has_website' | 'needs_review'>('all')
   const [wonDeal, setWonDeal] = useState<{ businessName: string } | null>(null)
   
   // Views: 'cards' (Deal Cards Grid), 'table' (Dense Table), 'kanban' (Pipeline Columns)
@@ -372,15 +392,11 @@ export default function LeadsPage() {
         return isMob && !isWeb
       })
     } else if (segmentFilter === 'no_website') {
-      list = list.filter(l => {
-        const rawWeb = (l.website || '').trim()
-        return !rawWeb || rawWeb === 'None' || rawWeb === 'NO WEBSITE' || rawWeb.toLowerCase().includes('facebook.com') || rawWeb.toLowerCase().includes('instagram.com')
-      })
+      list = list.filter(l => getLeadPathway(l) === 'NO_WEBSITE')
     } else if (segmentFilter === 'has_website') {
-      list = list.filter(l => {
-        const rawWeb = (l.website || '').trim()
-        return rawWeb && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' && !rawWeb.toLowerCase().includes('facebook.com') && !rawWeb.toLowerCase().includes('instagram.com')
-      })
+      list = list.filter(l => getLeadPathway(l) === 'HAS_WEBSITE')
+    } else if (segmentFilter === 'needs_review') {
+      list = list.filter(l => getLeadPathway(l) === 'NEEDS_REVIEW')
     } else if (segmentFilter === 'mobile') {
       list = list.filter(l => {
         const clean = (l.phone || '').replace(/[^0-9]/g, '')
@@ -399,23 +415,26 @@ export default function LeadsPage() {
   const segmentCounts = useMemo(() => {
     let noWeb = 0
     let hasWeb = 0
+    let needsReview = 0
     let mobile = 0
     let landline = 0
     let hot = 0
     leads.forEach(l => {
-      const rawWeb = (l.website || '').trim()
-      const isWeb = Boolean(rawWeb && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' && !rawWeb.toLowerCase().includes('facebook.com') && !rawWeb.toLowerCase().includes('instagram.com'))
-      if (isWeb) hasWeb++
-      else noWeb++
+      const pathway = getLeadPathway(l)
+      if (pathway === 'HAS_WEBSITE') hasWeb++
+      else if (pathway === 'NO_WEBSITE') noWeb++
+      else needsReview++
 
       const clean = (l.phone || '').replace(/[^0-9]/g, '')
       const isMob = clean.startsWith('447') || clean.startsWith('07')
       if (isMob) mobile++
       else if (clean.length > 5) landline++
 
+      const rawWeb = (l.website || '').trim()
+      const isWeb = Boolean(rawWeb && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' && !rawWeb.toLowerCase().includes('facebook.com') && !rawWeb.toLowerCase().includes('instagram.com'))
       if (isMob && !isWeb) hot++
     })
-    return { noWeb, hasWeb, mobile, landline, hot, total: leads.length }
+    return { noWeb, hasWeb, needsReview, mobile, landline, hot, total: leads.length }
   }, [leads])
 
   const toggleStatus = (s: string) =>
@@ -713,11 +732,11 @@ export default function LeadsPage() {
           <div className="flex flex-wrap items-center gap-1">
             {[
               { key: 'all', label: 'All Leads', count: segmentCounts.total, highlight: false },
-              { key: 'hot', label: '⚡ WhatsApp + No Website', count: segmentCounts.hot, highlight: true },
-              { key: 'no_website', label: 'No Website Only', count: segmentCounts.noWeb, highlight: false },
+              { key: 'has_website', label: 'Pathway 1 · Has Website', count: segmentCounts.hasWeb, highlight: false },
+              { key: 'no_website', label: 'Pathway 2 · Decision Gap', count: segmentCounts.noWeb, highlight: false },
+              { key: 'needs_review', label: 'Pathway 3 · Needs Review', count: segmentCounts.needsReview, highlight: false },
+              { key: 'hot', label: '⚡ WhatsApp (No Web)', count: segmentCounts.hot, highlight: true },
               { key: 'mobile', label: 'WhatsApp Ready', count: segmentCounts.mobile, highlight: false },
-              { key: 'has_website', label: 'Has Website', count: segmentCounts.hasWeb, highlight: false },
-              { key: 'landline', label: 'Landlines', count: segmentCounts.landline, highlight: false },
             ].map((seg) => {
               const isActive = segmentFilter === seg.key
               return (
@@ -798,6 +817,36 @@ export default function LeadsPage() {
                 All Leads ({segmentCounts.total})
               </button>
               <button
+                onClick={() => setSegmentFilter('has_website')}
+                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
+                  segmentFilter === 'has_website'
+                    ? 'bg-sky-500/20 border-sky-400 text-sky-300 font-semibold'
+                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
+                }`}
+              >
+                Pathway 1: Has Website ({segmentCounts.hasWeb})
+              </button>
+              <button
+                onClick={() => setSegmentFilter('no_website')}
+                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
+                  segmentFilter === 'no_website'
+                    ? 'bg-amber-400/20 border-amber-400 text-amber-300 font-bold'
+                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
+                }`}
+              >
+                Pathway 2: Decision Gap ({segmentCounts.noWeb})
+              </button>
+              <button
+                onClick={() => setSegmentFilter('needs_review')}
+                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
+                  segmentFilter === 'needs_review'
+                    ? 'bg-rose-500/20 border-rose-400 text-rose-300 font-semibold'
+                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
+                }`}
+              >
+                Pathway 3: Needs Review ({segmentCounts.needsReview})
+              </button>
+              <button
                 onClick={() => setSegmentFilter('hot')}
                 className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
                   segmentFilter === 'hot'
@@ -808,16 +857,6 @@ export default function LeadsPage() {
                 ⚡ WhatsApp + No Website ({segmentCounts.hot})
               </button>
               <button
-                onClick={() => setSegmentFilter('no_website')}
-                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
-                  segmentFilter === 'no_website'
-                    ? 'bg-[#141417] border-[#DAA640] text-white font-semibold'
-                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
-                }`}
-              >
-                No Website Only ({segmentCounts.noWeb})
-              </button>
-              <button
                 onClick={() => setSegmentFilter('mobile')}
                 className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
                   segmentFilter === 'mobile'
@@ -826,16 +865,6 @@ export default function LeadsPage() {
                 }`}
               >
                 WhatsApp Ready ({segmentCounts.mobile})
-              </button>
-              <button
-                onClick={() => setSegmentFilter('has_website')}
-                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
-                  segmentFilter === 'has_website'
-                    ? 'bg-[#141417] border-[#DAA640] text-white font-semibold'
-                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
-                }`}
-              >
-                Has Website ({segmentCounts.hasWeb})
               </button>
               <button
                 onClick={() => setSegmentFilter('landline')}
@@ -943,6 +972,39 @@ export default function LeadsPage() {
                       <StatusBadge status={lead.status} />
                     </div>
 
+                    {/* Lead Pathway Indicator */}
+                    {(() => {
+                      const pathway = getLeadPathway(lead)
+                      if (pathway === 'HAS_WEBSITE') {
+                        return (
+                          <div className="flex items-center justify-between text-[11px] font-semibold text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2.5 py-1 rounded-lg">
+                            <span className="flex items-center gap-1.5">
+                              <Globe size={11} /> Pathway 1 · Has Website
+                            </span>
+                            <span className="text-[10px] font-mono text-sky-300">Decision Friction</span>
+                          </div>
+                        )
+                      }
+                      if (pathway === 'NO_WEBSITE') {
+                        return (
+                          <div className="flex items-center justify-between text-[11px] font-semibold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-lg">
+                            <span className="flex items-center gap-1.5">
+                              <Sparkles size={11} /> Pathway 2 · No Website
+                            </span>
+                            <span className="text-[10px] font-mono text-amber-300">Decision Gap</span>
+                          </div>
+                        )
+                      }
+                      return (
+                        <div className="flex items-center justify-between text-[11px] font-semibold text-rose-400 bg-rose-500/10 border border-rose-500/20 px-2.5 py-1 rounded-lg">
+                          <span className="flex items-center gap-1.5">
+                            <AlertTriangle size={11} /> Pathway 3 · Needs Review
+                          </span>
+                          <span className="text-[10px] font-mono text-rose-300">Weak / Missing Data</span>
+                        </div>
+                      )
+                    })()}
+
                     {/* Website / Opportunity Strip */}
                     <div className="rounded-xl overflow-hidden">
                       {!hasWebsite ? (
@@ -1013,16 +1075,26 @@ export default function LeadsPage() {
                     </div>
                   </div>
 
-                  {/* Bottom: 2 Purposeful Actions + Overflow Menu */}
+                  {/* Bottom: Purposeful Actions + Overflow Menu */}
                   <div className="pt-3 mt-3 border-t border-white/5 flex items-center gap-2">
-                    {/* Primary Action: WhatsApp */}
+                    {/* Primary Action: Outreach Intelligence Cockpit */}
+                    <button
+                      onClick={() => handleOpenOutreach(lead)}
+                      className="flex-1 py-2 px-3 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#141417] font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm cursor-pointer"
+                      title="Launch Outreach Intelligence Engine"
+                    >
+                      <Sparkles size={13} />
+                      <span>Outreach</span>
+                    </button>
+
+                    {/* Quick WhatsApp Action */}
                     <button
                       onClick={() => handleQuickWhatsApp(lead)}
-                      className="flex-1 py-2 px-3.5 rounded-xl bg-white hover:bg-zinc-200 text-black font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm cursor-pointer"
+                      className="py-2 px-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs flex items-center justify-center gap-1 transition-all cursor-pointer"
                       title={isLandline ? "Open WhatsApp" : "Launch WhatsApp opener"}
                     >
                       <MessageSquare size={13} />
-                      <span>WhatsApp</span>
+                      <span className="hidden sm:inline">WhatsApp</span>
                     </button>
 
                     {/* Secondary Action: Open Workspace */}
@@ -1270,23 +1342,47 @@ export default function LeadsPage() {
                           </div>
                         </td>
 
-                        {/* Storefront Presence */}
+                        {/* Storefront Presence & Pathway */}
                         <td className="px-4 py-3.5">
-                          {hasWebsite ? (
-                            <a
-                              href={rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite}`}
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#141417] text-zinc-300 border border-white/10 text-[10px] font-medium hover:text-white max-w-[160px] truncate"
-                            >
-                              <Globe size={10} className="text-zinc-500" /> {rawWebsite.replace(/^https?:\/\//, '')} <ExternalLink size={9} />
-                            </a>
-                          ) : (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#141417] text-zinc-400 border border-white/5 text-[10px] font-medium">
-                              No website detected
-                            </span>
-                          )}
+                          <div className="space-y-1">
+                            {(() => {
+                              const pathway = getLeadPathway(lead)
+                              if (pathway === 'HAS_WEBSITE') {
+                                return (
+                                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                                    Pathway 1 · Website Friction
+                                  </span>
+                                )
+                              }
+                              if (pathway === 'NO_WEBSITE') {
+                                return (
+                                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                    Pathway 2 · Decision Gap
+                                  </span>
+                                )
+                              }
+                              return (
+                                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                                  Pathway 3 · Needs Review
+                                </span>
+                              )
+                            })()}
+                            {hasWebsite ? (
+                              <div>
+                                <a
+                                  href={rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#141417] text-zinc-300 border border-white/10 text-[10px] font-medium hover:text-white max-w-[160px] truncate"
+                                >
+                                  <Globe size={10} className="text-zinc-500" /> {rawWebsite.replace(/^https?:\/\//, '')} <ExternalLink size={9} />
+                                </a>
+                              </div>
+                            ) : (
+                              <div className="text-[10px] text-zinc-500 font-mono">No website</div>
+                            )}
+                          </div>
                         </td>
 
                         {/* Pipeline Status */}
@@ -1307,9 +1403,16 @@ export default function LeadsPage() {
                         {/* Actions */}
                         <td className="px-4 py-3.5 text-right" onClick={(e) => e.stopPropagation()}>
                           <div className="flex items-center justify-end gap-1.5">
+                            <button
+                              onClick={() => handleOpenOutreach(lead)}
+                              className="px-2.5 py-1 rounded-lg bg-[#DCAE53] hover:bg-[#E5B85C] text-[#141417] text-[10px] font-semibold transition-all cursor-pointer inline-flex items-center gap-1 shadow-sm"
+                              title="Launch Outreach Intelligence Engine"
+                            >
+                              <Sparkles size={10} /> Outreach
+                            </button>
                             <Link
                               href={`/admin/leads/${lead.id}`}
-                              className="px-2.5 py-1 rounded-lg bg-[#DAA640]/15 hover:bg-[#DAA640]/25 text-[#DAA640] border border-[#DAA640]/30 text-[10px] font-semibold transition-all cursor-pointer inline-flex items-center gap-1"
+                              className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 text-[10px] font-medium transition-all cursor-pointer inline-flex items-center gap-1"
                               title="Open Lead Workspace"
                             >
                               <ArrowUpRight size={10} /> Open

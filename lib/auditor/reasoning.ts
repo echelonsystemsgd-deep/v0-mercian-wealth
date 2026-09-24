@@ -1,6 +1,18 @@
 import Groq from 'groq-sdk'
-import type { PageNode, DeterministicChecks, FrictionFinding, VariableY, OutreachAngles } from './types'
-import { identifyDeterministicFrictions, formatEmailXOutreach } from './deterministic'
+import type {
+  PageNode,
+  DeterministicChecks,
+  FrictionFinding,
+  VariableY,
+  OutreachAngles,
+  OutreachIntelligence,
+} from './types'
+import {
+  identifyDeterministicFrictions,
+  formatEmailXOutreach,
+  formatWhatsAppXOutreach,
+  buildNoWebsiteIntelligence,
+} from './deterministic'
 
 const GROQ_MODEL = 'llama-3.3-70b-versatile'
 
@@ -11,12 +23,13 @@ export async function runGroqFrictionReasoning(
   pages: PageNode[],
   checks: DeterministicChecks,
   contactName?: string
-): Promise<{ frictions: FrictionFinding[]; outreachAngles: OutreachAngles; confidenceScore: number }> {
+): Promise<OutreachIntelligence> {
   const apiKey = process.env.GROQ_API_KEY
+  const cleanUrl = rootUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
 
   // Fallback to deterministic rules if Groq API key is not configured
   if (!apiKey) {
-    return generateFallbackReasoning(rootUrl, businessName, trade, pages, checks, contactName)
+    return generateFallbackIntelligence(rootUrl, businessName, trade, pages, checks, contactName)
   }
 
   const groq = new Groq({ apiKey })
@@ -34,18 +47,20 @@ export async function runGroqFrictionReasoning(
 
   const prompt = `
 You are the Mercian Wealth Website Friction Auditor.
-Analyze this website structure and produce ONE high-signal, evidence-backed friction analysis and an Outreach #1 (Email X / Variable Y) following these STRICT rules from our methodology:
+Analyze this website structure and produce candidates and ONE top evidence-backed friction analysis for Outreach #1 (Email X / WhatsApp X / Variable Y) following these STRICT rules from our methodology:
 
 STRICT RULES (From Outreach Engine PDFs):
 1. ONE friction only - not a list, not an audit. One point of hesitation tied to one page or step.
-2. The friction must pass 3 tests:
+2. The friction must pass 4 tests:
    - Visible: Can be verified in under 10 seconds.
+   - Fast to verify: Can be checked in one click.
    - Logical / Single-page: Lives on one page or step.
    - Decision-tied: Directly affects a buyer's willingness or ability to take the customer's next step (e.g. booking, submitting, reserving).
-3. Recognisable reason: Describe the buyer's natural behavior pattern that makes the business owner nod in agreement. No accusations, no insults, no judgment of competence.
-4. Consequence mechanics: Describe the chain reaction cause-and-effect WITHOUT numbers, WITHOUT metrics, WITHOUT conversion rate claims, and WITHOUT saying "you're losing £X".
-5. Subject line: A clean decision label matching the micro-yes decision (e.g., "Quick question regarding [page]" or "Mobile booking on [company]"). Never an advertisement, never hype.
-6. The first email asks for PERMISSION ONLY (Micro-yes). It offers a 30-second preview asset. It NEVER asks for a call or sells a service in the first email.
+3. Evidence (FIRST-CLASS FIELD): Provide clear objective evidence of what was observed on the page (e.g. "Page /quote has 9 separate input boxes"). Never invent evidence.
+4. Recognisable reason: Describe the buyer's natural behavior pattern that makes the business owner nod in agreement. No accusations, no insults, no judgment of competence.
+5. Consequence mechanics: Describe the chain reaction cause-and-effect WITHOUT numbers, WITHOUT metrics, WITHOUT conversion rate claims, and WITHOUT saying "you're losing £X".
+6. The first outreach asks for PERMISSION ONLY (Micro-yes). It offers a 30-second preview asset. It NEVER asks for a call or sells a service in the first message.
+7. If no valid, verified friction can be confirmed, mark classification as "NEEDS_REVIEW" and set reviewReason: "No valid friction found - do not force outreach".
 
 BUSINESS INFO:
 - Company Name: "${businessName}"
@@ -61,24 +76,31 @@ ${JSON.stringify(checks, null, 2)}
 
 Respond with a JSON object strictly matching this schema:
 {
-  "topFriction": {
-    "lane": "customer next step (e.g. consultation booking, custom inquiry, quote request)",
-    "location": "exact page or step label (e.g. your consultation page, mobile menu, /services)",
-    "observableProblem": "one specific visible issue (e.g. the consultation form requires 8 separate text inputs on a smartphone)",
-    "recognizableReason": "buyer behavior pattern (e.g. when high-intent evening buyers search on mobile, having to type detailed specs creates friction)",
-    "consequenceMechanics": "chain reaction (e.g. they postpone completing it and leave to message whoever offers an instant 2-tap booking)",
-    "classification": "OBSERVED"
-  },
-  "variableY": {
-    "subjectLine": "clean decision label",
-    "page": "exact page or step",
-    "websiteProblem": "one specific problem",
-    "recognizableReason": "buyer behavior pattern",
-    "consequenceMechanics": "cause and effect without numbers"
-  },
-  "coldCallOpener": "conversational phone opener referencing the single observation as a physical anchor",
-  "whatsappOpener": "casual WhatsApp opener pointing out the single friction and asking permission to share a 30s preview",
-  "confidenceScore": 0.88
+  "classification": "HAS_WEBSITE" | "NEEDS_REVIEW",
+  "reviewReason": "explanation if needs review",
+  "candidates": [
+    {
+      "id": "candidate_1",
+      "customerNextStep": "e.g. Request an on-site survey & quote",
+      "lane": "e.g. Quote request form",
+      "location": "e.g. /quote page on mobile",
+      "observableProblem": "e.g. the form requires 7 separate text inputs on a smartphone",
+      "evidence": "e.g. Contact page contains 7 required text inputs with no instant WhatsApp option",
+      "recognizableReason": "e.g. when evening buyers research on their phone, typing out project details on a small screen creates friction",
+      "consequenceMechanics": "e.g. they postpone completing it and continue comparing local providers who offer 2-tap booking",
+      "confidence": 0.9,
+      "scores": {
+        "visible": true,
+        "fast": true,
+        "logical": true,
+        "decisionTied": true,
+        "observable": true,
+        "noNumbers": true
+      }
+    }
+  ],
+  "topCandidateId": "candidate_1",
+  "confidence": "High" | "Medium" | "Low"
 }
 `
 
@@ -88,7 +110,8 @@ Respond with a JSON object strictly matching this schema:
       messages: [
         {
           role: 'system',
-          content: 'You are an expert Website Friction Auditor who translates website structure into human-understandable customer journey friction following strict cold outreach guidelines. Return valid JSON only.',
+          content:
+            'You are an expert Website Friction Auditor who translates website structure into human-understandable customer journey friction following strict cold outreach guidelines. Return valid JSON only.',
         },
         { role: 'user', content: prompt },
       ],
@@ -100,70 +123,146 @@ Respond with a JSON object strictly matching this schema:
     if (!content) throw new Error('Empty response from Groq')
 
     const parsed = JSON.parse(content)
-    const top = parsed.topFriction
+    const candidates: FrictionFinding[] = Array.isArray(parsed.candidates) && parsed.candidates.length > 0
+      ? parsed.candidates.map((c: any, idx: number) => ({
+          id: c.id || `candidate_${idx + 1}`,
+          classification: 'OBSERVED',
+          customerNextStep: c.customerNextStep || 'Confirm service and initiate enquiry',
+          lane: c.lane || 'Contact & booking lane',
+          location: c.location || '/contact',
+          observableProblem: c.observableProblem || 'friction at enquiry stage',
+          evidence: c.evidence || 'Observed during live page scan',
+          recognizableReason: c.recognizableReason || 'customers hesitate at this decision point',
+          consequenceMechanics: c.consequenceMechanics || 'they leave to explore alternative providers',
+          confidence: c.confidence || 0.85,
+          scores: c.scores || {
+            visible: true,
+            fast: true,
+            logical: true,
+            decisionTied: true,
+            observable: true,
+            noNumbers: true,
+          },
+        }))
+      : []
 
-    const frictionFinding: FrictionFinding = {
-      id: 'primary_groq_friction',
-      classification: top.classification === 'INFERRED' ? 'INFERRED' : 'OBSERVED',
-      lane: top.lane || 'booking_conversion',
-      location: top.location || 'homepage',
-      observableProblem: top.observableProblem,
-      recognizableReason: top.recognizableReason,
-      consequenceMechanics: top.consequenceMechanics,
-      confidence: parsed.confidenceScore || 0.85,
+    if (candidates.length === 0) {
+      return generateFallbackIntelligence(rootUrl, businessName, trade, pages, checks, contactName)
     }
 
-    const varY: VariableY = {
+    const topCandidate =
+      candidates.find((c) => c.id === parsed.topCandidateId) || candidates[0]
+
+    const variableY: VariableY = {
       name: contactName,
       company: businessName,
-      website: rootUrl.replace(/^https?:\/\//, '').replace(/\/$/, ''),
-      page: parsed.variableY?.page || frictionFinding.location,
-      websiteProblem: parsed.variableY?.websiteProblem || frictionFinding.observableProblem,
-      recognizableReason: parsed.variableY?.recognizableReason || frictionFinding.recognizableReason,
-      consequenceMechanics: parsed.variableY?.consequenceMechanics || frictionFinding.consequenceMechanics,
-      subjectLine: parsed.variableY?.subjectLine || `Quick question regarding ${frictionFinding.location}`,
+      website: cleanUrl,
+      page: topCandidate.location,
+      websiteProblem: topCandidate.observableProblem,
+      evidence: topCandidate.evidence,
+      customerNextStep: topCandidate.customerNextStep,
+      lane: topCandidate.lane,
+      recognizableReason: topCandidate.recognizableReason,
+      consequenceMechanics: topCandidate.consequenceMechanics,
+      subjectLine: `Question regarding ${topCandidate.location}`,
     }
 
-    const emailX = formatEmailXOutreach(varY)
+    const emailX = formatEmailXOutreach(variableY)
+    const whatsAppX = formatWhatsAppXOutreach(variableY)
+
+    const callBridgeScript = `Hi ${contactName || 'there'}, glad you took a look. The purpose isn't to push a generic website package — it's simply to show how removing that friction on ${topCandidate.location} lets you capture high-intent evening clients hands-off. Would you be open to a 10-minute screen share where I show you how this pays for itself on the first job?`
 
     return {
-      frictions: [frictionFinding],
-      outreachAngles: {
-        emailX,
-        coldCallOpener: parsed.coldCallOpener || `Hi, is this ${businessName}? I was looking at ${frictionFinding.location} and noticed ${frictionFinding.observableProblem}. Is that something you're aware of?`,
-        whatsappOpener: parsed.whatsappOpener || `Hi, came across ${businessName} — noticed ${frictionFinding.observableProblem} on ${frictionFinding.location}. Put together a quick 30s mobile concept showing how to streamline it. Open to a quick look?`,
-        primaryAngleSummary: `${frictionFinding.location}: ${frictionFinding.observableProblem}`,
-        targetLane: frictionFinding.lane,
+      classification: parsed.classification === 'NEEDS_REVIEW' ? 'NEEDS_REVIEW' : 'HAS_WEBSITE',
+      customerNextStep: topCandidate.customerNextStep,
+      lane: topCandidate.lane,
+      location: topCandidate.location,
+      pageUrl: `${rootUrl.replace(/\/$/, '')}${topCandidate.location.startsWith('/') ? topCandidate.location : `/${topCandidate.location}`}`,
+      friction: topCandidate.observableProblem,
+      evidence: topCandidate.evidence,
+      recognizableReason: topCandidate.recognizableReason,
+      consequenceMechanics: topCandidate.consequenceMechanics,
+      confidence: parsed.confidence || 'High',
+      candidates,
+      selectedCandidateId: topCandidate.id,
+      emailX,
+      whatsAppX,
+      callBridgeScript,
+      freeValueTask: {
+        title: `Build 30s Mobile Concept for ${businessName}`,
+        description: `Create a prototype resolving "${topCandidate.observableProblem}" on ${topCandidate.location} to demonstrate streamlined booking.`,
+        prototypeFocus: topCandidate.lane,
       },
-      confidenceScore: parsed.confidenceScore || 0.85,
+      reviewReason: parsed.reviewReason,
     }
   } catch {
-    // If Groq fails or times out, fallback seamlessly
-    return generateFallbackReasoning(rootUrl, businessName, trade, pages, checks, contactName)
+    return generateFallbackIntelligence(rootUrl, businessName, trade, pages, checks, contactName)
   }
 }
 
-function generateFallbackReasoning(
+function generateFallbackIntelligence(
   rootUrl: string,
   businessName: string,
   trade: string,
   pages: PageNode[],
   checks: DeterministicChecks,
   contactName?: string
-): { frictions: FrictionFinding[]; outreachAngles: OutreachAngles; confidenceScore: number } {
-  const deterministicFrictions = identifyDeterministicFrictions(pages, checks, businessName)
+): OutreachIntelligence {
   const cleanUrl = rootUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
+  const deterministicFrictions = identifyDeterministicFrictions(pages, checks, businessName)
 
-  const primary = deterministicFrictions[0] || {
-    id: 'general_mobile_friction',
-    classification: 'INFERRED' as const,
-    lane: 'mobile_inquiry',
-    location: 'mobile booking lane',
-    observableProblem: 'the mobile booking flow lacks an instant reservation action for after-hours visitors',
-    recognizableReason: 'customers searching on smartphones in the evening want immediate confirmation without telephone back-and-forth',
-    consequenceMechanics: 'they hesitate and explore competing options that offer instant online appointments',
-    confidence: 0.7,
+  if (deterministicFrictions.length === 0) {
+    // If no verifiable friction is detected, follow rule: DO NOT FORCE OUTREACH
+    return {
+      classification: 'NEEDS_REVIEW',
+      customerNextStep: 'Enquire or book',
+      lane: 'General mobile navigation',
+      location: 'Homepage',
+      pageUrl: rootUrl,
+      friction: 'No significant verifiable friction detected',
+      evidence: 'Deterministic scan did not find password locks, heavy form fields, or missing viewport.',
+      recognizableReason: 'Site functions with standard layout; no visible barrier identified in <10 seconds.',
+      consequenceMechanics: 'Buyer journey proceeds normally without obvious blockage.',
+      confidence: 'Low',
+      candidates: [],
+      selectedCandidateId: '',
+      emailX: formatEmailXOutreach({
+        name: contactName,
+        company: businessName,
+        website: cleanUrl,
+        page: 'homepage',
+        websiteProblem: 'general mobile responsiveness',
+        evidence: 'General check',
+        customerNextStep: 'Contact',
+        lane: 'Homepage',
+        recognizableReason: 'buyers check work',
+        consequenceMechanics: 'they decide',
+        subjectLine: `Question about ${businessName}`,
+      }),
+      whatsAppX: formatWhatsAppXOutreach({
+        name: contactName,
+        company: businessName,
+        website: cleanUrl,
+        page: 'homepage',
+        websiteProblem: 'general mobile responsiveness',
+        evidence: 'General check',
+        customerNextStep: 'Contact',
+        lane: 'Homepage',
+        recognizableReason: 'buyers check work',
+        consequenceMechanics: 'they decide',
+        subjectLine: `Question about ${businessName}`,
+      }),
+      callBridgeScript: '',
+      freeValueTask: {
+        title: 'Review Lead Manually',
+        description: 'No automatic friction identified. Inspect manually before reaching out.',
+        prototypeFocus: 'Manual review',
+      },
+      reviewReason: 'No valid observable friction found passing the 10-second test — do not force outreach.',
+    }
   }
+
+  const primary = deterministicFrictions[0]
 
   const variableY: VariableY = {
     name: contactName,
@@ -171,22 +270,39 @@ function generateFallbackReasoning(
     website: cleanUrl,
     page: primary.location,
     websiteProblem: primary.observableProblem,
+    evidence: primary.evidence,
+    customerNextStep: primary.customerNextStep,
+    lane: primary.lane,
     recognizableReason: primary.recognizableReason,
     consequenceMechanics: primary.consequenceMechanics,
-    subjectLine: `Quick observation about ${primary.location}`,
+    subjectLine: `Question regarding ${primary.location}`,
   }
 
   const emailX = formatEmailXOutreach(variableY)
+  const whatsAppX = formatWhatsAppXOutreach(variableY)
 
   return {
-    frictions: [primary],
-    outreachAngles: {
-      emailX,
-      coldCallOpener: `Hi, is this ${businessName}? I was having a look at ${primary.location} and noticed ${primary.observableProblem}. Is that something you've noticed with mobile visitors?`,
-      whatsappOpener: `Hi 👋 came across ${businessName} — quick observation: noticed ${primary.observableProblem} on ${primary.location}.\n\nPut together a quick 30-second mobile concept showing how to resolve this. Open to taking a quick look on your phone?`,
-      primaryAngleSummary: `${primary.location}: ${primary.observableProblem}`,
-      targetLane: primary.lane,
+    classification: 'HAS_WEBSITE',
+    customerNextStep: primary.customerNextStep,
+    lane: primary.lane,
+    location: primary.location,
+    pageUrl: `${rootUrl.replace(/\/$/, '')}${primary.location.startsWith('/') ? primary.location : `/${primary.location}`}`,
+    friction: primary.observableProblem,
+    evidence: primary.evidence,
+    recognizableReason: primary.recognizableReason,
+    consequenceMechanics: primary.consequenceMechanics,
+    confidence: primary.confidence > 0.85 ? 'High' : 'Medium',
+    candidates: deterministicFrictions,
+    selectedCandidateId: primary.id,
+    emailX,
+    whatsAppX,
+    callBridgeScript: `Hi ${contactName || 'there'}, glad you checked out the preview. The goal isn't to sell an expensive web build — it's simply to show you how removing that bottleneck on ${primary.location} lets you secure evening bookings without phone tag. Happy to jump on a short 10-min screen share to show you how this pays for itself.`,
+    freeValueTask: {
+      title: `Build 30s Mobile Prototype for ${businessName}`,
+      description: `Create a prototype demonstrating streamlined flow for ${primary.lane} to resolve ${primary.observableProblem}.`,
+      prototypeFocus: primary.lane,
     },
-    confidenceScore: primary.confidence,
   }
 }
+
+export { buildNoWebsiteIntelligence }

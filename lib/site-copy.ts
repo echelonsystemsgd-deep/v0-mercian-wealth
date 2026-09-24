@@ -71,7 +71,7 @@ export const SITE_COPY = {
     // 0. Live Telemetry Ticker
     telemetryTicker: {
       items: [
-        "Mobile-first storefronts convert 3.8× higher than generic contact forms.",
+        "Sub-second mobile storefronts eliminate visitor bounce and capture high-intent evening enquiries.",
         "Upfront Stripe deposit collection eliminates no-shows and secures cash flow.",
         "Instant WhatsApp lead dispatch alerts your team in under 5 seconds.",
         "Three core outcomes: more leads captured, faster response times, and less manual work on your end.",
@@ -101,7 +101,7 @@ export const SITE_COPY = {
 
     // 2. What Changed (SYSTEM I)
     whatChanged: {
-      eyebrow: "WHAT CHANGED",
+      eyebrow: "4 MARKET SHIFTS",
       headline: "The rules of customer acquisition shifted. Waiting is now an active choice to lose revenue.",
       subheadline: "Every business feels the shift in customer expectations. The operators who convert mobile visitors instantly capture market share while traditional setups leak lucrative jobs.",
       shifts: [
@@ -109,7 +109,7 @@ export const SITE_COPY = {
           outcome: "Revenue Increased",
           tag: "3-TAP MOBILE STOREFRONTS",
           title: "Customers Don't Fill Out Long Contact Forms On Mobile",
-          description: "Over 78% of local searches happen on smartphones. When prospective clients face clunky contact forms, they leave. 3-tap order builders let customers select services and book in seconds.",
+          description: "The vast majority of local customers research and book on smartphones. When prospective clients face clunky contact forms, they leave. 3-tap order builders let customers select services and book in seconds.",
         },
         {
           outcome: "Risk Removed",
@@ -211,7 +211,7 @@ export const SITE_COPY = {
 
     // 4. Offer Mechanism (SYSTEM III)
     offerMechanism: {
-      eyebrow: "THE OFFER PROTOCOL",
+      eyebrow: "3-STEP SEQUENCING",
       headline: "Before we deploy your actual system, we build a working prototype of it.",
       subheadline: "You will never be asked to commit based on promises, slide decks, or vague proposals. You test your actual storefront prototype running on your phone before any agreement.",
       steps: [
@@ -239,7 +239,7 @@ export const SITE_COPY = {
 
     // 5. Proof Case Studies (SYSTEM V)
     caseStudies: {
-      eyebrow: "VERIFIED PROOF & WORKING CONCEPTS",
+      eyebrow: "DEPLOYMENT OUTCOMES",
       headline: "Proven Outcomes. Zero Fabricated Metrics.",
       subheadline: "Real business outcomes from verified production systems alongside working interactive prototypes.",
       studies: [
@@ -362,7 +362,7 @@ export const SITE_COPY = {
     commodityTrap: {
       eyebrow: "THE HARSH REALITY",
       headline: "Slow mobile pages and friction-heavy contact forms leak revenue. Instant booking closes deals.",
-      subheadline: "In local services, speed-to-lead is everything. The business that converts first and confirms the booking wins the customer 78% of the time.",
+      subheadline: "In local services, speed-to-lead is everything. The business that responds first and confirms the booking consistently wins the customer.",
     },
 
     // 7. Pricing Tiers
@@ -453,7 +453,7 @@ export const SITE_COPY = {
     list: [
       {
         title: "Sub-Second Mobile Storefronts",
-        description: "Over 78% of local enquiries arrive from mobile devices. If your site takes more than 2 seconds to load, buyers bounce. We engineer custom digital storefronts loading in under 400ms.",
+        description: "The vast majority of local enquiries arrive from mobile devices. If your site takes more than 2 seconds to load, buyers bounce. We engineer custom digital storefronts loading in under 400ms.",
         outcome: "< 400ms Edge Mobile Speed",
         tagline: "Ultra-Fast Mobile Storefronts That Capture High-Ticket Enquiries.",
         overview: "A custom Next.js web platform engineered specifically for smartphones. Minimalist design, high-contrast typography, and instant page transitions that prevent visitor bounce.",
@@ -468,8 +468,8 @@ export const SITE_COPY = {
       },
       {
         title: "3-Tap Order & Booking Builders",
-        description: "Traditional contact forms with 10+ text inputs lose up to 68% of customers. Our visual step-by-step builders let clients configure orders and book appointments in under 45 seconds.",
-        outcome: "68% Drop-Off Reduction",
+        description: "Traditional contact forms with excessive text inputs create friction on smartphones. Our visual step-by-step builders let clients configure orders and book appointments in under 45 seconds.",
+        outcome: "Frictionless Mobile Conversion",
         tagline: "Frictionless Interactive Booking for Trades & Local Services.",
         overview: "An interactive scoping and booking flow tailored to your specific service catalogue. Clients select package options, pick calendar availability, and confirm in 3 taps.",
         features: [
@@ -514,7 +514,7 @@ export const SITE_COPY = {
       {
         title: "Automated Google Review Extraction",
         description: "5-star Google reviews drive local ranking dominance and customer trust. We trigger automated post-service review requests via WhatsApp and SMS upon job completion.",
-        outcome: "+240% Google Review Growth",
+        outcome: "Automated 5-Star Review Growth",
         tagline: "Build Search Dominance and Social Proof on Autopilot.",
         overview: "Hands-off review extraction sequences that reach satisfied customers at the exact moment of peak happiness. Direct deep links open Google review modals in one tap.",
         features: [
@@ -1038,8 +1038,8 @@ export const SITE_COPY = {
           answer: "We respond to all direct enquiries and WhatsApp messages within 1 business hour during UK working hours.",
         },
         {
-          question: "Do you work with businesses outside the West Midlands?",
-          answer: "Yes. While our engineering roots are in the West Midlands, our deployments serve independent businesses across England, Scotland, and Wales.",
+          question: "Do you work with businesses outside Berkshire?",
+          answer: "Yes. While our headquarters are in Berkshire, our deployments serve independent premier businesses across England, Scotland, and Wales.",
         },
         {
           question: "Can I request a prototype directly via WhatsApp?",

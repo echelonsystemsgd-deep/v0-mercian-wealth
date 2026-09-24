@@ -25,7 +25,7 @@ function DemoContent() {
   const businessName = searchParams.get('name') || 'Premier Trade Specialists'
   const trade = searchParams.get('trade') || 'Roofing & Building'
   const phone = searchParams.get('phone') || '+44 7976 225517'
-  const city = searchParams.get('city') || 'Worcestershire & West Midlands'
+  const city = searchParams.get('city') || 'Berkshire & Across UK'
   const rating = searchParams.get('rating') || '5.0'
   const reviews = searchParams.get('reviews') || '57'
 

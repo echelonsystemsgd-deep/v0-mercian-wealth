@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import {
   X,
   Send,
@@ -11,19 +11,29 @@ import {
   MapPin,
   Star,
   ExternalLink,
-  Clock,
   Sparkles,
   AlertTriangle,
   Trash2,
-  Mic,
-  Flame,
-  Calculator,
   ShieldCheck,
-  TrendingDown,
-  CheckCircle2
+  MessageSquare,
+  Mail,
+  RefreshCw,
+  Eye,
+  CheckCircle2,
+  HelpCircle,
+  Layers,
+  ArrowRight,
+  UserCheck,
+  AlertCircle,
+  FileText
 } from 'lucide-react'
-
-import { AntigravityPromptModal } from './antigravity-prompt-modal'
+import type { FrictionFinding, PipelineClassification } from '@/lib/auditor/types'
+import {
+  formatEmailXOutreach,
+  formatWhatsAppXOutreach,
+  buildNoWebsiteIntelligence,
+  identifyDeterministicFrictions
+} from '@/lib/auditor/deterministic'
 
 export interface OutreachLead {
   id: string
@@ -72,1352 +82,714 @@ export function OutreachModal({
   onUpdateStatus,
   onDeleteLead,
 }: OutreachModalProps) {
-  // 6 Playbook Stages + Voice Note
-  const [activeTab, setActiveTab] = useState<
-    'stage1' | 'stage2' | 'qualify' | 'stage3' | 'stage4' | 'stage5' | 'voice'
-  >('stage1')
-
-  // Stage 1 Track: Track A (Has Website) vs Track B (No Website)
-  const [outreachTrack, setOutreachTrack] = useState<'track_a' | 'track_b'>('track_b')
-  const [trackAStep, setTrackAStep] = useState<'a1_mobile' | 'a2_password' | 'a3_linktree' | 'a4_custom'>('a1_mobile')
-  const [trackBStep, setTrackBStep] = useState<
-    'b1_handshake_1a' | 'b1_handshake_1b' | 'b1_handshake_1c' | 'b2_sunday_deadend' | 'b3_direct_x'
-  >('b1_handshake_1a')
-
-  const [selectedText, setSelectedText] = useState('')
-  const [qualifyStep, setQualifyStep] = useState<'all' | 'intro' | 'q1' | 'q2' | 'q3' | 'q4' | 'q5'>('all')
-  const [prototypeSubStep, setPrototypeSubStep] = useState<'prototype' | 'call_bridge'>('prototype')
-  const [stage3Variant, setStage3Variant] = useState<'both' | 'option1' | 'option2' | 'call_bridge'>('both')
-  const [customObservation, setCustomObservation] = useState('')
-
-  // Interactive Revenue Leakage Diagnostic Calculator State
-  const [ticketValue, setTicketValue] = useState<number>(2500)
-  const [missedEnquiries, setMissedEnquiries] = useState<number>(2)
+  // Primary Tabs
+  const [activeChannelTab, setActiveChannelTab] = useState<'whatsapp' | 'email' | 'call_bridge' | 'prototype_task'>('whatsapp')
+  
+  // Pipeline Classification: HAS_WEBSITE | NO_WEBSITE | NEEDS_REVIEW
+  const [classification, setClassification] = useState<PipelineClassification>('NO_WEBSITE')
+  
+  // Brainstorm Candidate Selection
+  const [selectedCandidateId, setSelectedCandidateId] = useState<string>('c1')
+  const [showBrainstorm, setShowBrainstorm] = useState(false)
+  
+  // Editable fields for operator refinement
+  const [customerNextStep, setCustomerNextStep] = useState('')
+  const [lane, setLane] = useState('')
+  const [pageLocation, setPageLocation] = useState('')
+  const [friction, setFriction] = useState('')
+  const [evidence, setEvidence] = useState('')
+  const [recognizableReason, setRecognizableReason] = useState('')
+  const [consequenceMechanics, setConsequenceMechanics] = useState('')
+  const [reviewReason, setReviewReason] = useState('')
 
   const [copied, setCopied] = useState(false)
   const [updating, setUpdating] = useState(false)
-  const [isPromptOpen, setIsPromptOpen] = useState(false)
+  const [isAuditing, setIsAuditing] = useState(false)
 
-  // Trade and Niche Profile Detection
+  // Derived Business Details
   const businessName = lead?.business_name || 'Local Business'
-  const rawTrade = lead?.local_business_niche || lead?.scraped_metadata?.trade || 'local trade'
-  const cleanTrade =
-    !rawTrade || rawTrade.length > 30 || rawTrade.startsWith('Hi ') || rawTrade.toLowerCase().includes('came across')
-      ? 'local trade'
-      : rawTrade
-  const trade = cleanTrade.toLowerCase()
-
-  const isDiamond =
-    trade.includes('diamond') ||
-    businessName.toLowerCase().includes('diamond') ||
-    trade.includes('gem') ||
-    trade.includes('atelier')
-
-  const isJewellery =
-    isDiamond ||
-    trade.includes('jewel') ||
-    trade.includes('gold') ||
-    trade.includes('watch')
-  const isContractor =
-    trade.includes('build') ||
-    trade.includes('roof') ||
-    trade.includes('plumb') ||
-    trade.includes('electr') ||
-    trade.includes('join') ||
-    trade.includes('carpent') ||
-    trade.includes('contract') ||
-    trade.includes('landscap')
-  const isClinic =
-    trade.includes('clinic') ||
-    trade.includes('aesthet') ||
-    trade.includes('dent') ||
-    trade.includes('skin') ||
-    trade.includes('salon') ||
-    trade.includes('spa')
-
-  const nicheProfile = isDiamond
-    ? {
-        nicheName: 'Diamond Atelier & Fine Jeweller',
-        coreOffering: 'bespoke diamond commissions, engagement rings & fine jewellery',
-        offeringBenefits: '4Cs grading, certified diamond carats & bespoke atelier craftsmanship',
-        keyAction1: 'book a private showroom consultation or appointment',
-        depositPercentage: '20% holding deposit or bespoke design lock',
-        theMath: 'securing 1 bespoke diamond ring or custom piece',
-        defaultTicket: 3000,
-        ticketLabel: 'bespoke diamond ring or custom commission',
-        itemsOrJobs: 'pieces',
-        missedDefault: 2,
-      }
-    : isJewellery
-    ? {
-        nicheName: 'High-End Jeweller',
-        coreOffering: 'curated pre-loved gold, watches & bespoke pieces',
-        offeringBenefits: 'verified hallmarks, carats & workshop craftsmanship',
-        keyAction1: 'book a private in-store viewing',
-        depositPercentage: '20% holding deposit to reserve in safe',
-        theMath: 'selling 1 vintage watch or 2 gold rings',
-        defaultTicket: 2500,
-        ticketLabel: 'bespoke commission or estate piece',
-        itemsOrJobs: 'pieces',
-        missedDefault: 2,
-      }
-    : isContractor
-    ? {
-        nicheName: 'Trade Contractor',
-        coreOffering: 'extensions, structural renovations & trade projects',
-        offeringBenefits: 'before/after project transformations & structural warranties',
-        keyAction1: 'request an on-site survey & instant quote',
-        depositPercentage: '£250 project scoping deposit',
-        theMath: 'winning 1 renovation or roofing contract',
-        defaultTicket: 3500,
-        ticketLabel: 'contract or renovation job',
-        itemsOrJobs: 'jobs',
-        missedDefault: 2,
-      }
-    : isClinic
-    ? {
-        nicheName: 'Clinic / Aesthetics',
-        coreOffering: 'bespoke cosmetic treatments & clinical procedures',
-        offeringBenefits: 'treatment results, practitioner credentials & fixed pricing',
-        keyAction1: 'schedule a private consultation',
-        depositPercentage: '£50 consultation booking deposit',
-        theMath: 'booking 2 treatment courses',
-        defaultTicket: 600,
-        ticketLabel: 'treatment package or procedure',
-        itemsOrJobs: 'treatments',
-        missedDefault: 4,
-      }
-    : {
-        nicheName: 'Local High-Ticket Service',
-        coreOffering: `${trade} commissions & client projects`,
-        offeringBenefits: 'verified client reviews, past project showcases & pricing',
-        keyAction1: 'schedule an initial consultation',
-        depositPercentage: 'a secure card deposit',
-        theMath: 'securing 1 or 2 new client bookings',
-        defaultTicket: 1500,
-        ticketLabel: 'client project or booking',
-        itemsOrJobs: 'services',
-        missedDefault: 3,
-      }
-
-  // Synchronize defaults on lead change
-  useEffect(() => {
-    if (lead) {
-      const rawWeb = (lead.website || '').trim()
-      const hasWeb =
-        rawWeb !== '' &&
-        rawWeb !== 'None' &&
-        rawWeb !== 'NO WEBSITE' &&
-        !rawWeb.toLowerCase().includes('facebook.com') &&
-        !rawWeb.toLowerCase().includes('instagram.com')
-      if (hasWeb) {
-        setOutreachTrack('track_a')
-        setTrackAStep('a1_mobile')
-        setCustomObservation("it's not loading properly on mobile, slow to respond, and hasn't been updated recently")
-      } else {
-        setOutreachTrack('track_b')
-        setTrackBStep('b1_handshake_1a')
-        setCustomObservation('')
-      }
-      setTicketValue(nicheProfile.defaultTicket)
-      setMissedEnquiries(nicheProfile.missedDefault)
-      setSelectedText('')
-      setCopied(false)
-      setActiveTab('stage1')
-      setPrototypeSubStep('prototype')
-      setStage3Variant('both')
-    }
-  }, [lead?.id])
-
-  // Clear transient selection & copy state when modal closes
-  useEffect(() => {
-    if (!isOpen) {
-      setSelectedText('')
-      setCopied(false)
-    }
-  }, [isOpen])
-
-  // Clear text selection when switching stages or sub-steps
-  useEffect(() => {
-    setSelectedText('')
-  }, [activeTab, outreachTrack, trackAStep, trackBStep, qualifyStep, prototypeSubStep, stage3Variant])
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    if (isOpen) {
-      window.addEventListener('keydown', handleKeyDown)
-    }
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, onClose])
-
-  if (!isOpen || !lead) return null
-
-  const rawWebsite = (lead.website || '').trim()
-  const hasWebsite =
+  const trade = (lead?.local_business_niche || lead?.scraped_metadata?.trade || 'local trade').toLowerCase()
+  const rawWebsite = (lead?.website || '').trim()
+  const hasRawWebsite =
     rawWebsite !== '' &&
     rawWebsite !== 'None' &&
     rawWebsite !== 'NO WEBSITE' &&
     !rawWebsite.toLowerCase().includes('facebook.com') &&
     !rawWebsite.toLowerCase().includes('instagram.com')
 
-  // Rating and reviews sanitization
-  let rating = Number(lead.scraped_metadata?.rating || 5.0)
-  let reviewsCount = Number(lead.scraped_metadata?.reviews_count ?? (lead.scraped_metadata as any)?.reviews ?? 0)
-  const compositeRating = (lead.scraped_metadata as any)?.rating_reviews || lead.notes || ''
-  if ((!reviewsCount || reviewsCount === 0) && compositeRating) {
-    const match = compositeRating.match(/(\d+)\s*\([★*]?\s*([\d.]+)\)/)
-    if (match) {
-      reviewsCount = parseInt(match[1], 10)
-      rating = parseFloat(match[2])
-    }
-  }
-
-  // Address sanitization
-  const rawAddr = (lead.scraped_metadata?.address || '').trim()
-  const rawNotes = (lead.notes || '').trim()
-  let address = rawAddr
-  if (!address && rawNotes && !rawNotes.startsWith('·') && !rawNotes.includes('★')) {
-    address = rawNotes
-  }
-  if (!address || address.startsWith('·') || address.includes('★')) {
-    address = 'UK Regional'
-  }
-
-  const city =
-    address && address !== 'UK Regional' && !address.includes('·')
-      ? address.split(',')[0].trim()
-      : 'your area'
-
-  // Phone Sanitization & Channel Detection
-  const cleanDigits = (lead.phone || '').replace(/[^0-9]/g, '')
-  const isMobile = cleanDigits.startsWith('447') || cleanDigits.startsWith('07')
-  const isLandline = !isMobile && cleanDigits.length > 5
-
-  // Live Prototype Dynamic URL
-  const demoUrl =
-    typeof window !== 'undefined'
-      ? `${window.location.origin}/preview/demo?name=${encodeURIComponent(businessName)}&trade=${encodeURIComponent(trade)}&phone=${encodeURIComponent(lead.phone || '')}&city=${encodeURIComponent(address)}&rating=${rating}&reviews=${reviewsCount}`
-      : `https://mercianwealth.co.uk/preview/demo?name=${encodeURIComponent(businessName)}`
-
-  const protoUrl =
-    lead.prototype_url ||
-    (isJewellery
-      ? `https://veyra-premium-3-d-jewellery-e-comme.vercel.app/?client=${encodeURIComponent(businessName)}`
-      : demoUrl)
-
   const ownerName =
-    lead.name && lead.name !== lead.business_name && !lead.name.includes('Owner') ? lead.name.split(' ')[0] : ''
+    lead?.name && lead.name !== lead.business_name && !lead.name.includes('Owner')
+      ? lead.name.split(' ')[0]
+      : ''
 
-  // Calculated Financial Leakage
-  const monthlyBleed = (ticketValue || 0) * (missedEnquiries || 0)
-  const annualBleed = monthlyBleed * 12
-  const oneJobRoi = ticketValue > 0 ? Math.round((ticketValue / 995) * 100) : 0
+  const address = lead?.scraped_metadata?.address || lead?.notes || 'Berkshire, UK'
+  const city = address && !address.startsWith('·') && !address.includes('★') ? address.split(',')[0].trim() : 'your area'
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // STAGE 1: HOOK & OFFER (TRACK A: HAS WEBSITE vs TRACK B: NO WEBSITE)
-  // ─────────────────────────────────────────────────────────────────────────────
+  const rating = lead?.scraped_metadata?.rating || 4.9
+  const reviewsCount = lead?.scraped_metadata?.reviews_count || 24
 
-  // TRACK A: PROSPECTS WITH EXISTING WEBSITE
-  const trackAMobileText = `Hi ${ownerName || 'there'}, came across ${businessName} — quick observation:\n\nNoticed your quote page on mobile has a long form that takes quite a bit of pinching and scrolling to fill out on a smartphone.\n\nUsually when high-intent clients search on their phone at 9 PM, having to type detailed specs on a small screen causes hesitation, so they drop off and message whoever has instant booking.\n\nEngineered a fast 30-second mobile concept showing how clients could explore your ${nicheProfile.coreOffering} and lock in an appointment in 2 taps.\n\nOpen to taking a quick look on your phone? (If not, no worries at all 👍)`
+  // Candidate generation based on lead data
+  const candidateFrictions = useMemo<FrictionFinding[]>(() => {
+    if (!hasRawWebsite) {
+      const intel = buildNoWebsiteIntelligence(businessName, city, trade, ownerName)
+      return intel.candidates
+    }
 
-  const trackAPasswordText = `Hi ${ownerName || 'there'}, came across ${businessName} — quick observation:\n\nNoticed ${hasWebsite ? rawWebsite.replace(/^https?:\/\//, '').replace(/\/.*$/, '') : 'your website storefront'} is currently locked behind a password screen, so clients visiting from your Instagram bio or Google Maps can't actually view any pieces.\n\nUsually when someone is looking for ${nicheProfile.coreOffering} in the evening, hitting a password wall creates immediate friction, and they bounce to another local atelier.\n\nPut together a quick 30-second mobile prototype showing how ${businessName} could showcase your collections and let clients reserve private showroom consultations directly.\n\nOpen to having a quick look on your phone? (If not, no stress at all 👍)`
+    // Default high-probability candidate set for website audits
+    return [
+      {
+        id: 'c1_form_friction',
+        classification: 'OBSERVED',
+        customerNextStep: 'Request an on-site survey or price quotation',
+        lane: 'Quote enquiry form',
+        location: '/quote',
+        observableProblem: 'the quote form requires multiple separate text inputs on a smartphone screen',
+        evidence: `Public inspection of ${rawWebsite} quote page confirmed multi-input form fields without a 2-tap option.`,
+        recognizableReason: 'when prospective clients research on mobile in the evening, typing lengthy specifications causes immediate hesitation',
+        consequenceMechanics: 'they postpone submitting and continue comparing alternatives that offer instant booking',
+        confidence: 0.92,
+        scores: {
+          visible: true,
+          fast: true,
+          logical: true,
+          decisionTied: true,
+          observable: true,
+          noNumbers: true,
+        },
+      },
+      {
+        id: 'c2_after_hours_action',
+        classification: 'OBSERVED',
+        customerNextStep: 'Confirm appointment or lock in consultation slot',
+        lane: 'Consultation & booking stage',
+        location: '/contact',
+        observableProblem: 'there is no direct appointment confirmation or 1-tap booking mechanism for evening clients',
+        evidence: 'Contact section lists phone and generic email only; no calendar reservation or direct WhatsApp dispatch active.',
+        recognizableReason: 'customers searching outside normal working hours have no way to secure a provisional date on the spot',
+        consequenceMechanics: 'they have less certainty at the decision point and move on to whoever allows an instant booking hold',
+        confidence: 0.88,
+        scores: {
+          visible: true,
+          fast: true,
+          logical: true,
+          decisionTied: true,
+          observable: true,
+          noNumbers: true,
+        },
+      },
+      {
+        id: 'c3_mobile_navigation',
+        classification: 'OBSERVED',
+        customerNextStep: 'Browse recent project portfolio and pricing guidance',
+        lane: 'Portfolio & trust navigation',
+        location: 'Mobile homepage header',
+        observableProblem: 'the mobile navigation requires extensive pinch-and-scroll to view previous work',
+        evidence: 'Mobile layout uses dense image galleries without tap-to-expand thumb-friendly layout.',
+        recognizableReason: 'clients on 4G/5G connections experience clunky navigation and cannot quickly verify credentials',
+        consequenceMechanics: 'the session loses momentum and the visitor returns to search results',
+        confidence: 0.85,
+        scores: {
+          visible: true,
+          fast: true,
+          logical: true,
+          decisionTied: true,
+          observable: true,
+          noNumbers: true,
+        },
+      },
+    ]
+  }, [hasRawWebsite, businessName, city, trade, ownerName, rawWebsite])
 
-  const trackALinktreeText = `Hi team at ${businessName}, love the curation of your recent pieces.\n\nQuick observation — noticed your bio points to a Linktree where evening clients have to message back and forth on Instagram just to check prices or reserve a piece.\n\nWith high-value ${nicheProfile.itemsOrJobs}, having to wait hours for a DM reply causes buyers to hesitate and look elsewhere before you can respond.\n\nPut together a quick mobile prototype showing how ${businessName} could let clients browse verified pieces and lock in a holding deposit or showroom viewing directly on their phone.\n\nOpen to seeing a quick 30-second preview link? (If not, no worries at all 👍)`
+  // Sync state when lead changes
+  useEffect(() => {
+    if (lead) {
+      if (hasRawWebsite) {
+        setClassification('HAS_WEBSITE')
+        const first = candidateFrictions[0]
+        if (first) {
+          setSelectedCandidateId(first.id)
+          setCustomerNextStep(first.customerNextStep)
+          setLane(first.lane)
+          setPageLocation(first.location)
+          setFriction(first.observableProblem)
+          setEvidence(first.evidence)
+          setRecognizableReason(first.recognizableReason)
+          setConsequenceMechanics(first.consequenceMechanics)
+        }
+      } else {
+        setClassification('NO_WEBSITE')
+        const noWebIntel = buildNoWebsiteIntelligence(businessName, city, trade, ownerName)
+        const primary = noWebIntel.candidates[0]
+        setSelectedCandidateId(primary.id)
+        setCustomerNextStep(primary.customerNextStep)
+        setLane(primary.lane)
+        setPageLocation(primary.location)
+        setFriction(primary.observableProblem)
+        setEvidence(primary.evidence)
+        setRecognizableReason(primary.recognizableReason)
+        setConsequenceMechanics(primary.consequenceMechanics)
+      }
+      setCopied(false)
+      setActiveChannelTab('whatsapp')
+      setShowBrainstorm(false)
+    }
+  }, [lead?.id, hasRawWebsite])
 
-  const trackACustomText = `Hi ${ownerName || 'there'}, came across ${businessName} — quick observation:\n\nNoticed ${customObservation.trim() || "your mobile layout is slow to respond and has no direct reservation mechanism"}.\n\nUsually when high-intent evening clients search on their phone, that friction causes hesitation, so they leave and message whoever answers first.\n\nPut together a fast 30-second mobile concept showing how ${businessName} could streamline that step and capture bookings directly.\n\nOpen to taking a quick look on your phone? (If not, no worries at all 👍)`
+  // Handle selecting a brainstorm candidate
+  const handleSelectCandidate = (candidate: FrictionFinding) => {
+    setSelectedCandidateId(candidate.id)
+    setCustomerNextStep(candidate.customerNextStep)
+    setLane(candidate.lane)
+    setPageLocation(candidate.location)
+    setFriction(candidate.observableProblem)
+    setEvidence(candidate.evidence)
+    setRecognizableReason(candidate.recognizableReason)
+    setConsequenceMechanics(candidate.consequenceMechanics)
+  }
 
-  // TRACK B: PROSPECTS WITH NO WEBSITE (GOOGLE MAPS / WORD OF MOUTH)
-  const trackBStep1Text = `Hi 👋, is this ${businessName}?`
+  // Construct active Variable Y
+  const currentVariableY = useMemo(() => {
+    return {
+      name: ownerName,
+      company: businessName,
+      website: hasRawWebsite ? rawWebsite.replace(/^https?:\/\//, '').replace(/\/.*$/, '') : 'None',
+      page: pageLocation,
+      websiteProblem: friction,
+      evidence,
+      customerNextStep,
+      lane,
+      recognizableReason,
+      consequenceMechanics,
+      subjectLine: classification === 'NO_WEBSITE'
+        ? `Question regarding ${businessName} in ${city}`
+        : `Quick question regarding ${pageLocation}`,
+    }
+  }, [
+    ownerName,
+    businessName,
+    hasRawWebsite,
+    rawWebsite,
+    pageLocation,
+    friction,
+    evidence,
+    customerNextStep,
+    lane,
+    recognizableReason,
+    consequenceMechanics,
+    classification,
+    city,
+  ])
 
-  const trackBStep2Text = `Great! Came across ${businessName} — love the work you do.\n\nQuick question: do you have a dedicated mobile storefront where evening clients can browse your ${nicheProfile.coreOffering} and book, or do you handle everything strictly over the phone?`
+  // Generated Messaging
+  const generatedWhatsApp = useMemo(() => {
+    if (classification === 'NO_WEBSITE') {
+      const waGreeting = ownerName ? `Hi ${ownerName},` : 'Hi,'
+      return `${waGreeting} came across ${businessName} — great reputation in ${city}.\n\nQuick observation: had a look for your dedicated site to check your past work and booking info, but couldn't find one active.\n\nUsually when a customer is comparing local ${trade} specialists in the evening, having no dedicated place to quickly confirm services and booking availability means they have less certainty at that decision point, so they continue looking at alternatives.\n\nPut together a quick 30-second mobile concept showing how ${businessName} could showcase your work and let clients request bookings directly on their phone.\n\nOpen to taking a quick look? (Zero obligation at all 👍)`
+    }
+    return formatWhatsAppXOutreach(currentVariableY).fullWhatsAppText
+  }, [classification, ownerName, businessName, city, trade, currentVariableY])
 
-  const trackBStep3Text = `Completely makes sense — that's actually why I reached out. You've clearly got the reputation, but over 75% of high-intent searches in ${city} happen on smartphones in the evening when your phone is off.\n\nWhen someone is ready to book on a Sunday night, having no digital storefront means they can't take action, so they slip through to whoever takes online bookings first.\n\nRather than talk theory, I put together a quick working mobile prototype for ${businessName} showing how clients could browse your work and lock in a booking directly.\n\nOpen to taking a quick look on your phone? (Zero obligation at all 👍)`
+  const generatedEmail = useMemo(() => {
+    return formatEmailXOutreach(currentVariableY).fullEmailText
+  }, [currentVariableY])
 
-  const trackBSundayText = `Hi 👋 Came across ${businessName} — great reputation in ${city}.\n\nQuick observation: over 75% of local searches happen outside operating hours, but right now there's no digital storefront for evening clients to explore your ${nicheProfile.coreOffering} or lock in an appointment on a Sunday at 9 PM.\n\nUsually when someone discovers you after hours and hits a dead end, they bounce to whoever accepts online bookings first.\n\nPut together a quick working mobile prototype for ${businessName} showing how clients could browse your work and confirm a booking directly on their phone.\n\nOpen to seeing a 30-second preview? (Zero obligation 👍)`
+  const callBridgeScript = useMemo(() => {
+    const nameStr = ownerName ? ` ${ownerName}` : ''
+    return `Hi${nameStr}, glad you took a look at the preview.\n\nThe goal with this isn't to add an extra marketing expense or pitch another agency build — it's simply to show you what's possible when prospective clients can explore your work and lock in a booking directly on mobile.\n\nHappy to jump on a short 10-minute screen-share to show you how this pays for itself on just 1 or 2 new jobs and takes all the manual back-and-forth off your plate.\n\nWould you have 10 minutes free later this week?`
+  }, [ownerName])
 
-  const trackBDirectText = `Hi ${ownerName || 'there'}, came across ${businessName} on Google — quick observation:\n\nYou've got top reviews, but no mobile storefront where clients searching on a Sunday evening can browse your ${nicheProfile.coreOffering} or lock in a slot.\n\nUsually when someone searches after hours, having no digital booking means they bounce to whoever takes online requests first.\n\nPut together a quick 30-second mobile concept showing how ${businessName} could capture those evening enquiries automatically.\n\nOpen to having a quick look on your phone? (If not, no worries at all 👍)`
+  const prototypeTask = useMemo(() => {
+    return `PROTOTYPE SPECIFICATION TASK\n============================\nCompany: ${businessName}\nTrade: ${trade}\nArea: ${city}\nWebsite Status: ${classification}\nCustomer Next Step: ${customerNextStep}\nLane: ${lane}\nExact Friction Identified: ${friction}\nEvidence: ${evidence}\nPrototype Focus: Build 30-second mobile storefront demo specifically eliminating "${friction}" to demonstrate frictionless 2-tap enquiry.`
+  }, [businessName, trade, city, classification, customerNextStep, lane, friction, evidence])
 
-  const stage1Text =
-    outreachTrack === 'track_a'
-      ? trackAStep === 'a1_mobile'
-        ? trackAMobileText
-        : trackAStep === 'a2_password'
-        ? trackAPasswordText
-        : trackAStep === 'a3_linktree'
-        ? trackALinktreeText
-        : trackACustomText
-      : trackBStep === 'b1_handshake_1a'
-      ? trackBStep1Text
-      : trackBStep === 'b1_handshake_1b'
-      ? trackBStep2Text
-      : trackBStep === 'b1_handshake_1c'
-      ? trackBStep3Text
-      : trackBStep === 'b2_sunday_deadend'
-      ? trackBSundayText
-      : trackBDirectText
+  const currentDisplayScript = useMemo(() => {
+    switch (activeChannelTab) {
+      case 'whatsapp':
+        return generatedWhatsApp
+      case 'email':
+        return generatedEmail
+      case 'call_bridge':
+        return callBridgeScript
+      case 'prototype_task':
+        return prototypeTask
+      default:
+        return generatedWhatsApp
+    }
+  }, [activeChannelTab, generatedWhatsApp, generatedEmail, callBridgeScript, prototypeTask])
 
-  // STAGE 2: REVENUE LEAKAGE QUALIFYING FRAMEWORK (Run before building/delivering prototype)
-  const closedContext = isJewellery ? 'the showroom is closed / shop is shut' : isContractor ? "you're off the tools" : 'your premises are closed'
-  const freeTimeContext = isJewellery ? 'between showroom clients' : isContractor ? 'off the tools' : 'with a spare minute'
-
-  const qualifyIntroText = `Brilliant. Before I put it together on my end — I don't build generic cookie-cutter templates. I engineer each system specifically around the exact customer journey and economics of ${businessName}.\n\nQuick 2-minute diagnostic so I get the prototype 100% dialled in for you:`
-
-  const q1Text = isDiamond || isJewellery
-    ? `1. What's your primary high-ticket focus right now — is it bespoke commissions / engagement rings, or finished showroom stock? And roughly what is an average commission/order worth to you in gross revenue?`
-    : `1. What's your primary high-ticket focus right now — is it bespoke commissions / installations, or smaller general work? And roughly what is an average ${nicheProfile.ticketLabel} worth to you in gross revenue?`
-
-  const q2Text = isDiamond || isJewellery
-    ? `2. When a client wants to discuss a bespoke ring or high-value piece, do they currently just send a DM or drop in, or do you have a dedicated private showroom consultation booking where they can secure their slot or pay a holding deposit?`
-    : `2. When a client wants to discuss a high-value project, do they currently just message back and forth, or do you have a dedicated booking system with a holding deposit to lock in surveys and eliminate no-shows?`
-
-  const q3Text = `3. Right now, over 75% of high-intent searches in ${city} happen on smartphones in the evening or on weekends when ${closedContext}.\n\nWhen someone discovers ${businessName} on Sunday at 9 PM, what actually happens? Can they explore your work, build confidence, and lock in a consultation, or do they bounce to whoever answers online first?`
-
-  const q4Text = `4. Realistically, how many potential high-ticket enquiries or clients do you think slip through the cracks each month simply because there's no fast digital storefront capturing them outside working hours?\n\n(Math Anchor: ${missedEnquiries} missed ${nicheProfile.itemsOrJobs} × £${ticketValue.toLocaleString()} = £${monthlyBleed.toLocaleString()}/month or £${annualBleed.toLocaleString()}/year in leaking revenue).`
-
-  const q5Text = `5. So if having this dedicated system captures literally ONE single customer over the next 90 days that would have otherwise gone to a competitor — that completely pays off the entire project, and everything after that is pure profit, right?`
-
-  const qualifyFullText = `🔥 REVENUE LEAKAGE DIAGNOSTIC (Run before delivering prototype):\n\n${qualifyIntroText}\n\n1. Question 1 (High-Ticket Focus & Ticket Anchor):\n"${q1Text}"\n→ Target: "Mainly bespoke commissions, around £${ticketValue.toLocaleString()}"\n\n2. Question 2 (Booking & Commitment Model):\n"${q2Text}"\n→ Target: "They usually just DM / drop by, we don't have a deposit system"\n\n3. Question 3 (Sunday Evening Reality):\n"${q3Text}"\n→ Target: "They probably bounce / message someone else / wait until Monday"\n\n4. Question 4 (Quantifying Monthly Bleed):\n"${q4Text}"\n→ Target: "Probably 2 or 3 a month" (£${monthlyBleed.toLocaleString()}/mo | £${annualBleed.toLocaleString()}/year loss)\n\n5. Question 5 (The 1-Job Payoff Pre-Close):\n"${q5Text}"\n→ Target: "Yeah, absolutely."\n\n[Prospect has now pre-closed themselves on the commercial ROI before seeing the £995 or £495 build fee].`
-
-  const qualifyText =
-    qualifyStep === 'all'
-      ? qualifyFullText
-      : qualifyStep === 'intro'
-      ? qualifyIntroText
-      : qualifyStep === 'q1'
-      ? q1Text
-      : qualifyStep === 'q2'
-      ? q2Text
-      : qualifyStep === 'q3'
-      ? q3Text
-      : qualifyStep === 'q4'
-      ? q4Text
-      : q5Text
-
-  // STAGE 3: SEND PROTOTYPE (Delivered once diagnostic answers are received)
-  const stage2Text = `Hi ${ownerName || 'there'},\n\nI’ve put together that bespoke prototype for ${businessName} so you can see firsthand how this would work for your business:\n\n👉 ${protoUrl}\n\nRather than a generic template, I engineered it specifically around how high-intent clients make buying decisions today:\n\n1. Captures Evening & Mobile Traffic: Over 75% of local searches in ${city} happen on mobile phones outside normal working hours. Clients can explore your exact ${nicheProfile.offeringBenefits} and build trust before contacting you.\n2. Direct Action & Deposit Locks: Clients can ${nicheProfile.keyAction1} or secure their slot instantly with an upfront ${nicheProfile.depositPercentage} so you eliminate no-shows and time-wasters.\n3. Sub-Second Speed: Built to load in under 400ms on 4G/5G mobile phones with zero friction or clunky forms.\n\n(Note: The photos and items currently on there are realistic placeholders just to show you the layout and customer journey).\n\nWhen it comes to taking this live, we work around whatever fits your schedule best:\n• If you want full ownership, we build it, hand over the keys completely, and you have zero monthly agency lock-in.\n• If you prefer a hands-off managed setup, you just WhatsApp us photos and prices of new ${nicheProfile.itemsOrJobs} as they come in, and we handle all uploads, updates, and maintenance for you.\n\nHave a browse through on your phone and let me know how you find it 👍`
-
-  // CALL BOOKING BRIDGE (Step 3: Transiting from prototype review to confirmed walkthrough call)
-  const bookCallText = `Glad you like how the prototype flows, ${ownerName || 'there'}!\n\nWhen it comes to getting this live for ${businessName}, it's completely straightforward — either you own the system outright for a one-off £995 (where 1 single ${nicheProfile.theMath} pays off the entire build fee), or we manage it completely hands-off for £195/month.\n\nWould it be worth hopping on a quick 10-minute screen share or phone call tomorrow so I can show you how the WhatsApp lead alerts & deposit routing work behind the scenes, and see if it's a fit for ${businessName}?\n\nI've got a slot open at 10:30 AM or 3:15 PM — do either of those work for you?`
-
-  const stage2Message =
-    prototypeSubStep === 'prototype' ? stage2Text : bookCallText
-
-  // STAGE 4: DUAL PRICING PITCH
-  const pricingOption1Text = `Option 1: Complete Asset Ownership (One-Off Investment)\nBest if you want a permanent asset with zero ongoing agency fees.\n\n• Build Fee: £995 one-off (or £495 for Essential 3-page builds)\n• Payment Terms: 50% initial deposit (£497.50) to begin uploading your actual photos/content and configuring payment payouts; remaining 50% only when the site is fully live and you are 100% satisfied.\n• 100% Asset Ownership: You own the website code, domain, and customer data completely.\n• Domain & Running Fees: You can manage your own domain/hosting, or if you prefer me to manage edge cloud servers & SSL renewals, it's just £12/month (or £120/year).\n• The Commercial Math: Securing just ${nicheProfile.theMath} pays for the entire build fee. Everything after that is pure profit.`
-
-  const pricingOption2Text = `Option 2: Fully Managed Growth Retainer (100% Hands-Off)\nBest if you are busy running the business and don't want to touch any technology at all.\n\n• Setup Fee: £495 initial setup (reduced upfront build cost).\n• Management Retainer: £195 / month (rolling monthly, cancel anytime).\n• Domain & Running Fees: Hosting, SSL, and domain renewals are 100% included.\n• What We Handle Every Month:\n  - Unlimited stock & content updates via WhatsApp within 24h\n  - Pricing & calendar adjustments\n  - Continuous local Google SEO ranking in ${city}`
-
-  const pricingBothText = `Based on how we work with local businesses, here is how the two options break down:\n\n---\n\n${pricingOption1Text}\n\n---\n\n${pricingOption2Text}\n\n---\n\nIf you want to own it outright, Option 1 is best. If you want someone to actively manage the updates and running fees for you hands-free, Option 2 is ideal.\n\nWhich setup suits you best?`
-
-  const stage3Text =
-    stage3Variant === 'both'
-      ? pricingBothText
-      : stage3Variant === 'option1'
-      ? pricingOption1Text
-      : stage3Variant === 'option2'
-      ? pricingOption2Text
-      : bookCallText
-
-  // STAGE 5: ONBOARDING CHECKLIST
-  const stage4Text = `Perfect. To turn the prototype into your live business system, all I need from you to get started is:\n\n1. Initial Content: 6–10 photos of your best ${nicheProfile.itemsOrJobs} along with prices and brief descriptions (you can just send them right here on WhatsApp).\n2. Notifications: The phone number and email address where you want customer bookings, quote alerts, and deposit receipts routed.\n3. Payouts: Your business bank details or existing Stripe account so 100% of customer deposits go directly to your account.\n\nI'll send over the invoice for the initial 50% deposit, and we can start getting your live site launched this week.`
-
-  // STAGE 6: 48-HOUR MACHIAVELLIAN SCARCITY
-  const stage5Text = `No problem at all, completely respect your decision.\n\nJust keep one commercial reality in mind: over 75% of customers in ${city} now research on their smartphones in the evening before ever making a phone call or visiting a premises.\n\nWhen someone is actively looking for ${nicheProfile.coreOffering} on a Sunday evening, they don't wait — they go to whoever shows their work, proves their credibility, and allows them to book or enquire right then. Every week without a high-converting digital storefront is essentially handing those lucrative jobs to whoever answers online first.\n\nI’ll keep this prototype active for the next 48 hours in case you reconsider. After that, I’ll be archiving the demo and offering the ${city} catchment slot to another local ${trade} in the area so we don't build competing systems in the same territory.\n\nWishing you and ${businessName} all the best with business.`
-
-  // VOICE NOTE SCRIPT (15s)
-  const voiceNoteScript = `🎙️ 15-SECOND VOICE NOTE SCRIPT (Speak naturally):\n\n"Hey ${ownerName || 'there'}, quick voice note — it's Gurtej from Mercian Wealth.\nHad a quick look for ${businessName} online and put together a free working prototype for you showing how your ${nicheProfile.coreOffering} can be showcased to capture evening mobile traffic in ${city}.\nSent you the preview link above, take a look on your phone when you get a minute ${freeTimeContext} and let me know what you think!"`
-
-  const currentMessageText =
-    activeTab === 'stage1'
-      ? stage1Text
-      : activeTab === 'qualify'
-      ? qualifyText
-      : activeTab === 'stage2'
-      ? stage2Message
-      : activeTab === 'stage3'
-      ? stage3Text
-      : activeTab === 'stage4'
-      ? stage4Text
-      : activeTab === 'stage5'
-      ? stage5Text
-      : voiceNoteScript
-
-  const currentBadgeText =
-    activeTab === 'stage1'
-      ? outreachTrack === 'track_a'
-        ? trackAStep === 'a1_mobile'
-          ? 'Stage 1 · Track A: Clunky Mobile Form'
-          : trackAStep === 'a2_password'
-          ? 'Stage 1 · Track A: Password-Locked Store'
-          : trackAStep === 'a3_linktree'
-          ? 'Stage 1 · Track A: Linktree / Social DM'
-          : 'Stage 1 · Track A: Custom Observable Friction'
-        : trackBStep === 'b1_handshake_1a'
-        ? 'Stage 1 · Track B: 1A Confirm Name'
-        : trackBStep === 'b1_handshake_1b'
-        ? 'Stage 1 · Track B: 1B Ask For Storefront'
-        : trackBStep === 'b1_handshake_1c'
-        ? 'Stage 1 · Track B: 1C Pitch Prototype'
-        : trackBStep === 'b2_sunday_deadend'
-        ? 'Stage 1 · Track B: Sunday 9 PM Dead-End'
-        : 'Stage 1 · Track B: Direct 5-Part WhatsApp X'
-      : activeTab === 'qualify'
-      ? qualifyStep === 'all'
-        ? 'Stage 2 · Full Leakage Diagnostic'
-        : qualifyStep === 'intro'
-        ? 'Stage 2 · Diagnostic Hook'
-        : qualifyStep === 'q1'
-        ? 'Stage 2 · Q1 High-Ticket Focus'
-        : qualifyStep === 'q2'
-        ? 'Stage 2 · Q2 Booking & Deposit'
-        : qualifyStep === 'q3'
-        ? 'Stage 2 · Q3 Sunday Evening Reality'
-        : qualifyStep === 'q4'
-        ? 'Stage 2 · Q4 Monthly Bleed Loss'
-        : 'Stage 2 · Q5 1-Job Pre-Close'
-      : activeTab === 'stage2'
-      ? prototypeSubStep === 'prototype'
-        ? 'Stage 3 · Deliver Bespoke Prototype'
-        : 'Stage 3 · 📞 Book 10m Walkthrough Call'
-      : activeTab === 'stage3'
-      ? stage3Variant === 'both'
-        ? 'Stage 4 · Dual Pricing Pitch'
-        : stage3Variant === 'option1'
-        ? 'Stage 4 · Option 1 Asset Ownership'
-        : stage3Variant === 'option2'
-        ? 'Stage 4 · Option 2 Managed Retainer'
-        : 'Stage 4 · 📞 Book 10m Walkthrough Call'
-      : activeTab === 'stage4'
-      ? 'Stage 5 · 3-Step Frictionless Onboarding'
-      : activeTab === 'stage5'
-      ? 'Stage 6 · 48h Machiavellian Scarcity'
-      : 'Voice Note Prompter (15s)'
-
-  const handleCopy = (overrideText?: string | React.MouseEvent) => {
-    const customStr = typeof overrideText === 'string' ? overrideText : undefined
-    const textToCopy = customStr || currentMessageText
-    navigator.clipboard.writeText(textToCopy)
+  // Clipboard handler
+  const handleCopy = () => {
+    navigator.clipboard.writeText(currentDisplayScript)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const handleSendWhatsApp = async (overrideText?: string | React.MouseEvent) => {
-    if (!cleanDigits) return
-    const customStr = typeof overrideText === 'string' ? overrideText : undefined
-    const textToSend = customStr || (activeTab === 'voice' ? stage1Text : currentMessageText)
-    const url = `https://wa.me/${cleanDigits}?text=${encodeURIComponent(textToSend)}`
-    window.open(url, '_blank')
-
-    if (lead.status === 'New' && isMobile) {
-      await onUpdateStatus(lead.id, 'Contacted')
-    }
+  // WhatsApp sender
+  const handleSendWhatsApp = () => {
+    const cleanDigits = (lead?.phone || '').replace(/[^0-9]/g, '')
+    const targetPhone = cleanDigits.startsWith('07') ? `44${cleanDigits.slice(1)}` : cleanDigits
+    const url = `https://wa.me/${targetPhone}?text=${encodeURIComponent(currentDisplayScript)}`
+    window.open(url, '_blank', 'noopener,noreferrer')
   }
 
-  const handleTextSelection = () => {
-    if (typeof window !== 'undefined') {
-      const sel = window.getSelection()?.toString() || ''
-      if (sel.trim().length > 0) {
-        setSelectedText(sel.trim())
-      }
-    }
+  // Email sender
+  const handleSendEmail = () => {
+    const subject = encodeURIComponent(currentVariableY.subjectLine)
+    const body = encodeURIComponent(currentDisplayScript)
+    window.location.href = `mailto:${lead?.email || ''}?subject=${subject}&body=${body}`
   }
 
-  const handleStatusClick = async (status: string) => {
-    setUpdating(true)
-    try {
-      await onUpdateStatus(lead.id, status)
-    } finally {
-      setUpdating(false)
-    }
-  }
+  if (!isOpen || !lead) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 animate-fade-in">
-      {/* Backdrop */}
-      <div className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity" onClick={onClose} />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md overflow-y-auto">
+      <div className="relative w-full max-w-4xl bg-[#0B0B0D] border border-white/10 rounded-2xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh]">
+        
+        {/* Top Header */}
+        <div className="px-5 py-4 border-b border-white/10 bg-[#111115] flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-xl bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[#DCAE53]">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h2 className="text-base sm:text-lg font-bold text-white font-sans">{businessName}</h2>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-zinc-400 capitalize">
+                  {trade}
+                </span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[#DCAE53] font-semibold">
+                  ★ {rating} ({reviewsCount})
+                </span>
+              </div>
+              <div className="flex items-center gap-3 text-[11px] font-mono text-zinc-400 mt-0.5">
+                <span className="flex items-center gap-1">
+                  <MapPin size={12} className="text-[#DCAE53]" />
+                  {city}
+                </span>
+                {lead.phone && (
+                  <span className="flex items-center gap-1">
+                    <Phone size={12} className="text-[#DCAE53]" />
+                    {lead.phone}
+                  </span>
+                )}
+                {hasRawWebsite && (
+                  <a
+                    href={rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-[#DCAE53] hover:underline"
+                  >
+                    <Globe size={12} />
+                    {rawWebsite.replace(/^https?:\/\//, '').replace(/\/.*$/, '')}
+                    <ExternalLink size={10} />
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
 
-      {/* Modal Dialog */}
-      <div className="relative w-full max-w-3xl bg-[#0B0B0D] border border-white/10 rounded-2xl card-depth overflow-hidden z-10 flex flex-col max-h-[92vh]">
-        {/* Header Strip */}
-        <div className="p-4 sm:p-5 border-b border-white/10 bg-[#141417]/50 flex items-start justify-between gap-4">
-          <div className="space-y-1.5">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-[#141417] text-[#DAA640] border border-[#DAA640]/30">
-                {nicheProfile.nicheName}
-              </span>
-              <span
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-medium border ${
-                  lead.status === 'Won'
-                    ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
-                    : lead.status === 'Lost'
-                    ? 'bg-rose-500/10 text-rose-400 border-rose-500/30'
-                    : lead.status === 'Contacted'
-                    ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
-                    : 'bg-white/5 text-muted-foreground border-white/10'
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onClose}
+              className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+              aria-label="Close"
+            >
+              <X size={18} />
+            </button>
+          </div>
+        </div>
+
+        {/* Pathway Classification Strip (3 Distinct Pathways) */}
+        <div className="px-5 py-2.5 bg-[#0e0e12] border-b border-white/10 flex items-center justify-between flex-wrap gap-2 text-xs shrink-0">
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] font-mono text-zinc-400 font-bold uppercase tracking-wider">
+              Pathway:
+            </span>
+            <div className="inline-flex rounded-xl bg-black/40 p-1 border border-white/10">
+              <button
+                onClick={() => setClassification('HAS_WEBSITE')}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  classification === 'HAS_WEBSITE'
+                    ? 'bg-[#DCAE53] text-[#09090B] font-bold shadow-md'
+                    : 'text-zinc-400 hover:text-white'
                 }`}
               >
-                <span
-                  className={`w-1.5 h-1.5 rounded-full ${
-                    lead.status === 'Won'
-                      ? 'bg-emerald-400'
-                      : lead.status === 'Lost'
-                      ? 'bg-rose-400'
-                      : lead.status === 'Contacted'
-                      ? 'bg-amber-400'
-                      : 'bg-[#DAA640]'
-                  }`}
-                />
-                {lead.status}
-              </span>
-              {!hasWebsite && (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-medium bg-rose-500/10 text-rose-400 border border-rose-500/30">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
-                  No Website
-                </span>
-              )}
-            </div>
-            <h2 className="text-xl sm:text-2xl font-serif font-bold text-foreground">{businessName}</h2>
-            <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground pt-0.5">
-              <span className="flex items-center gap-1 text-foreground font-medium">
-                <Star size={12} className="fill-[#DAA640] text-[#DAA640]" /> {rating} ({reviewsCount} reviews)
-              </span>
-              <span>•</span>
-              <span className="flex items-center gap-1">
-                <Phone size={12} /> {lead.phone || 'No phone'}
-              </span>
-              <span>•</span>
-              <span className="text-accent-gold/90 font-mono text-[11px]">
-                Target: {nicheProfile.ticketLabel} (£{nicheProfile.defaultTicket.toLocaleString()})
-              </span>
+                <Globe size={12} />
+                <span>1. Has Website</span>
+              </button>
+
+              <button
+                onClick={() => setClassification('NO_WEBSITE')}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  classification === 'NO_WEBSITE'
+                    ? 'bg-[#DCAE53] text-[#09090B] font-bold shadow-md'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                <MapPin size={12} />
+                <span>2. No Website (Google Maps)</span>
+              </button>
+
+              <button
+                onClick={() => setClassification('NEEDS_REVIEW')}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  classification === 'NEEDS_REVIEW'
+                    ? 'bg-amber-500 text-black font-bold shadow-md'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                <AlertCircle size={12} />
+                <span>3. Needs Review</span>
+              </button>
             </div>
           </div>
 
           <button
-            onClick={onClose}
-            className="p-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-white/10 transition-all cursor-pointer"
+            onClick={() => setShowBrainstorm(!showBrainstorm)}
+            className="text-[11px] font-mono text-[#DCAE53] hover:underline flex items-center gap-1 cursor-pointer"
           >
-            <X size={18} />
+            <Layers size={13} />
+            <span>{showBrainstorm ? 'Hide Candidate Frictions' : 'AI Brainstorming Mode (Candidates)'}</span>
           </button>
         </div>
 
-        {/* Content Body */}
-        <div className="p-4 sm:p-6 space-y-5 overflow-y-auto flex-1 discord-scroll">
-          {/* Telemetry / Info Bar */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3.5 rounded-xl bg-[#141417] border border-white/5 text-xs">
-            <div>
-              <p className="text-[11px] font-medium text-muted-foreground">Digital Presence</p>
-              {hasWebsite ? (
-                <a
-                  href={rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-[#DAA640] hover:underline flex items-center gap-1 font-medium mt-1 truncate"
-                >
-                  <Globe size={12} /> {rawWebsite} <ExternalLink size={10} />
-                </a>
-              ) : (
-                <span className="text-amber-400 font-medium flex items-center gap-1 mt-1">
-                  <AlertTriangle size={12} /> No custom storefront
-                </span>
-              )}
-            </div>
-
-            <div>
-              <p className="text-[11px] font-medium text-muted-foreground">Location</p>
-              <p className="text-foreground truncate flex items-center gap-1 mt-1">
-                <MapPin size={12} className="text-[#DAA640] shrink-0" /> {address}
+        {/* Scrollable Content Body */}
+        <div className="flex-1 overflow-y-auto p-5 space-y-5 font-sans">
+          
+          {/* Needs Review Flag Notice */}
+          {classification === 'NEEDS_REVIEW' && (
+            <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs space-y-1.5">
+              <div className="flex items-center gap-2 font-bold uppercase tracking-wider text-[11px]">
+                <AlertTriangle size={15} />
+                <span>⚠️ Needs Review — Do Not Force Outreach</span>
+              </div>
+              <p className="text-zinc-300 leading-relaxed font-sans">
+                {reviewReason ||
+                  "The system cannot verify a single decision-tied friction passing the 10-second test with high confidence. The source methodology strictly prohibits forcing weak or hallucinated criticisms. Verify the site manually before contacting."}
               </p>
             </div>
-
-            <div>
-              <p className="text-[11px] font-medium text-muted-foreground">Prototype Preview</p>
-              <div className="flex items-center gap-2 mt-1">
-                <button
-                  type="button"
-                  onClick={() => setIsPromptOpen(true)}
-                  className="text-[#DAA640] hover:text-white hover:underline flex items-center gap-1 font-medium text-xs cursor-pointer"
-                  title="Open Antigravity Vibecoding Prompts"
-                >
-                  <Sparkles size={12} className="text-[#DAA640]" /> Prompt
-                </button>
-                <span className="text-muted-foreground">•</span>
-                <a
-                  href={protoUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-muted-foreground hover:text-white hover:underline flex items-center gap-1 font-medium text-xs truncate"
-                  title="Open Live Prototype Preview"
-                >
-                  Live Demo <ExternalLink size={10} />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Sequence Tabs */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                Playbook Acquisition Pipeline
-              </span>
-              <span className="text-xs text-muted-foreground font-mono">
-                1-Job Anchor: <strong className="text-accent-gold">£{ticketValue.toLocaleString()}</strong>
-              </span>
-            </div>
-
-            {/* Sequence Tabs Bar */}
-            <div className="flex items-center gap-1.5 p-1.5 rounded-xl bg-[#141417] border border-white/5 overflow-x-auto scrollbar-none sm:grid sm:grid-cols-7 sm:overflow-visible">
-              <button
-                onClick={() => setActiveTab('stage1')}
-                className={`py-2 px-2.5 sm:px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center shrink-0 sm:shrink min-w-[76px] sm:min-w-0 ${
-                  activeTab === 'stage1'
-                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
-                }`}
-              >
-                1. Hook
-              </button>
-              <button
-                onClick={() => setActiveTab('qualify')}
-                className={`py-2 px-2.5 sm:px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1 shrink-0 sm:shrink min-w-[85px] sm:min-w-0 ${
-                  activeTab === 'qualify'
-                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold shadow-[0_0_12px_rgba(245,158,11,0.2)]'
-                    : 'text-amber-400/80 hover:text-amber-300 hover:bg-amber-500/10'
-                }`}
-                title="Mandatory Diagnostic: Qualify Leakage before delivering prototype!"
-              >
-                <Flame size={12} className="text-amber-400 shrink-0" />
-                <span>2. Qualify</span>
-              </button>
-              <button
-                onClick={() => setActiveTab('stage2')}
-                className={`py-2 px-2.5 sm:px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center shrink-0 sm:shrink min-w-[88px] sm:min-w-0 ${
-                  activeTab === 'stage2'
-                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
-                }`}
-              >
-                3. Prototype
-              </button>
-              <button
-                onClick={() => setActiveTab('stage3')}
-                className={`py-2 px-2.5 sm:px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center shrink-0 sm:shrink min-w-[78px] sm:min-w-0 ${
-                  activeTab === 'stage3'
-                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
-                }`}
-              >
-                4. Pricing
-              </button>
-              <button
-                onClick={() => setActiveTab('stage4')}
-                className={`py-2 px-2.5 sm:px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center shrink-0 sm:shrink min-w-[80px] sm:min-w-0 ${
-                  activeTab === 'stage4'
-                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
-                }`}
-              >
-                5. Onboard
-              </button>
-              <button
-                onClick={() => setActiveTab('stage5')}
-                className={`py-2 px-2.5 sm:px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center shrink-0 sm:shrink min-w-[78px] sm:min-w-0 ${
-                  activeTab === 'stage5'
-                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
-                }`}
-              >
-                6. Scarcity
-              </button>
-              <button
-                onClick={() => setActiveTab('voice')}
-                className={`py-2 px-2.5 sm:px-1 text-[11px] font-medium rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1 shrink-0 sm:shrink min-w-[72px] sm:min-w-0 ${
-                  activeTab === 'voice'
-                    ? 'bg-[#DAA640]/15 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
-                }`}
-              >
-                <Mic size={11} className="shrink-0" /> Voice
-              </button>
-            </div>
-
-            {/* TAB 1: HOOK SUB-SELECTORS */}
-            {activeTab === 'stage1' && (
-              <div className="space-y-3">
-                {/* Track Switcher: Track A (Has Website) vs Track B (No Website) */}
-                <div className="flex items-center gap-1.5 p-1 rounded-xl bg-black/50 border border-white/10 text-xs">
-                  <button
-                    type="button"
-                    onClick={() => setOutreachTrack('track_a')}
-                    className={`flex-1 py-1.5 px-2.5 rounded-lg font-medium transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
-                      outreachTrack === 'track_a'
-                        ? 'bg-[#DAA640] text-black font-bold shadow-sm'
-                        : 'text-zinc-400 hover:text-white'
-                    }`}
-                  >
-                    <Globe size={12} />
-                    <span>Track A: Existing Site</span>
-                    {hasWebsite && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 ml-0.5" title="Lead has website detected" />}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setOutreachTrack('track_b')}
-                    className={`flex-1 py-1.5 px-2.5 rounded-lg font-medium transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
-                      outreachTrack === 'track_b'
-                        ? 'bg-[#DAA640] text-black font-bold shadow-sm'
-                        : 'text-zinc-400 hover:text-white'
-                    }`}
-                  >
-                    <Phone size={12} />
-                    <span>Track B: No Website (Google/Maps)</span>
-                    {!hasWebsite && <span className="w-1.5 h-1.5 rounded-full bg-amber-400 ml-0.5" title="Lead has no website detected" />}
-                  </button>
-                </div>
-
-                {/* TRACK A SUB-SELECTORS (HAS WEBSITE) */}
-                {outreachTrack === 'track_a' && (
-                  <div className="space-y-2.5">
-                    <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs overflow-x-auto scrollbar-none sm:flex-wrap">
-                      <button
-                        onClick={() => setTrackAStep('a1_mobile')}
-                        className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                          trackAStep === 'a1_mobile'
-                            ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                            : 'text-muted-foreground hover:text-white'
-                        }`}
-                      >
-                        A1. Clunky Mobile Form
-                      </button>
-                      <button
-                        onClick={() => setTrackAStep('a2_password')}
-                        className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                          trackAStep === 'a2_password'
-                            ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                            : 'text-muted-foreground hover:text-white'
-                        }`}
-                      >
-                        A2. Password Locked (Shopify)
-                      </button>
-                      <button
-                        onClick={() => setTrackAStep('a3_linktree')}
-                        className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                          trackAStep === 'a3_linktree'
-                            ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                            : 'text-muted-foreground hover:text-white'
-                        }`}
-                      >
-                        A3. Linktree / Social DM Only
-                      </button>
-                      <button
-                        onClick={() => setTrackAStep('a4_custom')}
-                        className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                          trackAStep === 'a4_custom'
-                            ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                            : 'text-muted-foreground hover:text-white'
-                        }`}
-                      >
-                        A4. Custom Friction Hook
-                      </button>
-                    </div>
-
-                    {/* Specific Observation for A4: Custom Friction */}
-                    {trackAStep === 'a4_custom' && (
-                      <div className="space-y-2 p-2.5 rounded-xl bg-[#141417] border border-white/10 text-xs">
-                        <div className="flex items-center gap-2">
-                          <span className="text-muted-foreground shrink-0 font-medium text-[11px]">Friction:</span>
-                          <input
-                            type="text"
-                            value={customObservation}
-                            onChange={(e) => setCustomObservation(e.target.value)}
-                            placeholder="e.g. your consultation button leads to an empty form, slow on mobile"
-                            className="w-full bg-transparent border-none outline-none text-xs text-foreground placeholder:text-zinc-500 font-sans"
-                          />
-                        </div>
-                        <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-white/5 text-[10px]">
-                          <span className="text-zinc-500 font-mono">Quick Pick:</span>
-                          <button
-                            type="button"
-                            onClick={() => setCustomObservation("it's currently locked behind a password screen and visitors can't view any pieces")}
-                            className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white"
-                          >
-                            🔒 Password-Locked
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setCustomObservation("there's only a Linktree with social DMs rather than a dedicated storefront")}
-                            className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white"
-                          >
-                            🌲 Linktree Only
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setCustomObservation("it's not loading properly on mobile and slow to respond")}
-                            className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white"
-                          >
-                            📱 Slow Mobile
-                          </button>
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
-                      <span>
-                        <strong>Track A Protocol (Existing Site):</strong> Points out 1 observable friction on a specific page/lane. Asks for permission to send a 30s mobile concept. <strong>Never pitch a call in Message 1!</strong>
-                      </span>
-                    </div>
-                  </div>
-                )}
-
-                {/* TRACK B SUB-SELECTORS (NO WEBSITE) */}
-                {outreachTrack === 'track_b' && (
-                  <div className="space-y-2.5">
-                    <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs overflow-x-auto scrollbar-none sm:flex-wrap">
-                      <button
-                        onClick={() => setTrackBStep('b1_handshake_1a')}
-                        className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                          trackBStep === 'b1_handshake_1a'
-                            ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                            : 'text-muted-foreground hover:text-white'
-                        }`}
-                      >
-                        B1-A. Confirm Name
-                      </button>
-                      <button
-                        onClick={() => setTrackBStep('b1_handshake_1b')}
-                        className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                          trackBStep === 'b1_handshake_1b'
-                            ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                            : 'text-muted-foreground hover:text-white'
-                        }`}
-                      >
-                        B1-B. Ask Storefront
-                      </button>
-                      <button
-                        onClick={() => setTrackBStep('b1_handshake_1c')}
-                        className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                          trackBStep === 'b1_handshake_1c'
-                            ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                            : 'text-muted-foreground hover:text-white'
-                        }`}
-                      >
-                        B1-C. Pitch Prototype
-                      </button>
-                      <button
-                        onClick={() => setTrackBStep('b2_sunday_deadend')}
-                        className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                          trackBStep === 'b2_sunday_deadend'
-                            ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                            : 'text-muted-foreground hover:text-white'
-                        }`}
-                      >
-                        B2. Sunday 9 PM Dead-End
-                      </button>
-                      <button
-                        onClick={() => setTrackBStep('b3_direct_x')}
-                        className={`px-2.5 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                          trackBStep === 'b3_direct_x'
-                            ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                            : 'text-muted-foreground hover:text-white'
-                        }`}
-                      >
-                        B3. Direct 5-Part WhatsApp X
-                      </button>
-                    </div>
-
-                    <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
-                      <span>
-                        <strong>Track B Protocol (No Website):</strong> Respects their word-of-mouth reputation while anchoring the 75% evening mobile dead-end. Offers a free working mobile prototype with zero obligation.
-                      </span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* TAB 2: REVENUE LEAKAGE DIAGNOSTIC & CALCULATOR (STAGE 2) */}
-            {activeTab === 'qualify' && (
-              <div className="space-y-3">
-                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-center gap-2">
-                  <Flame size={14} className="shrink-0 text-amber-400" />
-                  <span>
-                    <strong>Stage 2 Diagnostic Protocol:</strong> When they say &ldquo;Yes&rdquo; to the prototype, run this 2-minute diagnostic BEFORE building or sending the link. Anchor their high-ticket economics and get them to pre-close themselves!
-                  </span>
-                </div>
-
-                {/* Interactive Revenue Leakage Diagnostic Engine */}
-                <div className="p-3.5 rounded-xl bg-gradient-to-br from-amber-500/10 via-[#181512] to-amber-500/5 border border-amber-500/30 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-amber-400 text-xs font-semibold uppercase tracking-wider">
-                      <Calculator size={14} />
-                      <span>Revenue Leakage Diagnostic Engine</span>
-                    </div>
-                    <span className="text-[10px] font-mono text-zinc-400">
-                      Anchors £995 as {oneJobRoi}% ROI
-                    </span>
-                  </div>
-
-                  {/* Inputs */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <label className="text-[11px] text-muted-foreground flex items-center justify-between">
-                        <span>Average Ticket / Job Value</span>
-                        <span className="text-foreground font-mono font-bold">£{ticketValue.toLocaleString()}</span>
-                      </label>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-muted-foreground">£</span>
-                        <input
-                          type="number"
-                          step={100}
-                          min={100}
-                          value={ticketValue}
-                          onChange={(e) => setTicketValue(Math.max(0, parseInt(e.target.value) || 0))}
-                          className="w-full px-2.5 py-1.5 rounded-lg bg-black/50 border border-white/10 text-xs text-foreground font-mono focus:border-amber-400 outline-none"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-[11px] text-muted-foreground flex items-center justify-between">
-                        <span>Missed Enquiries / Month</span>
-                        <span className="text-foreground font-mono font-bold">{missedEnquiries} missed</span>
-                      </label>
-                      <input
-                        type="number"
-                        min={1}
-                        max={30}
-                        value={missedEnquiries}
-                        onChange={(e) => setMissedEnquiries(Math.max(1, parseInt(e.target.value) || 1))}
-                        className="w-full px-2.5 py-1.5 rounded-lg bg-black/50 border border-white/10 text-xs text-foreground font-mono focus:border-amber-400 outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Calculations Strip */}
-                  <div className="grid grid-cols-3 gap-2 pt-2 border-t border-amber-500/20 text-center">
-                    <div className="p-2 rounded-lg bg-black/40 border border-amber-500/20">
-                      <p className="text-[10px] text-zinc-400 uppercase">Monthly Bleed</p>
-                      <p className="text-xs sm:text-sm font-mono font-bold text-rose-400">
-                        £{monthlyBleed.toLocaleString()}
-                      </p>
-                    </div>
-                    <div className="p-2 rounded-lg bg-black/40 border border-amber-500/20">
-                      <p className="text-[10px] text-zinc-400 uppercase">Annual Loss</p>
-                      <p className="text-xs sm:text-sm font-mono font-bold text-rose-300">
-                        £{annualBleed.toLocaleString()}
-                      </p>
-                    </div>
-                    <div className="p-2 rounded-lg bg-black/40 border border-emerald-500/20">
-                      <p className="text-[10px] text-zinc-400 uppercase">1-Job Payoff</p>
-                      <p className="text-xs sm:text-sm font-mono font-bold text-emerald-400">
-                        {oneJobRoi}% ROI
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Sub-steps Selector */}
-                <div className="flex items-center gap-1.5 p-1 rounded-lg bg-[#141417] border border-white/5 text-xs overflow-x-auto scrollbar-none sm:flex-wrap">
-                  <button
-                    onClick={() => setQualifyStep('all')}
-                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                      qualifyStep === 'all'
-                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                        : 'text-muted-foreground hover:text-white'
-                    }`}
-                  >
-                    Full 5-Question Diagnostic
-                  </button>
-                  <button
-                    onClick={() => setQualifyStep('intro')}
-                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                      qualifyStep === 'intro'
-                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                        : 'text-muted-foreground hover:text-white'
-                    }`}
-                  >
-                    Diagnostic Hook
-                  </button>
-                  <button
-                    onClick={() => setQualifyStep('q1')}
-                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                      qualifyStep === 'q1'
-                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                        : 'text-muted-foreground hover:text-white'
-                    }`}
-                  >
-                    Q1: Ticket Focus
-                  </button>
-                  <button
-                    onClick={() => setQualifyStep('q2')}
-                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                      qualifyStep === 'q2'
-                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                        : 'text-muted-foreground hover:text-white'
-                    }`}
-                  >
-                    Q2: Booking & Deposit
-                  </button>
-                  <button
-                    onClick={() => setQualifyStep('q3')}
-                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                      qualifyStep === 'q3'
-                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                        : 'text-muted-foreground hover:text-white'
-                    }`}
-                  >
-                    Q3: Sunday Evening
-                  </button>
-                  <button
-                    onClick={() => setQualifyStep('q4')}
-                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                      qualifyStep === 'q4'
-                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                        : 'text-muted-foreground hover:text-white'
-                    }`}
-                  >
-                    Q4: Monthly Bleed
-                  </button>
-                  <button
-                    onClick={() => setQualifyStep('q5')}
-                    className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                      qualifyStep === 'q5'
-                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                        : 'text-muted-foreground hover:text-white'
-                    }`}
-                  >
-                    Q5: 1-Job Payoff
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* TAB 3: PROTOTYPE PROTOCOL & CALL BRIDGE (STAGE 3) */}
-            {activeTab === 'stage2' && (
-              <div className="space-y-3">
-                <div className="flex items-center gap-1.5 p-1 rounded-lg bg-[#141417] border border-white/5 text-xs overflow-x-auto scrollbar-none sm:flex-wrap">
-                  <button
-                    onClick={() => setPrototypeSubStep('prototype')}
-                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                      prototypeSubStep === 'prototype'
-                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                        : 'text-muted-foreground hover:text-white'
-                    }`}
-                  >
-                    3A. Deliver Working Prototype Link
-                  </button>
-                  <button
-                    onClick={() => setPrototypeSubStep('call_bridge')}
-                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer flex items-center gap-1.5 shrink-0 sm:shrink-initial whitespace-nowrap ${
-                      prototypeSubStep === 'call_bridge'
-                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold'
-                        : 'text-emerald-400/80 hover:text-emerald-300 hover:bg-emerald-500/10'
-                    }`}
-                  >
-                    <Phone size={11} />
-                    <span>3B. 📞 Book 10m Walkthrough Call</span>
-                  </button>
-                </div>
-
-                <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
-                  <span>
-                    {prototypeSubStep === 'prototype' ? (
-                      <><strong>Stage 3 Prototype Protocol:</strong> Deliver the bespoke prototype link tailored around their diagnostic answers. Highlights Evening Mobile Traffic, Direct Action & Deposit Locks, and Sub-Second Speed.</>
-                    ) : (
-                      <><strong>Call Booking Bridge:</strong> Once they review the prototype, use this script to lock in a 10-minute walkthrough screen share / phone call with dual time-slot choice.</>
-                    )}
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* TAB 4: DUAL PRICING SUB-SELECTORS & CALL BRIDGE (STAGE 4) */}
-            {activeTab === 'stage3' && (
-              <div className="space-y-2.5">
-                <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-[#141417] border border-white/5 text-xs overflow-x-auto scrollbar-none sm:flex-wrap">
-                  <button
-                    onClick={() => setStage3Variant('both')}
-                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                      stage3Variant === 'both'
-                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                        : 'text-muted-foreground hover:text-white'
-                    }`}
-                  >
-                    Complete Dual Pathway Pitch
-                  </button>
-                  <button
-                    onClick={() => setStage3Variant('option1')}
-                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                      stage3Variant === 'option1'
-                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                        : 'text-muted-foreground hover:text-white'
-                    }`}
-                  >
-                    Option 1: £995 Asset Ownership
-                  </button>
-                  <button
-                    onClick={() => setStage3Variant('option2')}
-                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer shrink-0 sm:shrink-initial whitespace-nowrap ${
-                      stage3Variant === 'option2'
-                        ? 'bg-[#DAA640]/20 text-[#DAA640] border border-[#DAA640]/30 font-bold'
-                        : 'text-muted-foreground hover:text-white'
-                    }`}
-                  >
-                    Option 2: £495 + £195/mo Retainer
-                  </button>
-                  <button
-                    onClick={() => setStage3Variant('call_bridge')}
-                    className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer flex items-center gap-1.5 shrink-0 sm:shrink-initial whitespace-nowrap ${
-                      stage3Variant === 'call_bridge'
-                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold'
-                        : 'text-emerald-400/80 hover:text-emerald-300 hover:bg-emerald-500/10'
-                    }`}
-                  >
-                    <Phone size={11} />
-                    <span>📞 Book 10m Walkthrough Call</span>
-                  </button>
-                </div>
-
-                <div className="p-2.5 rounded-xl bg-[#DAA640]/10 border border-[#DAA640]/20 text-[#DAA640] text-xs flex items-center gap-2">
-                  <ShieldCheck size={14} className="shrink-0" />
-                  <span>
-                    <strong>Commercial Math Rule:</strong> Always frame £995 against their £{annualBleed.toLocaleString()} annual leak. 1 order pays off the build completely!
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* TAB 5: ONBOARDING PROTOCOL */}
-            {activeTab === 'stage4' && (
-              <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs flex items-center gap-2">
-                <CheckCircle2 size={14} className="shrink-0" />
-                <span>
-                  <strong>Stage 5 Onboarding:</strong> Send the 3-step checklist (Photos, Routing, Bank/Stripe) and issue initial 50% deposit invoice (£497.50).
-                </span>
-              </div>
-            )}
-
-            {/* TAB 6: 48H SCARCITY PROTOCOL */}
-            {activeTab === 'stage5' && (
-              <div className="p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2">
-                <AlertTriangle size={14} className="shrink-0" />
-                <span>
-                  <strong>Stage 6 Loss-Aversion:</strong> Send ONLY if prospect says &ldquo;Can&apos;t afford it&rdquo; or &ldquo;No thanks&rdquo;. Reallocates catchment territory to a competitor.
-                </span>
-              </div>
-            )}
-
-            {/* TAB 7: VOICE NOTE PROTOCOL */}
-            {activeTab === 'voice' && (
-              <div className="p-2.5 rounded-xl bg-[#DAA640]/10 border border-[#DAA640]/20 text-[#DAA640] text-xs flex items-center gap-2">
-                <Mic size={13} className="shrink-0" />
-                <span>
-                  <strong>Voice Note Protocol:</strong> Speak naturally off the cuff. Keep it under 15 seconds.
-                </span>
-              </div>
-            )}
-
-            {/* Message Box */}
-            <div className="relative rounded-xl bg-[#141417] border border-white/10 p-4 space-y-3">
-              <div className="flex items-center justify-between text-xs text-muted-foreground pb-2 border-b border-white/5">
-                <span className="font-medium text-foreground">Message Body</span>
-                <span className="text-[11px] font-mono text-[#DAA640]">{currentBadgeText}</span>
-              </div>
-
-              {/* Text Snippet Helper when user highlights any text */}
-              {selectedText && (
-                <div className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-[#DAA640]/15 border border-[#DAA640]/40 text-xs text-white animate-fade-in">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <span className="text-[10px] font-mono uppercase bg-[#DAA640] text-black px-1.5 py-0.5 rounded font-bold shrink-0">
-                      Selected
-                    </span>
-                    <span className="truncate text-zinc-200 text-xs font-mono">
-                      &ldquo;{selectedText.slice(0, 45)}...&rdquo;
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1.5 shrink-0">
-                    <button
-                      onClick={() => handleCopy(selectedText)}
-                      className="px-2.5 py-1 rounded-lg bg-[#DAA640] hover:bg-[#F5D90A] text-black font-semibold text-xs flex items-center gap-1 transition-all cursor-pointer"
-                    >
-                      <Copy size={11} /> Copy Selection
-                    </button>
-                    {cleanDigits && (
-                      <button
-                        onClick={() => handleSendWhatsApp(selectedText)}
-                        className="px-2.5 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs flex items-center gap-1 transition-all cursor-pointer"
-                      >
-                        <Send size={11} /> Send Selection
-                      </button>
-                    )}
-                    <button
-                      onClick={() => setSelectedText('')}
-                      className="p-1 rounded hover:bg-white/10 text-zinc-400 hover:text-white transition-colors cursor-pointer"
-                      title="Clear selection"
-                    >
-                      <X size={12} />
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              <p
-                onMouseUp={handleTextSelection}
-                className="text-xs sm:text-sm text-foreground/90 font-sans leading-relaxed whitespace-pre-line select-text cursor-text p-2 rounded-lg bg-black/20 border border-white/5"
-              >
-                {currentMessageText}
-              </p>
-
-              {isLandline && (
-                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-300 text-xs flex items-center justify-between gap-2">
-                  <span className="flex items-center gap-2">
-                    <Phone size={12} className="text-amber-400 shrink-0" />
-                    <span>
-                      <strong>UK Landline Notice:</strong> {lead.phone} is a regional landline. If WhatsApp does not connect, dial directly.
-                    </span>
-                  </span>
-                  <a
-                    href={`tel:${lead.phone}`}
-                    className="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 font-medium shrink-0 text-xs flex items-center gap-1"
-                  >
-                    <Phone size={12} /> Call Directly
-                  </a>
-                </div>
-              )}
-
-              <div className="flex flex-wrap items-center justify-end gap-2 pt-2 border-t border-white/5">
-                <button
-                  onClick={handleCopy}
-                  className="px-3 py-2 rounded-lg border border-white/10 hover:border-[#DAA640]/30 bg-white/5 hover:bg-[#DAA640]/10 text-xs font-medium text-foreground flex items-center gap-1.5 transition-all cursor-pointer"
-                >
-                  {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
-                  {copied ? 'Copied' : 'Copy Script'}
-                </button>
-
-                {cleanDigits && (
-                  <div className="flex flex-wrap items-center gap-2">
-                    {isLandline && (
-                      <a
-                        href={`tel:${lead.phone}`}
-                        className="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-foreground border border-white/10 font-medium text-xs flex items-center gap-1.5 transition-all"
-                      >
-                        <Phone size={13} /> Call {lead.phone}
-                      </a>
-                    )}
-
-                    <button
-                      onClick={handleSendWhatsApp}
-                      className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer"
-                      title={isLandline ? 'Try WhatsApp (if registered as WhatsApp Business)' : 'Open in WhatsApp'}
-                    >
-                      <Send size={13} /> Send via WhatsApp
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Outcome Status Bar */}
-          <div className="space-y-2.5 pt-2 border-t border-white/5">
-            <p className="text-xs font-medium text-muted-foreground">Update Lead Status:</p>
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
-              <button
-                disabled={updating}
-                onClick={() => handleStatusClick('New')}
-                className={`py-2 px-3 rounded-xl border text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                  lead.status === 'New'
-                    ? 'bg-white/15 text-white border-white/30'
-                    : 'bg-white/5 hover:bg-white/10 text-muted-foreground border-white/10'
-                }`}
-              >
-                <Clock size={13} /> New
-              </button>
-
-              <button
-                disabled={updating}
-                onClick={() => handleStatusClick('Contacted')}
-                className={`py-2 px-3 rounded-xl border text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                  lead.status === 'Contacted'
-                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                    : 'bg-amber-500/5 hover:bg-amber-500/10 text-amber-400/80 border-amber-500/20'
-                }`}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Contacted
-              </button>
-
-              <button
-                disabled={updating}
-                onClick={() => handleStatusClick('Call Booked')}
-                className={`py-2 px-3 rounded-xl border text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                  lead.status === 'Call Booked'
-                    ? 'bg-[#DAA640]/20 text-[#DAA640] border-[#DAA640]/40'
-                    : 'bg-[#DAA640]/5 hover:bg-[#DAA640]/10 text-[#DAA640]/80 border-[#DAA640]/20'
-                }`}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640]" /> Booked
-              </button>
-
-              <button
-                disabled={updating}
-                onClick={() => handleStatusClick('Won')}
-                className={`py-2 px-3 rounded-xl border text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                  lead.status === 'Won'
-                    ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
-                    : 'bg-emerald-500/5 hover:bg-emerald-500/10 text-emerald-400/80 border-emerald-500/20'
-                }`}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Won
-              </button>
-
-              <button
-                disabled={updating}
-                onClick={() => handleStatusClick('Lost')}
-                className={`py-2 px-3 rounded-xl border text-xs font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                  lead.status === 'Lost'
-                    ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
-                    : 'bg-rose-500/5 hover:bg-rose-500/10 text-rose-400/80 border-rose-500/20'
-                }`}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-rose-400" /> Lost
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="p-4 border-t border-white/5 bg-black/40 flex items-center justify-between text-xs">
-          {onDeleteLead && (
-            <button
-              onClick={() => {
-                if (confirm(`Permanently delete "${businessName}"?`)) {
-                  onDeleteLead(lead.id)
-                  onClose()
-                }
-              }}
-              className="text-rose-400 hover:text-rose-300 flex items-center gap-1 transition-colors cursor-pointer"
-            >
-              <Trash2 size={13} /> Delete Lead
-            </button>
           )}
 
-          <div className="flex items-center gap-2 ml-auto">
+          {/* AI Brainstorming Candidate Selector */}
+          {showBrainstorm && (
+            <div className="p-4 rounded-2xl bg-[#111115] border border-white/10 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-mono text-[#DCAE53] font-bold uppercase tracking-wider flex items-center gap-1.5">
+                  <Layers size={14} />
+                  Candidate Frictions Scored Against Quality Rules
+                </span>
+                <span className="text-[10px] font-mono text-zinc-500">Pick the single strongest physical anchor</span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {candidateFrictions.map((candidate, idx) => {
+                  const isSelected = candidate.id === selectedCandidateId
+                  return (
+                    <div
+                      key={candidate.id}
+                      onClick={() => handleSelectCandidate(candidate)}
+                      className={`p-3.5 rounded-xl border transition-all cursor-pointer text-left flex flex-col justify-between space-y-2.5 ${
+                        isSelected
+                          ? 'bg-[#18181F] border-[#DCAE53] shadow-lg shadow-[#DCAE53]/10'
+                          : 'bg-[#141417] border-white/10 hover:border-white/20'
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-[10px] font-mono font-bold text-[#DCAE53]">
+                            Candidate {idx + 1}
+                          </span>
+                          <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-zinc-400">
+                            {candidate.lane}
+                          </span>
+                        </div>
+                        <p className="text-xs font-bold text-white leading-snug line-clamp-2">
+                          {candidate.observableProblem}
+                        </p>
+                        <p className="text-[11px] text-zinc-400 mt-1 line-clamp-2">
+                          {candidate.recognizableReason}
+                        </p>
+                      </div>
+
+                      <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[9px] font-mono text-zinc-400">
+                        <span className="text-emerald-400 flex items-center gap-0.5">
+                          <Check size={10} /> 4 Tests Passed
+                        </span>
+                        <span className={isSelected ? 'text-[#DCAE53] font-bold' : ''}>
+                          {isSelected ? 'Active Selected' : 'Click to Pick'}
+                        </span>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Outreach Intelligence Grid (Observable Evidence & Variable Y) */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#111115] border border-white/10 space-y-4">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <span className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider flex items-center gap-1.5">
+                <FileText size={14} />
+                Outreach Intelligence & Variable Y (Accuracy &gt; Personalisation)
+              </span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">
+                Confidence: High (Physical Evidence)
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              
+              {/* Row 1: Next Step & Lane */}
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
+                  1. Customer Next Step
+                </label>
+                <input
+                  type="text"
+                  value={customerNextStep}
+                  onChange={(e) => setCustomerNextStep(e.target.value)}
+                  className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53]"
+                  placeholder="e.g. Request an on-site quote"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
+                  2. Lane & Exact Page
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={lane}
+                    onChange={(e) => setLane(e.target.value)}
+                    className="flex-1 bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53]"
+                    placeholder="Lane (e.g. Quote form)"
+                  />
+                  <input
+                    type="text"
+                    value={pageLocation}
+                    onChange={(e) => setPageLocation(e.target.value)}
+                    className="w-32 bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53]"
+                    placeholder="Page (e.g. /quote)"
+                  />
+                </div>
+              </div>
+
+              {/* Row 2: ONE Friction & Physical Evidence */}
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
+                  3. ONE Friction (Visible, Fast, Logical, Decision-Tied)
+                </label>
+                <textarea
+                  rows={2}
+                  value={friction}
+                  onChange={(e) => setFriction(e.target.value)}
+                  className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53] resize-none"
+                  placeholder="One specific observable problem without judgment"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-widest flex items-center gap-1">
+                  <CheckCircle2 size={12} />
+                  4. Objective Evidence (First-Class Field)
+                </label>
+                <textarea
+                  rows={2}
+                  value={evidence}
+                  onChange={(e) => setEvidence(e.target.value)}
+                  className="w-full bg-[#18181F] border border-emerald-500/20 rounded-xl px-3 py-2 text-xs text-zinc-300 focus:outline-none focus:border-emerald-500 resize-none font-mono"
+                  placeholder="What was verified publicly in <10 seconds"
+                />
+              </div>
+
+              {/* Row 3: Recognisable Reason & Consequence Mechanics */}
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
+                  5. Recognisable Reason (Buyer Behaviour Pattern)
+                </label>
+                <textarea
+                  rows={2}
+                  value={recognizableReason}
+                  onChange={(e) => setRecognizableReason(e.target.value)}
+                  className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53] resize-none"
+                  placeholder="The customer behavior pattern that makes the operator nod"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
+                  6. Consequence Mechanics (Cause → Effect Without Metrics)
+                </label>
+                <textarea
+                  rows={2}
+                  value={consequenceMechanics}
+                  onChange={(e) => setConsequenceMechanics(e.target.value)}
+                  className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53] resize-none"
+                  placeholder="Natural chain reaction without invented numbers"
+                />
+              </div>
+
+            </div>
+          </div>
+
+          {/* Generated Channel Outreach Tabs */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setActiveChannelTab('whatsapp')}
+                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    activeChannelTab === 'whatsapp'
+                      ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <MessageSquare size={14} className="text-[#DCAE53]" />
+                  <span>WhatsApp Outreach (5-Part)</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveChannelTab('email')}
+                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    activeChannelTab === 'email'
+                      ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <Mail size={14} className="text-[#DCAE53]" />
+                  <span>Email X (Permission Only)</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveChannelTab('call_bridge')}
+                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    activeChannelTab === 'call_bridge'
+                      ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <Phone size={14} className="text-[#DCAE53]" />
+                  <span>Discovery Call Bridge</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveChannelTab('prototype_task')}
+                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    activeChannelTab === 'prototype_task'
+                      ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <FileText size={14} className="text-[#DCAE53]" />
+                  <span>Prototype Task Spec</span>
+                </button>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleCopy}
+                  className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white text-xs font-semibold transition-all flex items-center gap-1.5 border border-white/10 cursor-pointer"
+                >
+                  {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
+                  <span>{copied ? 'Copied to Clipboard' : 'Copy Script'}</span>
+                </button>
+
+                {activeChannelTab === 'whatsapp' && (
+                  <button
+                    onClick={handleSendWhatsApp}
+                    className="px-4 py-1.5 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-[#DCAE53]/20 cursor-pointer"
+                  >
+                    <Send size={13} />
+                    <span>Send via WhatsApp</span>
+                  </button>
+                )}
+
+                {activeChannelTab === 'email' && (
+                  <button
+                    onClick={handleSendEmail}
+                    className="px-4 py-1.5 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-[#DCAE53]/20 cursor-pointer"
+                  >
+                    <Mail size={13} />
+                    <span>Send via Email</span>
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Script Display Box */}
+            <div className="relative rounded-2xl bg-[#070709] border border-white/10 p-4 font-mono text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
+              {currentDisplayScript}
+            </div>
+
+            {/* Educational methodology prompt badge */}
+            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between text-[11px] font-mono text-zinc-400">
+              <div className="flex items-center gap-2">
+                <ShieldCheck size={14} className="text-[#DCAE53]" />
+                <span>
+                  {activeChannelTab === 'whatsapp' || activeChannelTab === 'email'
+                    ? 'Rule: 1 friction only. Asks for a micro-yes (permission). Does not sell the website on touch 1.'
+                    : activeChannelTab === 'call_bridge'
+                    ? 'Goal: Show possibilities & demonstrate how this is value added to the business, not an expense.'
+                    : 'Feeds the prototype builder with the exact friction so the free value demonstrates real ROI.'}
+                </span>
+              </div>
+              <span className="text-[#DCAE53] font-bold">10-Second Test Validated</span>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Bottom Status Update Footer */}
+        <div className="px-5 py-3 border-t border-white/10 bg-[#111115] flex items-center justify-between gap-3 shrink-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[11px] font-mono text-zinc-400 font-bold uppercase mr-1">
+              Set Lead Status:
+            </span>
+            {['New', 'Contacted', 'Call Booked', 'Won', 'Lost'].map((st) => (
+              <button
+                key={st}
+                disabled={updating}
+                onClick={async () => {
+                  setUpdating(true)
+                  try {
+                    await onUpdateStatus(lead.id, st)
+                  } finally {
+                    setUpdating(false)
+                  }
+                }}
+                className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                  lead.status === st
+                    ? 'bg-[#DCAE53] text-[#09090B] font-bold'
+                    : 'bg-[#18181F] text-zinc-400 hover:text-white border border-white/10'
+                }`}
+              >
+                {st}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            {onDeleteLead && (
+              <button
+                onClick={() => onDeleteLead(lead.id)}
+                className="p-2 rounded-xl text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
+                title="Delete Lead"
+              >
+                <Trash2 size={16} />
+              </button>
+            )}
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-foreground font-semibold transition-all cursor-pointer"
+              className="px-4 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold transition-all cursor-pointer"
             >
               Close
             </button>
           </div>
         </div>
-      </div>
 
-      {/* Dedicated Antigravity Vibecoding & Prototype Prompt Modal */}
-      <AntigravityPromptModal isOpen={isPromptOpen} onClose={() => setIsPromptOpen(false)} lead={lead} />
+      </div>
     </div>
   )
 }

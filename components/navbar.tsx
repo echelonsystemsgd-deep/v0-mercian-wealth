@@ -69,11 +69,14 @@ export function Navbar() {
 
   useEffect(() => {
     if (isMobileMenuOpen) {
+      document.body.classList.add("mobile-menu-open")
       document.body.style.overflow = "hidden"
     } else {
+      document.body.classList.remove("mobile-menu-open")
       document.body.style.overflow = ""
     }
     return () => {
+      document.body.classList.remove("mobile-menu-open")
       document.body.style.overflow = ""
     }
   }, [isMobileMenuOpen])
@@ -161,13 +164,8 @@ export function Navbar() {
   }
 
   return (
-    <div
-      className={`fixed top-0 left-0 right-0 z-[100] flex flex-col font-sans pointer-events-none transition-transform duration-300 ease-in-out ${
-        !isAtTop && scrollDirection === "down" && !isMobileMenuOpen
-          ? "-translate-y-full"
-          : "translate-y-0"
-      }`}
-    >
+    <>
+      <div className="fixed top-0 left-0 right-0 z-[100] flex flex-col font-sans pointer-events-none translate-y-0">
       
       {/* Top Telemetry Ticker (Pointers enabled) */}
       <div className="pointer-events-auto">
@@ -491,6 +489,7 @@ export function Navbar() {
           </div>
         </header>
       </div>
+    </div>
 
       {/* Luxury Slide-Over Navigation Drawer */}
       <AnimatePresence>
@@ -636,7 +635,7 @@ export function Navbar() {
                 </div>
 
                 <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 pt-2 px-1">
-                  <span>West Midlands &amp; Across UK</span>
+                  <span>Berkshire &amp; Across UK</span>
                   <Link
                     href="/login"
                     rel="nofollow"
@@ -652,7 +651,6 @@ export function Navbar() {
           </div>
         )}
       </AnimatePresence>
-
-    </div>
+    </>
   )
 }

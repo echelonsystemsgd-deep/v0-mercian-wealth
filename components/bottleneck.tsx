@@ -79,20 +79,20 @@ export function Bottleneck() {
               <span className="text-[10px] font-mono text-rose-400 font-bold uppercase tracking-wider">// 01 LATENCY ABANDONMENT</span>
               <TrendingDown className="w-4 h-4 text-rose-400 shrink-0" />
             </div>
-            <div className="text-3xl font-mono font-bold text-white mb-1 tracking-tight">42%</div>
+            <div className="text-2xl sm:text-3xl font-mono font-bold text-white mb-1 tracking-tight">&lt; 5 Mins</div>
             <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
-              of high-intent local customer enquiries permanently bounce to competitors if not answered within 10 minutes.
+              High-intent local customer enquiries permanently bounce to competitors if not answered while their buying intent is peak.
             </p>
           </div>
 
           <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300 shadow-lg">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">// 02 SUNDAY NIGHT BLEED</span>
+              <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">// 02 AFTER-HOURS BLEED</span>
               <Clock className="w-4 h-4 text-amber-400 shrink-0" />
             </div>
-            <div className="text-3xl font-mono font-bold text-white mb-1 tracking-tight">75%+</div>
+            <div className="text-2xl sm:text-3xl font-mono font-bold text-white mb-1 tracking-tight">After-Hours</div>
             <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
-              of high-intent searches happen on mobile phones in evenings &amp; weekends when premises are closed.
+              The vast majority of local research happens on mobile phones in evenings &amp; weekends when physical premises are closed.
             </p>
           </div>
 
@@ -101,9 +101,9 @@ export function Bottleneck() {
               <span className="text-[10px] font-mono text-rose-400 font-bold uppercase tracking-wider">// 03 UNCOLLECTED DEPOSITS</span>
               <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
             </div>
-            <div className="text-3xl font-mono font-bold text-white mb-1 tracking-tight">£3,000+</div>
+            <div className="text-2xl sm:text-3xl font-mono font-bold text-white mb-1 tracking-tight">No-Shows</div>
             <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
-              lost every single year to no-shows and uncommitted calendar bookings without upfront Stripe deposit locks.
+              Uncommitted diary slots result in regular lost revenue and empty diary time without upfront Stripe deposit locks.
             </p>
           </div>
 
@@ -112,9 +112,9 @@ export function Bottleneck() {
               <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">// 04 MOBILE FRICTION</span>
               <Zap className="w-4 h-4 text-amber-400 shrink-0" />
             </div>
-            <div className="text-3xl font-mono font-bold text-white mb-1 tracking-tight">53%</div>
+            <div className="text-2xl sm:text-3xl font-mono font-bold text-white mb-1 tracking-tight">&gt; 3 Secs</div>
             <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
-              of mobile visitors abandon if a site takes over 3 seconds to load on smartphone 4G/5G connections.
+              Mobile visitors abandon immediately if a site takes more than 3 seconds to load or requires pinch-to-zoom on smartphones.
             </p>
           </div>
         </motion.div>

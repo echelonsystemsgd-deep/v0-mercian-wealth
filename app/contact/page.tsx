@@ -61,7 +61,7 @@ export default function ContactPage() {
       "image": "https://mercianwealth.com/Logo2.jpeg",
       "address": {
         "@type": "PostalAddress",
-        "addressRegion": "West Midlands",
+        "addressRegion": "Berkshire",
         "addressCountry": "GB"
       }
     },

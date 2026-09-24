@@ -20,3 +20,4 @@ node_modules
 .vercel
 .env*
 qualified-leads.json
+*.tsbuildinfo

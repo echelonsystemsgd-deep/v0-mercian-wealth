@@ -89,7 +89,7 @@ export function ActivityTab({ leadId: _leadId, leadName, leadCreatedAt, activiti
     {
       id: 'created',
       at: new Date(leadCreatedAt),
-      type: 'activity',
+      type: 'activity' as const,
       data: { id: 'created', type: 'lead_created', details: {}, created_at: leadCreatedAt },
     },
     ...activities.map((a) => ({ id: a.id, at: new Date(a.created_at), type: 'activity' as const, data: a })),

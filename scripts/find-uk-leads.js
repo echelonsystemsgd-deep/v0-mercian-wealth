@@ -56,9 +56,8 @@ async function findLeads() {
       // 2. Minimum reviews check (ensures business is actively operating)
       if (reviewsCount < minReviews) continue;
 
-      // 3. Classify online presence
-      const classification = classifyOnlinePresence(rawWebsite);
-      if (classification === 'disqualified') continue;
+      // 3. Classify online presence into 3 pathways (has_website, no_website, needs_review)
+      const classification = classifyOnlinePresence(rawWebsite, rawPhone, businessName);
 
       // 4. Sanitize UK Phone
       let cleanPhone = rawPhone.replace(/[^0-9+]/g, '');
@@ -69,14 +68,13 @@ async function findLeads() {
       const isMobile = cleanPhone.startsWith('+447');
       const channel = isMobile ? 'WhatsApp / SMS' : 'Landline / Direct Call';
       const waDigits = cleanPhone.replace('+', '');
+      const tradeNoun = detectTradeNoun(data.categoryName, query, businessName);
+      const stage2 = generate5PartOutreach(businessName, classification, tradeNoun, data.city || 'your area');
       const waLink = isMobile
-        ? `https://wa.me/${waDigits}?text=${encodeURIComponent('Hi 👋')}`
+        ? `https://wa.me/${waDigits}?text=${encodeURIComponent(stage2)}`
         : null;
 
-      // 5. Generate tailored Outreach Messages per Mercian Wealth SOP
-      const tradeNoun = detectTradeNoun(data.categoryName, query, businessName);
       const stage1 = `Hi 👋, is this ${businessName}?`;
-      const stage2 = generateStage2Pitch(businessName, classification, tradeNoun, rawWebsite);
 
       qualified.push({
         name: 'Owner / Director',
@@ -159,17 +157,43 @@ function getSpecificIssue(website) {
   return 'the site failed to open properly';
 }
 
-function classifyOnlinePresence(website) {
+function classifyOnlinePresence(website, phone, businessName) {
+  if (!phone || !businessName) return 'needs_review';
   if (!website || website === '') return 'no_website';
   const w = website.toLowerCase();
-  if (w.includes('facebook.com') || w.includes('instagram.com') || w.includes('tiktok.com') || w.includes('yell.com') || w.includes('checkatrade.com')) {
-    return 'social_only';
+  if (
+    w.includes('facebook.com') ||
+    w.includes('instagram.com') ||
+    w.includes('tiktok.com') ||
+    w.includes('yell.com') ||
+    w.includes('checkatrade.com') ||
+    w.includes('linktr.ee')
+  ) {
+    return 'no_website';
   }
-  return 'disqualified'; // Has custom domain
+  return 'has_website';
 }
 
-function generateStage2Pitch(businessName, classification, tradeNoun, website) {
-  return `That's fine for now, but it means anyone who Googles a ${tradeNoun} in your area before messaging will land on a competitor's site instead of yours, even if you're the better choice. A proper site means people can find you, see your work, and message you straight away — more jobs landing in your inbox instead of going elsewhere first.\n\nHappy to put a free working example together for you, no cost, no obligation — built around how you already work, nothing generic.`;
+function generate5PartOutreach(businessName, classification, tradeNoun, location) {
+  const city = location || 'your area';
+  if (classification === 'no_website') {
+    return [
+      `Hi, came across ${businessName} — great reputation in ${city}.`,
+      `Quick observation: had a look for your dedicated site to check your past work and booking info, but couldn't find one active.`,
+      `Usually when a customer is comparing local ${tradeNoun} specialists in the evening, having no dedicated place to quickly confirm services and booking availability means they have less certainty at that decision point, so they continue looking at alternatives.`,
+      `Put together a quick 30-second mobile concept showing how ${businessName} could showcase your work and let clients request bookings directly on their phone.`,
+      `Open to taking a quick look? (Zero obligation at all 👍)`
+    ].join('\n\n');
+  }
+
+  // Pathway 1: Has Website (Queued for specific decision friction audit)
+  return [
+    `Hi, came across ${businessName} while reviewing ${tradeNoun} specialists in ${city}.`,
+    `Had a quick look through your mobile website on my phone and noticed one friction point where evening visitors trying to enquire run into hesitation.`,
+    `When customers compare local specialists after hours, small mobile friction at the contact step causes them to pause and check competitors instead of completing the enquiry.`,
+    `Recorded a 30-second screen walkthrough showing exactly where it happens and a quick 1-click fix.`,
+    `Mind if I send the 30s link over? (Zero obligation at all 👍)`
+  ].join('\n\n');
 }
 
 function cleanSlug(str) {
