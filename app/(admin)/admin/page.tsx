@@ -10,6 +10,8 @@ import { AttentionPanel } from '@/components/admin/attention-panel'
 import { TransactionsFeed } from '@/components/admin/transactions-feed'
 import { OutreachFunnelChart } from '@/components/admin/charts/outreach-funnel-chart'
 import { OutreachAreaChart } from '@/components/admin/charts/outreach-area-chart'
+import { TodayOutreachStrip } from '@/components/admin/today-outreach-strip'
+import { RevenueThermometer } from '@/components/admin/revenue-thermometer'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -145,6 +147,25 @@ export default async function AdminDashboardPage() {
     .gte('scheduled_at', new Date().toISOString())
     .lte('scheduled_at', new Date(Date.now() + 60 * 60 * 1000).toISOString())
 
+  // Priority fresh leads for Today's Outreach Sprint (Prioritize verified mobile)
+  const { data: rawFreshLeads } = await supabase
+    .from('leads')
+    .select('id, name, business_name, phone, website, local_business_niche, status, scraped_metadata')
+    .eq('status', 'New')
+    .eq('is_archived', false)
+    .order('created_at', { ascending: false })
+    .limit(10)
+
+  const priorityOutreachLeads = (rawFreshLeads || [])
+    .sort((a, b) => {
+      const aClean = (a.phone || '').replace(/[^0-9]/g, '')
+      const bClean = (b.phone || '').replace(/[^0-9]/g, '')
+      const aMob = aClean.startsWith('447') || aClean.startsWith('07') ? 1 : 0
+      const bMob = bClean.startsWith('447') || bClean.startsWith('07') ? 1 : 0
+      return bMob - aMob
+    })
+    .slice(0, 4)
+
   // ── Derived Data (single pass over messages) ──────────────────────────────
 
   const unreadByProject: Record<string, number> = {}
@@ -267,6 +288,12 @@ export default async function AdminDashboardPage() {
 
       {/* ── Today's Schedule Strip ───────────────────────────────────────────── */}
       <TodayScheduleStrip sessions={safeTodaySessions} />
+
+      {/* ── Today's Priority Outreach Sprint ─────────────────────────────────── */}
+      <TodayOutreachStrip leads={priorityOutreachLeads} />
+
+      {/* ── Revenue Goal Thermometer & Live Service Health ───────────────────── */}
+      <RevenueThermometer totalCollected={totalSales} projectedMRR={projectedMRR} />
 
       {/* ── Outreach Telemetry Visualizations (bklit.com standard) ──────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

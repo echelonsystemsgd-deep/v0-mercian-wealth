@@ -25,7 +25,10 @@ import {
   ArrowRight,
   UserCheck,
   AlertCircle,
-  FileText
+  FileText,
+  ChevronDown,
+  ChevronUp,
+  SlidersHorizontal,
 } from 'lucide-react'
 import type { FrictionFinding, PipelineClassification } from '@/lib/auditor/types'
 import {
@@ -84,12 +87,15 @@ export function OutreachModal({
   onUpdateStatus,
   onDeleteLead,
 }: OutreachModalProps) {
-  // Primary Tabs
+  // Primary Channel Tabs
   const [activeChannelTab, setActiveChannelTab] = useState<'whatsapp' | 'email' | 'call_bridge' | 'prototype_task'>('whatsapp')
   
   // Pipeline Classification: HAS_WEBSITE | NO_WEBSITE | NEEDS_REVIEW
   const [classification, setClassification] = useState<PipelineClassification>('NO_WEBSITE')
   
+  // Refine Variables Accordion Toggle (Collapsed by default for zero clutter)
+  const [showVariables, setShowVariables] = useState(false)
+
   // Brainstorm Candidate Selection
   const [selectedCandidateId, setSelectedCandidateId] = useState<string>('c1')
   const [showBrainstorm, setShowBrainstorm] = useState(false)
@@ -106,10 +112,9 @@ export function OutreachModal({
 
   const [copied, setCopied] = useState(false)
   const [updating, setUpdating] = useState(false)
-  const [isAuditing, setIsAuditing] = useState(false)
 
   // Derived Business Details
-  const businessName = lead?.business_name || 'Local Business'
+  const businessName = lead?.business_name || lead?.name || 'Local Business'
   const trade = (lead?.local_business_niche || lead?.scraped_metadata?.trade || 'local trade').toLowerCase()
   const rawWebsite = (lead?.website || '').trim()
   const hasRawWebsite =
@@ -137,7 +142,6 @@ export function OutreachModal({
       return intel.candidates
     }
 
-    // Default high-probability candidate set for website audits
     return [
       {
         id: 'c1_form_friction',
@@ -233,6 +237,7 @@ export function OutreachModal({
       }
       setCopied(false)
       setActiveChannelTab('whatsapp')
+      setShowVariables(false)
       setShowBrainstorm(false)
     }
   }, [lead?.id, hasRawWebsite])
@@ -298,10 +303,6 @@ export function OutreachModal({
     )
   }, [currentVariableY, classification, trade, city])
 
-  const generatedWhatsApp = useMemo(() => {
-    return whatsAppSequence.fullSequenceText
-  }, [whatsAppSequence])
-
   const generatedEmail = useMemo(() => {
     return formatEmailXOutreach(currentVariableY).fullEmailText
   }, [currentVariableY])
@@ -337,7 +338,7 @@ export function OutreachModal({
     setTimeout(() => setCopied(false), 2000)
   }
 
-  // WhatsApp sender
+  // WhatsApp sender with auto-status advancement to Contacted
   const handleSendWhatsApp = (text?: string) => {
     const msg = text || whatsAppSequence.message1.text
     const cleanDigits = (lead?.phone || '').replace(/[^0-9]/g, '')
@@ -346,6 +347,10 @@ export function OutreachModal({
       ? `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`
       : `https://wa.me/?text=${encodeURIComponent(msg)}`
     window.open(url, '_blank', 'noopener,noreferrer')
+
+    if (lead?.status === 'New') {
+      onUpdateStatus(lead.id, 'Contacted')
+    }
   }
 
   // Email sender
@@ -358,18 +363,18 @@ export function OutreachModal({
   if (!isOpen || !lead) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
       <div className="relative w-full max-w-4xl bg-[#0B0B0D] border border-white/10 rounded-2xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh]">
         
-        {/* Top Header */}
-        <div className="px-5 py-4 border-b border-white/10 bg-[#111115] flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[#DCAE53]">
+        {/* Top Header: Business Summary & Close */}
+        <div className="px-4 sm:px-6 py-4 border-b border-white/10 bg-[#111115] flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="p-2 sm:p-2.5 rounded-xl bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[#DCAE53] shrink-0">
               <Sparkles className="w-5 h-5" />
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-base sm:text-lg font-bold text-white font-sans">{businessName}</h2>
+                <h2 className="text-base sm:text-lg font-bold text-white font-sans truncate">{businessName}</h2>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-zinc-400 capitalize">
                   {trade}
                 </span>
@@ -377,13 +382,13 @@ export function OutreachModal({
                   ★ {rating} ({reviewsCount})
                 </span>
               </div>
-              <div className="flex items-center gap-3 text-[11px] font-mono text-zinc-400 mt-0.5">
+              <div className="flex items-center gap-3 text-[11px] font-mono text-zinc-400 mt-1 flex-wrap">
                 <span className="flex items-center gap-1">
                   <MapPin size={12} className="text-[#DCAE53]" />
                   {city}
                 </span>
                 {lead.phone && (
-                  <span className="flex items-center gap-1">
+                  <span className="flex items-center gap-1 text-zinc-300">
                     <Phone size={12} className="text-[#DCAE53]" />
                     {lead.phone}
                   </span>
@@ -393,7 +398,7 @@ export function OutreachModal({
                     href={rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-[#DCAE53] hover:underline"
+                    className="flex items-center gap-1 text-[#DCAE53] hover:underline truncate max-w-[200px]"
                   >
                     <Globe size={12} />
                     {rawWebsite.replace(/^https?:\/\//, '').replace(/\/.*$/, '')}
@@ -404,7 +409,7 @@ export function OutreachModal({
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0 ml-3">
             <button
               onClick={onClose}
               className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors cursor-pointer"
@@ -415,9 +420,9 @@ export function OutreachModal({
           </div>
         </div>
 
-        {/* Pathway Classification Strip (3 Distinct Pathways) */}
-        <div className="px-5 py-2.5 bg-[#0e0e12] border-b border-white/10 flex items-center justify-between flex-wrap gap-2 text-xs shrink-0">
-          <div className="flex items-center gap-2">
+        {/* Pathway Classification & Quick Switch Strip */}
+        <div className="px-4 sm:px-6 py-2.5 bg-[#0e0e12] border-b border-white/10 flex items-center justify-between flex-wrap gap-2 text-xs shrink-0">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="text-[11px] font-mono text-zinc-400 font-bold uppercase tracking-wider">
               Pathway:
             </span>
@@ -443,7 +448,7 @@ export function OutreachModal({
                 }`}
               >
                 <MapPin size={12} />
-                <span>2. No Website (Google Maps)</span>
+                <span>2. No Website</span>
               </button>
 
               <button
@@ -460,21 +465,24 @@ export function OutreachModal({
             </div>
           </div>
 
-          <button
-            onClick={() => setShowBrainstorm(!showBrainstorm)}
-            className="text-[11px] font-mono text-[#DCAE53] hover:underline flex items-center gap-1 cursor-pointer"
-          >
-            <Layers size={13} />
-            <span>{showBrainstorm ? 'Hide Candidate Frictions' : 'AI Brainstorming Mode (Candidates)'}</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowVariables(!showVariables)}
+              className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-mono text-zinc-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <SlidersHorizontal size={12} className="text-[#DCAE53]" />
+              <span>{showVariables ? 'Hide Pitch Angles' : 'Refine Pitch Angles'}</span>
+              {showVariables ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+            </button>
+          </div>
         </div>
 
         {/* Scrollable Content Body */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-5 font-sans">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 font-sans">
           
           {/* Needs Review Flag Notice */}
           {classification === 'NEEDS_REVIEW' && (
-            <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs space-y-1.5">
+            <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs space-y-1.5 animate-fade-in">
               <div className="flex items-center gap-2 font-bold uppercase tracking-wider text-[11px]">
                 <AlertTriangle size={15} />
                 <span>⚠️ Needs Review — Do Not Force Outreach</span>
@@ -486,203 +494,41 @@ export function OutreachModal({
             </div>
           )}
 
-          {/* AI Brainstorming Candidate Selector */}
-          {showBrainstorm && (
-            <div className="p-4 rounded-2xl bg-[#111115] border border-white/10 space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono text-[#DCAE53] font-bold uppercase tracking-wider flex items-center gap-1.5">
-                  <Layers size={14} />
-                  Candidate Frictions Scored Against Quality Rules
-                </span>
-                <span className="text-[10px] font-mono text-zinc-500">Pick the single strongest physical anchor</span>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                {candidateFrictions.map((candidate, idx) => {
-                  const isSelected = candidate.id === selectedCandidateId
-                  return (
-                    <div
-                      key={candidate.id}
-                      onClick={() => handleSelectCandidate(candidate)}
-                      className={`p-3.5 rounded-xl border transition-all cursor-pointer text-left flex flex-col justify-between space-y-2.5 ${
-                        isSelected
-                          ? 'bg-[#18181F] border-[#DCAE53] shadow-lg shadow-[#DCAE53]/10'
-                          : 'bg-[#141417] border-white/10 hover:border-white/20'
-                      }`}
-                    >
-                      <div>
-                        <div className="flex items-center justify-between mb-1.5">
-                          <span className="text-[10px] font-mono font-bold text-[#DCAE53]">
-                            Candidate {idx + 1}
-                          </span>
-                          <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-zinc-400">
-                            {candidate.lane}
-                          </span>
-                        </div>
-                        <p className="text-xs font-bold text-white leading-snug line-clamp-2">
-                          {candidate.observableProblem}
-                        </p>
-                        <p className="text-[11px] text-zinc-400 mt-1 line-clamp-2">
-                          {candidate.recognizableReason}
-                        </p>
-                      </div>
-
-                      <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[9px] font-mono text-zinc-400">
-                        <span className="text-emerald-400 flex items-center gap-0.5">
-                          <Check size={10} /> 4 Tests Passed
-                        </span>
-                        <span className={isSelected ? 'text-[#DCAE53] font-bold' : ''}>
-                          {isSelected ? 'Active Selected' : 'Click to Pick'}
-                        </span>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* Outreach Intelligence Grid (Observable Evidence & Variable Y) */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#111115] border border-white/10 space-y-4">
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
-              <span className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider flex items-center gap-1.5">
-                <FileText size={14} />
-                Outreach Intelligence & Variable Y (Accuracy &gt; Personalisation)
-              </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">
-                Confidence: High (Physical Evidence)
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-              
-              {/* Row 1: Next Step & Lane */}
-              <div className="space-y-1">
-                <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
-                  1. Customer Next Step
-                </label>
-                <input
-                  type="text"
-                  value={customerNextStep}
-                  onChange={(e) => setCustomerNextStep(e.target.value)}
-                  className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53]"
-                  placeholder="e.g. Request an on-site quote"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
-                  2. Lane & Exact Page
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={lane}
-                    onChange={(e) => setLane(e.target.value)}
-                    className="flex-1 bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53]"
-                    placeholder="Lane (e.g. Quote form)"
-                  />
-                  <input
-                    type="text"
-                    value={pageLocation}
-                    onChange={(e) => setPageLocation(e.target.value)}
-                    className="w-32 bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53]"
-                    placeholder="Page (e.g. /quote)"
-                  />
-                </div>
-              </div>
-
-              {/* Row 2: ONE Friction & Physical Evidence */}
-              <div className="space-y-1">
-                <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
-                  3. ONE Friction (Visible, Fast, Logical, Decision-Tied)
-                </label>
-                <textarea
-                  rows={2}
-                  value={friction}
-                  onChange={(e) => setFriction(e.target.value)}
-                  className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53] resize-none"
-                  placeholder="One specific observable problem without judgment"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-widest flex items-center gap-1">
-                  <CheckCircle2 size={12} />
-                  4. Objective Evidence (First-Class Field)
-                </label>
-                <textarea
-                  rows={2}
-                  value={evidence}
-                  onChange={(e) => setEvidence(e.target.value)}
-                  className="w-full bg-[#18181F] border border-emerald-500/20 rounded-xl px-3 py-2 text-xs text-zinc-300 focus:outline-none focus:border-emerald-500 resize-none font-mono"
-                  placeholder="What was verified publicly in <10 seconds"
-                />
-              </div>
-
-              {/* Row 3: Recognisable Reason & Consequence Mechanics */}
-              <div className="space-y-1">
-                <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
-                  5. Recognisable Reason (Buyer Behaviour Pattern)
-                </label>
-                <textarea
-                  rows={2}
-                  value={recognizableReason}
-                  onChange={(e) => setRecognizableReason(e.target.value)}
-                  className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53] resize-none"
-                  placeholder="The customer behavior pattern that makes the operator nod"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
-                  6. Consequence Mechanics (Cause → Effect Without Metrics)
-                </label>
-                <textarea
-                  rows={2}
-                  value={consequenceMechanics}
-                  onChange={(e) => setConsequenceMechanics(e.target.value)}
-                  className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53] resize-none"
-                  placeholder="Natural chain reaction without invented numbers"
-                />
-              </div>
-
-            </div>
-          </div>
-
-          {/* Generated Channel Outreach Tabs */}
-          <div className="space-y-3">
+          {/* ───────────────────────────────────────────────────────────── */}
+          {/* PRIMARY FOCUS: GENERATED CHANNEL OUTREACH DISPATCH            */}
+          {/* ───────────────────────────────────────────────────────────── */}
+          <div className="space-y-4">
             <div className="flex items-center justify-between flex-wrap gap-2">
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                 <button
                   onClick={() => setActiveChannelTab('whatsapp')}
-                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeChannelTab === 'whatsapp'
-                      ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold'
+                      ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold shadow-sm'
                       : 'text-zinc-400 hover:text-white'
                   }`}
                 >
                   <MessageSquare size={14} className="text-[#DCAE53]" />
-                  <span>WhatsApp Outreach (3-Message)</span>
+                  <span>WhatsApp Sequence</span>
                 </button>
 
                 <button
                   onClick={() => setActiveChannelTab('email')}
-                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeChannelTab === 'email'
-                      ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold'
+                      ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold shadow-sm'
                       : 'text-zinc-400 hover:text-white'
                   }`}
                 >
                   <Mail size={14} className="text-[#DCAE53]" />
-                  <span>Email X (Permission Only)</span>
+                  <span>Email X</span>
                 </button>
 
                 <button
                   onClick={() => setActiveChannelTab('call_bridge')}
-                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeChannelTab === 'call_bridge'
-                      ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold'
+                      ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold shadow-sm'
                       : 'text-zinc-400 hover:text-white'
                   }`}
                 >
@@ -690,21 +536,21 @@ export function OutreachModal({
                   <span>Discovery Call Bridge</span>
                   {isEarlyStage && (
                     <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono">
-                      🔒 Stage 3
+                      Stage 3
                     </span>
                   )}
                 </button>
 
                 <button
                   onClick={() => setActiveChannelTab('prototype_task')}
-                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeChannelTab === 'prototype_task'
-                      ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold'
+                      ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold shadow-sm'
                       : 'text-zinc-400 hover:text-white'
                   }`}
                 >
                   <FileText size={14} className="text-[#DCAE53]" />
-                  <span>Prototype Task Spec</span>
+                  <span>Prototype Spec</span>
                 </button>
               </div>
 
@@ -714,16 +560,17 @@ export function OutreachModal({
                   className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white text-xs font-semibold transition-all flex items-center gap-1.5 border border-white/10 cursor-pointer"
                 >
                   {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
-                  <span>{copied ? 'Copied to Clipboard' : activeChannelTab === 'whatsapp' ? 'Copy All 3 Messages' : 'Copy Script'}</span>
+                  <span>{copied ? 'Copied' : activeChannelTab === 'whatsapp' ? 'Copy Full Sequence' : 'Copy'}</span>
                 </button>
 
                 {activeChannelTab === 'whatsapp' && (
                   <button
                     onClick={() => handleSendWhatsApp(whatsAppSequence.message1.text)}
                     className="px-4 py-1.5 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-[#DCAE53]/20 cursor-pointer"
+                    title="Send Message 1 (Opener) on WhatsApp and advance status to Contacted"
                   >
                     <Send size={13} />
-                    <span>Send Message 1</span>
+                    <span>Send Msg 1 (Opener)</span>
                   </button>
                 )}
 
@@ -733,7 +580,7 @@ export function OutreachModal({
                     className="px-4 py-1.5 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-[#DCAE53]/20 cursor-pointer"
                   >
                     <Mail size={13} />
-                    <span>Send via Email</span>
+                    <span>Send Email</span>
                   </button>
                 )}
               </div>
@@ -753,14 +600,11 @@ export function OutreachModal({
                   <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs space-y-2">
                     <div className="flex items-center gap-2 font-bold uppercase tracking-wider text-[11px]">
                       <AlertCircle size={15} />
-                      <span>🔒 Pipeline Stage Guard: Recommended for Stage 3 (After Prototype is Shown)</span>
+                      <span>🔒 Recommended for Stage 3 (After 30s Prototype is Viewed)</span>
                     </div>
                     <p className="text-zinc-300 leading-relaxed font-sans">
-                      This lead is currently at stage: <span className="font-semibold text-white">{lead.status || 'New'}</span>. Pitching or asking for a 10-minute discovery call on touch 1 dramatically lowers reply rates. The methodology requires earning permission with free value first (the 30s prototype preview) before introducing a discovery call.
+                      This prospect is at stage <span className="font-semibold text-white">{lead.status || 'New'}</span>. Calling or asking for a 10-minute discovery call on touch 1 reduces reply rates. Send Message 1 first to secure conversational permission.
                     </p>
-                    <div className="flex items-center gap-2 pt-0.5 text-[11px] font-mono text-amber-400/90">
-                      <span>Recommended sequence: WhatsApp Msg 1 (Opener) → Msg 2 (Observation) → Msg 3 (30s Prototype) → Discovery Call Bridge</span>
-                    </div>
                   </div>
                 )}
                 <div className="relative rounded-2xl bg-[#070709] border border-white/10 p-4 font-mono text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
@@ -773,31 +617,218 @@ export function OutreachModal({
               </div>
             )}
 
-            {/* Educational methodology prompt badge */}
+            {/* Methodology Rule Badge */}
             <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between text-[11px] font-mono text-zinc-400">
               <div className="flex items-center gap-2">
                 <ShieldCheck size={14} className="text-[#DCAE53]" />
                 <span>
                   {activeChannelTab === 'whatsapp'
-                    ? 'Rule: 3-step cadence. Opener → Wait for reply → 1 Observable friction → 30s Preview micro-yes.'
+                    ? '3-Step Sequence: Opener → Wait for reply → 1 Observable friction → 30s Preview micro-yes.'
                     : activeChannelTab === 'email'
-                    ? 'Rule: 1 friction only. Asks for a micro-yes (permission). Does not sell the website on touch 1.'
+                    ? 'Permission First: 1 friction only. Asks for permission without selling on touch 1.'
                     : activeChannelTab === 'call_bridge'
-                    ? 'Goal: Show possibilities & demonstrate how this adds value to the business, not an expense.'
-                    : 'Feeds the prototype builder with the exact friction so the free value demonstrates real ROI.'}
+                    ? 'Commercial Frame: Show possibilities & demonstrate how this pays for itself on 1 new job.'
+                    : 'Feeds prototype builder with exact physical friction to demonstrate frictionless booking.'}
                 </span>
               </div>
-              <span className="text-[#DCAE53] font-bold">10-Second Test Validated</span>
+              <span className="text-[#DCAE53] font-bold shrink-0">10-Second Test Validated</span>
             </div>
+          </div>
+
+          {/* ───────────────────────────────────────────────────────────── */}
+          {/* COLLAPSIBLE ACCORDION: REFINE PITCH & EVIDENCE (VARIABLES)    */}
+          {/* ───────────────────────────────────────────────────────────── */}
+          <div className="border border-white/10 rounded-2xl bg-[#111115] overflow-hidden transition-all">
+            <button
+              onClick={() => setShowVariables(!showVariables)}
+              className="w-full px-4 sm:px-5 py-3.5 flex items-center justify-between text-left hover:bg-white/5 transition-colors cursor-pointer"
+            >
+              <div className="flex items-center gap-2.5">
+                <SlidersHorizontal size={14} className="text-[#DCAE53]" />
+                <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
+                  Refine Pitch & Evidence Variables (Optional)
+                </span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 text-zinc-400 border border-white/10">
+                  {showVariables ? 'Expanded' : 'Tucked away'}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-zinc-400">
+                <span className="text-[11px] font-mono hidden sm:inline">
+                  {showVariables ? 'Click to collapse' : 'Click to customize prompt fields'}
+                </span>
+                {showVariables ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              </div>
+            </button>
+
+            {showVariables && (
+              <div className="p-4 sm:p-5 border-t border-white/10 space-y-4 animate-fade-in">
+                
+                {/* AI Brainstorming Candidates Toggle */}
+                <div className="flex items-center justify-between pb-2 border-b border-white/5">
+                  <span className="text-xs text-zinc-400">
+                    Switch between pre-scored friction candidates or fine-tune manual inputs:
+                  </span>
+                  <button
+                    onClick={() => setShowBrainstorm(!showBrainstorm)}
+                    className="text-[11px] font-mono text-[#DCAE53] hover:underline flex items-center gap-1 cursor-pointer"
+                  >
+                    <Layers size={13} />
+                    <span>{showBrainstorm ? 'Hide Candidate Frictions' : 'Show Scored Candidates'}</span>
+                  </button>
+                </div>
+
+                {/* Candidate Selector */}
+                {showBrainstorm && (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pb-3">
+                    {candidateFrictions.map((candidate, idx) => {
+                      const isSelected = candidate.id === selectedCandidateId
+                      return (
+                        <div
+                          key={candidate.id}
+                          onClick={() => handleSelectCandidate(candidate)}
+                          className={`p-3.5 rounded-xl border transition-all cursor-pointer text-left flex flex-col justify-between space-y-2.5 ${
+                            isSelected
+                              ? 'bg-[#18181F] border-[#DCAE53] shadow-lg shadow-[#DCAE53]/10'
+                              : 'bg-[#141417] border-white/10 hover:border-white/20'
+                          }`}
+                        >
+                          <div>
+                            <div className="flex items-center justify-between mb-1.5">
+                              <span className="text-[10px] font-mono font-bold text-[#DCAE53]">
+                                Candidate {idx + 1}
+                              </span>
+                              <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-zinc-400">
+                                {candidate.lane}
+                              </span>
+                            </div>
+                            <p className="text-xs font-bold text-white leading-snug line-clamp-2">
+                              {candidate.observableProblem}
+                            </p>
+                            <p className="text-[11px] text-zinc-400 mt-1 line-clamp-2">
+                              {candidate.recognizableReason}
+                            </p>
+                          </div>
+
+                          <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[9px] font-mono text-zinc-400">
+                            <span className="text-emerald-400 flex items-center gap-0.5">
+                              <Check size={10} /> 4 Tests Passed
+                            </span>
+                            <span className={isSelected ? 'text-[#DCAE53] font-bold' : ''}>
+                              {isSelected ? 'Active Selected' : 'Click to Pick'}
+                            </span>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+
+                {/* 6 Customization Inputs */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                  
+                  {/* Row 1: Next Step & Lane */}
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
+                      1. Customer Next Step
+                    </label>
+                    <input
+                      type="text"
+                      value={customerNextStep}
+                      onChange={(e) => setCustomerNextStep(e.target.value)}
+                      className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53]"
+                      placeholder="e.g. Request an on-site quote"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
+                      2. Lane & Exact Page
+                    </label>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={lane}
+                        onChange={(e) => setLane(e.target.value)}
+                        className="flex-1 bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53]"
+                        placeholder="Lane (e.g. Quote form)"
+                      />
+                      <input
+                        type="text"
+                        value={pageLocation}
+                        onChange={(e) => setPageLocation(e.target.value)}
+                        className="w-32 bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53]"
+                        placeholder="Page (e.g. /quote)"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Row 2: ONE Friction & Physical Evidence */}
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
+                      3. ONE Friction (Observable problem)
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={friction}
+                      onChange={(e) => setFriction(e.target.value)}
+                      className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53] resize-none"
+                      placeholder="One specific observable problem without judgment"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-widest flex items-center gap-1">
+                      <CheckCircle2 size={12} />
+                      4. Objective Evidence (Public verification)
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={evidence}
+                      onChange={(e) => setEvidence(e.target.value)}
+                      className="w-full bg-[#18181F] border border-emerald-500/20 rounded-xl px-3 py-2 text-xs text-zinc-300 focus:outline-none focus:border-emerald-500 resize-none font-mono"
+                      placeholder="What was verified publicly in <10 seconds"
+                    />
+                  </div>
+
+                  {/* Row 3: Recognisable Reason & Consequence Mechanics */}
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
+                      5. Recognisable Reason (Buyer behavior)
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={recognizableReason}
+                      onChange={(e) => setRecognizableReason(e.target.value)}
+                      className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53] resize-none"
+                      placeholder="The customer behavior pattern that makes the operator nod"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
+                      6. Consequence Mechanics (Cause → Effect)
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={consequenceMechanics}
+                      onChange={(e) => setConsequenceMechanics(e.target.value)}
+                      className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53] resize-none"
+                      placeholder="Natural chain reaction without invented numbers"
+                    />
+                  </div>
+
+                </div>
+              </div>
+            )}
           </div>
 
         </div>
 
         {/* Bottom Status Update Footer */}
-        <div className="px-5 py-3 border-t border-white/10 bg-[#111115] flex items-center justify-between gap-3 shrink-0">
-          <div className="flex items-center gap-2 flex-wrap">
+        <div className="px-4 sm:px-6 py-3 border-t border-white/10 bg-[#111115] flex items-center justify-between gap-3 shrink-0 flex-wrap">
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
             <span className="text-[11px] font-mono text-zinc-400 font-bold uppercase mr-1">
-              Set Lead Status:
+              Status:
             </span>
             {['New', 'Contacted', 'Call Booked', 'Won', 'Lost'].map((st) => (
               <button
@@ -813,7 +844,7 @@ export function OutreachModal({
                 }}
                 className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   lead.status === st
-                    ? 'bg-[#DCAE53] text-[#09090B] font-bold'
+                    ? 'bg-[#DCAE53] text-[#09090B] font-bold shadow-sm'
                     : 'bg-[#18181F] text-zinc-400 hover:text-white border border-white/10'
                 }`}
               >
@@ -822,7 +853,7 @@ export function OutreachModal({
             ))}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 ml-auto">
             {onDeleteLead && (
               <button
                 onClick={() => onDeleteLead(lead.id)}

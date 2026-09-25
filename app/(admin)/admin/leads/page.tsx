@@ -31,13 +31,13 @@ import {
   ExternalLink,
   Send,
   MapPin,
-  Laptop,
   Check,
   FileSpreadsheet,
   MoreHorizontal,
   Trophy,
   Calendar,
   ArrowUpRight,
+  Zap,
 } from 'lucide-react'
 import {
   DropdownMenu,
@@ -48,6 +48,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { useInspector } from '@/hooks/use-inspector'
 import { OutreachModal, OutreachLead } from '@/components/admin/outreach-modal'
+import { OutreachSprintRunner } from '@/components/admin/outreach-sprint-runner'
 import { AntigravityPromptModal } from '@/components/admin/antigravity-prompt-modal'
 import { GoogleSheetSyncModal } from '@/components/admin/google-sheet-sync-modal'
 
@@ -101,6 +102,8 @@ export function getLeadPathway(lead: Lead): 'HAS_WEBSITE' | 'NO_WEBSITE' | 'NEED
   return 'NO_WEBSITE'
 }
 
+type ActionQueue = 'ready_to_whatsapp' | 'due_followup' | 'active_pipeline' | 'needs_review' | 'all'
+
 export default function LeadsPage() {
   const supabase = createClient()
   const router = useRouter()
@@ -114,12 +117,12 @@ export default function LeadsPage() {
   const [statusFilter, setStatusFilter] = useState<string[]>([])
   const [serviceFilter, setServiceFilter] = useState('All')
   const [sourceFilter, setSourceFilter] = useState('All')
-  const [showFilters, setShowFilters] = useState(false)
   const [activeTab, setActiveTab] = useState<'active' | 'archived' | 'spam'>('active')
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [toast, setToast] = useState<string | null>(null)
-  const [followupOnly, setFollowupOnly] = useState(false)
-  const [segmentFilter, setSegmentFilter] = useState<'all' | 'hot' | 'no_website' | 'mobile' | 'landline' | 'has_website' | 'needs_review'>('all')
+  
+  // Streamlined Action Queue Filter
+  const [queueFilter, setQueueFilter] = useState<ActionQueue>('ready_to_whatsapp')
   const [wonDeal, setWonDeal] = useState<{ businessName: string } | null>(null)
   
   // Views: 'cards' (Deal Cards Grid), 'table' (Dense Table), 'kanban' (Pipeline Columns)
@@ -131,6 +134,7 @@ export default function LeadsPage() {
   // Dedicated Outreach Cockpit Modal State
   const [outreachLead, setOutreachLead] = useState<Lead | null>(null)
   const [isOutreachOpen, setIsOutreachOpen] = useState(false)
+  const [isSprintOpen, setIsSprintOpen] = useState(false)
 
   // Dedicated Antigravity Prompt Modal State
   const [promptLead, setPromptLead] = useState<Lead | null>(null)
@@ -365,84 +369,90 @@ export default function LeadsPage() {
     const statusParam = searchParams.get('status')
     if (statusParam) {
       setStatusFilter([statusParam])
-      setShowFilters(true)
+      setQueueFilter('all')
     }
   }, [searchParams])
 
   useEffect(() => {
     setSelectedIds([])
-  }, [activeTab, search, statusFilter, serviceFilter, sourceFilter])
+  }, [activeTab, search, statusFilter, serviceFilter, sourceFilter, queueFilter])
 
   useEffect(() => {
     const timer = setTimeout(fetchLeads, 300)
     return () => clearTimeout(timer)
   }, [fetchLeads])
 
-  const displayedLeads = useMemo(() => {
-    let list = leads
-    if (followupOnly) {
-      list = list.filter(l => l.status === 'Contacted')
-    }
-    if (segmentFilter === 'hot') {
-      list = list.filter(l => {
-        const rawWeb = (l.website || '').trim()
-        const isWeb = Boolean(rawWeb && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' && !rawWeb.toLowerCase().includes('facebook.com') && !rawWeb.toLowerCase().includes('instagram.com'))
-        const clean = (l.phone || '').replace(/[^0-9]/g, '')
-        const isMob = clean.startsWith('447') || clean.startsWith('07')
-        return isMob && !isWeb
-      })
-    } else if (segmentFilter === 'no_website') {
-      list = list.filter(l => getLeadPathway(l) === 'NO_WEBSITE')
-    } else if (segmentFilter === 'has_website') {
-      list = list.filter(l => getLeadPathway(l) === 'HAS_WEBSITE')
-    } else if (segmentFilter === 'needs_review') {
-      list = list.filter(l => getLeadPathway(l) === 'NEEDS_REVIEW')
-    } else if (segmentFilter === 'mobile') {
-      list = list.filter(l => {
-        const clean = (l.phone || '').replace(/[^0-9]/g, '')
-        return clean.startsWith('447') || clean.startsWith('07')
-      })
-    } else if (segmentFilter === 'landline') {
-      list = list.filter(l => {
-        const clean = (l.phone || '').replace(/[^0-9]/g, '')
-        const isMob = clean.startsWith('447') || clean.startsWith('07')
-        return !isMob && clean.length > 5
-      })
-    }
-    return list
-  }, [leads, followupOnly, segmentFilter])
-
-  const segmentCounts = useMemo(() => {
-    let noWeb = 0
-    let hasWeb = 0
+  // Queue Counts Computation
+  const queueCounts = useMemo(() => {
+    let readyToWhatsApp = 0
+    let dueFollowup = 0
+    let activePipeline = 0
     let needsReview = 0
-    let mobile = 0
-    let landline = 0
-    let hot = 0
-    leads.forEach(l => {
-      const pathway = getLeadPathway(l)
-      if (pathway === 'HAS_WEBSITE') hasWeb++
-      else if (pathway === 'NO_WEBSITE') noWeb++
-      else needsReview++
 
+    leads.forEach((l) => {
       const clean = (l.phone || '').replace(/[^0-9]/g, '')
       const isMob = clean.startsWith('447') || clean.startsWith('07')
-      if (isMob) mobile++
-      else if (clean.length > 5) landline++
+      const pathway = getLeadPathway(l)
 
-      const rawWeb = (l.website || '').trim()
-      const isWeb = Boolean(rawWeb && rawWeb !== 'None' && rawWeb !== 'NO WEBSITE' && !rawWeb.toLowerCase().includes('facebook.com') && !rawWeb.toLowerCase().includes('instagram.com'))
-      if (isMob && !isWeb) hot++
+      if (l.status === 'New' && isMob) {
+        readyToWhatsApp++
+      } else if (l.status === 'Contacted') {
+        dueFollowup++
+      } else if (l.status === 'Call Booked' || l.status === 'Proposal Sent') {
+        activePipeline++
+      } else if (pathway === 'NEEDS_REVIEW' || (!isMob && clean.length > 5) || (!l.phone && !l.website)) {
+        needsReview++
+      }
     })
-    return { noWeb, hasWeb, needsReview, mobile, landline, hot, total: leads.length }
+
+    return {
+      readyToWhatsApp,
+      dueFollowup,
+      activePipeline,
+      needsReview,
+      total: leads.length,
+    }
   }, [leads])
 
-  const toggleStatus = (s: string) =>
-    setStatusFilter((prev) => prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s])
+  // Filtered Leads by Action Queue and Status
+  const displayedLeads = useMemo(() => {
+    let list = leads
+
+    if (activeTab === 'active') {
+      if (queueFilter === 'ready_to_whatsapp') {
+        list = list.filter((l) => {
+          const clean = (l.phone || '').replace(/[^0-9]/g, '')
+          const isMob = clean.startsWith('447') || clean.startsWith('07')
+          return l.status === 'New' && isMob
+        })
+      } else if (queueFilter === 'due_followup') {
+        list = list.filter((l) => l.status === 'Contacted')
+      } else if (queueFilter === 'active_pipeline') {
+        list = list.filter((l) => l.status === 'Call Booked' || l.status === 'Proposal Sent')
+      } else if (queueFilter === 'needs_review') {
+        list = list.filter((l) => {
+          const pathway = getLeadPathway(l)
+          const clean = (l.phone || '').replace(/[^0-9]/g, '')
+          const isMob = clean.startsWith('447') || clean.startsWith('07')
+          return pathway === 'NEEDS_REVIEW' || (!isMob && clean.length > 5) || (!l.phone && !l.website)
+        })
+      }
+    }
+
+    return list
+  }, [leads, queueFilter, activeTab])
+
+  const toggleStatus = (s: string) => {
+    setStatusFilter((prev) => {
+      const next = prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]
+      if (next.length > 0) setQueueFilter('all')
+      return next
+    })
+  }
 
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
-      setSelectedIds(leads.map((l) => l.id))
+      setSelectedIds(displayedLeads.map((l) => l.id))
     } else {
       setSelectedIds([])
     }
@@ -495,7 +505,6 @@ export default function LeadsPage() {
     }
   }
 
-  // AMBIENT CARD STYLING HELPER
   const getCardBorderClass = (status: string) => {
     if (status === 'Won') {
       return 'card-depth border-emerald-500/35 hover:border-emerald-500/55'
@@ -503,7 +512,6 @@ export default function LeadsPage() {
     return 'card-depth'
   }
 
-  // AMBIENT TABLE ROW STYLING HELPER
   const getRowHighlightClass = (status: string, isChecked: boolean, isInspected: boolean) => {
     if (isInspected) {
       return 'bg-[#141417] border-l-2 border-l-[#DAA640]'
@@ -523,7 +531,7 @@ export default function LeadsPage() {
         </div>
       )}
 
-      {/* Header (Clean Executive Typography, No Orange Eyebrow) */}
+      {/* Header (Clean Executive Typography) */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">Lead Outreach Ledger</h1>
@@ -532,6 +540,15 @@ export default function LeadsPage() {
           </p>
         </div>
         <div className="flex items-center gap-2 self-start sm:self-center flex-wrap">
+          <button
+            onClick={() => setIsSprintOpen(true)}
+            disabled={displayedLeads.length === 0}
+            className="flex items-center gap-2 px-3.5 py-2.5 text-xs font-bold rounded-xl bg-amber-400/15 border border-amber-400/30 text-amber-300 hover:bg-amber-400/25 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer shadow-sm"
+            title="Start sequential outreach sprint through current queue"
+          >
+            <Zap size={14} className="text-amber-400" />
+            <span>Sprint ({displayedLeads.length})</span>
+          </button>
           <button
             onClick={() => setIsSheetSyncOpen(true)}
             className="flex items-center gap-2 px-3.5 py-2.5 text-xs font-medium rounded-xl bg-[#141417] border border-white/10 text-zinc-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer"
@@ -553,7 +570,7 @@ export default function LeadsPage() {
         </div>
       </div>
 
-      {/* Motion Stats Grid (Obsidian / Rexora Standard with Metric Icons) */}
+      {/* Motion Stats Grid */}
       <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
         {[
           { key: 'New', label: 'Fresh Leads', dot: 'bg-zinc-400', icon: Inbox, iconColor: 'text-zinc-300', iconBg: 'bg-white/5', trend: 'Uncontacted' },
@@ -571,7 +588,7 @@ export default function LeadsPage() {
               type="button"
               key={item.key}
               onClick={() => toggleStatus(item.key)}
-              className={`p-4 sm:p-5 flex flex-col justify-between text-left transition-all cursor-pointer card-depth relative group min-h-[132px] ${
+              className={`p-4 sm:p-5 flex flex-col justify-between text-left transition-all cursor-pointer card-depth relative group min-h-[120px] ${
                 isSelected ? 'card-depth-active' : ''
               }`}
             >
@@ -579,8 +596,8 @@ export default function LeadsPage() {
                 <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-medium truncate">
                   {item.label}
                 </span>
-                <div className={`w-8 h-8 rounded-xl ${item.iconBg} border border-white/10 flex items-center justify-center shrink-0 ${item.iconColor} group-hover:scale-105 transition-transform`}>
-                  <Icon size={14} />
+                <div className={`w-7 h-7 rounded-xl ${item.iconBg} border border-white/10 flex items-center justify-center shrink-0 ${item.iconColor} group-hover:scale-105 transition-transform`}>
+                  <Icon size={13} />
                 </div>
               </div>
               <div className="my-1">
@@ -604,7 +621,93 @@ export default function LeadsPage() {
         })}
       </section>
 
-      {/* Tabs Menu */}
+      {/* ───────────────────────────────────────────────────────────────────────── */}
+      {/* 1. OPERATOR ACTION QUEUE STRIP (Consolidated Daily Workflow)              */}
+      {/* ───────────────────────────────────────────────────────────────────────── */}
+      {activeTab === 'active' && (
+        <div className="p-1.5 rounded-2xl bg-[#0B0B0D] border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 overflow-x-auto scrollbar-none">
+          <div className="flex items-center gap-1 flex-wrap sm:flex-nowrap">
+            {[
+              {
+                id: 'ready_to_whatsapp',
+                label: 'Ready to WhatsApp',
+                icon: Zap,
+                count: queueCounts.readyToWhatsApp,
+                highlight: true,
+              },
+              {
+                id: 'due_followup',
+                label: 'Due Follow-Up',
+                icon: Clock,
+                count: queueCounts.dueFollowup,
+                highlight: false,
+              },
+              {
+                id: 'active_pipeline',
+                label: 'Active Deals (Booked/Proposal)',
+                icon: Calendar,
+                count: queueCounts.activePipeline,
+                highlight: false,
+              },
+              {
+                id: 'needs_review',
+                label: 'Needs Review',
+                icon: AlertTriangle,
+                count: queueCounts.needsReview,
+                highlight: false,
+              },
+              {
+                id: 'all',
+                label: 'All Pipeline Leads',
+                icon: Inbox,
+                count: queueCounts.total,
+                highlight: false,
+              },
+            ].map((q) => {
+              const isActive = queueFilter === q.id && statusFilter.length === 0
+              const Icon = q.icon
+              return (
+                <button
+                  key={q.id}
+                  onClick={() => {
+                    setQueueFilter(q.id as ActionQueue)
+                    setStatusFilter([])
+                  }}
+                  className={`relative px-3.5 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap ${
+                    isActive
+                      ? q.highlight
+                        ? 'text-amber-300 font-bold bg-amber-400/15 border border-amber-400/30 shadow-sm'
+                        : 'text-white font-bold bg-[#141417] border border-white/20 shadow-sm'
+                      : q.highlight
+                      ? 'text-amber-400 hover:text-amber-300 hover:bg-white/5'
+                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/5'
+                  }`}
+                >
+                  <Icon size={13} className={isActive ? (q.highlight ? 'text-amber-300' : 'text-[#DAA640]') : 'text-zinc-500'} />
+                  <span>{q.label}</span>
+                  <span
+                    className={`text-[10px] font-mono px-1.5 py-0.2 rounded-md ${
+                      isActive
+                        ? q.highlight
+                          ? 'bg-amber-400/25 text-amber-200 font-bold'
+                          : 'bg-white/10 text-white font-bold'
+                        : 'bg-white/5 text-zinc-400'
+                    }`}
+                  >
+                    {q.count}
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+
+          <span className="text-[11px] text-zinc-400 font-mono px-3 hidden lg:inline shrink-0">
+            {displayedLeads.length} leads in queue
+          </span>
+        </div>
+      )}
+
+      {/* Tabs Menu (Active / Archived / Spam) */}
       <div className="flex border-b border-white/10 overflow-x-auto scrollbar-none gap-2">
         <button
           onClick={() => setActiveTab('active')}
@@ -641,7 +744,7 @@ export default function LeadsPage() {
       {/* Toolbar & View Switcher */}
       <div className="flex flex-wrap items-center gap-3">
         {/* Search */}
-        <div className="relative flex-1 min-w-[220px]">
+        <div className="relative flex-1 min-w-[240px]">
           <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" />
           <input
             type="text"
@@ -656,36 +759,6 @@ export default function LeadsPage() {
             </button>
           )}
         </div>
-
-        {/* Filter toggle */}
-        {activeTab !== 'spam' && (
-          <div className="flex items-center gap-2 flex-wrap">
-            <button
-              onClick={() => setShowFilters((v) => !v)}
-              className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl border text-xs font-medium transition-all cursor-pointer ${
-                showFilters
-                  ? 'bg-[#141417] border-[#DAA640]/40 text-[#DAA640]'
-                  : 'bg-[#0B0B0D] border-white/10 text-zinc-300 hover:text-white hover:border-white/20'
-              }`}
-            >
-              <Filter size={14} /> Filters {statusFilter.length > 0 && `(${statusFilter.length})`}
-            </button>
-
-            {/* Smart Follow-Up Filter */}
-            <button
-              onClick={() => setFollowupOnly((v) => !v)}
-              className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl border text-xs font-medium transition-all cursor-pointer ${
-                followupOnly
-                  ? 'bg-[#141417] border-amber-500/50 text-amber-300 shadow-sm'
-                  : 'bg-[#0B0B0D] border-white/10 text-zinc-300 hover:text-white hover:border-white/20'
-              }`}
-              title="Filter leads in Contacted status awaiting stage 3 follow-up"
-            >
-              <Clock size={14} className={followupOnly ? 'text-amber-400' : 'text-zinc-400'} />
-              <span>Due Follow-Up ({statusCounts['Contacted'] || 0})</span>
-            </button>
-          </div>
-        )}
 
         {/* View Toggle */}
         {activeTab === 'active' && (
@@ -725,164 +798,7 @@ export default function LeadsPage() {
       </div>
 
       {/* ───────────────────────────────────────────────────────────────────────── */}
-      {/* MOTION SLIDING SEGMENTED CONTROL (No Gimmick Emojis)                      */}
-      {/* ───────────────────────────────────────────────────────────────────────── */}
-      {activeTab === 'active' && (
-        <div className="p-1.5 rounded-2xl bg-[#0B0B0D] border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
-          <div className="flex flex-wrap items-center gap-1">
-            {[
-              { key: 'all', label: 'All Leads', count: segmentCounts.total, highlight: false },
-              { key: 'has_website', label: 'Pathway 1 · Has Website', count: segmentCounts.hasWeb, highlight: false },
-              { key: 'no_website', label: 'Pathway 2 · Decision Gap', count: segmentCounts.noWeb, highlight: false },
-              { key: 'needs_review', label: 'Pathway 3 · Needs Review', count: segmentCounts.needsReview, highlight: false },
-              { key: 'hot', label: '⚡ WhatsApp (No Web)', count: segmentCounts.hot, highlight: true },
-              { key: 'mobile', label: 'WhatsApp Ready', count: segmentCounts.mobile, highlight: false },
-            ].map((seg) => {
-              const isActive = segmentFilter === seg.key
-              return (
-                <button
-                  key={seg.key}
-                  onClick={() => setSegmentFilter(seg.key as any)}
-                  className={`relative px-3 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
-                    isActive
-                      ? (seg.highlight ? 'text-amber-300 font-bold' : 'text-white font-semibold')
-                      : (seg.highlight ? 'text-amber-400 hover:text-amber-300' : 'text-zinc-400 hover:text-zinc-200')
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeSegment"
-                      className={`absolute inset-0 rounded-xl shadow-sm ${
-                        seg.highlight ? 'bg-amber-400/15 border border-amber-400/30' : 'bg-[#141417] border border-white/15'
-                      }`}
-                      transition={{ type: 'spring', bounce: 0.2, duration: 0.35 }}
-                    />
-                  )}
-                  <span className="relative z-10">{seg.label}</span>
-                  <span className={`relative z-10 text-[10px] font-mono px-1.5 py-0.2 rounded-md ${
-                    isActive
-                      ? (seg.highlight ? 'bg-amber-400/25 text-amber-300 font-bold' : 'bg-white/10 text-white')
-                      : (seg.highlight ? 'bg-amber-400/10 text-amber-400 font-semibold' : 'bg-white/5 text-zinc-400')
-                  }`}>
-                    {seg.count}
-                  </span>
-                </button>
-              )
-            })}
-          </div>
-
-          <span className="text-[11px] text-zinc-400 font-mono px-3 hidden lg:inline">
-            {displayedLeads.length} of {leads.length} leads
-          </span>
-        </div>
-      )}
-
-      {/* Filter Options Accordion */}
-      {showFilters && activeTab !== 'spam' && (
-        <div className="p-4 rounded-2xl bg-[#0B0B0D] border border-white/10 space-y-4 animate-fade-in">
-          <div>
-            <label className="text-xs font-mono uppercase tracking-wider text-zinc-400 block mb-2">Filter by Pipeline Stage:</label>
-            <div className="flex flex-wrap gap-2">
-              {ALL_STATUSES.filter(s => s !== 'Spam').map((s) => {
-                const isSelected = statusFilter.includes(s)
-                return (
-                  <button
-                    key={s}
-                    onClick={() => toggleStatus(s)}
-                    className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer flex items-center gap-1.5 ${
-                      isSelected
-                        ? 'bg-[#141417] border-[#DAA640] text-white'
-                        : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
-                    }`}
-                  >
-                    <span className={`w-1.5 h-1.5 rounded-full ${STATUS_DOT_COLORS[s] || 'bg-zinc-400'}`} />
-                    <span>{s} ({statusCounts[s] || 0})</span>
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-
-          <div>
-            <label className="text-xs font-mono uppercase tracking-wider text-zinc-400 block mb-2">Filter by Website Presence & Channel:</label>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => setSegmentFilter('all')}
-                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
-                  segmentFilter === 'all'
-                    ? 'bg-[#141417] border-[#DAA640] text-white font-semibold'
-                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
-                }`}
-              >
-                All Leads ({segmentCounts.total})
-              </button>
-              <button
-                onClick={() => setSegmentFilter('has_website')}
-                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
-                  segmentFilter === 'has_website'
-                    ? 'bg-sky-500/20 border-sky-400 text-sky-300 font-semibold'
-                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
-                }`}
-              >
-                Pathway 1: Has Website ({segmentCounts.hasWeb})
-              </button>
-              <button
-                onClick={() => setSegmentFilter('no_website')}
-                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
-                  segmentFilter === 'no_website'
-                    ? 'bg-amber-400/20 border-amber-400 text-amber-300 font-bold'
-                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
-                }`}
-              >
-                Pathway 2: Decision Gap ({segmentCounts.noWeb})
-              </button>
-              <button
-                onClick={() => setSegmentFilter('needs_review')}
-                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
-                  segmentFilter === 'needs_review'
-                    ? 'bg-rose-500/20 border-rose-400 text-rose-300 font-semibold'
-                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
-                }`}
-              >
-                Pathway 3: Needs Review ({segmentCounts.needsReview})
-              </button>
-              <button
-                onClick={() => setSegmentFilter('hot')}
-                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
-                  segmentFilter === 'hot'
-                    ? 'bg-amber-400/20 border-amber-400 text-amber-300 font-bold'
-                    : 'bg-[#141417]/50 border-amber-400/30 text-amber-400 hover:text-amber-300'
-                }`}
-              >
-                ⚡ WhatsApp + No Website ({segmentCounts.hot})
-              </button>
-              <button
-                onClick={() => setSegmentFilter('mobile')}
-                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
-                  segmentFilter === 'mobile'
-                    ? 'bg-[#141417] border-[#DAA640] text-white font-semibold'
-                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
-                }`}
-              >
-                WhatsApp Ready ({segmentCounts.mobile})
-              </button>
-              <button
-                onClick={() => setSegmentFilter('landline')}
-                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
-                  segmentFilter === 'landline'
-                    ? 'bg-[#141417] border-[#DAA640] text-white font-semibold'
-                    : 'bg-[#141417]/50 border-white/10 text-zinc-400 hover:text-white'
-                }`}
-              >
-                Landlines ({segmentCounts.landline})
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ───────────────────────────────────────────────────────────────────────── */}
-      {/* 1. DEAL CARDS GRID VIEW (2 Purposeful Actions + Overflow Menu)             */}
+      {/* VIEW 1: DEAL CARDS GRID VIEW                                              */}
       {/* ───────────────────────────────────────────────────────────────────────── */}
       {viewMode === 'cards' && activeTab === 'active' ? (
         loading ? (
@@ -891,14 +807,14 @@ export default function LeadsPage() {
               <div key={i} className="h-64 rounded-2xl bg-[#0B0B0D] border border-white/5 animate-pulse p-6" />
             ))}
           </div>
-        ) : leads.length === 0 ? (
+        ) : displayedLeads.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center px-6 space-y-4 max-w-md mx-auto rounded-2xl bg-[#0B0B0D] border border-white/10">
             <div className="w-12 h-12 rounded-full bg-[#141417] border border-white/10 flex items-center justify-center text-zinc-400">
               <Inbox size={22} />
             </div>
-            <h3 className="font-serif text-lg font-bold text-white">No Leads in Pipeline</h3>
+            <h3 className="font-serif text-lg font-bold text-white">No Leads in this Queue</h3>
             <p className="text-xs text-zinc-400">
-              Run your lead finder scrape or add a manual lead above.
+              Adjust your search or select another operational queue above.
             </p>
           </div>
         ) : (
@@ -910,7 +826,6 @@ export default function LeadsPage() {
               const rawWebsite = (lead.website || '').trim()
               const hasWebsite = rawWebsite !== '' && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE' && !rawWebsite.toLowerCase().includes('facebook.com') && !rawWebsite.toLowerCase().includes('instagram.com')
               
-              // Clean rating and reviews
               let rating = Number(lead.scraped_metadata?.rating || 5.0)
               let reviews = Number(lead.scraped_metadata?.reviews_count ?? (lead.scraped_metadata as any)?.reviews ?? 0)
               const composite = (lead.scraped_metadata as any)?.rating_reviews || lead.notes || ''
@@ -927,7 +842,6 @@ export default function LeadsPage() {
               const isMobile = cleanDigits.startsWith('447') || cleanDigits.startsWith('07')
               const isLandline = !isMobile && cleanDigits.length > 5
 
-              // Clean address
               const rawAddr = (lead.scraped_metadata?.address || '').trim()
               const rawNotes = (lead.notes || '').trim()
               let address = rawAddr
@@ -944,11 +858,9 @@ export default function LeadsPage() {
                   key={lead.id}
                   className={`rounded-2xl border p-4 sm:p-5 flex flex-col justify-between transition-all duration-200 group relative ${getCardBorderClass(lead.status)}`}
                 >
-                  {/* Top: Monogram Avatar + Title + Rating */}
                   <div className="space-y-3">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3 min-w-0">
-                        {/* Monogram Avatar */}
                         <div className="w-10 h-10 rounded-xl bg-[#141417] border border-white/10 text-zinc-200 flex items-center justify-center font-bold text-xs tracking-wider shrink-0">
                           {getInitials(businessName)}
                         </div>
@@ -968,7 +880,6 @@ export default function LeadsPage() {
                         </div>
                       </div>
 
-                      {/* Status Badge with 6px Dot */}
                       <StatusBadge status={lead.status} />
                     </div>
 
@@ -1000,12 +911,12 @@ export default function LeadsPage() {
                           <span className="flex items-center gap-1.5">
                             <AlertTriangle size={11} /> Pathway 3 · Needs Review
                           </span>
-                          <span className="text-[10px] font-mono text-rose-300">Weak / Missing Data</span>
+                          <span className="text-[10px] font-mono text-rose-300">Missing Data</span>
                         </div>
                       )
                     })()}
 
-                    {/* Website / Opportunity Strip */}
+                    {/* Storefront Presence */}
                     <div className="rounded-xl overflow-hidden">
                       {!hasWebsite ? (
                         <div className="px-3 py-2 rounded-xl bg-[#141417] border border-white/5 flex items-center justify-between text-xs text-zinc-400">
@@ -1032,7 +943,7 @@ export default function LeadsPage() {
                       )}
                     </div>
 
-                    {/* Telemetry / Contact Info */}
+                    {/* Contact Info */}
                     <div className="space-y-1.5 text-xs text-zinc-400 pt-1">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -1051,7 +962,6 @@ export default function LeadsPage() {
                             <a
                               href={`tel:${phone}`}
                               className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-zinc-300 text-[10px] font-medium border border-white/10 flex items-center gap-1 transition-all"
-                              title="Direct dial landline number"
                             >
                               <Phone size={10} /> Call
                             </a>
@@ -1075,39 +985,33 @@ export default function LeadsPage() {
                     </div>
                   </div>
 
-                  {/* Bottom: Purposeful Actions + Overflow Menu */}
+                  {/* Actions */}
                   <div className="pt-3 mt-3 border-t border-white/5 flex items-center gap-2">
-                    {/* Primary Action: Outreach Intelligence Cockpit */}
                     <button
                       onClick={() => handleOpenOutreach(lead)}
                       className="flex-1 py-2 px-3 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#141417] font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm cursor-pointer"
-                      title="Launch Outreach Intelligence Engine"
                     >
                       <Sparkles size={13} />
                       <span>Outreach</span>
                     </button>
 
-                    {/* Quick WhatsApp Action */}
                     <button
                       onClick={() => handleQuickWhatsApp(lead)}
                       className="py-2 px-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs flex items-center justify-center gap-1 transition-all cursor-pointer"
-                      title={isLandline ? "Open WhatsApp" : "Launch WhatsApp opener"}
+                      title="1-Click WhatsApp Opener"
                     >
                       <MessageSquare size={13} />
                       <span className="hidden sm:inline">WhatsApp</span>
                     </button>
 
-                    {/* Secondary Action: Open Workspace */}
                     <Link
                       href={`/admin/leads/${lead.id}`}
                       className="py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 font-medium text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
-                      title="Open Lead Workspace"
                     >
                       <ArrowUpRight size={13} />
                       <span>Open</span>
                     </Link>
 
-                    {/* Overflow Menu: Radix Dropdown */}
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <button
@@ -1147,10 +1051,10 @@ export default function LeadsPage() {
                           <Send size={12} className="text-zinc-400" />
                           <span>Multi-Stage Pitch</span>
                         </DropdownMenuItem>
-                         <DropdownMenuItem asChild className="cursor-pointer text-xs flex items-center gap-2 focus:bg-white/10 focus:text-white">
+                        <DropdownMenuItem asChild className="cursor-pointer text-xs flex items-center gap-2 focus:bg-white/10 focus:text-white">
                           <Link href={`/admin/leads/${lead.id}`}>
                             <Info size={12} className="text-zinc-400" />
-                            <span>Open Workspace</span>
+                            <span>Open Dossier</span>
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator className="bg-white/10" />
@@ -1171,7 +1075,7 @@ export default function LeadsPage() {
         )
       ) : viewMode === 'kanban' && activeTab === 'active' ? (
         /* ───────────────────────────────────────────────────────────────────────── */
-        /* 2. KANBAN BOARD VIEW                                                      */
+        /* VIEW 2: KANBAN BOARD VIEW (Now Action-Equipped)                           */
         /* ───────────────────────────────────────────────────────────────────────── */
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 items-start">
@@ -1189,31 +1093,43 @@ export default function LeadsPage() {
                     </span>
                   </div>
 
-                  <div className="space-y-2.5 flex-1 overflow-y-auto max-h-[500px] scrollbar-thin">
+                  <div className="space-y-2.5 flex-1 overflow-y-auto max-h-[520px] scrollbar-thin">
                     {columnLeads.map((lead) => (
-                      <Link
+                      <div
                         key={lead.id}
-                        href={`/admin/leads/${lead.id}`}
-                        className="p-3 rounded-xl border border-white/5 bg-[#141417] hover:border-white/15 transition-all cursor-pointer space-y-2.5 block"
+                        className="p-3 rounded-xl border border-white/5 bg-[#141417] hover:border-white/15 transition-all space-y-2.5"
                       >
                         <div>
-                          <h4 className="font-semibold text-xs text-white line-clamp-1">{lead.business_name || lead.name}</h4>
+                          <Link
+                            href={`/admin/leads/${lead.id}`}
+                            className="font-semibold text-xs text-white hover:text-[#DAA640] transition-colors line-clamp-1"
+                          >
+                            {lead.business_name || lead.name}
+                          </Link>
                           <p className="text-[10px] text-zinc-400 truncate">{lead.phone || lead.email}</p>
                         </div>
-                        <div className="flex items-center justify-between pt-2 border-t border-white/5">
+
+                        <div className="flex items-center justify-between pt-2 border-t border-white/5 gap-1.5">
                           <button
-                            onClick={(e) => {
-                              e.preventDefault()
-                              e.stopPropagation()
-                              handleQuickWhatsApp(lead)
-                            }}
-                            className="px-2 py-1 rounded bg-white/5 hover:bg-white/10 text-white text-[10px] font-medium flex items-center gap-1 transition-colors"
+                            onClick={() => handleOpenOutreach(lead)}
+                            className="px-2 py-1 rounded bg-[#DCAE53] hover:bg-[#E5B85C] text-[#141417] text-[10px] font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+                          >
+                            <Sparkles size={10} /> Outreach
+                          </button>
+                          <button
+                            onClick={() => handleQuickWhatsApp(lead)}
+                            className="px-2 py-1 rounded bg-white/5 hover:bg-white/10 text-white text-[10px] font-medium flex items-center gap-1 transition-colors cursor-pointer"
                           >
                             <MessageSquare size={10} /> WhatsApp
                           </button>
-                          <span className="text-[10px] font-medium text-[#DAA640] flex items-center gap-1"><ArrowUpRight size={9} /> Open</span>
+                          <Link
+                            href={`/admin/leads/${lead.id}`}
+                            className="text-[10px] font-medium text-zinc-400 hover:text-white flex items-center gap-0.5 ml-auto"
+                          >
+                            <ArrowUpRight size={10} />
+                          </Link>
                         </div>
-                      </Link>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -1223,7 +1139,7 @@ export default function LeadsPage() {
         </div>
       ) : (
         /* ───────────────────────────────────────────────────────────────────────── */
-        /* 3. DENSE DATA TABLE VIEW                                                  */
+        /* VIEW 3: DENSE DATA TABLE VIEW                                             */
         /* ───────────────────────────────────────────────────────────────────────── */
         <div className="rounded-2xl border border-white/10 overflow-hidden relative bg-[#0B0B0D]">
           {loading ? (
@@ -1243,15 +1159,15 @@ export default function LeadsPage() {
                 <Inbox size={20} />
               </div>
               <div>
-                <h3 className="font-serif text-sm font-bold text-white">No Leads Found</h3>
+                <h3 className="font-serif text-sm font-bold text-white">No Leads in this Queue</h3>
                 <p className="text-xs text-zinc-400 mt-1">
-                  Run the lead finder machine in n8n or adjust your search filters above.
+                  Adjust your search or select another operational queue above.
                 </p>
               </div>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
+              <table className="w-full text-left border-collapse min-w-[700px]">
                 <thead>
                   <tr className="border-b border-white/10 bg-[#141417]/50 text-[11px] font-mono uppercase tracking-wider text-zinc-400">
                     <th className="w-10 px-4 py-3.5">
@@ -1266,7 +1182,7 @@ export default function LeadsPage() {
                     <th className="px-4 py-3.5 min-w-[180px]">Phone & WhatsApp</th>
                     <th className="px-4 py-3.5 min-w-[150px]">Storefront Presence</th>
                     <th className="px-4 py-3.5 min-w-[130px]">Status</th>
-                    <th className="px-4 py-3.5 text-right min-w-[140px]">Actions</th>
+                    <th className="px-4 py-3.5 text-right min-w-[160px]">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5 text-xs">
@@ -1303,6 +1219,7 @@ export default function LeadsPage() {
                             <div className="flex items-center gap-1.5">
                               <Link
                                 href={`/admin/leads/${lead.id}`}
+                                onClick={(e) => e.stopPropagation()}
                                 className="font-semibold text-sm text-white hover:text-[#DAA640] transition-colors"
                               >
                                 {lead.business_name || lead.name}
@@ -1342,7 +1259,7 @@ export default function LeadsPage() {
                           </div>
                         </td>
 
-                        {/* Storefront Presence & Pathway */}
+                        {/* Storefront Presence */}
                         <td className="px-4 py-3.5">
                           <div className="space-y-1">
                             {(() => {
@@ -1350,20 +1267,20 @@ export default function LeadsPage() {
                               if (pathway === 'HAS_WEBSITE') {
                                 return (
                                   <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20">
-                                    Pathway 1 · Website Friction
+                                    Pathway 1 · Website
                                   </span>
                                 )
                               }
                               if (pathway === 'NO_WEBSITE') {
                                 return (
                                   <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                                    Pathway 2 · Decision Gap
+                                    Pathway 2 · No Web
                                   </span>
                                 )
                               }
                               return (
                                 <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">
-                                  Pathway 3 · Needs Review
+                                  Pathway 3 · Review
                                 </span>
                               )
                             })()}
@@ -1406,31 +1323,15 @@ export default function LeadsPage() {
                             <button
                               onClick={() => handleOpenOutreach(lead)}
                               className="px-2.5 py-1 rounded-lg bg-[#DCAE53] hover:bg-[#E5B85C] text-[#141417] text-[10px] font-semibold transition-all cursor-pointer inline-flex items-center gap-1 shadow-sm"
-                              title="Launch Outreach Intelligence Engine"
                             >
                               <Sparkles size={10} /> Outreach
                             </button>
                             <Link
                               href={`/admin/leads/${lead.id}`}
                               className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 text-[10px] font-medium transition-all cursor-pointer inline-flex items-center gap-1"
-                              title="Open Lead Workspace"
                             >
-                              <ArrowUpRight size={10} /> Open
+                              <ArrowUpRight size={10} /> Dossier
                             </Link>
-                            <button
-                              onClick={() => handleOpenPrompt(lead)}
-                              className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 text-[10px] font-medium transition-all cursor-pointer"
-                            >
-                              Demo
-                            </button>
-                            <button
-                              onClick={() => handleInspectLead(lead.id)}
-                              className={`w-7 h-7 rounded-lg border flex items-center justify-center transition-all cursor-pointer ${
-                                isInspected ? 'bg-[#DAA640]/20 border-[#DAA640] text-[#DAA640]' : 'bg-[#141417] border-white/10 text-zinc-400 hover:text-white'
-                              }`}
-                            >
-                              <Info size={12} />
-                            </button>
                           </div>
                         </td>
                       </tr>
@@ -1454,6 +1355,16 @@ export default function LeadsPage() {
         }}
         onDeleteLead={async (id) => {
           await handleDeleteLead(id)
+        }}
+      />
+
+      {/* DEDICATED SEQUENTIAL OUTREACH SPRINT RUNNER */}
+      <OutreachSprintRunner
+        isOpen={isSprintOpen}
+        onClose={() => setIsSprintOpen(false)}
+        leads={displayedLeads}
+        onUpdateStatus={async (id, status) => {
+          await handleUpdateLeadStatus(id, status)
         }}
       />
 

@@ -31,6 +31,7 @@ import {
   AlertCircle,
   Calendar,
   Layers,
+  MessageSquare,
 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -638,6 +639,25 @@ export default function AdminQuotesPage() {
                           <ExternalLink size={12} />
                           <span>View as Client</span>
                         </a>
+
+                        <button
+                          onClick={() => {
+                            const cleanPhone = (q.client_phone || '').replace(/[^0-9]/g, '')
+                            const targetPhone = cleanPhone.startsWith('07') ? `44${cleanPhone.slice(1)}` : cleanPhone
+                            const clientFirst = (q.client_name || '').split(' ')[0] || 'there'
+                            const biz = q.client_business || 'your business'
+                            const msg = `Hi ${clientFirst} 👋, here is your private link to review the project scope and proposal for ${biz}: ${clientPortalUrl}`
+                            const waUrl = targetPhone
+                              ? `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`
+                              : `https://wa.me/?text=${encodeURIComponent(msg)}`
+                            window.open(waUrl, '_blank')
+                          }}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-mono transition-all cursor-pointer"
+                          title="Send quote link to client on WhatsApp"
+                        >
+                          <MessageSquare size={12} />
+                          <span>WhatsApp Quote</span>
+                        </button>
                       </div>
 
                       <div className="flex items-center gap-2">
