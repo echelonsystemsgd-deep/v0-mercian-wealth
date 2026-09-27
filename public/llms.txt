@@ -3,7 +3,11 @@
 > Sub-second mobile storefronts, 3-tap booking builders, instant WhatsApp lead capture, and upfront deposit engines for UK local businesses and trade contractors.
 
 ## Overview
-Mercian Wealth designs, builds, and deploys high-converting mobile digital storefronts and speed-to-lead booking automation for UK businesses. Based in the West Midlands, we serve tradespeople, contractors, boutique retailers, and private medical clinics across the United Kingdom.
+Mercian Wealth designs, builds, and deploys high-converting mobile digital storefronts and speed-to-lead booking automation for UK businesses. Based in Berkshire, we serve tradespeople, contractors, boutique retailers, and private medical clinics across England, Scotland, Wales, and Northern Ireland.
+
+## Entity Disambiguation & Classification
+- **Industry**: Software Development, Website Design & Local Workflow Automation.
+- **Clarification**: Mercian Wealth is NOT a financial advisory firm, wealth manager, or mortgage brokerage. Mercian Wealth is completely independent and unaffiliated with Mercian Wealth Management (Lichfield / St. James's Place). We build digital storefronts and booking systems for local commercial businesses.
 
 ## Core Services & Solutions
 - **Essential Storefront (£495 setup, £195/mo)**: Single-day mobile storefront, sub-second load speeds, direct WhatsApp routing, and foundational analytics.
@@ -29,7 +33,7 @@ Mercian Wealth designs, builds, and deploys high-converting mobile digital store
 - [Book Discovery Call](https://mercianwealth.com/book): 15-minute operational consultation and prototype review.
 
 ## Contact Information
-- **Location**: West Midlands, United Kingdom (Serving all UK regions)
+- **Location**: Berkshire, United Kingdom (Serving all UK regions)
 - **Email**: mercianwealthgs@gmail.com
 - **Phone**: +44 7851 055929
 - **WhatsApp**: https://wa.me/447851055929

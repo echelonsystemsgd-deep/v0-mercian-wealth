@@ -52,6 +52,9 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
+  alternates: {
+    canonical: 'https://mercianwealth.com',
+  },
   openGraph: {
     title: SITE_COPY.metadata.layout.defaultTitle,
     description: SITE_COPY.metadata.layout.description,
@@ -112,46 +115,69 @@ export const viewport = {
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: 'Mercian Wealth',
-  image: 'https://mercianwealth.com/Logo2.jpeg',
-  '@id': 'https://mercianwealth.com/#organization',
-  url: 'https://mercianwealth.com',
-  telephone: '+447851055929',
-  email: 'operations@mercianwealth.com',
-  priceRange: '£495 - £1,995',
-  address: {
-    '@type': 'PostalAddress',
-    addressRegion: 'Berkshire',
-    addressCountry: 'GB',
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: 51.4543,
-    longitude: -0.9781,
-  },
-  areaServed: {
-    '@type': 'Country',
-    name: 'United Kingdom',
-  },
-  openingHoursSpecification: {
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday'
-    ],
-    opens: '00:00',
-    closes: '23:59'
-  },
-  description: 'Sub-second mobile storefronts, 3-tap order and booking builders, instant WhatsApp lead capture, upfront Stripe deposit collection, and automated Google review systems for UK local businesses.',
-  sameAs: [
-    'https://wa.me/447851055929',
-    'https://www.linkedin.com/in/gs-legacy-wealth/'
+  '@graph': [
+    {
+      '@type': ['ProfessionalService', 'Organization'],
+      '@id': 'https://mercianwealth.com/#organization',
+      name: 'Mercian Wealth',
+      legalName: 'Mercian Wealth',
+      url: 'https://mercianwealth.com',
+      logo: {
+        '@type': 'ImageObject',
+        '@id': 'https://mercianwealth.com/#logo',
+        url: 'https://mercianwealth.com/Logo2.jpeg',
+        caption: 'Mercian Wealth',
+      },
+      image: 'https://mercianwealth.com/Logo2.jpeg',
+      telephone: '+447851055929',
+      email: 'mercianwealthgs@gmail.com',
+      priceRange: '£495 - £1,995',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Reading',
+        addressRegion: 'Berkshire',
+        addressCountry: 'GB',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 51.4543,
+        longitude: -0.9781,
+      },
+      areaServed: {
+        '@type': 'Country',
+        name: 'United Kingdom',
+      },
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: [
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday',
+          'Sunday'
+        ],
+        opens: '00:00',
+        closes: '23:59'
+      },
+      description: 'Sub-second mobile storefronts, 3-tap order and booking builders, instant WhatsApp lead capture, upfront Stripe deposit collection, and automated Google review systems for UK local businesses.',
+      disambiguatingDescription: 'Mercian Wealth is a digital agency providing mobile storefronts, 3-tap booking builders, instant WhatsApp lead capture, and upfront deposit engines for UK local businesses and trade contractors. Mercian Wealth is not a wealth management or financial advisory firm.',
+      sameAs: [
+        'https://wa.me/447851055929',
+        'https://www.instagram.com/mercianwealth/',
+        'https://www.linkedin.com/in/gs-legacy-wealth/'
+      ]
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://mercianwealth.com/#website',
+      url: 'https://mercianwealth.com',
+      name: 'Mercian Wealth',
+      publisher: {
+        '@id': 'https://mercianwealth.com/#organization'
+      }
+    }
   ]
 }
 

@@ -64,46 +64,17 @@ export default async function Home() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "Organization",
-                "@id": "https://mercianwealth.com/#organization",
-                "name": "Mercian Wealth",
-                "url": "https://mercianwealth.com",
-                "logo": {
-                  "@type": "ImageObject",
-                  "@id": "https://mercianwealth.com/#logo",
-                  "url": "https://mercianwealth.com/Logo2.jpeg",
-                  "caption": "Mercian Wealth"
-                },
-                "image": {
-                  "@id": "https://mercianwealth.com/#logo"
-                }
-              },
-              {
-                "@type": "WebSite",
-                "@id": "https://mercianwealth.com/#website",
-                "url": "https://mercianwealth.com",
-                "name": "Mercian Wealth",
-                "description": "Sub-second mobile storefronts, 3-tap order and booking builders, instant WhatsApp lead capture, upfront Stripe deposit collection, and automated Google review systems for UK local businesses.",
-                "publisher": {
-                  "@id": "https://mercianwealth.com/#organization"
-                }
-              },
-              {
-                "@type": "WebPage",
-                "@id": "https://mercianwealth.com/#webpage",
-                "url": "https://mercianwealth.com",
-                "name": "Mercian Wealth | Mobile Storefronts & Booking Engines for UK Local Businesses",
-                "isPartOf": {
-                  "@id": "https://mercianwealth.com/#website"
-                },
-                "about": {
-                  "@id": "https://mercianwealth.com/#organization"
-                },
-                "description": "Sub-second mobile storefronts, 3-tap order and booking builders, instant WhatsApp lead capture, upfront Stripe deposit collection, and automated Google review systems for UK local businesses."
-              }
-            ]
+            "@type": "WebPage",
+            "@id": "https://mercianwealth.com/#webpage",
+            "url": "https://mercianwealth.com",
+            "name": "Mercian Wealth | Mobile Storefronts & Booking Engines for UK Local Businesses",
+            "isPartOf": {
+              "@id": "https://mercianwealth.com/#website"
+            },
+            "about": {
+              "@id": "https://mercianwealth.com/#organization"
+            },
+            "description": "Sub-second mobile storefronts, 3-tap order and booking builders, instant WhatsApp lead capture, upfront Stripe deposit collection, and automated Google review systems for UK local businesses."
           })
         }}
       />

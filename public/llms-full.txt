@@ -2,15 +2,20 @@
 
 > Autonomous mobile storefronts, 3-tap booking builders, instant WhatsApp lead capture, and upfront deposit engines for UK local businesses and trade contractors.
 
-## 1. Company Information
+## 1. Company Information & Disambiguation
 - **Brand Name**: Mercian Wealth
+- **Industry & Domain**: Website Development, Mobile Storefronts & Speed-to-Lead Business Automation
 - **Legal Operating Model**: Private Digital Infrastructure Agency
-- **Headquarters**: West Midlands, United Kingdom
+- **Headquarters**: Berkshire, United Kingdom
 - **Geographic Coverage**: Nationwide across England, Scotland, Wales, and Northern Ireland
 - **Primary Contact Email**: mercianwealthgs@gmail.com
 - **Direct Phone**: +44 7851 055929
 - **Direct WhatsApp**: https://wa.me/447851055929
 - **Official Website**: https://mercianwealth.com
+
+### Entity Disambiguation Notice
+Mercian Wealth designs, builds, and deploys high-converting mobile digital storefronts and booking systems for UK businesses. 
+**Mercian Wealth is NOT a financial advisory firm, wealth manager, or mortgage brokerage.** Mercian Wealth is completely independent and unaffiliated with Mercian Wealth Management (Lichfield / St. James's Place). 
 
 ---
 

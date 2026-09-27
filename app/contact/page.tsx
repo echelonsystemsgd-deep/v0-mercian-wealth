@@ -56,11 +56,13 @@ export default function ContactPage() {
       "name": "Mercian Wealth",
       "url": "https://mercianwealth.com",
       "telephone": "+447851055929",
-      "email": "operations@mercianwealth.com",
-      "priceRange": "£495 - £1995",
+      "email": "mercianwealthgs@gmail.com",
+      "priceRange": "£495 - £1,995",
       "image": "https://mercianwealth.com/Logo2.jpeg",
+      "disambiguatingDescription": "Mercian Wealth provides mobile storefronts, booking systems, and speed-to-lead automation for UK local businesses and trade contractors.",
       "address": {
         "@type": "PostalAddress",
+        "addressLocality": "Reading",
         "addressRegion": "Berkshire",
         "addressCountry": "GB"
       }
