@@ -34,7 +34,7 @@ export function OfferMechanism() {
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#111115] border border-[#DCAE53]/30 text-[#DCAE53] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-3">
             <Sparkles className="w-3.5 h-3.5 text-[#DCAE53]" />
-            <span>[ {data.eyebrow} ]</span>
+            <span>{data.eyebrow}</span>
           </div>
           <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight text-balance mb-4">
             {data.headline}

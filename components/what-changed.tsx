@@ -29,12 +29,12 @@ export function WhatChanged() {
           className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#141417] border border-[#DAA640]/30 text-[#DAA640] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-3">
-            <span>[ {data.eyebrow} ]</span>
+            <span>{data.eyebrow}</span>
           </div>
           <h2 className="font-sans text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-[1.15] text-balance mb-4">
             {data.headline}
           </h2>
-          <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-400 leading-relaxed max-w-2xl mx-auto">
+          <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-300 leading-relaxed max-w-2xl mx-auto">
             {data.subheadline}
           </p>
         </motion.div>
@@ -68,12 +68,12 @@ export function WhatChanged() {
                     {shift.title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans">
+                  <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
                     {shift.description}
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-zinc-400">
+                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-zinc-300">
                   <span>Outcome Impact:</span>
                   <span className="font-semibold text-white">{shift.outcome}</span>
                 </div>

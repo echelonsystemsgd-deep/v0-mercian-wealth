@@ -53,12 +53,12 @@ export function Bottleneck() {
           className="text-center mb-10 sm:mb-14 max-w-3xl mx-auto"
         >
           <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.25em] text-[#DAA640]">
-            [ {data.eyebrow} ]
+            {data.eyebrow}
           </span>
           <h2 className="font-sans text-3xl sm:text-5xl font-extrabold text-white mt-4 leading-[1.15] text-balance">
             {data.headline}
           </h2>
-          <p className="font-sans text-sm sm:text-base text-zinc-400 leading-relaxed mt-4 max-w-2xl mx-auto">
+          <p className="font-sans text-sm sm:text-base text-zinc-300 leading-relaxed mt-4 max-w-2xl mx-auto">
             {data.subheadline}
           </p>
           <p className="font-sans text-xs sm:text-sm text-[#DAA640] font-medium mt-3 max-w-2xl mx-auto">
@@ -72,48 +72,48 @@ export function Bottleneck() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6 }}
-          className="mb-12 sm:mb-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
+          className="mb-12 sm:mb-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4"
         >
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-rose-500/20 hover:border-rose-500/40 transition-all duration-300 shadow-lg">
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-rose-500/25 hover:border-rose-500/40 transition-all duration-300 shadow-lg card-depth">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-mono text-rose-400 font-bold uppercase tracking-wider">// 01 LATENCY ABANDONMENT</span>
+              <span className="text-[10px] font-mono text-rose-400 font-bold uppercase tracking-wider">01 · SLOW RESPONSE</span>
               <TrendingDown className="w-4 h-4 text-rose-400 shrink-0" />
             </div>
             <div className="text-2xl sm:text-3xl font-mono font-bold text-white mb-1 tracking-tight">&lt; 5 Mins</div>
-            <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
+            <p className="text-xs sm:text-[13px] text-zinc-300 leading-relaxed font-sans">
               High-intent local customer enquiries permanently bounce to competitors if not answered while their buying intent is peak.
             </p>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300 shadow-lg">
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-amber-500/25 hover:border-amber-500/40 transition-all duration-300 shadow-lg card-depth">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">// 02 AFTER-HOURS BLEED</span>
+              <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">02 · AFTER-HOURS BLEED</span>
               <Clock className="w-4 h-4 text-amber-400 shrink-0" />
             </div>
             <div className="text-2xl sm:text-3xl font-mono font-bold text-white mb-1 tracking-tight">After-Hours</div>
-            <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
+            <p className="text-xs sm:text-[13px] text-zinc-300 leading-relaxed font-sans">
               The vast majority of local research happens on mobile phones in evenings &amp; weekends when physical premises are closed.
             </p>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-rose-500/20 hover:border-rose-500/40 transition-all duration-300 shadow-lg">
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-rose-500/25 hover:border-rose-500/40 transition-all duration-300 shadow-lg card-depth">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-mono text-rose-400 font-bold uppercase tracking-wider">// 03 UNCOLLECTED DEPOSITS</span>
+              <span className="text-[10px] font-mono text-rose-400 font-bold uppercase tracking-wider">03 · UNCOLLECTED DEPOSITS</span>
               <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
             </div>
             <div className="text-2xl sm:text-3xl font-mono font-bold text-white mb-1 tracking-tight">No-Shows</div>
-            <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
+            <p className="text-xs sm:text-[13px] text-zinc-300 leading-relaxed font-sans">
               Uncommitted diary slots result in regular lost revenue and empty diary time without upfront Stripe deposit locks.
             </p>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300 shadow-lg">
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-amber-500/25 hover:border-amber-500/40 transition-all duration-300 shadow-lg card-depth">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">// 04 MOBILE FRICTION</span>
+              <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">04 · MOBILE FRICTION</span>
               <Zap className="w-4 h-4 text-amber-400 shrink-0" />
             </div>
             <div className="text-2xl sm:text-3xl font-mono font-bold text-white mb-1 tracking-tight">&gt; 3 Secs</div>
-            <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
+            <p className="text-xs sm:text-[13px] text-zinc-300 leading-relaxed font-sans">
               Mobile visitors abandon immediately if a site takes more than 3 seconds to load or requires pinch-to-zoom on smartphones.
             </p>
           </div>

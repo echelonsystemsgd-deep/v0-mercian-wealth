@@ -165,12 +165,12 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
         {isHomepage && (
           <div className="text-center mb-10 lg:mb-12 max-w-3xl mx-auto">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#DAA640] font-mono">
-              [ {SITE_COPY.homepage.modelHint.eyebrow} ]
+              {SITE_COPY.homepage.modelHint.eyebrow}
             </span>
             <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white mt-3 mb-3 leading-tight">
               {SITE_COPY.homepage.modelHint.headline}
             </h2>
-            <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-400 max-w-xl mx-auto leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-300 max-w-xl mx-auto leading-relaxed">
               {SITE_COPY.homepage.modelHint.description}
             </p>
           </div>
@@ -288,7 +288,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-1.5 sm:mb-2">
                         <span className="text-xs font-mono font-bold text-[#DAA640] uppercase tracking-wider">
-                          [ {tier.highlight || `Tier 0${idx + 1}`} ]
+                          {tier.highlight || `Tier 0${idx + 1}`}
                         </span>
                         {tier.featured && (
                           <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
@@ -299,7 +299,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                       <h3 className="text-lg sm:text-2xl font-bold text-white tracking-tight">
                         {tier.name}
                       </h3>
-                      <p className="text-xs sm:text-sm text-zinc-400 mt-1 leading-relaxed min-h-[36px]">
+                      <p className="text-xs sm:text-sm text-zinc-300 mt-1 leading-relaxed min-h-[36px]">
                         {tier.description}
                       </p>
                     </div>
@@ -388,8 +388,8 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                     <span className="px-2.5 py-0.5 rounded-full bg-[#DAA640]/15 border border-[#DAA640]/30 text-[#DAA640] text-[10px] font-mono font-bold uppercase tracking-wider">
                       {customScope.tag || "Custom Scope"}
                     </span>
-                    <span className="text-[11px] font-mono text-zinc-400">
-                      [ {customScope.interval} ]
+                    <span className="text-[11px] font-mono text-zinc-300">
+                      {customScope.interval}
                     </span>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">

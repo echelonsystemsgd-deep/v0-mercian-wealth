@@ -45,7 +45,7 @@ export function FAQHome() {
         {/* Section Header */}
         <div className="text-center mb-14">
           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#DCAE53]">
-            [ {data.eyebrow} ]
+            {data.eyebrow}
           </span>
           <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white mt-3">
             {data.headline}

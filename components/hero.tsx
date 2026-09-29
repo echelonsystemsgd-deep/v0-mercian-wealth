@@ -86,54 +86,77 @@ export function Hero() {
           </a>
         </motion.div>
 
-        {/* 3 Outcomes Explainer Cards */}
+        {/* Above-the-Fold Social Proof Ribbon (Issue 9) */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.48 }}
+          className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-6 mb-8 text-xs text-zinc-300 px-2"
+        >
+          <div className="flex items-center gap-1.5 text-amber-400">
+            <span className="text-amber-400 tracking-wider">★★★★★</span>
+            <span className="text-white font-semibold text-[11px] sm:text-xs">5.0 Client Rating</span>
+          </div>
+          <span className="hidden sm:inline text-zinc-600">·</span>
+          <div className="flex items-center gap-1.5 text-zinc-300 text-[11px] sm:text-xs">
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#DAA640] shrink-0" />
+            <span>Built For UK Trades &amp; Local Services</span>
+          </div>
+          <span className="hidden sm:inline text-zinc-600">·</span>
+          <div className="flex items-center gap-1.5 text-emerald-400 text-[11px] sm:text-xs font-mono font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>&gt;£32,400 Direct Deposits Secured</span>
+          </div>
+        </motion.div>
+
+        {/* 3 Outcomes Explainer Cards (Standardized Semantic Palette & Legible Typography) */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8 sm:mb-10 text-left"
+          className="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 mb-8 sm:mb-10 text-left"
         >
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-white/10 space-y-2 hover:border-[#DAA640]/40 transition-colors shadow-lg">
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-white/10 space-y-2.5 hover:border-[#DAA640]/40 transition-colors shadow-lg card-depth">
             <div className="flex items-center justify-between">
               <div className="p-2 rounded-xl bg-[#141417] text-[#DAA640] border border-white/10">
                 <Clock className="w-4 h-4" />
               </div>
-              <span className="text-[10px] font-mono text-emerald-400 font-semibold bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+              <span className="text-[10px] sm:text-[11px] font-mono text-[#DAA640] font-semibold bg-[#DAA640]/10 px-2.5 py-0.5 rounded-full border border-[#DAA640]/30">
                 Sub-Second Speed
               </span>
             </div>
-            <h2 className="text-xs sm:text-sm font-bold text-white">1. Sub-Second Mobile Storefront</h2>
-            <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
-              Never lose a mobile visitor to slow loading. High-performance storefronts load in under 400ms and convert traffic instantly.
+            <h2 className="text-xs sm:text-sm font-bold text-white tracking-tight">1. Instant Mobile Storefront</h2>
+            <p className="text-xs sm:text-[13px] text-zinc-300 leading-relaxed font-sans">
+              Never lose a mobile visitor to slow loading. High-performance storefronts load instantly on 4G/5G and convert phone visitors on arrival.
             </p>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-white/10 space-y-2 hover:border-[#DAA640]/40 transition-colors shadow-lg">
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-white/10 space-y-2.5 hover:border-[#DAA640]/40 transition-colors shadow-lg card-depth">
             <div className="flex items-center justify-between">
               <div className="p-2 rounded-xl bg-[#141417] text-[#DAA640] border border-white/10">
                 <Zap className="w-4 h-4" />
               </div>
-              <span className="text-[10px] font-mono text-[#DAA640] font-semibold bg-[#DAA640]/10 px-2.5 py-0.5 rounded-full border border-[#DAA640]/30">
+              <span className="text-[10px] sm:text-[11px] font-mono text-[#DAA640] font-semibold bg-[#DAA640]/10 px-2.5 py-0.5 rounded-full border border-[#DAA640]/30">
                 Calendar &amp; Stripe
               </span>
             </div>
-            <h2 className="text-xs sm:text-sm font-bold text-white">2. Automated Booking &amp; Scoping</h2>
-            <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
-              Qualify project scope, sync live calendar slots, and lock card deposits upfront without evening message tag.
+            <h2 className="text-xs sm:text-sm font-bold text-white tracking-tight">2. Automated Booking &amp; Scoping</h2>
+            <p className="text-xs sm:text-[13px] text-zinc-300 leading-relaxed font-sans">
+              Qualify project scope, sync live calendar slots, and lock card deposits upfront without late-night back-and-forth messages.
             </p>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-white/10 space-y-2 hover:border-[#DAA640]/40 transition-colors shadow-lg">
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-white/10 space-y-2.5 hover:border-[#DAA640]/40 transition-colors shadow-lg card-depth">
             <div className="flex items-center justify-between">
               <div className="p-2 rounded-xl bg-[#141417] text-[#DAA640] border border-white/10">
                 <Activity className="w-4 h-4" />
               </div>
-              <span className="text-[10px] font-mono text-zinc-400 font-semibold bg-white/5 px-2.5 py-0.5 rounded-full border border-white/10">
-                0.4s Alert
+              <span className="text-[10px] sm:text-[11px] font-mono text-[#DAA640] font-semibold bg-[#DAA640]/10 px-2.5 py-0.5 rounded-full border border-[#DAA640]/30">
+                &lt;5s Alert
               </span>
             </div>
-            <h2 className="text-xs sm:text-sm font-bold text-white">3. Instant WhatsApp Alerts &amp; CRM</h2>
-            <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed font-sans">
+            <h2 className="text-xs sm:text-sm font-bold text-white tracking-tight">3. Instant WhatsApp Alerts &amp; CRM</h2>
+            <p className="text-xs sm:text-[13px] text-zinc-300 leading-relaxed font-sans">
               Full customer intake specs, quote request details, and booking confirmations sent straight to your phone via WhatsApp in seconds.
             </p>
           </div>

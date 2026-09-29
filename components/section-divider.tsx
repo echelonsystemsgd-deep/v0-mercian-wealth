@@ -32,16 +32,9 @@ export function SectionDivider({ id, chapter, title, className = "" }: SectionDi
           transition={{ duration: 0.5 }}
           className="relative px-4 sm:px-6 py-1.5 rounded-full bg-[#111115] border border-[#DCAE53]/30 shadow-[0_0_20px_rgba(220,174,83,0.15)] flex items-center justify-center gap-2.5 z-10 backdrop-blur-md max-w-[90%] sm:max-w-full text-center"
         >
-          {/* Geometric bowtie icon */}
-          <svg className="w-3 h-3 text-[#DCAE53] shrink-0" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M4 4h16l-8 7.5L4 4zm0 16h16l-8-7.5L4 20z" />
-          </svg>
-          <span className="font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.18em] sm:tracking-[0.22em] text-[#DCAE53] truncate sm:whitespace-normal">
-            SYSTEM {chapter} {title ? `· ${title}` : ""}
+          <span className="font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.2em] text-[#DCAE53] truncate sm:whitespace-normal">
+            {title || `SECTION ${chapter}`}
           </span>
-          <svg className="w-3 h-3 text-[#DCAE53] shrink-0" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M4 4h16l-8 7.5L4 4zm0 16h16l-8-7.5L4 20z" />
-          </svg>
         </motion.div>
       )}
     </div>

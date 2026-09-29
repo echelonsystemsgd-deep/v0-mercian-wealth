@@ -33,7 +33,6 @@ import Link from "next/link"
 import { BrandLogo } from "@/components/brand-logo"
 import { usePathname, useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
-import { LiveTelemetryTicker } from "@/components/live-telemetry-ticker"
 import { SITE_COPY } from "@/lib/site-copy"
 import {
   DropdownMenu,
@@ -166,14 +165,8 @@ export function Navbar() {
   return (
     <>
       <div className="fixed top-0 left-0 right-0 z-[100] flex flex-col font-sans pointer-events-none translate-y-0">
-      
-      {/* Top Telemetry Ticker (Pointers enabled) */}
-      <div className="pointer-events-auto">
-        <LiveTelemetryTicker />
-      </div>
-
       {/* Floating Pill Navbar Container (Carbon Zinc Surface) */}
-      <div className="w-full flex justify-center px-3 sm:px-6 pt-2 sm:pt-3">
+      <div className="w-full flex justify-center px-3 sm:px-6 pt-3 sm:pt-4">
         <header
           className={`pointer-events-auto w-full max-w-7xl transition-all duration-200 rounded-full border bg-[#0B0B0D] shadow-2xl ${
             isScrolled
@@ -433,12 +426,11 @@ export function Navbar() {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="flex items-center gap-1.5 p-1 rounded-full border border-[#DCAE53]/40 bg-[#18181F] text-slate-200 hover:text-white transition-all cursor-pointer">
-                    <Avatar className="h-6 w-6 border border-[#DCAE53]/40">
-                      <AvatarFallback className="bg-[#111115] text-[#DCAE53] text-[9px] font-bold">
-                        MW
-                      </AvatarFallback>
-                    </Avatar>
+                  <button 
+                    className="flex items-center justify-center h-8 w-8 rounded-full border border-[#DCAE53]/40 bg-[#18181F] text-[#DCAE53] hover:text-white transition-all cursor-pointer outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#DAA640] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0D]"
+                    aria-label="User Portal Menu"
+                  >
+                    <User size={14} className="text-[#DCAE53]" />
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48 bg-[#111115] border border-slate-800 text-slate-200">

@@ -28,7 +28,7 @@ export function ProofCaseStudies() {
           className="max-w-3xl mx-auto mb-12 sm:mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#111115] border border-[#DCAE53]/30 text-[#DCAE53] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-3">
-            <span>[ {data.eyebrow} ]</span>
+            <span>{data.eyebrow}</span>
           </div>
           <h2 className="font-sans text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight text-balance mb-4">
             {data.headline}

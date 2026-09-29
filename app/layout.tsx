@@ -217,6 +217,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <link
+          rel="stylesheet"
+          href="https://assets.calendly.com/assets/external/widget.css"
+        />
       </head>
       <body className="font-sans antialiased bg-[#09090B] text-white">
           <ExtensionErrorHandler />
@@ -228,15 +232,6 @@ export default function RootLayout({
         <TabRetention />
         <WhatsAppButton />
         {process.env.NODE_ENV === 'production' && <Analytics />}
-        {/*
-          Calendly widget.js — loaded at root so it is available for both:
-          1. The inline embed on /book (step 2)
-          2. CalendlyPopupButton on any marketing page
-        */}
-        <link
-          rel="stylesheet"
-          href="https://assets.calendly.com/assets/external/widget.css"
-        />
         <CalendlyInit />
       </body>
     </html>

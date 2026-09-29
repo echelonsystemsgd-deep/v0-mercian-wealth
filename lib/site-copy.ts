@@ -80,16 +80,16 @@ export const SITE_COPY = {
 
     // 1. Hero Section (Outcomes-First)
     hero: {
-      eyebrow: "MORE LEADS · FASTER RESPONSE · LESS MANUAL WORK",
+      eyebrow: "BUILT FOR UK TRADES & LOCAL BUSINESSES",
       headline: "We help local businesses stop losing jobs to whoever replies first.",
-      subheadline: "Sub-second mobile storefronts, 3-tap booking builders, instant WhatsApp lead dispatch, and upfront deposit collection. More leads captured, faster response times, and less manual work on your end.",
+      subheadline: "Sub-second mobile storefronts, 3-tap booking builders, instant WhatsApp lead dispatch, and upfront deposit collection—engineered so you never lose a job to whoever replies first.",
       primaryCtaText: "Book a 15-Min Discovery Call",
       primaryCtaHref: "/book",
       secondaryCtaText: "See a free prototype for your business",
       secondaryCtaHref: "#prototype-modal",
       whatsappCtaText: "Message on WhatsApp",
       whatsappHref: "https://wa.me/447851055929",
-      proofBadge: "More Leads Captured · Faster Response Times · Less Manual Work",
+      proofBadge: "Instant Mobile Booking · Upfront Stripe Deposits · <5s WhatsApp Dispatch",
       trustItems: [
         "Sub-Second Mobile Storefronts",
         "3-Tap Booking & Order Builders",
@@ -136,7 +136,7 @@ export const SITE_COPY = {
     divergenceComparison: {
       eyebrow: "OPERATIONAL LEVERAGE",
       headline: "Delayed response is an unforced error. Convert in seconds, or lose the job to someone who will.",
-      subheadline: "In local services, the first business to engage and confirm the booking secures the revenue. You can continue relying on slow contact forms and manual message tag—or deploy fast mobile infrastructure that converts automatically.",
+      subheadline: "In local services, the first business to engage and confirm the booking secures the revenue. You can continue relying on slow contact forms and endless back-and-forth messaging—or deploy fast mobile infrastructure that converts automatically.",
       pathConventional: {
         badge: "MANUAL DRAG · 5-FIGURE REVENUE LEAK",
         title: "The Traditional Setup",
@@ -144,7 +144,7 @@ export const SITE_COPY = {
         points: [
           "Clunky mobile websites that take 4+ seconds to load.",
           "Buried contact forms that force customers to type paragraphs.",
-          "Chasing bank transfers and unpaid deposits via message tag.",
+          "Chasing bank transfers and unpaid deposits via back-and-forth messages.",
           "Unanswered leads bouncing to competitors in under 60 seconds.",
         ]
       },
@@ -251,7 +251,7 @@ export const SITE_COPY = {
             { label: "Time saved", value: "499 hrs/yr" },
             { label: "Revenue captured", value: "+£32,400/yr" },
           ],
-          problem: "Evening DM chaos, manual order intake, and chasing bank transfers by message tag cost hundreds of hours in admin drag.",
+          problem: "Evening DM chaos, manual order intake, and chasing bank transfers through back-and-forth messages cost hundreds of hours in admin drag.",
           solution: "Installed a bespoke 3-tap mobile storefront with automated qualification, instant Stripe deposits, and sub-second phone notifications.",
           image: "/stickman_baker_order.png",
           liveUrl: "/portfolio",

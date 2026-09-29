@@ -87,11 +87,7 @@ export function WhatsAppButton({
 
   return (
     <div
-      className={`flex fixed right-3 sm:right-6 z-40 flex-col items-end gap-3 font-sans transition-all duration-300 ease-in-out pointer-events-auto ${
-        isStickyBarActive
-          ? "bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] sm:bottom-6"
-          : "bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] sm:bottom-6"
-      } ${
+      className={`hidden sm:flex fixed right-6 z-40 flex-col items-end gap-3 font-sans transition-all duration-300 ease-in-out pointer-events-auto bottom-6 ${
         isHidden
           ? "translate-y-20 opacity-0 pointer-events-none"
           : "translate-y-0 opacity-100 pointer-events-auto"

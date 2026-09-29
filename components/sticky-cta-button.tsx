@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ChevronUp, PhoneCall, Calendar } from "lucide-react"
+import { ChevronUp, PhoneCall, Calendar, MessageSquare, ArrowRight } from "lucide-react"
 import { useScrollDirection } from "@/hooks/use-scroll-direction"
 
 export function StickyCTAButton() {
@@ -87,44 +87,47 @@ export function StickyCTAButton() {
     <AnimatePresence>
       {isVisible && (
         <>
-          {/* Mobile Unified Conversion Bar */}
+          {/* Mobile Unified Conversion Bar — Single persistent, non-overlapping bottom action sheet */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="sm:hidden fixed bottom-0 inset-x-0 z-[90] bg-[#0B0B0D]/95 backdrop-blur-xl border-t border-white/10 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] flex items-center justify-between gap-3 card-depth pointer-events-auto"
+            className="sm:hidden fixed bottom-0 inset-x-0 z-[90] bg-[#0B0B0D]/95 backdrop-blur-xl border-t border-white/10 px-4 pt-2.5 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] flex items-center justify-between gap-3 card-depth pointer-events-auto"
           >
             <a
-              href="tel:+447851055929"
-              className="flex-1 py-3 px-3 rounded-xl bg-[#141417] border border-white/10 text-[#DAA640] font-semibold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-1.5 active:scale-95 transition-transform"
+              href="https://wa.me/447851055929?text=Hi%20Gurtej,%20I'd%20like%20to%20discuss%20a%20working%20prototype%20for%20my%20business."
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className="flex-1 min-h-[44px] py-2.5 px-3 rounded-xl bg-[#141417] border border-emerald-500/30 hover:border-emerald-500/60 text-emerald-400 font-semibold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2 active:scale-95 transition-transform"
             >
-              <PhoneCall className="w-3.5 h-3.5" />
-              <span>Call Direct</span>
+              <MessageSquare className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>WhatsApp</span>
             </a>
             <Link
               href="/book"
-              className="flex-1 py-3 px-3 rounded-xl bg-[#DAA640] text-black font-semibold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-1 active:scale-95 transition-transform"
+              className="flex-1 min-h-[44px] py-2.5 px-3 rounded-xl bg-[#DAA640] hover:bg-[#E5B85C] text-black font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-1.5 active:scale-95 transition-transform shadow-md shadow-[#DAA640]/20"
             >
-              <span>Book a call →</span>
+              <span>Book Call</span>
+              <ArrowRight className="w-3.5 h-3.5 shrink-0" />
             </Link>
           </motion.div>
 
-          {/* Desktop Minimal Scroll-to-Top Button (Positioned left of the AI concierge) */}
+          {/* Desktop Minimal Scroll-to-Top Button */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.2 }}
-            className="hidden sm:flex fixed bottom-6 right-48 z-40 items-center pointer-events-auto"
+            className="hidden sm:flex fixed bottom-6 right-24 z-30 items-center pointer-events-auto"
           >
             <button
               onClick={scrollToTop}
-              className="w-11 h-11 rounded-full bg-[#141417]/90 backdrop-blur-md border border-white/10 hover:border-[#DAA640]/50 text-muted-foreground hover:text-[#DAA640] flex items-center justify-center transition-all hover:scale-105 cursor-pointer"
+              className="w-10 h-10 rounded-full bg-[#141417]/90 backdrop-blur-md border border-white/10 hover:border-[#DAA640]/50 text-zinc-400 hover:text-[#DAA640] flex items-center justify-center transition-all hover:scale-105 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#DAA640]"
               aria-label="Scroll to top"
               title="Scroll to top"
             >
-              <ChevronUp size={20} />
+              <ChevronUp size={18} />
             </button>
           </motion.div>
         </>

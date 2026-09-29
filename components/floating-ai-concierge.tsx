@@ -349,9 +349,9 @@ export function FloatingAiConcierge() {
 
   return (
     <>
-      {/* Floating Trigger Button at Bottom Left */}
+      {/* Floating Trigger Button at Bottom Left (Desktop only to prevent mobile content collision) */}
       <div
-        className={`fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] sm:bottom-5 left-3 sm:left-5 z-30 font-sans transition-all duration-300 ease-in-out ${
+        className={`hidden sm:block fixed sm:bottom-5 left-3 sm:left-5 z-30 font-sans transition-all duration-300 ease-in-out ${
           footerVisible || isOpen
             ? "translate-y-20 opacity-0 pointer-events-none"
             : "translate-y-0 opacity-100 pointer-events-auto"

@@ -536,12 +536,12 @@ export function Portfolio({ limit }: { limit?: number }) {
           <div className="text-center mb-12 sm:mb-14">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#141417] border border-[#DAA640]/30 text-[#DAA640] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-3">
               <Sparkles size={13} className="text-[#DAA640]" />
-              <span>[ SYSTEM IV · INTERACTIVE PROTOTYPE BUILDS ]</span>
+              <span>INTERACTIVE CLIENT PROTOTYPES</span>
             </div>
             <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4 tracking-tight">
               Websites Engineered to Convert Visitors
             </h2>
-            <p className="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+            <p className="text-zinc-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
               Every prototype is live, responsive, and ready for you to test. Hover over any card to stop the animation and launch the interactive sandbox.
             </p>
 
