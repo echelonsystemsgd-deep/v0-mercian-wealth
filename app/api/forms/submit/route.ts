@@ -201,6 +201,23 @@ export async function POST(request: Request) {
 
           dbError = error
           insertedLead = data
+        } else if (source === 'prototype_request') {
+          // Insert for prototype request from homepage
+          const { data, error } = await supabaseAdmin.from('leads').insert({
+            name: name || 'Anonymous Prototype Requester',
+            email: email,
+            business_name: business_name || 'N/A (Prototype Request)',
+            website: website || null,
+            phone: phone || null,
+            notes: consolidatedNotes || 'Requested a free working prototype via outcomes-first modal.',
+            status: 'New',
+            source: 'prototype_request',
+            lead_type: 'local_business',
+            source_url: payload.source_url || 'https://mercianwealth.com#offer-mechanism',
+          }).select().single()
+
+          dbError = error
+          insertedLead = data
         } else {
           return NextResponse.json({ error: `Unsupported form source: ${source}` }, { status: 400 })
         }
@@ -251,18 +268,27 @@ export async function POST(request: Request) {
       let customerSubject = "Inquiry Received — Mercian Wealth"
       let customerEmailHtml = ""
 
-      if (source === 'booking_form' || source === 'booking_lead') {
+      if (source === 'booking_form') {
         customerSubject = "Strategy Call Details Confirmed — Mercian Wealth"
         customerEmailHtml = generateBookingConfirmedEmail({
           name: name || 'Client Partner',
           email,
           businessName: business_name || null,
-          meetingDate: payload.meeting_date || 'Date Selected in Calendar',
-          meetingTime: payload.meeting_time || 'Selected Time Slot (GMT)',
+          meetingDate: payload.meeting_date || 'Confirmed in Calendly Calendar',
+          meetingTime: payload.meeting_time || 'Scheduled Slot (GMT)',
           meetingLink: payload.meeting_link || 'https://calendly.com/mercianwealthgs/30min',
           timezone: 'GMT / UK Time',
           phone,
           notes: consolidatedNotes
+        })
+      } else if (source === 'booking_lead') {
+        customerSubject = "Strategy Consultation Application Received — Mercian Wealth"
+        customerEmailHtml = generateCustomerConfirmationEmail(emailPayload)
+      } else if (source === 'prototype_request') {
+        customerSubject = "Your Working Prototype Request Received — Mercian Wealth"
+        customerEmailHtml = generateCustomerConfirmationEmail({
+          ...emailPayload,
+          notes: `We received your request for a free working prototype for ${business_name || 'your business'}. We are preparing your interactive demo and will send your access link shortly.`
         })
       } else if (source === 'fast_track_audit') {
         customerSubject = "Fast-Track Technical Audit Scheduled — Mercian Wealth"
@@ -281,26 +307,32 @@ export async function POST(request: Request) {
 
       // 1. Notify Owner (Separately insulated)
       try {
-        await resend.emails.send({
+        const { error: ownerResError } = await resend.emails.send({
           from: fromEmail,
           to: process.env.ADMIN_NOTIFY_EMAIL || 'mercianwealthgs@gmail.com',
           replyTo: email,
           subject: `✨ [New Lead] ${name || email} via ${cleanSource}`,
           html: ownerEmailHtml,
         })
+        if (ownerResError) {
+          console.error('[API/Submit] Resend owner alert error:', ownerResError.message || ownerResError)
+        }
       } catch (ownerEmailError: any) {
         console.error('Failed to send Owner lead alert email:', ownerEmailError.message || ownerEmailError)
       }
 
       // 2. Confirm to Customer (Separately insulated)
       try {
-        await resend.emails.send({
+        const { error: custResError } = await resend.emails.send({
           from: fromEmail,
           to: email,
           replyTo: process.env.ADMIN_NOTIFY_EMAIL || 'mercianwealthgs@gmail.com',
           subject: customerSubject,
           html: customerEmailHtml,
         })
+        if (custResError) {
+          console.error('[API/Submit] Resend customer confirmation error:', custResError.message || custResError)
+        }
       } catch (customerEmailError: any) {
         console.error('Failed to send Customer confirmation email:', customerEmailError.message || customerEmailError)
       }

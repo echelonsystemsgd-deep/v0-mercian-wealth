@@ -144,10 +144,11 @@ export function ContactForm() {
             <input
               id="fullName"
               type="text"
+              autoComplete="name"
               placeholder="e.g. Sarah Mitchell"
               value={formData.fullName}
               onChange={(e) => updateField("fullName", e.target.value)}
-              className={`w-full bg-[#18181F] border rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] focus:border-[#DCAE53] transition-all ${
+              className={`w-full bg-[#18181F] border rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] focus:border-[#DCAE53] transition-all ${
                 errors.fullName ? "border-red-500/60" : "border-slate-800 hover:border-slate-700"
               }`}
             />
@@ -162,10 +163,12 @@ export function ContactForm() {
             <input
               id="email"
               type="email"
+              inputMode="email"
+              autoComplete="email"
               placeholder="e.g. director@yourbusiness.co.uk"
               value={formData.email}
               onChange={(e) => updateField("email", e.target.value)}
-              className={`w-full bg-[#18181F] border rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] focus:border-[#DCAE53] transition-all ${
+              className={`w-full bg-[#18181F] border rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] focus:border-[#DCAE53] transition-all ${
                 errors.email ? "border-red-500/60" : "border-slate-800 hover:border-slate-700"
               }`}
             />
@@ -181,10 +184,11 @@ export function ContactForm() {
               <input
                 id="companyName"
                 type="text"
+                autoComplete="organization"
                 placeholder="e.g. Your Business Name"
                 value={formData.companyName}
                 onChange={(e) => updateField("companyName", e.target.value)}
-                className="w-full bg-[#18181F] border border-slate-800 hover:border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] focus:border-[#DCAE53] transition-all"
+                className="w-full bg-[#18181F] border border-slate-800 hover:border-slate-700 rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] focus:border-[#DCAE53] transition-all"
               />
             </div>
 
@@ -202,6 +206,8 @@ export function ContactForm() {
                 <input
                   id="phone"
                   type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
                   placeholder="7123 456789"
                   value={formData.phone}
                   onChange={(e) => {
@@ -209,7 +215,7 @@ export function ContactForm() {
                     if (val.startsWith('0')) val = val.slice(1)
                     updateField("phone", val)
                   }}
-                  className="w-full bg-transparent px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none"
+                  className="w-full bg-transparent px-4 py-3 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none"
                 />
               </div>
               {errors.phone ? (
@@ -233,7 +239,7 @@ export function ContactForm() {
               placeholder="Tell us about your business, current booking process, and what you would like to automate."
               value={formData.message}
               onChange={(e) => updateField("message", e.target.value)}
-              className={`w-full bg-[#18181F] border rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] focus:border-[#DCAE53] transition-all resize-none ${
+              className={`w-full bg-[#18181F] border rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] focus:border-[#DCAE53] transition-all resize-none ${
                 errors.message ? "border-red-500/60" : "border-slate-800 hover:border-slate-700"
               }`}
             />

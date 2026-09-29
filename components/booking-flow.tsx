@@ -161,7 +161,6 @@ function validateQual(d: QualData): Partial<Record<keyof QualData, string>> {
   if (!d.serviceInterested) e.serviceInterested = "Please select a service you are interested in."
   if (!d.biggestChallenge) e.biggestChallenge = "Please select your biggest priority."
   if (!d.monthlyRevenue) e.monthlyRevenue = "Please select your monthly revenue."
-  if (!d.desiredOutcome.trim()) e.desiredOutcome = "Please describe a successful outcome."
   if (!d.startTimeline) e.startTimeline = "Please select your timeline."
   return e
 }
@@ -233,9 +232,10 @@ function RadioCard({ selected, onClick, label, description, className = "" }: {
 }
 
 /** Reusable text input with label */
-function FieldInput({ id, label, icon, type = "text", placeholder, value, onChange, error, optional, hint }: {
+function FieldInput({ id, label, icon, type = "text", placeholder, value, onChange, error, optional, hint, inputMode, autoComplete }: {
   id: string; label: string; icon: React.ReactNode; type?: string; placeholder: string;
-  value: string; onChange: (v: string) => void; error?: string; optional?: boolean; hint?: string
+  value: string; onChange: (v: string) => void; error?: string; optional?: boolean; hint?: string;
+  inputMode?: "text" | "email" | "tel" | "url" | "numeric"; autoComplete?: string;
 }) {
   return (
     <div className="space-y-1">
@@ -246,7 +246,9 @@ function FieldInput({ id, label, icon, type = "text", placeholder, value, onChan
       <input
         id={id} type={type} placeholder={placeholder} value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`w-full bg-background/60 border rounded-xl px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-2 focus:ring-accent-gold/30 transition-all ${
+        inputMode={inputMode}
+        autoComplete={autoComplete}
+        className={`w-full bg-background/60 border rounded-xl px-3 py-2.5 text-base sm:text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-2 focus:ring-accent-gold/30 transition-all ${
           error ? "border-red-500/60" : "border-border-brand/20 hover:border-accent-gold/40"
         }`}
       />
@@ -416,17 +418,21 @@ function BookingFlowInner() {
       scrollTop()
       return
     }
+    setQualSubmitting(true)
+
     // Extract optional ROI parameters from URL
     const roiRevenue = searchParams?.get("roi_revenue")
     const roiHours = searchParams?.get("roi_hours")
     const roiValue = searchParams?.get("roi_value")
+
+    const resolvedOutcome = qual.desiredOutcome.trim() || "Faster lead response and higher quote conversion"
 
     const notes = [
       `Service Interested: ${qual.serviceInterested}`,
       `Biggest Challenge: ${qual.biggestChallenge}`,
       `Monthly Revenue: ${qual.monthlyRevenue}`,
       `Start Timeline: ${qual.startTimeline}`,
-      `Desired Outcome: ${qual.desiredOutcome}`,
+      `Desired Outcome: ${resolvedOutcome}`,
       roiRevenue ? `[ROI Calculator] Monthly Revenue: £${roiRevenue}` : null,
       roiHours ? `[ROI Calculator] Manual Hours: ${roiHours} hrs/wk` : null,
       roiValue ? `[ROI Calculator] Projected Value: £${roiValue}` : null,
@@ -437,7 +443,7 @@ function BookingFlowInner() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          source: "booking_form",
+          source: "booking_lead",
           name: identity.fullName,
           email: identity.email,
           phone: formatUkPhonePayload(identity.phone),
@@ -452,17 +458,15 @@ function BookingFlowInner() {
         }),
       })
       if (!res.ok) {
-        const r = await res.json()
-        throw new Error(r.error || "Failed to submit.")
+        console.warn("Stage 2 API non-blocking warning:", await res.text().catch(() => ""))
       }
     } catch (err: any) {
-      setQualError(err.message || "Failed to submit. Please try again.")
+      console.warn("Stage 2 non-blocking dispatch error:", err)
+    } finally {
       setQualSubmitting(false)
-      return
+      setStage(3)
+      scrollTop()
     }
-    setQualSubmitting(false)
-    setStage(3)
-    scrollTop()
   }
 
   // ── Calendly URL builder ──────────────────────────────────────────────────
@@ -551,9 +555,8 @@ function BookingFlowInner() {
         (qual.serviceInterested ? 1 : 0) +
         (qual.biggestChallenge ? 1 : 0) +
         (qual.monthlyRevenue ? 1 : 0) +
-        (qual.desiredOutcome.trim() ? 1 : 0) +
         (qual.startTimeline ? 1 : 0)
-      return 33 + Math.round((stage2Count / 5) * 33)
+      return 33 + Math.round((stage2Count / 4) * 33)
     }
     // stage === 1
     const stage1Count =
@@ -596,10 +599,11 @@ function BookingFlowInner() {
               <div className="sm:col-span-2">
                 <FieldInput id="fullName" label="Full Name" icon={<User size={11} className="text-accent-gold" />}
                   placeholder="e.g. Mercian Partner" value={identity.fullName}
+                  autoComplete="name"
                   onChange={(v) => updateIdentity("fullName", v)} error={identityErrors.fullName} />
               </div>
               <FieldInput id="email" label="Business Email" icon={<Mail size={11} className="text-accent-gold" />}
-                type="email" placeholder="e.g. director@mercianwealth.com" value={identity.email}
+                type="email" inputMode="email" autoComplete="email" placeholder="e.g. director@mercianwealth.com" value={identity.email}
                 onChange={(v) => updateIdentity("email", v)} error={identityErrors.email} />
               <div className="space-y-1">
                 <label htmlFor="phone" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
@@ -615,6 +619,8 @@ function BookingFlowInner() {
                   <input
                     id="phone"
                     type="tel"
+                    inputMode="tel"
+                    autoComplete="tel"
                     placeholder="7123 456789"
                     value={identity.phone}
                     onChange={(e) => {
@@ -622,7 +628,7 @@ function BookingFlowInner() {
                       if (val.startsWith('0')) val = val.slice(1)
                       updateIdentity("phone", val)
                     }}
-                    className="w-full bg-transparent px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none"
+                    className="w-full bg-transparent px-3 py-2.5 text-base sm:text-sm text-foreground placeholder:text-muted-foreground/50 outline-none"
                   />
                 </div>
                 {identityErrors.phone ? (
@@ -635,13 +641,14 @@ function BookingFlowInner() {
               </div>
               <FieldInput id="companyName" label="Company Name" icon={<Building2 size={11} className="text-accent-gold" />}
                 placeholder="e.g. Mercian Holdings" value={identity.companyName}
+                autoComplete="organization"
                 onChange={(v) => updateIdentity("companyName", v)} error={identityErrors.companyName} />
               <FieldInput id="websiteUrl" label="Website URL" icon={<Globe size={11} className="text-accent-gold" />}
-                type="url" placeholder="e.g. https://mercianwealth.com" value={identity.websiteUrl}
+                type="url" inputMode="url" autoComplete="url" placeholder="e.g. https://mercianwealth.com" value={identity.websiteUrl}
                 onChange={(v) => updateIdentity("websiteUrl", v)} error={identityErrors.websiteUrl} optional />
               <div className="sm:col-span-2">
                 <FieldInput id="linkedinUrl" label="LinkedIn Profile" icon={<Linkedin size={11} className="text-accent-gold" />}
-                  type="url" placeholder="e.g. https://www.linkedin.com/in/gs-legacy-wealth/" value={identity.linkedinUrl}
+                  type="url" inputMode="url" autoComplete="url" placeholder="e.g. https://www.linkedin.com/in/gs-legacy-wealth/" value={identity.linkedinUrl}
                   onChange={(v) => updateIdentity("linkedinUrl", v)} error={identityErrors.linkedinUrl} optional
                   hint="Strongly encouraged — helps us prepare for your call" />
               </div>
@@ -812,22 +819,46 @@ function BookingFlowInner() {
               </div>
 
               {/* Desired Outcome */}
-              <div className="space-y-1">
-                <label htmlFor="desiredOutcome" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                  <CheckCircle2 size={11} className="text-accent-gold" />What does a successful outcome look like?
-                </label>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label htmlFor="desiredOutcome" className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                    <CheckCircle2 size={11} className="text-accent-gold" />What does a successful outcome look like?
+                    <span className="text-muted-foreground font-normal">(optional)</span>
+                  </label>
+                </div>
+
+                {/* Quick Goal Tap Chips */}
+                <div className="flex flex-wrap gap-1.5">
+                  {[
+                    "Capture deposits automatically",
+                    "Stop losing quotes to competitors",
+                    "Automate Google reviews after jobs",
+                    "Complete modern web redesign",
+                  ].map((goal) => (
+                    <button
+                      key={goal}
+                      type="button"
+                      onClick={() => updateQual("desiredOutcome", goal)}
+                      className={`text-[11px] px-2.5 py-1 rounded-lg border transition-all ${
+                        qual.desiredOutcome === goal
+                          ? "border-accent-gold bg-accent-gold/15 text-accent-gold font-medium"
+                          : "border-border-brand/20 bg-background/40 text-muted-foreground hover:border-accent-gold/40 hover:text-foreground"
+                      }`}
+                    >
+                      + {goal}
+                    </button>
+                  ))}
+                </div>
+
                 <textarea
-                  id="desiredOutcome" rows={3} maxLength={300}
-                  placeholder="e.g. A redesigned site launching leads directly into our CRM within 60 days"
+                  id="desiredOutcome" rows={2} maxLength={300}
+                  placeholder="e.g. A fast mobile site capturing leads and Stripe deposits automatically"
                   value={qual.desiredOutcome}
                   onChange={(e) => updateQual("desiredOutcome", e.target.value)}
-                  className={`w-full bg-background/60 border rounded-xl px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-2 focus:ring-accent-gold/30 transition-all resize-none ${
-                    qualErrors.desiredOutcome ? "border-red-500/60" : "border-border-brand/20 hover:border-accent-gold/40"
-                  }`}
+                  className="w-full bg-background/60 border rounded-xl px-3 py-2.5 text-base sm:text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-2 focus:ring-accent-gold/30 transition-all resize-none border-border-brand/20 hover:border-accent-gold/40"
                 />
-                <div className="flex justify-between">
-                  {qualErrors.desiredOutcome ? <p className="text-xs text-red-400">{qualErrors.desiredOutcome}</p> : <span />}
-                  <span className="text-xs text-muted-foreground">{qual.desiredOutcome.length}/300</span>
+                <div className="flex justify-end">
+                  <span className="text-[10px] text-muted-foreground">{qual.desiredOutcome.length}/300</span>
                 </div>
               </div>
 
