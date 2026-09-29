@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { Zap, MessageSquare, ArrowRight, ExternalLink, Star, MapPin, Phone, CheckCircle2 } from 'lucide-react'
+import { Zap, MessageSquare, ArrowRight, ExternalLink, Star, MapPin, Phone, CheckCircle2, Globe } from 'lucide-react'
+import { classifyPhoneNumber, buildWhatsAppOpenerUrl, buildTelUrl } from '@/lib/phone-classifier'
 
 export interface PriorityLead {
   id: string
@@ -25,15 +26,9 @@ interface TodayOutreachStripProps {
 
 export function TodayOutreachStrip({ leads }: TodayOutreachStripProps) {
   const handleQuickWhatsApp = (lead: PriorityLead) => {
-    const phone = lead.phone || ''
-    const cleanDigits = phone.replace(/[^0-9]/g, '')
-    if (!cleanDigits) return
-
-    const ownerName = lead.name && lead.name !== lead.business_name && !lead.name.includes('Owner') ? lead.name.split(' ')[0] : ''
-    const businessName = lead.business_name || 'your business'
-    const opener = ownerName ? `Hi ${ownerName} 👋, is this ${businessName}?` : `Hi 👋, is this ${businessName}?`
-    const url = `https://wa.me/${cleanDigits}?text=${encodeURIComponent(opener)}`
-    window.open(url, '_blank')
+    const waUrl = buildWhatsAppOpenerUrl(lead.phone, lead.business_name || lead.name, lead.name)
+    if (!waUrl) return
+    window.open(waUrl, '_blank')
   }
 
   if (!leads || leads.length === 0) {
@@ -81,14 +76,14 @@ export function TodayOutreachStrip({ leads }: TodayOutreachStripProps) {
 
         <Link
           href="/admin/leads"
-          className="text-xs text-[#DAA640] hover:text-[#F5D90A] font-semibold flex items-center gap-1 self-start sm:self-center transition-colors"
+          className="text-xs text-[#DAA640] hover:text-[#F5D90A] font-semibold flex items-center gap-1 self-start sm:self-center transition-colors py-1"
         >
           <span>View All in Ledger</span>
           <ArrowRight size={12} />
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {leads.slice(0, 4).map((lead) => {
           const businessName = lead.business_name || lead.name
           const rawTrade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Jeweller'
@@ -97,6 +92,11 @@ export function TodayOutreachStrip({ leads }: TodayOutreachStripProps) {
           const reviews = lead.scraped_metadata?.reviews_count || 0
           const rawAddr = (lead.scraped_metadata?.address || '').trim()
           const city = rawAddr && !rawAddr.startsWith('·') ? rawAddr.split(',')[0].trim() : 'UK'
+          const rawWebsite = (lead.website || '').trim()
+          const hasWebsite = rawWebsite !== '' && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE'
+
+          const phoneInfo = classifyPhoneNumber(lead.phone)
+          const telUrl = buildTelUrl(lead.phone)
 
           return (
             <div
@@ -113,7 +113,7 @@ export function TodayOutreachStrip({ leads }: TodayOutreachStripProps) {
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2 text-[10px] text-zinc-400">
+                <div className="flex items-center gap-2 text-[10px] text-zinc-400 flex-wrap">
                   <span className="flex items-center gap-1">
                     <MapPin size={10} className="text-[#DAA640]" />
                     {city}
@@ -124,30 +124,76 @@ export function TodayOutreachStrip({ leads }: TodayOutreachStripProps) {
                   </span>
                 </div>
 
-                {lead.phone && (
-                  <p className="text-[11px] font-mono text-zinc-300 flex items-center gap-1">
-                    <Phone size={10} className="text-zinc-500" />
-                    {lead.phone}
-                  </p>
-                )}
+                {/* Phone & Telecom Badge */}
+                <div className="flex items-center justify-between gap-1 text-[11px] pt-0.5">
+                  <span className="font-mono text-zinc-300 flex items-center gap-1 truncate">
+                    <Phone size={10} className={phoneInfo.isWhatsAppViable ? 'text-emerald-400' : 'text-sky-400'} />
+                    {phoneInfo.displayNational}
+                  </span>
+                  <span
+                    className={`text-[9px] font-mono px-1.5 py-0.5 rounded shrink-0 ${
+                      phoneInfo.isWhatsAppViable
+                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                        : 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
+                    }`}
+                  >
+                    {phoneInfo.isWhatsAppViable ? 'Mobile' : 'Landline'}
+                  </span>
+                </div>
+
+                {/* Storefront / Website Link for Assessment */}
+                <div className="pt-0.5">
+                  {hasWebsite ? (
+                    <a
+                      href={rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-[10px] text-zinc-400 hover:text-white flex items-center gap-1 transition-colors truncate max-w-full"
+                    >
+                      <Globe size={10} className="shrink-0 text-[#DAA640]" />
+                      <span className="truncate">{rawWebsite.replace(/^https?:\/\//, '')}</span>
+                      <ExternalLink size={9} className="shrink-0 text-zinc-500" />
+                    </a>
+                  ) : (
+                    <span className="text-[10px] text-zinc-500 italic flex items-center gap-1">
+                      <Globe size={10} className="text-zinc-600" /> No website detected
+                    </span>
+                  )}
+                </div>
               </div>
 
+              {/* Action Buttons */}
               <div className="flex items-center gap-2 pt-2 border-t border-white/5">
-                <button
-                  onClick={() => handleQuickWhatsApp(lead)}
-                  className="flex-1 py-1.5 px-2.5 rounded-lg bg-[#DAA640] hover:bg-[#F5D90A] text-black text-[11px] font-bold flex items-center justify-center gap-1 transition-all cursor-pointer shadow-sm"
-                  title="Launch WhatsApp Touch 1 Opener"
-                >
-                  <MessageSquare size={11} />
-                  <span>WhatsApp</span>
-                </button>
+                {phoneInfo.isWhatsAppViable ? (
+                  <button
+                    onClick={() => handleQuickWhatsApp(lead)}
+                    className="flex-1 min-h-[36px] py-1.5 px-2.5 rounded-lg bg-[#DAA640] hover:bg-[#F5D90A] text-black text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95"
+                    title="Launch WhatsApp Touch 1 Opener"
+                  >
+                    <MessageSquare size={12} />
+                    <span>WhatsApp</span>
+                  </button>
+                ) : telUrl ? (
+                  <a
+                    href={telUrl}
+                    className="flex-1 min-h-[36px] py-1.5 px-2.5 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95"
+                    title="Direct Call to Office Landline"
+                  >
+                    <Phone size={12} />
+                    <span>Call Office</span>
+                  </a>
+                ) : (
+                  <div className="flex-1 py-1.5 text-center text-[10px] text-zinc-500 font-mono">
+                    No Direct Line
+                  </div>
+                )}
 
                 <Link
                   href={`/admin/leads/${lead.id}`}
-                  className="py-1.5 px-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 text-[11px] font-medium flex items-center justify-center transition-colors cursor-pointer"
-                  title="Open Lead Workspace"
+                  className="min-h-[36px] min-w-[36px] py-1.5 px-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 text-[11px] font-medium flex items-center justify-center transition-colors cursor-pointer"
+                  title="Open Lead Dossier & Workspace"
                 >
-                  <ArrowRight size={12} />
+                  <ArrowRight size={13} />
                 </Link>
               </div>
             </div>
@@ -157,3 +203,4 @@ export function TodayOutreachStrip({ leads }: TodayOutreachStripProps) {
     </div>
   )
 }
+

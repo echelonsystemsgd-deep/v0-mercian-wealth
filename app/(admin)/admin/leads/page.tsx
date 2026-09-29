@@ -38,7 +38,12 @@ import {
   Calendar,
   ArrowUpRight,
   Zap,
+  ArrowUpDown,
+  CheckCheck,
+  RefreshCw,
+  SlidersHorizontal,
 } from 'lucide-react'
+import { classifyPhoneNumber, buildWhatsAppOpenerUrl, buildTelUrl } from '@/lib/phone-classifier'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -124,6 +129,19 @@ export default function LeadsPage() {
   // Streamlined Action Queue Filter
   const [queueFilter, setQueueFilter] = useState<ActionQueue>('ready_to_whatsapp')
   const [wonDeal, setWonDeal] = useState<{ businessName: string } | null>(null)
+
+  // In-Session Retention State: keeps contacted leads visible in view until user refreshes
+  const [contactedInSessionIds, setContactedInSessionIds] = useState<Set<string>>(new Set())
+
+  // Direct 1-Click Quick Filter: 'all' | 'new' | 'contacted' | 'pipeline' | 'landlines' | 'needs_review'
+  const [quickFilter, setQuickFilter] = useState<'all' | 'new' | 'contacted' | 'pipeline' | 'landlines' | 'needs_review'>('all')
+
+  // Sub-Category / Niche filter
+  const [tradeFilter, setTradeFilter] = useState<string>('All')
+
+  // Sorting controls: 'created_at' (latest to last) | 'rating' | 'reviews' | 'name' | 'trade'
+  const [sortBy, setSortBy] = useState<'created_at' | 'rating' | 'reviews' | 'name' | 'trade'>('created_at')
+  const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc')
   
   // Views: 'cards' (Deal Cards Grid), 'table' (Dense Table), 'kanban' (Pipeline Columns)
   const [viewMode, setViewMode] = useState<'cards' | 'table' | 'kanban'>('cards')
@@ -199,13 +217,22 @@ export default function LeadsPage() {
     }
   }, [supabase])
 
-  // OPTIMISTIC Status Update (0ms UI latency)
-  const handleUpdateLeadStatus = async (id: string, status: string) => {
+  // OPTIMISTIC Status Update (0ms UI latency) with In-Session Retention option
+  const handleUpdateLeadStatus = async (id: string, status: string, retainInCurrentView = false) => {
     const targetLead = leads.find(l => l.id === id)
     // 1. Instant local update
     setLeads(prev => prev.map(l => l.id === id ? { ...l, status } : l))
     if (outreachLead?.id === id) {
       setOutreachLead(prev => prev ? { ...prev, status } : null)
+    }
+
+    // If retaining in session (e.g. after outreach launch), record ID so lead doesn't vanish
+    if (retainInCurrentView || status === 'Contacted') {
+      setContactedInSessionIds(prev => {
+        const next = new Set(prev)
+        next.add(id)
+        return next
+      })
     }
 
     // 2. Feedback message & Gamified Revenue Won Modal
@@ -215,7 +242,7 @@ export default function LeadsPage() {
     } else if (status === 'Lost') {
       triggerToast('🔴 Lead marked as Lost.')
     } else if (status === 'Contacted') {
-      triggerToast('🟡 Lead marked as Contacted.')
+      triggerToast('🟡 Marked as Contacted. Lead kept visible so you can assess their site.')
     } else {
       triggerToast(`Status updated to ${status}.`)
     }
@@ -234,26 +261,31 @@ export default function LeadsPage() {
     }
   }
 
-  // Direct 1-Click WhatsApp action (Stage 1 Opener: Hi 👋 alone)
+  // 1-Click Refresh that flushes in-session retained leads into the contacted ledger
+  const handleManualRefresh = async () => {
+    setContactedInSessionIds(new Set())
+    await fetchLeads()
+    triggerToast('🔄 Dashboard refreshed. Contacted leads moved to ledger.')
+  }
+
+  // Direct 1-Click WhatsApp action (Deterministic Phone Verification)
   const handleQuickWhatsApp = (lead: Lead) => {
-    const phone = lead.phone || ''
-    const cleanDigits = phone.replace(/[^0-9]/g, '')
-    if (!cleanDigits) {
-      triggerToast('No valid phone number for WhatsApp.')
+    const phoneInfo = classifyPhoneNumber(lead.phone)
+    if (!phoneInfo.isWhatsAppViable) {
+      triggerToast(`☎️ UK Landline (${phoneInfo.displayNational}). Standard WhatsApp is unavailable. Use Call Office.`)
       return
     }
 
-    const isMobile = cleanDigits.startsWith('447') || cleanDigits.startsWith('07')
-    const ownerName = lead.name && lead.name !== lead.business_name && !lead.name.includes('Owner') ? lead.name.split(' ')[0] : ''
-    const businessName = lead.business_name || 'your business'
-    const opener = ownerName ? `Hi ${ownerName} 👋, is this ${businessName}?` : `Hi 👋, is this ${businessName}?`
-    const url = `https://wa.me/${cleanDigits}?text=${encodeURIComponent(opener)}`
-    window.open(url, '_blank')
+    const waUrl = buildWhatsAppOpenerUrl(lead.phone, lead.business_name || lead.name, lead.name)
+    if (!waUrl) {
+      triggerToast('No valid WhatsApp number.')
+      return
+    }
+    window.open(waUrl, '_blank')
 
-    if (lead.status === 'New' && isMobile) {
-      handleUpdateLeadStatus(lead.id, 'Contacted')
-    } else if (!isMobile) {
-      triggerToast('☎️ UK Landline opened. If not registered on WhatsApp, use Direct Call.')
+    if (lead.status === 'New') {
+      // Crucial: retain in current view so operator can inspect site!
+      handleUpdateLeadStatus(lead.id, 'Contacted', true)
     }
   }
 
@@ -382,65 +414,142 @@ export default function LeadsPage() {
     return () => clearTimeout(timer)
   }, [fetchLeads])
 
-  // Queue Counts Computation
-  const queueCounts = useMemo(() => {
+  // Extract clean distinct sub-categories / niches from the loaded dataset
+  const availableTrades = useMemo(() => {
+    const counts: Record<string, number> = {}
+    leads.forEach((l) => {
+      const raw = l.local_business_niche || l.scraped_metadata?.trade || 'Jeweller'
+      const clean = (!raw || raw.length > 25 || raw.startsWith('Hi ') || raw.toLowerCase().includes('came across')) ? 'Jeweller' : raw.trim()
+      counts[clean] = (counts[clean] || 0) + 1
+    })
+    return Object.entries(counts).sort((a, b) => b[1] - a[1])
+  }, [leads])
+
+  // Queue & Quick Filter Counts Computation
+  const filterCounts = useMemo(() => {
+    let freshNew = 0
+    let contacted = 0
     let readyToWhatsApp = 0
-    let dueFollowup = 0
+    let landlines = 0
     let activePipeline = 0
     let needsReview = 0
 
     leads.forEach((l) => {
-      const clean = (l.phone || '').replace(/[^0-9]/g, '')
-      const isMob = clean.startsWith('447') || clean.startsWith('07')
+      const phoneInfo = classifyPhoneNumber(l.phone)
       const pathway = getLeadPathway(l)
 
-      if (l.status === 'New' && isMob) {
-        readyToWhatsApp++
-      } else if (l.status === 'Contacted') {
-        dueFollowup++
-      } else if (l.status === 'Call Booked' || l.status === 'Proposal Sent') {
+      if (l.status === 'New') {
+        freshNew++
+        if (phoneInfo.isWhatsAppViable) readyToWhatsApp++
+      }
+      if (l.status === 'Contacted') {
+        contacted++
+      }
+      if (phoneInfo.type === 'uk_landline') {
+        landlines++
+      }
+      if (['Call Booked', 'Proposal Sent', 'Won'].includes(l.status)) {
         activePipeline++
-      } else if (pathway === 'NEEDS_REVIEW' || (!isMob && clean.length > 5) || (!l.phone && !l.website)) {
+      }
+      if (pathway === 'NEEDS_REVIEW' || phoneInfo.type === 'invalid' || (!l.phone && !l.website)) {
         needsReview++
       }
     })
 
     return {
+      total: leads.length,
+      freshNew,
+      contacted,
       readyToWhatsApp,
-      dueFollowup,
+      landlines,
       activePipeline,
       needsReview,
-      total: leads.length,
     }
   }, [leads])
 
-  // Filtered Leads by Action Queue and Status
+  // Filtered Leads by Action Queue, Quick Filter, Sub-category, and Directional Sorting
   const displayedLeads = useMemo(() => {
     let list = leads
 
     if (activeTab === 'active') {
-      if (queueFilter === 'ready_to_whatsapp') {
-        list = list.filter((l) => {
-          const clean = (l.phone || '').replace(/[^0-9]/g, '')
-          const isMob = clean.startsWith('447') || clean.startsWith('07')
-          return l.status === 'New' && isMob
-        })
-      } else if (queueFilter === 'due_followup') {
+      // 1. Direct Quick Filter (New Leads vs Contacted Leads vs Pipeline)
+      if (quickFilter === 'new') {
+        list = list.filter((l) => l.status === 'New' || contactedInSessionIds.has(l.id))
+      } else if (quickFilter === 'contacted') {
         list = list.filter((l) => l.status === 'Contacted')
-      } else if (queueFilter === 'active_pipeline') {
-        list = list.filter((l) => l.status === 'Call Booked' || l.status === 'Proposal Sent')
-      } else if (queueFilter === 'needs_review') {
+      } else if (quickFilter === 'pipeline') {
+        list = list.filter((l) => ['Call Booked', 'Proposal Sent', 'Won'].includes(l.status))
+      } else if (quickFilter === 'landlines') {
+        list = list.filter((l) => classifyPhoneNumber(l.phone).type === 'uk_landline')
+      } else if (quickFilter === 'needs_review') {
         list = list.filter((l) => {
           const pathway = getLeadPathway(l)
-          const clean = (l.phone || '').replace(/[^0-9]/g, '')
-          const isMob = clean.startsWith('447') || clean.startsWith('07')
-          return pathway === 'NEEDS_REVIEW' || (!isMob && clean.length > 5) || (!l.phone && !l.website)
+          const phoneInfo = classifyPhoneNumber(l.phone)
+          return pathway === 'NEEDS_REVIEW' || phoneInfo.type === 'invalid' || (!l.phone && !l.website)
         })
+      } else {
+        // 2. Action Queue Filter (when quickFilter === 'all')
+        if (queueFilter === 'ready_to_whatsapp') {
+          list = list.filter((l) => {
+            if (contactedInSessionIds.has(l.id)) return true // Keep visible in active session!
+            const phoneInfo = classifyPhoneNumber(l.phone)
+            return l.status === 'New' && phoneInfo.isWhatsAppViable
+          })
+        } else if (queueFilter === 'due_followup') {
+          list = list.filter((l) => l.status === 'Contacted')
+        } else if (queueFilter === 'active_pipeline') {
+          list = list.filter((l) => ['Call Booked', 'Proposal Sent'].includes(l.status))
+        } else if (queueFilter === 'needs_review') {
+          list = list.filter((l) => {
+            const pathway = getLeadPathway(l)
+            const phoneInfo = classifyPhoneNumber(l.phone)
+            return pathway === 'NEEDS_REVIEW' || phoneInfo.type === 'invalid' || (!l.phone && !l.website)
+          })
+        }
       }
     }
 
+    // 3. Sub-Category / Trade Filter
+    if (tradeFilter !== 'All') {
+      list = list.filter((l) => {
+        const raw = l.local_business_niche || l.scraped_metadata?.trade || 'Jeweller'
+        const clean = (!raw || raw.length > 25 || raw.startsWith('Hi ') || raw.toLowerCase().includes('came across')) ? 'Jeweller' : raw.trim()
+        return clean.toLowerCase() === tradeFilter.toLowerCase()
+      })
+    }
+
+    // 4. Directional Sorting ("Latest to Last" / Chronological & Attributes)
+    list = [...list].sort((a, b) => {
+      let comparison = 0
+
+      if (sortBy === 'created_at') {
+        const dateA = new Date(a.created_at).getTime()
+        const dateB = new Date(b.created_at).getTime()
+        comparison = dateB - dateA // default: latest (newest) first
+      } else if (sortBy === 'rating') {
+        const ratingA = Number(a.scraped_metadata?.rating || 0)
+        const ratingB = Number(b.scraped_metadata?.rating || 0)
+        comparison = ratingB - ratingA
+      } else if (sortBy === 'reviews') {
+        const revA = Number(a.scraped_metadata?.reviews_count || (a.scraped_metadata as any)?.reviews || 0)
+        const revB = Number(b.scraped_metadata?.reviews_count || (b.scraped_metadata as any)?.reviews || 0)
+        comparison = revB - revA
+      } else if (sortBy === 'name') {
+        const nameA = (a.business_name || a.name || '').toLowerCase()
+        const nameB = (b.business_name || b.name || '').toLowerCase()
+        comparison = nameA.localeCompare(nameB)
+      } else if (sortBy === 'trade') {
+        const tradeA = (a.local_business_niche || a.scraped_metadata?.trade || '').toLowerCase()
+        const tradeB = (b.local_business_niche || b.scraped_metadata?.trade || '').toLowerCase()
+        comparison = tradeA.localeCompare(tradeB)
+      }
+
+      // If sortDirection is 'asc', flip the result (Latest to Last -> Oldest first!)
+      return sortDirection === 'asc' ? -comparison : comparison
+    })
+
     return list
-  }, [leads, queueFilter, activeTab])
+  }, [leads, queueFilter, quickFilter, tradeFilter, sortBy, sortDirection, activeTab, contactedInSessionIds])
 
   const toggleStatus = (s: string) => {
     setStatusFilter((prev) => {
@@ -622,88 +731,197 @@ export default function LeadsPage() {
       </section>
 
       {/* ───────────────────────────────────────────────────────────────────────── */}
-      {/* 1. OPERATOR ACTION QUEUE STRIP (Consolidated Daily Workflow)              */}
+      {/* 1. IN-SESSION RETENTION BANNER (Keeps contacted leads accessible)          */}
+      {/* ───────────────────────────────────────────────────────────────────────── */}
+      {contactedInSessionIds.size > 0 && (
+        <div className="p-3.5 rounded-2xl bg-amber-400/10 border border-amber-400/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-amber-200 shadow-sm animate-fade-in">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-amber-400/20 text-amber-300 flex items-center justify-center shrink-0">
+              <Zap size={16} />
+            </div>
+            <div>
+              <p className="font-bold text-white text-xs">
+                {contactedInSessionIds.size} lead{contactedInSessionIds.size > 1 ? 's' : ''} contacted during this session
+              </p>
+              <p className="text-[11px] text-amber-300/80">
+                Kept visible in this view so you can re-assess their site and dossier. They will cleanly move to Contacted once you refresh.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={handleManualRefresh}
+            className="px-3.5 py-1.5 rounded-xl bg-[#DAA640] hover:bg-[#F5D90A] text-black font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-sm shrink-0 self-end sm:self-center active:scale-95"
+          >
+            <RefreshCw size={12} />
+            <span>Refresh Dashboard</span>
+          </button>
+        </div>
+      )}
+
+      {/* ───────────────────────────────────────────────────────────────────────── */}
+      {/* 2. DEDICATED 1-CLICK QUICK FILTER BAR (New vs Contacted vs Pipeline)       */}
       {/* ───────────────────────────────────────────────────────────────────────── */}
       {activeTab === 'active' && (
-        <div className="p-1.5 rounded-2xl bg-[#0B0B0D] border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 overflow-x-auto scrollbar-none">
-          <div className="flex items-center gap-1 flex-wrap sm:flex-nowrap">
-            {[
-              {
-                id: 'ready_to_whatsapp',
-                label: 'Ready to WhatsApp',
-                icon: Zap,
-                count: queueCounts.readyToWhatsApp,
-                highlight: true,
-              },
-              {
-                id: 'due_followup',
-                label: 'Due Follow-Up',
-                icon: Clock,
-                count: queueCounts.dueFollowup,
-                highlight: false,
-              },
-              {
-                id: 'active_pipeline',
-                label: 'Active Deals (Booked/Proposal)',
-                icon: Calendar,
-                count: queueCounts.activePipeline,
-                highlight: false,
-              },
-              {
-                id: 'needs_review',
-                label: 'Needs Review',
-                icon: AlertTriangle,
-                count: queueCounts.needsReview,
-                highlight: false,
-              },
-              {
-                id: 'all',
-                label: 'All Pipeline Leads',
-                icon: Inbox,
-                count: queueCounts.total,
-                highlight: false,
-              },
-            ].map((q) => {
-              const isActive = queueFilter === q.id && statusFilter.length === 0
-              const Icon = q.icon
-              return (
-                <button
-                  key={q.id}
-                  onClick={() => {
-                    setQueueFilter(q.id as ActionQueue)
-                    setStatusFilter([])
-                  }}
-                  className={`relative px-3.5 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap ${
-                    isActive
-                      ? q.highlight
-                        ? 'text-amber-300 font-bold bg-amber-400/15 border border-amber-400/30 shadow-sm'
-                        : 'text-white font-bold bg-[#141417] border border-white/20 shadow-sm'
-                      : q.highlight
-                      ? 'text-amber-400 hover:text-amber-300 hover:bg-white/5'
-                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/5'
-                  }`}
-                >
-                  <Icon size={13} className={isActive ? (q.highlight ? 'text-amber-300' : 'text-[#DAA640]') : 'text-zinc-500'} />
-                  <span>{q.label}</span>
-                  <span
-                    className={`text-[10px] font-mono px-1.5 py-0.2 rounded-md ${
-                      isActive
-                        ? q.highlight
-                          ? 'bg-amber-400/25 text-amber-200 font-bold'
-                          : 'bg-white/10 text-white font-bold'
-                        : 'bg-white/5 text-zinc-400'
-                    }`}
-                  >
-                    {q.count}
-                  </span>
-                </button>
-              )
-            })}
+        <div className="space-y-2.5">
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1 touch-pan-x">
+            <button
+              onClick={() => { setQuickFilter('all'); setStatusFilter([]); }}
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
+                quickFilter === 'all' && statusFilter.length === 0
+                  ? 'bg-white text-black font-bold shadow-md'
+                  : 'bg-[#141417] text-zinc-400 hover:text-white border border-white/10 hover:border-white/20'
+              }`}
+            >
+              <Inbox size={13} />
+              <span>All Leads</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${quickFilter === 'all' ? 'bg-black/15 text-black' : 'bg-white/5 text-zinc-400'}`}>
+                {filterCounts.total}
+              </span>
+            </button>
+
+            <button
+              onClick={() => { setQuickFilter('new'); setStatusFilter([]); setQueueFilter('all'); }}
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
+                quickFilter === 'new'
+                  ? 'bg-amber-400 text-black font-bold shadow-md shadow-amber-400/20'
+                  : 'bg-[#141417] text-zinc-400 hover:text-white border border-white/10 hover:border-white/20'
+              }`}
+            >
+              <Zap size={13} className={quickFilter === 'new' ? 'text-black' : 'text-amber-400'} />
+              <span>New Leads</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${quickFilter === 'new' ? 'bg-black/20 text-black' : 'bg-amber-400/10 text-amber-400'}`}>
+                {filterCounts.freshNew}
+              </span>
+            </button>
+
+            <button
+              onClick={() => { setQuickFilter('contacted'); setStatusFilter([]); setQueueFilter('all'); }}
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
+                quickFilter === 'contacted'
+                  ? 'bg-amber-500 text-black font-bold shadow-md shadow-amber-500/20'
+                  : 'bg-[#141417] text-zinc-400 hover:text-white border border-white/10 hover:border-white/20'
+              }`}
+            >
+              <MessageSquare size={13} className={quickFilter === 'contacted' ? 'text-black' : 'text-amber-400'} />
+              <span>Contacted Leads</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${quickFilter === 'contacted' ? 'bg-black/20 text-black' : 'bg-amber-400/10 text-amber-400'}`}>
+                {filterCounts.contacted}
+              </span>
+            </button>
+
+            <button
+              onClick={() => { setQuickFilter('pipeline'); setStatusFilter([]); setQueueFilter('all'); }}
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
+                quickFilter === 'pipeline'
+                  ? 'bg-emerald-400 text-black font-bold shadow-md shadow-emerald-400/20'
+                  : 'bg-[#141417] text-zinc-400 hover:text-white border border-white/10 hover:border-white/20'
+              }`}
+            >
+              <Trophy size={13} className={quickFilter === 'pipeline' ? 'text-black' : 'text-emerald-400'} />
+              <span>Active Pipeline</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${quickFilter === 'pipeline' ? 'bg-black/20 text-black' : 'bg-emerald-400/10 text-emerald-400'}`}>
+                {filterCounts.activePipeline}
+              </span>
+            </button>
+
+            <button
+              onClick={() => { setQuickFilter('landlines'); setStatusFilter([]); setQueueFilter('all'); }}
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
+                quickFilter === 'landlines'
+                  ? 'bg-sky-400 text-black font-bold shadow-md shadow-sky-400/20'
+                  : 'bg-[#141417] text-zinc-400 hover:text-white border border-white/10 hover:border-white/20'
+              }`}
+            >
+              <Phone size={13} className={quickFilter === 'landlines' ? 'text-black' : 'text-sky-400'} />
+              <span>Office Landlines</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${quickFilter === 'landlines' ? 'bg-black/20 text-black' : 'bg-sky-400/10 text-sky-400'}`}>
+                {filterCounts.landlines}
+              </span>
+            </button>
           </div>
 
-          <span className="text-[11px] text-zinc-400 font-mono px-3 hidden lg:inline shrink-0">
-            {displayedLeads.length} leads in queue
-          </span>
+          {/* Micro Queue Strip */}
+          <div className="p-1.5 rounded-2xl bg-[#0B0B0D] border border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 overflow-x-auto scrollbar-none">
+            <div className="flex items-center gap-1 flex-wrap sm:flex-nowrap">
+              {[
+                {
+                  id: 'ready_to_whatsapp',
+                  label: 'Ready to WhatsApp',
+                  icon: Zap,
+                  count: filterCounts.readyToWhatsApp,
+                  highlight: true,
+                },
+                {
+                  id: 'due_followup',
+                  label: 'Due Follow-Up',
+                  icon: Clock,
+                  count: filterCounts.contacted,
+                  highlight: false,
+                },
+                {
+                  id: 'active_pipeline',
+                  label: 'Booked & Proposals',
+                  icon: Calendar,
+                  count: filterCounts.activePipeline,
+                  highlight: false,
+                },
+                {
+                  id: 'needs_review',
+                  label: 'Needs Review',
+                  icon: AlertTriangle,
+                  count: filterCounts.needsReview,
+                  highlight: false,
+                },
+                {
+                  id: 'all',
+                  label: 'All Queue Leads',
+                  icon: Inbox,
+                  count: filterCounts.total,
+                  highlight: false,
+                },
+              ].map((q) => {
+                const isActive = queueFilter === q.id && statusFilter.length === 0 && quickFilter === 'all'
+                const Icon = q.icon
+                return (
+                  <button
+                    key={q.id}
+                    onClick={() => {
+                      setQueueFilter(q.id as ActionQueue)
+                      setQuickFilter('all')
+                      setStatusFilter([])
+                    }}
+                    className={`relative px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
+                      isActive
+                        ? q.highlight
+                          ? 'text-amber-300 font-bold bg-amber-400/15 border border-amber-400/30 shadow-sm'
+                          : 'text-white font-bold bg-[#141417] border border-white/20 shadow-sm'
+                        : q.highlight
+                        ? 'text-amber-400 hover:text-amber-300 hover:bg-white/5'
+                        : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/5'
+                    }`}
+                  >
+                    <Icon size={12} className={isActive ? (q.highlight ? 'text-amber-300' : 'text-[#DAA640]') : 'text-zinc-500'} />
+                    <span>{q.label}</span>
+                    <span
+                      className={`text-[10px] font-mono px-1.5 py-0.2 rounded-md ${
+                        isActive
+                          ? q.highlight
+                            ? 'bg-amber-400/25 text-amber-200 font-bold'
+                            : 'bg-white/10 text-white font-bold'
+                          : 'bg-white/5 text-zinc-400'
+                      }`}
+                    >
+                      {q.count}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+
+            <span className="text-[11px] text-zinc-400 font-mono px-3 hidden lg:inline shrink-0">
+              {displayedLeads.length} leads in queue
+            </span>
+          </div>
         </div>
       )}
 
@@ -741,23 +959,66 @@ export default function LeadsPage() {
         </button>
       </div>
 
-      {/* Toolbar & View Switcher */}
+      {/* Toolbar & Sub-Category / Sort Controls */}
       <div className="flex flex-wrap items-center gap-3">
         {/* Search */}
-        <div className="relative flex-1 min-w-[240px]">
+        <div className="relative flex-1 min-w-[220px]">
           <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" />
           <input
             type="text"
             placeholder="Search business name, phone, trade, postcode…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 bg-[#0B0B0D] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl text-sm text-white placeholder:text-zinc-500 outline-none transition-all"
+            className="w-full pl-9 pr-4 py-2 bg-[#0B0B0D] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl text-xs sm:text-sm text-white placeholder:text-zinc-500 outline-none transition-all"
           />
           {search && (
             <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white">
               <X size={14} />
             </button>
           )}
+        </div>
+
+        {/* Sub-Category / Trade Filter Dropdown */}
+        <div className="flex items-center gap-1.5">
+          <select
+            value={tradeFilter}
+            onChange={(e) => setTradeFilter(e.target.value)}
+            className="px-3 py-2 bg-[#0B0B0D] border border-white/10 hover:border-white/20 focus:border-[#DAA640]/50 rounded-xl text-xs font-medium text-white outline-none cursor-pointer [color-scheme:dark] transition-all"
+            title="Filter by Sub-Category / Trade"
+          >
+            <option value="All" className="bg-[#141417] text-white">All Sub-Categories ({leads.length})</option>
+            {availableTrades.map(([trade, count]) => (
+              <option key={trade} value={trade} className="bg-[#141417] text-white">
+                {trade} ({count})
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Sort Controls (Latest to Last / Direction Toggle) */}
+        <div className="flex items-center gap-1 bg-[#0B0B0D] p-1 rounded-xl border border-white/10">
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as any)}
+            className="bg-transparent text-xs text-zinc-300 font-medium px-2 py-1 outline-none cursor-pointer [color-scheme:dark]"
+            title="Sort leads by attribute"
+          >
+            <option value="created_at" className="bg-[#141417] text-white">Date Added</option>
+            <option value="rating" className="bg-[#141417] text-white">Rating</option>
+            <option value="reviews" className="bg-[#141417] text-white">Reviews</option>
+            <option value="name" className="bg-[#141417] text-white">Name</option>
+            <option value="trade" className="bg-[#141417] text-white">Sub-Category</option>
+          </select>
+
+          <button
+            onClick={() => setSortDirection(prev => prev === 'desc' ? 'asc' : 'desc')}
+            className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-white/5 hover:bg-white/10 text-zinc-200 border border-white/10 flex items-center gap-1 transition-all cursor-pointer"
+            title={sortDirection === 'desc' ? 'Currently sorting Latest First. Click for Oldest First (FIFO).' : 'Currently sorting Oldest First. Click for Latest First.'}
+          >
+            <ArrowUpDown size={12} className="text-[#DAA640]" />
+            <span className="hidden sm:inline">{sortDirection === 'desc' ? 'Latest to Last' : 'Oldest to Latest'}</span>
+            <span className="sm:hidden">{sortDirection === 'desc' ? 'Latest' : 'Oldest'}</span>
+          </button>
         </div>
 
         {/* View Toggle */}
@@ -837,10 +1098,9 @@ export default function LeadsPage() {
                 }
               }
 
-              const phone = lead.phone || ''
-              const cleanDigits = phone.replace(/[^0-9]/g, '')
-              const isMobile = cleanDigits.startsWith('447') || cleanDigits.startsWith('07')
-              const isLandline = !isMobile && cleanDigits.length > 5
+              const phoneInfo = classifyPhoneNumber(lead.phone)
+              const telUrl = buildTelUrl(lead.phone)
+              const isRetainedInSession = contactedInSessionIds.has(lead.id)
 
               const rawAddr = (lead.scraped_metadata?.address || '').trim()
               const rawNotes = (lead.notes || '').trim()
@@ -880,7 +1140,14 @@ export default function LeadsPage() {
                         </div>
                       </div>
 
-                      <StatusBadge status={lead.status} />
+                      {isRetainedInSession ? (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-400/15 text-amber-300 border border-amber-400/30 shrink-0 shadow-sm animate-pulse">
+                          <CheckCheck size={11} className="text-amber-400" />
+                          <span>Contacted (Active)</span>
+                        </span>
+                      ) : (
+                        <StatusBadge status={lead.status} />
+                      )}
                     </div>
 
                     {/* Lead Pathway Indicator */}
@@ -948,19 +1215,26 @@ export default function LeadsPage() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <span className="flex items-center gap-1.5 font-mono text-zinc-300 font-medium">
-                            <Phone size={12} className="text-zinc-500" /> {phone || 'No phone'}
+                            <Phone size={12} className={phoneInfo.isWhatsAppViable ? 'text-emerald-400' : 'text-sky-400'} />
+                            {phoneInfo.displayNational}
                           </span>
-                          {phone && (
-                            <span className="px-1.5 py-0.2 rounded text-[9px] font-medium bg-white/5 text-zinc-400">
-                              {isMobile ? 'Mobile' : 'Landline'}
-                            </span>
-                          )}
+                          <span
+                            className={`px-1.5 py-0.2 rounded text-[9px] font-mono font-medium ${
+                              phoneInfo.isWhatsAppViable
+                                ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                                : phoneInfo.type === 'uk_landline'
+                                ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
+                                : 'bg-white/5 text-zinc-400'
+                            }`}
+                          >
+                            {phoneInfo.badgeText}
+                          </span>
                         </div>
 
                         <div className="flex items-center gap-2">
-                          {isLandline && (
+                          {telUrl && (
                             <a
-                              href={`tel:${phone}`}
+                              href={telUrl}
                               className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-zinc-300 text-[10px] font-medium border border-white/10 flex items-center gap-1 transition-all"
                             >
                               <Phone size={10} /> Call
@@ -989,27 +1263,43 @@ export default function LeadsPage() {
                   <div className="pt-3 mt-3 border-t border-white/5 flex items-center gap-2">
                     <button
                       onClick={() => handleOpenOutreach(lead)}
-                      className="flex-1 py-2 px-3 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#141417] font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm cursor-pointer"
+                      className="flex-1 min-h-[38px] py-2 px-3 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#141417] font-semibold text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm cursor-pointer active:scale-95"
                     >
                       <Sparkles size={13} />
                       <span>Outreach</span>
                     </button>
 
-                    <button
-                      onClick={() => handleQuickWhatsApp(lead)}
-                      className="py-2 px-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs flex items-center justify-center gap-1 transition-all cursor-pointer"
-                      title="1-Click WhatsApp Opener"
-                    >
-                      <MessageSquare size={13} />
-                      <span className="hidden sm:inline">WhatsApp</span>
-                    </button>
+                    {phoneInfo.isWhatsAppViable ? (
+                      <button
+                        onClick={() => handleQuickWhatsApp(lead)}
+                        className="py-2 px-3 min-h-[38px] rounded-xl bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/40 text-emerald-300 font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95"
+                        title="1-Click WhatsApp Opener (Verified Mobile)"
+                      >
+                        <MessageSquare size={13} className="text-emerald-400" />
+                        <span className="hidden sm:inline">WhatsApp</span>
+                      </button>
+                    ) : telUrl ? (
+                      <a
+                        href={telUrl}
+                        className="py-2 px-3 min-h-[38px] rounded-xl bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 font-semibold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95"
+                        title="Direct Call to Landline Office"
+                      >
+                        <Phone size={13} className="text-sky-400" />
+                        <span className="hidden sm:inline">Call Office</span>
+                      </a>
+                    ) : (
+                      <div className="py-2 px-2 text-[10px] text-zinc-500 font-mono">
+                        No Direct Line
+                      </div>
+                    )}
 
                     <Link
                       href={`/admin/leads/${lead.id}`}
-                      className="py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 font-medium text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                      className="min-h-[38px] min-w-[38px] py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 font-medium text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                      title="Open Lead Dossier"
                     >
                       <ArrowUpRight size={13} />
-                      <span>Open</span>
+                      <span className="hidden xl:inline">Open</span>
                     </Link>
 
                     <DropdownMenu>
@@ -1094,43 +1384,68 @@ export default function LeadsPage() {
                   </div>
 
                   <div className="space-y-2.5 flex-1 overflow-y-auto max-h-[520px] scrollbar-thin">
-                    {columnLeads.map((lead) => (
-                      <div
-                        key={lead.id}
-                        className="p-3 rounded-xl border border-white/5 bg-[#141417] hover:border-white/15 transition-all space-y-2.5"
-                      >
-                        <div>
-                          <Link
-                            href={`/admin/leads/${lead.id}`}
-                            className="font-semibold text-xs text-white hover:text-[#DAA640] transition-colors line-clamp-1"
-                          >
-                            {lead.business_name || lead.name}
-                          </Link>
-                          <p className="text-[10px] text-zinc-400 truncate">{lead.phone || lead.email}</p>
-                        </div>
+                    {columnLeads.map((lead) => {
+                      const phoneInfo = classifyPhoneNumber(lead.phone)
+                      const telUrl = buildTelUrl(lead.phone)
+                      const isRetained = contactedInSessionIds.has(lead.id)
 
-                        <div className="flex items-center justify-between pt-2 border-t border-white/5 gap-1.5">
-                          <button
-                            onClick={() => handleOpenOutreach(lead)}
-                            className="px-2 py-1 rounded bg-[#DCAE53] hover:bg-[#E5B85C] text-[#141417] text-[10px] font-semibold flex items-center gap-1 transition-colors cursor-pointer"
-                          >
-                            <Sparkles size={10} /> Outreach
-                          </button>
-                          <button
-                            onClick={() => handleQuickWhatsApp(lead)}
-                            className="px-2 py-1 rounded bg-white/5 hover:bg-white/10 text-white text-[10px] font-medium flex items-center gap-1 transition-colors cursor-pointer"
-                          >
-                            <MessageSquare size={10} /> WhatsApp
-                          </button>
-                          <Link
-                            href={`/admin/leads/${lead.id}`}
-                            className="text-[10px] font-medium text-zinc-400 hover:text-white flex items-center gap-0.5 ml-auto"
-                          >
-                            <ArrowUpRight size={10} />
-                          </Link>
+                      return (
+                        <div
+                          key={lead.id}
+                          className="p-3 rounded-xl border border-white/5 bg-[#141417] hover:border-white/15 transition-all space-y-2.5"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between gap-1">
+                              <Link
+                                href={`/admin/leads/${lead.id}`}
+                                className="font-semibold text-xs text-white hover:text-[#DAA640] transition-colors line-clamp-1"
+                              >
+                                {lead.business_name || lead.name}
+                              </Link>
+                              {isRetained && (
+                                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" title="Contacted this session" />
+                              )}
+                            </div>
+                            <div className="flex items-center justify-between text-[10px] text-zinc-400 mt-0.5">
+                              <span className="truncate font-mono">{phoneInfo.displayNational}</span>
+                              <span className={`px-1 py-0.2 rounded text-[8px] font-mono shrink-0 ${phoneInfo.isWhatsAppViable ? 'text-emerald-400 bg-emerald-500/10' : 'text-sky-400 bg-sky-500/10'}`}>
+                                {phoneInfo.isWhatsAppViable ? 'Mob' : 'Land'}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between pt-2 border-t border-white/5 gap-1.5">
+                            <button
+                              onClick={() => handleOpenOutreach(lead)}
+                              className="px-2 py-1 rounded bg-[#DCAE53] hover:bg-[#E5B85C] text-[#141417] text-[10px] font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+                            >
+                              <Sparkles size={10} /> Pitch
+                            </button>
+                            {phoneInfo.isWhatsAppViable ? (
+                              <button
+                                onClick={() => handleQuickWhatsApp(lead)}
+                                className="px-2 py-1 rounded bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/30 text-emerald-300 text-[10px] font-bold flex items-center gap-1 transition-colors cursor-pointer"
+                              >
+                                <MessageSquare size={10} className="text-emerald-400" /> WhatsApp
+                              </button>
+                            ) : telUrl ? (
+                              <a
+                                href={telUrl}
+                                className="px-2 py-1 rounded bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 text-[10px] font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+                              >
+                                <Phone size={10} className="text-sky-400" /> Call
+                              </a>
+                            ) : null}
+                            <Link
+                              href={`/admin/leads/${lead.id}`}
+                              className="text-[10px] font-medium text-zinc-400 hover:text-white flex items-center gap-0.5 ml-auto"
+                            >
+                              <ArrowUpRight size={10} />
+                            </Link>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      )
+                    })}
                   </div>
                 </div>
               )
@@ -1195,7 +1510,10 @@ export default function LeadsPage() {
                     const hasWebsite = rawWebsite && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE'
                     const rating = lead.scraped_metadata?.rating ?? 5.0
                     const reviews = lead.scraped_metadata?.reviews_count ?? 0
-                    const phone = lead.phone || ''
+                    
+                    const phoneInfo = classifyPhoneNumber(lead.phone)
+                    const telUrl = buildTelUrl(lead.phone)
+                    const isRetained = contactedInSessionIds.has(lead.id)
 
                     return (
                       <tr
@@ -1224,11 +1542,15 @@ export default function LeadsPage() {
                               >
                                 {lead.business_name || lead.name}
                               </Link>
-                              {lead.status === 'Won' && (
+                              {isRetained ? (
+                                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-amber-400/15 text-amber-300 border border-amber-400/30">
+                                  <CheckCheck size={10} className="text-amber-400" /> CONTACTED
+                                </span>
+                              ) : lead.status === 'Won' ? (
                                 <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                                   <span className="w-1 h-1 rounded-full bg-emerald-400" /> WON
                                 </span>
-                              )}
+                              ) : null}
                             </div>
                             <div className="flex items-center gap-2 text-[11px] text-zinc-400">
                               <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/5 font-medium text-zinc-400 uppercase tracking-wider text-[9px] max-w-[120px] truncate">
@@ -1241,20 +1563,38 @@ export default function LeadsPage() {
                           </div>
                         </td>
 
-                        {/* Phone & Direct WhatsApp */}
+                        {/* Phone & Direct Outreach Channel */}
                         <td className="px-4 py-3.5" onClick={(e) => e.stopPropagation()}>
                           <div className="space-y-1">
                             <div className="flex items-center gap-1.5 font-mono text-xs text-zinc-200">
-                              <Phone size={11} className="text-zinc-500" />
-                              {phone || <span className="text-zinc-500 italic">No phone</span>}
+                              <Phone size={11} className={phoneInfo.isWhatsAppViable ? 'text-emerald-400' : 'text-sky-400'} />
+                              <span>{phoneInfo.displayNational}</span>
+                              <span
+                                className={`px-1.5 py-0.2 rounded text-[9px] font-mono ${
+                                  phoneInfo.isWhatsAppViable
+                                    ? 'bg-emerald-500/10 text-emerald-400'
+                                    : 'bg-sky-500/10 text-sky-400'
+                                }`}
+                              >
+                                {phoneInfo.isWhatsAppViable ? 'Mobile' : 'Landline'}
+                              </span>
                             </div>
-                            {phone && (
+                            {phoneInfo.isWhatsAppViable ? (
                               <button
                                 onClick={() => handleQuickWhatsApp(lead)}
-                                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 text-[10px] font-medium transition-all cursor-pointer"
+                                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/30 text-emerald-300 text-[10px] font-bold transition-all cursor-pointer"
                               >
-                                <MessageSquare size={10} /> Chat WhatsApp
+                                <MessageSquare size={10} className="text-emerald-400" /> WhatsApp
                               </button>
+                            ) : telUrl ? (
+                              <a
+                                href={telUrl}
+                                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 text-[10px] font-medium transition-all cursor-pointer"
+                              >
+                                <Phone size={10} className="text-sky-400" /> Call Office
+                              </a>
+                            ) : (
+                              <span className="text-[10px] text-zinc-500 italic">No direct line</span>
                             )}
                           </div>
                         </td>

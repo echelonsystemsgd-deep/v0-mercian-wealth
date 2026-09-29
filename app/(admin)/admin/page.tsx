@@ -1,17 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
-import { ExternalLink } from 'lucide-react'
-import Link from 'next/link'
-import { ActivityLogPanel } from '@/components/admin/activity-log-panel'
-import { AdminKpiRow } from '@/components/admin/kpi-row'
-import { AdminAlertBanner } from '@/components/admin/alert-banner'
-import { TodayScheduleStrip } from '@/components/admin/today-schedule-strip'
-import { ClientHealthGrid } from '@/components/admin/client-health-grid'
-import { AttentionPanel } from '@/components/admin/attention-panel'
-import { TransactionsFeed } from '@/components/admin/transactions-feed'
-import { OutreachFunnelChart } from '@/components/admin/charts/outreach-funnel-chart'
-import { OutreachAreaChart } from '@/components/admin/charts/outreach-area-chart'
-import { TodayOutreachStrip } from '@/components/admin/today-outreach-strip'
-import { RevenueThermometer } from '@/components/admin/revenue-thermometer'
+import { CommandCenterCockpit } from '@/components/admin/command-center-cockpit'
+import { calculateWealthMilestone } from '@/lib/wealth-milestones'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -147,14 +136,14 @@ export default async function AdminDashboardPage() {
     .gte('scheduled_at', new Date().toISOString())
     .lte('scheduled_at', new Date(Date.now() + 60 * 60 * 1000).toISOString())
 
-  // Priority fresh leads for Today's Outreach Sprint (Prioritize verified mobile)
+  // Priority fresh leads for Today's Outreach Sprint (Prioritize verified mobile leads)
   const { data: rawFreshLeads } = await supabase
     .from('leads')
     .select('id, name, business_name, phone, website, local_business_niche, status, scraped_metadata')
     .eq('status', 'New')
     .eq('is_archived', false)
     .order('created_at', { ascending: false })
-    .limit(10)
+    .limit(30)
 
   const priorityOutreachLeads = (rawFreshLeads || [])
     .sort((a, b) => {
@@ -162,7 +151,8 @@ export default async function AdminDashboardPage() {
       const bClean = (b.phone || '').replace(/[^0-9]/g, '')
       const aMob = aClean.startsWith('447') || aClean.startsWith('07') ? 1 : 0
       const bMob = bClean.startsWith('447') || bClean.startsWith('07') ? 1 : 0
-      return bMob - aMob
+      if (aMob !== bMob) return bMob - aMob
+      return 0
     })
     .slice(0, 4)
 
@@ -242,93 +232,32 @@ export default async function AdminDashboardPage() {
       : (p.projects as { project_name: string } | null),
   }))
 
+  const activeRetainersCount = projectsFinancials?.filter((p) => p.contract_type === 'retainer').length || 0
+  const milestone = calculateWealthMilestone(new Date(), totalSales, totalPipeline)
+
   return (
-    <div className="space-y-6 sm:space-y-8 relative">
-      {/* ── Page Header (Clean Executive Typography, No Orange Eyebrow) ─────── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="space-y-1">
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
-            Command Center
-          </h1>
-          <p className="text-sm text-zinc-400">
-            Live pipeline telemetry, transactional logs, and system controls.
-          </p>
-        </div>
-
-        <Link
-          href="/"
-          target="_blank"
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold rounded-xl bg-white/5 hover:bg-white/10 text-zinc-200 border border-white/10 transition-all duration-200 self-end sm:self-center cursor-pointer"
-        >
-          View Public Site <ExternalLink size={12} />
-        </Link>
-      </div>
-
-      {/* ── Alert Banner (shows only when there is something urgent) ─────────── */}
-      {hasAlerts && (
-        <AdminAlertBanner
-          unreadMessagesCount={totalUnreadMessages}
-          pendingApprovalsCount={totalSubmittedActionRequests}
-          coldLeadsCount={coldLeadsCount ?? 0}
-          imminentSessionCount={imminentSessionCount ?? 0}
-        />
-      )}
-
-      {/* ── KPI Row (Rexora Benchmark with Dedicated Icons & Card Depth) ───── */}
-      <AdminKpiRow
-        totalSales={totalSales}
-        totalPipeline={totalPipeline}
-        projectedMRR={projectedMRR}
-        leadsCount={leadsCount}
-        projectsCount={projectsCount}
-        sessionsCount={sessionsCount}
-        projectsFinancials={kpiFinancials}
-        recentPayments={safePayments}
-      />
-
-      {/* ── Today's Schedule Strip ───────────────────────────────────────────── */}
-      <TodayScheduleStrip sessions={safeTodaySessions} />
-
-      {/* ── Today's Priority Outreach Sprint ─────────────────────────────────── */}
-      <TodayOutreachStrip leads={priorityOutreachLeads} />
-
-      {/* ── Revenue Goal Thermometer & Live Service Health ───────────────────── */}
-      <RevenueThermometer totalCollected={totalSales} projectedMRR={projectedMRR} />
-
-      {/* ── Outreach Telemetry Visualizations (bklit.com standard) ──────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-7">
-          <OutreachAreaChart />
-        </div>
-        <div className="lg:col-span-5">
-          <OutreachFunnelChart stages={funnelStages} />
-        </div>
-      </div>
-
-      {/* ── Main Operations Grid ────────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div>
-          <ClientHealthGrid clients={clientHealthData} maxItems={3} showViewAll />
-        </div>
-        <div>
-          <AttentionPanel
-            unreadMessagesCount={totalUnreadMessages}
-            pendingApprovalsCount={totalSubmittedActionRequests}
-            coldLeadsCount={coldLeadsCount ?? 0}
-            todaySessionCount={safeTodaySessions.length}
-          />
-        </div>
-        <div className="md:col-span-2 lg:col-span-1">
-          <TransactionsFeed
-            payments={safePayments}
-            totalCollected={totalSales}
-            totalContractValue={totalContractValue}
-          />
-        </div>
-      </div>
-
-      {/* ── Activity Log ─────────────────────────────────────────────────────── */}
-      <ActivityLogPanel initialLogs={recentLogs} />
-    </div>
+    <CommandCenterCockpit
+      hasAlerts={hasAlerts}
+      totalUnreadMessages={totalUnreadMessages}
+      totalSubmittedActionRequests={totalSubmittedActionRequests}
+      coldLeadsCount={coldLeadsCount ?? 0}
+      imminentSessionCount={imminentSessionCount ?? 0}
+      totalSales={totalSales}
+      totalPipeline={totalPipeline}
+      projectedMRR={projectedMRR}
+      leadsCount={leadsCount}
+      projectsCount={projectsCount}
+      sessionsCount={sessionsCount}
+      kpiFinancials={kpiFinancials}
+      safePayments={safePayments}
+      safeTodaySessions={safeTodaySessions}
+      priorityOutreachLeads={priorityOutreachLeads}
+      activeRetainersCount={activeRetainersCount}
+      targetMRR={milestone.currentMonthlyTarget}
+      funnelStages={funnelStages}
+      clientHealthData={clientHealthData}
+      totalContractValue={totalContractValue}
+      recentLogs={recentLogs || []}
+    />
   )
 }

@@ -39,6 +39,7 @@ import {
   identifyDeterministicFrictions
 } from '@/lib/auditor/deterministic'
 import { WhatsAppSequenceBlocks } from '@/components/admin/whatsapp-sequence-blocks'
+import { classifyPhoneNumber, buildWhatsAppOpenerUrl, buildTelUrl } from '@/lib/phone-classifier'
 
 export interface OutreachLead {
   id: string
@@ -340,12 +341,15 @@ export function OutreachModal({
 
   // WhatsApp sender with auto-status advancement to Contacted
   const handleSendWhatsApp = (text?: string) => {
+    const phoneInfo = classifyPhoneNumber(lead?.phone)
+    if (!phoneInfo.isWhatsAppViable) {
+      alert(`☎️ This lead has a UK Landline (${phoneInfo.displayNational}). Standard WhatsApp is unavailable for landlines.\n\nPlease use the Call Bridge tab to place a direct phone call, or Email outreach.`)
+      setActiveChannelTab('call_bridge')
+      return
+    }
+
     const msg = text || whatsAppSequence.message1.text
-    const cleanDigits = (lead?.phone || '').replace(/[^0-9]/g, '')
-    const targetPhone = cleanDigits.startsWith('07') ? `44${cleanDigits.slice(1)}` : cleanDigits
-    const url = targetPhone
-      ? `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`
-      : `https://wa.me/?text=${encodeURIComponent(msg)}`
+    const url = buildWhatsAppOpenerUrl(lead?.phone, businessName, ownerName) || `https://wa.me/?text=${encodeURIComponent(msg)}`
     window.open(url, '_blank', 'noopener,noreferrer')
 
     if (lead?.status === 'New') {
@@ -387,12 +391,18 @@ export function OutreachModal({
                   <MapPin size={12} className="text-[#DCAE53]" />
                   {city}
                 </span>
-                {lead.phone && (
-                  <span className="flex items-center gap-1 text-zinc-300">
-                    <Phone size={12} className="text-[#DCAE53]" />
-                    {lead.phone}
-                  </span>
-                )}
+                {lead.phone && (() => {
+                  const pInfo = classifyPhoneNumber(lead.phone)
+                  return (
+                    <span className="flex items-center gap-1.5 font-mono">
+                      <Phone size={12} className={pInfo.isWhatsAppViable ? 'text-emerald-400' : 'text-sky-400'} />
+                      <span className="text-zinc-200">{pInfo.displayNational}</span>
+                      <span className={`px-1.5 py-0.2 rounded text-[9px] ${pInfo.isWhatsAppViable ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-sky-500/10 text-sky-400 border border-sky-500/20'}`}>
+                        {pInfo.badgeText}
+                      </span>
+                    </span>
+                  )
+                })()}
                 {hasRawWebsite && (
                   <a
                     href={rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite}`}

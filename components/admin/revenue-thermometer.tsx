@@ -21,16 +21,20 @@ interface RevenueThermometerProps {
   projectedMRR: number
   targetMRR?: number
   activeRetainersCount?: number
+  realizedPipeline?: number
+  onOpenVisionModal?: () => void
 }
 
 export function RevenueThermometer({
   totalCollected,
   projectedMRR,
   targetMRR = 10000,
-  activeRetainersCount = 3,
+  activeRetainersCount = 0,
+  realizedPipeline = 495,
+  onOpenVisionModal,
 }: RevenueThermometerProps) {
   const [logModalOpen, setLogModalOpen] = useState(false)
-  const currentMonthSales = totalCollected || 3600
+  const currentMonthSales = totalCollected
   const progressPct = Math.min(100, Math.round((currentMonthSales / targetMRR) * 100))
 
   return (
@@ -39,24 +43,42 @@ export function RevenueThermometer({
       <div className="lg:col-span-7 rounded-2xl bg-[#0B0B0D] border border-white/10 p-5 space-y-4 shadow-sm relative overflow-hidden flex flex-col justify-between">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+            <div className="w-7 h-7 rounded-lg bg-[#DAA640]/10 border border-[#DAA640]/20 text-[#DAA640] flex items-center justify-center shrink-0">
               <Target size={14} />
             </div>
             <div>
-              <h3 className="text-xs font-mono uppercase tracking-wider text-zinc-400 font-semibold">
-                Monthly Recurring Goal (£10,000 / mo)
-              </h3>
+              <div className="flex items-center gap-2">
+                <h3 className="text-xs font-mono uppercase tracking-wider text-zinc-400 font-semibold">
+                  Monthly Recurring Goal (£{targetMRR.toLocaleString('en-GB')} / mo)
+                </h3>
+                <span className="hidden sm:inline-flex px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-[#DAA640]/10 text-[#DAA640] border border-[#DAA640]/20">
+                  Every 28th +£10k
+                </span>
+              </div>
               <p className="text-sm font-bold text-white font-sans">
                 Target Progress: <span className="text-emerald-400">{progressPct}%</span>
+                {realizedPipeline > 0 && (
+                  <span className="text-xs font-mono text-zinc-400 font-normal ml-2">
+                    (Pipeline: <strong className="text-white">£{realizedPipeline}</strong> Sell Your Stamps UK)
+                  </span>
+                )}
               </p>
             </div>
           </div>
 
-          <div className="text-right">
+          <div className="text-right flex flex-col items-end gap-1">
             <span className="text-xs text-zinc-400 font-mono block">Collected</span>
             <span className="text-base font-bold text-white font-mono">
               £{currentMonthSales.toLocaleString()} <span className="text-xs text-zinc-500 font-normal">/ £{targetMRR.toLocaleString()}</span>
             </span>
+            {onOpenVisionModal && (
+              <button
+                onClick={onOpenVisionModal}
+                className="mt-1 px-2.5 py-1 min-h-[32px] rounded-lg bg-[#DAA640]/15 hover:bg-[#DAA640]/25 text-[#DAA640] border border-[#DAA640]/30 text-[10px] font-mono font-bold flex items-center gap-1 transition-all cursor-pointer"
+              >
+                <span>👑 £10k → £100k Vision</span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -71,7 +93,7 @@ export function RevenueThermometer({
           <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400">
             <span>£0</span>
             <span>£5,000 (Halfway Milestone)</span>
-            <span className="text-emerald-400 font-bold">£10k Goal</span>
+            <span className="text-emerald-400 font-bold">£{targetMRR >= 100000 ? '100k' : '10k'} Goal</span>
           </div>
         </div>
 

@@ -19,6 +19,7 @@ import {
 } from 'lucide-react'
 import type { Lead } from '@/app/(admin)/admin/leads/page'
 import { getLeadPathway } from '@/app/(admin)/admin/leads/page'
+import { classifyPhoneNumber, buildWhatsAppOpenerUrl, buildTelUrl } from '@/lib/phone-classifier'
 
 interface OutreachSprintRunnerProps {
   isOpen: boolean
@@ -77,22 +78,14 @@ export function OutreachSprintRunner({
   const handleSendAndAdvance = async () => {
     if (!activeLead) return
 
-    const phone = activeLead.phone || ''
-    const cleanDigits = phone.replace(/[^0-9]/g, '')
-    const targetPhone = cleanDigits.startsWith('07') ? `44${cleanDigits.slice(1)}` : cleanDigits
-
-    const ownerName = activeLead.name && activeLead.name !== activeLead.business_name && !activeLead.name.includes('Owner')
-      ? activeLead.name.split(' ')[0]
-      : ''
-    const businessName = activeLead.business_name || 'your business'
-    const opener = ownerName
-      ? `Hi ${ownerName} 👋, is this ${businessName}?`
-      : `Hi 👋, is this ${businessName}?`
-
-    const url = targetPhone
-      ? `https://wa.me/${targetPhone}?text=${encodeURIComponent(opener)}`
-      : `https://wa.me/?text=${encodeURIComponent(opener)}`
-    window.open(url, '_blank')
+    const phoneInfo = classifyPhoneNumber(activeLead.phone)
+    if (phoneInfo.isWhatsAppViable) {
+      const url = buildWhatsAppOpenerUrl(activeLead.phone, activeLead.business_name || activeLead.name, activeLead.name)
+      if (url) window.open(url, '_blank')
+    } else {
+      const tel = buildTelUrl(activeLead.phone)
+      if (tel) window.location.href = tel
+    }
 
     // Advance status to Contacted
     await onUpdateStatus(activeLead.id, 'Contacted')
@@ -213,16 +206,24 @@ export function OutreachSprintRunner({
                   })()}
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 text-xs text-zinc-400 pt-2 border-t border-white/5 font-mono">
-                  <div className="flex items-center gap-1.5 text-zinc-200">
-                    <Phone size={12} className="text-[#DAA640]" />
-                    <span>{activeLead.phone || 'No phone'}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 truncate">
-                    <MapPin size={12} className="text-zinc-500 shrink-0" />
-                    <span className="truncate">{activeLead.scraped_metadata?.address || 'UK Area'}</span>
-                  </div>
-                </div>
+                {(() => {
+                  const phoneInfo = classifyPhoneNumber(activeLead.phone)
+                  return (
+                    <div className="flex items-center justify-between text-xs text-zinc-400 pt-2 border-t border-white/5 font-mono">
+                      <div className="flex items-center gap-1.5 text-zinc-200">
+                        <Phone size={12} className={phoneInfo.isWhatsAppViable ? 'text-emerald-400' : 'text-sky-400'} />
+                        <span>{phoneInfo.displayNational}</span>
+                        <span className={`px-1.5 py-0.2 rounded text-[9px] font-mono ${phoneInfo.isWhatsAppViable ? 'bg-emerald-500/10 text-emerald-400' : 'bg-sky-500/10 text-sky-400'}`}>
+                          {phoneInfo.badgeText}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1.5 truncate">
+                        <MapPin size={12} className="text-zinc-500 shrink-0" />
+                        <span className="truncate">{activeLead.scraped_metadata?.address || 'UK Area'}</span>
+                      </div>
+                    </div>
+                  )
+                })()}
               </div>
 
               {/* Ready-to-Send Opener Box */}
@@ -267,13 +268,22 @@ export function OutreachSprintRunner({
                 <ChevronRight size={14} />
               </button>
 
-              <button
-                onClick={handleSendAndAdvance}
-                className="px-5 py-2 rounded-xl bg-[#DAA640] hover:bg-[#F5D90A] text-black text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-[#DAA640]/20 cursor-pointer"
-              >
-                <Send size={13} />
-                <span>Send WhatsApp &amp; Next</span>
-              </button>
+              {(() => {
+                const phoneInfo = classifyPhoneNumber(activeLead?.phone)
+                return (
+                  <button
+                    onClick={handleSendAndAdvance}
+                    className={`px-5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-md cursor-pointer ${
+                      phoneInfo.isWhatsAppViable
+                        ? 'bg-[#DAA640] hover:bg-[#F5D90A] text-black shadow-[#DAA640]/20'
+                        : 'bg-sky-500 hover:bg-sky-400 text-white shadow-sky-500/20'
+                    }`}
+                  >
+                    {phoneInfo.isWhatsAppViable ? <Send size={13} /> : <Phone size={13} />}
+                    <span>{phoneInfo.isWhatsAppViable ? 'Send WhatsApp & Next' : 'Call Office & Next'}</span>
+                  </button>
+                )
+              })()}
             </div>
           </div>
         )}

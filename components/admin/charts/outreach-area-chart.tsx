@@ -17,12 +17,12 @@ interface OutreachAreaChartProps {
 }
 
 const DEFAULT_DATA: AreaDataPoint[] = [
-  { date: 'Aug 17', label: 'Week 1', outreachSent: 28, pipelineValue: 4500 },
-  { date: 'Aug 24', label: 'Week 2', outreachSent: 42, pipelineValue: 9800 },
-  { date: 'Aug 31', label: 'Week 3', outreachSent: 65, pipelineValue: 16500 },
-  { date: 'Sep 07', label: 'Week 4', outreachSent: 54, pipelineValue: 14200 },
-  { date: 'Sep 14', label: 'Week 5', outreachSent: 82, pipelineValue: 24500 },
-  { date: 'Sep 21', label: 'Week 6', outreachSent: 96, pipelineValue: 32000 },
+  { date: 'Aug 17', label: 'Week 1', outreachSent: 28, pipelineValue: 0 },
+  { date: 'Aug 24', label: 'Week 2', outreachSent: 42, pipelineValue: 0 },
+  { date: 'Aug 31', label: 'Week 3', outreachSent: 65, pipelineValue: 0 },
+  { date: 'Sep 07', label: 'Week 4', outreachSent: 54, pipelineValue: 0 },
+  { date: 'Sep 14', label: 'Week 5', outreachSent: 82, pipelineValue: 0 },
+  { date: 'Sep 21', label: 'Week 6', outreachSent: 96, pipelineValue: 495 },
 ]
 
 export function OutreachAreaChart({

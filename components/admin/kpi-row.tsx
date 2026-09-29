@@ -18,6 +18,7 @@ import {
   Plus,
   ExternalLink,
   ArrowUpRight,
+  Crown,
 } from 'lucide-react'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -53,6 +54,7 @@ interface AdminKpiRowProps {
   sessionsCount: number | null
   projectsFinancials: ProjectFinancial[] | null
   recentPayments: Payment[] | null
+  onOpenVisionModal?: () => void
 }
 
 // ── Component ──────────────────────────────────────────────────────────────────
@@ -66,6 +68,7 @@ export function AdminKpiRow({
   sessionsCount,
   projectsFinancials,
   recentPayments,
+  onOpenVisionModal,
 }: AdminKpiRowProps) {
   const [expandedPanel, setExpandedPanel] = useState<'sales' | 'pipeline' | null>(null)
   const [activeModal, setActiveModal] = useState<'leads' | 'projects' | 'bookings' | 'mrr' | null>(null)
@@ -273,7 +276,13 @@ export function AdminKpiRow({
 
         {/* Monthly Retainers */}
         <button
-          onClick={() => handleOpenPreviewModal('mrr')}
+          onClick={() => {
+            if (onOpenVisionModal) {
+              onOpenVisionModal()
+            } else {
+              handleOpenPreviewModal('mrr')
+            }
+          }}
           className="card-depth p-4 sm:p-5 flex flex-col justify-between gap-3 text-left cursor-pointer min-h-[132px] relative group"
         >
           <div className="flex items-start justify-between w-full">
@@ -291,10 +300,10 @@ export function AdminKpiRow({
           </div>
           <div className="flex items-center justify-between pt-2 border-t border-white/5 w-full">
             <span className="inline-flex items-center gap-1 text-[10px] font-mono text-[#DAA640] bg-[#DAA640]/10 px-1.5 py-0.5 rounded border border-[#DAA640]/20">
-              <TrendingUp size={10} /> Retainers
+              <Crown size={10} /> £10k → £100k
             </span>
             <span className="text-[10px] font-mono text-zinc-500 group-hover:text-[#DAA640] transition-colors flex items-center gap-0.5">
-              Forecast <ArrowUpRight size={10} />
+              Vision <ArrowUpRight size={10} />
             </span>
           </div>
         </button>
