@@ -125,7 +125,7 @@ export function WhyMercianWealth() {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.5 }}
             className="space-y-4 sm:space-y-6 text-left"
           >
@@ -144,7 +144,7 @@ export function WhyMercianWealth() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.5 }}
             className="space-y-3 sm:space-y-4"
           >
@@ -153,7 +153,7 @@ export function WhyMercianWealth() {
                 key={index}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.2 }}
+                viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 rounded-xl border border-slate-800 bg-[#111115] hover:border-[#DCAE53]/40 transition-all duration-300 text-left shadow-lg"
               >
@@ -175,7 +175,7 @@ export function WhyMercianWealth() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-14 pt-14 border-t border-slate-800/80 grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-left"
         >

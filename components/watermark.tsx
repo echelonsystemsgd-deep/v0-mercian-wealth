@@ -10,30 +10,30 @@ interface WatermarkProps {
   opacity?: number;
 }
 
-export function Watermark({ position = "center", className = "", opacity = 0.25 }: WatermarkProps) {
+export function Watermark({ position = "center", className = "", opacity = 0.15 }: WatermarkProps) {
   // Always use static public/ path directly — no Supabase CMS dependency.
   // This ensures Vercel and localhost render identically.
   const src = BRAND_WATERMARK
 
   const getPositionClasses = () => {
     switch (position) {
-      case "top-left": return "top-0 left-0 -translate-x-1/4 -translate-y-1/4";
-      case "top-right": return "top-0 right-0 translate-x-1/4 -translate-y-1/4";
-      case "bottom-left": return "bottom-0 left-0 -translate-x-1/4 translate-y-1/4";
-      case "bottom-right": return "bottom-0 right-0 translate-x-1/4 translate-y-1/4";
-      case "center": return "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2";
+      case "top-left": return "items-start justify-start";
+      case "top-right": return "items-start justify-end";
+      case "bottom-left": return "items-end justify-start";
+      case "bottom-right": return "items-end justify-end";
+      case "center": return "items-center justify-center";
       case "custom": return "";
-      default: return "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2";
+      default: return "items-center justify-center";
     }
   }
 
   return (
-    <div className={`absolute pointer-events-none z-[-10] ${getPositionClasses()} ${className}`}>
+    <div className={`fixed inset-0 overflow-hidden pointer-events-none z-[-10] flex ${getPositionClasses()} ${className}`}>
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: opacity, scale: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
-        className="relative w-[600px] h-[600px] md:w-[900px] md:h-[900px] lg:w-[1100px] lg:h-[1100px] rounded-full overflow-hidden blur-[2px]"
+        className="relative w-[280px] h-[280px] sm:w-[480px] sm:h-[480px] md:w-[700px] md:h-[700px] lg:w-[850px] lg:h-[850px] max-w-[90vw] max-h-[90vh] rounded-full overflow-hidden blur-[2px]"
       >
         <Image
           src={src}

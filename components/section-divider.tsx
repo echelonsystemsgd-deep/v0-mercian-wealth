@@ -28,7 +28,7 @@ export function SectionDivider({ id, chapter, title, className = "" }: SectionDi
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, margin: "-20px" }}
           transition={{ duration: 0.5 }}
           className="relative px-4 sm:px-6 py-1.5 rounded-full bg-[#111115] border border-[#DCAE53]/30 shadow-[0_0_20px_rgba(220,174,83,0.15)] flex items-center justify-center gap-2.5 z-10 backdrop-blur-md max-w-[90%] sm:max-w-full text-center"
         >

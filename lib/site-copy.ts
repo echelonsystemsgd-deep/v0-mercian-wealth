@@ -11,13 +11,13 @@ export const SITE_COPY = {
   // Global Meta Info
   metadata: {
     layout: {
-      defaultTitle: "Mercian Wealth · Local Storefronts & Booking",
+      defaultTitle: "Mercian Wealth · Conversion Infrastructure & Mobile Storefronts",
       titleTemplate: "%s · Mercian Wealth",
-      description: "We build sub-second mobile storefronts, 3-tap booking builders, instant WhatsApp lead capture, and upfront deposit engines for UK local businesses. Test a live prototype on your phone.",
+      description: "When AI search compresses attention, your website is the only barrier between paid and the back button. Sub-second mobile storefronts, 3-tap booking builders, and upfront deposit engines.",
     },
     home: {
-      title: "Mercian Wealth · Local Storefronts & Booking",
-      description: "We help UK local businesses stop losing jobs to slow response. Mobile storefronts, 3-tap booking builders, instant WhatsApp alerts, and deposit collection.",
+      title: "Mercian Wealth · Your Website Is Between Paid and the Back Button",
+      description: "AI became the decision maker. Attention compressed. We build sub-second mobile storefronts, 3-tap booking builders, and upfront deposit systems that lock high-intent buyers before they bounce.",
     },
     services: {
       title: "Storefronts & Booking Engines",
@@ -80,16 +80,16 @@ export const SITE_COPY = {
 
     // 1. Hero Section (Outcomes-First)
     hero: {
-      eyebrow: "BUILT FOR UK TRADES & LOCAL BUSINESSES",
-      headline: "We help local businesses stop losing jobs to whoever replies first.",
-      subheadline: "Sub-second mobile storefronts, 3-tap booking builders, instant WhatsApp lead dispatch, and upfront deposit collection—engineered so you never lose a job to whoever replies first.",
+      eyebrow: "THE AI SEARCH ERA · CONVERSION INFRASTRUCTURE",
+      headline: "Your website is the only thing between paid and the back button.",
+      subheadline: "AI became the decision maker. Attention spans compressed. Visitors arrive pre-vetted with credit cards half out—not to browse for 15 minutes, but to buy. If your mobile site is slow, vague, or friction-heavy, you lose them instantly. We engineer sub-second mobile storefronts, 3-tap booking builders, and upfront deposit systems that lock revenue before they bounce.",
       primaryCtaText: "Book a 15-Min Discovery Call",
       primaryCtaHref: "/book",
       secondaryCtaText: "See a free prototype for your business",
       secondaryCtaHref: "#prototype-modal",
       whatsappCtaText: "Message on WhatsApp",
       whatsappHref: "https://wa.me/447851055929",
-      proofBadge: "Instant Mobile Booking · Upfront Stripe Deposits · <5s WhatsApp Dispatch",
+      proofBadge: "Sub-Second Storefronts · Instant Qualification · Upfront Stripe Deposits · <5s Lead Dispatch",
       trustItems: [
         "Sub-Second Mobile Storefronts",
         "3-Tap Booking & Order Builders",
@@ -101,33 +101,33 @@ export const SITE_COPY = {
 
     // 2. What Changed (SYSTEM I)
     whatChanged: {
-      eyebrow: "4 MARKET SHIFTS",
-      headline: "The rules of customer acquisition shifted. Waiting is now an active choice to lose revenue.",
-      subheadline: "Every business feels the shift in customer expectations. The operators who convert mobile visitors instantly capture market share while traditional setups leak lucrative jobs.",
+      eyebrow: "THE AI CONVERSION SHIFT",
+      headline: "AI compressed attention spans. Your website is now the trust-and-conversion hub.",
+      subheadline: "When was the last time someone browsed 10 tabs for 15 minutes? AI search delivers pre-vetted answers in seconds. When visitors click through, their credit cards are half out. If your mobile storefront doesn't earn trust and capture commitment immediately, that buyer is gone.",
       shifts: [
         {
-          outcome: "Revenue Increased",
-          tag: "3-TAP MOBILE STOREFRONTS",
-          title: "Customers Don't Fill Out Long Contact Forms On Mobile",
-          description: "The vast majority of local customers research and book on smartphones. When prospective clients face clunky contact forms, they leave. 3-tap order builders let customers select services and book in seconds.",
+          outcome: "Trust Secured",
+          tag: "AI ATTENTION COMPRESSION",
+          title: "Visitors Arrive Decision-Ready, Not Browsing",
+          description: "AI became everyone's search engine and decision maker. Visitors no longer spend 15 minutes browsing websites. They arrive pre-vetted with high intent, credit cards half out—ready to purchase or book immediately.",
         },
         {
-          outcome: "Risk Removed",
-          tag: "INSTANT LEAD DISPATCH",
-          title: "High-Value Enquiries Arrive Outside Working Hours",
-          description: "Over 45% of customer enquiries arrive after 6 PM, at weekends, or while you're busy on-site. Instant WhatsApp alerts route qualified project details to your phone so you can lock the job first.",
+          outcome: "Revenue Captured",
+          tag: "3-TAP MOBILE STOREFRONT",
+          title: "The Only Thing Between Paid and the Back Button",
+          description: "You only have seconds to earn trust. If your site is slow, generic, or forces visitors to type paragraphs into clunky forms, they filter you out instantly. 3-tap mobile order builders let clients select services and book before attention wanders.",
         },
         {
-          outcome: "Cost Reduced",
-          tag: "ADMIN DRAG ELIMINATED",
-          title: "Manual Follow-Ups & Scheduling Bleed Hundreds of Hours",
-          description: "Chasing quotes, playing telephone tag, and typing data into spreadsheets is avoidable operational waste. Automated workflows handle scheduling, CRM updates, and reminders hands-off.",
+          outcome: "Commitment Locked",
+          tag: "UPFRONT DEPOSIT ENGINES",
+          title: "High-Intent Buyers Expect Instant Confirmation",
+          description: "Waiting hours for an emailed quote loses the customer to whoever answers first. Upfront Stripe deposit collection locks their commitment on the spot and eliminates costly no-shows.",
         },
         {
-          outcome: "Risk Removed",
+          outcome: "Jobs Won",
           tag: "SPEED-TO-LEAD ADVANTAGE",
-          title: "The Business That Answers First Keeps The Customer",
-          description: "Responding within 60 seconds increases conversion by up to 391%. In local services, the first business to engage and confirm the booking wins the job.",
+          title: "Sub-5-Second Smartphone Alerts Win the Commercial Race",
+          description: "Over 45% of high-value enquiries arrive evenings and weekends. Sub-5-second WhatsApp alerts dispatch qualified specs straight to your phone so you secure the job while competitors sleep.",
         },
       ],
     },
@@ -165,8 +165,8 @@ export const SITE_COPY = {
     bottleneck: {
       eyebrow: "WHERE REVENUE LEAKS",
       headline: "Four Places Your Business Leaks Revenue Every Single Week.",
-      subheadline: "Most owners think they have a lead generation problem. In reality, they are losing customers who already want to buy, but hit friction before anyone replies.",
-      goldSlogan: "Whilst competitors let enquiries sit in inboxes, your system converts instantly, confirms details, and secures deposits.",
+      subheadline: "Most business owners think they have a traffic problem. In reality, visitors arrive pre-vetted and ready to buy, but bounce because clunky mobile friction and slow response stand between them and booking.",
+      goldSlogan: "Whilst competitors let enquiries slip away to whoever replies first, your system converts instantly, confirms specs, and secures deposits.",
       systemMode: "Mode: ",
       modeAutomated: "Automated Storefront Active",
       modeManual: "Manual Booking Drag",

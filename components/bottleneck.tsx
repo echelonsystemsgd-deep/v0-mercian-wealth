@@ -48,7 +48,7 @@ export function Bottleneck() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.6 }}
           className="text-center mb-10 sm:mb-14 max-w-3xl mx-auto"
         >
@@ -70,7 +70,7 @@ export function Bottleneck() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.6 }}
           className="mb-12 sm:mb-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4"
         >
@@ -126,7 +126,7 @@ export function Bottleneck() {
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.6 }}
             className="lg:col-span-5 flex justify-center min-w-0 max-w-full"
           >
@@ -228,7 +228,7 @@ export function Bottleneck() {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.6 }}
             className="lg:col-span-7 space-y-3.5"
           >
@@ -269,7 +269,7 @@ export function Bottleneck() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5 }}
           className="mt-10 sm:mt-14 text-center"
         >

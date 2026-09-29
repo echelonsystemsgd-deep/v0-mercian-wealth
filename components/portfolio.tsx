@@ -372,6 +372,13 @@ export function Portfolio({ limit }: { limit?: number }) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const resumeTimerRef = useRef<NodeJS.Timeout | null>(null)
 
+  // Pause continuous auto-scroll on mobile touch devices to eliminate scroll conflicts
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setIsPaused(true)
+    }
+  }, [])
+
   useEffect(() => {
     async function loadPortfolio() {
       try {
@@ -516,9 +523,11 @@ export function Portfolio({ limit }: { limit?: number }) {
     const el = scrollRef.current
     if (el) scrollPosRef.current = el.scrollLeft
     isInteractingRef.current = false
-    resumeTimerRef.current = setTimeout(() => {
-      setIsPaused(false)
-    }, 3500)
+    if (typeof window !== "undefined" && window.innerWidth >= 768) {
+      resumeTimerRef.current = setTimeout(() => {
+        setIsPaused(false)
+      }, 3500)
+    }
   }
 
   // Triplicate items for the seamless infinite looping track on all viewports
@@ -599,7 +608,7 @@ export function Portfolio({ limit }: { limit?: number }) {
             onScroll={handleScrollEvent}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
-            className="flex gap-6 sm:gap-8 overflow-x-auto no-scrollbar px-4 sm:px-8"
+            className="flex gap-6 sm:gap-8 overflow-x-auto no-scrollbar px-4 sm:px-8 overscroll-x-contain touch-pan-x"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
