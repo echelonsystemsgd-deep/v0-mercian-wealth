@@ -36,11 +36,21 @@ export function PrototypeRequestModal({ isOpen: propIsOpen, onClose: propOnClose
     }, 300)
   }
 
-  // Global event listener to trigger modal from any component via window dispatch
+  // Global event listener to trigger modal from any component via window dispatch or URL hash #prototype-modal
   useEffect(() => {
     const handleOpenEvent = () => setInternalIsOpen(true)
+    const checkHash = () => {
+      if (typeof window !== "undefined" && window.location.hash === "#prototype-modal") {
+        setInternalIsOpen(true)
+      }
+    }
+    checkHash()
+    window.addEventListener("hashchange", checkHash)
     window.addEventListener("open-prototype-modal", handleOpenEvent)
-    return () => window.removeEventListener("open-prototype-modal", handleOpenEvent)
+    return () => {
+      window.removeEventListener("hashchange", checkHash)
+      window.removeEventListener("open-prototype-modal", handleOpenEvent)
+    }
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {

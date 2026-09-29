@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ArrowRight, CheckCircle2, MessageSquare, Zap, Clock, Activity } from "lucide-react"
+import { ArrowRight, CheckCircle2, MessageSquare, Zap, Clock, Activity, Sparkles } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { SITE_COPY } from "@/lib/site-copy"
@@ -9,6 +9,12 @@ import { BrandLogo } from "@/components/brand-logo"
 
 export function Hero() {
   const data = SITE_COPY.homepage.hero
+
+  const openPrototypeModal = () => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("open-prototype-modal"))
+    }
+  }
 
   return (
     <section id="home" className="relative min-h-[80vh] flex items-center justify-center pt-36 sm:pt-40 lg:pt-44 pb-12 sm:pb-16 lg:pb-20 overflow-hidden bg-[#050505]">
@@ -73,6 +79,16 @@ export function Hero() {
             <span>{data.primaryCtaText}</span>
             <ArrowRight size={15} />
           </Link>
+
+          {/* Secondary Action: See a free prototype */}
+          <button
+            type="button"
+            onClick={openPrototypeModal}
+            className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 text-xs sm:text-sm font-semibold text-[#DAA640] bg-[#141417] border border-[#DAA640]/40 hover:border-[#DAA640] hover:bg-[#1C1C22] rounded-xl transition-all text-center cursor-pointer shadow-sm"
+          >
+            <Sparkles size={14} className="text-[#DAA640] shrink-0" />
+            <span>{data.secondaryCtaText || "See a free prototype for your business"}</span>
+          </button>
 
           {/* Direct WhatsApp CTA */}
           <a
