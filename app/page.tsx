@@ -33,13 +33,13 @@ export const metadata: Metadata = {
     title: SITE_COPY.metadata.home.title,
     description: SITE_COPY.metadata.home.description,
     url: 'https://mercianwealth.com',
-    siteName: 'Mercian Wealth',
+    siteName: 'Mercian Wealth Automation',
     images: [
       {
         url: '/Logo2.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Mercian Wealth | Mobile Storefronts & Booking Engines for UK Local Businesses',
+        alt: 'Mercian Wealth Automation | Mobile Storefronts & Booking Engines for UK Local Businesses',
       },
     ],
     locale: 'en_GB',
@@ -67,7 +67,7 @@ export default async function Home() {
             "@type": "WebPage",
             "@id": "https://mercianwealth.com/#webpage",
             "url": "https://mercianwealth.com",
-            "name": "Mercian Wealth | Conversion Infrastructure & Mobile Storefronts",
+            "name": "Mercian Wealth Automation | Conversion Infrastructure & Mobile Storefronts",
             "isPartOf": {
               "@id": "https://mercianwealth.com/#website"
             },

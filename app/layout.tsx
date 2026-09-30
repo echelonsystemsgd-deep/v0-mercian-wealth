@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: SITE_COPY.metadata.layout.titleTemplate,
   },
   description: SITE_COPY.metadata.layout.description,
-  applicationName: 'Mercian Wealth',
+  applicationName: 'Mercian Wealth Automation',
   keywords: [
     "mobile storefronts UK",
     "3-tap booking builder",
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
     "local SEO structured schema",
     "speed to lead automation"
   ],
-  authors: [{ name: 'Mercian Wealth' }],
-  creator: 'Mercian Wealth',
-  publisher: 'Mercian Wealth',
+  authors: [{ name: 'Mercian Wealth Automation' }],
+  creator: 'Mercian Wealth Automation',
+  publisher: 'Mercian Wealth Automation',
   formatDetection: {
     email: false,
     address: false,
@@ -59,13 +59,13 @@ export const metadata: Metadata = {
     title: SITE_COPY.metadata.layout.defaultTitle,
     description: SITE_COPY.metadata.layout.description,
     url: 'https://mercianwealth.com',
-    siteName: 'Mercian Wealth',
+    siteName: 'Mercian Wealth Automation',
     images: [
       {
         url: '/Logo2.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Mercian Wealth | Mobile Storefronts & Booking Engines for UK Local Businesses',
+        alt: 'Mercian Wealth Automation | Mobile Storefronts & Booking Engines for UK Local Businesses',
       },
     ],
     locale: 'en_GB',
@@ -119,14 +119,14 @@ const jsonLd = {
     {
       '@type': ['ProfessionalService', 'Organization'],
       '@id': 'https://mercianwealth.com/#organization',
-      name: 'Mercian Wealth',
-      legalName: 'Mercian Wealth',
+      name: 'Mercian Wealth Automation',
+      legalName: 'Mercian Wealth Automation',
       url: 'https://mercianwealth.com',
       logo: {
         '@type': 'ImageObject',
         '@id': 'https://mercianwealth.com/#logo',
         url: 'https://mercianwealth.com/Logo2.jpeg',
-        caption: 'Mercian Wealth',
+        caption: 'Mercian Wealth Automation',
       },
       image: 'https://mercianwealth.com/Logo2.jpeg',
       telephone: '+447851055929',

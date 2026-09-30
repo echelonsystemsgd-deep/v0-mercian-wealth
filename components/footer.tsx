@@ -185,7 +185,7 @@ export function Footer() {
         <div className="pt-8 border-t border-slate-800/80 text-center md:flex md:justify-between md:items-center text-xs text-slate-400">
           <div className="space-y-1 text-center md:text-left">
             <p>
-              © {new Date().getFullYear()} Mercian Wealth. All Rights Reserved. Engineered in Berkshire, United Kingdom.
+              © {new Date().getFullYear()} Mercian Wealth Automation. All Rights Reserved. Engineered in Berkshire, United Kingdom.
             </p>
             <p className="text-[10px] text-slate-300">
               Digital storefront and booking system engineering for UK local businesses. Unaffiliated with any financial advisory or wealth management services.

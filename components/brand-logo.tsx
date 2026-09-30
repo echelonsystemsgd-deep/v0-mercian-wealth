@@ -21,7 +21,7 @@ function WordmarkLogo({ className }: { className?: string }) {
   return (
     <span
       className={className}
-      aria-label="Mercian Wealth"
+      aria-label="Mercian Wealth Automation"
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -44,6 +44,17 @@ function WordmarkLogo({ className }: { className?: string }) {
       >
         Wealth
       </span>
+      <span
+        style={{
+          color: "#FFFFFF",
+          fontSize: "0.8em",
+          opacity: 0.85,
+          fontWeight: 600,
+          letterSpacing: "0.1em",
+        }}
+      >
+        Automation
+      </span>
     </span>
   )
 }
@@ -56,7 +67,7 @@ function ModernBrandBadge({ className }: { className?: string }) {
         <path d="M4 4h16l-8 7.5L4 4zm0 16h16l-8-7.5L4 20z" opacity="0.9" />
         <circle cx="12" cy="11.5" r="1.5" fill="#DCAE53" />
       </svg>
-      <span className="font-sans font-extrabold text-xs tracking-widest text-white uppercase">Mercian Wealth</span>
+      <span className="font-sans font-extrabold text-xs tracking-widest text-white uppercase">Mercian Wealth Automation</span>
     </div>
   )
 }
