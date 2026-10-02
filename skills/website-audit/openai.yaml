@@ -1,0 +1,56 @@
+interface:
+  display_name: "Full-Conscience Website Audit"
+  short_description: "Exhaustive multi-pillar forensic audit across Performance (CWV), WCAG 2.2 AA Accessibility, Technical SEO, Schema.org, Security Defense Headers, Mobile UX, and CRO."
+  default_model: "gpt-4o"
+  icon: "shield-check"
+  category: "Engineering & QA"
+
+agent:
+  name: "website-audit"
+  description: "Senior Principal Web Architect & Forensic Auditor operating with full conscience across technical standards, accessibility compliance, search engine mechanics, defensive security, and commercial conversion funnels."
+  system_instructions: |
+    When auditing any website, webpage, or codebase with full conscience:
+    1. Ground all feedback in empirical evidence: exact metrics, DOM selectors, file paths, line numbers, and HTTP headers. Never make superficial or speculative claims.
+    2. Audit across the 8 core pillars: Core Web Vitals (LCP, INP, CLS, TTFB), WCAG 2.2 AA Accessibility, Technical SEO & Schema.org JSON-LD, Security Defense Headers, Mobile & Touch Ergonomics, Conversion/CRO Funnels, Architecture/Hydration, and Typography/Readability.
+    3. Categorize findings strictly by severity:
+       - P0 (Critical Blocker): Immediate data loss, legal liability, security vulnerability, broken checkout.
+       - P1 (Major): Core Web Vitals failure, indexation blocker, mobile layout breakage.
+       - P2 (Moderate): Uncompressed media, suboptimal contrast, missing Open Graph tags.
+       - P3 (Minor): Code polish, minor cache tuning, semantic markup refinement.
+    4. Provide production-ready, copy-paste drop-in code remedies for every detected flaw.
+    5. Always translate technical shortcomings into clear commercial business impacts (e.g. bounce rates, checkout abandonment, Google ranking suppression, accessibility legal risk).
+    6. Execute the automated inspection scripts in `scripts/` (`audit_site.mjs`, `check_security_headers.mjs`, `check_seo_schema.mjs`, `check_accessibility.mjs`) when analyzing live URLs or local development servers.
+    7. Refer to `references/official-docs-and-specs.md` whenever citing official W3C, RFC, Google, or OWASP specifications.
+
+triggers:
+  - "audit website"
+  - "site audit"
+  - "website review"
+  - "performance audit"
+  - "core web vitals audit"
+  - "accessibility audit"
+  - "wcag audit"
+  - "seo audit"
+  - "security headers check"
+  - "mobile ux audit"
+  - "cro audit"
+  - "full conscience audit"
+
+capabilities:
+  - "core_web_vitals_inspection"
+  - "wcag_22_accessibility_evaluation"
+  - "schema_org_json_ld_validation"
+  - "http_security_headers_audit"
+  - "mobile_viewport_and_touch_target_testing"
+  - "conversion_friction_analysis"
+  - "automated_code_remediation_generation"
+
+parameters:
+  target_url:
+    type: string
+    description: "The live URL, staging URL, or localhost address (e.g., http://localhost:3000) to audit."
+  scope:
+    type: string
+    enum: ["full", "performance", "accessibility", "seo", "security", "mobile", "cro"]
+    default: "full"
+    description: "The audit scope to execute."

@@ -1,0 +1,86 @@
+{
+  "auditFramework": "Full-Conscience Web Audit",
+  "version": "2.0.0",
+  "pillars": [
+    {
+      "id": "performance",
+      "name": "Performance & Core Web Vitals",
+      "weight": 0.25,
+      "checks": [
+        { "id": "PERF-01", "name": "LCP <= 2.5s on mobile", "priority": "P0", "standard": "Core Web Vitals" },
+        { "id": "PERF-02", "name": "INP <= 200ms on mobile", "priority": "P0", "standard": "Core Web Vitals" },
+        { "id": "PERF-03", "name": "CLS <= 0.1 on full page lifecycle", "priority": "P0", "standard": "Core Web Vitals" },
+        { "id": "PERF-04", "name": "TTFB <= 800ms", "priority": "P1", "standard": "Server Response" },
+        { "id": "PERF-05", "name": "Above-the-fold hero image has fetchpriority='high'", "priority": "P1", "standard": "Resource Hints" },
+        { "id": "PERF-06", "name": "Modern image formats (AVIF / WebP) used", "priority": "P2", "standard": "Asset Optimization" },
+        { "id": "PERF-07", "name": "Images and iframes have explicit width/height or aspect-ratio", "priority": "P1", "standard": "CLS Prevention" },
+        { "id": "PERF-08", "name": "Brotli or Gzip compression enabled on text assets", "priority": "P1", "standard": "HTTP Delivery" },
+        { "id": "PERF-09", "name": "Cache-Control immutable for static assets (max-age=31536000)", "priority": "P2", "standard": "Caching" },
+        { "id": "PERF-10", "name": "Total initial JavaScript bundle <= 180 KB gzipped", "priority": "P1", "standard": "Payload Budget" }
+      ]
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility (WCAG 2.2 AA)",
+      "weight": 0.25,
+      "checks": [
+        { "id": "A11Y-01", "name": "Root html element has valid lang attribute", "priority": "P1", "standard": "WCAG 3.1.1" },
+        { "id": "A11Y-02", "name": "Text color contrast ratio >= 4.5:1 (normal) / >= 3:1 (large)", "priority": "P1", "standard": "WCAG 1.4.3" },
+        { "id": "A11Y-03", "name": "Non-text UI contrast >= 3:1 on form borders and icons", "priority": "P2", "standard": "WCAG 1.4.11" },
+        { "id": "A11Y-04", "name": "All meaningful images have descriptive alt text", "priority": "P1", "standard": "WCAG 1.1.1" },
+        { "id": "A11Y-05", "name": "Decorative images have empty alt='' and aria-hidden='true'", "priority": "P2", "standard": "WCAG 1.1.1" },
+        { "id": "A11Y-06", "name": "Interactive touch targets >= 48x48px on mobile", "priority": "P1", "standard": "WCAG 2.5.8" },
+        { "id": "A11Y-07", "name": "Form inputs have associated <label> or aria-label", "priority": "P0", "standard": "WCAG 3.3.2" },
+        { "id": "A11Y-08", "name": "Focus rings visible on keyboard navigation (:focus-visible)", "priority": "P1", "standard": "WCAG 2.4.11" },
+        { "id": "A11Y-09", "name": "Skip-to-content link provided as first tab element", "priority": "P2", "standard": "WCAG 2.4.1" },
+        { "id": "A11Y-10", "name": "Page zoom up to 200% does not break functionality or clip", "priority": "P1", "standard": "WCAG 1.4.4" }
+      ]
+    },
+    {
+      "id": "seo",
+      "name": "Technical SEO & Schema.org",
+      "weight": 0.20,
+      "checks": [
+        { "id": "SEO-01", "name": "Canonical link tag present and self-referential", "priority": "P1", "standard": "Indexation" },
+        { "id": "SEO-02", "name": "Title tag 50-60 characters with primary intent keyword", "priority": "P1", "standard": "SERP Optimization" },
+        { "id": "SEO-03", "name": "Meta description 120-155 characters with action CTA", "priority": "P2", "standard": "SERP CTR" },
+        { "id": "SEO-04", "name": "Exactly one <h1> tag per page", "priority": "P2", "standard": "Heading Structure" },
+        { "id": "SEO-05", "name": "Open Graph (og:title, og:image 1200x630, og:description) present", "priority": "P2", "standard": "Social Sharing" },
+        { "id": "SEO-06", "name": "Twitter card set to summary_large_image", "priority": "P2", "standard": "Social Sharing" },
+        { "id": "SEO-07", "name": "Schema.org JSON-LD structured data valid and rich snippet eligible", "priority": "P1", "standard": "Structured Data" },
+        { "id": "SEO-08", "name": "Robots.txt exists and does not block critical assets", "priority": "P0", "standard": "Crawlability" },
+        { "id": "SEO-09", "name": "XML sitemap exists, submitted, and contains clean 200 OK URLs", "priority": "P1", "standard": "Crawlability" },
+        { "id": "SEO-10", "name": "Zero broken internal links or 301 redirect chains", "priority": "P1", "standard": "Link Architecture" }
+      ]
+    },
+    {
+      "id": "security",
+      "name": "Security & Privacy",
+      "weight": 0.15,
+      "checks": [
+        { "id": "SEC-01", "name": "HTTPS enforced with valid TLS certificate", "priority": "P0", "standard": "Transport Security" },
+        { "id": "SEC-02", "name": "Strict-Transport-Security (HSTS) header present", "priority": "P1", "standard": "Defense Headers" },
+        { "id": "SEC-03", "name": "Content-Security-Policy (CSP) configured", "priority": "P1", "standard": "XSS Defense" },
+        { "id": "SEC-04", "name": "X-Content-Type-Options: nosniff present", "priority": "P2", "standard": "MIME Defense" },
+        { "id": "SEC-05", "name": "X-Frame-Options set to DENY or SAMEORIGIN", "priority": "P1", "standard": "Clickjacking Defense" },
+        { "id": "SEC-06", "name": "Cookies have Secure, HttpOnly, and SameSite attributes", "priority": "P0", "standard": "Session Security" },
+        { "id": "SEC-07", "name": "Zero mixed content (HTTP resources on HTTPS page)", "priority": "P0", "standard": "Content Integrity" },
+        { "id": "SEC-08", "name": "Cookie consent banner compliant with GDPR/ePrivacy", "priority": "P1", "standard": "Data Privacy" }
+      ]
+    },
+    {
+      "id": "mobile_cro",
+      "name": "Mobile Ergonomics & CRO",
+      "weight": 0.15,
+      "checks": [
+        { "id": "MOB-01", "name": "Viewport tag configured with scalable user zoom", "priority": "P0", "standard": "Mobile Standards" },
+        { "id": "MOB-02", "name": "Form inputs have font-size >= 16px to prevent iOS auto-zoom", "priority": "P1", "standard": "iOS Ergonomics" },
+        { "id": "MOB-03", "name": "Zero horizontal overflow / side-scrolling bugs", "priority": "P0", "standard": "Layout Integrity" },
+        { "id": "MOB-04", "name": "Sticky checkout or CTA bar present on mobile product pages", "priority": "P2", "standard": "Conversion Velocity" },
+        { "id": "MOB-05", "name": "Verified trust seals and payment guarantees visible above the fold", "priority": "P1", "standard": "Trust Architecture" },
+        { "id": "MOB-06", "name": "5-second value proposition clarity (headline + benefit + CTA)", "priority": "P1", "standard": "Conversion Psychology" },
+        { "id": "MOB-07", "name": "Safe area insets accommodated for iPhone home indicator", "priority": "P2", "standard": "Mobile Standards" }
+      ]
+    }
+  ]
+}

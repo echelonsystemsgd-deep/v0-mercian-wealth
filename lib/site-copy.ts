@@ -11,13 +11,13 @@ export const SITE_COPY = {
   // Global Meta Info
   metadata: {
     layout: {
-      defaultTitle: "Mercian Wealth Automation · Conversion Infrastructure & Mobile Storefronts",
-      titleTemplate: "%s · Mercian Wealth Automation",
-      description: "When AI search compresses attention, your website is the only barrier between paid and the back button. Sub-second mobile storefronts, 3-tap booking builders, and upfront deposit engines.",
+      defaultTitle: "Mercian Wealth · High-Converting Websites & Booking Systems",
+      titleTemplate: "%s · Mercian Wealth",
+      description: "Sub-second mobile storefronts, 3-tap booking builders, and upfront deposit collection systems that convert UK local customers before they bounce.",
     },
     home: {
-      title: "Mercian Wealth Automation · Your Website Is Between Paid and the Back Button",
-      description: "AI became the decision maker. Attention compressed. We build sub-second mobile storefronts, 3-tap booking builders, and upfront deposit systems that lock high-intent buyers before they bounce.",
+      title: "Mercian Wealth · High-Converting Websites & Booking Systems",
+      description: "Sub-second mobile storefronts, 3-tap booking builders, and upfront deposit collection systems that convert UK local customers before they bounce.",
     },
     services: {
       title: "Storefronts & Booking Engines",
