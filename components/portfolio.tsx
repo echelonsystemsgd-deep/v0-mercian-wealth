@@ -35,17 +35,6 @@ export type PortfolioItem = {
 
 export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
   {
-    title: "Wealthwise Accountants | Accounting & Tax Services",
-    category: "Accounting & Tax Practice Platform · Live Sandbox",
-    gradient: "from-amber-950/40 to-yellow-950/40",
-    href: "https://wealth-wise-platform-sigma.vercel.app/",
-    image: "/wealthwise-preview-real.png",
-    underConstruction: false,
-    metric: "Client Portal & Intake Architecture",
-    domain: "wealth-wise-platform-sigma.vercel.app",
-    isFeatured: true,
-  },
-  {
     title: "Second Shine Jewellers · Luxury Estate & Horology Platform",
     category: "Luxury E-Commerce & Horology · Live Sandbox",
     gradient: "from-stone-900/40 to-amber-950/40",
@@ -77,17 +66,6 @@ export const DEFAULT_PORTFOLIO: PortfolioItem[] = [
     metric: "Duodenal Delivery & Automated Subscriptions",
     domain: "premium-supplement-commerce.vercel.app",
     isFeatured: true,
-  },
-  {
-    title: "ChitramTV UK — Premium Live Streaming Client Platform",
-    category: "Media & Streaming Infrastructure · Live Sandbox",
-    gradient: "from-red-950/40 to-zinc-950/40",
-    href: "https://uk-streaming-client-prototype.vercel.app/",
-    image: "/uk-streaming-preview-real.png",
-    underConstruction: false,
-    metric: "Ultra-HD 4K Streaming & Multi-Room Client Platform",
-    domain: "uk-streaming-client-prototype.vercel.app",
-    isFeatured: false,
   },
 ]
 

@@ -39,7 +39,7 @@ export function ZeroDisruptionGuarantee() {
               <span>ZERO-DISRUPTION GUARANTEE</span>
             </div>
             <span className="text-[11px] font-mono text-slate-400">
-              Live in 5 business days · 0 website downtime
+              Timing is confirmed after scoping · No service interruption
             </span>
           </div>
 

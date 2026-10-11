@@ -102,26 +102,26 @@ export function Hero() {
           </a>
         </motion.div>
 
-        {/* Above-the-Fold Social Proof Ribbon (Issue 9) */}
+        {/* Above-the-Fold Trust Ribbon */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.48 }}
           className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-6 mb-8 text-xs text-zinc-300 px-2"
         >
-          <div className="flex items-center gap-1.5 text-amber-400">
-            <span className="text-amber-400 tracking-wider">★★★★★</span>
-            <span className="text-white font-semibold text-[11px] sm:text-xs">5.0 Client Rating</span>
-          </div>
-          <span className="hidden sm:inline text-zinc-600">·</span>
           <div className="flex items-center gap-1.5 text-zinc-300 text-[11px] sm:text-xs">
             <CheckCircle2 className="w-3.5 h-3.5 text-[#DAA640] shrink-0" />
-            <span>Built For UK Trades &amp; Local Services</span>
+            <span>Built For UK Trades &amp; Professional Services</span>
+          </div>
+          <span className="hidden sm:inline text-zinc-600">·</span>
+          <div className="flex items-center gap-1.5 text-amber-400 text-[11px] sm:text-xs font-mono font-medium">
+            <Sparkles className="w-3.5 h-3.5 text-[#DAA640] shrink-0" />
+            <span>Sub-Second Smartphone Performance</span>
           </div>
           <span className="hidden sm:inline text-zinc-600">·</span>
           <div className="flex items-center gap-1.5 text-emerald-400 text-[11px] sm:text-xs font-mono font-medium">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>&gt;£32,400 Direct Deposits Secured</span>
+            <span>Built with UK GDPR in mind</span>
           </div>
         </motion.div>
 

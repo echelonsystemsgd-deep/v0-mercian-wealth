@@ -10,7 +10,7 @@ interface CopyEmailButtonProps {
 }
 
 export function CopyEmailButton({
-  email = "mercianwealthgs@gmail.com",
+  email = process.env.CONTACT_EMAIL || "",
   variant = "inline",
   className = "",
 }: CopyEmailButtonProps) {

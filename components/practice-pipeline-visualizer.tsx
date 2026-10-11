@@ -308,7 +308,10 @@ export function PracticePipelineVisualizer() {
 
                 {/* Scenario Toggle Pills (Mobile-Friendly) */}
                 <div>
-                  <div className="text-[11px] font-mono text-slate-400 mb-2">Select Inbound Client Persona:</div>
+                  <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 mb-2">
+                    <span>Select Inbound Client Persona:</span>
+                    <span className="text-[#DAA640] text-[10px]">Sample data. Personas and fees are illustrative.</span>
+                  </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                     {LEAD_SCENARIOS.map((scenario, idx) => (
                       <button
@@ -977,7 +980,7 @@ export function PracticePipelineVisualizer() {
           {/* Quick Sandbox Bottom Call-to-Action Bar */}
           <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-xs text-slate-300 text-center sm:text-left">
-              <span className="font-semibold text-white">Want this deployed for your practice?</span> We set up the intake and chasing cadences in 7 business days.
+              <span className="font-semibold text-white">Want this deployed for your practice?</span> Timing is confirmed after scoping.
             </div>
 
             <div className="flex items-center gap-3 w-full sm:w-auto justify-center">

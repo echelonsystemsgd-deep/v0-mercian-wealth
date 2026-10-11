@@ -5,9 +5,9 @@ import { Footer } from "@/components/footer"
 import { PageFAQ } from "@/components/page-faq"
 import { PracticePipelineVisualizer } from "@/components/practice-pipeline-visualizer"
 import { PracticeSpeedTest } from "@/components/practice-speed-test"
+import { WebsiteReviewForm } from "@/components/website-review-form"
 import { SITE_COPY } from "@/lib/site-copy"
 import { 
-  Clock, 
   ShieldCheck, 
   CheckCircle2, 
   ArrowRight, 
@@ -16,11 +16,11 @@ import {
   Calendar, 
   Lock, 
   Check, 
-  AlertTriangle,
-  Layers,
   Sparkles,
   PhoneCall,
-  Gauge
+  Search,
+  Clock,
+  Layers
 } from "lucide-react"
 
 export const metadata: Metadata = {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: SITE_COPY.metadata.practices.title,
     description: SITE_COPY.metadata.practices.description,
     url: "https://mercianwealth.com/practices",
-    siteName: "Mercian Wealth | Systems for Accountants",
+    siteName: "Mercian Wealth | Intake & Deadline Chasing Systems for Accountants",
     images: [
       {
         url: "/Logo2.jpeg",
@@ -71,7 +71,7 @@ export default function PracticesPage() {
               "@id": "https://mercianwealth.com/#organization",
               "name": "Mercian Wealth",
             },
-            "serviceType": "Practice Automation & Client Intake",
+            "serviceType": "Practice Intake & Deadline Chasing Systems",
             "areaServed": "GB",
             "description": data.hero.subheadline,
             "url": "https://mercianwealth.com/practices",
@@ -90,7 +90,7 @@ export default function PracticesPage() {
 
         {/* 1. HERO SECTION */}
         <section className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-8 sm:pt-12 pb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#DAA640]/30 bg-[#DAA640]/5 text-[#DAA640] text-xs font-semibold tracking-wider uppercase mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#DAA640]/30 bg-[#DAA640]/5 text-[#DAA640] text-xs font-semibold tracking-wider uppercase mb-6 font-mono">
             <Sparkles className="w-3.5 h-3.5" />
             <span>{data.hero.badge}</span>
           </div>
@@ -103,49 +103,39 @@ export default function PracticesPage() {
             {data.hero.subheadline}
           </p>
 
-          {/* Action CTAs */}
+          {/* 3 Core Action CTAs */}
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <Link
               href={data.hero.primaryCtaHref}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-[#DAA640] hover:bg-[#c99535] text-black font-semibold text-sm sm:text-base transition-all shadow-lg shadow-[#DAA640]/20 hover:scale-[1.02] min-h-[48px]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#DAA640] hover:bg-[#c99535] text-black font-bold text-sm sm:text-base transition-all shadow-lg shadow-[#DAA640]/20 min-h-[48px]"
             >
               <span>{data.hero.primaryCtaText}</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
 
             <a
-              href="#practice-visualizer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-white/15 hover:border-[#DAA640]/50 bg-white/5 hover:bg-white/10 text-white font-medium text-sm sm:text-base transition-all min-h-[48px]"
+              href={data.hero.secondaryCtaHref}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-white/20 hover:border-[#DAA640]/60 bg-white/5 hover:bg-white/10 text-white font-medium text-sm sm:text-base transition-all min-h-[48px]"
             >
-              <Zap className="w-4 h-4 text-[#DAA640]" />
+              <Search className="w-4 h-4 text-[#DAA640]" />
               <span>{data.hero.secondaryCtaText}</span>
             </a>
 
             <a
-              href="#practice-speed-test"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-white/15 hover:border-[#DAA640]/50 bg-white/5 hover:bg-white/10 text-white font-medium text-sm sm:text-base transition-all min-h-[48px]"
+              href={data.hero.tertiaryCtaHref}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-white/15 hover:border-[#DAA640]/50 bg-white/5 hover:bg-white/10 text-white font-medium text-sm sm:text-base transition-all min-h-[48px]"
             >
-              <Gauge className="w-4 h-4 text-[#DAA640]" />
-              <span>3-Min Response Test</span>
-            </a>
-
-            <a
-              href="https://wa.me/447851055929"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-white/15 hover:border-[#DAA640]/50 bg-white/5 hover:bg-white/10 text-white font-medium text-sm sm:text-base transition-all min-h-[48px]"
-            >
-              <PhoneCall className="w-4 h-4 text-[#DAA640]" />
-              <span>WhatsApp Direct</span>
+              <Zap className="w-4 h-4 text-[#DAA640]" />
+              <span>{data.hero.tertiaryCtaText}</span>
             </a>
           </div>
 
-          {/* Trust Pills */}
+          {/* Trust Chips (4 Exact Chips) */}
           <div className="mt-10 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-3 text-left sm:text-center">
             {data.hero.trustPills.map((pill, idx) => (
               <div 
                 key={idx}
-                className="flex items-center gap-2 text-xs sm:text-sm text-slate-300 bg-white/[0.02] border border-white/5 rounded-md px-3 py-2"
+                className="flex items-center gap-2 text-xs sm:text-sm text-slate-300 bg-white/[0.02] border border-white/5 rounded-lg px-3 py-2.5"
               >
                 <CheckCircle2 className="w-4 h-4 text-[#DAA640] shrink-0" />
                 <span className="font-medium">{pill}</span>
@@ -154,100 +144,117 @@ export default function PracticesPage() {
           </div>
         </section>
 
-        {/* 2. THE MTD 2026 REGULATORY BOTTLENECK CARD */}
+        {/* 2. CORE OUTCOMES SECTION ("Three outcomes for your practice") */}
+        <section className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#DAA640] font-mono">[ PRACTICE VALUE ]</span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white mt-2">
+              {data.outcomesHeadline}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            {data.outcomes.map((card) => (
+              <div
+                key={card.id}
+                className="flex flex-col justify-between rounded-2xl border border-white/10 bg-[#0A0A0C] hover:border-[#DAA640]/40 transition-all p-6 sm:p-7 relative"
+              >
+                <div>
+                  <div className="text-xs font-mono font-bold tracking-wider text-[#DAA640] mb-2">
+                    {card.pillar}
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-white">
+                    {card.title}
+                  </h3>
+                  <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-white/5 pt-3">
+                    {card.description}
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-white/10">
+                  <p className="text-[11px] text-slate-400 italic leading-relaxed">
+                    *{card.footnote}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Micro How It Works Line */}
+          <div className="mt-8 text-center max-w-3xl mx-auto p-4 rounded-xl bg-white/[0.02] border border-white/5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <span className="text-[#DAA640] font-semibold">How it works: </span>
+            {data.howItWorks}
+          </div>
+        </section>
+
+        {/* 3. MTD FOR INCOME TAX STATUTORY FACT SECTION */}
         <section className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
           <div className="rounded-2xl border border-amber-500/30 bg-gradient-to-b from-amber-500/10 via-amber-950/10 to-transparent p-6 sm:p-8 lg:p-10 relative overflow-hidden">
-            <div className="flex items-center gap-2 text-amber-400 font-semibold text-xs tracking-wider uppercase mb-3">
-              <AlertTriangle className="w-4 h-4" />
-              <span>{data.mtdHook.badge}</span>
+            <div className="flex items-center gap-2 text-amber-400 font-semibold text-xs tracking-wider uppercase mb-3 font-mono">
+              <Calendar className="w-4 h-4" />
+              <span>{data.mtdSection.badge}</span>
             </div>
 
             <h2 className="text-xl sm:text-3xl font-bold text-white max-w-3xl leading-snug">
-              {data.mtdHook.title}
+              {data.mtdSection.title}
             </h2>
 
             <p className="mt-3 text-sm sm:text-base text-slate-300 max-w-3xl leading-relaxed">
-              {data.mtdHook.description}
+              Statutory deadlines require regular client communication. Pre-approved reminders collect records systematically ahead of each submission window.
             </p>
 
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-amber-500/20 pt-6">
-              <div className="p-4 rounded-xl bg-black/40 border border-white/5">
-                <div className="text-2xl sm:text-3xl font-black text-[#DAA640]">{data.mtdHook.stat1.number}</div>
-                <div className="mt-1 text-xs sm:text-sm text-slate-400">{data.mtdHook.stat1.label}</div>
-              </div>
-              <div className="p-4 rounded-xl bg-black/40 border border-white/5">
-                <div className="text-2xl sm:text-3xl font-black text-[#DAA640]">{data.mtdHook.stat2.number}</div>
-                <div className="mt-1 text-xs sm:text-sm text-slate-400">{data.mtdHook.stat2.label}</div>
-              </div>
-              <div className="p-4 rounded-xl bg-black/40 border border-white/5">
-                <div className="text-2xl sm:text-3xl font-black text-[#DAA640]">{data.mtdHook.stat3.number}</div>
-                <div className="mt-1 text-xs sm:text-sm text-slate-400">{data.mtdHook.stat3.label}</div>
-              </div>
+              {data.mtdSection.facts.map((fact, idx) => (
+                <div key={idx} className="p-4 rounded-xl bg-black/50 border border-white/5 flex items-start gap-3">
+                  <CheckCircle2 className="w-4 h-4 text-[#DAA640] shrink-0 mt-0.5" />
+                  <div className="text-xs sm:text-sm text-slate-200 leading-snug font-medium">
+                    {fact}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* 3. THE 3 SYSTEMS SHOWCASE */}
-        <section id="practice-systems" className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#DAA640]">PRACTICE ARCHITECTURE</span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white mt-2">
-              Three governed systems. Built around how your practice operates.
+        {/* 4. HOW IT STARTS (3-Step Onboarding Flow) */}
+        <section className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#DAA640] font-mono">[ ONBOARDING ]</span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white mt-1">
+              {data.howItStartsTitle}
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-slate-400">
-              Zero unsupervised AI touching client files. Designed strictly for time saved, faster client acquisition, and reliable deadline protection.
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
-            {data.systems.map((system, idx) => (
-              <div 
-                key={system.id}
-                className="flex flex-col justify-between rounded-2xl border border-white/10 bg-[#0A0A0C] hover:border-[#DAA640]/40 transition-all p-6 sm:p-7 group relative"
-              >
-                <div>
-                  <div className="text-xs font-semibold tracking-wider text-[#DAA640] mb-2">{system.tag}</div>
-                  <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-[#DAA640] transition-colors">
-                    {system.title}
-                  </h3>
-                  <p className="mt-1 text-xs sm:text-sm font-medium text-slate-400">
-                    {system.subtitle}
-                  </p>
-                  <p className="mt-4 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-white/5 pt-4">
-                    {system.description}
-                  </p>
-
-                  <ul className="mt-5 space-y-2.5">
-                    {system.deliverables.map((item, dIdx) => (
-                      <li key={dIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-300">
-                        <Check className="w-4 h-4 text-[#DAA640] shrink-0 mt-0.5" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {data.howItStarts.map((step, idx) => (
+              <div key={idx} className="p-6 rounded-2xl bg-[#0B0B0D] border border-white/10 space-y-3 relative">
+                <div className="w-8 h-8 rounded-lg bg-[#DAA640]/10 border border-[#DAA640]/30 text-[#DAA640] font-mono font-bold text-sm flex items-center justify-center">
+                  0{idx + 1}
                 </div>
-
-                <div className="mt-6 pt-4 border-t border-white/10">
-                  <div className="text-[11px] uppercase tracking-wider text-slate-500 font-semibold">Projected Impact</div>
-                  <div className="text-xs sm:text-sm font-medium text-amber-200/90 mt-1">{system.roi}</div>
-                </div>
+                <p className="text-sm text-slate-200 leading-relaxed font-medium">
+                  {step}
+                </p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* 4. INTERACTIVE 3-MINUTE SPEED TEST & DIAGNOSTIC */}
+        {/* 5. INTERACTIVE 3-MINUTE SPEED TEST & DIAGNOSTIC */}
         <PracticeSpeedTest />
 
-        {/* 5. INTERACTIVE PRACTICE PIPELINE VISUALIZER (PHASE 3 SANDBOX) */}
+        {/* 6. INTERACTIVE PRACTICE PIPELINE VISUALIZER */}
         <PracticePipelineVisualizer />
 
-        {/* 5. GOVERNANCE & RISK REMOVAL SECTION */}
-        <section className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* 7. GOVERNED TRUST BLOCK ("Built for risk-averse practices") */}
+        <section className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
           <div className="rounded-2xl border border-white/10 bg-[#09090B] p-6 sm:p-10">
             <div className="text-center max-w-2xl mx-auto mb-8">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#DAA640]">PRACTICE INTEGRITY</span>
-              <h2 className="text-xl sm:text-3xl font-bold text-white mt-1">{data.governance.title}</h2>
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#DAA640] font-mono">
+                [ {data.governance.badge} ]
+              </span>
+              <h2 className="text-xl sm:text-3xl font-bold text-white mt-1">
+                {data.governance.title}
+              </h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -269,14 +276,17 @@ export default function PracticesPage() {
           </div>
         </section>
 
-        {/* 5. FAQ SECTION */}
+        {/* 8. EXACT FAQ MATCHING */}
         <PageFAQ data={data.faq} id="practice-faq" className="bg-transparent border-t border-white/5" />
 
-        {/* 6. CLOSING CTA BANNER */}
+        {/* 9. FREE 5-MINUTE WEBSITE REVIEW FORM (#website-review) */}
+        <WebsiteReviewForm />
+
+        {/* 10. CLOSING CTA BANNER */}
         <section className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="rounded-2xl border border-[#DAA640]/40 bg-gradient-to-r from-neutral-900 via-[#121008] to-neutral-900 p-8 sm:p-12 text-center relative overflow-hidden shadow-2xl shadow-[#DAA640]/10">
-            <span className="inline-block text-xs font-semibold uppercase tracking-wider text-[#DAA640] mb-2">
-              {data.ctaSection.badge}
+            <span className="inline-block text-xs font-semibold uppercase tracking-wider text-[#DAA640] mb-2 font-mono">
+              [ {data.ctaSection.badge} ]
             </span>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white max-w-2xl mx-auto leading-tight">
               {data.ctaSection.title}
@@ -288,7 +298,7 @@ export default function PracticesPage() {
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href={data.ctaSection.primaryCtaHref}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-[#DAA640] hover:bg-[#c99535] text-black font-semibold text-base transition-all shadow-lg shadow-[#DAA640]/25 hover:scale-[1.02]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#DAA640] hover:bg-[#c99535] text-black font-bold text-base transition-all shadow-lg shadow-[#DAA640]/25 min-h-[48px]"
               >
                 <span>{data.ctaSection.primaryCtaText}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -297,7 +307,7 @@ export default function PracticesPage() {
                 href="https://wa.me/447851055929"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-lg border border-white/15 bg-white/5 hover:bg-white/10 text-white font-medium text-base transition-all"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 text-white font-medium text-base transition-all min-h-[48px]"
               >
                 <PhoneCall className="w-4 h-4 text-[#DAA640]" />
                 <span>Message on WhatsApp</span>

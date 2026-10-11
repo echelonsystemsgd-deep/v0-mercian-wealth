@@ -37,11 +37,11 @@ const QUESTIONS: Question[] = [
     id: "out-of-hours",
     number: "01",
     title: "How does your practice handle enquiries received at 8:30 PM on a weekday?",
-    subtitle: "Over 45% of high-intent Ltd Co directors research alternative accountants out-of-hours.",
+    subtitle: "High-intent company directors often research and message alternative accountants outside standard working hours.",
     options: [
       {
         label: "Sits in info@ inbox until staff open email the next day (or Monday)",
-        sublabel: "High risk: first responders hold a strong win advantage (illustrative example benchmark: 78% first-response advantage, replace with your own numbers).",
+        sublabel: "Risk of delayed contact while the prospective client enquires with other local firms.",
         points: 0,
         tag: "critical"
       },
@@ -88,24 +88,24 @@ const QUESTIONS: Question[] = [
   {
     id: "mtd-readiness",
     number: "03",
-    title: "How prepared is your practice for MTD for ITSA quarterly reporting in 2026?",
-    subtitle: "Mandatory quarterly submissions for sole traders and landlords with turnover >£50,000.",
+    title: "How prepared is your practice for MTD for Income Tax quarterly updates?",
+    subtitle: "Statutory quarterly updates due 7 Aug, 7 Nov, 7 Feb, and 7 May for mandated taxpayers.",
     options: [
       {
-        label: "No quarterly system yet; staff will have to manually chase records 4x a year",
-        sublabel: "Capacity hazard: quadruples administrative chasing overhead across the firm.",
+        label: "No quarterly reminder system; staff manually chase records for each deadline",
+        sublabel: "Significant capacity drag: increases recurring administrative chasing overhead.",
         points: 0,
         tag: "critical"
       },
       {
-        label: "Standard monthly newsletter blast reminding clients of tax dates",
-        sublabel: "Ignored by 60%+ of clients; still requires urgent phone chasing in deadline month.",
+        label: "Standard monthly newsletter blast reminding clients of upcoming dates",
+        sublabel: "Often overlooked by busy clients; still requires manual phone calls ahead of deadlines.",
         points: 10,
         tag: "moderate"
       },
       {
         label: "Pre-approved automated chasing cadences with client-specific tracking",
-        sublabel: "Zero staff hours burnt; partners retain 100% snooze and approval control.",
+        sublabel: "Zero senior staff hours burnt; your team retains complete approval and override control.",
         points: 20,
         tag: "optimal"
       }
@@ -115,23 +115,23 @@ const QUESTIONS: Question[] = [
     id: "records-chasing",
     number: "04",
     title: "How much time does your team currently spend chasing missing client records?",
-    subtitle: "Chasing bank statements, missing receipts, VAT paperwork, and yearend documents.",
+    subtitle: "Chasing bank statements, missing receipts, VAT paperwork, and year-end documents.",
     options: [
       {
-        label: "10 to 18 hours per week across the team on manual chasing & phone tag",
-        sublabel: "Equal to £20,000–£35,000 in unbilled fee-earner capacity every year.",
+        label: "Significant hours per week across the team on manual chasing & phone tag",
+        sublabel: "Consumes fee-earner capacity on repetitive administrative communication.",
         points: 0,
         tag: "critical"
       },
       {
-        label: "5 to 9 hours per week relying on occasional software nudges in Xero/Dext",
-        sublabel: "Still causes severe bottle-necks during December, January, and March.",
+        label: "Moderate time per week relying on standard software notifications",
+        sublabel: "Still creates bottlenecks during peak VAT and self-assessment filing periods.",
         points: 10,
         tag: "moderate"
       },
       {
-        label: "Under 2 hours per week with automated SMS + email cadences",
-        sublabel: "Team focuses purely on advisory, tax computations, and compliance work.",
+        label: "Minimal manual chasing with automated multi-channel cadences",
+        sublabel: "Team focuses primarily on advisory, computations, and statutory compliance work.",
         points: 20,
         tag: "optimal"
       }
@@ -144,20 +144,20 @@ const QUESTIONS: Question[] = [
     subtitle: "Engagement letters, AML verification, 64-8 HMRC authorisation, and Direct Debit.",
     options: [
       {
-        label: "2 to 4 weeks of back-and-forth emails chasing ID photos and signatures",
-        sublabel: "Delays first billing and creates friction for high-value clients.",
+        label: "Extended back-and-forth emails chasing ID photos, signatures, and codes",
+        sublabel: "Delays first billing and creates friction for prospective clients.",
         points: 0,
         tag: "critical"
       },
       {
-        label: "7 to 14 days with digital signatures but manual AML and 64-8 chasing",
-        sublabel: "Client managers still spend several hours supervising each onboarding file.",
+        label: "Standard process with digital signatures but manual follow-up for AML & 64-8",
+        sublabel: "Client managers still spend admin time supervising each onboarding file.",
         points: 10,
         tag: "moderate"
       },
       {
-        label: "Frictionless 48 hours via a streamlined single-flow digital checklist",
-        sublabel: "Instant ID verification, HMRC code trigger, and Direct Debit on day one.",
+        label: "Streamlined single-flow digital intake checklist",
+        sublabel: "ID verification, HMRC code trigger, and Direct Debit setup completed promptly.",
         points: 20,
         tag: "optimal"
       }
@@ -169,10 +169,10 @@ export function PracticeSpeedTest() {
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<number, number>>({
     0: 0,
-    1: 10,
+    1: 0,
     2: 0,
     3: 0,
-    4: 10,
+    4: 0,
   })
   const [showResult, setShowResult] = useState(false)
 
@@ -186,7 +186,7 @@ export function PracticeSpeedTest() {
   }
 
   const handleReset = () => {
-    setAnswers({ 0: 0, 1: 10, 2: 0, 3: 0, 4: 10 })
+    setAnswers({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0 })
     setCurrentStep(0)
     setShowResult(false)
   }
@@ -201,11 +201,11 @@ export function PracticeSpeedTest() {
         badge: "CRITICAL CAPACITY & FEE LEAKAGE",
         color: "text-rose-400",
         bg: "bg-rose-500/10 border-rose-500/30",
-        headline: "High Revenue Drag & Severe MTD 2026 Exposure",
-        hoursLost: "11.5 – 16.0 hrs/week (illustrative example)",
-        annualLeak: "£18,000 – £35,000/yr (illustrative example)",
-        summary: "Your practice may be losing high-fee Ltd Co clients to faster-responding local competitors, while staff burn valuable hours manually chasing records that can be automated with zero risk.",
-        prescription: "Deploy the 3-minute evening intake engine and automated MTD deadline chaser before the next compliance quarter."
+        headline: "High Friction & MTD Compliance Exposure",
+        hoursLost: "Indicative estimate based on your answers",
+        annualLeak: "Subject to your practice fee structure",
+        summary: "Your practice may be losing high-fee Ltd Co clients to faster-responding local competitors, while staff spend valuable hours manually chasing records that can be automated with zero risk.",
+        prescription: "Deploy the evening intake flow and pre-approved MTD deadline chasers before the next compliance quarter."
       }
     } else if (score <= 70) {
       return {
@@ -213,9 +213,9 @@ export function PracticeSpeedTest() {
         color: "text-amber-400",
         bg: "bg-amber-500/10 border-amber-500/30",
         headline: "Significant Unbilled Hours & Bottleneck Risk",
-        hoursLost: "7.0 – 10.5 hrs/week (illustrative example)",
-        annualLeak: "£12,000 – £22,000/yr (illustrative example)",
-        summary: "You have foundational systems, but client onboarding latency and manual document chasing can consume partner capacity ahead of the MTD April 2026 deadline.",
+        hoursLost: "Indicative estimate based on your answers",
+        annualLeak: "Subject to your practice fee structure",
+        summary: "You have foundational systems, but client onboarding latency and manual document chasing can consume fee-earner capacity ahead of MTD deadlines.",
         prescription: "Layer pre-approved deadline chasing and a streamlined digital onboarding flow on top of your existing Xero / IRIS stack."
       }
     } else {
@@ -224,8 +224,8 @@ export function PracticeSpeedTest() {
         color: "text-emerald-400",
         bg: "bg-emerald-500/10 border-emerald-500/30",
         headline: "High-Speed Intake & Controlled Compliance",
-        hoursLost: "<2.5 hrs/week",
-        annualLeak: "Minimal Revenue Leakage",
+        hoursLost: "Minimal administrative drag",
+        annualLeak: "Low intake friction",
         summary: "Your practice operates with strong front-door speed and clean compliance habits. You are well-positioned to scale capacity without hiring extra administrative heads.",
         prescription: "Explore automated multi-channel client satisfaction and Google review capture to compound your lead flow."
       }
@@ -422,7 +422,8 @@ export function PracticeSpeedTest() {
                   </div>
                   <div className="bg-black/60 border border-white/10 rounded-2xl px-6 py-4 text-center shrink-0">
                     <div className="text-3xl sm:text-4xl font-black text-[#DAA640]">{totalScore}</div>
-                    <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mt-0.5">Practice Index / 100</div>
+                    <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mt-0.5">Indicative Score / 100</div>
+                    <div className="text-[9px] font-mono text-slate-500 mt-0.5">Based on your answers</div>
                   </div>
                 </div>
 

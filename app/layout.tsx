@@ -132,7 +132,7 @@ const jsonLd = {
       },
       image: 'https://mercianwealth.com/Logo2.jpeg',
       telephone: '+447851055929',
-      email: 'mercianwealthgs@gmail.com',
+      ...(process.env.CONTACT_EMAIL ? { email: process.env.CONTACT_EMAIL } : {}),
       priceRange: '£495 - £1,995',
       address: {
         '@type': 'PostalAddress',
@@ -168,7 +168,7 @@ const jsonLd = {
       sameAs: [
         'https://wa.me/447851055929',
         'https://www.instagram.com/mercianwealth/',
-        'https://www.linkedin.com/in/gs-legacy-wealth/'
+        ...(process.env.LINKEDIN_URL ? [process.env.LINKEDIN_URL] : [])
       ]
     },
     {
@@ -224,16 +224,7 @@ export default function RootLayout({
         <link
           rel="stylesheet"
           href="https://assets.calendly.com/assets/external/widget.css"
-          // @ts-expect-error Defer render-blocking external CSS on mobile
-          media="print"
-          onLoad="this.media='all'"
         />
-        <noscript>
-          <link
-            rel="stylesheet"
-            href="https://assets.calendly.com/assets/external/widget.css"
-          />
-        </noscript>
       </head>
       <body className="font-sans antialiased bg-[#09090B] text-white">
           <ExtensionErrorHandler />

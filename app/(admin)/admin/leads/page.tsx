@@ -61,15 +61,17 @@ export type Lead = OutreachLead
 
 const STATUS_DOT_COLORS: Record<string, string> = {
   New: 'bg-zinc-400',
+  'Review requested': 'bg-cyan-400',
   Contacted: 'bg-amber-400',
   'Call Booked': 'bg-amber-400',
   'Proposal Sent': 'bg-amber-400',
   Won: 'bg-emerald-400',
   Lost: 'bg-rose-500',
   Spam: 'bg-zinc-600',
+  STOP: 'bg-purple-500',
 }
 
-const ALL_STATUSES = ['New', 'Contacted', 'Call Booked', 'Proposal Sent', 'Won', 'Lost', 'Spam']
+const ALL_STATUSES = ['New', 'Review requested', 'Contacted', 'Call Booked', 'Proposal Sent', 'Won', 'Lost', 'Spam', 'STOP']
 
 function StatusBadge({ status }: { status: string }) {
   const dotColor = STATUS_DOT_COLORS[status] || 'bg-zinc-400'
@@ -254,6 +256,21 @@ export default function LeadsPage() {
         .update({ status })
         .eq('id', id)
       if (error) throw error
+
+      if (status === 'STOP' && targetLead?.phone) {
+        try {
+          await supabase
+            .from('suppressed_contacts')
+            .upsert({
+              phone: targetLead.phone.trim(),
+              reason: 'Requested STOP / opt-out in admin',
+              source: 'admin_leads_status_change',
+            })
+        } catch {
+          // ignore if table migration pending
+        }
+      }
+
       loadFiltersAndCounts()
     } catch (err: any) {
       triggerToast(`Update failed: ${err.message}`)

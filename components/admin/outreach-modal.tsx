@@ -42,6 +42,7 @@ import {
   identifyDeterministicFrictions
 } from '@/lib/auditor/deterministic'
 import { WhatsAppSequenceBlocks } from '@/components/admin/whatsapp-sequence-blocks'
+import { AccountantsTemplateLibrary } from '@/components/admin/accountants-template-library'
 import { classifyPhoneNumber, buildWhatsAppOpenerUrl, buildTelUrl } from '@/lib/phone-classifier'
 
 export interface OutreachLead {
@@ -91,8 +92,8 @@ export function OutreachModal({
   onUpdateStatus,
   onDeleteLead,
 }: OutreachModalProps) {
-  // Primary Channel Tabs: WhatsApp 3-Touch, Email 5-Touch, LinkedIn 3-Touch, Call Bridge, Prototype Task
-  const [activeChannelTab, setActiveChannelTab] = useState<'whatsapp' | 'email_5touch' | 'linkedin_3touch' | 'call_bridge' | 'prototype_task'>('whatsapp')
+  // Primary Channel Tabs: WhatsApp, Email, LinkedIn, Call Bridge, Prototype Task
+  const [activeChannelTab, setActiveChannelTab] = useState<'whatsapp' | 'email' | 'email_5touch' | 'linkedin_3touch' | 'call_bridge' | 'prototype_task'>('whatsapp')
   
   // Lead Suppression & Opt-out state
   const [isSuppressed, setIsSuppressed] = useState(false)
@@ -555,7 +556,7 @@ export function OutreachModal({
                   }`}
                 >
                   <MessageSquare size={14} className="text-[#DCAE53]" />
-                  <span>WhatsApp Sequence</span>
+                  <span>Practice Templates (9)</span>
                 </button>
 
                 <button
@@ -634,12 +635,26 @@ export function OutreachModal({
 
             {/* Tab Body */}
             {activeChannelTab === 'whatsapp' ? (
-              <WhatsAppSequenceBlocks
-                sequence={whatsAppSequence}
-                phone={lead.phone}
-                onSendWhatsApp={handleSendWhatsApp}
-                showFullCopy={false}
-              />
+              <div className="space-y-6">
+                <AccountantsTemplateLibrary
+                  practiceName={businessName}
+                  phone={lead.phone}
+                  prototypeUrl={lead.prototype_url}
+                  onSendWhatsApp={handleSendWhatsApp}
+                />
+                
+                <div className="pt-4 border-t border-white/10">
+                  <div className="text-xs font-mono font-bold text-zinc-400 mb-3 uppercase">
+                    Alternative 3-Message Sequential Cadence:
+                  </div>
+                  <WhatsAppSequenceBlocks
+                    sequence={whatsAppSequence}
+                    phone={lead.phone}
+                    onSendWhatsApp={handleSendWhatsApp}
+                    showFullCopy={false}
+                  />
+                </div>
+              </div>
             ) : activeChannelTab === 'call_bridge' ? (
               <div className="space-y-3">
                 {isEarlyStage && (

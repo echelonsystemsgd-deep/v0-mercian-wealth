@@ -80,6 +80,12 @@ export default function PrivacyPage() {
               <p className="text-text-primary opacity-80 leading-relaxed text-sm sm:text-base">
                 <span className="text-white font-semibold">We collect information that you provide to us directly</span>, such as when you request a custom systems audit, register on our partner portal, or book an operational strategy alignment call. This may include your name, email, company metrics, and current website URL.
               </p>
+              <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-1.5 mt-3 text-xs sm:text-sm text-slate-300">
+                <span className="font-semibold text-accent-gold block">Practice Website Review Requests</span>
+                <p className="opacity-90 leading-relaxed">
+                  When you submit a practice website review request via <span className="font-mono text-white">/practices#website-review</span>, we collect your practice name, website URL, and WhatsApp number solely to manually inspect your mobile layout and message your diagnostic review. No automated marketing sequences are triggered. You may opt out at any time by replying STOP.
+                </p>
+              </div>
             </div>
           </div>
 

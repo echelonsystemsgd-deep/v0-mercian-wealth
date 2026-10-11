@@ -10,15 +10,19 @@ import { CopyEmailButton } from "@/components/copy-email-button"
 export function Footer() {
   const { getSection } = useWebsiteContent()
   const data = getSection('footer', {
-    tagline: "Autonomous conversion and rapid response systems for UK businesses. Built to answer faster, capture deposits, and stop leads leaking.",
-    email: "mercianwealthgs@gmail.com",
+    tagline: "Automated conversion and rapid response systems for UK businesses. Built to answer faster, capture deposits, and stop leads leaking.",
+    email: process.env.CONTACT_EMAIL || "",
     phone: "+44 7851 055929",
     whatsappLink: "https://wa.me/447851055929?text=Hi%20Mercian%20Wealth,%20I'd%20like%20to%20inquire%20about%20your%20services.",
     instagramLink: "https://www.instagram.com/mercianwealth/",
-    linkedinLink: "https://www.linkedin.com/in/gs-legacy-wealth/",
+    linkedinLink: process.env.LINKEDIN_URL || "",
     ctaDescription: "Book a call to review your current enquiry flow and see a working prototype for your business.",
     ctaButtonText: "Book a call"
   })
+
+  const companyName = process.env.COMPANY_NAME
+  const companyNumber = process.env.COMPANY_NUMBER
+  const companyRegisteredAddress = process.env.COMPANY_REGISTERED_ADDRESS
 
   const quickLinks = [
     { name: "Home", href: "/" },
@@ -78,13 +82,15 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Contact */}
+            {/* Column 3: Contact */}
           <div className="space-y-4">
             <h4 className="font-sans font-bold text-xs uppercase tracking-widest text-[#DCAE53]">
               Contact Us
             </h4>
             <div className="space-y-3 font-sans text-sm text-slate-300">
-              <CopyEmailButton email={data.email} variant="footer" />
+              {data.email ? (
+                <CopyEmailButton email={data.email} variant="footer" />
+              ) : null}
               <a 
                 href={`tel:${data.phone.replace(/\s+/g, '')}`} 
                 className="flex items-center gap-2 hover:text-[#DCAE53] transition-colors min-w-0"
@@ -118,7 +124,7 @@ export function Footer() {
                   <Instagram size={18} />
                 </a>
               )}
-              {data.linkedinLink && (
+              {data.linkedinLink ? (
                 <a 
                   href={data.linkedinLink} 
                   target="_blank" 
@@ -128,7 +134,7 @@ export function Footer() {
                 >
                   <Linkedin size={18} />
                 </a>
-              )}
+              ) : null}
             </div>
           </div>
 
@@ -164,7 +170,7 @@ export function Footer() {
               </svg>
             </div>
             <div>
-              <span className="font-bold text-white block">UK &amp; EU GDPR Compliant Systems</span>
+              <span className="font-bold text-white block">Built with UK GDPR in mind</span>
               <span className="text-slate-400 text-[11px]">Strict data residency with zero AI model training on your confidential business data.</span>
             </div>
           </div>
@@ -188,8 +194,13 @@ export function Footer() {
             <p>
               © {new Date().getFullYear()} Mercian Wealth Automation. All Rights Reserved. Engineered in Berkshire, United Kingdom.
             </p>
+            {companyName && (
+              <p className="text-[10px] text-slate-400">
+                {companyName} {companyNumber ? `· Company No. ${companyNumber}` : ""} {companyRegisteredAddress ? `· ${companyRegisteredAddress}` : ""}
+              </p>
+            )}
             <p className="text-[10px] text-slate-300">
-              Digital storefronts, booking systems, and practice client intake infrastructure for UK businesses and accountancy firms. Unaffiliated with any financial advisory or wealth management services.
+              Intake and deadline-chasing systems for UK accounting practices. Unaffiliated with any financial advisory or wealth management services.
             </p>
           </div>
           <div className="flex justify-center gap-6 mt-4 md:mt-0">

@@ -56,7 +56,7 @@ export default function ContactPage() {
       "name": "Mercian Wealth",
       "url": "https://mercianwealth.com",
       "telephone": "+447851055929",
-      "email": "mercianwealthgs@gmail.com",
+      "email": process.env.CONTACT_EMAIL || "",
       "priceRange": "£495 - £1,995",
       "image": "https://mercianwealth.com/Logo2.jpeg",
       "disambiguatingDescription": "Mercian Wealth provides mobile storefronts, booking systems, and speed-to-lead automation for UK local businesses and trade contractors.",
@@ -107,7 +107,9 @@ export default function ContactPage() {
               {/* Contact Cards */}
               <div className="space-y-4">
                 {/* Email */}
-                <CopyEmailButton email="mercianwealthgs@gmail.com" variant="card" />
+                {process.env.CONTACT_EMAIL && (
+                  <CopyEmailButton email={process.env.CONTACT_EMAIL} variant="card" />
+                )}
 
                 {/* Phone */}
                 <div className="p-5 bg-[#111115] border border-slate-800 hover:border-[#DCAE53]/40 rounded-2xl transition-all duration-300 flex items-start gap-4 shadow-lg">
