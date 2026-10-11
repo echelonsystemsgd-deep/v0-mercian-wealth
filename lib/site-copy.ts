@@ -1164,6 +1164,11 @@ export const SITE_COPY = {
         roi: "Cuts client onboarding lag from 3 weeks down to 48 hours.",
       },
     ],
+    speedTest: {
+      badge: "3-MINUTE DIAGNOSTIC PROTOCOL",
+      title: "Test Your Practice Response Speed & MTD Readiness",
+      subtitle: "Answer 5 diagnostic questions to measure uncaptured client revenue, admin overhead, and capacity risk before the 2026 quarterly filing changes.",
+    },
     visualizer: {
       badge: "HANDS-ON PRACTICE SANDBOX",
       title: "Experience the enquiry-to-client pipeline in real time.",

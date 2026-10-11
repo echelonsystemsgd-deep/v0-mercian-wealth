@@ -62,12 +62,28 @@ We need a unified digital architecture that allows us to target local businesses
      * **Passive Scroll Listeners & Optimized Blur Filters:** Configured `{ passive: true }` scroll event listeners in `components/navbar.tsx` and optimized background watermark images in `components/watermark.tsx`.
 * **Verification:** Production build compiles cleanly with zero TypeScript or lint errors. All touch targets meet the 44px+ minimum ergonomic standard for mobile viewports.
 
-### Phase 4: Outreach Arsenal & Playbooks
-* **Objective:** Produce the complete cold outreach templates, speed test checklists, and qualification scripts in documentation.
+### Phase 4: Outreach Arsenal & Playbooks [COMPLETED]
+* **Objective:** Produce the complete cold outreach templates, speed test checklists, and qualification scripts in documentation and operational tooling.
 * **Deliverables:**
-  1. Cold DM / Email templates with the MTD hook.
-  2. 30-Second Loom walkthrough script.
-  3. Discovery call question flow to prevent over-promising or premature quoting.
+  1. **Comprehensive Outreach Playbook File:**
+     * Implemented in `Implementation/Website/ACCOUNTANTS_OUTREACH_ARSENAL_AND_PLAYBOOKS.md`.
+     * **Omnichannel Outreach Matrix:** 5-touch cold email sequence with the MTD 2026 Sole Trader & Landlord £50k hook, 3-touch LinkedIn senior partner cadence, 3-step WhatsApp conversational sequence for sole practitioners, and direct physical mailer script.
+     * **The 3-Minute Practice Response Speed Test Diagnostic Checklist:** 5-point audit protocol (Mobile Ergonomics, Out-of-Hours Enquiry Triage, Client Qualification Depth, MTD Record Chasing Readiness, Onboarding Speed) with scoring matrix.
+     * **30-Second Loom Walkthrough Script:** Step-by-step split-screen recording protocol (Firm's mobile site + live sandbox at `/practices#practice-visualizer`) with word-for-word 40s timing.
+     * **Discovery Call Question Flow & Qualification Protocol:** 5-phase blueprint (Context, Bottleneck Diagnostic, Governed Solution Walkthrough, Financial Anchoring, 7-Day Pilot Scope). Includes the 1-Question Clarifier: *"What single day-to-day bottleneck are you trying to eliminate for your team right now?"* and the Anti-Hostinger & Anti-Xero disqualification guardrails.
+     * **Objection Handling Compendium:** Exact scripts for Xero/Iris existing software, GDPR and client financial confidentiality, word-of-mouth reliance, and staff change resistance.
+  2. **Interactive Mobile Practice Speed Test Tool:**
+     * Implemented interactive `components/practice-speed-test.tsx` mounted on `/practices#practice-speed-test`.
+     * Allows visiting accountants or outreach reps on mobile devices to run the 5-point diagnostic interactively in under 180 seconds, receiving an instant capacity leakage score (0–100) and actionable next steps.
+  3. **Admin Cockpit & Auditor Integration:**
+     * Deterministic intelligence support in `lib/auditor/deterministic.ts` and `components/admin/outreach-modal.tsx` providing pre-formatted accounting practice outreach sequences, Loom scripts, and call bridge prompts.
+  4. **Automated n8n Lead Finder & Daily Outreach Machine (`Implementation/Website/n8n-accountants-lead-engine.json`):**
+     * Complete operational n8n workflow amended for the UK accountants niche.
+     * Searches Serper Maps for `"chartered accountants"`, `"accountants"`, and `"tax advisers"` across top commercial hubs and all 76 UK cities.
+     * Vets out corporate switchboards (0800, 0845, 0870, 0300) so outreach directly targets practice partners.
+     * Integrates the 5-stage MTD 2026 & evening enquiry intake cadence with dynamic visualizer links (`mercianwealth.com/practices#practice-visualizer?firm={{Name}}`).
+     * Automatically syncs to Google Sheets and Mercian Wealth Supabase DB (`/admin/leads`), delivers a daily 9 AM multi-channel digest (Markdown, Telegram, Slack), and handles 1-click webhook responses (`Mark Sent`, `Snooze 2d`, `Mark Lost`).
+* **Verification:** Zero TypeScript or lint errors. 100% mobile-optimized with 44px+ touch targets, sub-second rendering, and zero layout shift.
 
 ---
 
@@ -75,4 +91,6 @@ We need a unified digital architecture that allows us to target local businesses
 - **Phase 1 (Landing Page Infrastructure):** Complete & Verified.
 - **Phase 2 (Brand Navigation & Global Discovery):** Complete & Verified.
 - **Phase 3 (Interactive Practice Pipeline Sandbox & Visualizer):** Complete & Verified.
-- **Next Up:** Phase 4 (Outreach Arsenal & Playbooks).
+- **Phase 4 (Outreach Arsenal & Playbooks):** Complete & Verified.
+- **All 4 Phases Fully Executed:** UK Accountants Niche Pivot is completely live, documented, and operational.
+

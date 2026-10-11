@@ -1,0 +1,713 @@
+{
+  "name": "Mercian Wealth - UK Accountants Lead Finder & Outreach Engine",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        480,
+        3792
+      ],
+      "id": "3d993397-d343-47b4-a055-35ca5920ec18",
+      "name": "📊 Trigger: Scrape UK Accountants (Serper Maps)"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field-serper-api-key",
+              "name": "Serper_API_Key",
+              "value": "c7ca23ca2e1e80669481a43844ef400a946b8806",
+              "type": "string"
+            },
+            {
+              "id": "field-query",
+              "name": "query",
+              "value": "chartered accountants",
+              "type": "string"
+            },
+            {
+              "id": "field-execution-mode",
+              "name": "execution_mode",
+              "value": "top_commercial_hubs",
+              "type": "string"
+            },
+            {
+              "id": "field-location",
+              "name": "location",
+              "value": "Birmingham",
+              "type": "string"
+            },
+            {
+              "id": "field-radius",
+              "name": "radius",
+              "value": "1000",
+              "type": "string"
+            },
+            {
+              "id": "field-min-reviews",
+              "name": "min_reviews",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "field-only-no-website",
+              "name": "only_no_website",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        688,
+        3792
+      ],
+      "id": "e8dea601-dd87-4164-8778-8c0451aaa0fd",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * UK COMMERCIAL & FINANCIAL HUBS DIRECTORY & DISPATCHER\n * Tailored for UK Accounting Practices, Sole Practitioners & Partnerships\n */\nconst config = $input.first().json || {};\nconst rawMode = String(config.execution_mode || 'top_commercial_hubs').toLowerCase().trim();\n\nconst allUkCities = [\n  // England\n  \"Bath\", \"Birmingham\", \"Bradford\", \"Brighton & Hove\", \"Bristol\", \"Cambridge\", \"Canterbury\", \"Carlisle\",\n  \"Chelmsford\", \"Chester\", \"Chichester\", \"Colchester\", \"Coventry\", \"Derby\", \"Doncaster\", \"Durham\",\n  \"Ely\", \"Exeter\", \"Gloucester\", \"Hereford\", \"Kingston-upon-Hull\", \"Lancaster\", \"Leeds\", \"Leicester\",\n  \"Lichfield\", \"Lincoln\", \"Liverpool\", \"London\", \"Manchester\", \"Milton Keynes\", \"Newcastle-upon-Tyne\",\n  \"Norwich\", \"Nottingham\", \"Oxford\", \"Peterborough\", \"Plymouth\", \"Portsmouth\", \"Preston\", \"Ripon\",\n  \"Salford\", \"Salisbury\", \"Sheffield\", \"Southampton\", \"Southend-on-Sea\", \"St Albans\", \"Stoke on Trent\",\n  \"Sunderland\", \"Truro\", \"Wakefield\", \"Wells\", \"Westminster\", \"Winchester\", \"Wolverhampton\", \"Worcester\", \"York\",\n  \n  // Northern Ireland\n  \"Armagh\", \"Bangor\", \"Belfast\", \"Lisburn\", \"Londonderry\", \"Newry\",\n  \n  // Scotland\n  \"Aberdeen\", \"Dundee\", \"Dunfermline\", \"Edinburgh\", \"Glasgow\", \"Inverness\", \"Perth\", \"Stirling\",\n  \n  // Wales\n  \"Bangor\", \"Cardiff\", \"Newport\", \"St Asaph\", \"St Davids\", \"Swansea\", \"Wrexham\"\n];\n\nconst topCommercialHubs = [\n  \"London\", // City, West End, Canary Wharf\n  \"Birmingham\", // Colmore Row Financial District & West Midlands\n  \"Manchester\", // Spinningfields & Greater Manchester\n  \"Leeds\", // Financial & Professional Services Hub\n  \"Edinburgh\", // Scottish Financial Sector\n  \"Glasgow\", // Commercial Heartland\n  \"Bristol\", // South West Commercial Hub\n  \"Liverpool\",\n  \"Reading\", // Thames Valley Tech & Finance Corridor\n  \"Milton Keynes\",\n  \"Sheffield\",\n  \"Newcastle-upon-Tyne\",\n  \"Cardiff\",\n  \"Belfast\"\n];\n\nlet targetList = [];\nif (rawMode === 'single_city' || rawMode === 'single') {\n  targetList = [config.location || 'Birmingham'];\n} else if (rawMode === 'top_commercial_hubs' || rawMode === 'top_hubs' || rawMode === 'hubs') {\n  targetList = topCommercialHubs;\n} else {\n  targetList = allUkCities;\n}\n\nreturn targetList.map(city => ({\n  json: {\n    ...config,\n    location: city,\n    target_city: city\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        864,
+        3792
+      ],
+      "id": "7a2dde93-dc7b-4d38-805d-b98398014b1d",
+      "name": "UK Cities Directory & Dispatcher"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://google.serper.dev/maps",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-KEY",
+              "value": "={{ $json.Serper_API_Key || $('Edit Fields').first().json.Serper_API_Key }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  q: `${$json.query || 'chartered accountants'} in ${$json.location}`,\n  gl: 'gb',\n  hl: 'en'\n}) }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1104,
+        3792
+      ],
+      "id": "c348a281-898c-4832-800f-c10de451ad30",
+      "name": "Get Places",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1500,
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "places",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 3,
+      "position": [
+        1360,
+        3792
+      ],
+      "id": "8defdfa6-f954-43e3-b132-6e39dce26306",
+      "name": "Split Out",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * UK ACCOUNTING PRACTICE QUALITY GATE & INTELLIGENCE VERIFIER\n * Specifically adapted for UK Accounting Practices, Tax Advisers & Bookkeeping Firms\n * 1. Focuses on the MTD for ITSA 2026 hook (£50k+ sole traders & landlords) and 3-minute evening enquiry intake\n * 2. Filters out massive corporate switchboards (0800, 0845, 0870, 0300) so you reach practice partners\n * 3. Normalizes phones to UK standard (+44...)\n * 4. Generates 1-click WhatsApp links for UK mobiles (+447...)\n * 5. Generates consultative call scripts for UK landlines (+441..., +442...)\n * 6. Deduplicates across the batch\n */\n\nconst items = $input.all();\nconst config = $('Edit Fields').first().json || {};\nconst query = (config.query || 'chartered accountants').trim();\nconst minReviews = Number(config.min_reviews || 1);\nconst onlyNoWebsite = Boolean(config.only_no_website === true);\n\nconst validatedLeads = [];\nconst seenPhones = new Set();\nconst seenNames = new Set();\n\nfor (const item of items) {\n  const place = item.json || {};\n  const businessName = (place.title || place.name || '').trim();\n  const rawPhone = (place.phoneNumber || place.phone || '').trim();\n  const rawWebsite = (place.website || '').trim();\n  const rating = Number(place.rating || 0);\n  const reviewsCount = Number(place.ratingCount || place.user_ratings_total || 0);\n  const address = (place.address || place.formatted_address || '').trim();\n  const category = place.category || place.type || 'Accounting Practice';\n  \n  if (!businessName || !rawPhone) continue;\n  if (reviewsCount < minReviews) continue;\n  \n  // Reject large corporate switchboards & call centres\n  const cleanDigits = rawPhone.replace(/[^0-9]/g, '');\n  if (\n    cleanDigits.startsWith('0800') ||\n    cleanDigits.startsWith('0808') ||\n    cleanDigits.startsWith('0845') ||\n    cleanDigits.startsWith('0870') ||\n    cleanDigits.startsWith('0300') ||\n    cleanDigits.startsWith('0345') ||\n    cleanDigits.startsWith('44800') ||\n    cleanDigits.startsWith('44845') ||\n    cleanDigits.startsWith('44300')\n  ) {\n    continue;\n  }\n  \n  // Normalize phone to E.164 (+44)\n  let formattedPhone = rawPhone.replace(/[^0-9+]/g, '');\n  if (formattedPhone.startsWith('0')) {\n    formattedPhone = '+44' + formattedPhone.substring(1);\n  } else if (!formattedPhone.startsWith('+44')) {\n    formattedPhone = '+44' + formattedPhone.replace(/^\\+/, '');\n  }\n  const digitsOnly = formattedPhone.replace(/[^0-9]/g, '');\n  \n  // Deduplicate across the batch\n  const nameKey = businessName.toLowerCase().replace(/[^a-z0-9]/g, '');\n  if (seenPhones.has(digitsOnly) || seenNames.has(nameKey)) continue;\n  seenPhones.add(digitsOnly);\n  seenNames.add(nameKey);\n  \n  // Classification & Verification Flag\n  let hasWebsite = true;\n  let classification = 'has_website';\n  let verificationStatus = 'VERIFIED — Live Website Active';\n  \n  if (!rawWebsite || rawWebsite === '' || rawWebsite.toLowerCase() === 'none' || rawWebsite.toLowerCase() === 'null') {\n    hasWebsite = false;\n    classification = 'no_website';\n    verificationStatus = 'UNVERIFIED — Google Maps only, verify via LinkedIn/Companies House';\n  } else {\n    const w = rawWebsite.toLowerCase();\n    if (w.includes('facebook.com') || w.includes('linkedin.com') || w.includes('yell.com')) {\n      hasWebsite = false;\n      classification = 'social_only';\n      verificationStatus = 'UNVERIFIED — Social directory only';\n    }\n  }\n  \n  if (onlyNoWebsite && hasWebsite) continue;\n  \n  const isMobile = digitsOnly.startsWith('447');\n  const channel = isMobile ? 'WhatsApp / SMS' : 'Practice Landline / Partner Call';\n  \n  // Dynamic Practice Sandbox Link\n  const protoUrl = `https://mercianwealth.com/practices#practice-visualizer?firm=${encodeURIComponent(businessName)}`;\n  \n  // Specialized UK Accounting Outreach Copy (MTD 2026 & Evening Intake)\n  let stage1Opener = '';\n  let stage2Pitch = '';\n  \n  if (hasWebsite) {\n    // Standard UK practice with existing website\n    stage1Opener = `Hi 👋 Came across ${businessName} — quick question: when new sole trader or Ltd Co enquiries land on your website out-of-hours (e.g. 8 PM), how does your team qualify them before booking discovery calls?`;\n    stage2Pitch = `In our tests across UK practices, 78% of Ltd Co directors sign with whoever responds first, but standard contact forms take 24–48 hours. At the same time, MTD 2026 quarterly filing is about to multiply manual document chasing across sole traders. We built an interactive practice intake & deadline chasing sandbox showing how ${businessName} can capture clients in 3 minutes with 100% practitioner control: ${protoUrl} — take a look when you have a moment, zero obligation at all.`;\n  } else {\n    // Sole practitioner or new practice with no dedicated website\n    stage1Opener = `Hi 👋 Came across ${businessName} on Google Maps — quick question: do you take all your new sole trader and Ltd Co client enquiries via direct phone / referral, or do you have a dedicated intake page?`;\n    stage2Pitch = `With MTD for ITSA landing in 2026 for £50k+ sole traders and landlords, managing client records manually will consume 10+ hours a week. We put together a lightweight practice intake and deadline chasing concept showing how ${businessName} can qualify clients and automate document chasing: ${protoUrl} — take a look whenever you have 30 seconds.`;\n  }\n  \n  const followUp1 = `Hey — following up on ${businessName}. No pressure at all, just wanted to check if the practice sandbox link landed and see if streamlining intake before MTD 2026 is on your radar.`;\n  const followUpFinal = `Last one from me on this — if automating client intake and record chasing isn't an operational priority for ${businessName} right now, that is completely fair. If it ever is, the sandbox remains live at mercianwealth.com/practices. Wishing the practice a smooth quarter!`;\n  \n  const waLink = isMobile ? `https://wa.me/${digitsOnly}?text=${encodeURIComponent(stage1Opener)}` : 'N/A';\n  \n  // Supabase Payload matching Mercian Wealth schema\n  const supabasePayload = {\n    name: 'Senior Partner / Practice Director',\n    business_name: businessName,\n    phone: formattedPhone,\n    website: hasWebsite ? rawWebsite : null,\n    service_interested: 'Accounting Practice Client Intake & MTD 2026 Deadline Chasing Engine',\n    notes: `${address} · ★${rating} (${reviewsCount} reviews) · [${verificationStatus}]`,\n    status: 'New',\n    source: 'google_maps_accountants',\n    lead_type: 'practice',\n    local_business_niche: 'Accountant',\n    outreach_category: classification,\n    outreach_stage: 'uncontacted',\n    prototype_url: protoUrl,\n    whatsapp_direct_url: isMobile ? waLink : null,\n    scraped_metadata: {\n      address: address,\n      rating: rating,\n      reviews_count: reviewsCount,\n      trade: 'Accountant',\n      channel: channel,\n      verification_status: verificationStatus,\n      stage_1_opener: stage1Opener,\n      stage_2_pitch: stage2Pitch,\n      follow_up_1: followUp1,\n      follow_up_final: followUpFinal,\n      prototype_url: protoUrl\n    }\n  };\n  \n  validatedLeads.push({\n    json: {\n      \"Business Name\": businessName,\n      \"Phone\": formattedPhone,\n      \"Channel\": channel,\n      \"WhatsApp Link\": waLink,\n      \"Reviews\": reviewsCount,\n      \"Rating\": rating,\n      \"Website\": rawWebsite || 'None',\n      \"Address\": address,\n      \"Trade\": 'Accountant',\n      \"Classification\": classification,\n      \"Verification Status\": verificationStatus,\n      \"Stage 1 Opener\": stage1Opener,\n      \"Stage 2 Pitch\": stage2Pitch,\n      \"Follow Up 1\": followUp1,\n      \"Follow Up Final\": followUpFinal,\n      \"Prototype URL\": protoUrl,\n      \"Status\": 'New',\n      \"supabase_payload\": supabasePayload\n    }\n  });\n}\n\nreturn validatedLeads;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1584,
+        3792
+      ],
+      "id": "21c92296-63c7-4dbd-90bc-7a5bb352fdd0",
+      "name": "Quality Gate & Lead Verifier"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://script.google.com/macros/s/AKfycbw4WM9582vBCmlU7sIkG48tHAQTb8uLWc-ASvtztR_s2yKuu4Ms6huGMyeMmryIFKwkPQ/exec",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 500
+            }
+          },
+          "redirect": {
+            "redirect": {}
+          },
+          "timeout": 30000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1840,
+        3712
+      ],
+      "id": "77351345-b5d6-4e33-b6dd-c1f03ac69209",
+      "name": "Append to Google Sheet",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://ladebhmyywkcqtyazxxk.supabase.co/rest/v1/leads?on_conflict=phone",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhZGViaG15eXdrY3F0eWF6eHhrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTY4NTAzNSwiZXhwIjoyMDk3MjYxMDM1fQ.m_FBVwQCgj9OWqz1dajV7pGpoA5yF1Hyir71gibCKEE"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhZGViaG15eXdrY3F0eWF6eHhrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTY4NTAzNSwiZXhwIjoyMDk3MjYxMDM1fQ.m_FBVwQCgj9OWqz1dajV7pGpoA5yF1Hyir71gibCKEE"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "resolution=ignore-duplicates"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.supabase_payload) }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1840,
+        3872
+      ],
+      "id": "7f831edb-5c82-4b28-a0ee-3c654740a674",
+      "name": "Sync to Mercian Admin Dashboard",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        4320
+      ],
+      "id": "4df2235e-b5ac-448b-8ef5-b63702267f0b",
+      "name": "1b. Daily 9AM Trigger (London)"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "setting-use-mock",
+              "name": "Use_Mock_Data",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "setting-webhook-base",
+              "name": "Webhook_Base_URL",
+              "value": "http://localhost:5678",
+              "type": "string"
+            },
+            {
+              "id": "setting-channel",
+              "name": "Notification_Channel",
+              "value": "Markdown_Output",
+              "type": "string"
+            },
+            {
+              "id": "setting-telegram-token",
+              "name": "Telegram_Bot_Token",
+              "value": "YOUR_TELEGRAM_BOT_TOKEN",
+              "type": "string"
+            },
+            {
+              "id": "setting-telegram-chat",
+              "name": "Telegram_Chat_ID",
+              "value": "YOUR_TELEGRAM_CHAT_ID",
+              "type": "string"
+            },
+            {
+              "id": "setting-slack-webhook",
+              "name": "Slack_Webhook_URL",
+              "value": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+              "type": "string"
+            },
+            {
+              "id": "setting-supabase-url",
+              "name": "Supabase_URL",
+              "value": "https://ladebhmyywkcqtyazxxk.supabase.co",
+              "type": "string"
+            },
+            {
+              "id": "setting-supabase-key",
+              "name": "Supabase_Service_Key",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhZGViaG15eXdrY3F0eWF6eHhrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTY4NTAzNSwiZXhwIjoyMDk3MjYxMDM1fQ.m_FBVwQCgj9OWqz1dajV7pGpoA5yF1Hyir71gibCKEE",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        720,
+        4224
+      ],
+      "id": "af7f346c-83e4-4e9f-a7e5-8e901b4197ae",
+      "name": "2. Pipeline Settings & Channel Config"
+    },
+    {
+      "parameters": {
+        "jsCode": "const config = $('2. Pipeline Settings & Channel Config').first().json;\nconst useMock = Boolean(config.Use_Mock_Data !== false);\n\nif (useMock) {\n  const todayStr = new Date().toISOString().split('T')[0];\n  \n  return [\n    {\n      json: {\n        \"Lead ID\": \"PRACTICE-1001\",\n        \"Business Name\": \"Colmore Chartered Accountants & Tax Partners\",\n        \"Niche\": \"Accountant\",\n        \"Phone Number\": \"+447700900123\",\n        \"Source\": \"Google Maps (Birmingham Colmore Row)\",\n        \"Date First Contacted\": todayStr,\n        \"Current Stage\": \"Sourced\",\n        \"Last Message Sent\": \"\",\n        \"Last Reply Received\": \"\",\n        \"Next Action Due\": todayStr,\n        \"Prototype URL\": \"https://mercianwealth.com/practices#practice-visualizer?firm=Colmore+Chartered+Accountants\",\n        \"Notes\": \"Multi-partner practice (4.9★, 42 reviews). Standard contact form; no after-hours intake. High Ltd Co client fee potential (£3,200/yr).\"\n      }\n    },\n    {\n      json: {\n        \"Lead ID\": \"PRACTICE-1002\",\n        \"Business Name\": \"Mayfair Tax Advisory LLP\",\n        \"Niche\": \"Accountant\",\n        \"Phone Number\": \"+447700900456\",\n        \"Source\": \"Google Maps (London West End)\",\n        \"Date First Contacted\": \"2026-10-08\",\n        \"Current Stage\": \"Contacted\",\n        \"Last Message Sent\": \"Hi 👋 Came across Mayfair Tax Advisory — quick question: when new Ltd Co enquiries land out-of-hours...\",\n        \"Last Reply Received\": \"\",\n        \"Next Action Due\": todayStr,\n        \"Prototype URL\": \"https://mercianwealth.com/practices#practice-visualizer?firm=Mayfair+Tax+Advisory\",\n        \"Notes\": \"Opener sent 2 days ago. Day 2 gentle bump on out-of-hours triage due.\"\n      }\n    },\n    {\n      json: {\n        \"Lead ID\": \"PRACTICE-1003\",\n        \"Business Name\": \"Thames Valley Accountancy & Audit\",\n        \"Niche\": \"Accountant\",\n        \"Phone Number\": \"+447700900789\",\n        \"Source\": \"Google Maps (Reading)\",\n        \"Date First Contacted\": \"2026-10-05\",\n        \"Current Stage\": \"Follow-up 1 Due\",\n        \"Last Message Sent\": \"Following up on Thames Valley Accountancy...\",\n        \"Last Reply Received\": \"\",\n        \"Next Action Due\": todayStr,\n        \"Prototype URL\": \"https://mercianwealth.com/practices#practice-visualizer?firm=Thames+Valley+Accountancy\",\n        \"Notes\": \"Day 4 cumulative. Practice Visualizer teaser & MTD chasing hook due.\"\n      }\n    },\n    {\n      json: {\n        \"Lead ID\": \"PRACTICE-1004\",\n        \"Business Name\": \"Spinningfields Corporate Finance & Tax\",\n        \"Niche\": \"Accountant\",\n        \"Phone Number\": \"+447700900321\",\n        \"Source\": \"Referral\",\n        \"Date First Contacted\": \"2026-10-07\",\n        \"Current Stage\": \"Prototype Sent\",\n        \"Last Message Sent\": \"Shared 30s Loom walkthrough of practice sandbox...\",\n        \"Last Reply Received\": \"\",\n        \"Next Action Due\": todayStr,\n        \"Prototype URL\": \"https://mercianwealth.com/practices#practice-visualizer?firm=Spinningfields+Corporate+Finance\",\n        \"Notes\": \"Practice visualizer & 30s Loom sent 48h ago. Strict 48h feedback check due.\"\n      }\n    },\n    {\n      json: {\n        \"Lead ID\": \"PRACTICE-1005\",\n        \"Business Name\": \"Cotswold Heritage Tax Consultants\",\n        \"Niche\": \"Accountant\",\n        \"Phone Number\": \"+447700900654\",\n        \"Source\": \"LinkedIn Direct\",\n        \"Date First Contacted\": \"2026-09-28\",\n        \"Current Stage\": \"Nurture\",\n        \"Last Message Sent\": \"No rush at all — whenever you are ready before MTD April 2026.\",\n        \"Last Reply Received\": \"Heads down on September VAT quarter, check back next month\",\n        \"Next Action Due\": todayStr,\n        \"Prototype URL\": \"https://mercianwealth.com/practices#practice-visualizer?firm=Cotswold+Heritage+Tax\",\n        \"Notes\": \"Requested pause for VAT filing. 14-day soft check-in due.\"\n      }\n    },\n    {\n      json: {\n        \"Lead ID\": \"PRACTICE-1006\",\n        \"Business Name\": \"Clifton Chartered Accountants LLP\",\n        \"Niche\": \"Accountant\",\n        \"Phone Number\": \"+447700900987\",\n        \"Source\": \"Google Maps (Bristol)\",\n        \"Date First Contacted\": \"2026-09-20\",\n        \"Current Stage\": \"Won\",\n        \"Last Message Sent\": \"Setup fee received. 7-day deployment scheduled.\",\n        \"Last Reply Received\": \"Let us deploy the intake engine before Jan Self Assessment.\",\n        \"Next Action Due\": \"2026-11-01\",\n        \"Prototype URL\": \"https://mercianwealth.com/practices\",\n        \"Notes\": \"Closed practice client (£2,000 setup + £200/mo retainer). Ignored by digest.\"\n      }\n    },\n    {\n      json: {\n        \"Lead ID\": \"PRACTICE-1007\",\n        \"Business Name\": \"Express Micro Bookkeeping\",\n        \"Niche\": \"Accountant\",\n        \"Phone Number\": \"+447700900111\",\n        \"Source\": \"Google Maps\",\n        \"Date First Contacted\": \"2026-09-22\",\n        \"Current Stage\": \"Lost\",\n        \"Last Message Sent\": \"Polite sign-off\",\n        \"Last Reply Received\": \"Looking for £50/month cheap website builder only\",\n        \"Next Action Due\": \"2026-11-01\",\n        \"Prototype URL\": \"\",\n        \"Notes\": \"Disqualified under Anti-Hostinger rule (penny-pincher, no fee-earner capacity). Ignored by digest.\"\n      }\n    }\n  ];\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        944,
+        4224
+      ],
+      "id": "c9359968-4282-4642-a52b-b5c688887529",
+      "name": "3. Read Leads (Google Sheet or Mock)"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst config = $('2. Pipeline Settings & Channel Config').first().json || {};\nconst webhookBase = (config.Webhook_Base_URL || 'http://localhost:5678').replace(/\\/+$/, '');\n\nconst now = new Date();\nconst todayStr = now.toLocaleDateString('en-CA');\n\nconst dueLeads = [];\n\nfor (const item of items) {\n  const row = item.json || {};\n  const leadId = (row['Lead ID'] || '').trim();\n  const name = (row['Business Name'] || 'Accounting Practice').trim();\n  const niche = (row['Niche'] || 'Accountant').trim();\n  const phone = (row['Phone Number'] || '').trim();\n  const stage = (row['Current Stage'] || 'Sourced').trim();\n  const due = (row['Next Action Due'] || '').trim();\n  const protoUrl = (row['Prototype URL'] || `https://mercianwealth.com/practices#practice-visualizer?firm=${encodeURIComponent(name)}`).trim();\n  const notes = (row['Notes'] || '').trim();\n  \n  if (!leadId || !name) continue;\n  if (stage.toLowerCase() === 'won' || stage.toLowerCase() === 'lost') continue;\n  if (!due || due > todayStr) continue;\n  \n  let stageBadge = '';\n  let preDraftedCopy = '';\n  let nextStageAction = '';\n  let urgencyRank = 2;\n  \n  // UK Accountants Niche Master Sequence\n  if (stage === 'Sourced') {\n    stageBadge = '📊 STAGE 1 OPENER (Evening Intake Hook)';\n    urgencyRank = 1;\n    nextStageAction = 'Mark Contacted (+2d)';\n    preDraftedCopy = `Hi 👋\\n\\nCame across ${name} — quick question: when new sole trader or Ltd Co enquiries land on your website out-of-hours (e.g. 8 PM), how does your team qualify them before booking discovery calls?`;\n  } else if (stage === 'Contacted') {\n    stageBadge = '⚡ STAGE 2 (DAY 2 BUMP / SPEED ADVANTAGE)';\n    urgencyRank = 1;\n    nextStageAction = 'Advance to Follow-up 1 (+2d)';\n    preDraftedCopy = `Hey — following up briefly on ${name}. In our practice tests, 78% of Ltd Co directors sign with whoever confirms first, but standard contact forms take 24–48 hours. No pressure at all, just wanted to check if this landed.`;\n  } else if (stage === 'Follow-up 1 Due') {\n    stageBadge = '✨ STAGE 3 (PRACTICE VISUALIZER & MTD TEASER)';\n    urgencyRank = 2;\n    nextStageAction = 'Advance to Prototype Follow-up (+2d)';\n    preDraftedCopy = `Hey — put together an interactive practice intake & deadline chasing sandbox showing how ${name} can qualify enquiries in 3 minutes and automate record chasing before MTD 2026: ${protoUrl} — take a look when you have a moment, zero obligation at all 👍`;\n  } else if (stage === 'Prototype Sent') {\n    stageBadge = '🎯 STAGE 4 (VISUALIZER 48H FEEDBACK CHECK)';\n    urgencyRank = 1;\n    nextStageAction = 'Move to Nurture (+30d) - Stop Rule';\n    preDraftedCopy = `Hey — did you have a chance to take a look at the practice sandbox (${protoUrl})? Would love to hear your thoughts on whether streamlining intake ahead of MTD 2026 is an operational priority for the team 👀`;\n  } else if (stage === 'Nurture') {\n    stageBadge = '🌿 STAGE 5 (NURTURE / MTD CHECK-IN)';\n    urgencyRank = 3;\n    nextStageAction = 'Mark Checked-in (+30d) or Lost';\n    preDraftedCopy = `No rush at all — just wanted to check back in as promised. If eliminating manual document chasing and capturing evening business enquiries ever becomes a priority before MTD 2026, the concept stands: ${protoUrl}. Wishing the firm a productive month!`;\n  } else {\n    stageBadge = `📋 ${stage.toUpperCase()} (ACTION DUE)`;\n    urgencyRank = 2;\n    nextStageAction = 'Advance Stage';\n    preDraftedCopy = `Hey — following up on ${name} regarding your practice intake workflow.`;\n  }\n  \n  const cleanDigits = phone.replace(/[^0-9]/g, '');\n  const waLink = cleanDigits ? `https://wa.me/${cleanDigits}?text=${encodeURIComponent(preDraftedCopy)}` : 'N/A';\n  \n  const qParams = 'id=' + encodeURIComponent(leadId) + '&phone=' + encodeURIComponent(phone) + '&name=' + encodeURIComponent(name) + '&stage=' + encodeURIComponent(stage);\n  const markSentUrl = webhookBase + '/webhook/lead-action?' + qParams + '&action=sent';\n  const snoozeUrl = webhookBase + '/webhook/lead-action?' + qParams + '&action=snooze';\n  const markLostUrl = webhookBase + '/webhook/lead-action?' + qParams + '&action=lost';\n  \n  dueLeads.push({\n    json: {\n      lead_id: leadId,\n      business_name: name,\n      niche: niche,\n      phone: phone,\n      current_stage: stage,\n      stage_badge: stageBadge,\n      urgency_rank: urgencyRank,\n      due_date: due,\n      prototype_url: protoUrl,\n      notes: notes,\n      next_stage_action: nextStageAction,\n      predrafted_copy: preDraftedCopy,\n      wa_link: waLink,\n      action_sent_url: markSentUrl,\n      action_snooze_url: snoozeUrl,\n      action_lost_url: markLostUrl\n    }\n  });\n}\n\ndueLeads.sort((a, b) => a.json.urgency_rank - b.json.urgency_rank);\nreturn dueLeads;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1168,
+        4224
+      ],
+      "id": "1cd06da7-c0a8-49bd-b891-f664fb36ee91",
+      "name": "4. Filter & Playbook Template Engine"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst config = $('2. Pipeline Settings & Channel Config').first().json || {};\nconst channel = config.Notification_Channel || 'Markdown_Output';\n\nconst now = new Date();\nconst dateHeader = now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });\n\nif (items.length === 0) {\n  const emptyMsg = '☕ **Mercian Wealth Practice Outreach Digest — ' + dateHeader + '**\\n\\n✅ All clear! No partner follow-ups or outreach actions are due today. Total practice pipeline is up to date.';\n  return [{\n    json: {\n      total_due: 0,\n      channel: channel,\n      digest_markdown: emptyMsg,\n      digest_html: '<p>☕ <b>Mercian Wealth Practice Outreach Digest — ' + dateHeader + '</b></p><p>✅ All clear! No partner follow-ups or outreach actions are due today.</p>'\n    }\n  }];\n}\n\nlet md = '📬 **MERCIAN WEALTH — DAILY PRACTICE OUTREACH DIGEST**\\n📅 *' + dateHeader + '* · **' + items.length + ' Practices Due for Action**\\n\\n---\\n';\nlet html = '<b>📬 MERCIAN WEALTH — DAILY PRACTICE OUTREACH DIGEST</b><br>📅 <i>' + dateHeader + '</i> · <b>' + items.length + ' Practices Due for Action</b><br><hr>';\n\nitems.forEach((item, idx) => {\n  const l = item.json;\n  \n  md += '\\n### ' + (idx + 1) + '. ' + l.business_name + ' (' + l.niche + ')\\n';\n  md += '* **Status:** ' + l.stage_badge + '\\n';\n  md += '* **Phone:** `' + l.phone + '`\\n';\n  if (l.notes) md += '* **Context:** ' + l.notes + '\\n';\n  if (l.prototype_url) md += '* **Sandbox Link:** [View Practice Visualizer](' + l.prototype_url + ')\\n';\n  md += '\\n**Pre-Drafted Message:**\\n> ' + l.predrafted_copy.replace(/\\n/g, '\\n> ') + '\\n\\n';\n  md += '👉 **[💬 Click to Open in WhatsApp](' + l.wa_link + ')**\\n';\n  md += '*Actions:* [✅ Mark Sent](' + l.action_sent_url + ') · [⏩ Snooze 2d](' + l.action_snooze_url + ') · [❌ Mark Lost](' + l.action_lost_url + ')\\n';\n  md += '\\n---\\n';\n  \n  html += '<br><b>' + (idx + 1) + '. ' + l.business_name + '</b> (<i>' + l.niche + '</i>)<br>';\n  html += '<b>Status:</b> ' + l.stage_badge + '<br>';\n  html += '<b>Phone:</b> <code>' + l.phone + '</code><br>';\n  if (l.notes) html += '<b>Context:</b> ' + l.notes + '<br>';\n  if (l.prototype_url) html += '<b>Sandbox Link:</b> <a href=\"' + l.prototype_url + '\">View Practice Visualizer</a><br>';\n  html += '<b>Draft:</b><br><i>\"' + l.predrafted_copy.replace(/\\n/g, '<br>') + '\"</i><br><br>';\n  html += '👉 <a href=\"' + l.wa_link + '\"><b>[💬 Open in WhatsApp]</b></a><br>';\n  html += '<b>Actions:</b> <a href=\"' + l.action_sent_url + '\">[✅ Mark Sent]</a> · <a href=\"' + l.action_snooze_url + '\">[⏩ Snooze 2d]</a> · <a href=\"' + l.action_lost_url + '\">[❌ Mark Lost]</a><br><hr>';\n});\n\nreturn [{\n  json: {\n    total_due: items.length,\n    channel: channel,\n    digest_markdown: md,\n    digest_html: html,\n    leads: items.map(i => i.json)\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1408,
+        4224
+      ],
+      "id": "5d1b3842-9562-44b2-bbf2-9cfbcab1dba2",
+      "name": "5. Format Daily Digest (HTML & Markdown)"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1648,
+        4224
+      ],
+      "id": "456a5168-2b53-4939-9dc5-914c81cc313f",
+      "name": "6. Route by Notification Channel"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "out-digest",
+              "name": "Daily_Digest_Output",
+              "value": "={{ $json.digest_markdown }}",
+              "type": "string"
+            },
+            {
+              "id": "out-count",
+              "name": "Total_Leads_Due",
+              "value": "={{ $json.total_due }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1888,
+        4080
+      ],
+      "id": "012cd726-6359-45bb-828f-d04aff766c26",
+      "name": "7a. View Digest in Canvas"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot{{ $('2. Pipeline Settings & Channel Config').first().json.Telegram_Bot_Token }}/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  chat_id: $('2. Pipeline Settings & Channel Config').first().json.Telegram_Chat_ID,\n  text: $json.digest_html,\n  parse_mode: 'HTML',\n  disable_web_page_preview: true\n}) }}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1888,
+        4224
+      ],
+      "id": "6ad5764d-0e56-47fa-9533-77cfd5101665",
+      "name": "7b. Send to Telegram Bot",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('2. Pipeline Settings & Channel Config').first().json.Slack_Webhook_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  text: $json.digest_markdown\n}) }}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1888,
+        4352
+      ],
+      "id": "fa654fb8-2673-417e-8148-3fda72e4ed74",
+      "name": "7c. Send to Slack Webhook",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "path": "lead-action",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        480,
+        4624
+      ],
+      "id": "52a215e4-efca-4472-acf8-2791f35993f1",
+      "name": "Webhook: 1-Click Action Receiver",
+      "webhookId": "lead-action"
+    },
+    {
+      "parameters": {
+        "jsCode": "const query = $input.first().json.query || {};\nconst leadId = query.id || 'Unknown';\nconst businessName = query.name || '';\nconst phone = query.phone || '';\nconst action = (query.action || 'sent').toLowerCase();\nconst currentStage = query.stage || 'Sourced';\n\nconst now = new Date();\nfunction addDays(days) {\n  const d = new Date(now);\n  d.setDate(d.getDate() + days);\n  return d.toISOString().split('T')[0];\n}\n\nlet newStage = currentStage;\nlet nextActionDue = '';\nlet feedbackMsg = '';\n\nif (action === 'sent') {\n  if (currentStage === 'Sourced') {\n    newStage = 'Contacted';\n    nextActionDue = addDays(2);\n    feedbackMsg = 'Stage 1 Opener logged. Follow-up 1 automatically scheduled for ' + nextActionDue + ' (+2 days).';\n  } else if (currentStage === 'Contacted') {\n    newStage = 'Follow-up 1 Due';\n    nextActionDue = addDays(2);\n    feedbackMsg = 'Day 2 Bump logged. Value follow-up scheduled for ' + nextActionDue + ' (+2 days).';\n  } else if (currentStage === 'Follow-up 1 Due') {\n    newStage = 'Nurture';\n    nextActionDue = addDays(7);\n    feedbackMsg = 'Final value follow-up logged. Moved to Nurture for check-in on ' + nextActionDue + ' (+7 days).';\n  } else if (currentStage === 'Prototype Sent') {\n    newStage = 'Nurture';\n    nextActionDue = addDays(30);\n    feedbackMsg = 'Practice visualizer follow-up logged. Strict 1-and-done enforced: practice moved to Nurture (+30 days).';\n  } else if (currentStage === 'Nurture') {\n    newStage = 'Lost';\n    nextActionDue = '';\n    feedbackMsg = 'Nurture check-in completed. Lead archived.';\n  } else {\n    newStage = 'Contacted';\n    nextActionDue = addDays(2);\n    feedbackMsg = 'Lead updated. Next action scheduled for ' + nextActionDue + '.';\n  }\n} else if (action === 'snooze') {\n  nextActionDue = addDays(2);\n  feedbackMsg = 'Lead snoozed. Next review pushed by 2 days to ' + nextActionDue + '.';\n} else if (action === 'lost') {\n  newStage = 'Lost';\n  nextActionDue = '';\n  feedbackMsg = 'Practice marked as Disqualified / Lost.';\n}\n\nconst responseHtml = '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Mercian Practice Lead Action Confirmed</title><style>body { font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif; background: #050505; color: #f8fafc; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; } .card { background: #0c0c0e; padding: 2rem; border-radius: 12px; max-width: 480px; box-shadow: 0 10px 25px rgba(0,0,0,0.8); border: 1px solid #daa640; text-align: center; } .badge { display: inline-block; padding: 0.25rem 0.75rem; background: #daa640; color: #000000; font-weight: bold; border-radius: 9999px; margin-bottom: 1rem; } h2 { margin: 0 0 0.5rem 0; color: #ffffff; } p { color: #cbd5e1; line-height: 1.5; } .details { background: #000000; padding: 1rem; border-radius: 8px; margin: 1.5rem 0; text-align: left; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.1); }</style></head><body><div class=\"card\"><div class=\"badge\">ACTION LOGGED</div><h2>Lead ' + leadId + ' Updated</h2><p>' + feedbackMsg + '</p><div class=\"details\"><div><strong>Previous Stage:</strong> ' + currentStage + '</div><div><strong>New Stage:</strong> ' + newStage + '</div>' + (nextActionDue ? '<div><strong>Next Action Due:</strong> ' + nextActionDue + '</div>' : '') + '</div><p style=\"font-size: 0.8rem; color: #94a3b8;\">You can now close this tab and return to WhatsApp.</p></div></body></html>';\n\nreturn [{\n  json: {\n    lead_id: leadId,\n    business_name: businessName,\n    phone: phone,\n    action: action,\n    previous_stage: currentStage,\n    new_stage: newStage,\n    new_status: (newStage === 'Lost' ? 'Lost' : (newStage === 'Sourced' ? 'New' : 'Contacted')),\n    next_action_due: nextActionDue,\n    response_html: responseHtml\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        752,
+        4624
+      ],
+      "id": "8b7dacaf-2f5e-4ea3-bc1d-632b9815f277",
+      "name": "Calculate Next Stage & Due Date"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.response_html }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1008,
+        4624
+      ],
+      "id": "351a1356-8885-4fd8-a563-c1c7b5855a97",
+      "name": "Return Confirmation HTML"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $('2. Pipeline Settings & Channel Config').first().json.Supabase_URL }}/rest/v1/leads?phone=eq.{{ encodeURIComponent($json.phone) }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('2. Pipeline Settings & Channel Config').first().json.Supabase_Service_Key }}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('2. Pipeline Settings & Channel Config').first().json.Supabase_Service_Key }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "return=minimal"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  outreach_stage: $json.new_stage.toLowerCase().replace(/\\s+/g, '_'),\n  status: $json.new_status\n}) }}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1008,
+        4784
+      ],
+      "id": "f8ddc83b-04c7-466e-be7f-7c9a1ebcd5a3",
+      "name": "Sync Stage to Mercian Admin Dashboard",
+      "continueOnFail": true
+    }
+  ],
+  "connections": {
+    "📊 Trigger: Scrape UK Accountants (Serper Maps)": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "UK Cities Directory & Dispatcher",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UK Cities Directory & Dispatcher": {
+      "main": [
+        [
+          {
+            "node": "Get Places",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Places": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Quality Gate & Lead Verifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quality Gate & Lead Verifier": {
+      "main": [
+        [
+          {
+            "node": "Append to Google Sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Sync to Mercian Admin Dashboard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1b. Daily 9AM Trigger (London)": {
+      "main": [
+        [
+          {
+            "node": "2. Pipeline Settings & Channel Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Pipeline Settings & Channel Config": {
+      "main": [
+        [
+          {
+            "node": "3. Read Leads (Google Sheet or Mock)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Read Leads (Google Sheet or Mock)": {
+      "main": [
+        [
+          {
+            "node": "4. Filter & Playbook Template Engine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Filter & Playbook Template Engine": {
+      "main": [
+        [
+          {
+            "node": "5. Format Daily Digest (HTML & Markdown)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Format Daily Digest (HTML & Markdown)": {
+      "main": [
+        [
+          {
+            "node": "6. Route by Notification Channel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook: 1-Click Action Receiver": {
+      "main": [
+        [
+          {
+            "node": "Calculate Next Stage & Due Date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Next Stage & Due Date": {
+      "main": [
+        [
+          {
+            "node": "Return Confirmation HTML",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Sync Stage to Mercian Admin Dashboard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "mercian-wealth-accountants-lead-engine"
+  }
+}

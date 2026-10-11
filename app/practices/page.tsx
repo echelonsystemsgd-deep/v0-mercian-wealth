@@ -4,6 +4,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { PageFAQ } from "@/components/page-faq"
 import { PracticePipelineVisualizer } from "@/components/practice-pipeline-visualizer"
+import { PracticeSpeedTest } from "@/components/practice-speed-test"
 import { SITE_COPY } from "@/lib/site-copy"
 import { 
   Clock, 
@@ -18,7 +19,8 @@ import {
   AlertTriangle,
   Layers,
   Sparkles,
-  PhoneCall
+  PhoneCall,
+  Gauge
 } from "lucide-react"
 
 export const metadata: Metadata = {
@@ -117,6 +119,14 @@ export default function PracticesPage() {
             >
               <Zap className="w-4 h-4 text-[#DAA640]" />
               <span>{data.hero.secondaryCtaText}</span>
+            </a>
+
+            <a
+              href="#practice-speed-test"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-white/15 hover:border-[#DAA640]/50 bg-white/5 hover:bg-white/10 text-white font-medium text-sm sm:text-base transition-all min-h-[48px]"
+            >
+              <Gauge className="w-4 h-4 text-[#DAA640]" />
+              <span>3-Min Response Test</span>
             </a>
 
             <a
@@ -226,7 +236,10 @@ export default function PracticesPage() {
           </div>
         </section>
 
-        {/* 4. INTERACTIVE PRACTICE PIPELINE VISUALIZER (PHASE 3 SANDBOX) */}
+        {/* 4. INTERACTIVE 3-MINUTE SPEED TEST & DIAGNOSTIC */}
+        <PracticeSpeedTest />
+
+        {/* 5. INTERACTIVE PRACTICE PIPELINE VISUALIZER (PHASE 3 SANDBOX) */}
         <PracticePipelineVisualizer />
 
         {/* 5. GOVERNANCE & RISK REMOVAL SECTION */}

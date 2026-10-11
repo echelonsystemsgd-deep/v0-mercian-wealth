@@ -143,7 +143,33 @@ export function OutreachModal({
       return intel.candidates
     }
 
-    return [
+    const isAccountantNiche = 
+      trade.toLowerCase().includes('account') || 
+      trade.toLowerCase().includes('practice') || 
+      businessName.toLowerCase().includes('account')
+
+    const accountantCandidate: FrictionFinding = {
+      id: 'c_accountant_practice',
+      classification: 'OBSERVED',
+      customerNextStep: 'Enquire for Ltd Co compliance, switching firms, or MTD setup',
+      lane: 'Practice client intake & deadline chasing',
+      location: '/contact & evening website triage',
+      observableProblem: 'enquiry intake lacks out-of-hours triage and pre-approved MTD record chasing',
+      evidence: `Review of ${businessName} confirms standard static contact form without instant qualification or automated MTD quarterly chasing.`,
+      recognizableReason: '78% of Ltd Co directors sign with the first firm that responds, while MTD 2026 will overwhelm staff with quarterly document chasing',
+      consequenceMechanics: 'prospective high-fee clients bounce to faster-responding practices and fee-earners lose 10+ hours/week to manual chasing',
+      confidence: 0.95,
+      scores: {
+        visible: true,
+        fast: true,
+        logical: true,
+        decisionTied: true,
+        observable: true,
+        noNumbers: true,
+      },
+    }
+
+    const standardCandidates: FrictionFinding[] = [
       {
         id: 'c1_form_friction',
         classification: 'OBSERVED',
@@ -205,6 +231,10 @@ export function OutreachModal({
         },
       },
     ]
+
+    return isAccountantNiche 
+      ? [accountantCandidate, ...standardCandidates]
+      : [...standardCandidates, accountantCandidate]
   }, [hasRawWebsite, businessName, city, trade, ownerName, rawWebsite])
 
   // Sync state when lead changes

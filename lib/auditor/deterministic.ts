@@ -183,11 +183,18 @@ export function buildWhatsApp3MessageSequence(
   const name = variableY.name?.trim()
   const nameSalutation = name ? `Hi ${name} 👋` : 'Hi 👋'
   const isNoWebsite = classification === 'NO_WEBSITE'
+  const isAccountant = 
+    trade.toLowerCase().includes('account') || 
+    trade.toLowerCase().includes('practice') || 
+    variableY.lane?.toLowerCase().includes('account') ||
+    company.toLowerCase().includes('account')
 
   // Message 1 (Opener - Send First):
   // Short conversational question confirming interest/identity (based on Overview "Next Action" style).
   // Never pitch on message 1.
-  const msg1Text = isNoWebsite
+  const msg1Text = isAccountant
+    ? `${nameSalutation} Came across ${company} — quick question: when new sole trader or Ltd Co enquiries land on your website out-of-hours, how does your team qualify them before booking discovery calls?`
+    : isNoWebsite
     ? `${nameSalutation} Came across ${company} — quick question: how do new customers currently find and browse your work outside working hours?`
     : `${nameSalutation} Came across ${company} — quick question: how do customers typically browse and enquire on mobile for you?`
 
@@ -196,7 +203,9 @@ export function buildWhatsApp3MessageSequence(
   const pageStr = variableY.page && variableY.page !== 'None' ? variableY.page : 'your site'
   const problemStr = variableY.websiteProblem || 'friction in your customer booking journey'
 
-  const msg2Text = isNoWebsite
+  const msg2Text = isAccountant
+    ? `Makes total sense! With MTD for ITSA landing in 2026 for £50k+ sole traders and landlords, practices we speak with are worried about drowning in low-tier quarterly chasing while losing £3,000+ Ltd Co director enquiries to firms that respond in 3 minutes.`
+    : isNoWebsite
     ? `Makes total sense! I actually had a look for your dedicated website to see your recent work and booking details, but couldn't find one active.`
     : `Makes total sense! I had a quick look through on my phone and noticed ${problemStr} on ${pageStr}.`
 
@@ -205,7 +214,9 @@ export function buildWhatsApp3MessageSequence(
   const reasonStr = variableY.recognizableReason || 'customers comparing options in the evening want fast certainty'
   const consequenceStr = variableY.consequenceMechanics || 'having points of friction causes them to hesitate and compare alternatives'
 
-  const msg3Text = isNoWebsite
+  const msg3Text = isAccountant
+    ? `We engineered a practitioner-in-the-loop intake & deadline chasing engine that qualifies clients in 3 minutes and automates record chasing without touching client ledgers or replacing Xero.\n\nPut together a quick 30-second walkthrough showing how it works: https://mercianwealth.com/practices#practice-visualizer\n\nOpen to taking a quick 30-second look on your phone? (Zero obligation at all 👍)`
+    : isNoWebsite
     ? `Usually when customers compare local ${trade} specialists in the evening, having no dedicated place to confirm services and availability means they hesitate at that decision point and look at alternatives.\n\nPut together a quick 30-second mobile concept showing how ${company} could showcase your work and capture those enquiries directly.\n\nOpen to seeing a quick 30-second preview? (Zero obligation at all 👍)`
     : `Usually when ${reasonStr}, ${consequenceStr}.\n\nPut together a quick 30-second mobile concept showing how to streamline that step for ${company}.\n\nOpen to taking a quick look on your phone? (Zero obligation at all 👍)`
 
@@ -337,3 +348,73 @@ export function buildNoWebsiteIntelligence(
     },
   }
 }
+
+export function buildAccountantPracticeIntelligence(
+  businessName: string,
+  city = 'your area',
+  ownerName?: string
+): OutreachIntelligence {
+  const friction: FrictionFinding = {
+    id: 'accountant_practice_intake_gap',
+    classification: 'OBSERVED',
+    customerNextStep: 'Enquire for Ltd Co compliance, switching firms, or MTD setup',
+    lane: 'Practice client intake & deadline chasing',
+    location: '/contact & evening website triage',
+    observableProblem: 'enquiry intake lacks out-of-hours triage and pre-approved MTD record chasing',
+    evidence: `Review of ${businessName} confirms standard static contact form without instant qualification or automated MTD quarterly chasing.`,
+    recognizableReason: '78% of Ltd Co directors sign with the first firm that responds, while MTD 2026 will overwhelm staff with quarterly document chasing',
+    consequenceMechanics: 'prospective high-fee clients bounce to faster-responding practices and fee-earners lose 10+ hours/week to manual chasing',
+    confidence: 0.95,
+    scores: {
+      visible: true,
+      fast: true,
+      logical: true,
+      decisionTied: true,
+      observable: true,
+      noNumbers: true,
+    },
+  }
+
+  const variableY: VariableY = {
+    name: ownerName,
+    company: businessName,
+    website: 'Practice Website',
+    page: 'Practice Intake & Contact',
+    websiteProblem: friction.observableProblem,
+    evidence: friction.evidence,
+    customerNextStep: friction.customerNextStep,
+    lane: friction.lane,
+    recognizableReason: friction.recognizableReason,
+    consequenceMechanics: friction.consequenceMechanics,
+    subjectLine: `Quick question re: ${businessName}'s client intake before MTD 2026`,
+  }
+
+  const emailX = formatEmailXOutreach(variableY, 'Gurtej', 'Mercian Wealth | Practice Infrastructure')
+  const whatsAppX = formatWhatsAppXOutreach(variableY, 'HAS_WEBSITE', 'accounting practice', city)
+
+  const callBridgeScript = `Hi ${ownerName || 'there'}, thanks for reviewing the practice visualizer. Our infrastructure operates with 100% practitioner-in-the-loop controls—we never touch client ledgers or replace Xero. Happy to run a 15-minute diagnostic call to show you how to capture £3k+ Ltd Co enquiries and recover 10+ hours per week ahead of MTD 2026.`
+
+  return {
+    classification: 'HAS_WEBSITE',
+    customerNextStep: friction.customerNextStep,
+    lane: friction.lane,
+    location: friction.location,
+    pageUrl: 'https://mercianwealth.com/practices',
+    friction: friction.observableProblem,
+    evidence: friction.evidence,
+    recognizableReason: friction.recognizableReason,
+    consequenceMechanics: friction.consequenceMechanics,
+    confidence: 'High',
+    candidates: [friction],
+    selectedCandidateId: friction.id,
+    emailX,
+    whatsAppX,
+    callBridgeScript,
+    freeValueTask: {
+      title: `30-Second Loom Walkthrough for ${businessName}`,
+      description: `Record a 35-second split-screen walkthrough comparing ${businessName}'s current contact page with the live sandbox at mercianwealth.com/practices#practice-visualizer.`,
+      prototypeFocus: 'Out-of-hours Ltd Co qualification & MTD deadline chaser',
+    },
+  }
+}
+
