@@ -22,6 +22,7 @@ export function Footer() {
 
   const quickLinks = [
     { name: "Home", href: "/" },
+    { name: "Practice Infrastructure", href: "/practices" },
     { name: "Services", href: "/services" },
     { name: "Process", href: "/process" },
     { name: "Portfolio", href: "/portfolio" },
@@ -188,7 +189,7 @@ export function Footer() {
               © {new Date().getFullYear()} Mercian Wealth Automation. All Rights Reserved. Engineered in Berkshire, United Kingdom.
             </p>
             <p className="text-[10px] text-slate-300">
-              Digital storefront and booking system engineering for UK local businesses. Unaffiliated with any financial advisory or wealth management services.
+              Digital storefronts, booking systems, and practice client intake infrastructure for UK businesses and accountancy firms. Unaffiliated with any financial advisory or wealth management services.
             </p>
           </div>
           <div className="flex justify-center gap-6 mt-4 md:mt-0">

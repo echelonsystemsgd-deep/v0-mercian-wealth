@@ -57,20 +57,26 @@ export default function PortfolioPage() {
         {
           "@type": "CreativeWork",
           "position": 1,
-          "name": "VEYRA — Solid Cast Permanent Jewellery",
-          "description": "Luxury 3D e-commerce and interactive booking sandbox.",
+          "name": "Wealthwise Accountants | Client Intake & Portal Architecture",
+          "description": "Compliant client intake, document checklist, and self-assessment onboarding architecture for UK accountancy practices.",
         },
         {
           "@type": "CreativeWork",
           "position": 2,
-          "name": "Vanguard Construction — Extensions & Conversions",
-          "description": "Instant project quote and deposit calculation engine.",
+          "name": "Second Shine Jewellers · Luxury Estate & Horology Platform",
+          "description": "Sub-second load time, virtual loupe inspection, and mobile VIP concierge.",
         },
         {
           "@type": "CreativeWork",
           "position": 3,
+          "name": "Vanguard Construction — Extensions & Conversions",
+          "description": "Instant project quote and upfront deposit calculation engine.",
+        },
+        {
+          "@type": "CreativeWork",
+          "position": 4,
           "name": "AURĒLIA Longevity Atelier",
-          "description": "Private clinic consultation intake and reservation flow.",
+          "description": "Private clinic consultation intake, duodenal delivery, and automated subscriptions.",
         },
       ]
     }

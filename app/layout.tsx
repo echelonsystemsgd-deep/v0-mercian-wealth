@@ -38,6 +38,8 @@ export const metadata: Metadata = {
     "WhatsApp lead capture UK",
     "upfront deposit collection",
     "local business websites UK",
+    "accounting practice client intake",
+    "accountant deadline chasing automation",
     "automated Google review systems",
     "trade contractor quote engines",
     "bakery order builder UK",
@@ -65,7 +67,7 @@ export const metadata: Metadata = {
         url: '/Logo2.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Mercian Wealth Automation | Mobile Storefronts & Booking Engines for UK Local Businesses',
+        alt: 'Mercian Wealth Automation | Mobile Storefronts & Practice Infrastructure for UK Businesses & Accountants',
       },
     ],
     locale: 'en_GB',
@@ -161,8 +163,8 @@ const jsonLd = {
         opens: '00:00',
         closes: '23:59'
       },
-      description: 'Sub-second mobile storefronts, 3-tap order and booking builders, instant WhatsApp lead capture, upfront Stripe deposit collection, and automated Google review systems for UK local businesses.',
-      disambiguatingDescription: 'Mercian Wealth is a digital agency providing mobile storefronts, 3-tap booking builders, instant WhatsApp lead capture, and upfront deposit engines for UK local businesses and trade contractors. Mercian Wealth is not a wealth management or financial advisory firm.',
+      description: 'Sub-second mobile storefronts, 3-tap order and booking builders, instant client intake systems, pre-approved deadline chasing engines, and upfront deposit checkout systems for UK local businesses and accounting practices.',
+      disambiguatingDescription: 'Mercian Wealth Automation is a digital engineering provider delivering mobile storefronts, 3-tap booking builders, instant client intake, and automated deadline chasing infrastructure for UK commercial businesses and accounting practices. Mercian Wealth is not a wealth management or financial advisory firm.',
       sameAs: [
         'https://wa.me/447851055929',
         'https://www.instagram.com/mercianwealth/',

@@ -27,7 +27,8 @@ import {
   MessageSquare,
   Globe,
   Smartphone,
-  Layers
+  Layers,
+  Landmark
 } from "lucide-react"
 import Link from "next/link"
 import { BrandLogo } from "@/components/brand-logo"
@@ -297,6 +298,26 @@ export function Navbar() {
                         <p className="text-[11px] text-slate-400 leading-snug">Lock deposits with 1-click Apple &amp; Google Pay to eliminate no-shows.</p>
                       </div>
                     </Link>
+
+                    <div className="pt-1 mt-1 border-t border-slate-800/80">
+                      <Link
+                        href="/practices"
+                        onClick={() => setActiveDropdown(null)}
+                        prefetch={true}
+                        className="flex items-start gap-3 p-2.5 rounded-xl bg-[#141417] hover:bg-[#1c1c22] border border-[#DCAE53]/30 transition-all group text-left"
+                      >
+                        <div className="p-2 rounded-lg bg-[#DCAE53]/15 text-[#DCAE53] group-hover:bg-[#DCAE53] group-hover:text-[#09090B] transition-colors shrink-0 mt-0.5">
+                          <Landmark className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs font-bold text-white group-hover:text-[#DCAE53] transition-colors">Practice Intake &amp; Chasing</span>
+                            <span className="text-[9px] font-mono text-[#DCAE53] bg-[#DCAE53]/10 px-1.5 py-0.2 rounded border border-[#DCAE53]/30 font-semibold">MTD 2026</span>
+                          </div>
+                          <p className="text-[11px] text-slate-400 leading-snug">Client intake, onboarding checklist &amp; deadline chasing for UK accountants.</p>
+                        </div>
+                      </Link>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -404,6 +425,18 @@ export function Navbar() {
               }`}
             >
               Protocol
+            </Link>
+
+            <Link
+              href="/practices"
+              className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
+                pathname === "/practices" 
+                  ? "text-[#DCAE53] bg-[#DCAE53]/10 font-bold border border-[#DCAE53]/30" 
+                  : "text-slate-300 hover:text-white hover:bg-[#18181F]"
+              }`}
+            >
+              <Landmark className="w-3 h-3 text-[#DCAE53]" />
+              <span>Practices</span>
             </Link>
 
             <Link
@@ -550,6 +583,7 @@ export function Navbar() {
                 <nav className="space-y-1.5">
                   {[
                     { name: "Home", href: "/", icon: Sparkles, badge: null },
+                    { name: "Practice Infrastructure", href: "/practices", icon: Landmark, badge: "MTD 2026" },
                     { name: "AI Solutions", href: "/services", icon: Cpu, badge: "5 Systems" },
                     { name: "Workflow Visualizer", href: "/#automation-flow", icon: Zap, badge: "Interactive" },
                     { name: "Case Studies", href: "/portfolio", icon: Layers, badge: "Metrics" },

@@ -21,3 +21,5 @@ node_modules
 .env*
 qualified-leads.json
 *.tsbuildinfo
+error_logs.txt
+*.log
