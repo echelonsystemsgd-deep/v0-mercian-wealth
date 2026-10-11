@@ -1164,6 +1164,19 @@ export const SITE_COPY = {
         roi: "Cuts client onboarding lag from 3 weeks down to 48 hours.",
       },
     ],
+    visualizer: {
+      badge: "HANDS-ON PRACTICE SANDBOX",
+      title: "Experience the enquiry-to-client pipeline in real time.",
+      subtitle: "Toggle through the governed workflows below to see how UK practices eliminate phone tag, chase records without staff hours, and recover 10+ hours of fee-earner capacity every week.",
+      tabs: [
+        { id: "intake", number: "01", label: "Enquiry Intake Speed", short: "Speed Intake" },
+        { id: "chasing", number: "02", label: "MTD Deadline Chaser", short: "Deadline Chaser" },
+        { id: "onboarding", number: "03", label: "Onboarding Checklist", short: "48h Onboarding" },
+        { id: "roi", number: "04", label: "Capacity & Hours Saved", short: "10+ Hrs Saved" },
+      ],
+      timeSavedMetric: "11.5 hours/week saved per partner",
+      complianceGuarantee: "Practitioner-in-the-Loop · Zero Client Financial Data Handled · UK GDPR Compliant",
+    },
     governance: {
       badge: "SECURITY & REGULATORY INTEGRITY",
       title: "Engineered specifically for risk-averse UK practices.",

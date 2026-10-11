@@ -472,7 +472,7 @@ export function Portfolio({ limit }: { limit?: number }) {
 
   useEffect(() => {
     const el = scrollRef.current
-    if (!el) return
+    if (!el || isPaused) return
 
     let animationId: number
     const speed = 0.75 // smooth luxury crawl speed
@@ -488,8 +488,8 @@ export function Portfolio({ limit }: { limit?: number }) {
         } else {
           el.scrollLeft = scrollPosRef.current
         }
+        animationId = requestAnimationFrame(scroll)
       }
-      animationId = requestAnimationFrame(scroll)
     }
 
     animationId = requestAnimationFrame(scroll)
@@ -697,7 +697,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                         fill
                         className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
                         sizes="(max-width: 768px) 85vw, 600px"
-                        priority={index < 4}
+                        loading="lazy"
                       />
                     </div>
                   </div>

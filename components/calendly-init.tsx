@@ -22,7 +22,7 @@ export function CalendlyInit() {
   return (
     <Script
       src="https://assets.calendly.com/assets/external/widget.js"
-      strategy="afterInteractive"
+      strategy="lazyOnload"
     />
   )
 }

@@ -219,10 +219,21 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <link rel="preconnect" href="https://assets.calendly.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://assets.calendly.com" />
         <link
           rel="stylesheet"
           href="https://assets.calendly.com/assets/external/widget.css"
+          // @ts-expect-error Defer render-blocking external CSS on mobile
+          media="print"
+          onLoad="this.media='all'"
         />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://assets.calendly.com/assets/external/widget.css"
+          />
+        </noscript>
       </head>
       <body className="font-sans antialiased bg-[#09090B] text-white">
           <ExtensionErrorHandler />

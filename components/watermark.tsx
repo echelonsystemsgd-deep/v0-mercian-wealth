@@ -40,7 +40,8 @@ export function Watermark({ position = "center", className = "", opacity = 0.15 
           alt=""
           fill
           className="object-cover rounded-full"
-          unoptimized
+          sizes="(max-width: 640px) 280px, (max-width: 1024px) 700px, 850px"
+          loading="lazy"
         />
       </motion.div>
     </div>

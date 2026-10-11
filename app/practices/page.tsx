@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { PageFAQ } from "@/components/page-faq"
+import { PracticePipelineVisualizer } from "@/components/practice-pipeline-visualizer"
 import { SITE_COPY } from "@/lib/site-copy"
 import { 
   Clock, 
@@ -101,23 +102,31 @@ export default function PracticesPage() {
           </p>
 
           {/* Action CTAs */}
-          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <Link
               href={data.hero.primaryCtaHref}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-[#DAA640] hover:bg-[#c99535] text-black font-semibold text-sm sm:text-base transition-all shadow-lg shadow-[#DAA640]/20 hover:scale-[1.02]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-[#DAA640] hover:bg-[#c99535] text-black font-semibold text-sm sm:text-base transition-all shadow-lg shadow-[#DAA640]/20 hover:scale-[1.02] min-h-[48px]"
             >
               <span>{data.hero.primaryCtaText}</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
 
             <a
+              href="#practice-visualizer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-white/15 hover:border-[#DAA640]/50 bg-white/5 hover:bg-white/10 text-white font-medium text-sm sm:text-base transition-all min-h-[48px]"
+            >
+              <Zap className="w-4 h-4 text-[#DAA640]" />
+              <span>{data.hero.secondaryCtaText}</span>
+            </a>
+
+            <a
               href="https://wa.me/447851055929"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-white/15 hover:border-[#DAA640]/50 bg-white/5 hover:bg-white/10 text-white font-medium text-sm sm:text-base transition-all"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-white/15 hover:border-[#DAA640]/50 bg-white/5 hover:bg-white/10 text-white font-medium text-sm sm:text-base transition-all min-h-[48px]"
             >
               <PhoneCall className="w-4 h-4 text-[#DAA640]" />
-              <span>Message Direct via WhatsApp</span>
+              <span>WhatsApp Direct</span>
             </a>
           </div>
 
@@ -217,7 +226,10 @@ export default function PracticesPage() {
           </div>
         </section>
 
-        {/* 4. GOVERNANCE & RISK REMOVAL SECTION */}
+        {/* 4. INTERACTIVE PRACTICE PIPELINE VISUALIZER (PHASE 3 SANDBOX) */}
+        <PracticePipelineVisualizer />
+
+        {/* 5. GOVERNANCE & RISK REMOVAL SECTION */}
         <section className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="rounded-2xl border border-white/10 bg-[#09090B] p-6 sm:p-10">
             <div className="text-center max-w-2xl mx-auto mb-8">

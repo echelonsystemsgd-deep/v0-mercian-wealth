@@ -10,13 +10,15 @@ import { WhyMercianWealth } from "@/components/why-mercian-wealth"
 import { Pricing } from "@/components/pricing"
 import { CTA } from "@/components/cta"
 import { Footer } from "@/components/footer"
-import { ChapterTracker } from "@/components/chapter-tracker"
-import { PrototypeRequestModal } from "@/components/prototype-request-modal"
 import { ZeroDisruptionGuarantee } from "@/components/zero-disruption"
 import { FAQHome } from "@/components/faq-home"
-import { FloatingAiConcierge } from "@/components/floating-ai-concierge"
 import { getPricingTiers } from "@/lib/pricing"
 import { Suspense } from "react"
+import dynamic from "next/dynamic"
+
+const ChapterTracker = dynamic(() => import("@/components/chapter-tracker").then((mod) => mod.ChapterTracker))
+const PrototypeRequestModal = dynamic(() => import("@/components/prototype-request-modal").then((mod) => mod.PrototypeRequestModal))
+const FloatingAiConcierge = dynamic(() => import("@/components/floating-ai-concierge").then((mod) => mod.FloatingAiConcierge))
 
 import { SITE_COPY } from "@/lib/site-copy"
 import type { Metadata } from "next"
