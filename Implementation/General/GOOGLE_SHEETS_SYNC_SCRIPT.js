@@ -110,9 +110,12 @@ function doPost(e) {
       if (itemPhone) existingPhones[itemPhone] = true;
       if (itemName) existingNames[itemName] = true;
       
+      var rawP = String(item['Phone'] || item.phone || '').trim();
+      var safePhone = (rawP.startsWith('+') && !rawP.startsWith("'")) ? "'" + rawP : rawP;
+      
       rows.push([
         item['Business Name'] || item.business_name || '',
-        item['Phone'] || item.phone || '',
+        safePhone,
         item['Channel'] || '',
         item['WhatsApp Link'] || item.whatsapp_direct_url || '',
         item['Reviews'] || item.reviews || 0,

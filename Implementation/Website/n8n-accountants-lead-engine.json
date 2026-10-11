@@ -10,7 +10,7 @@
         3792
       ],
       "id": "3d993397-d343-47b4-a055-35ca5920ec18",
-      "name": "📊 Trigger: Scrape UK Accountants (Serper Maps)"
+      "name": "🚀 STEP 1: Click Here to Scrape Real London Accountants"
     },
     {
       "parameters": {
@@ -37,7 +37,7 @@
             {
               "id": "field-location",
               "name": "location",
-              "value": "Birmingham",
+              "value": "London",
               "type": "string"
             },
             {
@@ -138,7 +138,7 @@
     },
     {
       "parameters": {
-        "jsCode": "/**\n * UK ACCOUNTING PRACTICE QUALITY GATE & INTELLIGENCE VERIFIER\n * Specifically adapted for UK Accounting Practices, Tax Advisers & Bookkeeping Firms\n * 1. Focuses on the MTD for ITSA 2026 hook (£50k+ sole traders & landlords) and 3-minute evening enquiry intake\n * 2. Filters out massive corporate switchboards (0800, 0845, 0870, 0300) so you reach practice partners\n * 3. Normalizes phones to UK standard (+44...)\n * 4. Generates 1-click WhatsApp links for UK mobiles (+447...)\n * 5. Generates consultative call scripts for UK landlines (+441..., +442...)\n * 6. Deduplicates across the batch\n */\n\nconst items = $input.all();\nconst config = $('Edit Fields').first().json || {};\nconst query = (config.query || 'chartered accountants').trim();\nconst minReviews = Number(config.min_reviews || 1);\nconst onlyNoWebsite = Boolean(config.only_no_website === true);\n\nconst validatedLeads = [];\nconst seenPhones = new Set();\nconst seenNames = new Set();\n\nfor (const item of items) {\n  const place = item.json || {};\n  const businessName = (place.title || place.name || '').trim();\n  const rawPhone = (place.phoneNumber || place.phone || '').trim();\n  const rawWebsite = (place.website || '').trim();\n  const rating = Number(place.rating || 0);\n  const reviewsCount = Number(place.ratingCount || place.user_ratings_total || 0);\n  const address = (place.address || place.formatted_address || '').trim();\n  const category = place.category || place.type || 'Accounting Practice';\n  \n  if (!businessName || !rawPhone) continue;\n  if (reviewsCount < minReviews) continue;\n  \n  // Reject large corporate switchboards & call centres\n  const cleanDigits = rawPhone.replace(/[^0-9]/g, '');\n  if (\n    cleanDigits.startsWith('0800') ||\n    cleanDigits.startsWith('0808') ||\n    cleanDigits.startsWith('0845') ||\n    cleanDigits.startsWith('0870') ||\n    cleanDigits.startsWith('0300') ||\n    cleanDigits.startsWith('0345') ||\n    cleanDigits.startsWith('44800') ||\n    cleanDigits.startsWith('44845') ||\n    cleanDigits.startsWith('44300')\n  ) {\n    continue;\n  }\n  \n  // Normalize phone to E.164 (+44)\n  let formattedPhone = rawPhone.replace(/[^0-9+]/g, '');\n  if (formattedPhone.startsWith('0')) {\n    formattedPhone = '+44' + formattedPhone.substring(1);\n  } else if (!formattedPhone.startsWith('+44')) {\n    formattedPhone = '+44' + formattedPhone.replace(/^\\+/, '');\n  }\n  const digitsOnly = formattedPhone.replace(/[^0-9]/g, '');\n  \n  // Deduplicate across the batch\n  const nameKey = businessName.toLowerCase().replace(/[^a-z0-9]/g, '');\n  if (seenPhones.has(digitsOnly) || seenNames.has(nameKey)) continue;\n  seenPhones.add(digitsOnly);\n  seenNames.add(nameKey);\n  \n  // Classification & Verification Flag\n  let hasWebsite = true;\n  let classification = 'has_website';\n  let verificationStatus = 'VERIFIED — Live Website Active';\n  \n  if (!rawWebsite || rawWebsite === '' || rawWebsite.toLowerCase() === 'none' || rawWebsite.toLowerCase() === 'null') {\n    hasWebsite = false;\n    classification = 'no_website';\n    verificationStatus = 'UNVERIFIED — Google Maps only, verify via LinkedIn/Companies House';\n  } else {\n    const w = rawWebsite.toLowerCase();\n    if (w.includes('facebook.com') || w.includes('linkedin.com') || w.includes('yell.com')) {\n      hasWebsite = false;\n      classification = 'social_only';\n      verificationStatus = 'UNVERIFIED — Social directory only';\n    }\n  }\n  \n  if (onlyNoWebsite && hasWebsite) continue;\n  \n  const isMobile = digitsOnly.startsWith('447');\n  const channel = isMobile ? 'WhatsApp / SMS' : 'Practice Landline / Partner Call';\n  \n  // Dynamic Practice Sandbox Link\n  const protoUrl = `https://mercianwealth.com/practices#practice-visualizer?firm=${encodeURIComponent(businessName)}`;\n  \n  // Specialized UK Accounting Outreach Copy (MTD 2026 & Evening Intake)\n  let stage1Opener = '';\n  let stage2Pitch = '';\n  \n  if (hasWebsite) {\n    // Standard UK practice with existing website\n    stage1Opener = `Hi 👋 Came across ${businessName} — quick question: when new sole trader or Ltd Co enquiries land on your website out-of-hours (e.g. 8 PM), how does your team qualify them before booking discovery calls?`;\n    stage2Pitch = `In our tests across UK practices, 78% of Ltd Co directors sign with whoever responds first, but standard contact forms take 24–48 hours. At the same time, MTD 2026 quarterly filing is about to multiply manual document chasing across sole traders. We built an interactive practice intake & deadline chasing sandbox showing how ${businessName} can capture clients in 3 minutes with 100% practitioner control: ${protoUrl} — take a look when you have a moment, zero obligation at all.`;\n  } else {\n    // Sole practitioner or new practice with no dedicated website\n    stage1Opener = `Hi 👋 Came across ${businessName} on Google Maps — quick question: do you take all your new sole trader and Ltd Co client enquiries via direct phone / referral, or do you have a dedicated intake page?`;\n    stage2Pitch = `With MTD for ITSA landing in 2026 for £50k+ sole traders and landlords, managing client records manually will consume 10+ hours a week. We put together a lightweight practice intake and deadline chasing concept showing how ${businessName} can qualify clients and automate document chasing: ${protoUrl} — take a look whenever you have 30 seconds.`;\n  }\n  \n  const followUp1 = `Hey — following up on ${businessName}. No pressure at all, just wanted to check if the practice sandbox link landed and see if streamlining intake before MTD 2026 is on your radar.`;\n  const followUpFinal = `Last one from me on this — if automating client intake and record chasing isn't an operational priority for ${businessName} right now, that is completely fair. If it ever is, the sandbox remains live at mercianwealth.com/practices. Wishing the practice a smooth quarter!`;\n  \n  const waLink = isMobile ? `https://wa.me/${digitsOnly}?text=${encodeURIComponent(stage1Opener)}` : 'N/A';\n  \n  // Supabase Payload matching Mercian Wealth schema\n  const supabasePayload = {\n    name: 'Senior Partner / Practice Director',\n    business_name: businessName,\n    phone: formattedPhone,\n    website: hasWebsite ? rawWebsite : null,\n    service_interested: 'Accounting Practice Client Intake & MTD 2026 Deadline Chasing Engine',\n    notes: `${address} · ★${rating} (${reviewsCount} reviews) · [${verificationStatus}]`,\n    status: 'New',\n    source: 'google_maps_accountants',\n    lead_type: 'practice',\n    local_business_niche: 'Accountant',\n    outreach_category: classification,\n    outreach_stage: 'uncontacted',\n    prototype_url: protoUrl,\n    whatsapp_direct_url: isMobile ? waLink : null,\n    scraped_metadata: {\n      address: address,\n      rating: rating,\n      reviews_count: reviewsCount,\n      trade: 'Accountant',\n      channel: channel,\n      verification_status: verificationStatus,\n      stage_1_opener: stage1Opener,\n      stage_2_pitch: stage2Pitch,\n      follow_up_1: followUp1,\n      follow_up_final: followUpFinal,\n      prototype_url: protoUrl\n    }\n  };\n  \n  validatedLeads.push({\n    json: {\n      \"Business Name\": businessName,\n      \"Phone\": formattedPhone,\n      \"Channel\": channel,\n      \"WhatsApp Link\": waLink,\n      \"Reviews\": reviewsCount,\n      \"Rating\": rating,\n      \"Website\": rawWebsite || 'None',\n      \"Address\": address,\n      \"Trade\": 'Accountant',\n      \"Classification\": classification,\n      \"Verification Status\": verificationStatus,\n      \"Stage 1 Opener\": stage1Opener,\n      \"Stage 2 Pitch\": stage2Pitch,\n      \"Follow Up 1\": followUp1,\n      \"Follow Up Final\": followUpFinal,\n      \"Prototype URL\": protoUrl,\n      \"Status\": 'New',\n      \"supabase_payload\": supabasePayload\n    }\n  });\n}\n\nreturn validatedLeads;"
+        "jsCode": "/**\n * UK ACCOUNTING PRACTICE QUALITY GATE & INTELLIGENCE VERIFIER\n * Specifically adapted for UK Accounting Practices, Tax Advisers & Bookkeeping Firms\n * 1. Focuses on the MTD for ITSA 2026 hook (£50k+ sole traders & landlords) and 3-minute evening enquiry intake\n * 2. Filters out massive corporate switchboards (0800, 0845, 0870, 0300) so you reach practice partners\n * 3. Normalizes phones to UK standard (+44...)\n * 4. Generates 1-click WhatsApp links for UK mobiles (+447...)\n * 5. Generates consultative call scripts for UK landlines (+441..., +442...)\n * 6. Deduplicates across the batch\n */\n\nconst items = $input.all();\nconst config = $('Edit Fields').first().json || {};\nconst query = (config.query || 'chartered accountants').trim();\nconst minReviews = Number(config.min_reviews || 1);\nconst onlyNoWebsite = Boolean(config.only_no_website === true);\n\nconst validatedLeads = [];\nconst seenPhones = new Set();\nconst seenNames = new Set();\n\nfor (const item of items) {\n  const place = item.json || {};\n  const businessName = (place.title || place.name || '').trim();\n  const rawPhone = (place.phoneNumber || place.phone || '').trim();\n  const rawWebsite = (place.website || '').trim();\n  const rating = Number(place.rating || 0);\n  const reviewsCount = Number(place.ratingCount || place.user_ratings_total || 0);\n  const address = (place.address || place.formatted_address || '').trim();\n  const category = place.category || place.type || 'Accounting Practice';\n  \n  if (!businessName || !rawPhone) continue;\n  if (reviewsCount < minReviews) continue;\n  \n  // Reject large corporate switchboards & call centres\n  const cleanDigits = rawPhone.replace(/[^0-9]/g, '');\n  if (\n    cleanDigits.startsWith('0800') ||\n    cleanDigits.startsWith('0808') ||\n    cleanDigits.startsWith('0845') ||\n    cleanDigits.startsWith('0870') ||\n    cleanDigits.startsWith('0300') ||\n    cleanDigits.startsWith('0345') ||\n    cleanDigits.startsWith('44800') ||\n    cleanDigits.startsWith('44845') ||\n    cleanDigits.startsWith('44300')\n  ) {\n    continue;\n  }\n  \n  // Normalize phone to E.164 (+44)\n  let formattedPhone = rawPhone.replace(/[^0-9+]/g, '');\n  if (formattedPhone.startsWith('0')) {\n    formattedPhone = '+44' + formattedPhone.substring(1);\n  } else if (!formattedPhone.startsWith('+44')) {\n    formattedPhone = '+44' + formattedPhone.replace(/^\\+/, '');\n  }\n  const digitsOnly = formattedPhone.replace(/[^0-9]/g, '');\n  \n  // Deduplicate across the batch\n  const nameKey = businessName.toLowerCase().replace(/[^a-z0-9]/g, '');\n  if (seenPhones.has(digitsOnly) || seenNames.has(nameKey)) continue;\n  seenPhones.add(digitsOnly);\n  seenNames.add(nameKey);\n  \n  // Classification & Verification Flag\n  let hasWebsite = true;\n  let classification = 'has_website';\n  let verificationStatus = 'VERIFIED — Live Website Active';\n  \n  if (!rawWebsite || rawWebsite === '' || rawWebsite.toLowerCase() === 'none' || rawWebsite.toLowerCase() === 'null') {\n    hasWebsite = false;\n    classification = 'no_website';\n    verificationStatus = 'UNVERIFIED — Google Maps only, verify via LinkedIn/Companies House';\n  } else {\n    const w = rawWebsite.toLowerCase();\n    if (w.includes('facebook.com') || w.includes('linkedin.com') || w.includes('yell.com')) {\n      hasWebsite = false;\n      classification = 'social_only';\n      verificationStatus = 'UNVERIFIED — Social directory only';\n    }\n  }\n  \n  if (onlyNoWebsite && hasWebsite) continue;\n  \n  const isMobile = digitsOnly.startsWith('447');\n  const channel = isMobile ? 'UK Mobile (Direct WhatsApp)' : 'Practice Line (WhatsApp Business / Call)';\n  \n  // Dynamic Practice Sandbox Link\n  const protoUrl = `https://mercianwealth.com/practices#practice-visualizer?firm=${encodeURIComponent(businessName)}`;\n  \n  // Specialized UK Accounting Outreach Copy (MTD 2026 & Evening Intake)\n  let stage1Opener = '';\n  let stage2Pitch = '';\n  \n  if (hasWebsite) {\n    // Standard UK practice with existing website\n    stage1Opener = `Hi 👋 Came across ${businessName} — quick question: when new sole trader or Ltd Co enquiries land on your website out-of-hours (e.g. 8 PM), how does your team qualify them before booking discovery calls?`;\n    stage2Pitch = `In our tests across UK practices, 78% of Ltd Co directors sign with whoever responds first, but standard contact forms take 24–48 hours. At the same time, MTD 2026 quarterly filing is about to multiply manual document chasing across sole traders. We built an interactive practice intake & deadline chasing sandbox showing how ${businessName} can capture clients in 3 minutes with 100% practitioner control: ${protoUrl} — take a look when you have a moment, zero obligation at all.`;\n  } else {\n    // Sole practitioner or new practice with no dedicated website\n    stage1Opener = `Hi 👋 Came across ${businessName} on Google Maps — quick question: do you take all your new sole trader and Ltd Co client enquiries via direct phone / referral, or do you have a dedicated intake page?`;\n    stage2Pitch = `With MTD for ITSA landing in 2026 for £50k+ sole traders and landlords, managing client records manually will consume 10+ hours a week. We put together a lightweight practice intake and deadline chasing concept showing how ${businessName} can qualify clients and automate document chasing: ${protoUrl} — take a look whenever you have 30 seconds.`;\n  }\n  \n  const followUp1 = `Hey — following up on ${businessName}. No pressure at all, just wanted to check if the practice sandbox link landed and see if streamlining intake before MTD 2026 is on your radar.`;\n  const followUpFinal = `Last one from me on this — if automating client intake and record chasing isn't an operational priority for ${businessName} right now, that is completely fair. If it ever is, the sandbox remains live at mercianwealth.com/practices. Wishing the practice a smooth quarter!`;\n  \n  const waLink = `https://wa.me/${digitsOnly}?text=${encodeURIComponent(stage1Opener)}`;\n  \n  // Supabase Payload matching Mercian Wealth schema\n  const supabasePayload = {\n    name: 'Senior Partner / Practice Director',\n    business_name: businessName,\n    phone: formattedPhone,\n    website: hasWebsite ? rawWebsite : null,\n    service_interested: 'Accounting Practice Client Intake & MTD 2026 Deadline Chasing Engine',\n    notes: `${address} · ★${rating} (${reviewsCount} reviews) · [${verificationStatus}]`,\n    status: 'New',\n    source: 'google_maps_accountants',\n    lead_type: 'practice',\n    local_business_niche: 'Accountant',\n    outreach_category: classification,\n    outreach_stage: 'uncontacted',\n    prototype_url: protoUrl,\n    whatsapp_direct_url: isMobile ? waLink : null,\n    scraped_metadata: {\n      address: address,\n      rating: rating,\n      reviews_count: reviewsCount,\n      trade: 'Accountant',\n      channel: channel,\n      verification_status: verificationStatus,\n      stage_1_opener: stage1Opener,\n      stage_2_pitch: stage2Pitch,\n      follow_up_1: followUp1,\n      follow_up_final: followUpFinal,\n      prototype_url: protoUrl\n    }\n  };\n  \n  validatedLeads.push({\n    json: {\n      \"Business Name\": businessName,\n      \"Phone\": \"'\" + formattedPhone,\n      \"Channel\": channel,\n      \"WhatsApp Link\": waLink,\n      \"Reviews\": reviewsCount,\n      \"Rating\": rating,\n      \"Website\": rawWebsite || 'None',\n      \"Address\": address,\n      \"Trade\": 'Accountant',\n      \"Classification\": classification,\n      \"Verification Status\": verificationStatus,\n      \"Stage 1 Opener\": stage1Opener,\n      \"Stage 2 Pitch\": stage2Pitch,\n      \"Follow Up 1\": followUp1,\n      \"Follow Up Final\": followUpFinal,\n      \"Prototype URL\": protoUrl,\n      \"Status\": 'New',\n      \"supabase_payload\": supabasePayload\n    }\n  });\n}\n\nreturn validatedLeads;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -245,7 +245,7 @@
         4320
       ],
       "id": "4df2235e-b5ac-448b-8ef5-b63702267f0b",
-      "name": "1b. Daily 9AM Trigger (London)"
+      "name": "⏰ STEP 2 (Scheduled): Daily 9AM Follow-up Cron - Do Not Click to Scrape"
     },
     {
       "parameters": {
@@ -557,17 +557,6 @@
     }
   ],
   "connections": {
-    "📊 Trigger: Scrape UK Accountants (Serper Maps)": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Edit Fields": {
       "main": [
         [
@@ -622,17 +611,6 @@
           },
           {
             "node": "Sync to Mercian Admin Dashboard",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "1b. Daily 9AM Trigger (London)": {
-      "main": [
-        [
-          {
-            "node": "2. Pipeline Settings & Channel Config",
             "type": "main",
             "index": 0
           }
@@ -704,6 +682,28 @@
           },
           {
             "node": "Sync Stage to Mercian Admin Dashboard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🚀 STEP 1: Click Here to Scrape Real London Accountants": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⏰ STEP 2 (Scheduled): Daily 9AM Follow-up Cron - Do Not Click to Scrape": {
+      "main": [
+        [
+          {
+            "node": "2. Pipeline Settings & Channel Config",
             "type": "main",
             "index": 0
           }
