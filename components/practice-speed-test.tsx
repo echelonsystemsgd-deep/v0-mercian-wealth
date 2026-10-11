@@ -41,7 +41,7 @@ const QUESTIONS: Question[] = [
     options: [
       {
         label: "Sits in info@ inbox until staff open email the next day (or Monday)",
-        sublabel: "High risk: 78% of directors sign with whichever firm responds first.",
+        sublabel: "High risk: first responders hold a strong win advantage (illustrative example benchmark: 78% first-response advantage, replace with your own numbers).",
         points: 0,
         tag: "critical"
       },
@@ -202,9 +202,9 @@ export function PracticeSpeedTest() {
         color: "text-rose-400",
         bg: "bg-rose-500/10 border-rose-500/30",
         headline: "High Revenue Drag & Severe MTD 2026 Exposure",
-        hoursLost: "11.5 – 16.0 hrs/week",
-        annualLeak: "£18,000 – £35,000/yr",
-        summary: "Your practice is losing high-fee Ltd Co clients to faster-responding local competitors, while staff burn 12+ hours every week manually chasing records that should be automated with zero risk.",
+        hoursLost: "11.5 – 16.0 hrs/week (illustrative example)",
+        annualLeak: "£18,000 – £35,000/yr (illustrative example)",
+        summary: "Your practice may be losing high-fee Ltd Co clients to faster-responding local competitors, while staff burn valuable hours manually chasing records that can be automated with zero risk.",
         prescription: "Deploy the 3-minute evening intake engine and automated MTD deadline chaser before the next compliance quarter."
       }
     } else if (score <= 70) {
@@ -213,10 +213,10 @@ export function PracticeSpeedTest() {
         color: "text-amber-400",
         bg: "bg-amber-500/10 border-amber-500/30",
         headline: "Significant Unbilled Hours & Bottleneck Risk",
-        hoursLost: "7.0 – 10.5 hrs/week",
-        annualLeak: "£12,000 – £22,000/yr",
-        summary: "You have foundational systems, but client onboarding latency and manual document chasing are silently consuming partner capacity ahead of the MTD April 2026 deadline.",
-        prescription: "Layer pre-approved deadline chasing and a 48-hour digital onboarding flow on top of your existing Xero / IRIS stack."
+        hoursLost: "7.0 – 10.5 hrs/week (illustrative example)",
+        annualLeak: "£12,000 – £22,000/yr (illustrative example)",
+        summary: "You have foundational systems, but client onboarding latency and manual document chasing can consume partner capacity ahead of the MTD April 2026 deadline.",
+        prescription: "Layer pre-approved deadline chasing and a streamlined digital onboarding flow on top of your existing Xero / IRIS stack."
       }
     } else {
       return {

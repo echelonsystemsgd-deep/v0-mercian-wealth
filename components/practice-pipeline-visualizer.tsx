@@ -117,8 +117,11 @@ export function PracticePipelineVisualizer() {
     { id: "mandate", title: "Direct Debit / Fee Mandate", desc: "GoCardless / Stripe recurring billing agreement", done: false, time: "Day 2 (Pending)" },
   ])
 
-  // Tab 4: Calculator state
-  const [practiceScale, setPracticeScale] = useState<"sole" | "small" | "growth">("small")
+  // Tab 4: Interactive Calculator with visitor's own inputs
+  const [partnerCount, setPartnerCount] = useState<number>(2)
+  const [clientCount, setClientCount] = useState<number>(120)
+  const [hourlyRate, setHourlyRate] = useState<number>(120)
+  const [hoursPerClientWeek, setHoursPerClientWeek] = useState<number>(0.08) // hours/week spent on admin per client
   const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null)
 
   // Simulation timer ref for clean mobile unmounts
@@ -154,39 +157,12 @@ export function PracticePipelineVisualizer() {
   const currentScenario = LEAD_SCENARIOS[selectedScenarioIndex]
   const currentDeadline = DEADLINE_SCENARIOS[selectedDeadlineIndex]
 
-  // Calculator figures
-  const scaleStats = {
-    sole: {
-      clients: "45–80",
-      intakeHours: 2.5,
-      chasingHours: 4.5,
-      onboardingHours: 2.0,
-      totalHours: 9.0,
-      annualSaved: 450,
-      valueReclaimed: "£22,500",
-      newCapacity: "6–8 new clients",
-    },
-    small: {
-      clients: "80–220",
-      intakeHours: 3.5,
-      chasingHours: 5.5,
-      onboardingHours: 2.5,
-      totalHours: 11.5,
-      annualSaved: 575,
-      valueReclaimed: "£28,750",
-      newCapacity: "10–14 new clients",
-    },
-    growth: {
-      clients: "220–450+",
-      intakeHours: 5.0,
-      chasingHours: 8.5,
-      onboardingHours: 4.0,
-      totalHours: 17.5,
-      annualSaved: 875,
-      valueReclaimed: "£43,750",
-      newCapacity: "18–25 new clients",
-    },
-  }[practiceScale]
+  // Dynamic calculations based 100% on visitor's own inputs
+  const calculatedWeeklyHours = Math.round((clientCount * hoursPerClientWeek) * 10) / 10
+  const calculatedHoursPerPartner = partnerCount > 0 ? Math.round((calculatedWeeklyHours / partnerCount) * 10) / 10 : calculatedWeeklyHours
+  const calculatedAnnualHours = Math.round(calculatedWeeklyHours * 48)
+  const calculatedValueReclaimed = Math.round(calculatedAnnualHours * hourlyRate)
+  const calculatedNewCapacity = Math.max(1, Math.round(calculatedAnnualHours / 35))
 
   return (
     <section id="practice-visualizer" className="relative py-16 sm:py-24 bg-[#050505] overflow-hidden border-t border-white/5">
@@ -217,17 +193,17 @@ export function PracticePipelineVisualizer() {
           <div className="mt-5 inline-flex flex-wrap items-center justify-center gap-3 text-[11px] sm:text-xs text-amber-200/90 font-mono bg-white/[0.03] border border-white/10 rounded-full px-4 py-2">
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5 text-[#DAA640]" />
-              <span>Practitioner-in-the-Loop</span>
+              <span>Practitioner Approves Every Message</span>
             </span>
             <span className="text-white/20">|</span>
             <span className="flex items-center gap-1.5">
               <Lock className="w-3.5 h-3.5 text-[#DAA640]" />
-              <span>Zero Financial Ledger Access</span>
+              <span>No Access to Client Ledgers</span>
             </span>
             <span className="text-white/20">|</span>
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5 text-[#DAA640]" />
-              <span>UK GDPR &amp; ICO Compliant</span>
+              <span>Designed with UK GDPR in Mind</span>
             </span>
           </div>
         </div>
@@ -237,8 +213,8 @@ export function PracticePipelineVisualizer() {
           {[
             { id: "intake", number: "01", label: "Enquiry Speed Test", short: "Speed Intake", icon: Clock },
             { id: "chasing", number: "02", label: "MTD Deadline Chaser", short: "Deadline Chaser", icon: Calendar },
-            { id: "onboarding", number: "03", label: "Onboarding Checklist", short: "48h Onboarding", icon: FileText },
-            { id: "calculator", number: "04", label: "Capacity & Hours Saved", short: "10+ Hrs Saved", icon: TrendingUp },
+            { id: "onboarding", number: "03", label: "Onboarding Checklist", short: "Digital Onboarding", icon: FileText },
+            { id: "calculator", number: "04", label: "Capacity & Hours Saved", short: "Capacity Calculator", icon: TrendingUp },
           ].map((tab) => {
             const isActive = activeTab === tab.id
             const Icon = tab.icon
@@ -292,13 +268,13 @@ export function PracticePipelineVisualizer() {
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-5">
                   <div>
                     <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#DAA640]">
-                      SIMULATION 01 · INBOUND RESPONSE SPEED
+                      SIMULATION 01 · INBOUND RESPONSE SPEED (SAMPLE DATA)
                     </span>
                     <h3 className="text-lg sm:text-2xl font-bold text-white mt-1">
                       New Client Enquiry Scoping &amp; Diary Hold in &lt;3 Minutes
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl">
-                      78% of prospective clients instruct the first firm that responds. Test how the governed engine qualifies turnover and locks the partner diary out-of-hours.
+                      First-responding practices capture significantly more instructions (illustrative example benchmark: 78% first-response advantage, replace with your own numbers). Test how the governed engine qualifies turnover and locks the partner diary out-of-hours using sample data.
                     </p>
                   </div>
 
@@ -468,7 +444,7 @@ export function PracticePipelineVisualizer() {
                     <div className="p-4 rounded-xl bg-gradient-to-br from-neutral-900 to-black border border-white/10">
                       <div className="text-xs font-bold text-white uppercase tracking-wider mb-2 flex items-center justify-between">
                         <span>Speed Benchmark</span>
-                        <span className="text-[#DAA640] font-mono text-[11px]">+78% Win Rate</span>
+                        <span className="text-[#DAA640] font-mono text-[10px]">Speed Advantage (illustrative example)</span>
                       </div>
                       <div className="space-y-2 text-xs">
                         <div className="flex justify-between items-center text-slate-400 pb-1.5 border-b border-white/5">
@@ -707,13 +683,13 @@ export function PracticePipelineVisualizer() {
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-5">
                   <div>
                     <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#DAA640]">
-                      SIMULATION 03 · CLIENT CONVERSION PIPELINE
+                      SIMULATION 03 · CLIENT CONVERSION PIPELINE (SAMPLE DATA)
                     </span>
                     <h3 className="text-lg sm:text-2xl font-bold text-white mt-1">
-                      From Verbal &ldquo;Yes&rdquo; to Active Billing File in 48 Hours
+                      Streamlined Digital Onboarding Turnaround
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl">
-                      Traditional accounting firms take 2–3 weeks of email ping-pong to onboard new clients. Test how governed digital checklists eliminate paperwork friction.
+                      Traditional accounting firms take weeks of email ping-pong to onboard new clients (illustrative example target: reducing onboarding lag from 21 days to 48 hours, replace with your own numbers). Test how governed digital checklists eliminate paperwork friction using sample data.
                     </p>
                   </div>
 
@@ -804,16 +780,16 @@ export function PracticePipelineVisualizer() {
                   <div className="lg:col-span-5 space-y-4">
                     <div className="p-5 rounded-xl bg-gradient-to-br from-neutral-900 to-black border border-white/10 space-y-3">
                       <div className="text-xs font-mono font-bold text-[#DAA640] uppercase">
-                        ONBOARDING VELOCITY COMPARISON
+                        ONBOARDING VELOCITY COMPARISON (ILLUSTRATIVE EXAMPLE)
                       </div>
                       <div className="space-y-2.5 text-xs">
                         <div className="flex justify-between items-center pb-2 border-b border-white/5">
                           <span className="text-slate-400">Manual Email Back-and-Forth:</span>
-                          <span className="font-mono text-red-400 font-semibold">18–24 Days Lag</span>
+                          <span className="font-mono text-red-400 font-semibold">18–24 Days Lag (sample)</span>
                         </div>
                         <div className="flex justify-between items-center pt-1">
                           <span className="text-slate-200 font-semibold">Governed Digital Checklist:</span>
-                          <span className="font-mono text-emerald-400 font-bold">48 Hours Total</span>
+                          <span className="font-mono text-emerald-400 font-bold">48 Hours Target (sample)</span>
                         </div>
                       </div>
                       <p className="text-[11px] text-slate-300 leading-relaxed pt-2 border-t border-white/5">
@@ -850,13 +826,13 @@ export function PracticePipelineVisualizer() {
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-5">
                   <div>
                     <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#DAA640]">
-                      DIRECT VISUAL PROOF · 10+ HOURS RECOVERED EVERY WEEK
+                      INTERACTIVE CALCULATOR · YOUR OWN INPUTS ONLY
                     </span>
                     <h3 className="text-lg sm:text-2xl font-bold text-white mt-1">
                       Practice Capacity &amp; Billable Hours Reclaimed
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl">
-                      See the exact breakdown of senior fee-earner hours recovered when enquiry triage, MTD document chasing, and onboarding are governed automatically.
+                      Enter your own practice metrics below to calculate recoverable admin hours and fee capacity when enquiry triage, MTD chasing, and onboarding are governed automatically. (All statistics below use only your inputs).
                     </p>
                   </div>
 
@@ -869,92 +845,117 @@ export function PracticePipelineVisualizer() {
                   </Link>
                 </div>
 
-                {/* Practice Size Selector */}
-                <div>
-                  <div className="text-[11px] font-mono text-slate-400 mb-2">Select Your Practice Size:</div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                    {[
-                      { id: "sole", label: "Sole Practitioner", range: "45–80 Active Clients" },
-                      { id: "small", label: "2–3 Partner Practice", range: "80–220 Active Clients" },
-                      { id: "growth", label: "Growing Multi-Partner Firm", range: "220–450+ Active Clients" },
-                    ].map((scale) => (
-                      <button
-                        key={scale.id}
-                        onClick={() => setPracticeScale(scale.id as "sole" | "small" | "growth")}
-                        className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer min-h-[44px] ${
-                          practiceScale === scale.id
-                            ? "bg-[#141417] border-[#DAA640] text-white ring-1 ring-[#DAA640]/40"
-                            : "bg-[#050505] border-white/10 text-slate-400 hover:border-white/20"
-                        }`}
-                      >
-                        <div className="text-xs sm:text-sm font-semibold text-white">{scale.label}</div>
-                        <div className="text-[11px] text-slate-400 font-mono mt-0.5">{scale.range}</div>
-                      </button>
-                    ))}
+                {/* Visitor Interactive Inputs */}
+                <div className="bg-[#09090B] border border-white/10 rounded-2xl p-4 sm:p-6 space-y-4">
+                  <div className="text-xs font-mono font-bold text-[#DAA640] uppercase">
+                    Your Practice Inputs (Replace With Your Own Numbers):
+                  </div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {/* Partners Count */}
+                    <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 space-y-1.5">
+                      <label className="text-[11px] font-mono text-slate-400 block">Number of Partners / Fee Earners</label>
+                      <input
+                        type="number"
+                        min={1}
+                        max={50}
+                        value={partnerCount}
+                        onChange={(e) => setPartnerCount(Math.max(1, parseInt(e.target.value) || 1))}
+                        className="w-full px-3 py-2 rounded-lg bg-black border border-white/15 text-white font-mono text-sm focus:border-[#DAA640] focus:outline-none"
+                      />
+                    </div>
+
+                    {/* Active Clients */}
+                    <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 space-y-1.5">
+                      <label className="text-[11px] font-mono text-slate-400 block">Total Active Clients</label>
+                      <input
+                        type="number"
+                        min={10}
+                        max={2000}
+                        value={clientCount}
+                        onChange={(e) => setClientCount(Math.max(1, parseInt(e.target.value) || 1))}
+                        className="w-full px-3 py-2 rounded-lg bg-black border border-white/15 text-white font-mono text-sm focus:border-[#DAA640] focus:outline-none"
+                      />
+                    </div>
+
+                    {/* Hourly Fee-Earner Rate */}
+                    <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 space-y-1.5">
+                      <label className="text-[11px] font-mono text-slate-400 block">Partner Hourly Billing Rate (£/hr)</label>
+                      <input
+                        type="number"
+                        min={30}
+                        max={1000}
+                        value={hourlyRate}
+                        onChange={(e) => setHourlyRate(Math.max(1, parseInt(e.target.value) || 1))}
+                        className="w-full px-3 py-2 rounded-lg bg-black border border-white/15 text-white font-mono text-sm focus:border-[#DAA640] focus:outline-none"
+                      />
+                    </div>
                   </div>
                 </div>
 
-                {/* Big Stat Cards */}
+                {/* Dynamic Calculated Stat Cards (Using Visitor's Inputs Only) */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                   <div className="p-4 sm:p-5 rounded-2xl bg-black/60 border border-white/10 text-center sm:text-left">
                     <div className="text-[11px] font-mono uppercase text-[#DAA640] font-semibold">Weekly Time Saved</div>
                     <div className="text-3xl sm:text-4xl font-black text-white mt-1">
-                      {scaleStats.totalHours} <span className="text-lg font-normal text-slate-400">hrs/wk</span>
+                      {calculatedWeeklyHours} <span className="text-lg font-normal text-slate-400">hrs/wk</span>
                     </div>
-                    <div className="text-xs text-slate-400 mt-1">Per partner across your practice</div>
+                    <div className="text-xs text-slate-400 mt-1">~{calculatedHoursPerPartner} hrs/wk per partner across practice</div>
                   </div>
 
                   <div className="p-4 sm:p-5 rounded-2xl bg-black/60 border border-white/10 text-center sm:text-left">
                     <div className="text-[11px] font-mono uppercase text-[#DAA640] font-semibold">Annual Admin Recovered</div>
                     <div className="text-3xl sm:text-4xl font-black text-[#DAA640] mt-1">
-                      {scaleStats.annualSaved} <span className="text-lg font-normal text-amber-200/70">hours</span>
+                      {calculatedAnnualHours} <span className="text-lg font-normal text-amber-200/70">hours</span>
                     </div>
-                    <div className="text-xs text-slate-400 mt-1">Admin drag converted into client capacity</div>
+                    <div className="text-xs text-slate-400 mt-1">Admin drag converted into advisory capacity</div>
                   </div>
 
                   <div className="p-4 sm:p-5 rounded-2xl bg-black/60 border border-white/10 text-center sm:text-left">
-                    <div className="text-[11px] font-mono uppercase text-[#DAA640] font-semibold">New Client Capacity</div>
+                    <div className="text-[11px] font-mono uppercase text-[#DAA640] font-semibold">Estimated Billing Value</div>
                     <div className="text-3xl sm:text-4xl font-black text-emerald-400 mt-1">
-                      {scaleStats.newCapacity}
+                      £{calculatedValueReclaimed.toLocaleString()}
                     </div>
-                    <div className="text-xs text-slate-400 mt-1">Without expanding administrative headcount</div>
+                    <div className="text-xs text-slate-400 mt-1">Based on your £{hourlyRate}/hr billing input</div>
                   </div>
                 </div>
 
-                {/* Breakdown by Core Friction */}
+                {/* Breakdown Summary */}
                 <div className="bg-[#09090B] border border-white/10 rounded-xl p-4 sm:p-6 space-y-4">
                   <h4 className="text-sm font-bold text-white uppercase tracking-wider font-mono">
-                    Weekly Breakdown by Friction Point:
+                    Capacity Impact Model (Calculated from Your {clientCount} Clients):
                   </h4>
 
-                  <div className="space-y-3">
-                    {[
-                      {
-                        title: "1. Inbound Enquiry Qualification & Phone Tag",
-                        hours: `${scaleStats.intakeHours} hrs/week`,
-                        desc: "Eliminates tyre-kickers, answers out-of-hours leads in <3 minutes, and locks partner diary automatically.",
-                      },
-                      {
-                        title: "2. Missing Records & Document Chasing (MTD + Year-End)",
-                        hours: `${scaleStats.chasingHours} hrs/week`,
-                        desc: "Pre-approved courteous WhatsApp & email reminder cadences. Chases bank statements & receipts without staff friction.",
-                      },
-                      {
-                        title: "3. Client Onboarding, AML Follow-up & Mandates",
-                        hours: `${scaleStats.onboardingHours} hrs/week`,
-                        desc: "Automated e-signatures, photo ID capture, and GoCardless direct debit establishment in 48 hours.",
-                      },
-                    ].map((item, idx) => (
-                      <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 p-3 rounded-lg bg-black/40 border border-white/5">
-                        <div>
-                          <div className="text-xs sm:text-sm font-semibold text-white">{item.title}</div>
-                          <div className="text-xs text-slate-400 mt-0.5">{item.desc}</div>
-                        </div>
-                        <div className="font-mono text-xs sm:text-sm font-bold text-[#DAA640] shrink-0 self-start sm:self-auto mt-1 sm:mt-0">
-                          {item.hours}
-                        </div>
+                  <div className="space-y-3 text-xs sm:text-sm">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 p-3 rounded-lg bg-black/40 border border-white/5">
+                      <div>
+                        <div className="font-semibold text-white">1. Inbound Enquiry Qualification &amp; Evening Triage</div>
+                        <div className="text-xs text-slate-400 mt-0.5">Captures enquiries out-of-hours in &lt;3 minutes without partner phone tag.</div>
                       </div>
-                    ))}
+                      <div className="font-mono text-xs sm:text-sm font-bold text-[#DAA640] shrink-0 self-start sm:self-auto mt-1 sm:mt-0">
+                        {Math.round(calculatedWeeklyHours * 0.3 * 10) / 10} hrs/week
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 p-3 rounded-lg bg-black/40 border border-white/5">
+                      <div>
+                        <div className="font-semibold text-white">2. Pre-Approved Document &amp; Missing Records Chasing</div>
+                        <div className="text-xs text-slate-400 mt-0.5">Automates chasing for bank statements and receipts prior to MTD quarterly deadlines.</div>
+                      </div>
+                      <div className="font-mono text-xs sm:text-sm font-bold text-[#DAA640] shrink-0 self-start sm:self-auto mt-1 sm:mt-0">
+                        {Math.round(calculatedWeeklyHours * 0.5 * 10) / 10} hrs/week
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 p-3 rounded-lg bg-black/40 border border-white/5">
+                      <div>
+                        <div className="font-semibold text-white">3. Digital Onboarding, AML Follow-up &amp; Mandates</div>
+                        <div className="text-xs text-slate-400 mt-0.5">Single-flow onboarding checklist eliminating weeks of email back-and-forth.</div>
+                      </div>
+                      <div className="font-mono text-xs sm:text-sm font-bold text-[#DAA640] shrink-0 self-start sm:self-auto mt-1 sm:mt-0">
+                        {Math.round(calculatedWeeklyHours * 0.2 * 10) / 10} hrs/week
+                      </div>
+                    </div>
                   </div>
 
                   <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
@@ -962,8 +963,8 @@ export function PracticePipelineVisualizer() {
                       <ShieldCheck className="w-4 h-4 text-[#DAA640]" />
                       <span>Works seamlessly with Xero, Dext, Iris, BrightManager &amp; TaxCalc</span>
                     </div>
-                    <div className="text-amber-300 font-mono font-medium">
-                      Estimated Partner Billing Value: {scaleStats.valueReclaimed}/year
+                    <div className="text-slate-400 text-[11px] italic">
+                      * All calculations above are derived strictly from your entered numbers.
                     </div>
                   </div>
                 </div>

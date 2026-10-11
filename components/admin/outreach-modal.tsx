@@ -35,6 +35,9 @@ import {
   formatEmailXOutreach,
   formatWhatsAppXOutreach,
   buildWhatsApp3MessageSequence,
+  buildEmail5TouchSequence,
+  buildLinkedIn3MessageSequence,
+  getDateAwareDeadlineHook,
   buildNoWebsiteIntelligence,
   identifyDeterministicFrictions
 } from '@/lib/auditor/deterministic'
@@ -88,8 +91,11 @@ export function OutreachModal({
   onUpdateStatus,
   onDeleteLead,
 }: OutreachModalProps) {
-  // Primary Channel Tabs
-  const [activeChannelTab, setActiveChannelTab] = useState<'whatsapp' | 'email' | 'call_bridge' | 'prototype_task'>('whatsapp')
+  // Primary Channel Tabs: WhatsApp 3-Touch, Email 5-Touch, LinkedIn 3-Touch, Call Bridge, Prototype Task
+  const [activeChannelTab, setActiveChannelTab] = useState<'whatsapp' | 'email_5touch' | 'linkedin_3touch' | 'call_bridge' | 'prototype_task'>('whatsapp')
+  
+  // Lead Suppression & Opt-out state
+  const [isSuppressed, setIsSuppressed] = useState(false)
   
   // Pipeline Classification: HAS_WEBSITE | NO_WEBSITE | NEEDS_REVIEW
   const [classification, setClassification] = useState<PipelineClassification>('NO_WEBSITE')
@@ -156,8 +162,8 @@ export function OutreachModal({
       location: '/contact & evening website triage',
       observableProblem: 'enquiry intake lacks out-of-hours triage and pre-approved MTD record chasing',
       evidence: `Review of ${businessName} confirms standard static contact form without instant qualification or automated MTD quarterly chasing.`,
-      recognizableReason: '78% of Ltd Co directors sign with the first firm that responds, while MTD 2026 will overwhelm staff with quarterly document chasing',
-      consequenceMechanics: 'prospective high-fee clients bounce to faster-responding practices and fee-earners lose 10+ hours/week to manual chasing',
+      recognizableReason: 'prospective business clients heavily favor the first practice that responds, while upcoming MTD quarterly reporting adds significant document chasing drag',
+      consequenceMechanics: 'prospective clients bounce to faster-responding practices and fee-earners spend valuable partner hours on manual chasing',
       confidence: 0.95,
       scores: {
         visible: true,

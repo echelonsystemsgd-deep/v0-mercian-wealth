@@ -4,12 +4,152 @@ import type {
   FrictionFinding,
   VariableY,
   EmailXOutreach,
+  Email5TouchSequence,
+  LinkedIn3MessageSequence,
   WhatsAppXOutreach,
   WhatsApp3MessageSequence,
   WhatsAppMessageBlock,
   OutreachIntelligence,
   PipelineClassification,
 } from './types'
+
+export function getDateAwareDeadlineHook(refDate: Date = new Date()): { hookName: string; deadlineDate: string; hookCopy: string } {
+  // Before 7 Nov 2026: 7 November quarterly update
+  // From 8 Nov 2026 to 31 Jan 2027: 31 January Self Assessment deadline
+  // After 31 Jan 2027: 7 February 2027
+  const y = refDate.getFullYear()
+  const m = refDate.getMonth() + 1 // 1-12
+  const d = refDate.getDate()
+
+  const isBeforeNov7_2026 = (y < 2026) || (y === 2026 && (m < 11 || (m === 11 && d <= 7)))
+  const isBeforeJan31_2027 = (y === 2026) || (y === 2027 && (m === 1 && d <= 31))
+
+  if (isBeforeNov7_2026) {
+    return {
+      hookName: '7 November quarterly update',
+      deadlineDate: '7 November 2026',
+      hookCopy: 'the upcoming 7 November quarterly update deadline'
+    }
+  } else if (isBeforeJan31_2027) {
+    return {
+      hookName: '31 January Self Assessment deadline',
+      deadlineDate: '31 January 2027',
+      hookCopy: 'the 31 January Self Assessment tax filing crunch'
+    }
+  } else {
+    return {
+      hookName: '7 February 2027 quarterly update',
+      deadlineDate: '7 February 2027',
+      hookCopy: 'the 7 February 2027 quarterly reporting cut-off'
+    }
+  }
+}
+
+export function buildEmail5TouchSequence(
+  variableY: VariableY,
+  city = 'your area',
+  refDate: Date = new Date()
+): Email5TouchSequence {
+  const company = variableY.company || 'your practice'
+  const firstName = variableY.name?.trim() || 'Partner'
+  const hook = getDateAwareDeadlineHook(refDate)
+  const protoUrl = `https://mercianwealth.com/practices#practice-visualizer?firm=${encodeURIComponent(company)}`
+
+  const senderName = 'Gurtej Sandhu'
+  const companyName = 'Mercian Wealth Automation Ltd'
+  const regAddress = 'Registered Office: 124 City Road, London, EC1V 2NX, United Kingdom (Co Reg: 15482910)'
+  const optOutLine = 'Opt-out: Reply "STOP" to unsubscribe immediately and be added to our suppression list.'
+
+  const emailFooter = `\n\n---\nBest regards,\n${senderName}\n${companyName}\n${regAddress}\n${optOutLine}`
+
+  const touch1 = {
+    touch: 1 as const,
+    day: 1,
+    subject: `Quick question re: ${company}'s client intake before ${hook.deadlineDate}`,
+    body: `Hi ${firstName},\n\nCame across ${company} while reviewing forward-thinking accounting practices in ${city}.\n\nI ran a quick test on how prospective business clients (like Ltd Co directors looking to switch firms) reach your team outside working hours. Currently, it routes to a standard contact form with no instant qualification or diary hold.\n\nIn professional services, first responders capture a decisive instruction advantage. With ${hook.hookCopy} and MTD quarterly reporting expanding admin touchpoints, manual document chasing is multiplying across UK practices.\n\nWe engineered practice intake and deadline chasing infrastructure that qualifies prospective clients in 3 minutes and recovers senior partner capacity—with 100% practitioner approval and zero access to client ledgers.\n\nI put together a 30-second mobile concept showing how this works for ${company}:\n${protoUrl}\n\nOpen to taking a quick 30-second look? (Zero obligation at all 👍)${emailFooter}`
+  }
+
+  const touch2 = {
+    touch: 2 as const,
+    day: 3,
+    subject: `Re: Quick question re: ${company}'s client intake before ${hook.deadlineDate}`,
+    body: `Hi ${firstName},\n\nFollowing up briefly on ${company}.\n\nThe common bottleneck we observe across UK practices isn't enquiry volume—it's that business directors frequently research on mobile in the evening (often 7 PM to 10 PM) after frustration with their current accountant. When they hit an unconfirmed contact form, they often continue searching competitors.\n\nBy deploying a governed 3-minute intake and qualification hold, practices confirm prospective clients before competitors open their inbox the next morning.\n\nHere is the interactive sandbox showing the exact flow:\n${protoUrl}\n\nHappy to share a quick 2-minute overview if streamlining intake ahead of ${hook.deadlineDate} is on your radar?${emailFooter}`
+  }
+
+  const touch3 = {
+    touch: 3 as const,
+    day: 6,
+    subject: `Why Xero and IRIS don't solve this (and why that's a good thing)`,
+    body: `Hi ${firstName},\n\nPartners often ask us: "Doesn't our practice management software already handle this?"\n\nPractice management platforms are built to do the work once a client is already on board. They don't triage evening website enquiries in under 3 minutes, and they don't run pre-approved multi-channel chasing cadences before ${hook.hookCopy} without staff friction.\n\nOur infrastructure operates purely at the front-door and communication layer. Your team keeps Xero, QuickBooks, Dext, and IRIS completely intact.\n\nDid you get a chance to test the pipeline visualizer?\n${protoUrl}${emailFooter}`
+  }
+
+  const touch4 = {
+    touch: 4 as const,
+    day: 9,
+    subject: `Partner admin overhead ahead of ${hook.deadlineDate} at ${company}`,
+    body: `Hi ${firstName},\n\nAhead of ${hook.hookCopy}, we modeled the admin overhead for UK firms similar to ${company}.\n\nBetween qualifying unvetted enquiries, chasing missing bank statements and self-assessment records, and onboarding checks, senior fee-earners spend significant weekly hours on administrative drag rather than advisory billing.\n\nOur system eliminates that friction: every reminder message requires practitioner approval, with no access to client financial ledgers required.\n\nIf you'd like to calculate the capacity reclaimed using your own practice inputs:\n${protoUrl}#practice-visualizer${emailFooter}`
+  }
+
+  const touch5 = {
+    touch: 5 as const,
+    day: 14,
+    subject: `Closing the loop for ${company}`,
+    body: `Hi ${firstName},\n\nLast one from me on this. If streamlining client intake and automating record chasing ahead of ${hook.deadlineDate} isn't an operational priority for ${company} right now, that is completely fair.\n\nIf you ever decide to eliminate manual chasing and capture after-hours business enquiries automatically, the sandbox and documentation remain live:\nhttps://mercianwealth.com/practices\n\nWishing you and the practice a smooth quarter ahead.${emailFooter}`
+  }
+
+  const fullSequenceText = `=== TOUCH 1 (DAY 1) ===\nSubject: ${touch1.subject}\n\n${touch1.body}\n\n` +
+    `=== TOUCH 2 (DAY 3) ===\nSubject: ${touch2.subject}\n\n${touch2.body}\n\n` +
+    `=== TOUCH 3 (DAY 6) ===\nSubject: ${touch3.subject}\n\n${touch3.body}\n\n` +
+    `=== TOUCH 4 (DAY 9) ===\nSubject: ${touch4.subject}\n\n${touch4.body}\n\n` +
+    `=== TOUCH 5 (DAY 14) ===\nSubject: ${touch5.subject}\n\n${touch5.body}`
+
+  return {
+    touch1,
+    touch2,
+    touch3,
+    touch4,
+    touch5,
+    fullSequenceText
+  }
+}
+
+export function buildLinkedIn3MessageSequence(
+  variableY: VariableY,
+  city = 'your area',
+  refDate: Date = new Date()
+): LinkedIn3MessageSequence {
+  const company = variableY.company || 'your practice'
+  const firstName = variableY.name?.trim() || 'Partner'
+  const hook = getDateAwareDeadlineHook(refDate)
+  const protoUrl = `https://mercianwealth.com/practices#practice-visualizer?firm=${encodeURIComponent(company)}`
+
+  const message1 = {
+    touch: 1 as const,
+    label: 'Connection Request Note (<300 Characters)',
+    text: `Hi ${firstName} — came across ${company} in ${city} while reviewing UK practices preparing for ${hook.deadlineDate}. Built an intake & deadline chaser giving partners complete approval control without touching ledgers. Would love to connect.`
+  }
+
+  const message2 = {
+    touch: 2 as const,
+    label: 'Message 1 (After Connection Accepted)',
+    text: `Hi ${firstName}, thanks for connecting!\n\nQuick question: when a prospective business client enquires through ${company}'s website at 8 PM on a weekday, how quickly does your team qualify them and confirm a discovery slot?\n\nWe noticed practices often lose instructions due to response lag. Put together a 30-second mobile walkthrough showing how practices automate this triage ahead of ${hook.deadlineDate}:\n${protoUrl}\n\nOpen to taking a quick look?`
+  }
+
+  const message3 = {
+    touch: 3 as const,
+    label: 'Message 2 (Follow-up on Seen)',
+    text: `Hey ${firstName} — no pressure at all. Just wanted to ensure the link worked. The sandbox lets you simulate intake triage, pre-approved reminder cadences, and streamlined digital onboarding directly on mobile. Let me know what you think 👍`
+  }
+
+  const fullSequenceText = `--- LINKEDIN TOUCH 1 (CONNECTION NOTE) ---\n${message1.text}\n\n--- LINKEDIN TOUCH 2 (MESSAGE 1) ---\n${message2.text}\n\n--- LINKEDIN TOUCH 3 (MESSAGE 2) ---\n${message3.text}`
+
+  return {
+    message1,
+    message2,
+    message3,
+    fullSequenceText
+  }
+}
 
 export function identifyDeterministicFrictions(
   pages: PageNode[],
@@ -148,15 +288,17 @@ export function identifyDeterministicFrictions(
 
 export function formatEmailXOutreach(
   variableY: VariableY,
-  operatorName = 'Gurtej',
-  companyBrand = 'Mercian Wealth'
+  operatorName = 'Gurtej Sandhu',
+  companyBrand = 'Mercian Wealth Automation Ltd'
 ): EmailXOutreach {
   const greeting = variableY.name ? `Hi ${variableY.name},` : 'Hi,'
   const observation = `I noticed ${variableY.websiteProblem} on ${variableY.page}`
   const mechanics = `because ${variableY.recognizableReason}, ${variableY.consequenceMechanics}.`
   const freeValueOffer = `I put together a quick 30-second mobile concept showing how to resolve this on ${variableY.page}. You can review it fast, and if it's not useful, ignore it and it ends.`
   const microYes = 'Open to taking a quick look?'
-  const signOff = `Best regards,\n${operatorName}\n${companyBrand}`
+  const regAddress = 'Registered Office: 124 City Road, London, EC1V 2NX, United Kingdom (Co Reg: 15482910)'
+  const optOutLine = 'Opt-out: Reply "STOP" to unsubscribe immediately and be added to our suppression list.'
+  const signOff = `Best regards,\n${operatorName}\n${companyBrand}\n${regAddress}\n${optOutLine}`
 
   const fullEmailText = `${variableY.subjectLine ? `Subject: ${variableY.subjectLine}\n\n` : ''}${greeting}\n\n${observation}, and ${mechanics}\n\n${freeValueOffer}\n\n${microYes}\n\n${signOff}`
 
@@ -202,9 +344,10 @@ export function buildWhatsApp3MessageSequence(
   // State one specific, observable friction in plain language (no offer yet).
   const pageStr = variableY.page && variableY.page !== 'None' ? variableY.page : 'your site'
   const problemStr = variableY.websiteProblem || 'friction in your customer booking journey'
+  const hook = getDateAwareDeadlineHook()
 
   const msg2Text = isAccountant
-    ? `Makes total sense! With MTD for ITSA landing in 2026 for £50k+ sole traders and landlords, practices we speak with are worried about drowning in low-tier quarterly chasing while losing £3,000+ Ltd Co director enquiries to firms that respond in 3 minutes.`
+    ? `Makes total sense! Ahead of ${hook.hookCopy} and MTD quarterly updates, practices we speak with are worried about drowning in low-tier document chasing while losing valuable client enquiries to firms that respond within minutes.`
     : isNoWebsite
     ? `Makes total sense! I actually had a look for your dedicated website to see your recent work and booking details, but couldn't find one active.`
     : `Makes total sense! I had a quick look through on my phone and noticed ${problemStr} on ${pageStr}.`
@@ -215,7 +358,7 @@ export function buildWhatsApp3MessageSequence(
   const consequenceStr = variableY.consequenceMechanics || 'having points of friction causes them to hesitate and compare alternatives'
 
   const msg3Text = isAccountant
-    ? `We engineered a practitioner-in-the-loop intake & deadline chasing engine that qualifies clients in 3 minutes and automates record chasing without touching client ledgers or replacing Xero.\n\nPut together a quick 30-second walkthrough showing how it works: https://mercianwealth.com/practices#practice-visualizer\n\nOpen to taking a quick 30-second look on your phone? (Zero obligation at all 👍)`
+    ? `We engineered practice intake and deadline chasing infrastructure where the practitioner approves every message. It qualifies prospective clients in 3 minutes and automates record chasing without touching client ledgers or replacing Xero.\n\nPut together a quick 30-second walkthrough showing how it works: https://mercianwealth.com/practices#practice-visualizer\n\nOpen to taking a quick 30-second look on your phone? (Zero obligation at all 👍)`
     : isNoWebsite
     ? `Usually when customers compare local ${trade} specialists in the evening, having no dedicated place to confirm services and availability means they hesitate at that decision point and look at alternatives.\n\nPut together a quick 30-second mobile concept showing how ${company} could showcase your work and capture those enquiries directly.\n\nOpen to seeing a quick 30-second preview? (Zero obligation at all 👍)`
     : `Usually when ${reasonStr}, ${consequenceStr}.\n\nPut together a quick 30-second mobile concept showing how to streamline that step for ${company}.\n\nOpen to taking a quick look on your phone? (Zero obligation at all 👍)`
@@ -362,8 +505,8 @@ export function buildAccountantPracticeIntelligence(
     location: '/contact & evening website triage',
     observableProblem: 'enquiry intake lacks out-of-hours triage and pre-approved MTD record chasing',
     evidence: `Review of ${businessName} confirms standard static contact form without instant qualification or automated MTD quarterly chasing.`,
-    recognizableReason: '78% of Ltd Co directors sign with the first firm that responds, while MTD 2026 will overwhelm staff with quarterly document chasing',
-    consequenceMechanics: 'prospective high-fee clients bounce to faster-responding practices and fee-earners lose 10+ hours/week to manual chasing',
+    recognizableReason: 'prospective business clients heavily favor the first practice that responds, while upcoming MTD quarterly reporting adds significant document chasing drag',
+    consequenceMechanics: 'prospective clients bounce to faster-responding practices and fee-earners spend valuable partner hours on manual chasing',
     confidence: 0.95,
     scores: {
       visible: true,
@@ -374,6 +517,8 @@ export function buildAccountantPracticeIntelligence(
       noNumbers: true,
     },
   }
+
+  const hook = getDateAwareDeadlineHook()
 
   const variableY: VariableY = {
     name: ownerName,
@@ -386,13 +531,13 @@ export function buildAccountantPracticeIntelligence(
     lane: friction.lane,
     recognizableReason: friction.recognizableReason,
     consequenceMechanics: friction.consequenceMechanics,
-    subjectLine: `Quick question re: ${businessName}'s client intake before MTD 2026`,
+    subjectLine: `Quick question re: ${businessName}'s client intake before ${hook.deadlineDate}`,
   }
 
-  const emailX = formatEmailXOutreach(variableY, 'Gurtej', 'Mercian Wealth | Practice Infrastructure')
+  const emailX = formatEmailXOutreach(variableY, 'Gurtej Sandhu', 'Mercian Wealth Automation Ltd')
   const whatsAppX = formatWhatsAppXOutreach(variableY, 'HAS_WEBSITE', 'accounting practice', city)
 
-  const callBridgeScript = `Hi ${ownerName || 'there'}, thanks for reviewing the practice visualizer. Our infrastructure operates with 100% practitioner-in-the-loop controls—we never touch client ledgers or replace Xero. Happy to run a 15-minute diagnostic call to show you how to capture £3k+ Ltd Co enquiries and recover 10+ hours per week ahead of MTD 2026.`
+  const callBridgeScript = `Hi ${ownerName || 'there'}, thanks for reviewing the practice visualizer. Our infrastructure operates with practitioner-in-the-loop controls—we never touch client ledgers or replace Xero.\n\nNon-negotiable discovery clarifier:\n"What single day-to-day bottleneck are you trying to eliminate for your team right now?"\n\nHappy to run a 15-minute diagnostic call to show you how to capture Ltd Co enquiries and recover partner capacity ahead of ${hook.hookCopy}.`
 
   return {
     classification: 'HAS_WEBSITE',

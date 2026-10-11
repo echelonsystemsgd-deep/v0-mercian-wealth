@@ -90,6 +90,35 @@ export interface EmailXOutreach {
   variableY: VariableY
 }
 
+export interface EmailSequenceBlock {
+  touch: 1 | 2 | 3 | 4 | 5
+  day: number
+  subject: string
+  body: string
+}
+
+export interface Email5TouchSequence {
+  touch1: EmailSequenceBlock
+  touch2: EmailSequenceBlock
+  touch3: EmailSequenceBlock
+  touch4: EmailSequenceBlock
+  touch5: EmailSequenceBlock
+  fullSequenceText: string
+}
+
+export interface LinkedInMessageBlock {
+  touch: 1 | 2 | 3
+  label: string
+  text: string
+}
+
+export interface LinkedIn3MessageSequence {
+  message1: LinkedInMessageBlock
+  message2: LinkedInMessageBlock
+  message3: LinkedInMessageBlock
+  fullSequenceText: string
+}
+
 export interface WhatsAppMessageBlock {
   step: 1 | 2 | 3
   label: string

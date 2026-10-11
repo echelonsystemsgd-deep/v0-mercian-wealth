@@ -1099,8 +1099,8 @@ export const SITE_COPY = {
   practicesPage: {
     hero: {
       badge: "UK ACCOUNTING PRACTICES · CLIENT INTAKE & DEADLINE SYSTEMS",
-      headline: "Stop losing £2,000+ client fees to whoever replies first.",
-      subheadline: "When a sole trader or director searches for an accountant, they don't wait 48 hours for an email reply. We deploy client intake and document-chasing infrastructure for UK practices: new enquiries get a qualified reply and call booking in under 3 minutes, records are chased automatically before MTD deadlines, and your team stays in full control.",
+      headline: "Stop losing valuable client instructions to whoever replies first.",
+      subheadline: "When a sole trader or director searches for an accountant, enquiry response speed is decisive. We deploy client intake and document-chasing infrastructure for UK practices: new enquiries get a qualified reply and call booking in under 3 minutes, records are chased automatically before MTD deadlines, and your team stays in full control.",
       primaryCtaText: "Book a 15-Minute Practice Walkthrough",
       primaryCtaHref: "/book",
       secondaryCtaText: "See Live Practice Intake Demo",
@@ -1108,17 +1108,17 @@ export const SITE_COPY = {
       trustPills: [
         "Enquiries Answered in <3 Mins",
         "Pre-Approved MTD Document Chasing",
-        "Practitioner-in-the-Loop Control",
-        "UK GDPR & ICO Compliant",
+        "Practitioner Approves Every Message",
+        "Designed with UK GDPR in Mind",
       ],
     },
     mtdHook: {
       badge: "THE 2026 REGULATORY BOTTLENECK",
       title: "Making Tax Digital (MTD) is multiplying your practice admin drag.",
-      description: "From 6 April 2026, MTD for Income Self Assessment becomes mandatory for sole traders and landlords with qualifying income above £50,000 (dropping to £30,000 in April 2027). With quarterly updates required, practices are now chasing four times as many records throughout the year.",
+      description: "From 6 April 2026, MTD for Income Self Assessment becomes mandatory for sole traders and landlords with qualifying income above £50,000 (dropping to £30,000 in April 2027). With quarterly updates required, practices face multiple document chasing touchpoints throughout the year.",
       stat1: { number: "4x", label: "Increase in document chasing touchpoints under MTD quarterly rules" },
-      stat2: { number: "78%", label: "Of prospective clients sign with the first practice to respond" },
-      stat3: { number: "10+ hrs", label: "Saved per partner per week on manual reminder and intake emails" },
+      stat2: { number: "78%*", label: "First-responder win advantage (illustrative example, replace with your own numbers)" },
+      stat3: { number: "10+ hrs*", label: "Admin hours saved per week (illustrative example, replace with your own numbers)" },
     },
     systems: [
       {
@@ -1131,23 +1131,23 @@ export const SITE_COPY = {
           "Sub-3-minute automated first response and qualification",
           "Direct diary sync (Outlook, Google, Calendly) with screening criteria",
           "Eliminates tyre-kickers with automated turnover filters",
-          "Zero access to client financial records needed",
+          "Zero access to client ledgers or financial records",
         ],
-        roi: "Captures 2–3 additional retained clients per quarter (~£4,500–£10,500/yr fees).",
+        roi: "Captures additional retained clients before competitors respond (illustrative example: £1,500–£3,500/yr fees per client, replace with your own numbers).",
       },
       {
         id: "chasing",
         tag: "SYSTEM 02 · CAPACITY & COMPLIANCE",
         title: "Governed Document & Deadline Chaser",
         subtitle: "Stop spending senior fee-earner hours chasing missing receipts and records.",
-        description: "Scheduled, gentle WhatsApp and email reminders triggered 30, 14, and 7 days prior to MTD quarterly submissions, VAT returns, and Self Assessment deadlines. Every outbound message is pre-approved by your practice.",
+        description: "Scheduled, gentle WhatsApp and email reminders triggered prior to MTD quarterly submissions, VAT returns, and Self Assessment deadlines. Every outbound message is pre-approved by your practice.",
         deliverables: [
           "Pre-approved automated reminder cadences for Self Assessment & MTD",
-          "Practitioner-in-the-loop: team reviews and approves outgoing reminders",
+          "Practitioner approves every message: team reviews and approves outgoing reminders",
           "Secure one-click upload link straight into your portal or inbox",
-          "Eliminates the January rush panic and deadline penalty risks",
+          "Eliminates deadline panic and late submission friction",
         ],
-        roi: "Recovers 8–12 fee-earner admin hours every month across the team.",
+        roi: "Recovers valuable fee-earner admin hours every month (illustrative example, replace with your own numbers).",
       },
       {
         id: "onboarding",
@@ -1161,7 +1161,7 @@ export const SITE_COPY = {
           "Professional, modern client experience that reinforces your fee pricing",
           "Seamless handover directly to your bookkeeping and payroll managers",
         ],
-        roi: "Cuts client onboarding lag from 3 weeks down to 48 hours.",
+        roi: "Streamlines onboarding turnaround (illustrative target: 21 days down to 48 hours, replace with your own numbers).",
       },
     ],
     speedTest: {
@@ -1170,32 +1170,32 @@ export const SITE_COPY = {
       subtitle: "Answer 5 diagnostic questions to measure uncaptured client revenue, admin overhead, and capacity risk before the 2026 quarterly filing changes.",
     },
     visualizer: {
-      badge: "HANDS-ON PRACTICE SANDBOX",
+      badge: "HANDS-ON PRACTICE SANDBOX (SAMPLE DATA)",
       title: "Experience the enquiry-to-client pipeline in real time.",
-      subtitle: "Toggle through the governed workflows below to see how UK practices eliminate phone tag, chase records without staff hours, and recover 10+ hours of fee-earner capacity every week.",
+      subtitle: "Toggle through the governed workflows below (using sample data) to see how UK practices eliminate phone tag, chase records without staff hours, and recover fee-earner capacity.",
       tabs: [
         { id: "intake", number: "01", label: "Enquiry Intake Speed", short: "Speed Intake" },
         { id: "chasing", number: "02", label: "MTD Deadline Chaser", short: "Deadline Chaser" },
-        { id: "onboarding", number: "03", label: "Onboarding Checklist", short: "48h Onboarding" },
-        { id: "roi", number: "04", label: "Capacity & Hours Saved", short: "10+ Hrs Saved" },
+        { id: "onboarding", number: "03", label: "Onboarding Checklist", short: "Digital Onboarding" },
+        { id: "roi", number: "04", label: "Capacity & Hours Saved", short: "Capacity Calculator" },
       ],
-      timeSavedMetric: "11.5 hours/week saved per partner",
-      complianceGuarantee: "Practitioner-in-the-Loop · Zero Client Financial Data Handled · UK GDPR Compliant",
+      timeSavedMetric: "Time saved per partner (illustrative benchmark: 11.5 hours/week, replace with your own numbers)",
+      complianceGuarantee: "Practitioner Approves Every Message · No Access to Client Ledgers · Designed with UK GDPR in Mind",
     },
     governance: {
       badge: "SECURITY & REGULATORY INTEGRITY",
       title: "Engineered specifically for risk-averse UK practices.",
       principles: [
         {
-          title: "Team Stays in Full Control",
+          title: "Practitioner Approves Every Message",
           desc: "We do not deploy rogue, unsupervised AI touching client communications. Your staff approves message cadences and can pause, edit, or override any reminder instantly.",
         },
         {
-          title: "Zero Financial Data Required",
+          title: "No Access to Client Ledgers",
           desc: "Our intake and chasing engines manage communication timing, checklists, and bookings. We never request, process, or store sensitive client ledgers, bank feeds, or tax returns.",
         },
         {
-          title: "UK GDPR & ICO Compliant",
+          title: "Designed with UK GDPR in Mind",
           desc: "Built with UK data protection principles, explicit consent handling, direct opt-outs, and zero third-party training on your proprietary practice records.",
         },
         {
