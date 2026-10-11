@@ -47,6 +47,10 @@ export const SITE_COPY = {
       title: "Book a 15-Minute Discovery Call",
       description: "Schedule a 15-minute call to identify your enquiry bottlenecks and test a custom mobile storefront prototype built for your business.",
     },
+    practices: {
+      title: "Mercian Wealth | Intake & Deadline Chasing Systems for UK Accountants",
+      description: "Faster enquiry-to-client conversion, automated document chasing before MTD deadlines, and frictionless client onboarding for UK accounting practices. Team stays in full control.",
+    },
   },
 
   // Navbar Component
@@ -1090,4 +1094,131 @@ export const SITE_COPY = {
       ],
     },
   },
+
+  // Accounting Practices Dedicated Page (`/practices`)
+  practicesPage: {
+    hero: {
+      badge: "UK ACCOUNTING PRACTICES · CLIENT INTAKE & DEADLINE SYSTEMS",
+      headline: "Stop losing £2,000+ client fees to whoever replies first.",
+      subheadline: "When a sole trader or director searches for an accountant, they don't wait 48 hours for an email reply. We deploy client intake and document-chasing infrastructure for UK practices: new enquiries get a qualified reply and call booking in under 3 minutes, records are chased automatically before MTD deadlines, and your team stays in full control.",
+      primaryCtaText: "Book a 15-Minute Practice Walkthrough",
+      primaryCtaHref: "/book",
+      secondaryCtaText: "See Live Practice Intake Demo",
+      secondaryCtaHref: "#practice-systems",
+      trustPills: [
+        "Enquiries Answered in <3 Mins",
+        "Pre-Approved MTD Document Chasing",
+        "Practitioner-in-the-Loop Control",
+        "UK GDPR & ICO Compliant",
+      ],
+    },
+    mtdHook: {
+      badge: "THE 2026 REGULATORY BOTTLENECK",
+      title: "Making Tax Digital (MTD) is multiplying your practice admin drag.",
+      description: "From 6 April 2026, MTD for Income Self Assessment becomes mandatory for sole traders and landlords with qualifying income above £50,000 (dropping to £30,000 in April 2027). With quarterly updates required, practices are now chasing four times as many records throughout the year.",
+      stat1: { number: "4x", label: "Increase in document chasing touchpoints under MTD quarterly rules" },
+      stat2: { number: "78%", label: "Of prospective clients sign with the first practice to respond" },
+      stat3: { number: "10+ hrs", label: "Saved per partner per week on manual reminder and intake emails" },
+    },
+    systems: [
+      {
+        id: "intake",
+        tag: "SYSTEM 01 · REVENUE OUTCOME",
+        title: "Enquiry-to-Client Intake Engine",
+        subtitle: "Never lose a high-fee client to the practice down the road.",
+        description: "Captures new website enquiries instantly, qualifies their business structure (Sole Trader vs. Ltd Co, VAT registered, turnover bracket), and books them directly into your partner diary in under 3 minutes.",
+        deliverables: [
+          "Sub-3-minute automated first response and qualification",
+          "Direct diary sync (Outlook, Google, Calendly) with screening criteria",
+          "Eliminates tyre-kickers with automated turnover filters",
+          "Zero access to client financial records needed",
+        ],
+        roi: "Captures 2–3 additional retained clients per quarter (~£4,500–£10,500/yr fees).",
+      },
+      {
+        id: "chasing",
+        tag: "SYSTEM 02 · CAPACITY & COMPLIANCE",
+        title: "Governed Document & Deadline Chaser",
+        subtitle: "Stop spending senior fee-earner hours chasing missing receipts and records.",
+        description: "Scheduled, gentle WhatsApp and email reminders triggered 30, 14, and 7 days prior to MTD quarterly submissions, VAT returns, and Self Assessment deadlines. Every outbound message is pre-approved by your practice.",
+        deliverables: [
+          "Pre-approved automated reminder cadences for Self Assessment & MTD",
+          "Practitioner-in-the-loop: team reviews and approves outgoing reminders",
+          "Secure one-click upload link straight into your portal or inbox",
+          "Eliminates the January rush panic and deadline penalty risks",
+        ],
+        roi: "Recovers 8–12 fee-earner admin hours every month across the team.",
+      },
+      {
+        id: "onboarding",
+        tag: "SYSTEM 03 · CLIENT EXPERIENCE",
+        title: "Frictionless New Client Onboarding",
+        subtitle: "Turn signed proposals into active files without the back-and-forth.",
+        description: "Collects engagement letter signatures, AML/ID checklists, 64-8 authorisation details, and recurring Direct Debit mandates in a single frictionless digital flow.",
+        deliverables: [
+          "Standardised digital onboarding checklist for new business clients",
+          "Automated follow-ups for outstanding photo ID and proof of address",
+          "Professional, modern client experience that reinforces your fee pricing",
+          "Seamless handover directly to your bookkeeping and payroll managers",
+        ],
+        roi: "Cuts client onboarding lag from 3 weeks down to 48 hours.",
+      },
+    ],
+    governance: {
+      badge: "SECURITY & REGULATORY INTEGRITY",
+      title: "Engineered specifically for risk-averse UK practices.",
+      principles: [
+        {
+          title: "Team Stays in Full Control",
+          desc: "We do not deploy rogue, unsupervised AI touching client communications. Your staff approves message cadences and can pause, edit, or override any reminder instantly.",
+        },
+        {
+          title: "Zero Financial Data Required",
+          desc: "Our intake and chasing engines manage communication timing, checklists, and bookings. We never request, process, or store sensitive client ledgers, bank feeds, or tax returns.",
+        },
+        {
+          title: "UK GDPR & ICO Compliant",
+          desc: "Built with UK data protection principles, explicit consent handling, direct opt-outs, and zero third-party training on your proprietary practice records.",
+        },
+        {
+          title: "Works With Your Existing Stack",
+          desc: "No need to replace Xero, Dext, Iris, or your existing website. Our infrastructure layers cleanly on top of your current setup without operational disruption.",
+        },
+      ],
+    },
+    faq: {
+      eyebrow: "PRACTICE FAQ",
+      headline: "Common questions from UK accounting partners.",
+      faqs: [
+        {
+          question: "Does this replace our existing practice management or accounting software?",
+          answer: "No. You keep your existing software (Xero, QuickBooks, Dext, IRIS, BrightManager, etc.). Our systems operate at the front door (intake and booking) and in the communication layer (pre-approved deadline chasing), plugging the gaps where clients drop off.",
+        },
+        {
+          question: "Does your system touch our clients' confidential financial data?",
+          answer: "No. Our systems manage scheduling, qualification status, and document reminders. We do not store, process, or interface with confidential client tax returns, payroll records, or bank credentials.",
+        },
+        {
+          question: "Can our team approve reminders before they are dispatched?",
+          answer: "Yes. Every document reminder cadence is pre-approved by your team. You maintain full oversight and can snooze, pause, or customise messaging for sensitive clients at any time.",
+        },
+        {
+          question: "How does this help our practice prepare for MTD for Income Tax in 2026?",
+          answer: "MTD April 2026 forces sole traders and landlords over £50k to report quarterly rather than annually. Chasing records 4x a year manually will destroy practice capacity. Our system automates the chasing and intake so your team handles the extra volume without hiring additional admin staff.",
+        },
+        {
+          question: "How long does deployment take, and what is required from our team?",
+          answer: "We deploy the core enquiry intake and reminder system within 7 business days. We require a single 30-minute scoping call to map your booking links, reminder timing, and qualification thresholds. We handle 100% of the build and testing.",
+        },
+      ],
+    },
+    ctaSection: {
+      badge: "PRACTICE TRANSFORMATION",
+      title: "Win higher-fee clients and eliminate document chasing.",
+      subtitle: "Book a 15-minute practice walkthrough. We will review your current website response time, show you a working prototype of the practice intake engine, and demonstrate how to recover 10+ hours per week.",
+      primaryCtaText: "Book a 15-Minute Practice Walkthrough",
+      primaryCtaHref: "/book",
+    },
+  },
 };
+
