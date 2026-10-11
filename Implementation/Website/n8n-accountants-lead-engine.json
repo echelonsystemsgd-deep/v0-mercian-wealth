@@ -31,7 +31,7 @@
             {
               "id": "field-execution-mode",
               "name": "execution_mode",
-              "value": "top_commercial_hubs",
+              "value": "single_city",
               "type": "string"
             },
             {
@@ -153,18 +153,24 @@
       "parameters": {
         "method": "POST",
         "url": "https://script.google.com/macros/s/AKfycbw4WM9582vBCmlU7sIkG48tHAQTb8uLWc-ASvtztR_s2yKuu4Ms6huGMyeMmryIFKwkPQ/exec",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify($json) }}",
+        "jsonBody": "={{ $json }}",
         "options": {
-          "batching": {
-            "batch": {
-              "batchSize": 1,
-              "batchInterval": 500
-            }
-          },
           "redirect": {
-            "redirect": {}
+            "redirect": {
+              "followRedirects": true,
+              "maxRedirects": 5
+            }
           },
           "timeout": 30000
         }
@@ -206,7 +212,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify($json.supabase_payload) }}",
+        "jsonBody": "={{ $json.supabase_payload }}",
         "options": {
           "timeout": 30000
         }
