@@ -187,26 +187,53 @@ The user requested: *"ensure that you fill out the gsheet for me up to 300 leads
    - WhatsApp direct links are generated only for verified business mobile/WhatsApp numbers (`+447...` or explicit WhatsApp accounts). Landlines (`+441...`, `+442...`) default to direct telephone/call bridge script.
 
 ### 5.3 WhatsApp Template Message Library (Admin Outreach Modal)
-All templates drafted in the **"we"** voice (never "I"), concluding with the mandatory opt-out clause: *"If you'd rather not hear from us, just say stop."*
+### 5.3.1 Short-Form Outcome WhatsApp Scripts & Immediate Yes/No Handlers (Updated Playbook)
+To maximize mobile read-through on WhatsApp (under 60 words, single-screen without scrolling), three outcome-led templates and immediate Yes/No response branches are integrated:
 
-1. **Opener A (Broken Mobile Layout):**
-   > *"Hi 👋 We were looking through [Practice Name]'s site on a phone and noticed the mobile layout requires pinch-and-scroll to read your service packages. We put together a quick 30-second mobile concept showing how prospective business clients can review your fees and book a call in 3 taps. Open to taking a quick look? If you'd rather not hear from us, just say stop."*
-2. **Opener B (Slow Loading):**
-   > *"Hi 👋 We ran a quick test on [Practice Name]'s site and noticed the mobile load takes several seconds on a 4G connection. We put together a lightweight concept showing how a fast-loading intake page captures enquiries before visitors bounce. Open to taking a 30-second look on your phone? If you'd rather not hear from us, just say stop."*
-3. **Opener C (No Clear Next Step):**
-   > *"Hi 👋 We came across [Practice Name] and noticed there's no direct booking link or clear next step for out-of-hours enquiries. We put together a 30-second concept showing how after-hours clients can confirm a discovery slot directly on your calendar. Open to taking a quick look? If you'd rather not hear from us, just say stop."*
-4. **Opener D (No Response Promise):**
-   > *"Hi 👋 When prospective Ltd Co directors contact [Practice Name] through the contact form, there is no indication of when they will hear back. We put together a concept showing how instant enquiry triage confirms their enquiry in under 3 minutes. Open to taking a 30-second look? If you'd rather not hear from us, just say stop."*
-5. **Opener E (Trust Gaps):**
-   > *"Hi 👋 We came across [Practice Name] and noticed key accreditations and client onboarding information aren't highlighted on mobile. We built a 30-second concept showing how clear trust signals and a streamlined enquiry flow help convert more visitors into clients. Open to taking a look? If you'd rather not hear from us, just say stop."*
-6. **Follow-up 1 (Day 3):**
-   > *"Hi, following up briefly on our message regarding [Practice Name]. With [Date-Aware Hook] approaching, practices are looking closely at how they handle inbound enquiries. Just wanted to see if taking a quick 30-second look at the mobile concept is of interest? If you'd rather not hear from us, just say stop."*
-7. **Follow-up 2 (Day 7, Respectful Close):**
-   > *"Hi, last message from us on this. If streamlining client intake isn't a focus for [Practice Name] right now, that is completely fine. Wishing you and the team a productive quarter. If you'd rather not hear from us, just say stop."*
-8. **After They Say Yes (Deliver Preview):**
-   > *"Thanks for getting back to us! Here is the interactive sandbox concept: [Prototype URL] — you can click through on your phone to see how prospective clients qualify themselves and hold a call. Let us know what you think."*
-9. **Book the Call (Bridge to Walkthrough):**
-   > *"Glad you had a chance to look. We can jump on a short 15-minute walkthrough to review your current site and show you how this layers onto your practice with zero disruption to Xero or IRIS. Would later this week work for a quick call?"*
+1. **Short Opener: Mobile Friction & Static Form**
+   > *"Hi team, noticed some conversion friction on [Practice Name]’s site costing you inbound clients.*
+   >
+   > *• The Issue: Your mobile site routes inquiries into a static contact form rather than instant discovery booking.*
+   > *• The Outcome: Decision-ready business owners bounce back to Google, leaking valuable commercial clients.*
+   > *• The Fix: A fast, high-trust mobile intake with direct discovery scheduling.*
+   >
+   > *I have a working prototype ready. Open to a 10-minute call to diagnose the setup and run through the plan of action?"*
+
+2. **Short Opener: Dead CTA / Navigation Glitch**
+   > *"Hi team, noticed a critical conversion breakdown on [Practice Name]’s site costing you clients.*
+   >
+   > *• The Issue: Primary call-to-action buttons have dead links or formatting glitches on mobile that fail to redirect to a booking intake.*
+   > *• The Outcome: Decision-ready local business owners ready to hire you get blocked and bounce back to Google.*
+   > *• The Fix: Seamless 1-click mobile discovery scheduling and qualification.*
+   >
+   > *I have a working prototype ready. Open to a 10-minute call to diagnose the setup and run through the plan of action?"*
+
+3. **Short Opener: Tiny Text & Visual Strain**
+   > *"Hi team, noticed some conversion friction on [Practice Name]’s site costing you inbound clients.*
+   >
+   > *• The Issue: Your mobile layout suffers from small, cramped text and low contrast, creating immediate eye strain for visitors.*
+   > *• The Outcome: Decision-ready business directors looking to hire an accountant hesitate and bounce back to Google.*
+   > *• The Fix: Clean, high-legibility mobile infrastructure with instant booking.*
+   >
+   > *I have a working prototype ready. Open to a 10-minute call to diagnose the setup and run through the plan of action?"*
+
+4. **When They Say "YES" (2-Day Slot Bridge)**
+   > *"Perfect, appreciate your openness.*
+   >
+   > *Let’s hop on a brief 10-minute screen share so I can walk you through the diagnosis and show you the working prototype.*
+   >
+   > *Are you free for a quick run-through on Wednesday afternoon or Thursday morning?*
+   >
+   > *Let me know what suits you best and I'll send over the link."*
+
+5. **When They Say "NO" (Polite Opportunity Reversal)**
+   > *"Completely understand, no problem at all.*
+   >
+   > *Just wanted to point out the intake friction, as local business owners make snap decisions on mobile, and losing high-value commercial clients to a static form is an avoidable leak.*
+   >
+   > *If you ever decide to streamline your client intake down the line, my door is always open.*
+   >
+   > *Wishing [Practice Name] all the best!"*
 
 ### 5.4 Dynamic Date-Aware MTD Hook Logic
 - **Before 8 November 2026:** `"the 7 November quarterly update"`

@@ -435,8 +435,8 @@ export default function LeadsPage() {
   const availableTrades = useMemo(() => {
     const counts: Record<string, number> = {}
     leads.forEach((l) => {
-      const raw = l.local_business_niche || l.scraped_metadata?.trade || 'Jeweller'
-      const clean = (!raw || raw.length > 25 || raw.startsWith('Hi ') || raw.toLowerCase().includes('came across')) ? 'Jeweller' : raw.trim()
+      const raw = l.local_business_niche || l.scraped_metadata?.trade || 'Accountant'
+      const clean = (!raw || raw.length > 25 || raw.startsWith('Hi ') || raw.toLowerCase().includes('came across')) ? 'Accountant' : raw.trim()
       counts[clean] = (counts[clean] || 0) + 1
     })
     return Object.entries(counts).sort((a, b) => b[1] - a[1])
@@ -529,8 +529,8 @@ export default function LeadsPage() {
     // 3. Sub-Category / Trade Filter
     if (tradeFilter !== 'All') {
       list = list.filter((l) => {
-        const raw = l.local_business_niche || l.scraped_metadata?.trade || 'Jeweller'
-        const clean = (!raw || raw.length > 25 || raw.startsWith('Hi ') || raw.toLowerCase().includes('came across')) ? 'Jeweller' : raw.trim()
+        const raw = l.local_business_niche || l.scraped_metadata?.trade || 'Accountant'
+        const clean = (!raw || raw.length > 25 || raw.startsWith('Hi ') || raw.toLowerCase().includes('came across')) ? 'Accountant' : raw.trim()
         return clean.toLowerCase() === tradeFilter.toLowerCase()
       })
     }
@@ -1099,8 +1099,8 @@ export default function LeadsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
             {displayedLeads.map((lead) => {
               const businessName = lead.business_name || lead.name
-              const rawTrade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Jeweller'
-              const trade = (!rawTrade || rawTrade.length > 30 || rawTrade.startsWith('Hi ') || rawTrade.toLowerCase().includes('came across')) ? 'Jeweller' : rawTrade
+              const rawTrade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Accountant'
+              const trade = (!rawTrade || rawTrade.length > 30 || rawTrade.startsWith('Hi ') || rawTrade.toLowerCase().includes('came across')) ? 'Accountant' : rawTrade
               const rawWebsite = (lead.website || '').trim()
               const hasWebsite = rawWebsite !== '' && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE' && !rawWebsite.toLowerCase().includes('facebook.com') && !rawWebsite.toLowerCase().includes('instagram.com')
               
@@ -1521,8 +1521,8 @@ export default function LeadsPage() {
                   {displayedLeads.map((lead) => {
                     const isChecked = selectedIds.includes(lead.id)
                     const isInspected = searchParams.get('leadId') === lead.id
-                    const rawTrade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Jeweller'
-                    const trade = (!rawTrade || rawTrade.length > 30 || rawTrade.startsWith('Hi ') || rawTrade.toLowerCase().includes('came across')) ? 'Jeweller' : rawTrade
+                    const rawTrade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Accountant'
+                    const trade = (!rawTrade || rawTrade.length > 30 || rawTrade.startsWith('Hi ') || rawTrade.toLowerCase().includes('came across')) ? 'Accountant' : rawTrade
                     const rawWebsite = lead.website
                     const hasWebsite = rawWebsite && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE'
                     const rating = lead.scraped_metadata?.rating ?? 5.0

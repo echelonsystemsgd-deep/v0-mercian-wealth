@@ -121,6 +121,29 @@ function detectNiche(trade: string, businessName: string): NicheProfile {
   const t = trade.toLowerCase()
   const b = businessName.toLowerCase()
 
+  const isAccountant =
+    t.includes('account') || b.includes('account') ||
+    t.includes('tax') || b.includes('tax') ||
+    t.includes('bookkeep') || b.includes('bookkeep') ||
+    t.includes('audit') || b.includes('audit') ||
+    t.includes('practice') || b.includes('practice') ||
+    t.includes('payroll') || b.includes('payroll')
+
+  if (isAccountant) {
+    return {
+      nicheName: 'Chartered Accounting Practice',
+      coreOffering: 'corporate tax, statutory accounts, payroll & business advisory',
+      offeringBenefits: 'ICAEW / ACCA credentials, MTD compliance & proactive tax planning',
+      keyAction1: 'book an initial discovery & scoping consultation',
+      depositPercentage: 'direct monthly retainer mandate',
+      theMath: 'securing 1 or 2 new Ltd Co annual retainers',
+      defaultTicket: 3500,
+      ticketLabel: 'annual corporate client retainer',
+      itemsOrJobs: 'retainers',
+      missedDefault: 2,
+    }
+  }
+
   const isDiamond =
     t.includes('diamond') || b.includes('diamond') || t.includes('gem') || t.includes('atelier')
   const isJewellery =
