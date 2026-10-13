@@ -22,8 +22,10 @@ export const ACCOUNTANTS_WHATSAPP_TEMPLATES: WhatsAppTemplate[] = [
     stepNumber: '01',
     timing: 'Day 1 (Under 60 words)',
     description: 'Direct 3-bullet outcome: Issue -> Lost Clients -> Fast Intake Fix.',
-    getText: (practiceName: string) =>
-      `Hi team, noticed some conversion friction on ${practiceName}’s site costing you inbound clients.\n\n• The Issue: Your mobile site routes inquiries into a static contact form rather than instant discovery booking.\n• The Outcome: Decision-ready business owners bounce back to Google, leaking valuable commercial clients.\n• The Fix: A fast, high-trust mobile intake with direct discovery scheduling.\n\nI have a working prototype ready. Open to a 10-minute call to diagnose the setup and run through the plan of action?`,
+    getText: (practiceName: string, prototypeUrl?: string) => {
+      const proto = prototypeUrl || 'https://uk-accountancy-os-prototype.vercel.app/'
+      return `Hi team, noticed some conversion friction on ${practiceName}’s site costing you inbound clients.\n\n• The Issue: Your mobile site routes inquiries into a static contact form rather than instant discovery booking.\n• The Outcome: Decision-ready business owners bounce back to Google, leaking valuable commercial clients.\n• The Fix: A fast, high-trust mobile intake with direct discovery scheduling.\n\nI have a working prototype live here:\n${proto}\n\nOpen to a brief 10-minute call to walk through the numbers?\nBook a call with me here: [Link to Book a Call]`
+    },
   },
   {
     id: 'short_outcome_dead_cta',
@@ -32,8 +34,10 @@ export const ACCOUNTANTS_WHATSAPP_TEMPLATES: WhatsAppTemplate[] = [
     stepNumber: '01',
     timing: 'Day 1 (Under 60 words)',
     description: 'For sites where buttons are unlinked or lead to dead ends.',
-    getText: (practiceName: string) =>
-      `Hi team, noticed a critical conversion breakdown on ${practiceName}’s site costing you clients.\n\n• The Issue: Primary call-to-action buttons have dead links or formatting glitches on mobile that fail to redirect to a booking intake.\n• The Outcome: Decision-ready local business owners ready to hire you get blocked and bounce back to Google.\n• The Fix: Seamless 1-click mobile discovery scheduling and qualification.\n\nI have a working prototype ready. Open to a 10-minute call to diagnose the setup and run through the plan of action?`,
+    getText: (practiceName: string, prototypeUrl?: string) => {
+      const proto = prototypeUrl || 'https://uk-accountancy-os-prototype.vercel.app/'
+      return `Hi team, noticed a critical conversion breakdown on ${practiceName}’s site costing you clients.\n\n• The Issue: Primary call-to-action buttons have dead links or formatting glitches on mobile that fail to redirect to a booking intake.\n• The Outcome: Decision-ready local business owners ready to hire you get blocked and bounce back to Google.\n• The Fix: Seamless 1-click mobile discovery scheduling and qualification.\n\nI have a working prototype live here:\n${proto}\n\nOpen to a 10-minute call to diagnose the setup?\nBook a call with me here: [Link to Book a Call]`
+    },
   },
   {
     id: 'short_outcome_unreadable',
@@ -42,8 +46,10 @@ export const ACCOUNTANTS_WHATSAPP_TEMPLATES: WhatsAppTemplate[] = [
     stepNumber: '01',
     timing: 'Day 1 (Under 60 words)',
     description: 'For sites with cramped typography or washed-out mobile styling.',
-    getText: (practiceName: string) =>
-      `Hi team, noticed some conversion friction on ${practiceName}’s site costing you inbound clients.\n\n• The Issue: Your mobile layout suffers from small, cramped text and low contrast, creating immediate eye strain for visitors.\n• The Outcome: Decision-ready business directors looking to hire an accountant hesitate and bounce back to Google.\n• The Fix: Clean, high-legibility mobile infrastructure with instant booking.\n\nI have a working prototype ready. Open to a 10-minute call to diagnose the setup and run through the plan of action?`,
+    getText: (practiceName: string, prototypeUrl?: string) => {
+      const proto = prototypeUrl || 'https://uk-accountancy-os-prototype.vercel.app/'
+      return `Hi team, noticed some conversion friction on ${practiceName}’s site costing you inbound clients.\n\n• The Issue: Your mobile layout suffers from small, cramped text and low contrast, creating immediate eye strain for visitors.\n• The Outcome: Decision-ready business directors looking to hire an accountant hesitate and bounce back to Google.\n• The Fix: Clean, high-legibility mobile infrastructure with instant booking.\n\nI have a working prototype live here:\n${proto}\n\nOpen to a 10-minute call to review it?\nBook a call with me here: [Link to Book a Call]`
+    },
   },
   {
     id: 'reply_yes_schedule',
@@ -51,9 +57,11 @@ export const ACCOUNTANTS_WHATSAPP_TEMPLATES: WhatsAppTemplate[] = [
     category: 'closing',
     stepNumber: '02',
     timing: 'Immediate Response to Affirmative Reply',
-    description: 'Acknowledges response and offers 2 specific slots.',
-    getText: () =>
-      `Perfect, appreciate your openness.\n\nLet’s hop on a brief 10-minute screen share so I can walk you through the diagnosis and show you the working prototype.\n\nAre you free for a quick run-through on Wednesday afternoon or Thursday morning?\n\nLet me know what suits you best and I'll send over the link.`,
+    description: 'Acknowledges response and offers 2 specific slots + booking link.',
+    getText: (practiceName: string, prototypeUrl?: string) => {
+      const proto = prototypeUrl || 'https://uk-accountancy-os-prototype.vercel.app/'
+      return `Perfect, appreciate your openness.\n\nLet’s hop on a brief 10-minute screen share so I can show you how this works: ${proto}\n\nYou can book a call with me here: [Link to Book a Call]\n\nOr let me know if Wednesday afternoon or Thursday morning suits you best and I'll send over a calendar invite!`
+    },
   },
   {
     id: 'reply_no_reversal',
@@ -61,9 +69,11 @@ export const ACCOUNTANTS_WHATSAPP_TEMPLATES: WhatsAppTemplate[] = [
     category: 'closing',
     stepNumber: '02',
     timing: 'Immediate Response to "No / Not Interested"',
-    description: 'Politely acknowledges rejection while reminding them of the lost commercial retainers.',
-    getText: (practiceName: string) =>
-      `Completely understand, no problem at all.\n\nJust wanted to point out the intake friction, as local business owners make snap decisions on mobile, and losing high-value commercial clients to a static form is an avoidable leak.\n\nIf you ever decide to streamline your client intake down the line, my door is always open.\n\nWishing ${practiceName} all the best!`,
+    description: 'Politely acknowledges rejection while leaving the door open to book a call.',
+    getText: (practiceName: string, prototypeUrl?: string) => {
+      const proto = prototypeUrl || 'https://uk-accountancy-os-prototype.vercel.app/'
+      return `Completely understand, no problem at all.\n\nJust wanted to point out the intake friction, as local business owners make snap decisions on mobile, and losing high-value commercial clients to a static form is an avoidable leak.\n\nIf you ever decide to streamline client intake down the line, the demo is live at ${proto} or you can book a call with me here: [Link to Book a Call].\n\nWishing ${practiceName} all the best!`
+    },
   },
   {
     id: 'opener_a',

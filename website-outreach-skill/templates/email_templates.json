@@ -1,0 +1,38 @@
+{
+  "sender": {
+    "sender_name": "{{sender_name}}"
+  },
+  "templates": {
+    "pitch": {
+      "step_name": "Touch 1 - Outreach #1",
+      "delay_days": 0,
+      "subject_options": [
+        "{{page}} on {{website_domain}}",
+        "quick note re: {{company}}",
+        "question about {{company}}'s {{page}} page"
+      ],
+      "body": "Hi {{first_name}},\n\nI was looking at {{website_domain}} while researching {{subject_label}} in the area.\n\nOn your {{page}} page, I noticed that {{website_problem}}. Specifically, {{recognizable_reason}}.\n\nUsually, {{consequence_mechanics}}.\n\nI could put together a quick mockup showing how a clearer layout might help.\n\n{{micro_yes}}\n\nBest,\n{{sender_name}}"
+    },
+    "fu1": {
+      "step_name": "Touch 2 - Follow Up #2",
+      "delay_days": 3,
+      "subject": "Re: {{original_subject}}",
+      "in_reply_to": true,
+      "body": "Hi {{first_name}},\n\nFollowing up on the {{page}} note for {{company}}.\n\nThe reason I flagged {{website_problem}} is that when {{recognizable_reason}}, visitors often hesitate before taking the next step.\n\n{{micro_yes}}\n\nBest,\n{{sender_name}}"
+    },
+    "fu2": {
+      "step_name": "Touch 3 - Follow Up #3",
+      "delay_days": 2,
+      "subject": "Re: {{original_subject}}",
+      "in_reply_to": true,
+      "body": "Hi {{first_name}},\n\nTo keep this contained, I would focus any mockup on the {{page}} layout so {{company}} visitors can move straight to the next step.\n\nI will stop following up after this if it is not relevant right now.\n\n{{micro_yes}}\n\nBest,\n{{sender_name}}"
+    },
+    "fu3": {
+      "step_name": "Touch 4 - Follow Up #4 (The Binary Ask)",
+      "delay_days": 2,
+      "subject": "Re: {{original_subject}}",
+      "in_reply_to": true,
+      "body": "Hi {{first_name}},\n\nShould I send across that {{page}} mockup for {{company}}, or pass for now?\n\nBest,\n{{sender_name}}"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "student_name": "YOUR_NAME",
+  "agency_name": "YOUR_AGENCY",
+  "secondary_alert_email": "you@example.com",
+  "daily_max_outreach_emails": 30,
+  "business_hours_start": "08:00",
+  "business_hours_end": "20:00",
+  "sending_timezone": "Europe/London",
+  "reply_check_interval_minutes": 60,
+  "send_delay_seconds_min": 15,
+  "send_delay_seconds_max": 30,
+  "test_send_delay_seconds_min": 3,
+  "test_send_delay_seconds_max": 7,
+  "skip_weekends": true,
+  "test_mode": false,
+  "test_lead_count": 2,
+  "test_allowed_recipient_emails": [],
+  "follow_up_delays_minutes": [5, 3, 3]
+}

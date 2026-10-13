@@ -44,6 +44,9 @@ import {
 import { WhatsAppSequenceBlocks } from '@/components/admin/whatsapp-sequence-blocks'
 import { AccountantsTemplateLibrary } from '@/components/admin/accountants-template-library'
 import { classifyPhoneNumber, buildWhatsAppOpenerUrl, buildTelUrl } from '@/lib/phone-classifier'
+import { createClient } from '@/lib/supabase/client'
+import { findAccountantIntelligence } from '@/lib/auditor/accountant-leads-registry'
+import { LeadFrictionDossier } from '@/components/admin/lead-friction-dossier'
 
 export interface OutreachLead {
   id: string
@@ -121,9 +124,28 @@ export function OutreachModal({
   const [copied, setCopied] = useState(false)
   const [updating, setUpdating] = useState(false)
 
+  const supabase = createClient()
+  const accountantIntel = useMemo(() => {
+    return findAccountantIntelligence(lead?.website, lead?.business_name)
+  }, [lead?.website, lead?.business_name])
+
+  const handleSaveLeadNotes = async (newNotes: string) => {
+    if (!lead?.id) return
+    try {
+      const { error } = await supabase
+        .from('leads')
+        .update({ notes: newNotes })
+        .eq('id', lead.id)
+      if (error) throw error
+      if (lead) lead.notes = newNotes
+    } catch (err) {
+      console.error('Failed to update lead notes:', err)
+    }
+  }
+
   // Derived Business Details
   const businessName = lead?.business_name || lead?.name || 'Local Business'
-  const trade = (lead?.local_business_niche || lead?.scraped_metadata?.trade || 'local trade').toLowerCase()
+  const trade = (accountantIntel?.trade || lead?.local_business_niche || lead?.scraped_metadata?.trade || 'local trade').toLowerCase()
   const rawWebsite = (lead?.website || '').trim()
   const hasRawWebsite =
     rawWebsite !== '' &&
@@ -133,12 +155,13 @@ export function OutreachModal({
     !rawWebsite.toLowerCase().includes('instagram.com')
 
   const ownerName =
-    lead?.name && lead.name !== lead.business_name && !lead.name.includes('Owner')
+    accountantIntel?.ownerOrDirector ||
+    (lead?.name && lead.name !== lead.business_name && !lead.name.includes('Owner')
       ? lead.name.split(' ')[0]
-      : ''
+      : '')
 
   const address = lead?.scraped_metadata?.address || lead?.notes || 'Berkshire, UK'
-  const city = address && !address.startsWith('·') && !address.includes('★') ? address.split(',')[0].trim() : 'your area'
+  const city = accountantIntel?.location || (address && !address.startsWith('·') && !address.includes('★') ? address.split(',')[0].trim() : 'your area')
 
   const rating = lead?.scraped_metadata?.rating || 4.9
   const reviewsCount = lead?.scraped_metadata?.reviews_count || 24
@@ -151,6 +174,7 @@ export function OutreachModal({
     }
 
     const isAccountantNiche = 
+      Boolean(accountantIntel) ||
       trade.toLowerCase().includes('account') || 
       trade.toLowerCase().includes('practice') || 
       businessName.toLowerCase().includes('account')
@@ -239,10 +263,34 @@ export function OutreachModal({
       },
     ]
 
+    if (accountantIntel) {
+      const bespokeCandidate: FrictionFinding = {
+        id: 'c_bespoke_accountant',
+        classification: 'OBSERVED',
+        customerNextStep: 'Enquire for Ltd Co compliance, switching firms, or advisory retainers',
+        lane: 'Practice client intake & qualification',
+        location: accountantIntel.pageLocation,
+        observableProblem: accountantIntel.observableFriction,
+        evidence: accountantIntel.evidence,
+        recognizableReason: accountantIntel.recognizableReason,
+        consequenceMechanics: accountantIntel.consequenceMechanics,
+        confidence: 0.99,
+        scores: {
+          visible: true,
+          fast: true,
+          logical: true,
+          decisionTied: true,
+          observable: true,
+          noNumbers: true,
+        },
+      }
+      return [bespokeCandidate, accountantCandidate, ...standardCandidates]
+    }
+
     return isAccountantNiche 
       ? [accountantCandidate, ...standardCandidates]
       : [...standardCandidates, accountantCandidate]
-  }, [hasRawWebsite, businessName, city, trade, ownerName, rawWebsite])
+  }, [hasRawWebsite, businessName, city, trade, ownerName, rawWebsite, accountantIntel])
 
   // Sync state when lead changes
   useEffect(() => {
@@ -342,8 +390,11 @@ export function OutreachModal({
   }, [currentVariableY, classification, trade, city])
 
   const generatedEmail = useMemo(() => {
+    if (accountantIntel?.emailOutreach) {
+      return `Subject: ${accountantIntel.emailOutreach.subject}\n\n${accountantIntel.emailOutreach.body}`
+    }
     return formatEmailXOutreach(currentVariableY).fullEmailText
-  }, [currentVariableY])
+  }, [currentVariableY, accountantIntel])
 
   const callBridgeScript = useMemo(() => {
     const nameStr = ownerName ? ` ${ownerName}` : ''
@@ -357,7 +408,9 @@ export function OutreachModal({
   const currentDisplayScript = useMemo(() => {
     switch (activeChannelTab) {
       case 'whatsapp':
-        return whatsAppSequence.fullSequenceText
+        return accountantIntel?.whatsappOutreach
+          ? `--- MESSAGE 1 (OPENER) ---\n${accountantIntel.whatsappOutreach.message1}\n\n--- MESSAGE 2 (OBSERVATION) ---\n${accountantIntel.whatsappOutreach.message2}\n\n--- MESSAGE 3 (PROTOTYPE & CALL CTA) ---\n${accountantIntel.whatsappOutreach.message3}\n\n--- 1-TOUCH DIRECT PITCH ---\n${accountantIntel.whatsappOutreach.quickDirectPitch}`
+          : whatsAppSequence.fullSequenceText
       case 'email':
         return generatedEmail
       case 'call_bridge':
@@ -367,7 +420,7 @@ export function OutreachModal({
       default:
         return whatsAppSequence.fullSequenceText
     }
-  }, [activeChannelTab, whatsAppSequence, generatedEmail, callBridgeScript, prototypeTask])
+  }, [activeChannelTab, whatsAppSequence, generatedEmail, callBridgeScript, prototypeTask, accountantIntel])
 
   // Clipboard handler
   const handleCopy = () => {
@@ -385,7 +438,7 @@ export function OutreachModal({
       return
     }
 
-    const msg = text || whatsAppSequence.message1.text
+    const msg = text || (accountantIntel?.whatsappOutreach.message1 || whatsAppSequence.message1.text)
     const url = buildWhatsAppOpenerUrl(lead?.phone, businessName, ownerName) || `https://wa.me/?text=${encodeURIComponent(msg)}`
     window.open(url, '_blank', 'noopener,noreferrer')
 
@@ -396,8 +449,8 @@ export function OutreachModal({
 
   // Email sender
   const handleSendEmail = () => {
-    const subject = encodeURIComponent(currentVariableY.subjectLine)
-    const body = encodeURIComponent(currentDisplayScript)
+    const subject = encodeURIComponent(accountantIntel?.emailOutreach?.subject || currentVariableY.subjectLine)
+    const body = encodeURIComponent(accountantIntel?.emailOutreach?.body || currentDisplayScript)
     window.location.href = `mailto:${lead?.email || ''}?subject=${subject}&body=${body}`
   }
 
@@ -417,8 +470,13 @@ export function OutreachModal({
               <div className="flex items-center gap-2 flex-wrap">
                 <h2 className="text-base sm:text-lg font-bold text-white font-sans truncate">{businessName}</h2>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-zinc-400 capitalize">
-                  {trade}
+                  {accountantIntel?.trade || trade}
                 </span>
+                {accountantIntel && (
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-semibold flex items-center gap-1">
+                    🎯 Audited Lead
+                  </span>
+                )}
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[#DCAE53] font-semibold">
                   ★ {rating} ({reviewsCount})
                 </span>
@@ -542,6 +600,16 @@ export function OutreachModal({
           )}
 
           {/* ───────────────────────────────────────────────────────────── */}
+          {/* VERIFIED FORENSIC FRICTION & NOTES DOSSIER                     */}
+          {/* ───────────────────────────────────────────────────────────── */}
+          <LeadFrictionDossier
+            lead={lead}
+            intel={accountantIntel}
+            onSaveNotes={handleSaveLeadNotes}
+            onSendWhatsApp={handleSendWhatsApp}
+          />
+
+          {/* ───────────────────────────────────────────────────────────── */}
           {/* PRIMARY FOCUS: GENERATED CHANNEL OUTREACH DISPATCH            */}
           {/* ───────────────────────────────────────────────────────────── */}
           <div className="space-y-4">
@@ -639,7 +707,7 @@ export function OutreachModal({
                 <AccountantsTemplateLibrary
                   practiceName={businessName}
                   phone={lead.phone}
-                  prototypeUrl={lead.prototype_url}
+                  prototypeUrl={accountantIntel?.prototypeUrl || lead.prototype_url || 'https://uk-accountancy-os-prototype.vercel.app/'}
                   onSendWhatsApp={handleSendWhatsApp}
                 />
                 

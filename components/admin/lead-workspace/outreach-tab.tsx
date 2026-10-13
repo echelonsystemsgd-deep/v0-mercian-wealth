@@ -6,6 +6,9 @@ import { OutreachMessageCard } from './outreach-message-card'
 import { CallOutcomeSheet } from './call-outcome-sheet'
 import { WhatsAppSequenceBlocks } from '@/components/admin/whatsapp-sequence-blocks'
 import type { PlaybookEngine } from '@/hooks/use-playbook-engine'
+import { findAccountantIntelligence } from '@/lib/auditor/accountant-leads-registry'
+import { LeadFrictionDossier } from '@/components/admin/lead-friction-dossier'
+import { createClient } from '@/lib/supabase/client'
 
 interface OutreachTabProps {
   lead: {
@@ -74,8 +77,22 @@ export function OutreachTab({ lead, engine, onOutcomeRecorded, onStatusUpdate, o
   const effectiveEmailSubject = engineEmailSubject || `Quick question regarding ${businessName}`
   const effectiveEmailBody = emailXMessage || `Hi,\n\n${callOpener}\n\nWould love to show you a quick example.\n\nBest regards,\nGurtej\nMercian Wealth`
 
+  const accountantIntel = findAccountantIntelligence(lead.website, lead.business_name || lead.name)
+  const supabase = createClient()
+  const handleSaveNotes = async (newNotes: string) => {
+    await supabase.from('leads').update({ notes: newNotes }).eq('id', lead.id)
+  }
+
   return (
     <div className="space-y-5">
+      {/* Forensic Friction & Notes Dossier */}
+      <LeadFrictionDossier
+        lead={lead as any}
+        intel={accountantIntel}
+        onSaveNotes={handleSaveNotes}
+        onSendWhatsApp={(text) => handleWhatsApp(text)}
+      />
+
       {/* Recommended approach */}
       <div className="p-4 rounded-2xl bg-[#0B0B0D] border border-white/10">
         <p className="text-xs text-zinc-500 font-mono uppercase tracking-wider mb-2">Recommended approach</p>
