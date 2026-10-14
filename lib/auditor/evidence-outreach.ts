@@ -2,7 +2,47 @@ import type {
   AuditAnalysis,
   GeneratedOutreach
 } from './evidence-types'
-import { getDateAwareMtdDeadline } from './rubric'
+
+export interface DateAwareDeadline {
+  hookName: string
+  deadlineDate: string
+  hookCopy: string
+  quarterPhase: 'nov_quarterly' | 'jan_self_assessment' | 'feb_quarterly'
+}
+
+export function getDateAwareMtdDeadline(refDate: Date = new Date()): DateAwareDeadline {
+  const y = refDate.getFullYear()
+  const m = refDate.getMonth() + 1
+  const d = refDate.getDate()
+
+  const isBeforeNov8 = y < 2026 || (y === 2026 && (m < 11 || (m === 11 && d < 8)))
+  const isBeforeFeb1_2027 =
+    (y === 2026 && ((m === 11 && d >= 8) || m === 12)) ||
+    (y === 2027 && m === 1 && d <= 31)
+
+  if (isBeforeNov8) {
+    return {
+      hookName: '7 November quarterly update',
+      deadlineDate: '7 November 2026',
+      hookCopy: 'the upcoming 7 November quarterly update deadline',
+      quarterPhase: 'nov_quarterly'
+    }
+  } else if (isBeforeFeb1_2027) {
+    return {
+      hookName: '31 January Self Assessment deadline',
+      deadlineDate: '31 January 2027',
+      hookCopy: 'the 31 January Self Assessment tax filing crunch',
+      quarterPhase: 'jan_self_assessment'
+    }
+  } else {
+    return {
+      hookName: '7 February 2027 quarterly update',
+      deadlineDate: '7 February 2027',
+      hookCopy: 'the 7 February 2027 quarterly reporting cut-off',
+      quarterPhase: 'feb_quarterly'
+    }
+  }
+}
 
 /**
  * Validates that every claim in the message maps to an evidenced finding id.
@@ -60,66 +100,123 @@ export function generateOutreachFromAnalysis(
   const evidenceValue = String(primaryAngle.evidence.measuredValue)
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // 1. RECOMMENDED WHATSAPP OPENER
-  // (In "we" voice, outcome-first, with primary angle & real evidence, mandatory opt-out)
+  // 1. RECOMMENDED & ALTERNATIVE WHATSAPP OPENERS (Benevolent Authority / Trudeau Framework)
+  // (Empathetic, human, outcome-first, with real evidence & mandatory opt-out)
   // ─────────────────────────────────────────────────────────────────────────────
   let whatsappOpenerRecommended = ''
   let whatsappOpenerAlternative = ''
+  let whatsappStep1 = ''
+  let whatsappStep2 = ''
+  let whatsappStep3 = ''
 
   if (primaryAngle.id === 'angle_response_speed') {
     whatsappOpenerRecommended =
-      `Hi team 👋 We were looking through ${domain} on mobile and noticed enquiries submit into a standard form without response timing or an instant booking hold.\n\n` +
-      `With ${deadline.hookCopy} approaching, when business directors research an accountant in the evening, they usually favour whoever confirms next steps immediately.\n\n` +
-      `We put together a 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: ${protoUrl}\n\n` +
-      `Open to taking a quick look on your phone?\n\n` +
+      `Hi team 👋 We were looking through ${domain} on mobile and wanted to share a quick heads-up: incoming enquiries route into a standard form without response timing or an instant booking hold.\n\n` +
+      `Ahead of the upcoming ${deadline.hookCopy}, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.\n\n` +
+      `We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: ${protoUrl}\n\n` +
+      `Open to taking a quick look on your phone? (Zero obligation at all 👍)\n\n` +
       `If you'd rather not hear from us, just say stop.`
 
     whatsappOpenerAlternative =
-      `Hi team 👋 Quick operational question for ${businessName}: when new Ltd Co or sole trader enquiries land on ${domain} out-of-hours, how does your team pre-qualify their turnover before scheduling partner discovery calls?\n\n` +
-      `Reason we ask is we noticed the intake routes into a general form without upfront fee expectations.\n\n` +
-      `We engineered a working accountancy intake model for practices here: ${protoUrl}\n\n` +
-      `Happy to share a 30-second walkthrough if helpful. If you'd rather not hear from us, just say stop.`
+      `Hi team 👋 Came across ${businessName} — really liked your presentation of services.\n\n` +
+      `Quick question if you don't mind: ahead of the upcoming ${deadline.hookCopy}, is your team currently taking on new clients, or is capacity fully booked out right now?\n\n` +
+      `If you'd rather not hear from us, just say stop.`
+
+    whatsappStep1 =
+      `Hi team 👋 Came across ${businessName} — really liked how you present your services. Quick question if you don't mind: ahead of ${deadline.hookCopy}, is your team taking on new clients, or is capacity booked out right now?`
+
+    whatsappStep2 =
+      `Makes complete sense! The reason I asked is that so many practice owners we speak with right now are feeling the pressure of MTD updates—spending evenings chasing missing receipts and fielding tyre-kicker calls instead of focusing on high-value client advisory.\n\n` +
+      `When I looked at ${domain} on a phone earlier, I noticed enquiries submit into a standard form without response confirmation or direct booking hold (${evidenceValue}). It struck me because your actual client work looks top tier, but the mobile intake might be letting good prospective clients slip through unnoticed.`
+
+    whatsappStep3 =
+      `We engineered a simple practice intake and record-chasing system where you approve every message in seconds, while the system pre-qualifies incoming enquiries and collects client docs automatically before they hit your diary.\n\n` +
+      `I put together a private 30-second mobile walkthrough tailored for ${businessName} to show you how other UK practices are saving 10+ hours of admin a week: ${protoUrl}\n\n` +
+      `Happy to send the link over to your phone if you're curious? (Zero pressure at all 👍)`
+
   } else if (primaryAngle.id === 'angle_mtd_deadline_drag') {
     whatsappOpenerRecommended =
       `Hi team 👋 We came across ${businessName} while reviewing UK accounting practices preparing for ${deadline.hookName}.\n\n` +
-      `Ahead of ${deadline.deadlineDate}, the biggest capacity drain partners mention is manual document chasing across email and WhatsApp.\n\n` +
+      `Ahead of ${deadline.deadlineDate}, the biggest capacity drain partners mention is the stress of manual document chasing across email and WhatsApp.\n\n` +
       `We built a pre-approved deadline reminder engine that collects records and client confirmations automatically—requiring partner sign-off on every message, without touching client ledgers: ${protoUrl}\n\n` +
-      `Open to taking a 30-second look on your phone?\n\n` +
+      `Open to taking a quick 30-second look on your phone? (Zero pressure at all 👍)\n\n` +
       `If you'd rather not hear from us, just say stop.`
 
     whatsappOpenerAlternative =
-      `Hi team 👋 Quick question regarding ${businessName}'s client record chasing before ${deadline.hookCopy}:\n\n` +
-      `How many hours does your team currently spend manually following up with clients for missing records?\n\n` +
+      `Hi team 👋 Quick question regarding ${businessName}'s client workload ahead of ${deadline.hookCopy}:\n\n` +
+      `Are your fee-earners spending valuable evenings chasing missing records, or has your team managed to automate that process?\n\n` +
       `We developed an automated intake sandbox specifically for UK accountancy firms: ${protoUrl}\n\n` +
       `Would you be open to a 30-second look? If you'd rather not hear from us, just say stop.`
+
+    whatsappStep1 =
+      `Hi team 👋 Came across ${businessName} — quick question if you don't mind: ahead of ${deadline.hookCopy}, is your team currently taking on new clients, or is your schedule completely full with client filings?`
+
+    whatsappStep2 =
+      `Completely understand! Ahead of ${deadline.deadlineDate}, the partners we speak with say their biggest operational headache isn't doing the actual accounts—it's chasing clients 4 or 5 times just to get basic paperwork in.\n\n` +
+      `We noticed on ${domain} that there isn't an automated client upload portal or direct deadline prompt, which usually means staff lose valuable billable hours chasing documents manually.`
+
+    whatsappStep3 =
+      `We built a pre-approved deadline reminder system where you sign off on messages in 2 taps, and client records are chased automatically without touching client ledgers: ${protoUrl}\n\n` +
+      `Put together a 30-second preview showing how it protects partner weekends—open to taking a quick look on your phone? (Zero obligation at all 👍)`
+
   } else if (primaryAngle.id === 'angle_fee_anchoring') {
     whatsappOpenerRecommended =
-      `Hi team 👋 We visited ${domain} on mobile and noticed prospective business clients have no way to gauge retainer tiers or turnover brackets before enquiring.\n\n` +
-      `For commercial firms, that usually means fee-earners burning time in manual quotation cycles with price-shoppers.\n\n` +
+      `Hi team 👋 We visited ${domain} on mobile and wanted to share a helpful observation: prospective business clients currently have no way to gauge retainer tiers or turnover brackets before enquiring.\n\n` +
+      `For commercial firms, that often leads to partners spending time in lengthy quotation cycles with price-shoppers instead of serious businesses.\n\n` +
       `We put together an interactive turnover slider and 60-second booking flow designed for UK practices: ${protoUrl}\n\n` +
-      `Open to a 30-second look to see how it filters enquiries?\n\n` +
+      `Open to a 30-second look to see how it filters enquiries? (Zero obligation at all 👍)\n\n` +
       `If you'd rather not hear from us, just say stop.`
 
     whatsappOpenerAlternative =
-      `Hi team 👋 Noticed on ${domain} that new enquiries submit without upfront turnover pre-qualification.\n\n` +
-      `We engineered a 60-second intake prototype showing how UK firms anchor premium retainers and filter tire-kickers: ${protoUrl}\n\n` +
+      `Hi team 👋 Noticed on ${domain} that incoming enquiries submit without upfront turnover pre-qualification.\n\n` +
+      `We engineered a 60-second intake prototype showing how UK firms anchor premium retainers and protect partner time: ${protoUrl}\n\n` +
       `Would you be open to taking a quick look on your phone? If you'd rather not hear from us, just say stop.`
+
+    whatsappStep1 =
+      `Hi team 👋 Came across ${businessName} in your area — quick question: ahead of ${deadline.hookCopy}, are you actively looking to bring on new Ltd Co or advisory retainers, or are you at full capacity?`
+
+    whatsappStep2 =
+      `That makes total sense! The reason I reached out is that on ${domain}, prospective clients submit general forms without turnover tiering (${evidenceValue}). We often see fee-earners spend hours speaking with micro-businesses that aren't ready for standard advisory fees, when your time is worth much more.`
+
+    whatsappStep3 =
+      `We engineered an interactive prototype showing how UK accounting firms anchor standard advisory retainers and filter enquiries before they book into your diary: ${protoUrl}\n\n` +
+      `Happy to share a 30-second walkthrough if you're curious? (Zero pressure at all 👍)`
+
   } else {
     // Evidenced layout or custom friction
     whatsappOpenerRecommended =
-      `Hi team 👋 We were reviewing ${domain} on a 390px mobile screen and noticed ${primaryAngle.headline.toLowerCase()} (${evidenceValue}).\n\n` +
-      `We put together a lightweight mobile prototype showing how prospective commercial clients can explore your packages and book a consultation in 2 taps: ${protoUrl}\n\n` +
-      `Open to taking a quick 30-second look on your phone?\n\n` +
+      `Hi team 👋 We were reviewing ${domain} on a mobile device and noticed ${primaryAngle.headline.toLowerCase()} (${evidenceValue}).\n\n` +
+      `We put together a lightweight mobile prototype showing how prospective commercial clients can explore your packages and book a consultation in 2 taps without friction: ${protoUrl}\n\n` +
+      `Open to taking a quick 30-second look on your phone? (Zero obligation at all 👍)\n\n` +
       `If you'd rather not hear from us, just say stop.`
 
     whatsappOpenerAlternative =
       `Hi team 👋 Noticed on ${domain} on mobile that visitors encounter ${primaryAngle.title.toLowerCase()}.\n\n` +
       `We designed a clean accountancy client intake demo that eliminates that friction: ${protoUrl}\n\n` +
       `Open to taking a look? If you'd rather not hear from us, just say stop.`
+
+    whatsappStep1 =
+      `Hi team 👋 Came across ${businessName} — quick question if you don't mind: ahead of ${deadline.hookCopy}, is your team taking on new clients right now?`
+
+    whatsappStep2 =
+      `Makes sense! When I looked at your site on a phone earlier, I noticed ${primaryAngle.title.toLowerCase()} (${evidenceValue}). It struck me because your actual client work looks top tier, but mobile visitors might be bouncing before they can submit their details.`
+
+    whatsappStep3 =
+      `We put together a clean 30-second mobile concept showing how a frictionless intake flow works for your practice: ${protoUrl}\n\n` +
+      `Open to taking a quick 30-second look on your phone? (Zero obligation at all 👍)`
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // 2. FOLLOW-UPS (Day 3 & Day 7)
+  // NO-WEBSITE OUTREACH (For practices without an active site, e.g. Kai Accountants)
+  // ─────────────────────────────────────────────────────────────────────────────
+  const whatsappNoWebsite =
+    `Hi team 👋 Completely understand you don't have an active site live right now! To be honest, so many of the best accountants we know grew purely through word-of-mouth and client referrals, so the website naturally took a back seat while you were busy looking after people.\n\n` +
+    `The main reason I reached out is that ahead of ${deadline.hookCopy}, running a practice purely through manual WhatsApps and emails can get exhausting. We build clean, bespoke websites with automated client intake so your practice has a professional home that pre-qualifies clients and collects records without taking up your weekends.\n\n` +
+    `Let's grab a relaxed 10-minute catch up this week—I'm happy to share some ideas on what a modern practice portal looks like for your firm: ${protoUrl}\n\n` +
+    `How does tomorrow afternoon or Thursday suit you? (If you'd rather not hear from us, just say stop.)`
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // 2. FOLLOW-UPS (Day 3 & Day 7) - Empathetic & Respectful
   // ─────────────────────────────────────────────────────────────────────────────
   const whatsappFollowUp1 =
     `Hi team, following up briefly on our note from earlier this week.\n\n` +
@@ -144,7 +241,7 @@ export function generateOutreachFromAnalysis(
     `That's practice operations rather than website design. Happy to send over the 30-second workflow if you'd like to see how other firms run it: ${protoUrl}`
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // 4. EMAIL OUTREACH
+  // 4. EMAIL OUTREACH (Professional, Warm & Non-Threatening)
   // ─────────────────────────────────────────────────────────────────────────────
   const emailSubject = `Client intake & enquiry triage for ${businessName} ahead of ${deadline.deadlineDate}`
   const emailBody =
@@ -174,6 +271,10 @@ export function generateOutreachFromAnalysis(
   return {
     whatsappOpenerRecommended,
     whatsappOpenerAlternative,
+    whatsappStep1,
+    whatsappStep2,
+    whatsappStep3,
+    whatsappNoWebsite,
     whatsappFollowUp1,
     whatsappFollowUp2,
     whatsappBuilderReply,

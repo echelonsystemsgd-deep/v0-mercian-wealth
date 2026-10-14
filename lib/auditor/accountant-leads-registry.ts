@@ -510,47 +510,44 @@ Mercian Wealth`
     consequenceMechanics: 'High volume of non-productive discovery calls lowers overall practice billing realization rates.',
     prototypeRemedy: 'Turnover band qualification slider (£150k-£5M) anchoring standard £850/mo retainer tier.',
     prototypeUrl: 'https://uk-accountancy-os-prototype.vercel.app/',
-    customNotes: `• VERIFIED FLAW: Generic contact form with no turnover or budget qualification.
-• LOCATION: /contact-us.
-• COMMERCIAL LEAK: Fee-earners waste time on calls with micro-businesses unable to pay standard retainers.
-• PROTOTYPE FIX: Automatic turnover tiering that anchors £850/mo advisory retainers.`,
+    customNotes: `• VERIFIED OBSERVATION: General enquiry intake without turnover qualification or retainer anchoring.
+• LOCATION: /contact-us & services.
+• HUMAN REALITY: Partners spend evenings in manual discovery calls with price-shoppers instead of focusing on high-value advisory.
+• CARING BLUEPRINT: Automated turnover qualification slider anchoring standard retainers and saving 10+ hours of admin.`,
     whatsappOutreach: {
-      message1: `Hi team 👋 Came across AccountAbility Yorkshire — quick question: when new business enquiries land on accability.co.uk, how do you filter out low-margin leads before partner time is booked?`,
-      message2: `Reason I ask is that your contact page accepts enquiries without qualifying turnover or fee expectations. Practices using this traditional format often find their diaries filled with prospects not ready for standard retainer fees.`,
-      message3: `We developed a live prototype demonstrating how UK firms automate this pre-qualification:
+      message1: `Hi team 👋 Came across AccountAbility Yorkshire — really liked how you present your services. Quick question if you don't mind: ahead of the upcoming 7 November quarterly update deadline and MTD updates, is your team currently taking on new clients, or is capacity booked out right now?`,
+      message2: `Makes complete sense! Reason I asked is that on accability.co.uk, prospective clients submit general forms without turnover tiering. We often see fee-earners spend hours speaking with micro-businesses not ready for standard advisory retainers, when your time is worth much more.`,
+      message3: `We engineered an interactive prototype showing how UK accounting firms anchor standard advisory retainers and filter enquiries before they book into your diary:
 https://uk-accountancy-os-prototype.vercel.app/
 
-Prospects select their turnover bracket, see expected fee bands, and book direct—filtering out tire-kickers automatically.
+Happy to share a 30-second walkthrough if you're curious? (Zero pressure at all 👍)`,
+      quickDirectPitch: `Hi team 👋 Came across AccountAbility Yorkshire while looking into independent practices in Doncaster. Wanted to send a quick heads-up: your mobile enquiry form is missing turnover tiering or a direct WhatsApp path, which often means good, paying clients drop off before reaching you.
 
-Let's jump on a quick 10-minute call to walk through the system.
-Book a call with me here: [Link to Book a Call]`,
-      quickDirectPitch: `Hi team, noticed accability.co.uk accepts general inquiries without turnover tiering, which often burns partner hours on unqualified leads.
+Ahead of the upcoming 7 November quarterly update deadline and MTD updates, we help practices set up clean intake flows that protect your personal time and collect records automatically.
 
-Here is a live prototype showing how UK firms pre-qualify retainers and automate bookings:
+Put together a quick 30-second preview of what a tailored intake portal looks like for your practice:
 https://uk-accountancy-os-prototype.vercel.app/
 
-Book a call with me here: [Link to Book a Call]`
+Open to taking a quick look on your phone? (Zero obligation at all 👍)
+
+If you'd rather not hear from us, just say stop.`
     },
     emailOutreach: {
-      subject: 'Retainer qualification & calendar booking for Accability',
+      subject: 'Client intake & enquiry triage for AccountAbility Yorkshire',
       body: `Hi team,
 
-I was on accability.co.uk and noticed that when a business owner wants to discuss their accounts, they are directed to an open form with no fee expectations set in advance.
+We came across AccountAbility Yorkshire while reviewing independent practices in Doncaster.
 
-Practices using this traditional format often find partner calendars filled with leads who aren't ready for standard advisory fees.
+We noticed on accability.co.uk that incoming business enquiries submit into a general form without turnover tiering or response timing. Ahead of the upcoming 7 November quarterly update deadline and MTD updates, manual triage and document chasing are adding unnecessary administrative drag for fee-earners.
 
-Take a look at how this prototype pre-qualifies incoming clients:
+We engineered intake and deadline chasing infrastructure that pre-qualifies prospective clients in 60 seconds and automates record reminders—with 100% practitioner approval and zero access to client ledgers:
 https://uk-accountancy-os-prototype.vercel.app/
 
-Prospects select their turnover band, see an estimated retainer, and book directly into your diary—filtering out low-fee inquiries before they reach you.
-
-Let’s grab 10 minutes on a call to review how this could work for Accability.
-
-Book a call with me here: [Link to Book a Call]
+Would you be open to taking a quick 30-second look on your phone?
 
 Best regards,
-Gurtej Sandhu
-Mercian Wealth`
+Mercian Wealth Automation
+Opt-out: Reply "STOP" to unsubscribe immediately.`
     }
   },
 

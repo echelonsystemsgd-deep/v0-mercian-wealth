@@ -35,11 +35,11 @@
 ```text
 Hi team 👋 We came across Aggarwal Accounts while reviewing UK accounting practices preparing for 7 November quarterly update.
 
-Ahead of 7 November 2026, the biggest capacity drain partners mention is manual document chasing across email and WhatsApp.
+Ahead of 7 November 2026, the biggest capacity drain partners mention is the stress of manual document chasing across email and WhatsApp.
 
 We built a pre-approved deadline reminder engine that collects records and client confirmations automatically—requiring partner sign-off on every message, without touching client ledgers: https://uk-accountancy-os-prototype.vercel.app/?firm=Aggarwal%20Accounts
 
-Open to taking a 30-second look on your phone?
+Open to taking a quick 30-second look on your phone? (Zero pressure at all 👍)
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -77,13 +77,13 @@ That's practice operations rather than website design. Happy to send over the 30
 
 #### Recommended WhatsApp Opener:
 ```text
-Hi team 👋 We were looking through barrieingramaccounts.co.uk on mobile and noticed enquiries submit into a standard form without response timing or an instant booking hold.
+Hi team 👋 We were looking through barrieingramaccounts.co.uk on mobile and wanted to share a quick heads-up: incoming enquiries route into a standard form without response timing or an instant booking hold.
 
-With the upcoming 7 November quarterly update deadline approaching, when business directors research an accountant in the evening, they usually favour whoever confirms next steps immediately.
+Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=Barrie%20Ingram%20Accounts%20Ltd
+We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=Barrie%20Ingram%20Accounts%20Ltd
 
-Open to taking a quick look on your phone?
+Open to taking a quick look on your phone? (Zero obligation at all 👍)
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -121,13 +121,13 @@ That's practice operations rather than website design. Happy to send over the 30
 
 #### Recommended WhatsApp Opener:
 ```text
-Hi team 👋 We were looking through ksrathod.co.uk on mobile and noticed enquiries submit into a standard form without response timing or an instant booking hold.
+Hi team 👋 We were looking through ksrathod.co.uk on mobile and wanted to share a quick heads-up: incoming enquiries route into a standard form without response timing or an instant booking hold.
 
-With the upcoming 7 November quarterly update deadline approaching, when business directors research an accountant in the evening, they usually favour whoever confirms next steps immediately.
+Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=K%20S%20Rathod%20%26%20Co%20Ltd
+We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=K%20S%20Rathod%20%26%20Co%20Ltd
 
-Open to taking a quick look on your phone?
+Open to taking a quick look on your phone? (Zero obligation at all 👍)
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -165,13 +165,13 @@ That's practice operations rather than website design. Happy to send over the 30
 
 #### Recommended WhatsApp Opener:
 ```text
-Hi team 👋 We were looking through 852.limited on mobile and noticed enquiries submit into a standard form without response timing or an instant booking hold.
+Hi team 👋 We were looking through 852.limited on mobile and wanted to share a quick heads-up: incoming enquiries route into a standard form without response timing or an instant booking hold.
 
-With the upcoming 7 November quarterly update deadline approaching, when business directors research an accountant in the evening, they usually favour whoever confirms next steps immediately.
+Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=852%20Accounting
+We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=852%20Accounting
 
-Open to taking a quick look on your phone?
+Open to taking a quick look on your phone? (Zero obligation at all 👍)
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -209,13 +209,13 @@ That's practice operations rather than website design. Happy to send over the 30
 
 #### Recommended WhatsApp Opener:
 ```text
-Hi team 👋 We were looking through rkpartners.co.uk on mobile and noticed enquiries submit into a standard form without response timing or an instant booking hold.
+Hi team 👋 We were looking through rkpartners.co.uk on mobile and wanted to share a quick heads-up: incoming enquiries route into a standard form without response timing or an instant booking hold.
 
-With the upcoming 7 November quarterly update deadline approaching, when business directors research an accountant in the evening, they usually favour whoever confirms next steps immediately.
+Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=C%20J%20Driscoll%20Chartered%20Accountants
+We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=C%20J%20Driscoll%20Chartered%20Accountants
 
-Open to taking a quick look on your phone?
+Open to taking a quick look on your phone? (Zero obligation at all 👍)
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -253,11 +253,11 @@ That's practice operations rather than website design. Happy to send over the 30
 
 #### Recommended WhatsApp Opener:
 ```text
-Hi team 👋 We were reviewing protaxaccountant.co.uk on a 390px mobile screen and noticed enquiry form requires 7 fields on smartphone screen (7 fields).
+Hi team 👋 We were reviewing protaxaccountant.co.uk on a mobile device and noticed enquiry form requires 7 fields on smartphone screen (7 fields).
 
-We put together a lightweight mobile prototype showing how prospective commercial clients can explore your packages and book a consultation in 2 taps: https://uk-accountancy-os-prototype.vercel.app/?firm=Pro%20Tax%20Accountant%20Chelmsford
+We put together a lightweight mobile prototype showing how prospective commercial clients can explore your packages and book a consultation in 2 taps without friction: https://uk-accountancy-os-prototype.vercel.app/?firm=Pro%20Tax%20Accountant%20Chelmsford
 
-Open to taking a quick 30-second look on your phone?
+Open to taking a quick 30-second look on your phone? (Zero obligation at all 👍)
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -295,13 +295,13 @@ That's practice operations rather than website design. Happy to send over the 30
 
 #### Recommended WhatsApp Opener:
 ```text
-Hi team 👋 We were looking through healthwisechiropractic.co.uk on mobile and noticed enquiries submit into a standard form without response timing or an instant booking hold.
+Hi team 👋 We were looking through healthwisechiropractic.co.uk on mobile and wanted to share a quick heads-up: incoming enquiries route into a standard form without response timing or an instant booking hold.
 
-With the upcoming 7 November quarterly update deadline approaching, when business directors research an accountant in the evening, they usually favour whoever confirms next steps immediately.
+Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=Healthwise%20Chiropractic%20Clinic
+We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=Healthwise%20Chiropractic%20Clinic
 
-Open to taking a quick look on your phone?
+Open to taking a quick look on your phone? (Zero obligation at all 👍)
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -339,13 +339,13 @@ That's practice operations rather than website design. Happy to send over the 30
 
 #### Recommended WhatsApp Opener:
 ```text
-Hi team 👋 We were looking through theaccountancysolutions.com on mobile and noticed enquiries submit into a standard form without response timing or an instant booking hold.
+Hi team 👋 We were looking through theaccountancysolutions.com on mobile and wanted to share a quick heads-up: incoming enquiries route into a standard form without response timing or an instant booking hold.
 
-With the upcoming 7 November quarterly update deadline approaching, when business directors research an accountant in the evening, they usually favour whoever confirms next steps immediately.
+Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=The%20Accountancy%20Solutions
+We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=The%20Accountancy%20Solutions
 
-Open to taking a quick look on your phone?
+Open to taking a quick look on your phone? (Zero obligation at all 👍)
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -383,13 +383,13 @@ That's practice operations rather than website design. Happy to send over the 30
 
 #### Recommended WhatsApp Opener:
 ```text
-Hi team 👋 We were looking through apexaccountants.co.uk on mobile and noticed enquiries submit into a standard form without response timing or an instant booking hold.
+Hi team 👋 We were looking through apexaccountants.co.uk on mobile and wanted to share a quick heads-up: incoming enquiries route into a standard form without response timing or an instant booking hold.
 
-With the upcoming 7 November quarterly update deadline approaching, when business directors research an accountant in the evening, they usually favour whoever confirms next steps immediately.
+Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=Apex%20Accountants%20London
+We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=Apex%20Accountants%20London
 
-Open to taking a quick look on your phone?
+Open to taking a quick look on your phone? (Zero obligation at all 👍)
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -427,13 +427,13 @@ That's practice operations rather than website design. Happy to send over the 30
 
 #### Recommended WhatsApp Opener:
 ```text
-Hi team 👋 We were looking through cityaccounts.co.uk on mobile and noticed enquiries submit into a standard form without response timing or an instant booking hold.
+Hi team 👋 We were looking through cityaccounts.co.uk on mobile and wanted to share a quick heads-up: incoming enquiries route into a standard form without response timing or an instant booking hold.
 
-With the upcoming 7 November quarterly update deadline approaching, when business directors research an accountant in the evening, they usually favour whoever confirms next steps immediately.
+Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=City%20Accounts%20%26%20Tax%20Advisory
+We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=City%20Accounts%20%26%20Tax%20Advisory
 
-Open to taking a quick look on your phone?
+Open to taking a quick look on your phone? (Zero obligation at all 👍)
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -470,11 +470,11 @@ That's practice operations rather than website design. Happy to send over the 30
 
 #### Recommended WhatsApp Opener:
 ```text
-Hi team 👋 We were reviewing pristine-firm.co.uk on a 390px mobile screen and noticed no actionable friction identified (Healthy baseline).
+Hi team 👋 We were reviewing pristine-firm.co.uk on a mobile device and noticed no actionable friction identified (Healthy baseline).
 
-We put together a lightweight mobile prototype showing how prospective commercial clients can explore your packages and book a consultation in 2 taps: https://uk-accountancy-os-prototype.vercel.app/?firm=Pristine%20Practice%20Ltd%20(Synthetic%201%3A%20Fully%20Automated)
+We put together a lightweight mobile prototype showing how prospective commercial clients can explore your packages and book a consultation in 2 taps without friction: https://uk-accountancy-os-prototype.vercel.app/?firm=Pristine%20Practice%20Ltd%20(Synthetic%201%3A%20Fully%20Automated)
 
-Open to taking a quick 30-second look on your phone?
+Open to taking a quick 30-second look on your phone? (Zero obligation at all 👍)
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -512,11 +512,11 @@ That's practice operations rather than website design. Happy to send over the 30
 
 #### Recommended WhatsApp Opener:
 ```text
-Hi team 👋 We were reviewing overflow-edge-case.co.uk on a 390px mobile screen and noticed page horizontally overflows by 130px on 390px mobile viewports, causing sideways scroll and cut-off text. (520px (viewport: 390px)).
+Hi team 👋 We were reviewing overflow-edge-case.co.uk on a mobile device and noticed page horizontally overflows by 130px on 390px mobile viewports, causing sideways scroll and cut-off text. (520px (viewport: 390px)).
 
-We put together a lightweight mobile prototype showing how prospective commercial clients can explore your packages and book a consultation in 2 taps: https://uk-accountancy-os-prototype.vercel.app/?firm=Broken%20Layout%20Firm%20(Synthetic%202%3A%20Layout%20Bug)
+We put together a lightweight mobile prototype showing how prospective commercial clients can explore your packages and book a consultation in 2 taps without friction: https://uk-accountancy-os-prototype.vercel.app/?firm=Broken%20Layout%20Firm%20(Synthetic%202%3A%20Layout%20Bug)
 
-Open to taking a quick 30-second look on your phone?
+Open to taking a quick 30-second look on your phone? (Zero obligation at all 👍)
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -554,11 +554,11 @@ That's practice operations rather than website design. Happy to send over the 30
 
 #### Recommended WhatsApp Opener:
 ```text
-Hi team 👋 We were reviewing heavy-form-edge-case.co.uk on a 390px mobile screen and noticed enquiry form requires 11 fields on smartphone screen (11 fields).
+Hi team 👋 We were reviewing heavy-form-edge-case.co.uk on a mobile device and noticed enquiry form requires 11 fields on smartphone screen (11 fields).
 
-We put together a lightweight mobile prototype showing how prospective commercial clients can explore your packages and book a consultation in 2 taps: https://uk-accountancy-os-prototype.vercel.app/?firm=Exhaustive%20Intake%20Practice%20(Synthetic%203%3A%2011%20Fields)
+We put together a lightweight mobile prototype showing how prospective commercial clients can explore your packages and book a consultation in 2 taps without friction: https://uk-accountancy-os-prototype.vercel.app/?firm=Exhaustive%20Intake%20Practice%20(Synthetic%203%3A%2011%20Fields)
 
-Open to taking a quick 30-second look on your phone?
+Open to taking a quick 30-second look on your phone? (Zero obligation at all 👍)
 
 If you'd rather not hear from us, just say stop.
 ```

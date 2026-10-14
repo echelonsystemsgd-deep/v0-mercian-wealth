@@ -158,6 +158,10 @@ export interface GeneratedOutreach {
   leadId?: string
   whatsappOpenerRecommended: string
   whatsappOpenerAlternative: string
+  whatsappStep1?: string
+  whatsappStep2?: string
+  whatsappStep3?: string
+  whatsappNoWebsite?: string
   whatsappFollowUp1: string
   whatsappFollowUp2: string
   whatsappBuilderReply: string

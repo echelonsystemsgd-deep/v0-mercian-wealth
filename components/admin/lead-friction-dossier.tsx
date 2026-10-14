@@ -52,11 +52,11 @@ export function LeadFrictionDossier({
   const [savingNotes, setSavingNotes] = useState(false)
   const [saveSuccess, setSaveSuccess] = useState(false)
 
-  // WhatsApp sequence
-  const msg1 = intel?.whatsappOutreach.message1 || metadata.whatsapp_msg1 || `Hi 👋 Came across ${lead.business_name || 'your firm'} — quick question: when new enquiries land outside working hours, how does your team pre-qualify them before booking discovery calls?`
-  const msg2 = intel?.whatsappOutreach.message2 || metadata.whatsapp_msg2 || `Reason I ask is I noticed your website routes into a standard form without fee expectations or direct calendar booking. Usually leads to telephone tag or tire-kickers.`
-  const msg3 = intel?.whatsappOutreach.message3 || metadata.whatsapp_msg3 || `We engineered an interactive intake prototype for UK accountants:\n${protoUrl}\n\nIt features an instant Corporation Tax calculator and 60-second booking flow.\n\nOpen to a brief 10-minute call to walk through it?\nBook a call with me here: [Link to Book a Call]`
-  const quickPitch = intel?.whatsappOutreach.quickDirectPitch || metadata.whatsapp_quick || `Hi team, noticed on ${lead.website || 'your site'} that incoming enquiries hit a static form without fee tiering or direct booking.\n\nWe built a live interactive prototype with instant tax calculations and 60s booking:\n${protoUrl}\n\nBook a call with me here: [Link to Book a Call]`
+  // Benevolent Authority WhatsApp sequence
+  const msg1 = intel?.whatsappOutreach.message1 || metadata.whatsapp_msg1 || `Hi team 👋 Came across ${lead.business_name || 'your firm'} — really liked how you present your services. Quick question if you don't mind: ahead of the upcoming 7 November quarterly update deadline and MTD updates, is your team currently taking on new clients, or is capacity booked out right now?`
+  const msg2 = intel?.whatsappOutreach.message2 || metadata.whatsapp_msg2 || `Makes complete sense! The reason I asked is that so many practice owners we speak with right now are feeling the pressure of MTD updates—spending evenings chasing missing receipts and fielding tyre-kicker calls instead of focusing on high-value client advisory.\n\nWhen I looked at your site on mobile earlier, I noticed ${observableProblem.toLowerCase()}.\n\nIt struck me because your actual client work looks top tier, but the mobile intake might be letting good prospective clients slip through unnoticed.`
+  const msg3 = intel?.whatsappOutreach.message3 || metadata.whatsapp_msg3 || `We engineered a simple practice intake and record-chasing system where you approve every message in seconds, while the system pre-qualifies incoming enquiries and collects client docs automatically before they hit your diary.\n\nI put together a private 30-second mobile walkthrough tailored for ${lead.business_name || 'your practice'} to show you how other UK practices are saving 10+ hours of admin a week:\n${protoUrl}\n\nHappy to send the link over to your phone if you're curious? (Zero pressure at all 👍)`
+  const quickPitch = intel?.whatsappOutreach.quickDirectPitch || metadata.whatsapp_quick || `Hi team 👋 Came across ${lead.business_name || 'your practice'} while looking into independent practices in your area. Wanted to send a quick heads-up: your mobile enquiry intake has a few friction points that might cause busy directors to drop off before contacting you.\n\nAhead of the upcoming 7 November quarterly update deadline and MTD updates, we help practices set up clean intake flows that protect your personal time and collect records automatically.\n\nPut together a quick 30-second preview of what a tailored intake portal looks like for your practice:\n${protoUrl}\n\nOpen to taking a quick look on your phone? (Zero obligation at all 👍)\n\nIf you'd rather not hear from us, just say stop.`
 
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [showFullCadence, setShowFullCadence] = useState(true)
@@ -163,7 +163,7 @@ export function LeadFrictionDossier({
 
           <div className="p-3 rounded-xl bg-black/40 border border-white/5 space-y-1">
             <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-amber-400">
-              <span>Commercial Leak & Lost Fees:</span>
+              <span>Practice Workload & Peace-of-Mind Impact:</span>
             </div>
             <p className="text-zinc-300 leading-relaxed font-sans">
               {commercialConsequence}
@@ -176,7 +176,7 @@ export function LeadFrictionDossier({
           <div className="space-y-1 min-w-0">
             <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-[#DCAE53]">
               <Sparkles size={12} />
-              <span>Cured via UK Accountancy OS Prototype:</span>
+              <span>Cured via Practice Intake & Onboarding Blueprint:</span>
             </div>
             <p className="text-zinc-200 font-medium leading-snug">
               {prototypeRemedy}
@@ -204,7 +204,7 @@ export function LeadFrictionDossier({
           <div className="flex items-center gap-2">
             <FileText size={14} className="text-[#DCAE53]" />
             <h3 className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-              Practice Friction Notes & Commercial Angles
+              Practice Reality Notes & Operational Angles
             </h3>
           </div>
 
@@ -285,7 +285,7 @@ export function LeadFrictionDossier({
           <div className="flex items-center gap-2">
             <MessageSquare size={15} className="text-emerald-400" />
             <h3 className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-              Tailored WhatsApp Outreach (Goal: Book a Call)
+              Benevolent Authority WhatsApp Outreach
             </h3>
           </div>
 
@@ -305,9 +305,9 @@ export function LeadFrictionDossier({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-mono text-[10px] font-bold uppercase">
-                1-Touch Consolidated Pitch (Under 75 words)
+                1-Touch Consolidated (Benevolent Authority)
               </span>
-              <span className="text-[10px] font-mono text-zinc-400 hidden sm:inline">Direct to Call</span>
+              <span className="text-[10px] font-mono text-zinc-400 hidden sm:inline">Outcome-First</span>
             </div>
 
             <div className="flex items-center gap-1.5">
@@ -338,7 +338,7 @@ export function LeadFrictionDossier({
         {showFullCadence && (
           <div className="space-y-3 pt-2">
             <div className="text-[11px] font-mono font-bold text-zinc-400 uppercase tracking-wider">
-              3-Step Sequential Conversation Cadence:
+              3-Step Sequential Conversation Cadence (Empathetic Sequence):
             </div>
 
             {/* Message 1 */}
@@ -348,7 +348,7 @@ export function LeadFrictionDossier({
                   <span className="px-2 py-0.5 rounded bg-[#DCAE53]/15 text-[#DCAE53] font-mono text-[10px] font-bold">
                     STEP 1
                   </span>
-                  <span className="text-xs font-bold text-white">Opener: Conversational Question (Zero Pitch)</span>
+                  <span className="text-xs font-bold text-white">Touch 1: Human Opener (Zero Pitch · Asks Capacity)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <button
@@ -379,7 +379,7 @@ export function LeadFrictionDossier({
                   <span className="px-2 py-0.5 rounded bg-zinc-700/40 text-zinc-300 font-mono text-[10px] font-bold">
                     STEP 2
                   </span>
-                  <span className="text-xs font-bold text-white">Observation: 1 Specific Site Flaw (After Reply)</span>
+                  <span className="text-xs font-bold text-white">Touch 2: Empathetic Observation (Shared Reality & Care)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <button
@@ -410,7 +410,7 @@ export function LeadFrictionDossier({
                   <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px] font-bold">
                     STEP 3
                   </span>
-                  <span className="text-xs font-bold text-white">Prototype + Book a Call with Me CTA</span>
+                  <span className="text-xs font-bold text-white">Touch 3: Generous 30s Preview (Zero Obligation)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <button

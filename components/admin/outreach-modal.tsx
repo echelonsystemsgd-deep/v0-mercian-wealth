@@ -91,6 +91,7 @@ export function OutreachModal({
   onSnoozeLead
 }: OutreachModalProps) {
   const [activeChannel, setActiveChannel] = useState<'whatsapp' | 'email'>('whatsapp')
+  const [whatsappFormat, setWhatsappFormat] = useState<'1-touch' | '3-step' | 'no-website'>('1-touch')
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [isSuppressed, setIsSuppressed] = useState(false)
   const [checkingSuppression, setCheckingSuppression] = useState(false)
@@ -691,64 +692,257 @@ export function OutreachModal({
             {/* WhatsApp Outreach View */}
             {activeChannel === 'whatsapp' ? (
               <div className="space-y-4">
-                
-                {/* 1. Recommended Opener */}
-                <div className="rounded-2xl bg-[#09090C] border border-emerald-500/30 p-4 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                        RECOMMENDED OPENER
-                      </span>
-                      <span className="text-xs font-sans font-medium text-zinc-300">
-                        Outcome-First & Evidenced
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => handleCopy('wa_rec', outreach.whatsappOpenerRecommended)}
-                        className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-mono transition-colors flex items-center gap-1 cursor-pointer"
-                      >
-                        {copiedId === 'wa_rec' ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
-                        <span>{copiedId === 'wa_rec' ? 'Copied' : 'Copy'}</span>
-                      </button>
-
-                      <button
-                        onClick={() => handleTriggerSendWhatsApp(outreach.whatsappOpenerRecommended)}
-                        disabled={isSuppressed}
-                        className="px-3.5 py-1 rounded-lg bg-[#25D366] hover:bg-[#20bd5a] text-black font-bold text-xs transition-all flex items-center gap-1.5 shadow-md shadow-[#25D366]/20 cursor-pointer disabled:opacity-50"
-                      >
-                        <Send size={12} />
-                        <span>Send WhatsApp</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-black/60 border border-white/5 font-sans text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
-                    {outreach.whatsappOpenerRecommended}
-                  </div>
+                {/* Format Selector: 1-Touch, 3-Step, No-Website */}
+                <div className="flex items-center gap-1.5 p-1 rounded-xl bg-black/40 border border-white/5 flex-wrap text-xs">
+                  <button
+                    onClick={() => setWhatsappFormat('1-touch')}
+                    className={`px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer ${
+                      whatsappFormat === '1-touch'
+                        ? 'bg-white/10 text-[#DCAE53] border border-[#DCAE53]/30 font-bold shadow-sm'
+                        : 'text-zinc-400 hover:text-white border border-transparent'
+                    }`}
+                  >
+                    1-Touch Consolidated
+                  </button>
+                  <button
+                    onClick={() => setWhatsappFormat('3-step')}
+                    className={`px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer ${
+                      whatsappFormat === '3-step'
+                        ? 'bg-white/10 text-[#DCAE53] border border-[#DCAE53]/30 font-bold shadow-sm'
+                        : 'text-zinc-400 hover:text-white border border-transparent'
+                    }`}
+                  >
+                    3-Step Cadence (Empathetic Sequence)
+                  </button>
+                  <button
+                    onClick={() => setWhatsappFormat('no-website')}
+                    className={`px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer ${
+                      whatsappFormat === 'no-website'
+                        ? 'bg-white/10 text-[#DCAE53] border border-[#DCAE53]/30 font-bold shadow-sm'
+                        : 'text-zinc-400 hover:text-white border border-transparent'
+                    }`}
+                  >
+                    No Website / Placeholder
+                  </button>
                 </div>
 
-                {/* 2. Alternative Opener */}
-                <div className="rounded-2xl bg-[#09090C] border border-white/10 p-4 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase">
-                      Alternative Conversational Opener:
-                    </span>
+                {whatsappFormat === '1-touch' && (
+                  <div className="space-y-4">
+                    {/* 1. Recommended Opener */}
+                    <div className="rounded-2xl bg-[#09090C] border border-emerald-500/30 p-4 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                            RECOMMENDED OPENER
+                          </span>
+                          <span className="text-xs font-sans font-medium text-zinc-300">
+                            Outcome-First & Evidenced
+                          </span>
+                        </div>
 
-                    <button
-                      onClick={() => handleCopy('wa_alt', outreach.whatsappOpenerAlternative)}
-                      className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-mono transition-colors flex items-center gap-1 cursor-pointer"
-                    >
-                      {copiedId === 'wa_alt' ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
-                      <span>{copiedId === 'wa_alt' ? 'Copied' : 'Copy'}</span>
-                    </button>
-                  </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => handleCopy('wa_rec', outreach.whatsappOpenerRecommended)}
+                            className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-mono transition-colors flex items-center gap-1 cursor-pointer"
+                          >
+                            {copiedId === 'wa_rec' ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                            <span>{copiedId === 'wa_rec' ? 'Copied' : 'Copy'}</span>
+                          </button>
 
-                  <div className="p-3.5 rounded-xl bg-black/60 border border-white/5 font-sans text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
-                    {outreach.whatsappOpenerAlternative}
+                          <button
+                            onClick={() => handleTriggerSendWhatsApp(outreach.whatsappOpenerRecommended)}
+                            disabled={isSuppressed}
+                            className="px-3.5 py-1 rounded-lg bg-[#25D366] hover:bg-[#20bd5a] text-black font-bold text-xs transition-all flex items-center gap-1.5 shadow-md shadow-[#25D366]/20 cursor-pointer disabled:opacity-50"
+                          >
+                            <Send size={12} />
+                            <span>Send WhatsApp</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="p-3.5 rounded-xl bg-black/60 border border-white/5 font-sans text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
+                        {outreach.whatsappOpenerRecommended}
+                      </div>
+                    </div>
+
+                    {/* 2. Alternative Opener */}
+                    <div className="rounded-2xl bg-[#09090C] border border-white/10 p-4 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase">
+                          Alternative Capacity Opener:
+                        </span>
+
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => handleCopy('wa_alt', outreach.whatsappOpenerAlternative)}
+                            className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-mono transition-colors flex items-center gap-1 cursor-pointer"
+                          >
+                            {copiedId === 'wa_alt' ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                            <span>{copiedId === 'wa_alt' ? 'Copied' : 'Copy'}</span>
+                          </button>
+
+                          <button
+                            onClick={() => handleTriggerSendWhatsApp(outreach.whatsappOpenerAlternative)}
+                            disabled={isSuppressed}
+                            className="px-3.5 py-1 rounded-lg bg-white/10 hover:bg-white/15 text-white font-medium text-xs transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                          >
+                            <Send size={12} />
+                            <span>Send</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="p-3.5 rounded-xl bg-black/60 border border-white/5 font-sans text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
+                        {outreach.whatsappOpenerAlternative}
+                      </div>
+                    </div>
                   </div>
-                </div>
+                )}
+
+                {whatsappFormat === '3-step' && (
+                  <div className="space-y-3">
+                    {/* Step 1: Human Opener */}
+                    <div className="rounded-2xl bg-[#09090C] border border-emerald-500/25 p-3.5 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                            STEP 1: OPENER (SEND FIRST)
+                          </span>
+                          <span className="text-[11px] text-zinc-400 font-sans">
+                            Human Rapport · Zero Pitch
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            onClick={() => handleCopy('step1', outreach.whatsappStep1 || outreach.whatsappOpenerAlternative)}
+                            className="px-2 py-1 rounded bg-white/5 hover:bg-white/10 text-zinc-300 text-xs font-mono transition-colors cursor-pointer"
+                          >
+                            {copiedId === 'step1' ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}
+                          </button>
+                          <button
+                            onClick={() => handleTriggerSendWhatsApp(outreach.whatsappStep1 || outreach.whatsappOpenerAlternative)}
+                            disabled={isSuppressed}
+                            className="px-3 py-1 rounded bg-[#25D366] hover:bg-[#20bd5a] text-black font-bold text-xs transition-all flex items-center gap-1 cursor-pointer disabled:opacity-50"
+                          >
+                            <Send size={11} />
+                            <span>Send 1</span>
+                          </button>
+                        </div>
+                      </div>
+                      <div className="p-3 rounded-xl bg-black/60 border border-white/5 font-sans text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
+                        {outreach.whatsappStep1 || outreach.whatsappOpenerAlternative}
+                      </div>
+                    </div>
+
+                    {/* Step 2: Empathetic Observation */}
+                    <div className="rounded-2xl bg-[#09090C] border border-sky-500/25 p-3.5 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                            STEP 2: OBSERVATION (SEND AFTER REPLY)
+                          </span>
+                          <span className="text-[11px] text-zinc-400 font-sans">
+                            Specific Friction & MTD Reality
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            onClick={() => handleCopy('step2', outreach.whatsappStep2 || '')}
+                            className="px-2 py-1 rounded bg-white/5 hover:bg-white/10 text-zinc-300 text-xs font-mono transition-colors cursor-pointer"
+                          >
+                            {copiedId === 'step2' ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}
+                          </button>
+                          <button
+                            onClick={() => handleTriggerSendWhatsApp(outreach.whatsappStep2 || '')}
+                            disabled={isSuppressed}
+                            className="px-3 py-1 rounded bg-white/10 hover:bg-white/15 text-white font-medium text-xs transition-all flex items-center gap-1 cursor-pointer disabled:opacity-50"
+                          >
+                            <Send size={11} />
+                            <span>Send 2</span>
+                          </button>
+                        </div>
+                      </div>
+                      <div className="p-3 rounded-xl bg-black/60 border border-white/5 font-sans text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
+                        {outreach.whatsappStep2}
+                      </div>
+                    </div>
+
+                    {/* Step 3: Generous Invitation */}
+                    <div className="rounded-2xl bg-[#09090C] border border-[#DCAE53]/30 p-3.5 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#DCAE53]/20 text-[#DCAE53] border border-[#DCAE53]/30">
+                            STEP 3: 30s PREVIEW (SEND ONCE ENGAGED)
+                          </span>
+                          <span className="text-[11px] text-zinc-400 font-sans">
+                            Zero Obligation Walkthrough
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            onClick={() => handleCopy('step3', outreach.whatsappStep3 || '')}
+                            className="px-2 py-1 rounded bg-white/5 hover:bg-white/10 text-zinc-300 text-xs font-mono transition-colors cursor-pointer"
+                          >
+                            {copiedId === 'step3' ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}
+                          </button>
+                          <button
+                            onClick={() => handleTriggerSendWhatsApp(outreach.whatsappStep3 || '')}
+                            disabled={isSuppressed}
+                            className="px-3 py-1 rounded bg-[#DCAE53] hover:bg-[#E5B85C] text-black font-bold text-xs transition-all flex items-center gap-1 cursor-pointer disabled:opacity-50"
+                          >
+                            <Send size={11} />
+                            <span>Send 3</span>
+                          </button>
+                        </div>
+                      </div>
+                      <div className="p-3 rounded-xl bg-black/60 border border-white/5 font-sans text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
+                        {outreach.whatsappStep3}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {whatsappFormat === 'no-website' && (
+                  <div className="rounded-2xl bg-[#09090C] border border-amber-500/30 p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                          NO WEBSITE / UNDER CONSTRUCTION PITCH
+                        </span>
+                        <span className="text-xs font-sans font-medium text-zinc-300">
+                          Bespoke Build & Portal Frame
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => handleCopy('wa_noweb', outreach.whatsappNoWebsite || '')}
+                          className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-mono transition-colors flex items-center gap-1 cursor-pointer"
+                        >
+                          {copiedId === 'wa_noweb' ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                          <span>{copiedId === 'wa_noweb' ? 'Copied' : 'Copy'}</span>
+                        </button>
+
+                        <button
+                          onClick={() => handleTriggerSendWhatsApp(outreach.whatsappNoWebsite || '')}
+                          disabled={isSuppressed}
+                          className="px-3.5 py-1 rounded-lg bg-[#25D366] hover:bg-[#20bd5a] text-black font-bold text-xs transition-all flex items-center gap-1.5 shadow-md shadow-[#25D366]/20 cursor-pointer disabled:opacity-50"
+                        >
+                          <Send size={12} />
+                          <span>Send WhatsApp</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <p className="text-[11px] text-zinc-400 font-sans">
+                      Ideal for practices like Kai / KA Accountancy who rely on word-of-mouth or currently show a holding page. Acknowledges their referral growth and frames a bespoke build around MTD deadline protection:
+                    </p>
+
+                    <div className="p-3.5 rounded-xl bg-black/60 border border-white/5 font-sans text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
+                      {outreach.whatsappNoWebsite}
+                    </div>
+                  </div>
+                )}
 
                 {/* 3. Follow-Ups Row */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
