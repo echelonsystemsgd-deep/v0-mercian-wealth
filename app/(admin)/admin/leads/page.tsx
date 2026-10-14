@@ -109,7 +109,7 @@ export function getLeadPathway(lead: Lead): 'HAS_WEBSITE' | 'NO_WEBSITE' | 'NEED
   return 'NO_WEBSITE'
 }
 
-type ActionQueue = 'ready_to_whatsapp' | 'due_followup' | 'active_pipeline' | 'needs_review' | 'all'
+type ActionQueue = 'todays_queue' | 'ready_to_whatsapp' | 'due_followup' | 'active_pipeline' | 'needs_review' | 'all'
 
 export default function LeadsPage() {
   const supabase = createClient()
@@ -128,8 +128,8 @@ export default function LeadsPage() {
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [toast, setToast] = useState<string | null>(null)
   
-  // Streamlined Action Queue Filter
-  const [queueFilter, setQueueFilter] = useState<ActionQueue>('ready_to_whatsapp')
+  // Streamlined Action Queue Filter: default to Today's Top 10 A/B Queue
+  const [queueFilter, setQueueFilter] = useState<ActionQueue>('todays_queue')
   const [wonDeal, setWonDeal] = useState<{ businessName: string } | null>(null)
 
   // In-Session Retention State: keeps contacted leads visible in view until user refreshes
@@ -473,8 +473,14 @@ export default function LeadsPage() {
       }
     })
 
+    const todaysQueueCount = Math.min(
+      10,
+      leads.filter((l) => l.status === 'New' || l.status === 'Review requested').length
+    )
+
     return {
       total: leads.length,
+      todaysQueue: todaysQueueCount,
       freshNew,
       contacted,
       readyToWhatsApp,
@@ -506,7 +512,19 @@ export default function LeadsPage() {
         })
       } else {
         // 2. Action Queue Filter (when quickFilter === 'all')
-        if (queueFilter === 'ready_to_whatsapp') {
+        if (queueFilter === 'todays_queue') {
+          list = list
+            .filter((l) => l.status === 'New' || l.status === 'Review requested' || contactedInSessionIds.has(l.id))
+            .sort((a, b) => {
+              const gradeOrder: Record<string, number> = { A: 1, B: 2, C: 3, 'Hold: nothing verified': 4 }
+              const gradeA = (a.scraped_metadata?.grade as string) || (a.scraped_metadata?.audit_analysis?.grade as string) || 'B'
+              const gradeB = (b.scraped_metadata?.grade as string) || (b.scraped_metadata?.audit_analysis?.grade as string) || 'B'
+              const rankA = gradeOrder[gradeA] || 3
+              const rankB = gradeOrder[gradeB] || 3
+              return rankA - rankB
+            })
+            .slice(0, 10)
+        } else if (queueFilter === 'ready_to_whatsapp') {
           list = list.filter((l) => {
             if (contactedInSessionIds.has(l.id)) return true // Keep visible in active session!
             const phoneInfo = classifyPhoneNumber(l.phone)
@@ -862,11 +880,18 @@ export default function LeadsPage() {
             <div className="flex items-center gap-1 flex-wrap sm:flex-nowrap">
               {[
                 {
+                  id: 'todays_queue',
+                  label: "Today's Queue (Top 10 A/B)",
+                  icon: Sparkles,
+                  count: filterCounts.todaysQueue,
+                  highlight: true,
+                },
+                {
                   id: 'ready_to_whatsapp',
                   label: 'Ready to WhatsApp',
                   icon: Zap,
                   count: filterCounts.readyToWhatsApp,
-                  highlight: true,
+                  highlight: false,
                 },
                 {
                   id: 'due_followup',
@@ -1167,35 +1192,39 @@ export default function LeadsPage() {
                       )}
                     </div>
 
-                    {/* Lead Pathway Indicator */}
+                    {/* Primary Evidence & Grade Verdict */}
                     {(() => {
-                      const pathway = getLeadPathway(lead)
-                      if (pathway === 'HAS_WEBSITE') {
-                        return (
-                          <div className="flex items-center justify-between text-[11px] font-semibold text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2.5 py-1 rounded-lg">
-                            <span className="flex items-center gap-1.5">
-                              <Globe size={11} /> Pathway 1 · Has Website
-                            </span>
-                            <span className="text-[10px] font-mono text-sky-300">Decision Friction</span>
-                          </div>
-                        )
-                      }
-                      if (pathway === 'NO_WEBSITE') {
-                        return (
-                          <div className="flex items-center justify-between text-[11px] font-semibold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-lg">
-                            <span className="flex items-center gap-1.5">
-                              <Sparkles size={11} /> Pathway 2 · No Website
-                            </span>
-                            <span className="text-[10px] font-mono text-amber-300">Decision Gap</span>
-                          </div>
-                        )
-                      }
+                      const grade = (lead.scraped_metadata?.grade as string) || (lead.scraped_metadata?.audit_analysis?.grade as string) || 'B'
+                      const primaryFriction =
+                        lead.scraped_metadata?.audit_analysis?.primaryAngle?.title ||
+                        lead.friction_found ||
+                        (hasWebsite ? 'Enquiry-to-Client Response Speed' : 'No Website Direct Booking Gap')
+                      const layer = lead.scraped_metadata?.audit_analysis?.primaryAngle?.layer || (hasWebsite ? 'process' : 'site')
+
+                      const gradeBadgeBg =
+                        grade === 'A'
+                          ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
+                          : grade === 'B'
+                          ? 'bg-amber-500/15 border-amber-500/30 text-amber-400'
+                          : grade === 'Hold: nothing verified'
+                          ? 'bg-zinc-800 border-zinc-700 text-zinc-400'
+                          : 'bg-zinc-500/15 border-zinc-500/30 text-zinc-300'
+
                       return (
-                        <div className="flex items-center justify-between text-[11px] font-semibold text-rose-400 bg-rose-500/10 border border-rose-500/20 px-2.5 py-1 rounded-lg">
-                          <span className="flex items-center gap-1.5">
-                            <AlertTriangle size={11} /> Pathway 3 · Needs Review
-                          </span>
-                          <span className="text-[10px] font-mono text-rose-300">Missing Data</span>
+                        <div className="space-y-1.5">
+                          <div className="flex items-center justify-between text-[11px] font-semibold bg-[#121217] border border-white/10 px-2.5 py-1.5 rounded-xl">
+                            <span className="flex items-center gap-1.5 truncate text-zinc-200">
+                              <Sparkles size={11} className="text-[#DCAE53] shrink-0" />
+                              <span className="truncate">{primaryFriction}</span>
+                            </span>
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border shrink-0 ${gradeBadgeBg}`}>
+                              Grade {grade}
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between px-1 text-[10px] font-mono text-zinc-400">
+                            <span className="capitalize">{layer} layer opportunity</span>
+                            <span>Single-source verified</span>
+                          </div>
                         </div>
                       )
                     })()}

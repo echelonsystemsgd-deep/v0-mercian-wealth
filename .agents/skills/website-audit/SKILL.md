@@ -3,28 +3,33 @@ name: website-audit
 description: Use when conducting an exhaustive, full-conscience website audit across Performance & Core Web Vitals (LCP, INP, CLS, TTFB), Accessibility (WCAG 2.2 AA), Technical SEO & Schema.org JSON-LD, Security Defense Headers & Privacy, Mobile Viewport Ergonomics, Conversion Rate Optimization (CRO), and finding all active defects or missing infrastructure hindering website success.
 ---
 
-# Full-Conscience Website Audit & Flaw-Hunter Protocol
+# Full-Conscience Website Audit & Practice Intelligence Protocol
 
-A masterclass framework and runbook for conducting rigorous, multi-dimensional website audits. When operating with **full conscience**, the agent does not merely run a superficial tool or quote generic numbers; it hunts down every defect, broken flow, and missing commercial engine that prevents the website from succeeding as an organic discovery machine, a conversion engine, an accessible environment, and a secure customer portal.
+A rigorous, two-layer diagnostic framework for auditing professional services (UK accountancy practices) and commercial websites.
+
+> [!IMPORTANT]
+> **The Two-Layer Doctrine for Professional Practices**:
+> 1. **Layer 1: Observable Site Frictions**: Measured and evidenced on a 390px mobile viewport (overflow, sub-44px tap targets, multi-input forms, missing viewport). Used **only** as supporting proof that we personally inspected their business. Never lead with cosmetic fixes on builder sites, or the practice simply forwards it to their web builder and you lose the lead.
+> 2. **Layer 2: Operational Process Gaps the Builder Cannot Fix**: What happens *after* the enquiry (out-of-hours response speed, document chasing before statutory MTD deadlines, onboarding drop-off, retainer pre-qualification). This is where you win the instruction.
+> 3. **The Contact Form Baseline**: A contact form with no booking flow is the normal baseline for UK accountants. Never make "no booking flow" the headline friction. Flag only genuine form problems (>= 6 inputs, no phone/WhatsApp alternative, no visible response promise).
+> 4. **Unobservable Guardrail**: Things that cannot be observed from public pages (auto-replies, response time, staff follow-up) must be labelled `"unknown, validate on call"`, never `"verified"`. Never submit live forms.
 
 ---
 
-## When using this skill:
+## Operational Execution:
 
-1. **Establish Ground Truth & Context**:
-   - Determine target environment (Production, Staging, or Local `localhost:3000`).
-   - Identify the site's primary conversion objective (e.g. streaming subscription sales, lead generation, e-commerce checkout, SaaS trial).
-   - Identify the primary user demographic and device distribution (e.g. UK mobile users on WhatsApp in-app browsers vs desktop enterprise users).
-
-2. **Execute Automated Forensic & Flaw-Hunting Probes**:
-   - Run the automated auditor suite:
-     - **Success Barrier & Flaw Hunter**: `node scripts/find_site_flaws.mjs <url>`
-       - Flags dead links (`href="#"`), broken internal routes (404s), broken image endpoints, missing rapid contact channels (WhatsApp/phone), missing trust anchors, and missing mobile sticky CTAs.
-     - **Comprehensive Scan**: `node scripts/audit_site.mjs <url>`
-     - **Security Headers**: `node scripts/check_security_headers.mjs <url>`
-     - **Schema.org Structured Data**: `node scripts/check_seo_schema.mjs <url>`
-     - **WCAG 2.2 Semantics**: `node scripts/check_accessibility.mjs <url>`
-   - Capture TTFB, document weight, heading structure, image attributes, and defensive headers.
+1. **Execute Headless Evidence Probe (390px Mobile Viewport)**:
+   - Run the automated probe:
+     ```bash
+     node scripts/run_evidence_audit.mjs <url> [--screenshot] [--json]
+     ```
+   - Measures real layout metrics:
+     - Horizontal overflow: `document.documentElement.scrollWidth > window.innerWidth`
+     - Tap target sizes (< 44px)
+     - Forms inspection (input counts, types, action, visible response promises)
+     - Regulators & trust (ICAEW, ACCA, AAT, ICAS, AML supervisor, Companies House number)
+     - Content & statutory dates (MTD for Income Tax mentions, Self Assessment crunch)
+     - Build fingerprint (WordPress/Elementor, Wix, Squarespace, Webflow, Framer, Lovable, v0)
 
 3. **Perform Deep Multi-Pillar Forensic Analysis**:
    - **Flaw Hunting Playbook**: [flaw-detection-playbook.md](./references/flaw-detection-playbook.md)

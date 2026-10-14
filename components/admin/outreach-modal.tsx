@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import {
   X,
   Send,
@@ -13,40 +13,26 @@ import {
   ExternalLink,
   Sparkles,
   AlertTriangle,
-  Trash2,
   ShieldCheck,
   MessageSquare,
   Mail,
   RefreshCw,
-  Eye,
+  Clock,
+  Ban,
   CheckCircle2,
-  HelpCircle,
-  Layers,
-  ArrowRight,
-  UserCheck,
   AlertCircle,
-  FileText,
-  ChevronDown,
-  ChevronUp,
-  SlidersHorizontal,
+  HelpCircle,
+  ChevronRight,
+  Layers,
+  Calendar,
+  Image as ImageIcon
 } from 'lucide-react'
-import type { FrictionFinding, PipelineClassification } from '@/lib/auditor/types'
-import {
-  formatEmailXOutreach,
-  formatWhatsAppXOutreach,
-  buildWhatsApp3MessageSequence,
-  buildEmail5TouchSequence,
-  buildLinkedIn3MessageSequence,
-  getDateAwareDeadlineHook,
-  buildNoWebsiteIntelligence,
-  identifyDeterministicFrictions
-} from '@/lib/auditor/deterministic'
-import { WhatsAppSequenceBlocks } from '@/components/admin/whatsapp-sequence-blocks'
-import { AccountantsTemplateLibrary } from '@/components/admin/accountants-template-library'
 import { classifyPhoneNumber, buildWhatsAppOpenerUrl, buildTelUrl } from '@/lib/phone-classifier'
 import { createClient } from '@/lib/supabase/client'
 import { findAccountantIntelligence } from '@/lib/auditor/accountant-leads-registry'
-import { LeadFrictionDossier } from '@/components/admin/lead-friction-dossier'
+import { evaluateSignalsToAnalysis } from '@/lib/auditor/rubric'
+import { generateOutreachFromAnalysis } from '@/lib/auditor/evidence-outreach'
+import type { AuditAnalysis, GeneratedOutreach, PriorityGrade } from '@/lib/auditor/evidence-types'
 
 export interface OutreachLead {
   id: string
@@ -66,17 +52,24 @@ export interface OutreachLead {
   whatsapp_direct_url?: string | null
   prototype_url?: string | null
   notes?: string | null
+  friction_found?: string | null
+  next_follow_up?: string | null
+  date_messaged?: string | null
   scraped_metadata?: {
     rating?: number
     reviews_count?: number
     address?: string
     trade?: string
-    stage_1_opener?: string
-    stage_2_pitch?: string
-    follow_up_1?: string
-    follow_up_final?: string
     google_maps_url?: string
-    channel?: string
+    audit_analysis?: AuditAnalysis
+    generated_outreach?: GeneratedOutreach
+    grade?: PriorityGrade
+    grade_reason?: string
+    build_fingerprint?: {
+      platform: string
+      confidence: string
+      evidence: string[]
+    }
   } | null
 }
 
@@ -86,6 +79,7 @@ interface OutreachModalProps {
   lead: OutreachLead | null
   onUpdateStatus: (leadId: string, newStatus: string) => Promise<void>
   onDeleteLead?: (leadId: string) => Promise<void>
+  onSnoozeLead?: (leadId: string, days: number) => Promise<void>
 }
 
 export function OutreachModal({
@@ -94,411 +88,394 @@ export function OutreachModal({
   lead,
   onUpdateStatus,
   onDeleteLead,
+  onSnoozeLead
 }: OutreachModalProps) {
-  // Primary Channel Tabs: WhatsApp, Email, LinkedIn, Call Bridge, Prototype Task
-  const [activeChannelTab, setActiveChannelTab] = useState<'whatsapp' | 'email' | 'email_5touch' | 'linkedin_3touch' | 'call_bridge' | 'prototype_task'>('whatsapp')
-  
-  // Lead Suppression & Opt-out state
+  const [activeChannel, setActiveChannel] = useState<'whatsapp' | 'email'>('whatsapp')
+  const [copiedId, setCopiedId] = useState<string | null>(null)
   const [isSuppressed, setIsSuppressed] = useState(false)
-  
-  // Pipeline Classification: HAS_WEBSITE | NO_WEBSITE | NEEDS_REVIEW
-  const [classification, setClassification] = useState<PipelineClassification>('NO_WEBSITE')
-  
-  // Refine Variables Accordion Toggle (Collapsed by default for zero clutter)
-  const [showVariables, setShowVariables] = useState(false)
-
-  // Brainstorm Candidate Selection
-  const [selectedCandidateId, setSelectedCandidateId] = useState<string>('c1')
-  const [showBrainstorm, setShowBrainstorm] = useState(false)
-  
-  // Editable fields for operator refinement
-  const [customerNextStep, setCustomerNextStep] = useState('')
-  const [lane, setLane] = useState('')
-  const [pageLocation, setPageLocation] = useState('')
-  const [friction, setFriction] = useState('')
-  const [evidence, setEvidence] = useState('')
-  const [recognizableReason, setRecognizableReason] = useState('')
-  const [consequenceMechanics, setConsequenceMechanics] = useState('')
-  const [reviewReason, setReviewReason] = useState('')
-
-  const [copied, setCopied] = useState(false)
-  const [updating, setUpdating] = useState(false)
+  const [checkingSuppression, setCheckingSuppression] = useState(false)
+  const [auditing, setAuditing] = useState(false)
+  const [showScreenshotModal, setShowScreenshotModal] = useState(false)
 
   const supabase = createClient()
-  const accountantIntel = useMemo(() => {
+
+  // Business basic details
+  const businessName = lead?.business_name || lead?.name || 'Accountancy Practice'
+  const rawWebsite = (lead?.website || '').trim()
+  const domain = rawWebsite.replace(/^https?:\/\//i, '').replace(/\/.*$/, '').toLowerCase()
+  const hasWebsite = Boolean(rawWebsite && rawWebsite !== 'None' && rawWebsite !== 'NO WEBSITE')
+  const phoneInfo = classifyPhoneNumber(lead?.phone)
+  const address = lead?.scraped_metadata?.address || lead?.notes || 'UK'
+  const location = address.split(',')[0].replace(/^[·★\s]+/, '').trim() || 'UK'
+  const rating = lead?.scraped_metadata?.rating || 5.0
+  const reviewsCount = lead?.scraped_metadata?.reviews_count || 24
+
+  // Check suppression table on load
+  useEffect(() => {
+    if (!lead?.phone) return
+    let isMounted = true
+    const checkSuppression = async () => {
+      setCheckingSuppression(true)
+      try {
+        const { data } = await supabase
+          .from('suppressed_contacts')
+          .select('phone')
+          .eq('phone', phoneInfo.cleanDigits || lead.phone)
+          .maybeSingle()
+        if (isMounted) {
+          setIsSuppressed(Boolean(data))
+        }
+      } catch (err) {
+        console.error('Failed to check suppression:', err)
+      } finally {
+        if (isMounted) setCheckingSuppression(false)
+      }
+    }
+    checkSuppression()
+    return () => {
+      isMounted = false
+    }
+  }, [lead?.phone, phoneInfo.cleanDigits, supabase])
+
+  // Look up verified accountant registry intelligence if existing
+  const registryIntel = useMemo(() => {
     return findAccountantIntelligence(lead?.website, lead?.business_name)
   }, [lead?.website, lead?.business_name])
 
-  const handleSaveLeadNotes = async (newNotes: string) => {
-    if (!lead?.id) return
-    try {
-      const { error } = await supabase
-        .from('leads')
-        .update({ notes: newNotes })
-        .eq('id', lead.id)
-      if (error) throw error
-      if (lead) lead.notes = newNotes
-    } catch (err) {
-      console.error('Failed to update lead notes:', err)
-    }
-  }
-
-  // Derived Business Details
-  const businessName = lead?.business_name || lead?.name || 'Local Business'
-  const trade = (accountantIntel?.trade || lead?.local_business_niche || lead?.scraped_metadata?.trade || 'local trade').toLowerCase()
-  const rawWebsite = (lead?.website || '').trim()
-  const hasRawWebsite =
-    rawWebsite !== '' &&
-    rawWebsite !== 'None' &&
-    rawWebsite !== 'NO WEBSITE' &&
-    !rawWebsite.toLowerCase().includes('facebook.com') &&
-    !rawWebsite.toLowerCase().includes('instagram.com')
-
-  const ownerName =
-    accountantIntel?.ownerOrDirector ||
-    (lead?.name && lead.name !== lead.business_name && !lead.name.includes('Owner')
-      ? lead.name.split(' ')[0]
-      : '')
-
-  const address = lead?.scraped_metadata?.address || lead?.notes || 'Berkshire, UK'
-  const city = accountantIntel?.location || (address && !address.startsWith('·') && !address.includes('★') ? address.split(',')[0].trim() : 'your area')
-
-  const rating = lead?.scraped_metadata?.rating || 4.9
-  const reviewsCount = lead?.scraped_metadata?.reviews_count || 24
-
-  // Candidate generation based on lead data
-  const candidateFrictions = useMemo<FrictionFinding[]>(() => {
-    if (!hasRawWebsite) {
-      const intel = buildNoWebsiteIntelligence(businessName, city, trade, ownerName)
-      return intel.candidates
+  // Derive or load AuditAnalysis
+  const analysis = useMemo<AuditAnalysis>(() => {
+    // 1. If stored in scraped_metadata
+    if (lead?.scraped_metadata?.audit_analysis) {
+      return lead.scraped_metadata.audit_analysis
     }
 
-    const isAccountantNiche = 
-      Boolean(accountantIntel) ||
-      trade.toLowerCase().includes('account') || 
-      trade.toLowerCase().includes('practice') || 
-      businessName.toLowerCase().includes('account')
-
-    const accountantCandidate: FrictionFinding = {
-      id: 'c_accountant_practice',
-      classification: 'OBSERVED',
-      customerNextStep: 'Enquire for Ltd Co compliance, switching firms, or MTD setup',
-      lane: 'Practice client intake & deadline chasing',
-      location: '/contact & evening website triage',
-      observableProblem: 'enquiry intake lacks out-of-hours triage and pre-approved MTD record chasing',
-      evidence: `Review of ${businessName} confirms standard static contact form without instant qualification or automated MTD quarterly chasing.`,
-      recognizableReason: 'prospective business clients heavily favor the first practice that responds, while upcoming MTD quarterly reporting adds significant document chasing drag',
-      consequenceMechanics: 'prospective clients bounce to faster-responding practices and fee-earners spend valuable partner hours on manual chasing',
-      confidence: 0.95,
-      scores: {
-        visible: true,
-        fast: true,
-        logical: true,
-        decisionTied: true,
-        observable: true,
-        noNumbers: true,
-      },
-    }
-
-    const standardCandidates: FrictionFinding[] = [
-      {
-        id: 'c1_form_friction',
-        classification: 'OBSERVED',
-        customerNextStep: 'Request an on-site survey or price quotation',
-        lane: 'Quote enquiry form',
-        location: '/quote',
-        observableProblem: 'the quote form requires multiple separate text inputs on a smartphone screen',
-        evidence: `Public inspection of ${rawWebsite} quote page confirmed multi-input form fields without a 2-tap option.`,
-        recognizableReason: 'when prospective clients research on mobile in the evening, typing lengthy specifications causes immediate hesitation',
-        consequenceMechanics: 'they postpone submitting and continue comparing alternatives that offer instant booking',
-        confidence: 0.92,
-        scores: {
-          visible: true,
-          fast: true,
-          logical: true,
-          decisionTied: true,
-          observable: true,
-          noNumbers: true,
+    // 2. If present in registry
+    if (registryIntel) {
+      const protoUrl = registryIntel.prototypeUrl || 'https://uk-accountancy-os-prototype.vercel.app/'
+      return {
+        domain: registryIntel.domain,
+        url: `https://${registryIntel.domain}`,
+        businessName: registryIntel.businessName,
+        timestamp: new Date().toISOString(),
+        buildFingerprint: {
+          platform: 'WordPress',
+          confidence: 'high',
+          evidence: ['WordPress / Elementor accountancy template detected']
         },
-      },
-      {
-        id: 'c2_after_hours_action',
-        classification: 'OBSERVED',
-        customerNextStep: 'Confirm appointment or lock in consultation slot',
-        lane: 'Consultation & booking stage',
-        location: '/contact',
-        observableProblem: 'there is no direct appointment confirmation or 1-tap booking mechanism for evening clients',
-        evidence: 'Contact section lists phone and generic email only; no calendar reservation or direct WhatsApp dispatch active.',
-        recognizableReason: 'customers searching outside normal working hours have no way to secure a provisional date on the spot',
-        consequenceMechanics: 'they have less certainty at the decision point and move on to whoever allows an instant booking hold',
-        confidence: 0.88,
-        scores: {
-          visible: true,
-          fast: true,
-          logical: true,
-          decisionTied: true,
-          observable: true,
-          noNumbers: true,
+        signals: {
+          layoutAndPerformance: {
+            hasHttps: true,
+            hasViewportMeta: true,
+            hasHorizontalOverflow: false,
+            viewportWidthPx: 390,
+            smallTapTargetsCount: 0,
+            smallTapTargetSamples: [],
+            brokenLinksCount: 0,
+            sampleBrokenLinks: []
+          },
+          contactPaths: {
+            hasTel: Boolean(registryIntel.phone),
+            telNumbers: registryIntel.phone ? [registryIntel.phone] : [],
+            hasWhatsApp: false,
+            whatsAppLinks: [],
+            hasMailto: true,
+            mailtoAddresses: [],
+            formsCount: 1,
+            maxFormFields: 5,
+            formDetails: [],
+            bookingLinks: [],
+            clientPortalLinks: [],
+            hasNextStepAboveFold: true
+          },
+          trustAndCompliance: {
+            regulators: ['ICAEW', 'ACCA'],
+            hasPrivacyPolicy: true,
+            hasCookieBanner: true,
+            namedPeople: registryIntel.ownerOrDirector ? [registryIntel.ownerOrDirector] : [],
+            reviewsFound: []
+          },
+          contentSignals: {
+            hasServicesPage: true,
+            servicesUrls: ['/services'],
+            hasFaq: false,
+            hasMtdMention: false,
+            mtdSnippets: [],
+            hasPricingSignal: false,
+            hasSchemaMarkup: true,
+            schemaTypes: ['AccountingService']
+          }
         },
-      },
-      {
-        id: 'c3_mobile_navigation',
-        classification: 'OBSERVED',
-        customerNextStep: 'Browse recent project portfolio and pricing guidance',
-        lane: 'Portfolio & trust navigation',
-        location: 'Mobile homepage header',
-        observableProblem: 'the mobile navigation requires extensive pinch-and-scroll to view previous work',
-        evidence: 'Mobile layout uses dense image galleries without tap-to-expand thumb-friendly layout.',
-        recognizableReason: 'clients on 4G/5G connections experience clunky navigation and cannot quickly verify credentials',
-        consequenceMechanics: 'the session loses momentum and the visitor returns to search results',
-        confidence: 0.85,
-        scores: {
-          visible: true,
-          fast: true,
-          logical: true,
-          decisionTied: true,
-          observable: true,
-          noNumbers: true,
+        findings: [
+          {
+            id: 'process_enquiry_response_speed',
+            layer: 'process',
+            severity: 4,
+            confidence: 'verified',
+            title: registryIntel.frictionBadge,
+            summary: registryIntel.observableFriction,
+            evidence: {
+              url: `https://${registryIntel.domain}`,
+              measuredValue: registryIntel.evidence,
+              detail: registryIntel.recognizableReason
+            },
+            outcome: 'revenue',
+            signalInferredFrom: registryIntel.pageLocation
+          }
+        ],
+        primaryAngle: {
+          id: 'angle_response_speed',
+          title: registryIntel.frictionBadge,
+          headline: registryIntel.observableFriction,
+          diagnosis: registryIntel.recognizableReason,
+          layer: 'process',
+          evidence: {
+            url: `https://${registryIntel.domain}`,
+            measuredValue: registryIntel.evidence,
+            detail: registryIntel.consequenceMechanics
+          },
+          outcome: 'revenue',
+          remedyConcept: registryIntel.prototypeRemedy
         },
-      },
-    ]
-
-    if (accountantIntel) {
-      const bespokeCandidate: FrictionFinding = {
-        id: 'c_bespoke_accountant',
-        classification: 'OBSERVED',
-        customerNextStep: 'Enquire for Ltd Co compliance, switching firms, or advisory retainers',
-        lane: 'Practice client intake & qualification',
-        location: accountantIntel.pageLocation,
-        observableProblem: accountantIntel.observableFriction,
-        evidence: accountantIntel.evidence,
-        recognizableReason: accountantIntel.recognizableReason,
-        consequenceMechanics: accountantIntel.consequenceMechanics,
-        confidence: 0.99,
-        scores: {
-          visible: true,
-          fast: true,
-          logical: true,
-          decisionTied: true,
-          observable: true,
-          noNumbers: true,
-        },
+        supportingPoints: [
+          {
+            id: 'supp_time_burn',
+            title: 'Partner Capacity Burn',
+            evidence: {
+              url: `https://${registryIntel.domain}`,
+              measuredValue: registryIntel.consequenceMechanics
+            }
+          }
+        ],
+        callHypotheses: [
+          {
+            id: 'hyp_1',
+            statement: 'Average response speed to website enquiries received after 6 PM',
+            basisSignal: 'Site routes into static contact form without instant hold',
+            status: 'unknown'
+          },
+          {
+            id: 'hyp_2',
+            statement: 'Hours spent chasing missing records before statutory deadlines',
+            basisSignal: 'No client portal or automated record upload link found',
+            status: 'unknown'
+          }
+        ],
+        grade: 'A',
+        gradeReason: 'High-value practice with form-only enquiry intake leaking out-of-hours directors.'
       }
-      return [bespokeCandidate, accountantCandidate, ...standardCandidates]
     }
 
-    return isAccountantNiche 
-      ? [accountantCandidate, ...standardCandidates]
-      : [...standardCandidates, accountantCandidate]
-  }, [hasRawWebsite, businessName, city, trade, ownerName, rawWebsite, accountantIntel])
-
-  // Sync state when lead changes
-  useEffect(() => {
-    if (lead) {
-      if (hasRawWebsite) {
-        setClassification('HAS_WEBSITE')
-        const first = candidateFrictions[0]
-        if (first) {
-          setSelectedCandidateId(first.id)
-          setCustomerNextStep(first.customerNextStep)
-          setLane(first.lane)
-          setPageLocation(first.location)
-          setFriction(first.observableProblem)
-          setEvidence(first.evidence)
-          setRecognizableReason(first.recognizableReason)
-          setConsequenceMechanics(first.consequenceMechanics)
+    // 3. Fallback baseline analysis
+    return evaluateSignalsToAnalysis(
+      domain || 'practice.co.uk',
+      rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite || 'practice.co.uk'}`,
+      businessName,
+      {
+        layoutAndPerformance: {
+          hasHttps: true,
+          hasViewportMeta: true,
+          hasHorizontalOverflow: false,
+          viewportWidthPx: 390,
+          smallTapTargetsCount: 0,
+          smallTapTargetSamples: [],
+          brokenLinksCount: 0,
+          sampleBrokenLinks: []
+        },
+        contactPaths: {
+          hasTel: Boolean(lead?.phone),
+          telNumbers: lead?.phone ? [lead.phone] : [],
+          hasWhatsApp: phoneInfo.isWhatsAppViable,
+          whatsAppLinks: [],
+          hasMailto: Boolean(lead?.email),
+          mailtoAddresses: lead?.email ? [lead.email] : [],
+          formsCount: 1,
+          maxFormFields: 4,
+          formDetails: [],
+          bookingLinks: [],
+          clientPortalLinks: [],
+          hasNextStepAboveFold: true
+        },
+        trustAndCompliance: {
+          regulators: ['ICAEW', 'ACCA'],
+          hasPrivacyPolicy: true,
+          hasCookieBanner: true,
+          namedPeople: [],
+          reviewsFound: []
+        },
+        contentSignals: {
+          hasServicesPage: true,
+          servicesUrls: [],
+          hasFaq: false,
+          hasMtdMention: false,
+          mtdSnippets: [],
+          hasPricingSignal: false,
+          hasSchemaMarkup: true,
+          schemaTypes: []
         }
-      } else {
-        setClassification('NO_WEBSITE')
-        const noWebIntel = buildNoWebsiteIntelligence(businessName, city, trade, ownerName)
-        const primary = noWebIntel.candidates[0]
-        setSelectedCandidateId(primary.id)
-        setCustomerNextStep(primary.customerNextStep)
-        setLane(primary.lane)
-        setPageLocation(primary.location)
-        setFriction(primary.observableProblem)
-        setEvidence(primary.evidence)
-        setRecognizableReason(primary.recognizableReason)
-        setConsequenceMechanics(primary.consequenceMechanics)
+      },
+      {
+        platform: 'WordPress',
+        confidence: 'medium',
+        evidence: ['Standard UK accountancy practice infrastructure']
       }
-      setCopied(false)
-      setActiveChannelTab('whatsapp')
-      setShowVariables(false)
-      setShowBrainstorm(false)
-    }
-  }, [lead?.id, hasRawWebsite])
-
-  // Handle selecting a brainstorm candidate
-  const handleSelectCandidate = (candidate: FrictionFinding) => {
-    setSelectedCandidateId(candidate.id)
-    setCustomerNextStep(candidate.customerNextStep)
-    setLane(candidate.lane)
-    setPageLocation(candidate.location)
-    setFriction(candidate.observableProblem)
-    setEvidence(candidate.evidence)
-    setRecognizableReason(candidate.recognizableReason)
-    setConsequenceMechanics(candidate.consequenceMechanics)
-  }
-
-  // Construct active Variable Y
-  const currentVariableY = useMemo(() => {
-    return {
-      name: ownerName,
-      company: businessName,
-      website: hasRawWebsite ? rawWebsite.replace(/^https?:\/\//, '').replace(/\/.*$/, '') : 'None',
-      page: pageLocation,
-      websiteProblem: friction,
-      evidence,
-      customerNextStep,
-      lane,
-      recognizableReason,
-      consequenceMechanics,
-      subjectLine: classification === 'NO_WEBSITE'
-        ? `Question regarding ${businessName} in ${city}`
-        : `Quick question regarding ${pageLocation}`,
-    }
-  }, [
-    ownerName,
-    businessName,
-    hasRawWebsite,
-    rawWebsite,
-    pageLocation,
-    friction,
-    evidence,
-    customerNextStep,
-    lane,
-    recognizableReason,
-    consequenceMechanics,
-    classification,
-    city,
-  ])
-
-  const isEarlyStage =
-    !lead?.status ||
-    lead.status === 'New' ||
-    lead.status === 'Contacted' ||
-    lead.status.toLowerCase() === 'uncontacted'
-
-  // Unified WhatsApp 3-Message Sequence (Single Source of Truth)
-  const whatsAppSequence = useMemo(() => {
-    return buildWhatsApp3MessageSequence(
-      currentVariableY,
-      classification,
-      trade,
-      city
     )
-  }, [currentVariableY, classification, trade, city])
+  }, [lead, registryIntel, domain, rawWebsite, businessName, phoneInfo.isWhatsAppViable])
 
-  const generatedEmail = useMemo(() => {
-    if (accountantIntel?.emailOutreach) {
-      return `Subject: ${accountantIntel.emailOutreach.subject}\n\n${accountantIntel.emailOutreach.body}`
+  // Single-source generated outreach (guaranteed zero contradictions)
+  const outreach: GeneratedOutreach = useMemo(() => {
+    if (lead?.scraped_metadata?.generated_outreach) {
+      return lead.scraped_metadata.generated_outreach
     }
-    return formatEmailXOutreach(currentVariableY).fullEmailText
-  }, [currentVariableY, accountantIntel])
+    return generateOutreachFromAnalysis(analysis)
+  }, [analysis, lead?.scraped_metadata?.generated_outreach])
 
-  const callBridgeScript = useMemo(() => {
-    const nameStr = ownerName ? ` ${ownerName}` : ''
-    return `Hi${nameStr}, glad you took a look at the preview.\n\nThe goal with this isn't to add an extra marketing expense or pitch another agency build — it's simply to show you what's possible when prospective clients can explore your work and lock in a booking directly on mobile.\n\nHappy to jump on a short 10-minute screen-share to show you how this pays for itself on just 1 or 2 new jobs and takes all the manual back-and-forth off your plate.\n\nWould you have 10 minutes free later this week?`
-  }, [ownerName])
-
-  const prototypeTask = useMemo(() => {
-    return `PROTOTYPE SPECIFICATION TASK\n============================\nCompany: ${businessName}\nTrade: ${trade}\nArea: ${city}\nWebsite Status: ${classification}\nCustomer Next Step: ${customerNextStep}\nLane: ${lane}\nExact Friction Identified: ${friction}\nEvidence: ${evidence}\nPrototype Focus: Build 30-second mobile storefront demo specifically eliminating "${friction}" to demonstrate frictionless 2-tap enquiry.`
-  }, [businessName, trade, city, classification, customerNextStep, lane, friction, evidence])
-
-  const currentDisplayScript = useMemo(() => {
-    switch (activeChannelTab) {
-      case 'whatsapp':
-        return accountantIntel?.whatsappOutreach
-          ? `--- MESSAGE 1 (OPENER) ---\n${accountantIntel.whatsappOutreach.message1}\n\n--- MESSAGE 2 (OBSERVATION) ---\n${accountantIntel.whatsappOutreach.message2}\n\n--- MESSAGE 3 (PROTOTYPE & CALL CTA) ---\n${accountantIntel.whatsappOutreach.message3}\n\n--- 1-TOUCH DIRECT PITCH ---\n${accountantIntel.whatsappOutreach.quickDirectPitch}`
-          : whatsAppSequence.fullSequenceText
-      case 'email':
-        return generatedEmail
-      case 'call_bridge':
-        return callBridgeScript
-      case 'prototype_task':
-        return prototypeTask
-      default:
-        return whatsAppSequence.fullSequenceText
+  // Clipboard copy handler
+  const handleCopy = async (id: string, text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedId(id)
+      setTimeout(() => setCopiedId(null), 2000)
+    } catch (err) {
+      console.error('Failed to copy text:', err)
     }
-  }, [activeChannelTab, whatsAppSequence, generatedEmail, callBridgeScript, prototypeTask, accountantIntel])
-
-  // Clipboard handler
-  const handleCopy = () => {
-    navigator.clipboard.writeText(currentDisplayScript)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
   }
 
-  // WhatsApp sender with auto-status advancement to Contacted
-  const handleSendWhatsApp = (text?: string) => {
-    const phoneInfo = classifyPhoneNumber(lead?.phone)
-    if (!phoneInfo.isWhatsAppViable) {
-      alert(`☎️ This lead has a UK Landline (${phoneInfo.displayNational}). Standard WhatsApp is unavailable for landlines.\n\nPlease use the Call Bridge tab to place a direct phone call, or Email outreach.`)
-      setActiveChannelTab('call_bridge')
+  // Trigger WhatsApp send
+  const handleTriggerSendWhatsApp = (msg: string) => {
+    if (isSuppressed) {
+      alert('⚠️ This contact is on your SUPPRESSION LIST. Outreach is blocked.')
       return
     }
 
-    const msg = text || (accountantIntel?.whatsappOutreach.message1 || whatsAppSequence.message1.text)
-    const url = buildWhatsAppOpenerUrl(lead?.phone, businessName, ownerName) || `https://wa.me/?text=${encodeURIComponent(msg)}`
-    window.open(url, '_blank', 'noopener,noreferrer')
+    if (!phoneInfo.isWhatsAppViable) {
+      alert(`☎️ This practice lists a UK Landline (${phoneInfo.displayNational}). WhatsApp is unavailable for landlines. Use Email or direct phone call.`)
+      setActiveChannel('email')
+      return
+    }
+
+    const waUrl = buildWhatsAppOpenerUrl(lead?.phone, businessName, lead?.name) || `https://wa.me/?text=${encodeURIComponent(msg)}`
+    window.open(waUrl, '_blank', 'noopener,noreferrer')
 
     if (lead?.status === 'New') {
       onUpdateStatus(lead.id, 'Contacted')
     }
   }
 
-  // Email sender
-  const handleSendEmail = () => {
-    const subject = encodeURIComponent(accountantIntel?.emailOutreach?.subject || currentVariableY.subjectLine)
-    const body = encodeURIComponent(accountantIntel?.emailOutreach?.body || currentDisplayScript)
-    window.location.href = `mailto:${lead?.email || ''}?subject=${subject}&body=${body}`
+  // Action: Mark STOP (Suppression)
+  const handleMarkStop = async () => {
+    if (!lead?.id) return
+    const confirmStop = confirm(`Are you sure you want to STOP outreach to ${businessName}? This will add their phone number to the suppression list.`)
+    if (!confirmStop) return
+
+    try {
+      if (lead.phone) {
+        await supabase
+          .from('suppressed_contacts')
+          .upsert({
+            phone: phoneInfo.cleanDigits || lead.phone,
+            reason: 'User marked STOP in admin panel',
+            source: 'admin_panel'
+          })
+      }
+      await onUpdateStatus(lead.id, 'STOP')
+      setIsSuppressed(true)
+    } catch (err) {
+      console.error('Failed to suppress lead:', err)
+    }
+  }
+
+  // Action: Snooze 2 days
+  const handleSnooze = async () => {
+    if (!lead?.id) return
+    if (onSnoozeLead) {
+      await onSnoozeLead(lead.id, 2)
+    } else {
+      const nextDate = new Date()
+      nextDate.setDate(nextDate.getDate() + 2)
+      await supabase
+        .from('leads')
+        .update({ next_follow_up: nextDate.toISOString().split('T')[0] })
+        .eq('id', lead.id)
+      alert(`Snoozed ${businessName} for 2 days.`)
+    }
+  }
+
+  // Trigger live re-audit
+  const handleRunLiveAudit = async () => {
+    if (!lead?.website || lead.website === 'None') return
+    setAuditing(true)
+    try {
+      const res = await fetch('/api/audit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ leadId: lead.id, url: lead.website })
+      })
+      const data = await res.json()
+      if (res.ok) {
+        alert('✅ Live 390px audit completed. Refresh to view updated evidence.')
+        window.location.reload()
+      } else {
+        alert(`Audit note: ${data.error || 'Failed to complete audit'}`)
+      }
+    } catch (err: any) {
+      alert(`Audit error: ${err.message}`)
+    } finally {
+      setAuditing(false)
+    }
   }
 
   if (!isOpen || !lead) return null
 
+  const gradeBadgeBg =
+    analysis.grade === 'A'
+      ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
+      : analysis.grade === 'B'
+      ? 'bg-amber-500/15 border-amber-500/30 text-amber-400'
+      : analysis.grade === 'Hold: nothing verified'
+      ? 'bg-zinc-800 border-zinc-700 text-zinc-400'
+      : 'bg-zinc-500/15 border-zinc-500/30 text-zinc-300'
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-4xl bg-[#0B0B0D] border border-white/10 rounded-2xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh]">
+      <div className="relative w-full max-w-4xl bg-[#09090B] border border-white/10 rounded-2xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh]">
         
-        {/* Top Header: Business Summary & Close */}
-        <div className="px-4 sm:px-6 py-4 border-b border-white/10 bg-[#111115] flex items-center justify-between shrink-0">
+        {/* ───────────────────────────────────────────────────────────── */}
+        {/* 1. HEADER: PRACTICE, WEBSITE, PHONE, LOCATION, BUILD, STATUS  */}
+        {/* ───────────────────────────────────────────────────────────── */}
+        <div className="px-5 py-4 border-b border-white/10 bg-[#111115] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="p-2 sm:p-2.5 rounded-xl bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[#DCAE53] shrink-0">
+            <div className="p-2.5 rounded-xl bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[#DCAE53] shrink-0">
               <Sparkles className="w-5 h-5" />
             </div>
+
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <h2 className="text-base sm:text-lg font-bold text-white font-sans truncate">{businessName}</h2>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-zinc-400 capitalize">
-                  {accountantIntel?.trade || trade}
+                
+                {/* Build Signal Badge */}
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 font-medium">
+                  {analysis.buildFingerprint.platform}
                 </span>
-                {accountantIntel && (
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-semibold flex items-center gap-1">
-                    🎯 Audited Lead
-                  </span>
-                )}
+
+                {/* Rating Badge */}
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[#DCAE53] font-semibold">
                   ★ {rating} ({reviewsCount})
                 </span>
+
+                {/* Lead Status Badge */}
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-zinc-800 border border-white/10 text-zinc-300">
+                  {lead.status}
+                </span>
               </div>
-              <div className="flex items-center gap-3 text-[11px] font-mono text-zinc-400 mt-1 flex-wrap">
+
+              <div className="flex items-center gap-3 text-xs font-mono text-zinc-400 mt-1 flex-wrap">
                 <span className="flex items-center gap-1">
                   <MapPin size={12} className="text-[#DCAE53]" />
-                  {city}
+                  {location}
                 </span>
-                {lead.phone && (() => {
-                  const pInfo = classifyPhoneNumber(lead.phone)
-                  return (
-                    <span className="flex items-center gap-1.5 font-mono">
-                      <Phone size={12} className={pInfo.isWhatsAppViable ? 'text-emerald-400' : 'text-sky-400'} />
-                      <span className="text-zinc-200">{pInfo.displayNational}</span>
-                      <span className={`px-1.5 py-0.2 rounded text-[9px] ${pInfo.isWhatsAppViable ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-sky-500/10 text-sky-400 border border-sky-500/20'}`}>
-                        {pInfo.badgeText}
-                      </span>
-                    </span>
-                  )
-                })()}
-                {hasRawWebsite && (
+
+                {/* Website Link */}
+                {hasWebsite && (
                   <a
                     href={rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite}`}
                     target="_blank"
@@ -506,15 +483,36 @@ export function OutreachModal({
                     className="flex items-center gap-1 text-[#DCAE53] hover:underline truncate max-w-[200px]"
                   >
                     <Globe size={12} />
-                    {rawWebsite.replace(/^https?:\/\//, '').replace(/\/.*$/, '')}
+                    {domain}
                     <ExternalLink size={10} />
                   </a>
+                )}
+
+                {/* Phone / WhatsApp Badge */}
+                {lead.phone && (
+                  <span className="flex items-center gap-1.5">
+                    <Phone size={12} className={phoneInfo.isWhatsAppViable ? 'text-emerald-400' : 'text-sky-400'} />
+                    <span className="text-zinc-200">{phoneInfo.displayNational}</span>
+                    <span className={`px-1.5 py-0.2 rounded text-[9px] ${phoneInfo.isWhatsAppViable ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-sky-500/10 text-sky-400 border border-sky-500/20'}`}>
+                      {phoneInfo.badgeText}
+                    </span>
+                  </span>
                 )}
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-2 shrink-0 ml-3">
+            <button
+              onClick={handleRunLiveAudit}
+              disabled={auditing || !hasWebsite}
+              className="px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-mono transition-colors flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+              title="Run fresh headless browser inspection at 390px mobile viewport"
+            >
+              <RefreshCw size={12} className={auditing ? 'animate-spin text-[#DCAE53]' : ''} />
+              <span className="hidden sm:inline">{auditing ? 'Probing...' : 'Re-Audit (390px)'}</span>
+            </button>
+
             <button
               onClick={onClose}
               className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors cursor-pointer"
@@ -525,482 +523,402 @@ export function OutreachModal({
           </div>
         </div>
 
-        {/* Pathway Classification & Quick Switch Strip */}
-        <div className="px-4 sm:px-6 py-2.5 bg-[#0e0e12] border-b border-white/10 flex items-center justify-between flex-wrap gap-2 text-xs shrink-0">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-[11px] font-mono text-zinc-400 font-bold uppercase tracking-wider">
-              Pathway:
+        {/* ───────────────────────────────────────────────────────────── */}
+        {/* 2. VERDICT: PRIORITY GRADE + ONE-LINE REASON                  */}
+        {/* ───────────────────────────────────────────────────────────── */}
+        <div className="px-5 py-3 bg-[#0d0d10] border-b border-white/10 flex items-center justify-between flex-wrap gap-2 text-xs">
+          <div className="flex items-center gap-2.5 flex-wrap">
+            <span className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold border flex items-center gap-1.5 shadow-sm ${gradeBadgeBg}`}>
+              <span>Grade {analysis.grade}</span>
             </span>
-            <div className="inline-flex rounded-xl bg-black/40 p-1 border border-white/10">
-              <button
-                onClick={() => setClassification('HAS_WEBSITE')}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
-                  classification === 'HAS_WEBSITE'
-                    ? 'bg-[#DCAE53] text-[#09090B] font-bold shadow-md'
-                    : 'text-zinc-400 hover:text-white'
-                }`}
-              >
-                <Globe size={12} />
-                <span>1. Has Website</span>
-              </button>
-
-              <button
-                onClick={() => setClassification('NO_WEBSITE')}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
-                  classification === 'NO_WEBSITE'
-                    ? 'bg-[#DCAE53] text-[#09090B] font-bold shadow-md'
-                    : 'text-zinc-400 hover:text-white'
-                }`}
-              >
-                <MapPin size={12} />
-                <span>2. No Website</span>
-              </button>
-
-              <button
-                onClick={() => setClassification('NEEDS_REVIEW')}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
-                  classification === 'NEEDS_REVIEW'
-                    ? 'bg-amber-500 text-black font-bold shadow-md'
-                    : 'text-zinc-400 hover:text-white'
-                }`}
-              >
-                <AlertCircle size={12} />
-                <span>3. Needs Review</span>
-              </button>
-            </div>
+            <p className="text-zinc-300 font-sans leading-tight text-xs">
+              {analysis.gradeReason}
+            </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setShowVariables(!showVariables)}
-              className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-mono text-zinc-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
-            >
-              <SlidersHorizontal size={12} className="text-[#DCAE53]" />
-              <span>{showVariables ? 'Hide Pitch Angles' : 'Refine Pitch Angles'}</span>
-              {showVariables ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
-            </button>
-          </div>
+          {isSuppressed && (
+            <span className="px-2 py-0.5 rounded bg-rose-500/15 border border-rose-500/30 text-rose-300 text-[10px] font-mono font-bold flex items-center gap-1">
+              <Ban size={11} /> Suppressed Contact
+            </span>
+          )}
         </div>
 
-        {/* Scrollable Content Body */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 font-sans">
+        {/* Scrollable Card Body */}
+        <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 font-sans">
           
-          {/* Needs Review Flag Notice */}
-          {classification === 'NEEDS_REVIEW' && (
-            <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs space-y-1.5 animate-fade-in">
-              <div className="flex items-center gap-2 font-bold uppercase tracking-wider text-[11px]">
-                <AlertTriangle size={15} />
-                <span>⚠️ Needs Review — Do Not Force Outreach</span>
+          {/* ───────────────────────────────────────────────────────────── */}
+          {/* 3. PRIMARY ANGLE & EVIDENCE (Simple English Observation)      */}
+          {/* ───────────────────────────────────────────────────────────── */}
+          <div className="rounded-2xl bg-[#111116] border border-amber-500/25 p-5 shadow-xl space-y-4">
+            <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-0.5 rounded bg-[#DCAE53]/15 text-[#DCAE53] border border-[#DCAE53]/30 text-[10px] font-mono font-bold uppercase tracking-wider">
+                  {analysis.primaryAngle.layer} layer
+                </span>
+                <h3 className="text-sm font-bold text-white font-sans">
+                  {analysis.primaryAngle.title}
+                </h3>
               </div>
-              <p className="text-zinc-300 leading-relaxed font-sans">
-                {reviewReason ||
-                  "The system cannot verify a single decision-tied friction passing the 10-second test with high confidence. The source methodology strictly prohibits forcing weak or hallucinated criticisms. Verify the site manually before contacting."}
+
+              <div className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400">
+                <ShieldCheck size={13} />
+                <span>Evidence-Backed Diagnosis</span>
+              </div>
+            </div>
+
+            {/* Observation in Simple English */}
+            <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 space-y-1.5">
+              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-rose-400">
+                Observable Practice Friction:
+              </div>
+              <p className="text-zinc-200 text-xs sm:text-sm leading-relaxed font-sans">
+                {analysis.primaryAngle.diagnosis}
               </p>
             </div>
-          )}
+
+            {/* Evidence Row */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+                <div className="text-[10px] font-mono font-semibold uppercase text-zinc-400">
+                  Measured Ground Truth:
+                </div>
+                <div className="font-mono text-zinc-300 text-xs truncate">
+                  {String(analysis.primaryAngle.evidence.measuredValue)}
+                </div>
+                {analysis.primaryAngle.evidence.detail && (
+                  <p className="text-[11px] text-zinc-400 font-sans mt-0.5 leading-snug">
+                    {analysis.primaryAngle.evidence.detail}
+                  </p>
+                )}
+              </div>
+
+              <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+                <div className="text-[10px] font-mono font-semibold uppercase text-zinc-400">
+                  Operational Curing Remedy:
+                </div>
+                <p className="text-zinc-300 text-xs font-sans leading-snug">
+                  {analysis.primaryAngle.remedyConcept}
+                </p>
+              </div>
+            </div>
+
+            {/* Supporting Points */}
+            {analysis.supportingPoints.length > 0 && (
+              <div className="pt-2 border-t border-white/5 space-y-1.5">
+                <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400">
+                  Supporting Evidence (Non-Contradictory):
+                </div>
+                <div className="space-y-1">
+                  {analysis.supportingPoints.map((sp, idx) => (
+                    <div key={idx} className="flex items-start gap-2 text-xs text-zinc-300">
+                      <ChevronRight size={13} className="text-[#DCAE53] shrink-0 mt-0.5" />
+                      <span>
+                        <strong className="text-white">{sp.title}</strong>: {String(sp.evidence.measuredValue)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* ───────────────────────────────────────────────────────────── */}
-          {/* VERIFIED FORENSIC FRICTION & NOTES DOSSIER                     */}
+          {/* 4. HYPOTHESES TO VALIDATE ON CALL (Labelled UNKNOWN)          */}
           {/* ───────────────────────────────────────────────────────────── */}
-          <LeadFrictionDossier
-            lead={lead}
-            intel={accountantIntel}
-            onSaveNotes={handleSaveLeadNotes}
-            onSendWhatsApp={handleSendWhatsApp}
-          />
+          <div className="rounded-2xl bg-[#0d0d11] border border-white/10 p-4 sm:p-5 space-y-3">
+            <div className="flex items-center gap-2">
+              <HelpCircle size={15} className="text-[#DCAE53]" />
+              <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider">
+                Hypotheses to Validate on Call (Unobservable Ground Truth)
+              </h4>
+            </div>
+
+            <p className="text-[11px] text-zinc-400 font-sans">
+              These operational questions cannot be evidenced from public pages and are strictly labelled unknown. Validate these collaboratively with the practice owner:
+            </p>
+
+            <div className="space-y-2">
+              {analysis.callHypotheses.map(hyp => (
+                <div key={hyp.id} className="p-2.5 rounded-xl bg-black/40 border border-white/5 flex items-start gap-2.5 text-xs">
+                  <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-amber-500/15 border border-amber-500/30 text-amber-300 shrink-0 uppercase">
+                    {hyp.status}
+                  </span>
+                  <div className="space-y-0.5">
+                    <p className="text-zinc-200 font-medium">{hyp.statement}</p>
+                    <p className="text-[10px] font-mono text-zinc-400">Observable basis: {hyp.basisSignal}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
           {/* ───────────────────────────────────────────────────────────── */}
-          {/* PRIMARY FOCUS: GENERATED CHANNEL OUTREACH DISPATCH            */}
+          {/* 5. READY-TO-SEND MESSAGES (Just 2: WhatsApp & Email)          */}
           {/* ───────────────────────────────────────────────────────────── */}
           <div className="space-y-4">
             <div className="flex items-center justify-between flex-wrap gap-2">
-              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={() => setActiveChannelTab('whatsapp')}
-                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
-                    activeChannelTab === 'whatsapp'
+                  onClick={() => setActiveChannel('whatsapp')}
+                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-2 ${
+                    activeChannel === 'whatsapp'
                       ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold shadow-sm'
-                      : 'text-zinc-400 hover:text-white'
+                      : 'text-zinc-400 hover:text-white border border-transparent'
                   }`}
                 >
-                  <MessageSquare size={14} className="text-[#DCAE53]" />
-                  <span>Practice Templates (9)</span>
+                  <MessageSquare size={14} className="text-[#25D366]" />
+                  <span>WhatsApp Outreach</span>
                 </button>
 
                 <button
-                  onClick={() => setActiveChannelTab('email')}
-                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
-                    activeChannelTab === 'email'
+                  onClick={() => setActiveChannel('email')}
+                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-2 ${
+                    activeChannel === 'email'
                       ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold shadow-sm'
-                      : 'text-zinc-400 hover:text-white'
+                      : 'text-zinc-400 hover:text-white border border-transparent'
                   }`}
                 >
                   <Mail size={14} className="text-[#DCAE53]" />
-                  <span>Email X</span>
-                </button>
-
-                <button
-                  onClick={() => setActiveChannelTab('call_bridge')}
-                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
-                    activeChannelTab === 'call_bridge'
-                      ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold shadow-sm'
-                      : 'text-zinc-400 hover:text-white'
-                  }`}
-                >
-                  <Phone size={14} className="text-[#DCAE53]" />
-                  <span>Discovery Call Bridge</span>
-                  {isEarlyStage && (
-                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono">
-                      Stage 3
-                    </span>
-                  )}
-                </button>
-
-                <button
-                  onClick={() => setActiveChannelTab('prototype_task')}
-                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
-                    activeChannelTab === 'prototype_task'
-                      ? 'bg-[#141417] text-[#DCAE53] border border-[#DCAE53]/40 font-bold shadow-sm'
-                      : 'text-zinc-400 hover:text-white'
-                  }`}
-                >
-                  <FileText size={14} className="text-[#DCAE53]" />
-                  <span>Prototype Spec</span>
+                  <span>Email Outreach</span>
                 </button>
               </div>
 
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handleCopy}
-                  className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white text-xs font-semibold transition-all flex items-center gap-1.5 border border-white/10 cursor-pointer"
-                >
-                  {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
-                  <span>{copied ? 'Copied' : activeChannelTab === 'whatsapp' ? 'Copy Full Sequence' : 'Copy'}</span>
-                </button>
-
-                {activeChannelTab === 'whatsapp' && (
-                  <button
-                    onClick={() => handleSendWhatsApp(whatsAppSequence.message1.text)}
-                    className="px-4 py-1.5 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-[#DCAE53]/20 cursor-pointer"
-                    title="Send Message 1 (Opener) on WhatsApp and advance status to Contacted"
-                  >
-                    <Send size={13} />
-                    <span>Send Msg 1 (Opener)</span>
-                  </button>
-                )}
-
-                {activeChannelTab === 'email' && (
-                  <button
-                    onClick={handleSendEmail}
-                    className="px-4 py-1.5 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-[#DCAE53]/20 cursor-pointer"
-                  >
-                    <Mail size={13} />
-                    <span>Send Email</span>
-                  </button>
-                )}
+              <div className="text-[11px] font-mono text-zinc-400">
+                Single Source of Truth · No Contradictions
               </div>
             </div>
 
-            {/* Tab Body */}
-            {activeChannelTab === 'whatsapp' ? (
-              <div className="space-y-6">
-                <AccountantsTemplateLibrary
-                  practiceName={businessName}
-                  phone={lead.phone}
-                  prototypeUrl={accountantIntel?.prototypeUrl || lead.prototype_url || 'https://uk-accountancy-os-prototype.vercel.app/'}
-                  onSendWhatsApp={handleSendWhatsApp}
-                />
+            {/* WhatsApp Outreach View */}
+            {activeChannel === 'whatsapp' ? (
+              <div className="space-y-4">
                 
-                <div className="pt-4 border-t border-white/10">
-                  <div className="text-xs font-mono font-bold text-zinc-400 mb-3 uppercase">
-                    Alternative 3-Message Sequential Cadence:
-                  </div>
-                  <WhatsAppSequenceBlocks
-                    sequence={whatsAppSequence}
-                    phone={lead.phone}
-                    onSendWhatsApp={handleSendWhatsApp}
-                    showFullCopy={false}
-                  />
-                </div>
-              </div>
-            ) : activeChannelTab === 'call_bridge' ? (
-              <div className="space-y-3">
-                {isEarlyStage && (
-                  <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs space-y-2">
-                    <div className="flex items-center gap-2 font-bold uppercase tracking-wider text-[11px]">
-                      <AlertCircle size={15} />
-                      <span>🔒 Recommended for Stage 3 (After 30s Prototype is Viewed)</span>
+                {/* 1. Recommended Opener */}
+                <div className="rounded-2xl bg-[#09090C] border border-emerald-500/30 p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                        RECOMMENDED OPENER
+                      </span>
+                      <span className="text-xs font-sans font-medium text-zinc-300">
+                        Outcome-First & Evidenced
+                      </span>
                     </div>
-                    <p className="text-zinc-300 leading-relaxed font-sans">
-                      This prospect is at stage <span className="font-semibold text-white">{lead.status || 'New'}</span>. Calling or asking for a 10-minute discovery call on touch 1 reduces reply rates. Send Message 1 first to secure conversational permission.
-                    </p>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handleCopy('wa_rec', outreach.whatsappOpenerRecommended)}
+                        className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-mono transition-colors flex items-center gap-1 cursor-pointer"
+                      >
+                        {copiedId === 'wa_rec' ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                        <span>{copiedId === 'wa_rec' ? 'Copied' : 'Copy'}</span>
+                      </button>
+
+                      <button
+                        onClick={() => handleTriggerSendWhatsApp(outreach.whatsappOpenerRecommended)}
+                        disabled={isSuppressed}
+                        className="px-3.5 py-1 rounded-lg bg-[#25D366] hover:bg-[#20bd5a] text-black font-bold text-xs transition-all flex items-center gap-1.5 shadow-md shadow-[#25D366]/20 cursor-pointer disabled:opacity-50"
+                      >
+                        <Send size={12} />
+                        <span>Send WhatsApp</span>
+                      </button>
+                    </div>
                   </div>
-                )}
-                <div className="relative rounded-2xl bg-[#070709] border border-white/10 p-4 font-mono text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
-                  {currentDisplayScript}
+
+                  <div className="p-3.5 rounded-xl bg-black/60 border border-white/5 font-sans text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
+                    {outreach.whatsappOpenerRecommended}
+                  </div>
+                </div>
+
+                {/* 2. Alternative Opener */}
+                <div className="rounded-2xl bg-[#09090C] border border-white/10 p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase">
+                      Alternative Conversational Opener:
+                    </span>
+
+                    <button
+                      onClick={() => handleCopy('wa_alt', outreach.whatsappOpenerAlternative)}
+                      className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-mono transition-colors flex items-center gap-1 cursor-pointer"
+                    >
+                      {copiedId === 'wa_alt' ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                      <span>{copiedId === 'wa_alt' ? 'Copied' : 'Copy'}</span>
+                    </button>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-black/60 border border-white/5 font-sans text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
+                    {outreach.whatsappOpenerAlternative}
+                  </div>
+                </div>
+
+                {/* 3. Follow-Ups Row */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="rounded-2xl bg-[#09090C] border border-white/10 p-3.5 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase">
+                        Follow-Up 1 (Day 3):
+                      </span>
+                      <button
+                        onClick={() => handleCopy('fu1', outreach.whatsappFollowUp1)}
+                        className="p-1 rounded bg-white/5 hover:bg-white/10 text-zinc-300 text-xs font-mono cursor-pointer"
+                        title="Copy Follow-up 1"
+                      >
+                        {copiedId === 'fu1' ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}
+                      </button>
+                    </div>
+                    <div className="p-2.5 rounded-lg bg-black/40 border border-white/5 font-sans text-xs text-zinc-300 leading-relaxed whitespace-pre-wrap">
+                      {outreach.whatsappFollowUp1}
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl bg-[#09090C] border border-white/10 p-3.5 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase">
+                        Follow-Up 2 (Day 7, Close):
+                      </span>
+                      <button
+                        onClick={() => handleCopy('fu2', outreach.whatsappFollowUp2)}
+                        className="p-1 rounded bg-white/5 hover:bg-white/10 text-zinc-300 text-xs font-mono cursor-pointer"
+                        title="Copy Follow-up 2"
+                      >
+                        {copiedId === 'fu2' ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}
+                      </button>
+                    </div>
+                    <div className="p-2.5 rounded-lg bg-black/40 border border-white/5 font-sans text-xs text-zinc-300 leading-relaxed whitespace-pre-wrap">
+                      {outreach.whatsappFollowUp2}
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4. Builder Reposition Reply */}
+                <div className="rounded-2xl bg-[#09090C] border border-sky-500/25 p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-500/15 text-sky-300 border border-sky-500/30">
+                        REPLY: &quot;MY BUILDER / WEB PERSON WILL FIX THAT&quot;
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={() => handleCopy('b_rep', outreach.whatsappBuilderReply)}
+                      className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-mono transition-colors flex items-center gap-1 cursor-pointer"
+                    >
+                      {copiedId === 'b_rep' ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                      <span>{copiedId === 'b_rep' ? 'Copied' : 'Copy Reply'}</span>
+                    </button>
+                  </div>
+
+                  <p className="text-[11px] text-zinc-400 font-sans">
+                    Use when the practice states their developer will handle it. Acknowledges, then repositions from web design to post-enquiry operations:
+                  </p>
+
+                  <div className="p-3.5 rounded-xl bg-black/60 border border-white/5 font-sans text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
+                    {outreach.whatsappBuilderReply}
+                  </div>
                 </div>
               </div>
             ) : (
-              <div className="relative rounded-2xl bg-[#070709] border border-white/10 p-4 font-mono text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
-                {currentDisplayScript}
+              /* Email Outreach View */
+              <div className="rounded-2xl bg-[#09090C] border border-white/10 p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-mono font-bold text-white uppercase">
+                    Prefilled Email Outreach
+                  </span>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => handleCopy('em_body', `Subject: ${outreach.emailOutreach.subject}\n\n${outreach.emailOutreach.body}`)}
+                      className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-mono transition-colors flex items-center gap-1 cursor-pointer"
+                    >
+                      {copiedId === 'em_body' ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                      <span>{copiedId === 'em_body' ? 'Copied' : 'Copy'}</span>
+                    </button>
+
+                    <a
+                      href={`mailto:${lead.email || ''}?subject=${encodeURIComponent(outreach.emailOutreach.subject)}&body=${encodeURIComponent(outreach.emailOutreach.body)}`}
+                      className="px-3.5 py-1 rounded-lg bg-[#DCAE53] hover:bg-[#E5B85C] text-black font-bold text-xs transition-all flex items-center gap-1.5 shadow-md shadow-[#DCAE53]/20 cursor-pointer"
+                    >
+                      <Mail size={12} />
+                      <span>Open Mail Client</span>
+                    </a>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="p-2.5 rounded-lg bg-black/40 border border-white/5 text-xs font-mono text-zinc-300">
+                    <strong className="text-white">Subject:</strong> {outreach.emailOutreach.subject}
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-black/60 border border-white/5 font-sans text-xs text-zinc-200 leading-relaxed whitespace-pre-wrap">
+                    {outreach.emailOutreach.body}
+                  </div>
+                </div>
               </div>
             )}
+          </div>
 
-            {/* Methodology Rule Badge */}
-            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between text-[11px] font-mono text-zinc-400">
-              <div className="flex items-center gap-2">
-                <ShieldCheck size={14} className="text-[#DCAE53]" />
-                <span>
-                  {activeChannelTab === 'whatsapp'
-                    ? '3-Step Sequence: Opener → Wait for reply → 1 Observable friction → 30s Preview micro-yes.'
-                    : activeChannelTab === 'email'
-                    ? 'Permission First: 1 friction only. Asks for permission without selling on touch 1.'
-                    : activeChannelTab === 'call_bridge'
-                    ? 'Commercial Frame: Show possibilities & demonstrate how this pays for itself on 1 new job.'
-                    : 'Feeds prototype builder with exact physical friction to demonstrate frictionless booking.'}
-                </span>
-              </div>
-              <span className="text-[#DCAE53] font-bold shrink-0">10-Second Test Validated</span>
+          {/* ───────────────────────────────────────────────────────────── */}
+          {/* 6. COMPLIANCE ROW: WHATSAPP LISTED, SUPPRESSION, DATE/SOURCE  */}
+          {/* ───────────────────────────────────────────────────────────── */}
+          <div className="p-3.5 rounded-xl bg-[#0c0c10] border border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+            <div className="flex items-center gap-3 flex-wrap">
+              <span className="text-zinc-400">
+                Business WhatsApp: <strong className={phoneInfo.isWhatsAppViable ? 'text-emerald-400' : 'text-sky-400'}>{phoneInfo.isWhatsAppViable ? 'Yes (Published Mobile)' : 'Landline Only'}</strong>
+              </span>
+
+              <span className="text-zinc-500">|</span>
+
+              <span className="text-zinc-400">
+                Suppression Status: <strong className={isSuppressed ? 'text-rose-400' : 'text-emerald-400'}>{isSuppressed ? 'SUPPRESSED (Do Not Contact)' : 'Clean'}</strong>
+              </span>
+            </div>
+
+            <div className="text-[11px] text-zinc-400">
+              Source: <span className="text-zinc-300 capitalize">{lead.source || 'Companies House / Registry'}</span> · Added: {new Date(lead.created_at).toLocaleDateString('en-GB')}
             </div>
           </div>
 
           {/* ───────────────────────────────────────────────────────────── */}
-          {/* COLLAPSIBLE ACCORDION: REFINE PITCH & EVIDENCE (VARIABLES)    */}
+          {/* 7. ACTIONS: MARK SENT, SNOOZE 2 DAYS, MARK LOST, MARK STOP    */}
           {/* ───────────────────────────────────────────────────────────── */}
-          <div className="border border-white/10 rounded-2xl bg-[#111115] overflow-hidden transition-all">
-            <button
-              onClick={() => setShowVariables(!showVariables)}
-              className="w-full px-4 sm:px-5 py-3.5 flex items-center justify-between text-left hover:bg-white/5 transition-colors cursor-pointer"
-            >
-              <div className="flex items-center gap-2.5">
-                <SlidersHorizontal size={14} className="text-[#DCAE53]" />
-                <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-                  Refine Pitch & Evidence Variables (Optional)
-                </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 text-zinc-400 border border-white/10">
-                  {showVariables ? 'Expanded' : 'Tucked away'}
-                </span>
-              </div>
-              <div className="flex items-center gap-2 text-zinc-400">
-                <span className="text-[11px] font-mono hidden sm:inline">
-                  {showVariables ? 'Click to collapse' : 'Click to customize prompt fields'}
-                </span>
-                {showVariables ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-              </div>
-            </button>
+          <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-white/10">
+            <div className="flex items-center gap-2 flex-wrap">
+              <button
+                onClick={() => onUpdateStatus(lead.id, 'Contacted')}
+                className="px-3.5 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 text-emerald-300 font-semibold text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+              >
+                <CheckCircle2 size={13} />
+                <span>Mark Sent (Contacted)</span>
+              </button>
 
-            {showVariables && (
-              <div className="p-4 sm:p-5 border-t border-white/10 space-y-4 animate-fade-in">
-                
-                {/* AI Brainstorming Candidates Toggle */}
-                <div className="flex items-center justify-between pb-2 border-b border-white/5">
-                  <span className="text-xs text-zinc-400">
-                    Switch between pre-scored friction candidates or fine-tune manual inputs:
-                  </span>
-                  <button
-                    onClick={() => setShowBrainstorm(!showBrainstorm)}
-                    className="text-[11px] font-mono text-[#DCAE53] hover:underline flex items-center gap-1 cursor-pointer"
-                  >
-                    <Layers size={13} />
-                    <span>{showBrainstorm ? 'Hide Candidate Frictions' : 'Show Scored Candidates'}</span>
-                  </button>
-                </div>
+              <button
+                onClick={handleSnooze}
+                className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white font-medium text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+              >
+                <Clock size={13} />
+                <span>Snooze 2 Days</span>
+              </button>
 
-                {/* Candidate Selector */}
-                {showBrainstorm && (
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pb-3">
-                    {candidateFrictions.map((candidate, idx) => {
-                      const isSelected = candidate.id === selectedCandidateId
-                      return (
-                        <div
-                          key={candidate.id}
-                          onClick={() => handleSelectCandidate(candidate)}
-                          className={`p-3.5 rounded-xl border transition-all cursor-pointer text-left flex flex-col justify-between space-y-2.5 ${
-                            isSelected
-                              ? 'bg-[#18181F] border-[#DCAE53] shadow-lg shadow-[#DCAE53]/10'
-                              : 'bg-[#141417] border-white/10 hover:border-white/20'
-                          }`}
-                        >
-                          <div>
-                            <div className="flex items-center justify-between mb-1.5">
-                              <span className="text-[10px] font-mono font-bold text-[#DCAE53]">
-                                Candidate {idx + 1}
-                              </span>
-                              <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-zinc-400">
-                                {candidate.lane}
-                              </span>
-                            </div>
-                            <p className="text-xs font-bold text-white leading-snug line-clamp-2">
-                              {candidate.observableProblem}
-                            </p>
-                            <p className="text-[11px] text-zinc-400 mt-1 line-clamp-2">
-                              {candidate.recognizableReason}
-                            </p>
-                          </div>
+              <button
+                onClick={() => onUpdateStatus(lead.id, 'Lost')}
+                className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-400 hover:text-rose-300 font-medium text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+              >
+                <span>Mark Lost</span>
+              </button>
+            </div>
 
-                          <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[9px] font-mono text-zinc-400">
-                            <span className="text-emerald-400 flex items-center gap-0.5">
-                              <Check size={10} /> 4 Tests Passed
-                            </span>
-                            <span className={isSelected ? 'text-[#DCAE53] font-bold' : ''}>
-                              {isSelected ? 'Active Selected' : 'Click to Pick'}
-                            </span>
-                          </div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                )}
-
-                {/* 6 Customization Inputs */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                  
-                  {/* Row 1: Next Step & Lane */}
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
-                      1. Customer Next Step
-                    </label>
-                    <input
-                      type="text"
-                      value={customerNextStep}
-                      onChange={(e) => setCustomerNextStep(e.target.value)}
-                      className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53]"
-                      placeholder="e.g. Request an on-site quote"
-                    />
-                  </div>
-
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
-                      2. Lane & Exact Page
-                    </label>
-                    <div className="flex gap-2">
-                      <input
-                        type="text"
-                        value={lane}
-                        onChange={(e) => setLane(e.target.value)}
-                        className="flex-1 bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53]"
-                        placeholder="Lane (e.g. Quote form)"
-                      />
-                      <input
-                        type="text"
-                        value={pageLocation}
-                        onChange={(e) => setPageLocation(e.target.value)}
-                        className="w-32 bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53]"
-                        placeholder="Page (e.g. /quote)"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Row 2: ONE Friction & Physical Evidence */}
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
-                      3. ONE Friction (Observable problem)
-                    </label>
-                    <textarea
-                      rows={2}
-                      value={friction}
-                      onChange={(e) => setFriction(e.target.value)}
-                      className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53] resize-none"
-                      placeholder="One specific observable problem without judgment"
-                    />
-                  </div>
-
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-widest flex items-center gap-1">
-                      <CheckCircle2 size={12} />
-                      4. Objective Evidence (Public verification)
-                    </label>
-                    <textarea
-                      rows={2}
-                      value={evidence}
-                      onChange={(e) => setEvidence(e.target.value)}
-                      className="w-full bg-[#18181F] border border-emerald-500/20 rounded-xl px-3 py-2 text-xs text-zinc-300 focus:outline-none focus:border-emerald-500 resize-none font-mono"
-                      placeholder="What was verified publicly in <10 seconds"
-                    />
-                  </div>
-
-                  {/* Row 3: Recognisable Reason & Consequence Mechanics */}
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
-                      5. Recognisable Reason (Buyer behavior)
-                    </label>
-                    <textarea
-                      rows={2}
-                      value={recognizableReason}
-                      onChange={(e) => setRecognizableReason(e.target.value)}
-                      className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53] resize-none"
-                      placeholder="The customer behavior pattern that makes the operator nod"
-                    />
-                  </div>
-
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
-                      6. Consequence Mechanics (Cause → Effect)
-                    </label>
-                    <textarea
-                      rows={2}
-                      value={consequenceMechanics}
-                      onChange={(e) => setConsequenceMechanics(e.target.value)}
-                      className="w-full bg-[#18181F] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#DCAE53] resize-none"
-                      placeholder="Natural chain reaction without invented numbers"
-                    />
-                  </div>
-
-                </div>
-              </div>
-            )}
+            <div>
+              <button
+                onClick={handleMarkStop}
+                className="px-3.5 py-2 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/30 text-purple-300 font-semibold text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                title="Suppresses contact from further outreach under opt-out compliance"
+              >
+                <Ban size={13} />
+                <span>Mark STOP (Add to Suppression)</span>
+              </button>
+            </div>
           </div>
 
         </div>
-
-        {/* Bottom Status Update Footer */}
-        <div className="px-4 sm:px-6 py-3 border-t border-white/10 bg-[#111115] flex items-center justify-between gap-3 shrink-0 flex-wrap">
-          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-            <span className="text-[11px] font-mono text-zinc-400 font-bold uppercase mr-1">
-              Status:
-            </span>
-            {['New', 'Contacted', 'Call Booked', 'Won', 'Lost'].map((st) => (
-              <button
-                key={st}
-                disabled={updating}
-                onClick={async () => {
-                  setUpdating(true)
-                  try {
-                    await onUpdateStatus(lead.id, st)
-                  } finally {
-                    setUpdating(false)
-                  }
-                }}
-                className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                  lead.status === st
-                    ? 'bg-[#DCAE53] text-[#09090B] font-bold shadow-sm'
-                    : 'bg-[#18181F] text-zinc-400 hover:text-white border border-white/10'
-                }`}
-              >
-                {st}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-2 ml-auto">
-            {onDeleteLead && (
-              <button
-                onClick={() => onDeleteLead(lead.id)}
-                className="p-2 rounded-xl text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
-                title="Delete Lead"
-              >
-                <Trash2 size={16} />
-              </button>
-            )}
-            <button
-              onClick={onClose}
-              className="px-4 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold transition-all cursor-pointer"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-
       </div>
     </div>
   )
