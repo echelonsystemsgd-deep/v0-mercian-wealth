@@ -74,10 +74,10 @@ export function WebsitePreviewClient({ activeUrl }: { activeUrl: string }) {
             </div>
           </div>
         ) : (
-          /* Iframe — no sandbox so the embedded site runs fully unrestricted */
+          /* Iframe — proxied through /api/preview-proxy to strip SAMEORIGIN framing headers */
           <iframe
             key={iframeKey}
-            src={activeUrl}
+            src={`/api/preview-proxy?url=${encodeURIComponent(activeUrl)}`}
             title="Site Preview"
             className="w-full h-full border-0 block"
             onError={() => setLoadFailed(true)}

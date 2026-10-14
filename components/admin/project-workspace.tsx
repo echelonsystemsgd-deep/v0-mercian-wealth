@@ -843,7 +843,17 @@ Important Notice: As stipulated in your service agreement, consistent delays in 
                 {previewUrl && (
                   <div className="pt-4 border-t border-gold/10 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Staging Viewport Console</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Staging Viewport Console</span>
+                        <a
+                          href={getValidUrl(previewUrl)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 text-[9px] font-bold uppercase tracking-wider transition-all"
+                        >
+                          <ExternalLink size={10} /> Launch Prototype
+                        </a>
+                      </div>
                       <div className="flex bg-black/40 border border-gold/10 p-0.5 rounded-lg text-[8px] font-bold">
                         <button
                           type="button"
@@ -874,6 +884,7 @@ Important Notice: As stipulated in your service agreement, consistent delays in 
                       const paddingOffset = 32;
                       const availableWidth = containerWidth ? containerWidth - paddingOffset : 0;
                       const scale = availableWidth && availableWidth < targetWidth ? availableWidth / targetWidth : 1;
+                      const proxiedSrc = `/api/preview-proxy?url=${encodeURIComponent(getValidUrl(previewUrl))}`;
 
                       return (
                         <div ref={previewContainerRef} className="flex justify-center bg-black/60 rounded-xl p-4 border border-gold/5 relative overflow-hidden w-full">
@@ -897,10 +908,10 @@ Important Notice: As stipulated in your service agreement, consistent delays in 
                               }}
                             >
                               <iframe 
-                                src={getValidUrl(previewUrl)} 
+                                src={proxiedSrc} 
                                 title="Staging Viewport Preview" 
                                 className={`w-full h-full border-0 ${isSandboxInteractive ? 'pointer-events-auto' : 'pointer-events-none'}`}
-                                sandbox="allow-scripts allow-same-origin"
+                                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
                               />
 
                               {!isSandboxInteractive && (

@@ -198,63 +198,104 @@ export function LeadWorkspaceClient({ lead: initialLead, sessions, activities }:
         </div>
       )}
 
-      {/* ─────────────────── STICKY HEADER ─────────────────── */}
-      <div className="sticky top-0 z-30 bg-[#050505]/95 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+      {/* ─────────────────── COMPACT STICKY HEADER (z-10) ─────────────────── */}
+      <div className="sticky top-0 z-10 bg-[#050505]/95 backdrop-blur-md border-b border-white/10 shadow-sm">
+        <div className="max-w-3xl mx-auto px-3 sm:px-6">
 
-          {/* Row 1: Back + business name + status badge + overflow menu */}
-          <div className="flex items-center gap-2 sm:gap-3 py-3">
+          {/* Compact Single Bar: Back + Identity + Actions + Overflow */}
+          <div className="flex items-center gap-2 sm:gap-3 py-2 sm:py-2.5">
             <Link
               href="/admin/leads"
-              className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition-all shrink-0"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition-all shrink-0"
+              title="Back to Leads"
             >
-              <ArrowLeft size={15} />
+              <ArrowLeft size={14} />
             </Link>
 
             <div className="flex-1 min-w-0">
-              <h1 className="font-sans font-bold text-base sm:text-lg text-white truncate leading-tight">
-                {businessName}
-              </h1>
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-0 mt-0.5">
-                {!hasWebsite ? (
-                  <span className="text-[11px] text-amber-400 font-medium">No website</span>
-                ) : (
-                  <span className="text-[11px] text-emerald-400 font-medium">Has website</span>
-                )}
+              <div className="flex items-center gap-2">
+                <h1 className="font-sans font-bold text-sm sm:text-base text-white truncate leading-tight">
+                  {businessName}
+                </h1>
+                <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium shrink-0 ${
+                  hasWebsite ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                }`}>
+                  {hasWebsite ? 'Site' : 'No site'}
+                </span>
+              </div>
+              <div className="flex items-center gap-x-2 text-[10px] text-zinc-400 mt-0.5 truncate">
                 {reviewsCount > 0 && (
-                  <>
-                    <span className="text-zinc-700">·</span>
-                    <span className="flex items-center gap-0.5 text-[11px] text-amber-400">
-                      <Star size={9} className="fill-amber-400" /> {rating} ({reviewsCount})
-                    </span>
-                  </>
+                  <span className="flex items-center gap-0.5 text-amber-400 shrink-0">
+                    <Star size={9} className="fill-amber-400" /> {rating} ({reviewsCount})
+                  </span>
                 )}
                 {address && address !== 'UK Regional' && (
-                  <>
-                    <span className="text-zinc-700">·</span>
-                    <span className="flex items-center gap-1 text-[11px] text-zinc-500">
-                      <MapPin size={9} className="text-zinc-600" />
-                      {address.split(',')[0]}
-                    </span>
-                  </>
+                  <span className="flex items-center gap-0.5 text-zinc-500 truncate">
+                    <MapPin size={8} className="text-zinc-600 shrink-0" />
+                    {address.split(',')[0]}
+                  </span>
                 )}
               </div>
             </div>
 
-            {/* Status badge */}
-            <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#141417] border border-white/10 shrink-0">
+            {/* Quick Actions (Compact) */}
+            <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+              {lead.phone && (
+                <button
+                  onClick={() => engine.handleWhatsApp()}
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-black text-[11px] font-bold transition-all cursor-pointer shadow-sm"
+                  title="Open WhatsApp"
+                >
+                  <MessageSquare size={11} /> <span className="hidden sm:inline">WhatsApp</span>
+                </button>
+              )}
+              {lead.phone && (
+                <a
+                  href={`tel:${lead.phone}`}
+                  className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 text-[11px] font-medium transition-all"
+                  title="Direct Call"
+                >
+                  <Phone size={10} /> <span>Call</span>
+                </a>
+              )}
+              {hasWebsite && rawWebsite && (
+                <a
+                  href={rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 text-[11px] font-medium transition-all"
+                  title="Visit Website"
+                >
+                  <Globe size={10} /> <span>Site</span>
+                </a>
+              )}
+              {protoUrl && (
+                <a
+                  href={protoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-[#DAA640]/15 hover:bg-[#DAA640]/25 border border-[#DAA640]/20 text-[#DAA640] text-[11px] font-medium transition-all"
+                  title="View Prototype"
+                >
+                  <Zap size={10} /> <span>Demo</span>
+                </a>
+              )}
+            </div>
+
+            {/* Status badge (Compact) */}
+            <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-[#141417] border border-white/10 shrink-0">
               <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${STATUS_DOT[lead.status] || 'bg-zinc-400'}`} />
-              <span className="text-xs font-medium text-zinc-300">{lead.status}</span>
+              <span className="text-[11px] font-medium text-zinc-300 hidden sm:inline">{lead.status}</span>
             </div>
 
             {/* Overflow menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition-all cursor-pointer shrink-0">
-                  <MoreHorizontal size={15} />
+                <button className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition-all cursor-pointer shrink-0">
+                  <MoreHorizontal size={14} />
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-52 bg-[#141417] border border-white/10 text-zinc-300">
+              <DropdownMenuContent align="end" className="w-52 bg-[#141417] border border-white/10 text-zinc-300 z-50">
                 <div className="px-3 py-2 border-b border-white/5">
                   <p className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">Update status</p>
                 </div>
@@ -287,56 +328,35 @@ export function LeadWorkspaceClient({ lead: initialLead, sessions, activities }:
             </DropdownMenu>
           </div>
 
-          {/* Row 2: Quick action buttons */}
-          <div className="flex items-center gap-1.5 sm:gap-2 pb-3 overflow-x-auto scrollbar-none">
-            {lead.phone && (
-              <a
-                href={`tel:${lead.phone}`}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-medium transition-all shrink-0"
-              >
-                <Phone size={12} /> Call
-              </a>
-            )}
-            {lead.phone && (
+          {/* Slim Tab bar */}
+          <div className="flex border-t border-white/5 overflow-x-auto scrollbar-none">
+            {TABS.map((tab) => (
               <button
-                onClick={() => engine.handleWhatsApp()}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-zinc-200 text-black text-xs font-semibold transition-all cursor-pointer shrink-0"
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex-shrink-0 py-2 sm:py-2.5 px-3 sm:px-4 text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer border-b-2 ${
+                  activeTab === tab.id
+                    ? 'text-white border-[#DAA640]'
+                    : 'text-zinc-500 hover:text-zinc-300 border-transparent'
+                }`}
               >
-                <MessageSquare size={12} /> WhatsApp
+                {tab.label}
               </button>
-            )}
-            {lead.email && (
-              <a
-                href={`mailto:${lead.email}`}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-medium transition-all shrink-0"
-              >
-                <Mail size={12} /> Email
-              </a>
-            )}
-            {hasWebsite && rawWebsite && (
-              <a
-                href={rawWebsite.startsWith('http') ? rawWebsite : `https://${rawWebsite}`}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-medium transition-all shrink-0"
-              >
-                <Globe size={12} /> Website <ExternalLink size={9} />
-              </a>
-            )}
-            {protoUrl && (
-              <a
-                href={protoUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#DAA640]/15 hover:bg-[#DAA640]/25 border border-[#DAA640]/20 text-[#DAA640] text-xs font-medium transition-all shrink-0"
-              >
-                <Zap size={12} /> Prototype <ExternalLink size={9} />
-              </a>
-            )}
+            ))}
           </div>
+        </div>
+      </div>
 
-          {/* Row 3: Pipeline stage progress */}
-          <div className="flex items-stretch gap-1 pb-3 overflow-x-auto scrollbar-none">
+      {/* ─────────────────── SCROLLABLE BODY CONTENT ─────────────────── */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4 pb-24 space-y-4">
+        
+        {/* Pipeline Stage Progress (Scrolls naturally, never blocks view) */}
+        <div className="p-3 rounded-xl bg-[#0F0F13] border border-white/5 space-y-2">
+          <div className="flex items-center justify-between text-[10px] font-mono text-zinc-500 uppercase">
+            <span>Pipeline Progression</span>
+            <span className="text-[#DAA640] font-bold">Stage: {lead.status}</span>
+          </div>
+          <div className="flex items-stretch gap-1 overflow-x-auto scrollbar-none">
             {PIPELINE_STAGES.map((stage, index) => {
               const isCompleted = index < currentStageIndex
               const isCurrent = index === currentStageIndex
@@ -345,25 +365,25 @@ export function LeadWorkspaceClient({ lead: initialLead, sessions, activities }:
                   key={stage.id}
                   onClick={() => handleUpdateStatus(stage.id)}
                   title={`Set status to ${stage.id}`}
-                  className={`flex-1 min-w-[52px] flex flex-col items-center gap-1 py-1.5 px-1 rounded-lg transition-all cursor-pointer ${
+                  className={`flex-1 min-w-[50px] flex flex-col items-center gap-1 py-1.5 px-1 rounded-lg transition-all cursor-pointer ${
                     isCurrent
-                      ? 'bg-[#DAA640]/10'
+                      ? 'bg-[#DAA640]/10 border border-[#DAA640]/30'
                       : isCompleted
                       ? 'hover:bg-white/5'
                       : 'hover:bg-white/3'
                   }`}
                 >
                   <div
-                    className={`h-0.5 w-full rounded-full transition-all ${
+                    className={`h-1 w-full rounded-full transition-all ${
                       isCompleted || isCurrent ? 'bg-[#DAA640]' : 'bg-white/10'
                     }`}
                   />
                   <span
-                    className={`text-[9px] sm:text-[10px] font-mono uppercase tracking-wider whitespace-nowrap ${
+                    className={`text-[9px] font-mono uppercase tracking-wider whitespace-nowrap ${
                       isCurrent
                         ? 'text-[#DAA640] font-bold'
                         : isCompleted
-                        ? 'text-zinc-400'
+                        ? 'text-zinc-300'
                         : 'text-zinc-600'
                     }`}
                   >
@@ -374,27 +394,6 @@ export function LeadWorkspaceClient({ lead: initialLead, sessions, activities }:
             })}
           </div>
         </div>
-
-        {/* Tab bar */}
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 flex border-t border-white/5 overflow-x-auto scrollbar-none">
-          {TABS.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex-shrink-0 py-3 px-3 sm:px-5 text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer border-b-2 ${
-                activeTab === tab.id
-                  ? 'text-white border-[#DAA640]'
-                  : 'text-zinc-500 hover:text-zinc-300 border-transparent'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* ─────────────────── TAB CONTENT ─────────────────── */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-5 pb-24">
         {activeTab === 'overview' && (
           <OverviewTab
             lead={lead}

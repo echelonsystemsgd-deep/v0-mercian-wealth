@@ -44,7 +44,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         {/* Zone 3 & 4 Container */}
         <div className="flex-1 flex flex-col min-w-0 relative z-10 h-dvh">
           {/* Top bar */}
-          <header className="sticky top-0 z-20 h-14 border-b border-white/10 bg-[#0B0B0D]/90 backdrop-blur-md flex items-center px-4 sm:px-8 gap-4">
+          <header className="sticky top-0 z-30 h-14 border-b border-white/10 bg-[#0B0B0D]/90 backdrop-blur-md flex items-center px-4 sm:px-8 gap-4">
             <div className="w-10 lg:hidden shrink-0" />
             <AdminCommandPalette />
             <div className="flex-1" />

@@ -37,9 +37,9 @@ Hi team 👋 We came across Aggarwal Accounts while reviewing UK accounting prac
 
 Ahead of 7 November 2026, the biggest capacity drain partners mention is the stress of manual document chasing across email and WhatsApp.
 
-We built a pre-approved deadline reminder engine that collects records and client confirmations automatically—requiring partner sign-off on every message, without touching client ledgers: https://uk-accountancy-os-prototype.vercel.app/?firm=Aggarwal%20Accounts
+I’d love to share a couple of helpful observations over a brief 5-minute call on how other UK practices are saving 10+ hours of admin a week by streamlining intake ahead of MTD.
 
-Open to taking a quick 30-second look on your phone? (Zero pressure at all 👍)
+Are you free for a quick catch up tomorrow afternoon or Thursday?
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -81,9 +81,9 @@ Hi team 👋 We were looking through barrieingramaccounts.co.uk on mobile and wa
 
 Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=Barrie%20Ingram%20Accounts%20Ltd
+I’d love to share a couple of helpful observations with you over a brief 5-minute phone call — completely candid, zero obligation — just to share what’s working for other UK practices.
 
-Open to taking a quick look on your phone? (Zero obligation at all 👍)
+Are you free for a quick chat tomorrow afternoon or Thursday?
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -125,9 +125,9 @@ Hi team 👋 We were looking through ksrathod.co.uk on mobile and wanted to shar
 
 Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=K%20S%20Rathod%20%26%20Co%20Ltd
+I’d love to share a couple of helpful observations with you over a brief 5-minute phone call — completely candid, zero obligation — just to share what’s working for other UK practices.
 
-Open to taking a quick look on your phone? (Zero obligation at all 👍)
+Are you free for a quick chat tomorrow afternoon or Thursday?
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -169,9 +169,9 @@ Hi team 👋 We were looking through 852.limited on mobile and wanted to share a
 
 Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=852%20Accounting
+I’d love to share a couple of helpful observations with you over a brief 5-minute phone call — completely candid, zero obligation — just to share what’s working for other UK practices.
 
-Open to taking a quick look on your phone? (Zero obligation at all 👍)
+Are you free for a quick chat tomorrow afternoon or Thursday?
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -213,9 +213,9 @@ Hi team 👋 We were looking through rkpartners.co.uk on mobile and wanted to sh
 
 Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=C%20J%20Driscoll%20Chartered%20Accountants
+I’d love to share a couple of helpful observations with you over a brief 5-minute phone call — completely candid, zero obligation — just to share what’s working for other UK practices.
 
-Open to taking a quick look on your phone? (Zero obligation at all 👍)
+Are you free for a quick chat tomorrow afternoon or Thursday?
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -255,9 +255,9 @@ That's practice operations rather than website design. Happy to send over the 30
 ```text
 Hi team 👋 We were reviewing protaxaccountant.co.uk on a mobile device and noticed enquiry form requires 7 fields on smartphone screen (7 fields).
 
-We put together a lightweight mobile prototype showing how prospective commercial clients can explore your packages and book a consultation in 2 taps without friction: https://uk-accountancy-os-prototype.vercel.app/?firm=Pro%20Tax%20Accountant%20Chelmsford
+Wanted to send a quick heads-up so prospective clients don't drop off before reaching your team. I’d love to share a couple of quick observations over a 5-minute phone call.
 
-Open to taking a quick 30-second look on your phone? (Zero obligation at all 👍)
+Are you free for a quick chat tomorrow afternoon or Thursday?
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -299,9 +299,9 @@ Hi team 👋 We were looking through healthwisechiropractic.co.uk on mobile and 
 
 Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=Healthwise%20Chiropractic%20Clinic
+I’d love to share a couple of helpful observations with you over a brief 5-minute phone call — completely candid, zero obligation — just to share what’s working for other UK practices.
 
-Open to taking a quick look on your phone? (Zero obligation at all 👍)
+Are you free for a quick chat tomorrow afternoon or Thursday?
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -343,9 +343,9 @@ Hi team 👋 We were looking through theaccountancysolutions.com on mobile and w
 
 Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=The%20Accountancy%20Solutions
+I’d love to share a couple of helpful observations with you over a brief 5-minute phone call — completely candid, zero obligation — just to share what’s working for other UK practices.
 
-Open to taking a quick look on your phone? (Zero obligation at all 👍)
+Are you free for a quick chat tomorrow afternoon or Thursday?
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -387,9 +387,9 @@ Hi team 👋 We were looking through apexaccountants.co.uk on mobile and wanted 
 
 Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=Apex%20Accountants%20London
+I’d love to share a couple of helpful observations with you over a brief 5-minute phone call — completely candid, zero obligation — just to share what’s working for other UK practices.
 
-Open to taking a quick look on your phone? (Zero obligation at all 👍)
+Are you free for a quick chat tomorrow afternoon or Thursday?
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -431,9 +431,9 @@ Hi team 👋 We were looking through cityaccounts.co.uk on mobile and wanted to 
 
 Ahead of the upcoming the upcoming 7 November quarterly update deadline, when business directors research an accountant in the evening, they naturally gravitate to whoever confirms next steps immediately. We want to ensure your practice doesn't let good clients slip away unnoticed.
 
-We put together a private 30-second mobile concept showing how UK practices pre-qualify turnover and lock discovery appointments in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/?firm=City%20Accounts%20%26%20Tax%20Advisory
+I’d love to share a couple of helpful observations with you over a brief 5-minute phone call — completely candid, zero obligation — just to share what’s working for other UK practices.
 
-Open to taking a quick look on your phone? (Zero obligation at all 👍)
+Are you free for a quick chat tomorrow afternoon or Thursday?
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -472,9 +472,9 @@ That's practice operations rather than website design. Happy to send over the 30
 ```text
 Hi team 👋 We were reviewing pristine-firm.co.uk on a mobile device and noticed no actionable friction identified (Healthy baseline).
 
-We put together a lightweight mobile prototype showing how prospective commercial clients can explore your packages and book a consultation in 2 taps without friction: https://uk-accountancy-os-prototype.vercel.app/?firm=Pristine%20Practice%20Ltd%20(Synthetic%201%3A%20Fully%20Automated)
+Wanted to send a quick heads-up so prospective clients don't drop off before reaching your team. I’d love to share a couple of quick observations over a 5-minute phone call.
 
-Open to taking a quick 30-second look on your phone? (Zero obligation at all 👍)
+Are you free for a quick chat tomorrow afternoon or Thursday?
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -514,9 +514,9 @@ That's practice operations rather than website design. Happy to send over the 30
 ```text
 Hi team 👋 We were reviewing overflow-edge-case.co.uk on a mobile device and noticed page horizontally overflows by 130px on 390px mobile viewports, causing sideways scroll and cut-off text. (520px (viewport: 390px)).
 
-We put together a lightweight mobile prototype showing how prospective commercial clients can explore your packages and book a consultation in 2 taps without friction: https://uk-accountancy-os-prototype.vercel.app/?firm=Broken%20Layout%20Firm%20(Synthetic%202%3A%20Layout%20Bug)
+Wanted to send a quick heads-up so prospective clients don't drop off before reaching your team. I’d love to share a couple of quick observations over a 5-minute phone call.
 
-Open to taking a quick 30-second look on your phone? (Zero obligation at all 👍)
+Are you free for a quick chat tomorrow afternoon or Thursday?
 
 If you'd rather not hear from us, just say stop.
 ```
@@ -556,9 +556,9 @@ That's practice operations rather than website design. Happy to send over the 30
 ```text
 Hi team 👋 We were reviewing heavy-form-edge-case.co.uk on a mobile device and noticed enquiry form requires 11 fields on smartphone screen (11 fields).
 
-We put together a lightweight mobile prototype showing how prospective commercial clients can explore your packages and book a consultation in 2 taps without friction: https://uk-accountancy-os-prototype.vercel.app/?firm=Exhaustive%20Intake%20Practice%20(Synthetic%203%3A%2011%20Fields)
+Wanted to send a quick heads-up so prospective clients don't drop off before reaching your team. I’d love to share a couple of quick observations over a 5-minute phone call.
 
-Open to taking a quick 30-second look on your phone? (Zero obligation at all 👍)
+Are you free for a quick chat tomorrow afternoon or Thursday?
 
 If you'd rather not hear from us, just say stop.
 ```
