@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import path from 'path'
 import { createClient } from '@/lib/supabase/server'
+import { supabaseAdmin } from '@/lib/supabase/admin'
 import { auditSiteWithHeadlessBrowser } from '@/lib/auditor/evidence-crawler'
 import { evaluateSignalsToAnalysis } from '@/lib/auditor/rubric'
 import { generateOutreachFromAnalysis } from '@/lib/auditor/evidence-outreach'
@@ -9,11 +10,26 @@ export const maxDuration = 60 // Allow up to 60s for full headless crawl + analy
 
 export async function POST(req: NextRequest) {
   try {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    const authHeader = req.headers.get('authorization')
+    const apiKeyHeader = req.headers.get('x-api-key')
+    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    let supabase: any = null
+    const isServiceAuth = Boolean(
+      serviceRoleKey &&
+      ((authHeader && authHeader === `Bearer ${serviceRoleKey}`) ||
+       (apiKeyHeader && apiKeyHeader === serviceRoleKey))
+    )
+
+    if (isServiceAuth && supabaseAdmin) {
+      supabase = supabaseAdmin
+    } else {
+      const serverSupabase = await createClient()
+      const { data: { user } } = await serverSupabase.auth.getUser()
+      if (!user) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      }
+      supabase = serverSupabase
     }
 
     const body = await req.json()

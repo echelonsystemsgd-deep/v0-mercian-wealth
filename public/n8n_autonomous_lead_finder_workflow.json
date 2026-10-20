@@ -1,0 +1,289 @@
+{
+  "name": "Autonomous Practice Lead Finder & Forensic Mobile Auditor",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger-node",
+      "name": "Daily 8 AM Trigger (Mon-Fri)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [180, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "PLATFORM_URL",
+              "value": "https://v0-mercian-wealth.vercel.app"
+            },
+            {
+              "name": "SUPABASE_SERVICE_ROLE_KEY",
+              "value": "YOUR_SUPABASE_SERVICE_ROLE_KEY"
+            },
+            {
+              "name": "TARGET_NICHE",
+              "value": "Chartered Accountants"
+            },
+            {
+              "name": "TARGET_REGION",
+              "value": "London, UK"
+            },
+            {
+              "name": "COMPANIES_HOUSE_API_KEY",
+              "value": ""
+            },
+            {
+              "name": "DISCORD_OR_SLACK_WEBHOOK_URL",
+              "value": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "config-settings-node",
+      "name": "1. Configuration & Secrets",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [400, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Simulated or Connected Lead Sourcing Ingestion\n// In production: Replace with Google Places API, Outscraper, or Apify Google Maps export\nconst config = $('1. Configuration & Secrets').first().json;\n\nconst rawSourcedLeads = [\n  {\n    \"business_name\": \"KP Tax Consultants Ltd\",\n    \"phone\": \"+44 7861 690954\",\n    \"website\": \"https://kptc.co.uk\",\n    \"address\": \"Mayfair, London W1J\",\n    \"rating\": 5.0,\n    \"reviews_count\": 14,\n    \"trade\": \"Chartered Tax Consultants\",\n    \"director_name\": \"Kirit Rathod\"\n  },\n  {\n    \"business_name\": \"Barrie Ingram Accounts Ltd\",\n    \"phone\": \"+44 7908 228472\",\n    \"website\": \"https://barrieingramaccounts.co.uk\",\n    \"address\": \"Colchester, Essex\",\n    \"rating\": 4.9,\n    \"reviews_count\": 28,\n    \"trade\": \"Chartered Accountant\",\n    \"director_name\": \"Barrie Ingram\"\n  },\n  {\n    \"business_name\": \"Mayfair Asset & Tax Advisory\",\n    \"phone\": \"020 7946 0912\",\n    \"website\": \"None\",\n    \"address\": \"Berkeley Square, London\",\n    \"rating\": 5.0,\n    \"reviews_count\": 9,\n    \"trade\": \"Tax Advisory\",\n    \"director_name\": \"Alastair Sterling\"\n  }\n];\n\nreturn rawSourcedLeads.map(lead => ({\n  json: {\n    ...lead,\n    platform_url: config.PLATFORM_URL,\n    service_key: config.SUPABASE_SERVICE_ROLE_KEY\n  }\n}));"
+      },
+      "id": "sourcing-node",
+      "name": "2. Source Leads (Maps / Search / CSV)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [620, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 3. Phone Classification & Pre-Qualification\nconst lead = $input.item.json;\nconst rawPhone = String(lead.phone || '').trim();\nconst digits = rawPhone.replace(/[^0-9]/g, '');\n\nlet phoneType = 'unknown';\nlet isWhatsAppViable = false;\nlet nationalDisplay = rawPhone;\nlet standardizedPhone = rawPhone;\n\nif (digits.length >= 7) {\n  if (digits.startsWith('0')) {\n    standardizedPhone = '+44' + digits.substring(1);\n  } else if (digits.startsWith('44')) {\n    standardizedPhone = '+' + digits;\n  }\n\n  if (digits.startsWith('447') || digits.startsWith('07')) {\n    phoneType = 'uk_mobile';\n    isWhatsAppViable = true;\n  } else if (digits.startsWith('441') || digits.startsWith('442') || digits.startsWith('01') || digits.startsWith('02')) {\n    phoneType = 'uk_landline';\n    isWhatsAppViable = false;\n  }\n}\n\nconst hasValidWebsite = Boolean(\n  lead.website && \n  lead.website !== 'None' && \n  lead.website !== 'NO WEBSITE' && \n  !lead.website.toLowerCase().includes('facebook.com')\n);\n\nreturn {\n  json: {\n    ...lead,\n    phone: standardizedPhone,\n    phone_type: phoneType,\n    is_whatsapp_viable: isWhatsAppViable,\n    has_valid_website: hasValidWebsite,\n    outreach_channel: isWhatsAppViable ? 'whatsapp' : 'email_or_phone'\n  }\n};"
+      },
+      "id": "pre-qualification-node",
+      "name": "3. UK Phone Classifier & Filter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [840, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.platform_url }}/api/admin/leads/sync-sheets",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "x-api-key",
+              "value": "={{ $json.service_key }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"action\": \"import_leads\",\n  \"leads\": [\n    {\n      \"business_name\": \"{{ $json.business_name }}\",\n      \"phone\": \"{{ $json.phone }}\",\n      \"website\": \"{{ $json.website }}\",\n      \"address\": \"{{ $json.address }}\",\n      \"rating\": {{ $json.rating }},\n      \"reviews_count\": {{ $json.reviews_count }},\n      \"trade\": \"{{ $json.trade }}\",\n      \"director_name\": \"{{ $json.director_name }}\"\n    }\n  ]\n}",
+        "options": {}
+      },
+      "id": "ingest-lead-node",
+      "name": "4. Ingest into Mercian Wealth App",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1060, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $node[\"3. UK Phone Classifier & Filter\"].json[\"has_valid_website\"] }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "check-website-exists",
+      "name": "Website Present?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1280, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $node[\"3. UK Phone Classifier & Filter\"].json[\"platform_url\"] }}/api/audit",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $node[\"3. UK Phone Classifier & Filter\"].json[\"service_key\"] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"url\": \"{{ $node[\"3. UK Phone Classifier & Filter\"].json[\"website\"] }}\"\n}",
+        "options": {
+          "timeout": 45000
+        }
+      },
+      "id": "run-headless-audit",
+      "name": "5. Run Headless 390px Audit",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1500, 220]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.analysis.grade }}",
+              "value2": "A"
+            }
+          ]
+        }
+      },
+      "id": "grade-a-filter",
+      "name": "Is Grade A Lead?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1720, 220]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('1. Configuration & Secrets').first().json.DISCORD_OR_SLACK_WEBHOOK_URL || 'https://httpbin.org/post' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"content\": \"🔥 **NEW HIGH-PRIORITY GRADE A LEAD AUDITED**\\n\\n**Practice:** {{ $node[\"3. UK Phone Classifier & Filter\"].json[\"business_name\"] }}\\n**Director:** {{ $node[\"3. UK Phone Classifier & Filter\"].json[\"director_name\"] }}\\n**Phone:** {{ $node[\"3. UK Phone Classifier & Filter\"].json[\"phone\"] }} (WhatsApp Viable: {{ $node[\"3. UK Phone Classifier & Filter\"].json[\"is_whatsapp_viable\"] }})\\n**Friction:** {{ $json.analysis.primaryAngle.title }}\\n**Headline:** {{ $json.analysis.primaryAngle.headline }}\\n\\n👉 **1-Tap WhatsApp:** https://wa.me/{{ $node[\"3. UK Phone Classifier & Filter\"].json[\"phone\"].replace(/[^0-9]/g, '') }}?text={{ encodeURIComponent($json.outreach.whatsappOpenerRecommended) }}\"\n}",
+        "options": {}
+      },
+      "id": "hot-lead-alert-node",
+      "name": "6. Send Hot Lead Alert (Discord / Slack)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1940, 200]
+    }
+  ],
+  "connections": {
+    "Daily 8 AM Trigger (Mon-Fri)": {
+      "main": [
+        [
+          {
+            "node": "1. Configuration & Secrets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1. Configuration & Secrets": {
+      "main": [
+        [
+          {
+            "node": "2. Source Leads (Maps / Search / CSV)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Source Leads (Maps / Search / CSV)": {
+      "main": [
+        [
+          {
+            "node": "3. UK Phone Classifier & Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. UK Phone Classifier & Filter": {
+      "main": [
+        [
+          {
+            "node": "4. Ingest into Mercian Wealth App",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Ingest into Mercian Wealth App": {
+      "main": [
+        [
+          {
+            "node": "Website Present?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Website Present?": {
+      "main": [
+        [
+          {
+            "node": "5. Run Headless 390px Audit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Run Headless 390px Audit": {
+      "main": [
+        [
+          {
+            "node": "Is Grade A Lead?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Grade A Lead?": {
+      "main": [
+        [
+          {
+            "node": "6. Send Hot Lead Alert (Discord / Slack)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

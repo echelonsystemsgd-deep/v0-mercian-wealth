@@ -221,7 +221,7 @@ export function LeadFrictionDossier({
             href={protoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-xs shrink-0 transition-all shadow-md shadow-[#DCAE53]/20 active:scale-95 cursor-pointer"
+            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 min-h-[42px] w-full sm:w-auto rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-xs shrink-0 transition-all shadow-md shadow-[#DCAE53]/20 active:scale-95 cursor-pointer"
           >
             <Sparkles size={13} />
             <span>Test Live Prototype</span>
@@ -335,10 +335,10 @@ export function LeadFrictionDossier({
         </div>
 
         {/* Playbook Mode Selector */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none overscroll-contain touch-pan-x">
           <button
             onClick={() => setCadenceMode('standard')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+            className={`px-3.5 py-2 min-h-[40px] rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center justify-center ${
               cadenceMode === 'standard'
                 ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                 : 'bg-white/5 text-zinc-400 hover:text-white border border-white/5'

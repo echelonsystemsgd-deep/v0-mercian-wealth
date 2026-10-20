@@ -437,15 +437,15 @@ export function OutreachModal({
       : 'bg-zinc-500/15 border-zinc-500/30 text-zinc-300'
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-4xl bg-[#09090B] border border-white/10 rounded-2xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-1.5 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain">
+      <div className="relative w-full max-w-4xl bg-[#09090B] border border-white/10 rounded-2xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[96dvh] sm:max-h-[92vh]">
         
         {/* ───────────────────────────────────────────────────────────── */}
         {/* 1. HEADER: PRACTICE, WEBSITE, PHONE, LOCATION, BUILD, STATUS  */}
         {/* ───────────────────────────────────────────────────────────── */}
-        <div className="px-5 py-4 border-b border-white/10 bg-[#111115] flex items-center justify-between shrink-0">
+        <div className="px-4 py-3 sm:px-5 sm:py-4 border-b border-white/10 bg-[#111115] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="p-2.5 rounded-xl bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[#DCAE53] shrink-0">
+            <div className="p-2 sm:p-2.5 rounded-xl bg-[#DCAE53]/10 border border-[#DCAE53]/30 text-[#DCAE53] shrink-0">
               <Sparkles className="w-5 h-5" />
             </div>
 
@@ -507,7 +507,7 @@ export function OutreachModal({
             <button
               onClick={handleRunLiveAudit}
               disabled={auditing || !hasWebsite}
-              className="px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-mono transition-colors flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+              className="px-2.5 py-1.5 min-h-[40px] sm:min-h-[36px] rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-xs font-mono transition-colors flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
               title="Run fresh headless browser inspection at 390px mobile viewport"
             >
               <RefreshCw size={12} className={auditing ? 'animate-spin text-[#DCAE53]' : ''} />
@@ -516,7 +516,7 @@ export function OutreachModal({
 
             <button
               onClick={onClose}
-              className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+              className="p-2 min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors cursor-pointer"
               aria-label="Close"
             >
               <X size={18} />
@@ -1074,11 +1074,11 @@ export function OutreachModal({
           {/* ───────────────────────────────────────────────────────────── */}
           {/* 7. ACTIONS: MARK SENT, SNOOZE 2 DAYS, MARK LOST, MARK STOP    */}
           {/* ───────────────────────────────────────────────────────────── */}
-          <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-white/10">
-            <div className="flex items-center gap-2 flex-wrap">
+          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 border-t border-white/10">
+            <div className="grid grid-cols-2 sm:flex items-center gap-2">
               <button
                 onClick={() => onUpdateStatus(lead.id, 'Contacted')}
-                className="px-3.5 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 text-emerald-300 font-semibold text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                className="col-span-2 sm:col-span-1 min-h-[42px] px-3.5 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 text-emerald-300 font-semibold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-98"
               >
                 <CheckCircle2 size={13} />
                 <span>Mark Sent (Contacted)</span>
@@ -1086,7 +1086,7 @@ export function OutreachModal({
 
               <button
                 onClick={handleSnooze}
-                className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white font-medium text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                className="min-h-[42px] px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white font-medium text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-98"
               >
                 <Clock size={13} />
                 <span>Snooze 2 Days</span>
@@ -1094,7 +1094,7 @@ export function OutreachModal({
 
               <button
                 onClick={() => onUpdateStatus(lead.id, 'Lost')}
-                className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-400 hover:text-rose-300 font-medium text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                className="min-h-[42px] px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-400 hover:text-rose-300 font-medium text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-98"
               >
                 <span>Mark Lost</span>
               </button>
@@ -1103,11 +1103,11 @@ export function OutreachModal({
             <div>
               <button
                 onClick={handleMarkStop}
-                className="px-3.5 py-2 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/30 text-purple-300 font-semibold text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                className="w-full sm:w-auto min-h-[42px] px-3.5 py-2 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/30 text-purple-300 font-semibold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-98"
                 title="Suppresses contact from further outreach under opt-out compliance"
               >
                 <Ban size={13} />
-                <span>Mark STOP (Add to Suppression)</span>
+                <span>Mark STOP (Opt-Out)</span>
               </button>
             </div>
           </div>

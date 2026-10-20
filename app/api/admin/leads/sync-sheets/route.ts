@@ -86,21 +86,21 @@ export async function POST(req: Request) {
         const waDigits = digits.startsWith('07') ? ('44' + digits.substring(1)) : digits
         const waUrl = isMobile ? `https://wa.me/${waDigits}` : (lead.whatsapp_link && lead.whatsapp_link.startsWith('http') ? lead.whatsapp_link : null)
 
-        const candidateTrade = (lead.trade || lead.category || 'Jeweller').trim()
+        const candidateTrade = (lead.trade || lead.category || lead.niche || lead.service || 'Accountant').trim()
         const cleanTrade = (!candidateTrade || candidateTrade.length > 30 || candidateTrade.toLowerCase().startsWith('hi ') || candidateTrade.toLowerCase().includes('came across'))
-          ? 'Jeweller'
+          ? 'Accountant'
           : candidateTrade
 
         const leadPayload = {
-          name: lead.contact_name || 'Owner / Director',
-          business_name: businessName || 'Local Jeweller',
+          name: lead.director_name || lead.contact_name || lead.name || 'Owner / Director',
+          business_name: businessName || 'UK Practice',
           phone: standardizedPhone,
           website: website,
-          service_interested: 'Digital Storefront & Speed-to-Lead Automation',
+          service_interested: lead.service_interested || 'Practice OS & Digital Client Portal',
           notes: cleanAddress ? `${cleanAddress} · ★${lead.rating || '5.0'} (${lead.reviews_count || 0} reviews)` : null,
           status: lead.status || 'New',
-          source: 'google_maps_outreach',
-          lead_type: 'local',
+          source: lead.source || 'google_maps_outreach',
+          lead_type: lead.lead_type || 'local',
           local_business_niche: cleanTrade,
           outreach_category: (!businessName || !standardizedPhone) ? 'needs_review' : (!website ? 'no_website' : 'has_website'),
           outreach_stage: lead.status === 'Contacted' ? 'contacted' : 'uncontacted',
@@ -110,6 +110,9 @@ export async function POST(req: Request) {
             rating: parseFloat(lead.rating) || 5.0,
             reviews_count: parseInt(lead.reviews_count) || 0,
             trade: cleanTrade,
+            company_number: lead.company_number || null,
+            director_name: lead.director_name || lead.contact_name || null,
+            companies_house: lead.companies_house || null,
             stage_1_opener: lead.stage_1_opener || 'Hi 👋',
             stage_2_pitch: lead.stage_2_pitch || '',
             follow_up_1: lead.follow_up_1 || '',
