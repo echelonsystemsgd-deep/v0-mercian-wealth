@@ -17,72 +17,134 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        160,
+        100,
         300
       ]
     },
     {
       "parameters": {
-        "jsCode": "// 1. Configuration & Secrets (Pre-Filled & Ready)\nreturn {\n  json: {\n    PLATFORM_URL: 'https://v0-gs-legacy-wealth-app.vercel.app',\n    SUPABASE_SERVICE_ROLE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhZGViaG15eXdrY3F0eWF6eHhrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTY4NTAzNSwiZXhwIjoyMDk3MjYxMDM1fQ.m_FBVwQCgj9OWqz1dajV7pGpoA5yF1Hyir71gibCKEE',\n    TARGET_NICHE: 'Chartered Accountants',\n    CITIES_TO_SEARCH: ['Mayfair London', 'Birmingham Jewellery Quarter', 'Manchester City Centre', 'Leeds', 'Chelmsford Essex'],\n    COMPANIES_HOUSE_API_KEY: '2aa4750f-6fb0-40d0-9473-f003ccca6185',\n    TELEGRAM_BOT_TOKEN: '8278044186:AAGyxTQNrj7KlRzZV10cNxmwlbZzgFwdU-Q',\n    TELEGRAM_CHAT_ID: '7191968038'\n  }\n};"
+        "jsCode": "// 1. Configuration & Pre-Filled Secrets\nreturn {\n  json: {\n    PLATFORM_URL: 'https://v0-gs-legacy-wealth-app.vercel.app',\n    SUPABASE_SERVICE_ROLE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhZGViaG15eXdrY3F0eWF6eHhrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTY4NTAzNSwiZXhwIjoyMDk3MjYxMDM1fQ.m_FBVwQCgj9OWqz1dajV7pGpoA5yF1Hyir71gibCKEE',\n    TARGET_NICHE: 'Chartered Accountants',\n    CITIES_TO_SEARCH: ['Mayfair London', 'Birmingham Jewellery Quarter', 'Manchester City Centre', 'Leeds', 'Chelmsford Essex'],\n    COMPANIES_HOUSE_API_KEY: '2aa4750f-6fb0-40d0-9473-f003ccca6185',\n    TELEGRAM_BOT_TOKEN: '8278044186:AAGyxTQNrj7KlRzZV10cNxmwlbZzgFwdU-Q',\n    TELEGRAM_CHAT_ID: '7191968038'\n  }\n};"
       },
       "id": "config-settings-node",
       "name": "1. Configuration & Secrets",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        380,
+        300,
         300
       ]
     },
     {
       "parameters": {
-        "jsCode": "// 2. Multi-City Auto-Scraper & Discovery (Method 2 - High Volume Multi-City)\nconst config = $('1. Configuration & Secrets').first().json;\n\n// High-volume batch of verified UK accounting and professional practices across top cities\nconst sourcedPractices = [\n  // 1. London - Mayfair & West End\n  { business_name: 'KP Tax Consultants Ltd', phone: '+44 7861 690954', website: 'https://kptc.co.uk', address: 'Mayfair, London W1J', rating: 5.0, reviews_count: 14, trade: 'Chartered Tax Consultants', director_name: 'Kirit Rathod' },\n  { business_name: 'K S Rathod & Co Ltd', phone: '+44 7831 587536', website: 'https://ksrathod.co.uk', address: 'Wembley, London HA9', rating: 4.8, reviews_count: 22, trade: 'Chartered Certified Accountants', director_name: 'Kirit Rathod' },\n  { business_name: '852 Accounting', phone: '+44 7700 900852', website: 'https://852.limited', address: 'Shoreditch, London EC2A', rating: 4.9, reviews_count: 19, trade: 'Fintech & Practice Accounting', director_name: 'Alexander Chen' },\n  { business_name: 'Future Focus Consultants Ltd', phone: '+44 7700 900789', website: 'https://ffconsultants.co.uk', address: 'West End, London W1', rating: 4.7, reviews_count: 31, trade: 'Corporate Tax Advisers', director_name: 'Marcus Vance' },\n  { business_name: 'Mayfair Asset & Tax Advisory', phone: '020 7946 0912', website: 'None', address: 'Berkeley Square, London', rating: 5.0, reviews_count: 9, trade: 'Private Client Tax', director_name: 'Alastair Sterling' },\n  { business_name: 'St James Private Tax Advisers', phone: '020 7946 0888', website: 'None', address: 'Pall Mall, London SW1', rating: 4.9, reviews_count: 12, trade: 'Chartered Tax Advisers', director_name: 'Charles Beauchamp' },\n\n  // 2. Birmingham - Jewellery Quarter & Colmore Row\n  { business_name: 'C J Driscoll Chartered Accountants', phone: '+44 7700 900123', website: 'https://rkpartners.co.uk', address: 'Jewellery Quarter, Birmingham B18', rating: 4.8, reviews_count: 27, trade: 'Chartered Accountants', director_name: 'Colin Driscoll' },\n  { business_name: 'Upstudi Design & Tax Practice', phone: '+44 7700 900111', website: 'https://upstudi.com', address: 'Colmore Row, Birmingham B3', rating: 4.9, reviews_count: 16, trade: 'Commercial Tax Practice', director_name: 'Devin Thorne' },\n  { business_name: 'Midland Corporate Audit Group', phone: '+44 7700 900444', website: 'https://rkpartners.co.uk', address: 'Edgbaston, Birmingham B15', rating: 4.7, reviews_count: 18, trade: 'Audit & Corporate Accounting', director_name: 'Suresh Patel' },\n\n  // 3. Manchester - Spinningfields & City Centre\n  { business_name: 'Aggarwal Accounts', phone: '+44 7700 900321', website: 'https://aggarwalaccounts.com', address: 'Spinningfields, Manchester M3', rating: 4.6, reviews_count: 42, trade: 'Chartered Accountants', director_name: 'Raj Aggarwal' },\n  { business_name: 'Northern Quarter Bookkeeping & Tax', phone: '+44 7700 900555', website: 'None', address: 'Northern Quarter, Manchester M4', rating: 4.8, reviews_count: 15, trade: 'SME Accounting & Payroll', director_name: 'Liam Gallagher' },\n\n  // 4. Essex - Colchester & Chelmsford\n  { business_name: 'Barrie Ingram Accounts Ltd', phone: '+44 7908 228472', website: 'https://barrieingramaccounts.co.uk', address: 'Colchester, Essex CO1', rating: 4.9, reviews_count: 28, trade: 'Chartered Accountant', director_name: 'Barrie Ingram' },\n  { business_name: 'Pro Tax Accountant Chelmsford', phone: '+44 7700 900456', website: 'https://protaxaccountant.co.uk', address: 'Chelmsford, Essex CM1', rating: 4.9, reviews_count: 36, trade: 'Tax Consultancy Practice', director_name: 'David Reynolds' },\n\n  // 5. Leeds - City Square & The Headrow\n  { business_name: 'HSL Accountancy Solutions', phone: '+44 7700 900654', website: 'https://hslaccountancysolutions.co.uk', address: 'City Square, Leeds LS1', rating: 4.7, reviews_count: 24, trade: 'Chartered Certified Accountants', director_name: 'Helen Sinclair' },\n  { business_name: 'AccountAbility Yorkshire Limited', phone: '+44 7700 900987', website: 'https://accability.co.uk', address: 'The Headrow, Leeds LS1', rating: 4.8, reviews_count: 33, trade: 'Corporate & Tax Accounting', director_name: 'Robert Thornton' }\n];\n\nreturn sourcedPractices.map(p => ({\n  json: {\n    ...p,\n    platform_url: config.PLATFORM_URL,\n    service_key: config.SUPABASE_SERVICE_ROLE_KEY,\n    companies_house_key: config.COMPANIES_HOUSE_API_KEY,\n    telegram_bot_token: config.TELEGRAM_BOT_TOKEN,\n    telegram_chat_id: config.TELEGRAM_CHAT_ID\n  }\n}));"
+        "jsCode": "// 2. Multi-City Auto-Scraper & Discovery (Method 2 - High Volume Multi-City)\nconst config = $('1. Configuration & Secrets').first().json;\n\nconst sourcedPractices = [\n  // 1. London - Mayfair & West End\n  { business_name: 'KP Tax Consultants Ltd', phone: '+44 7861 690954', website: 'https://kptc.co.uk', address: 'Mayfair, London W1J', rating: 5.0, reviews_count: 14, trade: 'Chartered Tax Consultants', director_name: 'Kirit Rathod' },\n  { business_name: 'K S Rathod & Co Ltd', phone: '+44 7831 587536', website: 'https://ksrathod.co.uk', address: 'Wembley, London HA9', rating: 4.8, reviews_count: 22, trade: 'Chartered Certified Accountants', director_name: 'Kirit Rathod' },\n  { business_name: '852 Accounting', phone: '+44 7700 900852', website: 'https://852.limited', address: 'Shoreditch, London EC2A', rating: 4.9, reviews_count: 19, trade: 'Fintech & Practice Accounting', director_name: 'Alexander Chen' },\n  { business_name: 'Future Focus Consultants Ltd', phone: '+44 7700 900789', website: 'https://ffconsultants.co.uk', address: 'West End, London W1', rating: 4.7, reviews_count: 31, trade: 'Corporate Tax Advisers', director_name: 'Marcus Vance' },\n  { business_name: 'Mayfair Asset & Tax Advisory', phone: '020 7946 0912', website: 'None', address: 'Berkeley Square, London', rating: 5.0, reviews_count: 9, trade: 'Private Client Tax', director_name: 'Alastair Sterling' },\n  { business_name: 'St James Private Tax Advisers', phone: '020 7946 0888', website: 'None', address: 'Pall Mall, London SW1', rating: 4.9, reviews_count: 12, trade: 'Chartered Tax Advisers', director_name: 'Charles Beauchamp' },\n\n  // 2. Birmingham - Jewellery Quarter & Colmore Row\n  { business_name: 'C J Driscoll Chartered Accountants', phone: '+44 7700 900123', website: 'https://rkpartners.co.uk', address: 'Jewellery Quarter, Birmingham B18', rating: 4.8, reviews_count: 27, trade: 'Chartered Accountants', director_name: 'Colin Driscoll' },\n  { business_name: 'Upstudi Design & Tax Practice', phone: '+44 7700 900111', website: 'https://upstudi.com', address: 'Colmore Row, Birmingham B3', rating: 4.9, reviews_count: 16, trade: 'Commercial Tax Practice', director_name: 'Devin Thorne' },\n  { business_name: 'Midland Corporate Audit Group', phone: '+44 7700 900444', website: 'https://rkpartners.co.uk', address: 'Edgbaston, Birmingham B15', rating: 4.7, reviews_count: 18, trade: 'Audit & Corporate Accounting', director_name: 'Suresh Patel' },\n\n  // 3. Manchester - Spinningfields & City Centre\n  { business_name: 'Aggarwal Accounts', phone: '+44 7700 900321', website: 'https://aggarwalaccounts.com', address: 'Spinningfields, Manchester M3', rating: 4.6, reviews_count: 42, trade: 'Chartered Accountants', director_name: 'Raj Aggarwal' },\n  { business_name: 'Northern Quarter Bookkeeping & Tax', phone: '+44 7700 900555', website: 'None', address: 'Northern Quarter, Manchester M4', rating: 4.8, reviews_count: 15, trade: 'SME Accounting & Payroll', director_name: 'Liam Gallagher' },\n\n  // 4. Essex - Colchester & Chelmsford\n  { business_name: 'Barrie Ingram Accounts Ltd', phone: '+44 7908 228472', website: 'https://barrieingramaccounts.co.uk', address: 'Colchester, Essex CO1', rating: 4.9, reviews_count: 28, trade: 'Chartered Accountant', director_name: 'Barrie Ingram' },\n  { business_name: 'Pro Tax Accountant Chelmsford', phone: '+44 7700 900456', website: 'https://protaxaccountant.co.uk', address: 'Chelmsford, Essex CM1', rating: 4.9, reviews_count: 36, trade: 'Tax Consultancy Practice', director_name: 'David Reynolds' },\n\n  // 5. Leeds - City Square & The Headrow\n  { business_name: 'HSL Accountancy Solutions', phone: '+44 7700 900654', website: 'https://hslaccountancysolutions.co.uk', address: 'City Square, Leeds LS1', rating: 4.7, reviews_count: 24, trade: 'Chartered Certified Accountants', director_name: 'Helen Sinclair' },\n  { business_name: 'AccountAbility Yorkshire Limited', phone: '+44 7700 900987', website: 'https://accability.co.uk', address: 'The Headrow, Leeds LS1', rating: 4.8, reviews_count: 33, trade: 'Corporate & Tax Accounting', director_name: 'Robert Thornton' }\n];\n\nreturn sourcedPractices.map(p => ({\n  json: {\n    ...p,\n    platform_url: config.PLATFORM_URL,\n    service_key: config.SUPABASE_SERVICE_ROLE_KEY,\n    companies_house_key: config.COMPANIES_HOUSE_API_KEY\n  }\n}));"
       },
       "id": "sourcing-node",
       "name": "2. Multi-City Auto-Scraper & Discovery",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        620,
+        520,
         300
       ]
     },
     {
       "parameters": {
-        "jsCode": "// 3. Phone Classification & Pre-Qualification (All Items)\nconst items = $input.all();\n\nreturn items.map(item => {\n  const lead = item.json;\n  const rawPhone = String(lead.phone || '').trim();\n  const digits = rawPhone.replace(/[^0-9]/g, '');\n\n  let phoneType = 'unknown';\n  let isWhatsAppViable = false;\n  let standardizedPhone = rawPhone;\n\n  if (digits.length >= 7) {\n    if (digits.startsWith('0')) {\n      standardizedPhone = '+44' + digits.substring(1);\n    } else if (digits.startsWith('44')) {\n      standardizedPhone = '+' + digits;\n    }\n\n    if (digits.startsWith('447') || digits.startsWith('07')) {\n      phoneType = 'uk_mobile';\n      isWhatsAppViable = true;\n    } else if (digits.startsWith('441') || digits.startsWith('442') || digits.startsWith('01') || digits.startsWith('02')) {\n      phoneType = 'uk_landline';\n      isWhatsAppViable = false;\n    }\n  }\n\n  const hasValidWebsite = Boolean(\n    lead.website && \n    lead.website !== 'None' && \n    lead.website !== 'NO WEBSITE' && \n    !lead.website.toLowerCase().includes('facebook.com')\n  );\n\n  return {\n    json: {\n      ...lead,\n      phone: standardizedPhone,\n      phone_type: phoneType,\n      is_whatsapp_viable: isWhatsAppViable,\n      has_valid_website: hasValidWebsite,\n      outreach_channel: isWhatsAppViable ? 'whatsapp' : 'email_or_phone'\n    }\n  };\n});"
+        "jsCode": "// 3. Phone Classification & Pre-Qualification (All Items)\nconst items = $input.all();\n\nreturn items.map(item => {\n  const lead = item.json;\n  const rawPhone = String(lead.phone || '').trim();\n  const digits = rawPhone.replace(/[^0-9]/g, '');\n\n  let phoneType = 'unknown';\n  let isWhatsAppViable = false;\n  let standardizedPhone = rawPhone;\n\n  if (digits.length >= 7) {\n    if (digits.startsWith('0')) {\n      standardizedPhone = '+44' + digits.substring(1);\n    } else if (digits.startsWith('44')) {\n      standardizedPhone = '+' + digits;\n    }\n\n    if (digits.startsWith('447') || digits.startsWith('07')) {\n      phoneType = 'uk_mobile';\n      isWhatsAppViable = true;\n    } else if (digits.startsWith('441') || digits.startsWith('442') || digits.startsWith('01') || digits.startsWith('02')) {\n      phoneType = 'uk_landline';\n      isWhatsAppViable = false;\n    }\n  }\n\n  const hasValidWebsite = Boolean(\n    lead.website && \n    lead.website !== 'None' && \n    lead.website !== 'NO WEBSITE' && \n    !lead.website.toLowerCase().includes('facebook.com')\n  );\n\n  const chBasicAuth = Buffer.from((lead.companies_house_key || '') + ':').toString('base64');\n\n  return {\n    json: {\n      ...lead,\n      phone: standardizedPhone,\n      phone_type: phoneType,\n      is_whatsapp_viable: isWhatsAppViable,\n      has_valid_website: hasValidWebsite,\n      outreach_channel: isWhatsAppViable ? 'whatsapp' : 'email_or_phone',\n      ch_auth_header: 'Basic ' + chBasicAuth\n    }\n  };\n});"
       },
       "id": "pre-qualification-node",
       "name": "3. UK Phone Classifier & Filter",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        860,
+        740,
         300
       ]
     },
     {
       "parameters": {
-        "jsCode": "// 4. Companies House UK Registry Lookup (Live & Direct)\nconst items = $input.all();\nconst results = [];\n\nfor (const item of items) {\n  const lead = item.json;\n  let companyNumber = lead.company_number || null;\n  let companyStatus = 'active';\n  let dateOfCreation = null;\n  let officialAddress = lead.address;\n  let verified = false;\n\n  try {\n    const auth = 'Basic ' + Buffer.from((lead.companies_house_key || '') + ':').toString('base64');\n    const query = encodeURIComponent(lead.business_name);\n    const res = await fetch(`https://api.company-information.service.gov.uk/search/companies?q=${query}`, {\n      headers: { 'Authorization': auth }\n    });\n    if (res.ok) {\n      const data = await res.json();\n      if (data.items && data.items.length > 0) {\n        const best = data.items[0];\n        companyNumber = best.company_number || null;\n        companyStatus = best.company_status || 'active';\n        dateOfCreation = best.date_of_creation || null;\n        if (best.address_snippet) {\n          officialAddress = best.address_snippet;\n        }\n        verified = true;\n      }\n    }\n  } catch (e) {\n    // Graceful fallback\n  }\n\n  results.push({\n    json: {\n      ...lead,\n      company_number: companyNumber,\n      company_status: companyStatus,\n      date_of_creation: dateOfCreation,\n      official_ch_address: officialAddress,\n      companies_house_verified: verified\n    }\n  });\n}\n\nreturn results;"
+        "method": "GET",
+        "url": "=https://api.company-information.service.gov.uk/search/companies?q={{ encodeURIComponent($json.business_name) }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $json.ch_auth_header }}"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": false,
+          "timeout": 15000
+        }
       },
       "id": "companies-house-node",
       "name": "4. Companies House UK Registry Lookup",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        300
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// 5. Merge Verified Registry Data & Prepare Payload\nconst chItems = $input.all();\nconst leadItems = $('3. UK Phone Classifier & Filter').all();\n\nreturn leadItems.map((item, idx) => {\n  const lead = item.json;\n  const chData = chItems[idx]?.json || {};\n  let companyNumber = lead.company_number || null;\n  let companyStatus = 'active';\n  let dateOfCreation = null;\n  let officialAddress = lead.address;\n\n  if (chData.items && chData.items.length > 0) {\n    const best = chData.items[0];\n    companyNumber = best.company_number || null;\n    companyStatus = best.company_status || 'active';\n    dateOfCreation = best.date_of_creation || null;\n    if (best.address_snippet) officialAddress = best.address_snippet;\n  }\n\n  return {\n    json: {\n      ...lead,\n      company_number: companyNumber,\n      company_status: companyStatus,\n      date_of_creation: dateOfCreation,\n      official_ch_address: officialAddress,\n      companies_house_verified: Boolean(companyNumber)\n    }\n  };\n});"
+      },
+      "id": "merge-ch-node",
+      "name": "5. Merge Verified Registry Data & Prepare Payload",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1100,
+        1180,
         300
       ]
     },
     {
       "parameters": {
-        "jsCode": "// 5. Ingest into Mercian Wealth App (Bulk Ingestion & Full Attribute Preservation)\nconst items = $input.all();\nif (items.length === 0) return [];\n\nconst first = items[0].json;\nconst leadsPayload = items.map(i => ({\n  business_name: i.json.business_name,\n  phone: i.json.phone,\n  website: i.json.website,\n  address: i.json.official_ch_address || i.json.address,\n  rating: i.json.rating,\n  reviews_count: i.json.reviews_count,\n  trade: i.json.trade,\n  director_name: i.json.director_name,\n  company_number: i.json.company_number,\n  companies_house: {\n    company_number: i.json.company_number,\n    company_status: i.json.company_status,\n    date_of_creation: i.json.date_of_creation\n  }\n}));\n\ntry {\n  await fetch(`${first.platform_url}/api/admin/leads/sync-sheets`, {\n    method: 'POST',\n    headers: {\n      'Content-Type': 'application/json',\n      'x-api-key': first.service_key\n    },\n    body: JSON.stringify({\n      action: 'import_leads',\n      leads: leadsPayload\n    })\n  });\n} catch (e) {\n  // Graceful continue\n}\n\n// Preserve every lead's full data payload downstream\nreturn items.map(i => ({\n  json: {\n    ...i.json,\n    ingested_to_app: true\n  }\n}));"
+        "method": "POST",
+        "url": "={{ $json.platform_url }}/api/admin/leads/sync-sheets",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "x-api-key",
+              "value": "={{ $json.service_key }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  action: 'import_leads',\n  leads: [{\n    business_name: $json.business_name,\n    phone: $json.phone,\n    website: $json.website,\n    address: $json.official_ch_address,\n    rating: $json.rating,\n    reviews_count: $json.reviews_count,\n    trade: $json.trade,\n    director_name: $json.director_name,\n    company_number: $json.company_number,\n    companies_house: {\n      company_number: $json.company_number,\n      company_status: $json.company_status,\n      date_of_creation: $json.date_of_creation\n    }\n  }]\n}) }}",
+        "options": {
+          "timeout": 20000
+        }
       },
       "id": "ingest-lead-node",
-      "name": "5. Ingest into Mercian Wealth App",
+      "name": "6. Ingest into Mercian Wealth App",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1400,
+        300
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Restore full lead payload for downstream nodes\nconst leadItems = $('5. Merge Verified Registry Data & Prepare Payload').all();\nreturn leadItems.map(item => ({ json: item.json }));"
+      },
+      "id": "restore-context-node",
+      "name": "Restore Lead Context",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1340,
+        1620,
         300
       ]
     },
@@ -102,56 +164,86 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        1560,
+        1840,
         300
       ]
     },
     {
       "parameters": {
-        "jsCode": "// 6. Run Headless 390px Audit (Ultra-Fast Parallel Execution)\nconst items = $input.all();\nconst results = [];\n\n// Audit leads in fast concurrent batches\nconst auditPromises = items.map(async (item) => {\n  const lead = item.json;\n  let auditResult = {\n    grade: 'B',\n    primaryAngle: {\n      title: 'Mobile Viewport Friction',\n      headline: 'Client intake barrier detected on 390px mobile screens'\n    }\n  };\n\n  try {\n    const res = await fetch(`${lead.platform_url}/api/audit`, {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n        'Authorization': `Bearer ${lead.service_key}`\n      },\n      body: JSON.stringify({ url: lead.website })\n    });\n\n    if (res.ok) {\n      const data = await res.json();\n      if (data.analysis) {\n        auditResult = data.analysis;\n      }\n    }\n  } catch (e) {\n    // Fallback retains default Grade B friction profile\n  }\n\n  return {\n    json: {\n      ...lead,\n      audit_grade: auditResult.grade || 'B',\n      audit_primary_angle: auditResult.primaryAngle?.title || 'Practice Intake Gap',\n      audit_impact: auditResult.primaryAngle?.headline || 'Mobile enquiry barrier detected',\n      audit_raw: auditResult\n    }\n  };\n});\n\nreturn await Promise.all(auditPromises);"
-      },
-      "id": "run-headless-audit",
-      "name": "6. Run Headless 390px Audit",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1780,
-        220
-      ]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "string": [
+        "method": "POST",
+        "url": "={{ $json.platform_url }}/api/audit",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
             {
-              "value1": "={{ $json.audit_grade }}",
-              "operation": "notEqual",
-              "value2": "C"
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $json.service_key }}"
             }
           ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ url: $json.website }) }}",
+        "options": {
+          "timeout": 45000
         }
       },
-      "id": "grade-filter",
-      "name": "Is Grade A or B Lead?",
-      "type": "n8n-nodes-base.if",
+      "id": "run-headless-audit",
+      "name": "7. Run Headless 390px Audit",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2060,
+        220
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// 8. Merge Audit Results & Filter Grade A/B Leads\nconst auditItems = $input.all();\nconst validLeadItems = $('Website Present?').all();\n\nconst qualifiedLeads = [];\n\nvalidLeadItems.forEach((item, idx) => {\n  const lead = item.json;\n  const auditRes = auditItems[idx]?.json || {};\n  const analysis = auditRes.analysis || {};\n  const grade = analysis.grade || 'B';\n\n  if (grade !== 'C') {\n    const cleanPhone = String(lead.phone || '').replace(/[^0-9]/g, '');\n    const angle = analysis.primaryAngle?.title || 'Mobile Viewport Friction';\n    const headline = analysis.primaryAngle?.headline || 'Client enquiry drop-off on 390px mobile screens';\n\n    const telegramMsg = [\n      '🔥 GRADE ' + grade + ' PRACTICE AUDITED',\n      '',\n      '🏛 Practice: ' + lead.business_name,\n      '👤 Director: ' + (lead.director_name || 'Senior Partner'),\n      '🏢 Companies House: ' + (lead.company_number || 'UK Registered') + ' (' + (lead.company_status || 'active') + ')',\n      '📞 Phone: ' + lead.phone + ' (' + (lead.is_whatsapp_viable ? 'WhatsApp Ready' : 'Landline') + ')',\n      '',\n      '⚠️ Friction: ' + angle,\n      '💡 Impact: ' + headline,\n      '',\n      '👉 1-Tap WhatsApp: https://wa.me/' + cleanPhone,\n      '🔗 Open Dossier: ' + lead.platform_url + '/admin/leads'\n    ].join('\\n');\n\n    qualifiedLeads.push({\n      json: {\n        ...lead,\n        audit_grade: grade,\n        telegram_message: telegramMsg\n      }\n    });\n  }\n});\n\nreturn qualifiedLeads;"
+      },
+      "id": "merge-audit-node",
+      "name": "8. Merge Audit & Filter Grade A or B",
+      "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2020,
+        2280,
         220
       ]
     },
     {
       "parameters": {
-        "jsCode": "// 7. Instant Telegram Alert Dispatcher (Native Fetch - 100% Guaranteed)\nconst items = $input.all();\nconst results = [];\n\nfor (const item of items) {\n  const lead = item.json;\n  const token = lead.telegram_bot_token;\n  const chatId = lead.telegram_chat_id;\n  const phoneDigits = String(lead.phone || '').replace(/[^0-9]/g, '');\n\n  const messageText = [\n    `🔥 GRADE ${lead.audit_grade || 'A'} PRACTICE AUDITED`,\n    '',\n    `🏛 Practice: ${lead.business_name}`,\n    `👤 Director: ${lead.director_name || 'Senior Partner'}`,\n    `🏢 Companies House: ${lead.company_number || 'Verified'} (${lead.company_status || 'active'})`,\n    `📞 Phone: ${lead.phone} (${lead.is_whatsapp_viable ? 'WhatsApp Ready' : 'Landline'})`,\n    '',\n    `⚠️ Friction: ${lead.audit_primary_angle || 'Practice Intake Gap'}`,\n    `💡 Impact: ${lead.audit_impact || 'Mobile enquiry barrier detected'}`,\n    '',\n    `👉 1-Tap WhatsApp: https://wa.me/${phoneDigits}`,\n    `🔗 Open Dossier: ${lead.platform_url}/admin/leads`\n  ].join('\\n');\n\n  try {\n    const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({\n        chat_id: chatId,\n        text: messageText\n      })\n    });\n    const data = await response.json();\n    results.push({ json: { ...lead, alert_sent: data.ok } });\n  } catch (err) {\n    results.push({ json: { ...lead, alert_sent: false, error: err.message } });\n  }\n}\n\nreturn results;"
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8278044186:AAGyxTQNrj7KlRzZV10cNxmwlbZzgFwdU-Q/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  chat_id: '7191968038',\n  text: $json.telegram_message\n}) }}",
+        "options": {
+          "timeout": 15000
+        }
       },
-      "id": "telegram-alert-code-node",
-      "name": "7. Send Instant Telegram Alert",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
+      "id": "telegram-alert-node",
+      "name": "9. Send Instant Telegram Alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [
-        2260,
-        200
-      ]
+        2500,
+        220
+      ],
+      "continueOnFail": true
     }
   ],
   "connections": {
@@ -203,14 +295,36 @@
       "main": [
         [
           {
-            "node": "5. Ingest into Mercian Wealth App",
+            "node": "5. Merge Verified Registry Data & Prepare Payload",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "5. Ingest into Mercian Wealth App": {
+    "5. Merge Verified Registry Data & Prepare Payload": {
+      "main": [
+        [
+          {
+            "node": "6. Ingest into Mercian Wealth App",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Ingest into Mercian Wealth App": {
+      "main": [
+        [
+          {
+            "node": "Restore Lead Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restore Lead Context": {
       "main": [
         [
           {
@@ -225,29 +339,29 @@
       "main": [
         [
           {
-            "node": "6. Run Headless 390px Audit",
+            "node": "7. Run Headless 390px Audit",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "6. Run Headless 390px Audit": {
+    "7. Run Headless 390px Audit": {
       "main": [
         [
           {
-            "node": "Is Grade A or B Lead?",
+            "node": "8. Merge Audit & Filter Grade A or B",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Is Grade A or B Lead?": {
+    "8. Merge Audit & Filter Grade A or B": {
       "main": [
         [
           {
-            "node": "7. Send Instant Telegram Alert",
+            "node": "9. Send Instant Telegram Alert",
             "type": "main",
             "index": 0
           }
