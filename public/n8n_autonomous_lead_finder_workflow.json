@@ -20,44 +20,12 @@
     },
     {
       "parameters": {
-        "values": {
-          "string": [
-            {
-              "name": "PLATFORM_URL",
-              "value": "https://v0-mercian-wealth.vercel.app"
-            },
-            {
-              "name": "SUPABASE_SERVICE_ROLE_KEY",
-              "value": "YOUR_SUPABASE_SERVICE_ROLE_KEY"
-            },
-            {
-              "name": "TARGET_NICHE",
-              "value": "Chartered Accountants"
-            },
-            {
-              "name": "TARGET_REGION",
-              "value": "London, UK"
-            },
-            {
-              "name": "COMPANIES_HOUSE_API_KEY",
-              "value": "2aa4750f-6fb0-40d0-9473-f003ccca6185"
-            },
-            {
-              "name": "TELEGRAM_BOT_TOKEN",
-              "value": "8278044186:AAGyxTQNrj7KlRzZV10cNxmwlbZzgFwdU-Q"
-            },
-            {
-              "name": "TELEGRAM_CHAT_ID",
-              "value": "7191968038"
-            }
-          ]
-        },
-        "options": {}
+        "jsCode": "// 1. Configuration & Secrets (100% Pre-Filled)\nreturn {\n  json: {\n    \"PLATFORM_URL\": \"https://v0-mercian-wealth.vercel.app\",\n    \"SUPABASE_SERVICE_ROLE_KEY\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhZGViaG15eXdrY3F0eWF6eHhrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTY4NTAzNSwiZXhwIjoyMDk3MjYxMDM1fQ.m_FBVwQCgj9OWqz1dajV7pGpoA5yF1Hyir71gibCKEE\",\n    \"TARGET_NICHE\": \"Chartered Accountants\",\n    \"TARGET_REGION\": \"London, UK\",\n    \"COMPANIES_HOUSE_API_KEY\": \"2aa4750f-6fb0-40d0-9473-f003ccca6185\",\n    \"TELEGRAM_BOT_TOKEN\": \"8278044186:AAGyxTQNrj7KlRzZV10cNxmwlbZzgFwdU-Q\",\n    \"TELEGRAM_CHAT_ID\": \"7191968038\"\n  }\n};"
       },
       "id": "config-settings-node",
       "name": "1. Configuration & Secrets",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.2,
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [380, 300]
     },
     {
