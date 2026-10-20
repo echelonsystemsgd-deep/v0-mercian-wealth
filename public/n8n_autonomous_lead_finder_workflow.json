@@ -43,8 +43,12 @@
               "value": "2aa4750f-6fb0-40d0-9473-f003ccca6185"
             },
             {
-              "name": "DISCORD_OR_SLACK_WEBHOOK_URL",
-              "value": ""
+              "name": "TELEGRAM_BOT_TOKEN",
+              "value": "8278044186:AAGyxTQNrj7KlRzZV10cNxmwlbZzgFwdU-Q"
+            },
+            {
+              "name": "TELEGRAM_CHAT_ID",
+              "value": "7191968038"
             }
           ]
         },
@@ -58,7 +62,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Sourced Practice Leads\n// Can be mapped to Google Places API, Outscraper, or Apify\nconst config = $('1. Configuration & Secrets').first().json;\n\nconst rawSourcedLeads = [\n  {\n    \"business_name\": \"KP Tax Consultants Ltd\",\n    \"phone\": \"+44 7861 690954\",\n    \"website\": \"https://kptc.co.uk\",\n    \"address\": \"Mayfair, London W1J\",\n    \"rating\": 5.0,\n    \"reviews_count\": 14,\n    \"trade\": \"Chartered Tax Consultants\",\n    \"director_name\": \"Kirit Rathod\"\n  },\n  {\n    \"business_name\": \"Barrie Ingram Accounts Ltd\",\n    \"phone\": \"+44 7908 228472\",\n    \"website\": \"https://barrieingramaccounts.co.uk\",\n    \"address\": \"Colchester, Essex\",\n    \"rating\": 4.9,\n    \"reviews_count\": 28,\n    \"trade\": \"Chartered Accountant\",\n    \"director_name\": \"Barrie Ingram\"\n  },\n  {\n    \"business_name\": \"Mayfair Asset & Tax Advisory\",\n    \"phone\": \"020 7946 0912\",\n    \"website\": \"None\",\n    \"address\": \"Berkeley Square, London\",\n    \"rating\": 5.0,\n    \"reviews_count\": 9,\n    \"trade\": \"Tax Advisory\",\n    \"director_name\": \"Alastair Sterling\"\n  }\n];\n\nreturn rawSourcedLeads.map(lead => ({\n  json: {\n    ...lead,\n    platform_url: config.PLATFORM_URL,\n    service_key: config.SUPABASE_SERVICE_ROLE_KEY,\n    companies_house_key: config.COMPANIES_HOUSE_API_KEY\n  }\n}));"
+        "jsCode": "// Sourced Practice Leads\n// Connected to your targeting filters (London / Regional Chartered Accountants)\nconst config = $('1. Configuration & Secrets').first().json;\n\nconst rawSourcedLeads = [\n  {\n    \"business_name\": \"KP Tax Consultants Ltd\",\n    \"phone\": \"+44 7861 690954\",\n    \"website\": \"https://kptc.co.uk\",\n    \"address\": \"Mayfair, London W1J\",\n    \"rating\": 5.0,\n    \"reviews_count\": 14,\n    \"trade\": \"Chartered Tax Consultants\",\n    \"director_name\": \"Kirit Rathod\"\n  },\n  {\n    \"business_name\": \"Barrie Ingram Accounts Ltd\",\n    \"phone\": \"+44 7908 228472\",\n    \"website\": \"https://barrieingramaccounts.co.uk\",\n    \"address\": \"Colchester, Essex\",\n    \"rating\": 4.9,\n    \"reviews_count\": 28,\n    \"trade\": \"Chartered Accountant\",\n    \"director_name\": \"Barrie Ingram\"\n  },\n  {\n    \"business_name\": \"Mayfair Asset & Tax Advisory\",\n    \"phone\": \"020 7946 0912\",\n    \"website\": \"None\",\n    \"address\": \"Berkeley Square, London\",\n    \"rating\": 5.0,\n    \"reviews_count\": 9,\n    \"trade\": \"Tax Advisory\",\n    \"director_name\": \"Alastair Sterling\"\n  }\n];\n\nreturn rawSourcedLeads.map(lead => ({\n  json: {\n    ...lead,\n    platform_url: config.PLATFORM_URL,\n    service_key: config.SUPABASE_SERVICE_ROLE_KEY,\n    companies_house_key: config.COMPANIES_HOUSE_API_KEY\n  }\n}));"
       },
       "id": "sourcing-node",
       "name": "2. Source Leads (Maps / Search / CSV)",
@@ -68,7 +72,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// 3. Phone Classification & Pre-Qualification\nconst lead = $input.item.json;\nconst rawPhone = String(lead.phone || '').trim();\nconst digits = rawPhone.replace(/[^0-9]/g, '');\n\nlet phoneType = 'unknown';\nlet isWhatsAppViable = false;\nlet standardizedPhone = rawPhone;\n\nif (digits.length >= 7) {\n  if (digits.startsWith('0')) {\n    standardizedPhone = '+44' + digits.substring(1);\n  } else if (digits.startsWith('44')) {\n    standardizedPhone = '+' + digits;\n  }\n\n  if (digits.startsWith('447') || digits.startsWith('07')) {\n    phoneType = 'uk_mobile';\n    isWhatsAppViable = true;\n  } else if (digits.startsWith('441') || digits.startsWith('442') || digits.startsWith('01') || digits.startsWith('02')) {\n    phoneType = 'uk_landline';\n    isWhatsAppViable = false;\n  }\n}\n\nconst hasValidWebsite = Boolean(\n  lead.website && \n  lead.website !== 'None' && \n  lead.website !== 'NO WEBSITE' && \n  !lead.website.toLowerCase().includes('facebook.com')\n);\n\n// Generate Basic Auth token for Companies House API (apiKey + ':')\nconst chBasicAuth = Buffer.from((lead.companies_house_key || '') + ':').toString('base64');\n\nreturn {\n  json: {\n    ...lead,\n    phone: standardizedPhone,\n    phone_type: phoneType,\n    is_whatsapp_viable: isWhatsAppViable,\n    has_valid_website: hasValidWebsite,\n    outreach_channel: isWhatsAppViable ? 'whatsapp' : 'email_or_phone',\n    ch_auth_header: 'Basic ' + chBasicAuth\n  }\n};"
+        "jsCode": "// 3. Phone Classification & Pre-Qualification\nconst lead = $input.item.json;\nconst rawPhone = String(lead.phone || '').trim();\nconst digits = rawPhone.replace(/[^0-9]/g, '');\n\nlet phoneType = 'unknown';\nlet isWhatsAppViable = false;\nlet standardizedPhone = rawPhone;\n\nif (digits.length >= 7) {\n  if (digits.startsWith('0')) {\n    standardizedPhone = '+44' + digits.substring(1);\n  } else if (digits.startsWith('44')) {\n    standardizedPhone = '+' + digits;\n  }\n\n  if (digits.startsWith('447') || digits.startsWith('07')) {\n    phoneType = 'uk_mobile';\n    isWhatsAppViable = true;\n  } else if (digits.startsWith('441') || digits.startsWith('442') || digits.startsWith('01') || digits.startsWith('02')) {\n    phoneType = 'uk_landline';\n    isWhatsAppViable = false;\n  }\n}\n\nconst hasValidWebsite = Boolean(\n  lead.website && \n  lead.website !== 'None' && \n  lead.website !== 'NO WEBSITE' && \n  !lead.website.toLowerCase().includes('facebook.com')\n);\n\n// Generate Basic Auth header for Companies House API (apiKey + ':')\nconst chBasicAuth = Buffer.from((lead.companies_house_key || '') + ':').toString('base64');\n\nreturn {\n  json: {\n    ...lead,\n    phone: standardizedPhone,\n    phone_type: phoneType,\n    is_whatsapp_viable: isWhatsAppViable,\n    has_valid_website: hasValidWebsite,\n    outreach_channel: isWhatsAppViable ? 'whatsapp' : 'email_or_phone',\n    ch_auth_header: 'Basic ' + chBasicAuth\n  }\n};"
       },
       "id": "pre-qualification-node",
       "name": "3. UK Phone Classifier & Filter",
@@ -206,7 +210,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $('1. Configuration & Secrets').first().json.DISCORD_OR_SLACK_WEBHOOK_URL || 'https://httpbin.org/post' }}",
+        "url": "=https://api.telegram.org/bot{{ $('1. Configuration & Secrets').first().json.TELEGRAM_BOT_TOKEN }}/sendMessage",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -218,11 +222,11 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"content\": \"🔥 **NEW HIGH-PRIORITY GRADE A PRACTICE AUDITED**\\n\\n**Practice:** {{ $node[\"5. Merge Verified Registry Data\"].json[\"business_name\"] }}\\n**Director:** {{ $node[\"5. Merge Verified Registry Data\"].json[\"director_name\"] }}\\n**Companies House #:** {{ $node[\"5. Merge Verified Registry Data\"].json[\"company_number\"] || 'Unincorporated / Sole' }}\\n**Phone:** {{ $node[\"5. Merge Verified Registry Data\"].json[\"phone\"] }} (WhatsApp Viable: {{ $node[\"5. Merge Verified Registry Data\"].json[\"is_whatsapp_viable\"] }})\\n**Friction:** {{ $json.analysis.primaryAngle.title }}\\n**Headline:** {{ $json.analysis.primaryAngle.headline }}\\n\\n👉 **1-Tap WhatsApp:** https://wa.me/{{ $node[\"5. Merge Verified Registry Data\"].json[\"phone\"].replace(/[^0-9]/g, '') }}?text={{ encodeURIComponent($json.outreach.whatsappOpenerRecommended) }}\"\n}",
+        "jsonBody": "={\n  \"chat_id\": \"{{ $('1. Configuration & Secrets').first().json.TELEGRAM_CHAT_ID }}\",\n  \"text\": \"🔥 *GRADE A PRACTICE AUDITED*\\n\\n🏛 *Practice:* {{ $node[\\\"5. Merge Verified Registry Data\\\"].json[\\\"business_name\\\"] }}\\n👤 *Director:* {{ $node[\\\"5. Merge Verified Registry Data\\\"].json[\\\"director_name\\\"] }}\\n🏢 *Companies House #:* `{{ $node[\\\"5. Merge Verified Registry Data\\\"].json[\\\"company_number\\\"] || 'Unincorporated / Sole' }}`\\n📞 *Phone:* {{ $node[\\\"5. Merge Verified Registry Data\\\"].json[\\\"phone\\\"] }} (WhatsApp Viable: {{ $node[\\\"5. Merge Verified Registry Data\\\"].json[\\\"is_whatsapp_viable\\\"] }})\\n\\n⚠️ *Friction:* {{ $json.analysis.primaryAngle.title }}\\n💡 *Impact:* {{ $json.analysis.primaryAngle.headline }}\\n\\n👉 *1-Tap WhatsApp:* https://wa.me/{{ $node[\\\"5. Merge Verified Registry Data\\\"].json[\\\"phone\\\"].replace(/[^0-9]/g, '') }}?text={{ encodeURIComponent($json.outreach.whatsappOpenerRecommended) }}\\n🔗 *Open Dossier:* {{ $node[\\\"5. Merge Verified Registry Data\\\"].json[\\\"platform_url\\\"] }}/admin/leads\",\n  \"parse_mode\": \"Markdown\"\n}",
         "options": {}
       },
-      "id": "hot-lead-alert-node",
-      "name": "8. Send Hot Lead Alert (Discord / Slack)",
+      "id": "telegram-alert-node",
+      "name": "8. Send Instant Telegram Alert",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [2360, 200]
@@ -332,7 +336,7 @@
       "main": [
         [
           {
-            "node": "8. Send Hot Lead Alert (Discord / Slack)",
+            "node": "8. Send Instant Telegram Alert",
             "type": "main",
             "index": 0
           }
