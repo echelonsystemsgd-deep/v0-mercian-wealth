@@ -179,18 +179,20 @@
       "parameters": {
         "method": "POST",
         "url": "=https://api.telegram.org/bot{{ $('1. Configuration & Secrets').first().json.TELEGRAM_BOT_TOKEN }}/sendMessage",
-        "sendHeaders": true,
-        "headerParameters": {
+        "sendBody": true,
+        "specifyBody": "fields",
+        "bodyParameters": {
           "parameters": [
             {
-              "name": "Content-Type",
-              "value": "application/json"
+              "name": "chat_id",
+              "value": "={{ $('1. Configuration & Secrets').first().json.TELEGRAM_CHAT_ID }}"
+            },
+            {
+              "name": "text",
+              "value": "=🔥 GRADE A PRACTICE AUDITED\n\n🏛 Practice: {{ $('5. Merge Verified Registry Data').first().json.business_name }}\n👤 Director: {{ $('5. Merge Verified Registry Data').first().json.director_name }}\n🏢 Companies House: {{ $('5. Merge Verified Registry Data').first().json.company_number || 'Registered' }}\n📞 Phone: {{ $('5. Merge Verified Registry Data').first().json.phone }}\n\n⚠️ Friction: {{ $json.analysis.primaryAngle.title }}\n💡 Impact: {{ $json.analysis.primaryAngle.headline }}\n\n👉 1-Tap WhatsApp: https://wa.me/{{ $('5. Merge Verified Registry Data').first().json.phone.replace(/[^0-9]/g, '') }}\n🔗 Open Dossier: {{ $('5. Merge Verified Registry Data').first().json.platform_url }}/admin/leads"
             }
           ]
         },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"chat_id\": \"{{ $('1. Configuration & Secrets').first().json.TELEGRAM_CHAT_ID }}\",\n  \"text\": \"🔥 *GRADE A PRACTICE AUDITED*\\n\\n🏛 *Practice:* {{ $node[\\\"5. Merge Verified Registry Data\\\"].json[\\\"business_name\\\"] }}\\n👤 *Director:* {{ $node[\\\"5. Merge Verified Registry Data\\\"].json[\\\"director_name\\\"] }}\\n🏢 *Companies House #:* `{{ $node[\\\"5. Merge Verified Registry Data\\\"].json[\\\"company_number\\\"] || 'Unincorporated / Sole' }}`\\n📞 *Phone:* {{ $node[\\\"5. Merge Verified Registry Data\\\"].json[\\\"phone\\\"] }} (WhatsApp Viable: {{ $node[\\\"5. Merge Verified Registry Data\\\"].json[\\\"is_whatsapp_viable\\\"] }})\\n\\n⚠️ *Friction:* {{ $json.analysis.primaryAngle.title }}\\n💡 *Impact:* {{ $json.analysis.primaryAngle.headline }}\\n\\n👉 *1-Tap WhatsApp:* https://wa.me/{{ $node[\\\"5. Merge Verified Registry Data\\\"].json[\\\"phone\\\"].replace(/[^0-9]/g, '') }}?text={{ encodeURIComponent($json.outreach.whatsappOpenerRecommended) }}\\n🔗 *Open Dossier:* {{ $node[\\\"5. Merge Verified Registry Data\\\"].json[\\\"platform_url\\\"] }}/admin/leads\",\n  \"parse_mode\": \"Markdown\"\n}",
         "options": {}
       },
       "id": "telegram-alert-node",
