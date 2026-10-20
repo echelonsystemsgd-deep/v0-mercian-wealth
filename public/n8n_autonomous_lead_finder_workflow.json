@@ -16,7 +16,7 @@
       "name": "Daily 8 AM Trigger (Mon-Fri)",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [180, 300]
+      "position": [160, 300]
     },
     {
       "parameters": {
@@ -40,7 +40,7 @@
             },
             {
               "name": "COMPANIES_HOUSE_API_KEY",
-              "value": ""
+              "value": "2aa4750f-6fb0-40d0-9473-f003ccca6185"
             },
             {
               "name": "DISCORD_OR_SLACK_WEBHOOK_URL",
@@ -54,27 +54,62 @@
       "name": "1. Configuration & Secrets",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.2,
-      "position": [400, 300]
+      "position": [380, 300]
     },
     {
       "parameters": {
-        "jsCode": "// Simulated or Connected Lead Sourcing Ingestion\n// In production: Replace with Google Places API, Outscraper, or Apify Google Maps export\nconst config = $('1. Configuration & Secrets').first().json;\n\nconst rawSourcedLeads = [\n  {\n    \"business_name\": \"KP Tax Consultants Ltd\",\n    \"phone\": \"+44 7861 690954\",\n    \"website\": \"https://kptc.co.uk\",\n    \"address\": \"Mayfair, London W1J\",\n    \"rating\": 5.0,\n    \"reviews_count\": 14,\n    \"trade\": \"Chartered Tax Consultants\",\n    \"director_name\": \"Kirit Rathod\"\n  },\n  {\n    \"business_name\": \"Barrie Ingram Accounts Ltd\",\n    \"phone\": \"+44 7908 228472\",\n    \"website\": \"https://barrieingramaccounts.co.uk\",\n    \"address\": \"Colchester, Essex\",\n    \"rating\": 4.9,\n    \"reviews_count\": 28,\n    \"trade\": \"Chartered Accountant\",\n    \"director_name\": \"Barrie Ingram\"\n  },\n  {\n    \"business_name\": \"Mayfair Asset & Tax Advisory\",\n    \"phone\": \"020 7946 0912\",\n    \"website\": \"None\",\n    \"address\": \"Berkeley Square, London\",\n    \"rating\": 5.0,\n    \"reviews_count\": 9,\n    \"trade\": \"Tax Advisory\",\n    \"director_name\": \"Alastair Sterling\"\n  }\n];\n\nreturn rawSourcedLeads.map(lead => ({\n  json: {\n    ...lead,\n    platform_url: config.PLATFORM_URL,\n    service_key: config.SUPABASE_SERVICE_ROLE_KEY\n  }\n}));"
+        "jsCode": "// Sourced Practice Leads\n// Can be mapped to Google Places API, Outscraper, or Apify\nconst config = $('1. Configuration & Secrets').first().json;\n\nconst rawSourcedLeads = [\n  {\n    \"business_name\": \"KP Tax Consultants Ltd\",\n    \"phone\": \"+44 7861 690954\",\n    \"website\": \"https://kptc.co.uk\",\n    \"address\": \"Mayfair, London W1J\",\n    \"rating\": 5.0,\n    \"reviews_count\": 14,\n    \"trade\": \"Chartered Tax Consultants\",\n    \"director_name\": \"Kirit Rathod\"\n  },\n  {\n    \"business_name\": \"Barrie Ingram Accounts Ltd\",\n    \"phone\": \"+44 7908 228472\",\n    \"website\": \"https://barrieingramaccounts.co.uk\",\n    \"address\": \"Colchester, Essex\",\n    \"rating\": 4.9,\n    \"reviews_count\": 28,\n    \"trade\": \"Chartered Accountant\",\n    \"director_name\": \"Barrie Ingram\"\n  },\n  {\n    \"business_name\": \"Mayfair Asset & Tax Advisory\",\n    \"phone\": \"020 7946 0912\",\n    \"website\": \"None\",\n    \"address\": \"Berkeley Square, London\",\n    \"rating\": 5.0,\n    \"reviews_count\": 9,\n    \"trade\": \"Tax Advisory\",\n    \"director_name\": \"Alastair Sterling\"\n  }\n];\n\nreturn rawSourcedLeads.map(lead => ({\n  json: {\n    ...lead,\n    platform_url: config.PLATFORM_URL,\n    service_key: config.SUPABASE_SERVICE_ROLE_KEY,\n    companies_house_key: config.COMPANIES_HOUSE_API_KEY\n  }\n}));"
       },
       "id": "sourcing-node",
       "name": "2. Source Leads (Maps / Search / CSV)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [620, 300]
+      "position": [600, 300]
     },
     {
       "parameters": {
-        "jsCode": "// 3. Phone Classification & Pre-Qualification\nconst lead = $input.item.json;\nconst rawPhone = String(lead.phone || '').trim();\nconst digits = rawPhone.replace(/[^0-9]/g, '');\n\nlet phoneType = 'unknown';\nlet isWhatsAppViable = false;\nlet nationalDisplay = rawPhone;\nlet standardizedPhone = rawPhone;\n\nif (digits.length >= 7) {\n  if (digits.startsWith('0')) {\n    standardizedPhone = '+44' + digits.substring(1);\n  } else if (digits.startsWith('44')) {\n    standardizedPhone = '+' + digits;\n  }\n\n  if (digits.startsWith('447') || digits.startsWith('07')) {\n    phoneType = 'uk_mobile';\n    isWhatsAppViable = true;\n  } else if (digits.startsWith('441') || digits.startsWith('442') || digits.startsWith('01') || digits.startsWith('02')) {\n    phoneType = 'uk_landline';\n    isWhatsAppViable = false;\n  }\n}\n\nconst hasValidWebsite = Boolean(\n  lead.website && \n  lead.website !== 'None' && \n  lead.website !== 'NO WEBSITE' && \n  !lead.website.toLowerCase().includes('facebook.com')\n);\n\nreturn {\n  json: {\n    ...lead,\n    phone: standardizedPhone,\n    phone_type: phoneType,\n    is_whatsapp_viable: isWhatsAppViable,\n    has_valid_website: hasValidWebsite,\n    outreach_channel: isWhatsAppViable ? 'whatsapp' : 'email_or_phone'\n  }\n};"
+        "jsCode": "// 3. Phone Classification & Pre-Qualification\nconst lead = $input.item.json;\nconst rawPhone = String(lead.phone || '').trim();\nconst digits = rawPhone.replace(/[^0-9]/g, '');\n\nlet phoneType = 'unknown';\nlet isWhatsAppViable = false;\nlet standardizedPhone = rawPhone;\n\nif (digits.length >= 7) {\n  if (digits.startsWith('0')) {\n    standardizedPhone = '+44' + digits.substring(1);\n  } else if (digits.startsWith('44')) {\n    standardizedPhone = '+' + digits;\n  }\n\n  if (digits.startsWith('447') || digits.startsWith('07')) {\n    phoneType = 'uk_mobile';\n    isWhatsAppViable = true;\n  } else if (digits.startsWith('441') || digits.startsWith('442') || digits.startsWith('01') || digits.startsWith('02')) {\n    phoneType = 'uk_landline';\n    isWhatsAppViable = false;\n  }\n}\n\nconst hasValidWebsite = Boolean(\n  lead.website && \n  lead.website !== 'None' && \n  lead.website !== 'NO WEBSITE' && \n  !lead.website.toLowerCase().includes('facebook.com')\n);\n\n// Generate Basic Auth token for Companies House API (apiKey + ':')\nconst chBasicAuth = Buffer.from((lead.companies_house_key || '') + ':').toString('base64');\n\nreturn {\n  json: {\n    ...lead,\n    phone: standardizedPhone,\n    phone_type: phoneType,\n    is_whatsapp_viable: isWhatsAppViable,\n    has_valid_website: hasValidWebsite,\n    outreach_channel: isWhatsAppViable ? 'whatsapp' : 'email_or_phone',\n    ch_auth_header: 'Basic ' + chBasicAuth\n  }\n};"
       },
       "id": "pre-qualification-node",
       "name": "3. UK Phone Classifier & Filter",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [840, 300]
+      "position": [820, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.company-information.service.gov.uk/search/companies?q={{ encodeURIComponent($json.business_name) }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $json.ch_auth_header }}"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": false,
+          "timeout": 15000
+        }
+      },
+      "id": "companies-house-node",
+      "name": "4. Companies House UK Registry Lookup",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1040, 300],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Merge Companies House Official Data into Lead\nconst prev = $node[\"3. UK Phone Classifier & Filter\"].json;\nconst chResponse = $input.item.json;\n\nlet companyNumber = null;\nlet companyStatus = 'active';\nlet dateOfCreation = null;\nlet officialAddress = null;\n\nif (chResponse && chResponse.items && chResponse.items.length > 0) {\n  const bestMatch = chResponse.items[0];\n  companyNumber = bestMatch.company_number || null;\n  companyStatus = bestMatch.company_status || 'active';\n  dateOfCreation = bestMatch.date_of_creation || null;\n  if (bestMatch.address_snippet) {\n    officialAddress = bestMatch.address_snippet;\n  }\n}\n\nreturn {\n  json: {\n    ...prev,\n    company_number: companyNumber,\n    company_status: companyStatus,\n    date_of_creation: dateOfCreation,\n    official_ch_address: officialAddress || prev.address,\n    companies_house_verified: Boolean(companyNumber)\n  }\n};"
+      },
+      "id": "merge-ch-node",
+      "name": "5. Merge Verified Registry Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1260, 300]
     },
     {
       "parameters": {
@@ -95,21 +130,21 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"action\": \"import_leads\",\n  \"leads\": [\n    {\n      \"business_name\": \"{{ $json.business_name }}\",\n      \"phone\": \"{{ $json.phone }}\",\n      \"website\": \"{{ $json.website }}\",\n      \"address\": \"{{ $json.address }}\",\n      \"rating\": {{ $json.rating }},\n      \"reviews_count\": {{ $json.reviews_count }},\n      \"trade\": \"{{ $json.trade }}\",\n      \"director_name\": \"{{ $json.director_name }}\"\n    }\n  ]\n}",
+        "jsonBody": "={\n  \"action\": \"import_leads\",\n  \"leads\": [\n    {\n      \"business_name\": \"{{ $json.business_name }}\",\n      \"phone\": \"{{ $json.phone }}\",\n      \"website\": \"{{ $json.website }}\",\n      \"address\": \"{{ $json.official_ch_address }}\",\n      \"rating\": {{ $json.rating }},\n      \"reviews_count\": {{ $json.reviews_count }},\n      \"trade\": \"{{ $json.trade }}\",\n      \"director_name\": \"{{ $json.director_name }}\",\n      \"company_number\": \"{{ $json.company_number }}\",\n      \"companies_house\": {\n        \"company_number\": \"{{ $json.company_number }}\",\n        \"company_status\": \"{{ $json.company_status }}\",\n        \"date_of_creation\": \"{{ $json.date_of_creation }}\"\n      }\n    }\n  ]\n}",
         "options": {}
       },
       "id": "ingest-lead-node",
-      "name": "4. Ingest into Mercian Wealth App",
+      "name": "6. Ingest into Mercian Wealth App",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1060, 300]
+      "position": [1480, 300]
     },
     {
       "parameters": {
         "conditions": {
           "boolean": [
             {
-              "value1": "={{ $node[\"3. UK Phone Classifier & Filter\"].json[\"has_valid_website\"] }}",
+              "value1": "={{ $node[\"5. Merge Verified Registry Data\"].json[\"has_valid_website\"] }}",
               "value2": true
             }
           ]
@@ -119,12 +154,12 @@
       "name": "Website Present?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [1280, 300]
+      "position": [1700, 300]
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $node[\"3. UK Phone Classifier & Filter\"].json[\"platform_url\"] }}/api/audit",
+        "url": "={{ $node[\"5. Merge Verified Registry Data\"].json[\"platform_url\"] }}/api/audit",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -134,22 +169,22 @@
             },
             {
               "name": "Authorization",
-              "value": "=Bearer {{ $node[\"3. UK Phone Classifier & Filter\"].json[\"service_key\"] }}"
+              "value": "=Bearer {{ $node[\"5. Merge Verified Registry Data\"].json[\"service_key\"] }}"
             }
           ]
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"url\": \"{{ $node[\"3. UK Phone Classifier & Filter\"].json[\"website\"] }}\"\n}",
+        "jsonBody": "={\n  \"url\": \"{{ $node[\"5. Merge Verified Registry Data\"].json[\"website\"] }}\"\n}",
         "options": {
           "timeout": 45000
         }
       },
       "id": "run-headless-audit",
-      "name": "5. Run Headless 390px Audit",
+      "name": "7. Run Headless 390px Audit",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1500, 220]
+      "position": [1920, 220]
     },
     {
       "parameters": {
@@ -166,7 +201,7 @@
       "name": "Is Grade A Lead?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [1720, 220]
+      "position": [2140, 220]
     },
     {
       "parameters": {
@@ -183,14 +218,14 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"content\": \"🔥 **NEW HIGH-PRIORITY GRADE A LEAD AUDITED**\\n\\n**Practice:** {{ $node[\"3. UK Phone Classifier & Filter\"].json[\"business_name\"] }}\\n**Director:** {{ $node[\"3. UK Phone Classifier & Filter\"].json[\"director_name\"] }}\\n**Phone:** {{ $node[\"3. UK Phone Classifier & Filter\"].json[\"phone\"] }} (WhatsApp Viable: {{ $node[\"3. UK Phone Classifier & Filter\"].json[\"is_whatsapp_viable\"] }})\\n**Friction:** {{ $json.analysis.primaryAngle.title }}\\n**Headline:** {{ $json.analysis.primaryAngle.headline }}\\n\\n👉 **1-Tap WhatsApp:** https://wa.me/{{ $node[\"3. UK Phone Classifier & Filter\"].json[\"phone\"].replace(/[^0-9]/g, '') }}?text={{ encodeURIComponent($json.outreach.whatsappOpenerRecommended) }}\"\n}",
+        "jsonBody": "={\n  \"content\": \"🔥 **NEW HIGH-PRIORITY GRADE A PRACTICE AUDITED**\\n\\n**Practice:** {{ $node[\"5. Merge Verified Registry Data\"].json[\"business_name\"] }}\\n**Director:** {{ $node[\"5. Merge Verified Registry Data\"].json[\"director_name\"] }}\\n**Companies House #:** {{ $node[\"5. Merge Verified Registry Data\"].json[\"company_number\"] || 'Unincorporated / Sole' }}\\n**Phone:** {{ $node[\"5. Merge Verified Registry Data\"].json[\"phone\"] }} (WhatsApp Viable: {{ $node[\"5. Merge Verified Registry Data\"].json[\"is_whatsapp_viable\"] }})\\n**Friction:** {{ $json.analysis.primaryAngle.title }}\\n**Headline:** {{ $json.analysis.primaryAngle.headline }}\\n\\n👉 **1-Tap WhatsApp:** https://wa.me/{{ $node[\"5. Merge Verified Registry Data\"].json[\"phone\"].replace(/[^0-9]/g, '') }}?text={{ encodeURIComponent($json.outreach.whatsappOpenerRecommended) }}\"\n}",
         "options": {}
       },
       "id": "hot-lead-alert-node",
-      "name": "6. Send Hot Lead Alert (Discord / Slack)",
+      "name": "8. Send Hot Lead Alert (Discord / Slack)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1940, 200]
+      "position": [2360, 200]
     }
   ],
   "connections": {
@@ -231,14 +266,36 @@
       "main": [
         [
           {
-            "node": "4. Ingest into Mercian Wealth App",
+            "node": "4. Companies House UK Registry Lookup",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "4. Ingest into Mercian Wealth App": {
+    "4. Companies House UK Registry Lookup": {
+      "main": [
+        [
+          {
+            "node": "5. Merge Verified Registry Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Merge Verified Registry Data": {
+      "main": [
+        [
+          {
+            "node": "6. Ingest into Mercian Wealth App",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Ingest into Mercian Wealth App": {
       "main": [
         [
           {
@@ -253,14 +310,14 @@
       "main": [
         [
           {
-            "node": "5. Run Headless 390px Audit",
+            "node": "7. Run Headless 390px Audit",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "5. Run Headless 390px Audit": {
+    "7. Run Headless 390px Audit": {
       "main": [
         [
           {
@@ -275,7 +332,7 @@
       "main": [
         [
           {
-            "node": "6. Send Hot Lead Alert (Discord / Slack)",
+            "node": "8. Send Hot Lead Alert (Discord / Slack)",
             "type": "main",
             "index": 0
           }
