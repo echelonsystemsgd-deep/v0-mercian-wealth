@@ -7,16 +7,31 @@ const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
 export async function GET() {
   try {
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
-    const { count, error } = await supabase
+    const { data: allLeads, error } = await supabase
       .from('leads')
-      .select('*', { count: 'exact', head: true })
-      .eq('source', 'google_maps_outreach')
+      .select('id, business_name, phone, status, source')
 
     if (error) throw error
 
+    const existingPhones = (allLeads || [])
+      .map(l => l.phone ? l.phone.replace(/[^0-9]/g, '') : null)
+      .filter(Boolean)
+
+    const existingNames = (allLeads || [])
+      .map(l => l.business_name ? l.business_name.trim().toLowerCase() : null)
+      .filter(Boolean)
+
+    const contactedOrLostPhones = (allLeads || [])
+      .filter(l => l.status === 'Contacted' || l.status === 'Lost' || l.status === 'Archive')
+      .map(l => l.phone ? l.phone.replace(/[^0-9]/g, '') : null)
+      .filter(Boolean)
+
     return NextResponse.json({
       success: true,
-      total_outreach_leads: count || 0,
+      total_leads: allLeads?.length || 0,
+      existing_phones: existingPhones,
+      existing_names: existingNames,
+      contacted_or_lost_phones: contactedOrLostPhones,
       timestamp: new Date().toISOString()
     })
   } catch (err: any) {
