@@ -1,0 +1,152 @@
+{
+  "site": "Smooth Feathers Accountants",
+  "url": "https://smoothfeathers.co.uk/",
+  "contactUrl": "https://smoothfeathers.co.uk/contact/",
+  "platform": "WordPress (Elementor)",
+  "details": {
+    "forms": [
+      {
+        "inputs": [
+          {
+            "name": "post_types",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "s",
+            "type": "text",
+            "required": false,
+            "placeholder": "Search"
+          }
+        ],
+        "text": "",
+        "action": "https://smoothfeathers.co.uk/"
+      },
+      {
+        "inputs": [
+          {
+            "name": "post_types",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "s",
+            "type": "text",
+            "required": false,
+            "placeholder": "Search"
+          }
+        ],
+        "text": "",
+        "action": "https://smoothfeathers.co.uk/"
+      },
+      {
+        "inputs": [
+          {
+            "name": "post_types",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "s",
+            "type": "text",
+            "required": false,
+            "placeholder": "Search"
+          }
+        ],
+        "text": "",
+        "action": "https://smoothfeathers.co.uk/"
+      },
+      {
+        "inputs": [
+          {
+            "name": "wpforms[fields][1]",
+            "type": "text",
+            "required": true,
+            "placeholder": ""
+          },
+          {
+            "name": "wpforms[fields][4]",
+            "type": "email",
+            "required": true,
+            "placeholder": ""
+          },
+          {
+            "name": "wpforms[fields][3]",
+            "type": "text",
+            "required": true,
+            "placeholder": ""
+          },
+          {
+            "name": "wpforms[fields][5]",
+            "type": "text",
+            "required": true,
+            "placeholder": ""
+          },
+          {
+            "name": "wpforms[fields][6]",
+            "type": "textarea",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "g-recaptcha-response",
+            "type": "textarea",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "g-recaptcha-hidden",
+            "type": "text",
+            "required": true,
+            "placeholder": ""
+          },
+          {
+            "name": "wpforms[id]",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "wpforms[author]",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "wpforms[post_id]",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          }
+        ],
+        "text": "Layout Full Name * Email * Phone Number * Service you want * Message Submit",
+        "action": "/contact/"
+      }
+    ],
+    "bodyTextSample": "Skip to content\nSkip to footer\nContact\nTAX AND ACCOUNTING SERVICES\nGet Tax Return from £99.99\n01753316725\nOpen Hours\nMonday to Friday (9 AM to 5:30 PM )\nClose: Saturday and Sunday\nAddress\nHead Office: 268 Bath Road, Slough. SL1 4DX\nLondon Office: 71-75 Shelton Street, London\nWC2H 9JQ, UK\nGet In Touch\nTelephone: 01753316725\nEmail: info@smoothfeathers.co.uk\nPLEASE FILL THE MANDATORY DETAILS\nFill this form to get a call back from us\nLayout\nFull Name *\nEmail *\nPhone Number *\nService you want *\nMessage\nSubmit\nSmooth Feathers Accountants\n\nReview me on Bark\n\nSmooth Feathers Accountants\nSmooth Feathers Accountants\nSmooth Feathers Accountants\nAbout Us\n\nWe are a premier firm of Accountants and Tax Consultants in the United Kingdom. Our team provides a broad range of expert solutions for small and medium scale companies, individuals, start-ups and non-profit organizations.\n\nOur Services\nTaxation\nBookkeeping\nYear End Accounts\nConstruction Industry Scheme\nSelf Assessment Services\nOther Services\nTax Enquiry Services\nCompany Formations\nPayroll, Pension & Autoenrolment\nVAT Scheme, Planning & Return\nContact\n01753316725\ninfo@smoothfeathers.co.uk\nHead Office: 268 Bath Road, Slough, SL1 4DX, United Kingdom\nLondon Office: 71-75 Shelton Street, London WC2H 9JQ, United Kingdom\n\nRegistered Company Smooth Feathers Ltd. Registration Number (8858456) | Smooth Feathers Accountants Ltd – Reg No (15950416)",
+    "title": "Local ACCA Tax Filing Services by Smooth Feathers Accountants",
+    "isWordPress": true,
+    "isWix": false,
+    "isSquarespace": false,
+    "isElementor": true,
+    "isDivi": true,
+    "isWebflow": false,
+    "isHubSpot": false,
+    "whatsappLinks": [],
+    "telLinks": [
+      "tel:01753316725",
+      "tel:01753316725",
+      "tel:01753316725"
+    ],
+    "mailtoLinks": [
+      "mailto:info@smoothfeathers.co.uk"
+    ],
+    "viewportMeta": "width=device-width, initial-scale=1",
+    "hasCalendar": false,
+    "cookieBanner": false
+  },
+  "findings": []
+}

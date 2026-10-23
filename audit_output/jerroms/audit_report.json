@@ -1,0 +1,80 @@
+{
+  "site": "Jerroms",
+  "url": "https://www.jerroms.co.uk/",
+  "contactUrl": "https://www.jerroms.co.uk/contact-us",
+  "platform": {
+    "name": "Custom",
+    "confidence": "medium",
+    "evidence": "Standard custom stack"
+  },
+  "findings": [
+    {
+      "id": "JER-UI-COMPETING-DUAL-FORMS",
+      "category": "D. UI components",
+      "severity": 4,
+      "confidence": "verified",
+      "title": "Fragmented dual-form structure (Business vs Personal) creates decision fatigue on contact page",
+      "evidence": {
+        "url": "https://www.jerroms.co.uk/contact-us",
+        "viewport": "390x844",
+        "selector": ".contact-forms-wrapper, form",
+        "measuredValue": "2 competing forms rendered side-by-side: Form 1 (Business) vs Form 2 (Personal)",
+        "screenshotPath": "audit_output\\jerroms\\contact_390.png",
+        "toolUsed": "puppeteer-core",
+        "timestamp": "2026-10-22T10:46:46.721Z"
+      },
+      "outcomeAtStake": "revenue"
+    },
+    {
+      "id": "JER-UX-NO-MEETING-FORMAT-SELECTOR",
+      "category": "G. UX flow and next steps",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "No meeting format selector or calendar booking for Solihull/Birmingham offices",
+      "evidence": {
+        "url": "https://www.jerroms.co.uk/contact-us",
+        "viewport": "390x844",
+        "selector": "form",
+        "measuredValue": "Zero calendar integration or appointment slot picker",
+        "screenshotPath": "audit_output\\jerroms\\contact_390.png",
+        "toolUsed": "puppeteer-core",
+        "timestamp": "2026-10-22T10:46:46.721Z"
+      },
+      "outcomeAtStake": "time"
+    },
+    {
+      "id": "JER-FEE-OPACITY",
+      "category": "E. Content and messaging",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Complete fee opacity across wealth management and corporate compliance",
+      "evidence": {
+        "url": "https://www.jerroms.co.uk/",
+        "viewport": "1440x900",
+        "selector": "body",
+        "measuredValue": "0 pricing or starting fee tiers found across public pages",
+        "screenshotPath": "audit_output\\jerroms\\contact_1440.png",
+        "toolUsed": "DOM regex crawl",
+        "timestamp": "2026-10-22T10:46:46.721Z"
+      },
+      "outcomeAtStake": "revenue"
+    }
+  ],
+  "unknownHypotheses": [
+    {
+      "item": "Average speed-to-lead response time",
+      "signal": "Passive form with no published SLA or instant triage",
+      "status": "unknown, validate on call"
+    },
+    {
+      "item": "Client onboarding & document chasing mechanism",
+      "signal": "No visible client portal or document upload dropzone on contact path",
+      "status": "unknown, validate on call"
+    },
+    {
+      "item": "Out-of-hours / weekend enquiry capture rate",
+      "signal": "No automated SMS/WhatsApp rapid response channel",
+      "status": "unknown, validate on call"
+    }
+  ]
+}

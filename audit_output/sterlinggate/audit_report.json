@@ -1,0 +1,285 @@
+{
+  "site": "Sterling Gate Accountants",
+  "url": "https://www.sterlinggate.co.uk/",
+  "contactUrl": "https://www.sterlinggate.co.uk/contact",
+  "platform": {
+    "name": "Custom",
+    "confidence": "medium",
+    "evidence": "Standard custom stack"
+  },
+  "details": {
+    "forms": [
+      {
+        "inputs": [
+          {
+            "name": "dmform-0",
+            "type": "text",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "label-dmform-0",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmform-4",
+            "type": "text",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "label-dmform-4",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmform-5",
+            "type": "tel",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "label-dmform-5",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmform-1",
+            "type": "email",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "label-dmform-1",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmform-3",
+            "type": "textarea",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "label-dmform-3",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "submit",
+            "type": "submit",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmformsendto",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "action",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmformsubject",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmformfrom",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmformautoreplyenabled",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmformautoreplyfrom",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmformautoreplysubject",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmformautoreplymsg",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmformautoreplyincludeformcopy",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmformsubmitparams",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "page_uuid",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          }
+        ],
+        "text": "First Name Last Name Phone Number Email Leave us a message...",
+        "action": null
+      },
+      {
+        "inputs": [
+          {
+            "name": "dmform-1",
+            "type": "email",
+            "required": false,
+            "placeholder": "Enter email"
+          },
+          {
+            "name": "label-dmform-1",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "submit",
+            "type": "submit",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmformsendto",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "action",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmformfrom",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmformsubject",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "dmformsubmitparams",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "page_uuid",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          }
+        ],
+        "text": "",
+        "action": null
+      }
+    ],
+    "bodyTextSample": "Home\nAbout\nAbout Us\nAnti-Money Laundering\nPrivacy Statement\nOur Charity Promise\nTerms and Conditions\nComplaints\nServices\nBookkeeping\nIndependent Examination\nCharity Compliance\nCharity Tax\nManagement Accounting\nPayroll & Workplace Pension\nOutsourcing\nResources And Templates\nVoluntary Independent Examination\nTrustees Meeting\nRestricted Funds\nDesignated Funds\nTrustees Annual Report\nSORP\nVAT Partial Exemption\nReserve Policy\nRemuneration Disclosure\nTrustees Duties\nTrustees Annual Report Sample\nFinance Essentials Templates\nVolunteers Expenses Policy Template\nCharity Due Diligence\nTestimonials\nContact\nCall Back \nContact Us\n\nAt Sterling Gate Accountants, we go beyond numbers and spreadsheets. We're your strategic partners in financial success, offering personalised accounting solutions that empower your charity to thrive. With a blend of expertise, dedication, and innovation, we're committed to steering your financial journey toward prosperity.\n\nLet's Work Together\n\n\n﻿\n\n\n\n\nTel:  0208 06414 46\n\nEmail: info@sterlinggate.co.uk\n\nOpening Hours\n\nOpen Monday - Friday 09:00 - 18:00\n\nRequest a Call Back → \nContact Us\nFirst Name\nLast Name\nPhone Number\nEmail\nLeave us a message...\nMENU\nTerms and Conditions\nAnti-Money Laundering\nIndependent Examination\nResources And Templates\nBookkeeping\nCharity Tax\nManagement Accounting\nOur Charity Promise\nContact\nGET IN TOUCH\ninfo@sterlinggate.co.uk\n\n\n\n\n\n\n \n  STAY CONNECTED\n  Join our newsletter and       find out more\nJoin Newsletter\n\nICO Reg No. ZB862286   IF",
+    "title": "Contact Sterling Gate Accountants",
+    "isWordPress": false,
+    "isWix": false,
+    "isSquarespace": false,
+    "isElementor": false,
+    "isDivi": false,
+    "isWebflow": false,
+    "whatsappLinks": [
+      "https://wa.me/+447362466796"
+    ],
+    "telLinks": [
+      "tel:01753428801"
+    ],
+    "mailtoLinks": [
+      "mailto:info@sterlinggate.co.uk"
+    ],
+    "viewportMeta": "initial-scale=1, minimum-scale=1, maximum-scale=5, viewport-fit=cover",
+    "hasCalendar": false,
+    "cookieBanner": false
+  },
+  "findings": [
+    {
+      "id": "STERLINGGATE-RESP-OVERFLOW-320",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow detected on 320px viewport",
+      "evidence": {
+        "url": "https://www.sterlinggate.co.uk/contact",
+        "viewport": "320x600",
+        "selector": "document.documentElement",
+        "measuredValue": "scrollWidth > innerWidth",
+        "screenshotPath": "audit_output\\sterlinggate\\contact_320.png",
+        "toolUsed": "puppeteer-core viewport test",
+        "timestamp": "2026-10-23T21:09:08.470Z"
+      },
+      "outcomeAtStake": "revenue"
+    },
+    {
+      "id": "STERLINGGATE-RESP-OVERFLOW-390",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow detected on 390px viewport",
+      "evidence": {
+        "url": "https://www.sterlinggate.co.uk/contact",
+        "viewport": "390x844",
+        "selector": "document.documentElement",
+        "measuredValue": "scrollWidth > innerWidth",
+        "screenshotPath": "audit_output\\sterlinggate\\contact_390.png",
+        "toolUsed": "puppeteer-core viewport test",
+        "timestamp": "2026-10-23T21:09:08.470Z"
+      },
+      "outcomeAtStake": "revenue"
+    }
+  ],
+  "unknownHypotheses": [
+    {
+      "item": "Speed-to-lead response time",
+      "signal": "Static web form with no published SLA or automated triage",
+      "status": "unknown, validate on call"
+    },
+    {
+      "item": "Client onboarding & document chasing mechanism",
+      "signal": "No visible client portal or document upload dropzone on contact path",
+      "status": "unknown, validate on call"
+    },
+    {
+      "item": "Out-of-hours / weekend enquiry capture rate",
+      "signal": "WhatsApp link present, response time unverified",
+      "status": "unknown, validate on call"
+    }
+  ]
+}

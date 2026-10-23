@@ -1,0 +1,185 @@
+{
+  "site": "Asmat & Co",
+  "url": "https://www.asmataccountants.co.uk/",
+  "contactUrl": "https://asmataccountants.co.uk/contact-us/",
+  "platform": {
+    "name": "WordPress (Elementor)",
+    "confidence": "verified",
+    "evidence": "Detected wp-content in DOM"
+  },
+  "details": {
+    "forms": [
+      {
+        "inputs": [
+          {
+            "name": "post_id",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "form_id",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "referer_title",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "queried_id",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "form_fields[name]",
+            "type": "text",
+            "required": true,
+            "placeholder": "Your Name"
+          },
+          {
+            "name": "form_fields[phone]",
+            "type": "number",
+            "required": true,
+            "placeholder": "Phone Number"
+          },
+          {
+            "name": "form_fields[company_name]",
+            "type": "text",
+            "required": false,
+            "placeholder": "Company Name"
+          },
+          {
+            "name": "form_fields[email]",
+            "type": "email",
+            "required": true,
+            "placeholder": "Your Email"
+          },
+          {
+            "name": "form_fields[message]",
+            "type": "textarea",
+            "required": true,
+            "placeholder": "Whats on your mind?"
+          },
+          {
+            "name": "form_fields[type]",
+            "type": "select",
+            "required": true,
+            "placeholder": ""
+          }
+        ],
+        "text": "Your Name Phone Number Company Name Your Email Whats on your mind? Enquiry Type New customer enquiry Book a Meeting / Video call Arrange a callback General enquiry Send",
+        "action": null
+      }
+    ],
+    "bodyTextSample": "Skip to content\nAbout\nWho We Help\nServices\nResources\nLocations\nContact Us\nContact Us\n\nAt Asmat & Accountant, we value clear communication and timely support. Whether you’re a business owner seeking financial guidance, an individual needing tax assistance, or simply want to learn more about our services, we’re here to help.\n\nGet in Touch\nDiscover the Right Solution for Your Business\nWorking Hours\n\nMonday – Friday : 9 : 00 to 18 : 00\nSaturday – Sunday : Closed\n\nHead Office - Slough London\n84 High Street, Slough SL1 1EL\n01753 424968\ninfo@asmataccountants.co.uk\nReading Office\n365-367 Oxford road, Reading RG30 1HA\n0118 950 9841\nreading@asmataccountants.co.uk\nBirmingham Office\nOld Bank Building, 35-37 King St, Wednesbury, Birmingham WS10 8DE\n0121 667 0470\ninfo@asmataccountants.co.uk\nGet in Touch\nWe’d love to hear from you – please fill out the form below and we’ll get back to you.\nYour Name\nPhone Number\nCompany Name\nYour Email\nWhats on your mind?\nEnquiry Type\nNew customer enquiry\nBook a Meeting / Video call\nArrange a callback\nGeneral enquiry\nSend\nHead Office - Slough London\n84 High Street, Slough SL1 1EL\n01753 424 968\ninfo@asmataccountants.co.uk\nReading Office\n365-367 Oxford road, Reading RG30 1HA\n0118 950 9841\nreading@asmataccountants.co.uk\nWednesbury Office\nOld Bank Building, 35-37 King St, Darlaston, Wednesbury WS10 8DE, United Kingdom\n0121 667 0470\ninfo@asmataccountants.co.uk\nWho We Help\nSole Traders\nLimited Company Accountants\nPartnerships\nLimited Liability Partnerships\nContra",
+    "title": "Contact Us | Asmat & Co Accountants",
+    "isWordPress": true,
+    "isWix": false,
+    "isSquarespace": false,
+    "isElementor": true,
+    "isDivi": true,
+    "isWebflow": false,
+    "whatsappLinks": [],
+    "telLinks": [
+      "tel:+441753424968",
+      "tel:+441189509841",
+      "tel:+4401216670470"
+    ],
+    "mailtoLinks": [],
+    "viewportMeta": "width=device-width, initial-scale=1.0",
+    "hasCalendar": false,
+    "cookieBanner": false
+  },
+  "findings": [
+    {
+      "id": "ASMATACCOUNTANTS-RESP-OVERFLOW-320",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow detected on 320px viewport",
+      "evidence": {
+        "url": "https://asmataccountants.co.uk/contact-us/",
+        "viewport": "320x600",
+        "selector": "document.documentElement",
+        "measuredValue": "scrollWidth > innerWidth",
+        "screenshotPath": "audit_output\\asmataccountants\\contact_320.png",
+        "toolUsed": "puppeteer-core viewport test",
+        "timestamp": "2026-10-23T21:09:19.395Z"
+      },
+      "outcomeAtStake": "revenue"
+    },
+    {
+      "id": "ASMATACCOUNTANTS-RESP-OVERFLOW-390",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow detected on 390px viewport",
+      "evidence": {
+        "url": "https://asmataccountants.co.uk/contact-us/",
+        "viewport": "390x844",
+        "selector": "document.documentElement",
+        "measuredValue": "scrollWidth > innerWidth",
+        "screenshotPath": "audit_output\\asmataccountants\\contact_390.png",
+        "toolUsed": "puppeteer-core viewport test",
+        "timestamp": "2026-10-23T21:09:19.395Z"
+      },
+      "outcomeAtStake": "revenue"
+    },
+    {
+      "id": "ASMATACCOUNTANTS-RESP-OVERFLOW-768",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow detected on 768px viewport",
+      "evidence": {
+        "url": "https://asmataccountants.co.uk/contact-us/",
+        "viewport": "768x1024",
+        "selector": "document.documentElement",
+        "measuredValue": "scrollWidth > innerWidth",
+        "screenshotPath": "audit_output\\asmataccountants\\contact_768.png",
+        "toolUsed": "puppeteer-core viewport test",
+        "timestamp": "2026-10-23T21:09:19.395Z"
+      },
+      "outcomeAtStake": "revenue"
+    },
+    {
+      "id": "ASMATACCOUNTANTS-RESP-OVERFLOW-1440",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow detected on 1440px viewport",
+      "evidence": {
+        "url": "https://asmataccountants.co.uk/contact-us/",
+        "viewport": "1440x900",
+        "selector": "document.documentElement",
+        "measuredValue": "scrollWidth > innerWidth",
+        "screenshotPath": "audit_output\\asmataccountants\\contact_1440.png",
+        "toolUsed": "puppeteer-core viewport test",
+        "timestamp": "2026-10-23T21:09:19.395Z"
+      },
+      "outcomeAtStake": "revenue"
+    }
+  ],
+  "unknownHypotheses": [
+    {
+      "item": "Speed-to-lead response time",
+      "signal": "Static web form with no published SLA or automated triage",
+      "status": "unknown, validate on call"
+    },
+    {
+      "item": "Client onboarding & document chasing mechanism",
+      "signal": "No visible client portal or document upload dropzone on contact path",
+      "status": "unknown, validate on call"
+    },
+    {
+      "item": "Out-of-hours / weekend enquiry capture rate",
+      "signal": "No automated WhatsApp or instant response channel",
+      "status": "unknown, validate on call"
+    }
+  ]
+}

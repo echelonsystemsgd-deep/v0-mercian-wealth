@@ -1,0 +1,504 @@
+{
+  "site": "DNS Accountants Slough",
+  "url": "https://www.dnsassociates.co.uk/slough",
+  "contactUrl": "https://www.dnsassociates.co.uk/slough",
+  "platform": "Custom",
+  "details": {
+    "forms": [
+      {
+        "inputs": [
+          {
+            "name": "g-recaptcha-response",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "redirect_url",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "zf_referrer_name",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "zf_redirect_url",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "zc_gad",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_source",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_medium",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_campaign",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_term",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_content",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "gclid",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "referrername",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "SingleLine1",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "SingleLine2",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "SingleLine3",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "SingleLine4",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "Name_First",
+            "type": "text",
+            "required": true,
+            "placeholder": "First name"
+          },
+          {
+            "name": "Name_Last",
+            "type": "text",
+            "required": true,
+            "placeholder": "Last name"
+          },
+          {
+            "name": "PhoneNumber_countrycode",
+            "type": "text",
+            "required": true,
+            "placeholder": "Phone number"
+          },
+          {
+            "name": "Email",
+            "type": "text",
+            "required": true,
+            "placeholder": "Your email"
+          },
+          {
+            "name": "Address_ZipCode",
+            "type": "text",
+            "required": false,
+            "placeholder": "Your postcode"
+          },
+          {
+            "name": "DecisionBox",
+            "type": "checkbox",
+            "required": true,
+            "placeholder": ""
+          },
+          {
+            "name": "Website",
+            "type": "text",
+            "required": false,
+            "placeholder": ""
+          }
+        ],
+        "text": "Book a free consultation Share your details in the form below and one of our friendly experts will be in your touch to give you a free consultation First name Last name Phone number Email address Postcode I have read and agree to dns' Terms & Conditions and Privacy Policy Submit Submitting your details indicates that you are happy for dns to contact you about relevant services and offers. You can ",
+        "action": "https://www.dnsassociates.co.uk/ZohoSubmit/freeConsultationSubmit"
+      },
+      {
+        "inputs": [
+          {
+            "name": "g-recaptcha-response",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "redirect_url",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "zf_referrer_name",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "zf_redirect_url",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "zc_gad",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_source",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_medium",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_campaign",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_term",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_content",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "gclid",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "referrername",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "SingleLine3",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "SingleLine1",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "SingleLine2",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "SingleLine",
+            "type": "text",
+            "required": true,
+            "placeholder": "Enter your name"
+          },
+          {
+            "name": "Email",
+            "type": "email",
+            "required": true,
+            "placeholder": "Enter your email address"
+          },
+          {
+            "name": "SingleLine4",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "SingleLine5",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          }
+        ],
+        "text": "Submit",
+        "action": "https://www.dnsassociates.co.uk/ZohoSubmit/newsletterSubmit"
+      },
+      {
+        "inputs": [
+          {
+            "name": "postcode",
+            "type": "input",
+            "required": false,
+            "placeholder": "Search using your postcode..."
+          },
+          {
+            "name": "ci_csrf_token",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          }
+        ],
+        "text": "BRANCH FINDER Search",
+        "action": null
+      },
+      {
+        "inputs": [
+          {
+            "name": "g-recaptcha-response",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "redirect_url",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "zf_referrer_name",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "zf_redirect_url",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "zc_gad",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_source",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_medium",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_campaign",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_term",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "utm_content",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "gclid",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "referrername",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "SingleLine3",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "SingleLine1",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "SingleLine2",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "SingleLine",
+            "type": "text",
+            "required": true,
+            "placeholder": "Enter your name"
+          },
+          {
+            "name": "Email",
+            "type": "email",
+            "required": true,
+            "placeholder": "Enter your email address"
+          },
+          {
+            "name": "SingleLine4",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "SingleLine5",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          }
+        ],
+        "text": "Submit",
+        "action": "https://www.dnsassociates.co.uk/ZohoSubmit/newsletterSubmit"
+      },
+      {
+        "inputs": [
+          {
+            "name": "postcode",
+            "type": "input",
+            "required": false,
+            "placeholder": "Search using your postcode..."
+          },
+          {
+            "name": "ci_csrf_token",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          }
+        ],
+        "text": "BRANCH FINDER Search",
+        "action": null
+      },
+      {
+        "inputs": [
+          {
+            "name": "ci_csrf_token",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "redirect_url",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "first_name",
+            "type": "input",
+            "required": true,
+            "placeholder": ""
+          },
+          {
+            "name": "last_name",
+            "type": "input",
+            "required": true,
+            "placeholder": ""
+          },
+          {
+            "name": "phone",
+            "type": "input",
+            "required": true,
+            "placeholder": ""
+          },
+          {
+            "name": "email",
+            "type": "input",
+            "required": true,
+            "placeholder": ""
+          },
+          {
+            "name": "DecisionBox",
+            "type": "checkbox",
+            "required": true,
+            "placeholder": ""
+          }
+        ],
+        "text": "First Name Last Name Phone Email I have read and agree to dns' Terms & Conditions and Privacy Policy Show Result",
+        "action": "https://www.dnsassociates.co.uk/ZohoSubmit/calculatorSubmit"
+      }
+    ],
+    "bodyTextSample": "Who We Help\nHow We Help\nPackages\nAbout\nResources\nLocations\nSPEAK TO AN EXPERTLog in\nBook a callback\n03330606887\n enquiry@dnsaccountants.co.uk\n\nGet 10% Off Self Assessment and 3 months free tax investigation cover.*\n\nFind Out More\n✕\nLOGIN\ndns accountants\nSlough\n\nOur local accountants in Slough are on hand to helpyou with all the tax, accountancy & business advice you need.\n\nPACKAGES\nSyed Shah,\nSlough branch manager\n\n\"I am a part ACCA qualified Accountant with over 7 years of experience in various multi-national companies, specifically in the media and telecommunications industries. From these roles, I bring to the accounting sector a high level of professionalism and confidence that my clients can rely on. Every client is unique in their requirements so understanding their individual needs is paramount to ensure I provide them with an excellent service. Now, as part of the multi-award-winning dns accountants team, we are providing accounting services to Slough and its surrounding area.\"\n\nAccountants in Slough\n\nWhether you're a sole trader, freelancer, limited company, landlord or contractor, at dns accountants Slough, we can help you. We’re an award-winning certified accounting firm in Slough.\n\nWe offer a wide range of online accounting services in Slough and market leading accounting software and apps to manage your personal and business accounting.\n\ndns accountants in Slough offer a wide range of packages for all types of individuals and businesses. If you’re not getting the",
+    "title": "Accountants in Slough | Chartered accountant Slough | dns accountants",
+    "isWordPress": false,
+    "isWix": false,
+    "isSquarespace": false,
+    "isElementor": false,
+    "isDivi": true,
+    "isWebflow": false,
+    "isHubSpot": false,
+    "whatsappLinks": [],
+    "telLinks": [
+      "tel:03330606887",
+      "tel:03300 886 686",
+      "tel:03330606887",
+      "tel:03330606887",
+      "tel:03330606887"
+    ],
+    "mailtoLinks": [
+      "mailto:enquiry@dnsaccountants.co.uk",
+      "mailto:slough@dnsaccountants.co.uk",
+      "mailto:enquiry@dnsaccountants.co.uk"
+    ],
+    "viewportMeta": "width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0",
+    "hasCalendar": false,
+    "cookieBanner": false
+  },
+  "findings": []
+}

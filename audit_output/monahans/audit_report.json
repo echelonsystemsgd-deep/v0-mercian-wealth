@@ -1,0 +1,80 @@
+{
+  "site": "Monahans",
+  "url": "https://monahans.co.uk/",
+  "contactUrl": "https://monahans.co.uk/contact-us/",
+  "platform": {
+    "name": "WordPress (Divi)",
+    "confidence": "verified",
+    "evidence": "Detected wp-content and theme assets in DOM"
+  },
+  "findings": [
+    {
+      "id": "MON-FORM-POSTCODE-MANDATORY",
+      "category": "D. UI components",
+      "severity": 4,
+      "confidence": "verified",
+      "title": "Mandatory Postcode field blocks mobile enquiries",
+      "evidence": {
+        "url": "https://monahans.co.uk/contact-us/",
+        "viewport": "390x844",
+        "selector": "input[name*=\"postcode\"], label:has-text(\"Postcode (Required)\")",
+        "measuredValue": "Postcode is marked required",
+        "screenshotPath": "audit_output\\monahans\\contact_390.png",
+        "toolUsed": "puppeteer-core DOM extraction",
+        "timestamp": "2026-10-22T10:46:22.643Z"
+      },
+      "outcomeAtStake": "revenue"
+    },
+    {
+      "id": "MON-UX-NO-BOOKING-FLOW",
+      "category": "G. UX flow and next steps",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Button promises \"Speak to the team\" but routes to flat unconfirmed form with no appointment slots",
+      "evidence": {
+        "url": "https://monahans.co.uk/contact-us/",
+        "viewport": "390x844",
+        "selector": "form.gform_wrapper, .contact-form",
+        "measuredValue": "No calendar, zero response time promise",
+        "screenshotPath": "audit_output\\monahans\\contact_390.png",
+        "toolUsed": "puppeteer-core",
+        "timestamp": "2026-10-22T10:46:22.643Z"
+      },
+      "outcomeAtStake": "time"
+    },
+    {
+      "id": "MON-FEE-OPACITY",
+      "category": "E. Content and messaging",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Total fee opacity across all compliance and advisory service lines",
+      "evidence": {
+        "url": "https://monahans.co.uk/",
+        "viewport": "1440x900",
+        "selector": "body",
+        "measuredValue": "0 pricing or starting fee tiers found across public pages",
+        "screenshotPath": "audit_output\\monahans\\contact_1440.png",
+        "toolUsed": "DOM regex crawl",
+        "timestamp": "2026-10-22T10:46:22.643Z"
+      },
+      "outcomeAtStake": "revenue"
+    }
+  ],
+  "unknownHypotheses": [
+    {
+      "item": "Average speed-to-lead response time",
+      "signal": "Passive form with no published SLA or instant triage",
+      "status": "unknown, validate on call"
+    },
+    {
+      "item": "Client onboarding & document chasing mechanism",
+      "signal": "No visible client portal or document upload dropzone on contact path",
+      "status": "unknown, validate on call"
+    },
+    {
+      "item": "Out-of-hours / weekend enquiry capture rate",
+      "signal": "No automated SMS/WhatsApp rapid response channel",
+      "status": "unknown, validate on call"
+    }
+  ]
+}

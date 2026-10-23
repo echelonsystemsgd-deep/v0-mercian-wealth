@@ -1,0 +1,80 @@
+{
+  "site": "Milsted Langdon",
+  "url": "https://www.milstedlangdon.co.uk/",
+  "contactUrl": "https://www.milstedlangdon.co.uk/talk-to-us",
+  "platform": {
+    "name": "WordPress (Divi)",
+    "confidence": "verified",
+    "evidence": "Detected wp-content and theme assets in DOM"
+  },
+  "findings": [
+    {
+      "id": "ML-TECH-404-CONTACT-ROUTE",
+      "category": "A. Performance and technical",
+      "severity": 5,
+      "confidence": "verified",
+      "title": "Standard /contact/ URL returns 404 Not Found error with no 301 redirect",
+      "evidence": {
+        "url": "https://www.milstedlangdon.co.uk/contact/",
+        "viewport": "N/A",
+        "selector": "HTTP Response Header",
+        "measuredValue": "HTTP 404 Page Not Found",
+        "screenshotPath": "N/A",
+        "toolUsed": "HTTP fetch",
+        "timestamp": "2026-10-22T10:46:35.398Z"
+      },
+      "outcomeAtStake": "revenue"
+    },
+    {
+      "id": "ML-UX-FORCED-OFFICE-SELECTOR",
+      "category": "D. UI components",
+      "severity": 4,
+      "confidence": "verified",
+      "title": "Contact form forces clients to select nearest office rather than specialist service line",
+      "evidence": {
+        "url": "https://www.milstedlangdon.co.uk/talk-to-us",
+        "viewport": "390x844",
+        "selector": "select[name*=\"office\"], label:has-text(\"Select your nearest office*\")",
+        "measuredValue": "Required select field: Bath, Bristol, London, Taunton, Yeovil",
+        "screenshotPath": "audit_output\\milstedlangdon\\contact_390.png",
+        "toolUsed": "puppeteer-core",
+        "timestamp": "2026-10-22T10:46:35.398Z"
+      },
+      "outcomeAtStake": "time"
+    },
+    {
+      "id": "ML-UX-PASSIVE-PROMISE",
+      "category": "G. UX flow and next steps",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Passive \"Leave a message and we will be in touch\" copy with no response timeline",
+      "evidence": {
+        "url": "https://www.milstedlangdon.co.uk/talk-to-us",
+        "viewport": "390x844",
+        "selector": ".talk-to-us p",
+        "measuredValue": "\"Leave us a message and we'll be in touch\" with 0 SLA",
+        "screenshotPath": "audit_output\\milstedlangdon\\contact_390.png",
+        "toolUsed": "puppeteer-core",
+        "timestamp": "2026-10-22T10:46:35.398Z"
+      },
+      "outcomeAtStake": "revenue"
+    }
+  ],
+  "unknownHypotheses": [
+    {
+      "item": "Average speed-to-lead response time",
+      "signal": "Passive form with no published SLA or instant triage",
+      "status": "unknown, validate on call"
+    },
+    {
+      "item": "Client onboarding & document chasing mechanism",
+      "signal": "No visible client portal or document upload dropzone on contact path",
+      "status": "unknown, validate on call"
+    },
+    {
+      "item": "Out-of-hours / weekend enquiry capture rate",
+      "signal": "No automated SMS/WhatsApp rapid response channel",
+      "status": "unknown, validate on call"
+    }
+  ]
+}

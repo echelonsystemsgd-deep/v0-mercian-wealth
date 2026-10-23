@@ -150,3 +150,33 @@ node skills/website-audit/scripts/check_seo_schema.mjs http://localhost:3000
 # 5. Check WCAG 2.2 accessibility semantics
 node skills/website-audit/scripts/check_accessibility.mjs http://localhost:3000
 ```
+
+
+---
+
+## Skill Version & Changelog
+
+### Version 1.3.0 (2026-10-23)
+* **Added 3 Accessibility & Pseudo-Booking Frictions to Taxonomy**:
+  * MOBILE-ZOOM-DISABLED: Viewport meta tag locks pinch-to-zoom (`user-scalable=0`, `maximum-scale=1`), blocking clients with vision impairment (WCAG 1.4.4 violation, Level 4 severity).
+  * INTAKE-BOOKING-ANCHOR-BAIT: "Book a Meeting" CTA button anchor-jumps down the page to a static delayed contact form with no live scheduler (Level 4 severity).
+  * TECH-TEL-ENCODED-SPACES: Telephone links containing URL-encoded spaces (`%20`), breaking diallers on Android and VoIP softphones (Level 3 severity).
+* **Source Audits**: DNS Accountants Slough, Direct Assist Accountants, Smooth Feathers Accountants.
+
+### Version 1.2.0 (2026-10-23)
+* **Added 4 Direct Response & Technical Dialler Frictions to Taxonomy**:
+  * TECH-TEL-MALFORMED: Trunk-0 error in UK international telephone links (e.g. `tel:+4401...`) breaking smartphone diallers and VoIP calls (Level 4 severity).
+  * TECH-TEL-MISSING-HREF: Plain-text phone numbers without clickable `tel:` links on mobile viewports, preventing 1-tap dialling (Level 4 severity).
+  * INTAKE-BOOKING-FAKEOUT: Dropdown promises "Book a Meeting / Video Call" but routes to an asynchronous email inbox without calendar scheduling (Level 4 severity).
+  * BRAND-POSITIONING-DISCONNECT: Critical disconnect between Google Business Profile / search snippet and live website niche positioning (Level 3 severity).
+* **Source Audits**: Sterling Gate Accountants, MA Accountancy Services Ltd, Asmat & Co (Slough Practice Cohort).
+
+### Version 1.1.0 (2026-10-22)
+* **Added 6 Real-World Enrolment & Intake Frictions to Taxonomy**:
+  * INTAKE-POSTCODE-REQ: Mandatory physical address/postcode fields on general consultation forms (Level 4 severity).
+  * TECH-CONTACT-404: Contact slug 404 failure where /contact/ route is renamed without 301 redirection (Level 5 severity).
+  * INTAKE-DUAL-FORMS: Fragmented dual-form structure competing on a single page without unified guided triage (Level 4 severity).
+  * INTAKE-CORP-REQ: Mandatory corporate field enforcement on private individual services (Level 4 severity).
+  * INTAKE-SURPRISE-MODAL: Deceptive multi-step modal popping up unexpectedly after a simple 2-field teaser (Level 4 severity).
+  * INTAKE-SLA-EXCESSIVE: Explicit published callback delays (> 24-48 hours) causing high-intent panic leads to bounce (Level 4 severity).
+* **Source Audits**: Monahans, Milsted Langdon, Jerroms, Hazlewoods, Hunter Gee Holroyd, Jackson Stephen.

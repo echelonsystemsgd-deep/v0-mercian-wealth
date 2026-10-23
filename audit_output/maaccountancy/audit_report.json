@@ -1,0 +1,201 @@
+{
+  "site": "MA Accountancy Services Ltd",
+  "url": "https://www.maaccountancy.co.uk/",
+  "contactUrl": "https://www.maaccountancy.co.uk/contact-us",
+  "platform": {
+    "name": "Custom (Real Web Idea CMS/PHP)",
+    "confidence": "verified",
+    "evidence": "Agency footer attribution: Real Web Idea (realwebidea.com), custom PHP template"
+  },
+  "details": {
+    "forms": [
+      {
+        "inputs": [
+          {
+            "name": "_token",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          }
+        ],
+        "text": "",
+        "action": "https://www.maaccountancy.co.uk/logout"
+      },
+      {
+        "inputs": [
+          {
+            "name": "_token",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "_token",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "name",
+            "type": "text",
+            "required": false,
+            "placeholder": "Name"
+          },
+          {
+            "name": "tel",
+            "type": "text",
+            "required": false,
+            "placeholder": "Phone #"
+          },
+          {
+            "name": "email",
+            "type": "text",
+            "required": false,
+            "placeholder": "Email"
+          },
+          {
+            "name": "message",
+            "type": "textarea",
+            "required": false,
+            "placeholder": "Message"
+          },
+          {
+            "name": "g-recaptcha-response",
+            "type": "textarea",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "",
+            "type": "submit",
+            "required": false,
+            "placeholder": ""
+          }
+        ],
+        "text": "",
+        "action": "https://www.maaccountancy.co.uk/contact-us-email"
+      }
+    ],
+    "bodyTextSample": "Trustpilot\n 0175 3 539165  Contactus@Maaccountancy.Co.Uk\nClient Documents  Client Login\nToggle navigation\n Personalised accounting services for limited companies, businesses, sole traders, subcontractors and individuals.\nCONTACT US\n\nPlease complete the form below to provide us with some basic information. The information you submit will be used to direct your question to the appropriate resource. Alternatively, you may contact us by phone or email us your inquiry.\n\n \n \n\nMA Accountancy Services Ltd consists of a small, friendly and knowledgeable team of professional specialists offering a complete service range for small business owners and individuals in Slough and throughout the surrounding Berkshire area. Principal Accountant Muhammad Azam has been working in...\n\nRead More\n\nLinks\nHome\nPrivacy Statement\nTerms & Conditions\nContact Us\n\n Address\n\nRegus | 268 Bath Road | Slough | SL1 4DX\n\n Phone #\n\n01753 539165\n\n Mobile #\n\n07878 712356\n\n Email\n\ncontactus@maaccountancy.co.uk\n\n Business Timings\n\nMonday-Friday 9am-5pm and Saturday 9am-1pm\n\n© Copyright | MA Accountancy Services\n\nDeveloped By: Real Web Idea",
+    "title": "MA Accountancy Call us 01753 539165",
+    "isWordPress": false,
+    "isWix": false,
+    "isSquarespace": false,
+    "isElementor": false,
+    "isDivi": true,
+    "isWebflow": false,
+    "isRealWebIdea": true,
+    "whatsappLinks": [],
+    "telLinks": [],
+    "mailtoLinks": [
+      "mailto:Contactus@Maaccountancy.Co.Uk"
+    ],
+    "viewportMeta": "width=device-width, initial-scale=1",
+    "hasCalendar": false,
+    "cookieBanner": false
+  },
+  "findings": [
+    {
+      "id": "MAACCOUNTANCY-RESP-OVERFLOW-320",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow detected on 320px viewport",
+      "evidence": {
+        "url": "https://www.maaccountancy.co.uk/contact-us",
+        "viewport": "320x600",
+        "selector": "document.documentElement",
+        "measuredValue": "scrollWidth > innerWidth",
+        "screenshotPath": "audit_output\\maaccountancy\\contact_320.png",
+        "toolUsed": "puppeteer-core viewport test",
+        "timestamp": "2026-10-23T21:10:56.853Z"
+      },
+      "outcomeAtStake": "revenue"
+    },
+    {
+      "id": "MAACCOUNTANCY-RESP-OVERFLOW-390",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow detected on 390px viewport",
+      "evidence": {
+        "url": "https://www.maaccountancy.co.uk/contact-us",
+        "viewport": "390x844",
+        "selector": "document.documentElement",
+        "measuredValue": "scrollWidth > innerWidth",
+        "screenshotPath": "audit_output\\maaccountancy\\contact_390.png",
+        "toolUsed": "puppeteer-core viewport test",
+        "timestamp": "2026-10-23T21:10:56.853Z"
+      },
+      "outcomeAtStake": "revenue"
+    },
+    {
+      "id": "MAACCOUNTANCY-RESP-OVERFLOW-768",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow detected on 768px viewport",
+      "evidence": {
+        "url": "https://www.maaccountancy.co.uk/contact-us",
+        "viewport": "768x1024",
+        "selector": "document.documentElement",
+        "measuredValue": "scrollWidth > innerWidth",
+        "screenshotPath": "audit_output\\maaccountancy\\contact_768.png",
+        "toolUsed": "puppeteer-core viewport test",
+        "timestamp": "2026-10-23T21:10:56.853Z"
+      },
+      "outcomeAtStake": "revenue"
+    },
+    {
+      "id": "MAACCOUNTANCY-RESP-OVERFLOW-1024",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow detected on 1024px viewport",
+      "evidence": {
+        "url": "https://www.maaccountancy.co.uk/contact-us",
+        "viewport": "1024x768",
+        "selector": "document.documentElement",
+        "measuredValue": "scrollWidth > innerWidth",
+        "screenshotPath": "audit_output\\maaccountancy\\contact_1024.png",
+        "toolUsed": "puppeteer-core viewport test",
+        "timestamp": "2026-10-23T21:10:56.853Z"
+      },
+      "outcomeAtStake": "revenue"
+    },
+    {
+      "id": "MAACCOUNTANCY-RESP-OVERFLOW-1440",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow detected on 1440px viewport",
+      "evidence": {
+        "url": "https://www.maaccountancy.co.uk/contact-us",
+        "viewport": "1440x900",
+        "selector": "document.documentElement",
+        "measuredValue": "scrollWidth > innerWidth",
+        "screenshotPath": "audit_output\\maaccountancy\\contact_1440.png",
+        "toolUsed": "puppeteer-core viewport test",
+        "timestamp": "2026-10-23T21:10:56.853Z"
+      },
+      "outcomeAtStake": "revenue"
+    }
+  ],
+  "unknownHypotheses": [
+    {
+      "item": "Speed-to-lead response time",
+      "signal": "Static PHP contact form with no automated instant triage or SLA promise",
+      "status": "unknown, validate on call"
+    },
+    {
+      "item": "Direct onboarding dropzone",
+      "signal": "Has a generic \"Client Login\" link leading to /user-login, but initial prospects have no guided enquiry/upload flow",
+      "status": "unknown, validate on call"
+    },
+    {
+      "item": "Out-of-hours / weekend capture",
+      "signal": "Opening hours show Mon-Fri 9-17:00, Sat 9-13:00. Zero WhatsApp or instant scheduling mechanism",
+      "status": "unknown, validate on call"
+    }
+  ]
+}

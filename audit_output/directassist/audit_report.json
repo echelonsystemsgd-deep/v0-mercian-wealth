@@ -1,0 +1,214 @@
+{
+  "site": "Direct Assist Accountants",
+  "url": "https://directassistaccountants.co.uk/",
+  "contactUrl": "https://directassistaccountants.co.uk/contact/",
+  "platform": "WordPress (Elementor)",
+  "details": {
+    "forms": [
+      {
+        "inputs": [
+          {
+            "name": "_wpcf7",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "_wpcf7_version",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "_wpcf7_locale",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "_wpcf7_unit_tag",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "_wpcf7_container_post",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "_wpcf7_posted_data_hash",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "_wpcf7_recaptcha_response",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "first-name",
+            "type": "text",
+            "required": true,
+            "placeholder": "First Name"
+          },
+          {
+            "name": "last-name",
+            "type": "text",
+            "required": true,
+            "placeholder": "Last Name"
+          },
+          {
+            "name": "phone-number",
+            "type": "tel",
+            "required": true,
+            "placeholder": "Phone No"
+          },
+          {
+            "name": "your-email",
+            "type": "email",
+            "required": true,
+            "placeholder": "Email"
+          },
+          {
+            "name": "business-name",
+            "type": "text",
+            "required": false,
+            "placeholder": "Business Name - if any"
+          },
+          {
+            "name": "business-type",
+            "type": "select",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "additional-info",
+            "type": "textarea",
+            "required": false,
+            "placeholder": "What can we help you with? (e.g. VAT, payroll, tax return, company formation)"
+          },
+          {
+            "name": "",
+            "type": "submit",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "vx_width",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "vx_height",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "vx_url",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          }
+        ],
+        "text": "Business Type Business Type Sole Trader Limited Company Partnership LLP Individual / Personal Tax",
+        "action": "/contact/#wpcf7-f4421-p371-o1"
+      },
+      {
+        "inputs": [
+          {
+            "name": "post_id",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "form_id",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "referer_title",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "queried_id",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "form_fields[email]",
+            "type": "email",
+            "required": true,
+            "placeholder": "Email"
+          }
+        ],
+        "text": "Email Send",
+        "action": null
+      }
+    ],
+    "bodyTextSample": "Skip to content\n+44 203 633 2018\nsohail@directassistaccountants.co.uk\nUnit 2, 20 Woodland Avenue, Slough, Berkshire, SL1 3BU\n \n \nBook a Meeting\nHow Can We Help?\nContact Direct Assist Accountants In Slough\nTell us what you need, whether that is day to day bookkeeping, a Self Assessment return, or help switching from your current accountant. Fill in the form below or call us directly, and a member of our Slough based team will get back to you.\n\nBusiness Type\nBusiness Type\nSole Trader\nLimited Company\nPartnership\nLLP\nIndividual / Personal Tax\n\nContact Our Slough Accountants\nEmail Address\n\nsohail@directassistaccountants.co.uk\n\nLandline\n\n0203 633 2018\n\nMobile\n\n07456 535 979\n\nDubai Office\n\nAl Attar Tower - Sheikh Zayed Rd - Dubai, UAE\n\nUK Office\n\nUnit 2, 20 Woodland Avenue, Slough, Berkshire, SL1 3BU\n\nOpening Hours\n\nMonday - Saturday: 9:00 AM - 7:00 PM Sunday: Closed\n\nVisit our Slough office at Unit 2, 20 Woodland Avenue, easily accessible with nearby parking, serving clients across Slough, Berkshire, and the wider Thames Valley area.\n\nFrequently Asked Questions\nDo you offer a free consultation\nYes. Your first call or meeting is free, with no obligation to proceed.\nHow quickly will you respond?\nCan I visit your office in person?\nDo you work with clients outside Slough?\n\nTrusted Chartered Accountants in Slough offering professional bookkeeping, payroll, VAT preparation & HMRC tax compliance. Get expert advisory support today.\n\n \n \nCore Accounting\nParish & Town Council Accountants in ",
+    "title": "Contact Direct Assist Accountants in Slough",
+    "isWordPress": true,
+    "isWix": false,
+    "isSquarespace": false,
+    "isElementor": true,
+    "isDivi": true,
+    "isWebflow": false,
+    "isHubSpot": false,
+    "whatsappLinks": [
+      "https://wa.me/447456535979?text=Hello%20Direct%20Assist%20Accountants%2C%20I%20would%20like%20to%20inquire%20about%20your%20accounting%20and%20tax%20services."
+    ],
+    "telLinks": [
+      "tel:+442036332018",
+      "tel:0203%20633%202018",
+      "tel:0203%20633%202018",
+      "tel:07456%20535%20979",
+      "tel:07456%20535%20979",
+      "tel:+442036332018",
+      "tel:07456%20535%20979",
+      "tel:+44%207456%20535979"
+    ],
+    "mailtoLinks": [
+      "mailto:sohail@directassistaccountants.co.uk",
+      "mailto:sohail@directassistaccountants.co.uk",
+      "mailto:sohail@directassistaccountants.co.uk",
+      "mailto:sohail@directassistaccountants.co.uk",
+      "mailto:sohail@directassistaccountants.co.uk"
+    ],
+    "viewportMeta": "width=device-width, initial-scale=1",
+    "hasCalendar": false,
+    "cookieBanner": false
+  },
+  "findings": [
+    {
+      "id": "DIRECTASSIST-RESP-OVERFLOW-320",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow detected on 320px viewport",
+      "measuredValue": "scrollWidth > innerWidth",
+      "url": "https://directassistaccountants.co.uk/contact/",
+      "viewport": "320x600"
+    },
+    {
+      "id": "DIRECTASSIST-RESP-OVERFLOW-390",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow detected on 390px viewport",
+      "measuredValue": "scrollWidth > innerWidth",
+      "url": "https://directassistaccountants.co.uk/contact/",
+      "viewport": "390x844"
+    }
+  ]
+}
