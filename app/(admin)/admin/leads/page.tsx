@@ -10,6 +10,10 @@ import {
   Filter,
   Plus,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
+  Copy,
+  Mail,
   Archive,
   X,
   Ban,
@@ -109,6 +113,35 @@ export function getLeadPathway(lead: Lead): 'HAS_WEBSITE' | 'NO_WEBSITE' | 'NEED
   return 'NO_WEBSITE'
 }
 
+export function getLeadFollowUps(lead: Lead) {
+  const meta = (lead.scraped_metadata || {}) as Record<string, any>
+  let fu1 = meta.follow_up_1 || meta.generated_outreach?.whatsappFollowUp1
+  let fu2 = meta.follow_up_2 || meta.follow_up_final || meta.generated_outreach?.whatsappFollowUp2
+
+  if (!fu1 && lead.notes) {
+    const match = lead.notes.match(/\[FOLLOW-UP 1 \(48h\)\]:\s*([\s\S]*?)(?=\n\n\[FOLLOW-UP 2|$)/i)
+    if (match) fu1 = match[1].trim()
+  }
+
+  if (!fu2 && lead.notes) {
+    const match = lead.notes.match(/\[FOLLOW-UP 2 \((?:Close|Final)\)\]:\s*([\s\S]*?)$/i)
+    if (match) fu2 = match[1].trim()
+  }
+
+  const businessName = lead.business_name || lead.name || 'your firm'
+  const friction = meta.observable_problem || meta.friction_title || 'intake friction points'
+
+  if (!fu1) {
+    fu1 = `Hi ${businessName} team, following up on our note regarding ${friction}. We prepared a 30-second walkthrough video of a high-converting practice prototype built specifically for UK accounting practices. Would you like me to send the clip over?`
+  }
+
+  if (!fu2) {
+    fu2 = `Hi ${businessName} team, closing out our notes before statutory filing deadlines kick in. The custom intake prototype we built for your firm remains ready whenever you want to inspect how it captures clients without friction. Best regards, Gurtej.`
+  }
+
+  return { fu1, fu2 }
+}
+
 type ActionQueue = 'todays_queue' | 'ready_to_whatsapp' | 'due_followup' | 'active_pipeline' | 'needs_review' | 'all'
 
 export default function LeadsPage() {
@@ -182,6 +215,35 @@ export default function LeadsPage() {
     notes: ''
   })
   const [savingLead, setSavingLead] = useState(false)
+
+  // Dedicated state for expanded follow-ups drawer & copy state
+  const [expandedFollowUpIds, setExpandedFollowUpIds] = useState<Set<string>>(new Set())
+  const [copiedFollowUpId, setCopiedFollowUpId] = useState<string | null>(null)
+
+  const toggleFollowUpExpanded = (leadId: string) => {
+    setExpandedFollowUpIds((prev) => {
+      const next = new Set(prev)
+      if (next.has(leadId)) {
+        next.delete(leadId)
+      } else {
+        next.add(leadId)
+      }
+      return next
+    })
+  }
+
+  const handleCopyFollowUp = async (id: string, text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedFollowUpId(id)
+      triggerToast('✓ Copied tailored follow-up to clipboard!')
+      setTimeout(() => setCopiedFollowUpId(null), 2000)
+    } catch (err) {
+      console.error('Failed to copy follow-up text:', err)
+    }
+  }
+
+
 
   const triggerToast = (msg: string) => {
     setToast(msg)
@@ -1404,6 +1466,111 @@ export default function LeadsPage() {
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
+                    {/* Tailored Follow-Up Sequences Drawer for Contacted Leads */}
+                    {(lead.status === 'Contacted' || isRetainedInSession) && (() => {
+                      const followUps = getLeadFollowUps(lead)
+                      const isExpanded = expandedFollowUpIds.has(lead.id) || quickFilter === 'contacted'
+                      return (
+                        <div className="mt-3.5 pt-3 border-t border-amber-500/20 bg-amber-500/[0.03] -mx-4 sm:-mx-5 -mb-4 sm:-mb-5 p-4 sm:p-5 rounded-b-2xl space-y-3">
+                          <div className="flex items-center justify-between">
+                            <button
+                              type="button"
+                              onClick={() => toggleFollowUpExpanded(lead.id)}
+                              className="flex items-center gap-1.5 text-xs font-semibold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer"
+                            >
+                              <Clock size={12} className="text-amber-400" />
+                              <span>Tailored Follow-Ups</span>
+                              <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-amber-400/20 text-amber-300 ml-1">
+                                2 Ready
+                              </span>
+                              {isExpanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+                            </button>
+                            <span className="text-[10px] font-mono text-zinc-400">
+                              48h & Day 5
+                            </span>
+                          </div>
+
+                          {isExpanded && (
+                            <div className="space-y-2.5 pt-1">
+                              {/* Follow-Up 1 */}
+                              <div className="p-3 rounded-xl bg-black/60 border border-white/5 space-y-1.5">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-[10px] font-mono font-bold text-amber-400/90 uppercase flex items-center gap-1">
+                                    <Sparkles size={10} className="text-amber-400" /> Follow-Up 1 (48h Value Check-in):
+                                  </span>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleCopyFollowUp(`fu1-${lead.id}`, followUps.fu1)}
+                                    className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-[10px] font-mono flex items-center gap-1 transition-all cursor-pointer"
+                                    title="Copy Follow-Up 1"
+                                  >
+                                    {copiedFollowUpId === `fu1-${lead.id}` ? <Check size={10} className="text-emerald-400" /> : <Copy size={10} />}
+                                    <span>{copiedFollowUpId === `fu1-${lead.id}` ? 'Copied' : 'Copy'}</span>
+                                  </button>
+                                </div>
+                                <p className="text-xs text-zinc-300 font-sans leading-relaxed whitespace-pre-wrap">
+                                  {followUps.fu1}
+                                </p>
+                                {phoneInfo.isWhatsAppViable && (
+                                  <div className="flex justify-end pt-1">
+                                    <a
+                                      href={`https://wa.me/${phoneInfo.cleanDigits || lead.phone}?text=${encodeURIComponent(followUps.fu1)}`}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="text-[10px] font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors"
+                                    >
+                                      <MessageSquare size={10} /> Send via WhatsApp
+                                    </a>
+                                  </div>
+                                )}
+                              </div>
+
+                              {/* Follow-Up 2 */}
+                              <div className="p-3 rounded-xl bg-black/60 border border-white/5 space-y-1.5">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-[10px] font-mono font-bold text-sky-400/90 uppercase flex items-center gap-1">
+                                    <Clock size={10} className="text-sky-400" /> Follow-Up 2 (Day 5 Close / Pre-Crunch):
+                                  </span>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleCopyFollowUp(`fu2-${lead.id}`, followUps.fu2)}
+                                    className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-[10px] font-mono flex items-center gap-1 transition-all cursor-pointer"
+                                    title="Copy Follow-Up 2"
+                                  >
+                                    {copiedFollowUpId === `fu2-${lead.id}` ? <Check size={10} className="text-emerald-400" /> : <Copy size={10} />}
+                                    <span>{copiedFollowUpId === `fu2-${lead.id}` ? 'Copied' : 'Copy'}</span>
+                                  </button>
+                                </div>
+                                <p className="text-xs text-zinc-300 font-sans leading-relaxed whitespace-pre-wrap">
+                                  {followUps.fu2}
+                                </p>
+                                <div className="flex items-center justify-end gap-3 pt-1">
+                                  {phoneInfo.isWhatsAppViable && (
+                                    <a
+                                      href={`https://wa.me/${phoneInfo.cleanDigits || lead.phone}?text=${encodeURIComponent(followUps.fu2)}`}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="text-[10px] font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors"
+                                    >
+                                      <MessageSquare size={10} /> Send via WhatsApp
+                                    </a>
+                                  )}
+                                  {lead.email && (
+                                    <a
+                                      href={`mailto:${lead.email}?subject=${encodeURIComponent(`Quick follow-up for ${businessName}`)}&body=${encodeURIComponent(followUps.fu2)}`}
+                                      className="text-[10px] font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1 transition-colors"
+                                    >
+                                      <Mail size={10} /> Send via Email
+                                    </a>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })()}
+
                 </div>
               )
             })}

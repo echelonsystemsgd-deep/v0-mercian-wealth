@@ -14,6 +14,8 @@ export interface AccountantLeadIntelligence {
   prototypeRemedy: string
   prototypeUrl: string
   customNotes: string
+  followUp1?: string
+  followUp2?: string
   whatsappOutreach: {
     message1: string // Conversational Opener
     message2: string // Friction Observation
@@ -608,7 +610,181 @@ Best regards,
 Gurtej Sandhu
 Mercian Wealth`
     }
-  }
+  },
+  'wildercoe.co.uk': {
+    "domain": "wildercoe.co.uk",
+    "businessName": "Wilder Coe Ltd Chartered Accountants",
+    "ownerOrDirector": "Partnership Team",
+    "phone": "020 7724 6060",
+    "trade": "Chartered Accountants",
+    "location": "London, W6 0LH",
+    "pageLocation": "/contact/ & mobile navigation",
+    "observableFriction": "Raw unrendered Gravity Forms shortcode displayed on /contact/ and 449px mobile layout overflow.",
+    "frictionBadge": "Unrendered Shortcode on /contact/",
+    "evidence": "Contact page renders literal \"[gravityform id=”3″ title=”true”]\" text instead of form inputs, plus 449px horizontal overflow.",
+    "recognizableReason": "When busy London directors tap to contact, raw WordPress shortcode creates perception of broken infrastructure.",
+    "consequenceMechanics": "Corporate clients bounce to competitors rather than calling switchboards.",
+    "prototypeRemedy": "Clean, validated corporate consultation booking flow with instant calendar lock.",
+    "prototypeUrl": "https://uk-accountancy-os-prototype.vercel.app/",
+    "customNotes": "Raw shortcode on /contact/ and 449px mobile overflow.",
+    "followUp1": "Hi Wilder Coe team, following up on our note regarding the unrendered form shortcode on your /contact/ page. We prepared a 30-second walkthrough video of a clean, high-converting practice prototype built for UK chartered accountants. Would you like me to send the clip over?",
+    "followUp2": "Hi Wilder Coe team, wrapping up our notes before the upcoming statutory crunch. The custom intake prototype we built for your firm remains ready whenever you want to inspect how it captures high-tier corporate clients without friction. Best regards, Gurtej.",
+    "whatsappOutreach": {
+        "message1": "Hi Wilder Coe team 👋 Came across your practice in London — quick question: ahead of the upcoming deadlines, is your corporate advisory team currently taking on new clients or is capacity booked out?",
+        "message2": "Makes complete sense! The reason I asked is that when looking at wildercoe.co.uk on mobile, the contact page displays a raw unrendered shortcode \"[gravityform id=”3″ title=”true”]\" instead of the actual inquiry form.",
+        "message3": "We engineered an interactive intake prototype specifically for UK accounting practices: https://uk-accountancy-os-prototype.vercel.app/ - Open to a brief 10-minute call this week?",
+        "quickDirectPitch": "Hi Wilder Coe team, noticed that your live /contact/ page displays an unrendered Gravity Form shortcode instead of the actual booking form. We built a live interactive prototype with direct scheduling: https://uk-accountancy-os-prototype.vercel.app/ - Would you be open to a 10-minute call this week? If you'd rather not hear from us, just say stop."
+    },
+    "emailOutreach": {
+        "subject": "Notice regarding unrendered Gravity Form on wildercoe.co.uk",
+        "body": "Hi Wilder Coe team,\n\nI noticed that the contact page on wildercoe.co.uk currently displays a raw WordPress shortcode rather than rendering the form fields.\n\nWe built an interactive practice intake prototype showing how modern firms handle enquiries cleanly:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nWould you be open to a 10-minute call this week to review it?\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+    }
+},
+  'mercerhole.co.uk': {
+    "domain": "mercerhole.co.uk",
+    "businessName": "Mercer & Hole Chartered Accountants",
+    "ownerOrDirector": "Executive Board",
+    "phone": "020 7236 2601",
+    "trade": "Chartered Accountants",
+    "location": "London & St Albans",
+    "pageLocation": "Homepage & Office Directory",
+    "observableFriction": "Malformed partner diallers tel:+440... across all 4 regional offices causing call failures on mobile.",
+    "frictionBadge": "Broken tel:+440... Mobile Diallers",
+    "evidence": "Dialler markup includes domestic trunk zero alongside international country code (+440), causing call initiation failure.",
+    "recognizableReason": "High-net-worth directors tapping direct partner numbers from mobile receive carrier error tones.",
+    "consequenceMechanics": "Urgent tax planning enquiries drop off before partner contact.",
+    "prototypeRemedy": "E.164 verified mobile tap-to-call links + 60-second direct consultation calendar hold.",
+    "prototypeUrl": "https://uk-accountancy-os-prototype.vercel.app/",
+    "customNotes": "Malformed tel:+440... links across London, St Albans, Rickmansworth, and Milton Keynes offices.",
+    "followUp1": "Hi Mercer & Hole team, following up on our note regarding the partner direct dial links failing on mobile devices across your regional offices. We put together a 30-second walkthrough video of a modern practice intake prototype showing instant partner scheduling. Shall I send that over?",
+    "followUp2": "Hi Mercer & Hole team, just checking in one last time before your team gets fully locked into filing deadlines. The practice booking prototype remains available whenever you'd like to review it. Wishing you a smooth tax season, Gurtej.",
+    "whatsappOutreach": {
+        "message1": "Hi Mercer & Hole team 👋 Quick question regarding your regional offices: ahead of the upcoming MTD and tax changes, is your private client tax team open to new instructions?",
+        "message2": "Reason I ask is that your mobile dialler links across all office pages are configured as tel:+440... which causes immediate call failures on mobile phones.",
+        "message3": "We engineered an interactive intake prototype for UK chartered firms: https://uk-accountancy-os-prototype.vercel.app/ - Open to a brief 10-minute call this week?",
+        "quickDirectPitch": "Hi Mercer & Hole team, noticed that the direct dialler links across your regional office pages are formatted as tel:+440..., causing carrier dial failure on smartphones. We built a prototype demonstrating frictionless intake: https://uk-accountancy-os-prototype.vercel.app/ - Free for a 10-minute call this week? If you'd rather not hear from us, just say stop."
+    },
+    "emailOutreach": {
+        "subject": "Mobile dialler formatting issue on mercerhole.co.uk",
+        "body": "Hi Mercer & Hole team,\n\nWanted to flag that the direct office phone links on mercerhole.co.uk use the tel:+440 format, which fails to dial on mobile devices.\n\nWe built a practice prototype showing clean intake and direct booking:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nWould you be open to a 10-minute call this week?\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+    }
+},
+  'chiene.co.uk': {
+    "domain": "chiene.co.uk",
+    "businessName": "Chiene + Tait LLP Chartered Accountants",
+    "ownerOrDirector": "Management Committee",
+    "phone": "0131 558 5800",
+    "trade": "Chartered Tax Specialists",
+    "location": "Edinburgh & Inverness",
+    "pageLocation": "Apex Domain & Security Certificate",
+    "observableFriction": "SSL certificate mismatch serving *.barelyoriginal.com on chiene.co.uk, triggering full-screen security warnings and HTTP 403 Forbidden.",
+    "frictionBadge": "SSL Security Certificate Mismatch",
+    "evidence": "Browser flags NET::ERR_CERT_COMMON_NAME_INVALID when visiting chiene.co.uk directly.",
+    "recognizableReason": "Commercial prospects visiting from referral or search encounter red \"Your connection is not private\" warning screen.",
+    "consequenceMechanics": "Near 100% bounce rate on untrusted security interstitials.",
+    "prototypeRemedy": "Validated HTTPS apex routing + modern chartered practice acquisition OS.",
+    "prototypeUrl": "https://uk-accountancy-os-prototype.vercel.app/",
+    "customNotes": "SSL mismatch serving *.barelyoriginal.com and HTTP 403 error.",
+    "followUp1": "Hi Chiene + Tait team, following up on our note regarding the SSL security mismatch on chiene.co.uk. We put together a 30-second walkthrough video showing a secure, dedicated client intake prototype built for Scottish chartered practices. Would you like me to share the link?",
+    "followUp2": "Hi Chiene + Tait team, closing out our notes before the upcoming quarter. If you ever want to review how the prototype streamlines client onboarding without security warning barriers, just let me know. All the best, Gurtej.",
+    "whatsappOutreach": {
+        "message1": "Hi Chiene + Tait team 👋 Quick question: are your corporate and private client teams in Edinburgh taking on new instructions ahead of the autumn filing window?",
+        "message2": "Reason I ask is that visiting chiene.co.uk directly throws an immediate SSL security mismatch warning (*.barelyoriginal.com), blocking visitors from accessing the site.",
+        "message3": "We engineered a modern practice prototype specifically for chartered accounting firms: https://uk-accountancy-os-prototype.vercel.app/ - Open to a brief 10-minute call this week?",
+        "quickDirectPitch": "Hi Chiene + Tait team, wanted to let you know that navigating directly to chiene.co.uk triggers an SSL certificate mismatch warning (*.barelyoriginal.com), blocking corporate visitors. We designed a clean practice intake prototype: https://uk-accountancy-os-prototype.vercel.app/ - Open to a 10-minute call this week? If you'd rather not hear from us, just say stop."
+    },
+    "emailOutreach": {
+        "subject": "Security certificate mismatch on chiene.co.uk",
+        "body": "Hi Chiene + Tait team,\n\nWanted to send a quick heads-up that direct traffic to chiene.co.uk is encountering an SSL certificate mismatch warning.\n\nWe built a practice prototype illustrating high-converting, secure client intake:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nWould you be open to a 10-minute call this week?\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+    }
+},
+  'pkpi.uk': {
+    "domain": "pkpi.uk",
+    "businessName": "PKPI Chartered Accountants",
+    "ownerOrDirector": "Practice Partners",
+    "phone": "020 7941 8160",
+    "trade": "Chartered Healthcare & Practice Accountants",
+    "location": "Slough, SL2 1TN",
+    "pageLocation": "Homepage & Booking Anchor",
+    "observableFriction": "Wix 980px fixed-width container causing horizontal overflow on mobile viewports; typo in hero (\"PKP Dental\"); Book Consultation CTA lacks calendar.",
+    "frictionBadge": "Wix 980px Mobile Overflow & Broken Booking",
+    "evidence": "Page forces 980px wide container on 390px screens causing side-scrolling; consultation anchor jumps to static callback form.",
+    "recognizableReason": "Healthcare practice owners accessing on mobile find awkward navigation and cannot lock in consultation times.",
+    "consequenceMechanics": "High-value dental and GP practices bounce to modern online portals.",
+    "prototypeRemedy": "Responsive healthcare accountant intake portal with instant calendar appointment booking.",
+    "prototypeUrl": "https://uk-accountancy-os-prototype.vercel.app/",
+    "customNotes": "Wix fixed width overflow, hero copy typo, and missing calendar on Book Consultation.",
+    "followUp1": "Hi PKPI team, following up on our note regarding the mobile layout overflow and consultation booking flow on pkpi.uk. We prepared a 30-second walkthrough video of a modern intake prototype tailored for specialized healthcare accounting. Shall I send that over?",
+    "followUp2": "Hi PKPI team, final note before the upcoming tax deadline. The healthcare practice intake prototype remains available whenever your team wants to review automated onboarding. All the best, Gurtej.",
+    "whatsappOutreach": {
+        "message1": "Hi PKPI team 👋 Came across your practice in Slough — love your focus on dental and medical accounting. Quick question: are you currently taking on new healthcare practices ahead of statutory deadlines?",
+        "message2": "Reason I ask is that when visiting pkpi.uk on mobile, the layout has horizontal scroll overflow from a fixed 980px Wix container, and the Book Consultation button jumps to a callback form with no calendar.",
+        "message3": "We engineered an interactive intake prototype tailored for medical/dental accounting practices: https://uk-accountancy-os-prototype.vercel.app/ - Open to a brief 10-minute call this week?",
+        "quickDirectPitch": "Hi PKPI team, noticed that pkpi.uk has horizontal scrolling issues on mobile and the consultation button has no direct booking. We built an interactive prototype designed for healthcare accountants: https://uk-accountancy-os-prototype.vercel.app/ - Open to a 10-minute call this week? If you'd rather not hear from us, just say stop."
+    },
+    "emailOutreach": {
+        "subject": "Mobile intake & consultation booking for PKPI Accountants",
+        "body": "Hi PKPI team,\n\nI noticed on pkpi.uk that the mobile layout suffers from fixed-width overflow on smartphones, and the Book Consultation link doesn't provide live booking.\n\nWe built an interactive practice prototype showing how healthcare accountants capture enquiries smoothly:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nOpen to a 10-minute call this week?\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+    }
+},
+  'mvaccountancy.co.uk': {
+    "domain": "mvaccountancy.co.uk",
+    "businessName": "M V Accountancy Services Ltd",
+    "ownerOrDirector": "Practice Directors",
+    "phone": "01753 903056",
+    "trade": "Chartered Certified Accountants",
+    "location": "Slough, Berkshire",
+    "pageLocation": "Footer & Header Navigation",
+    "observableFriction": "Broken httpss:// protocol typo in footer legal links; mobile pinch-to-zoom disabled; encoded %20 spaces in dialler links.",
+    "frictionBadge": "Broken httpss:// Protocol & Zoom Disabled",
+    "evidence": "Footer terms link points to httpss://; viewport meta includes user-scalable=0; dialler links contain %20 characters.",
+    "recognizableReason": "Accessibility barriers prevent visually impaired users from zooming, and malformed phone links fail to trigger diallers.",
+    "consequenceMechanics": "Prospective small business clients encounter broken links and dialler errors.",
+    "prototypeRemedy": "Accessible, clean practice storefront with 1-click mobile dialling and automated intake.",
+    "prototypeUrl": "https://uk-accountancy-os-prototype.vercel.app/",
+    "customNotes": "Broken httpss:// protocol in footer, user-scalable=0, and encoded phone spaces.",
+    "followUp1": "Hi MV Accountancy team, following up on our note regarding the footer link protocol typo and mobile tap-to-call links on mvaccountancy.co.uk. We recorded a quick 30-second demo of a clean practice prototype with 60-second direct booking. Open to taking a look?",
+    "followUp2": "Hi MV Accountancy team, closing the loop before filing deadlines get busy. The practice prototype is ready whenever you want to see how automated qualification saves partner time. Best regards, Gurtej.",
+    "whatsappOutreach": {
+        "message1": "Hi MV Accountancy team 👋 Quick question regarding your practice in Slough: are you accepting new SME accounting clients ahead of the upcoming quarter?",
+        "message2": "Reason I ask is that your mobile phone links contain %20 characters which block automatic dialling, and your footer links use an invalid \"httpss://\" address.",
+        "message3": "We built a live interactive intake prototype showing how modern practices handle client acquisition: https://uk-accountancy-os-prototype.vercel.app/ - Open to a quick 10-minute call this week?",
+        "quickDirectPitch": "Hi MV Accountancy team, noticed a couple of technical glitches on mvaccountancy.co.uk including invalid httpss:// links and broken phone formatting on mobile. We built a clean practice prototype: https://uk-accountancy-os-prototype.vercel.app/ - Open to a 10-minute call this week? If you'd rather not hear from us, just say stop."
+    },
+    "emailOutreach": {
+        "subject": "Mobile dialler formatting & link protocol note for MV Accountancy",
+        "body": "Hi MV Accountancy team,\n\nWanted to flag that phone links on mvaccountancy.co.uk have encoded spaces that prevent one-tap calling on phones, and the footer contains a httpss:// typo.\n\nWe built an interactive practice prototype showing clean client booking:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nWould you be open to a 10-minute call this week?\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+    }
+},
+  'pureaccounts.services': {
+    "domain": "pureaccounts.services",
+    "businessName": "Pure Accounts & Management Ltd",
+    "ownerOrDirector": "Managing Director",
+    "phone": "07894 233988",
+    "trade": "Accountants & Business Advisors",
+    "location": "Slough, Berkshire",
+    "pageLocation": "Homepage Hero & Footer",
+    "observableFriction": "Blank orange hero container left unfinished; desktop hamburger menu; legal links routing off to web developer domain.",
+    "frictionBadge": "Blank Hero Container & External Developer Links",
+    "evidence": "Hero container displays empty orange box; legal policies route to osamweb.com instead of practice domain.",
+    "recognizableReason": "Unfinished hero container damages authority when prospects search for trusted advisory firms.",
+    "consequenceMechanics": "Corporate clients lose confidence in compliance capability and bounce.",
+    "prototypeRemedy": "Polished corporate practice front door with instant fee calculator and calendar scheduling.",
+    "prototypeUrl": "https://uk-accountancy-os-prototype.vercel.app/",
+    "customNotes": "Blank orange hero container, desktop hamburger, and links routing to web developer site.",
+    "followUp1": "Hi Pure Accounts team, following up on our note regarding the hero section container and navigation setup on pureaccounts.services. We prepared a 30-second video of an authoritative practice intake prototype. Would you like me to send the clip?",
+    "followUp2": "Hi Pure Accounts team, final check-in ahead of the busy season. The intake prototype remains ready whenever you want to evaluate an authoritative online presence. Wishing you the best, Gurtej.",
+    "whatsappOutreach": {
+        "message1": "Hi Pure Accounts team 👋 Quick question: are you currently taking on new accounting clients ahead of statutory filing deadlines?",
+        "message2": "Reason I ask is that pureaccounts.services has an empty orange hero box at the top, and your legal links route to an outside web agency website rather than your own policies.",
+        "message3": "We engineered an authoritative practice prototype tailored for UK accountancy firms: https://uk-accountancy-os-prototype.vercel.app/ - Open to a brief 10-minute call this week?",
+        "quickDirectPitch": "Hi Pure Accounts team, noticed that the hero container on pureaccounts.services is currently blank and legal links route to a web developer domain. We built a high-converting practice prototype: https://uk-accountancy-os-prototype.vercel.app/ - Open to a 10-minute call this week? If you'd rather not hear from us, just say stop."
+    },
+    "emailOutreach": {
+        "subject": "Hero section & legal links note for pureaccounts.services",
+        "body": "Hi Pure Accounts team,\n\nWanted to send a quick note that the homepage hero container on pureaccounts.services is displaying as a blank box, and privacy links route to a third-party domain.\n\nWe built an interactive practice prototype showing how UK firms present themselves with high authority:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nOpen to a 10-minute call this week?\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+    }
+},
 }
 
 export function findAccountantIntelligence(
