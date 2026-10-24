@@ -785,6 +785,238 @@ Mercian Wealth`
         "body": "Hi Pure Accounts team,\n\nWanted to send a quick note that the homepage hero container on pureaccounts.services is displaying as a blank box, and privacy links route to a third-party domain.\n\nWe built an interactive practice prototype showing how UK firms present themselves with high authority:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nOpen to a 10-minute call this week?\n\nBest regards,\nGurtej Singh\nMercian Wealth"
     }
 },
+  'veracityaccountants.com': {
+    "domain": "veracityaccountants.com",
+    "businessName": "Veracity Accountants Limited",
+    "ownerOrDirector": "Practice Directors",
+    "phone": "01628 950500",
+    "trade": "Chartered Certified Accountants",
+    "location": "Dorney House, 46-48a High St, Burnham, Slough SL1 7JP",
+    "pageLocation": "/contact-us & Homepage",
+    "observableFriction": "Standard /contact-us URL returns a hard 404 Not Found error, and homepage has zero direct consultation booking intake.",
+    "frictionBadge": "404 Broken Contact & Zero Homepage Intake",
+    "evidence": "Navigating to /contact-us triggers HTTP 404; homepage intake lacks direct booking calendar.",
+    "recognizableReason": "Decision-ready business owners abandon broken URL paths or manual enquiry forms in favour of firms offering instant calendar holds.",
+    "consequenceMechanics": "Fee-earners waste time fielding unqualified enquiries while premium Ltd Co retainers bounce to automated competitors.",
+    "prototypeRemedy": "Clean, validated corporate consultation booking flow with instant calendar lock.",
+    "prototypeUrl": "https://uk-accountancy-os-prototype.vercel.app/",
+    "customNotes": "404 on /contact-us and no direct homepage booking. Machiavellian leverage positioning applied.",
+    "followUp1": "Quick update: we are selecting our Burnham/Slough partner practice this week. Before we hand this acquisition engine to another firm in your area, here is the 30-second walkthrough showing how it locks in £5k-£15k retainers automatically. Let us know today if you want to inspect it, or we will proceed elsewhere.",
+    "followUp2": "Closing our file on Veracity Accountants. We have initiated onboarding discussions with another practice in your postal area, so this infrastructure is no longer available to your firm. Wishing you the best.",
+    "whatsappOutreach": {
+        "message1": "Hi team, we are currently reviewing accountancy practices in Slough and Burnham to partner with exclusively on our client acquisition infrastructure.",
+        "message2": "While auditing your digital presence earlier, we noted that your standard /contact-us link returns a 404 error and your homepage has zero direct consultation booking for prospective business clients.",
+        "message3": "We already built a live working prototype specifically tailored to capture and pre-qualify high-turnover Ltd Co retainers: https://uk-accountancy-os-prototype.vercel.app/ - We only deploy this with one firm in your postcode. Open to a 10-minute call this week?",
+        "quickDirectPitch": "Hi team, we are selecting an exclusive practice partner in Slough/Burnham. We noticed your /contact-us link is broken (404) and homepage lacks direct booking. We built this working prototype: https://uk-accountancy-os-prototype.vercel.app/ - If you want territory exclusivity, let us speak for 10 minutes this week. If not, no problem—we will move on. If you'd rather not hear from us, just say stop."
+    },
+    "emailOutreach": {
+        "subject": "Exclusive practice acquisition infrastructure & 404 notice for Veracity Accountants",
+        "body": "Hi team,\n\nWe are currently reviewing accountancy practices in Slough and Burnham to grant exclusive territory rights to our client acquisition operating system.\n\nWhile running technical checks on veracityaccountants.com, we noted that your standard /contact-us link returns a 404 error and your homepage has zero direct consultation booking for prospective business clients.\n\nWe already built a live working prototype specifically tailored to capture and pre-qualify high-turnover Ltd Co retainers:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nWe strictly partner with one firm in your postcode. If you want to review the prototype on a brief 10-minute call this week before we deploy it with another local firm, let us know.\n\nIf you are content with your current intake, we will simply move on.\n\nIf you would prefer not to receive further communications, reply with \"stop\".\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+    }
+},
+  'eacotts.com': {
+    "domain": "eacotts.com",
+    "businessName": "Eacotts",
+    "ownerOrDirector": "Practice Partners",
+    "phone": "01628 665432",
+    "trade": "Chartered Accountants & Business Advisers",
+    "location": "Grenville Court, Britwell Road, Burnham, Slough SL1 8DF",
+    "pageLocation": "/contact/ & Header",
+    "observableFriction": "Phone numbers published 6 separate times across /contact/ as inert plaintext without tel: protocol, completely disabling one-tap calling on mobile.",
+    "frictionBadge": "Unclickable Plaintext Phone Numbers on Mobile",
+    "evidence": "Contact numbers rendered as plain text strings without tel: protocol links across contact page.",
+    "recognizableReason": "Decision-ready directors visiting on mobile are forced to manually copy-paste or memorise phone numbers, leading to immediate abandonment.",
+    "consequenceMechanics": "Urgent tax and corporate accounting enquiries drop off before partner reception is reached.",
+    "prototypeRemedy": "Instant mobile tap-to-call integration + 60-second direct calendar scheduling hold.",
+    "prototypeUrl": "https://uk-accountancy-os-prototype.vercel.app/",
+    "customNotes": "Plaintext unclickable phone numbers across /contact/. Machiavellian territory takeaway positioning.",
+    "followUp1": "Following up: our team is finalizing the Slough territory partner this week. Before we transfer this acquisition infrastructure to another chartered firm in your postcode, here is a 30-second video of how it operates. Let us know if you want to review it before we close the window.",
+    "followUp2": "Final note: we have officially opened discussions with another firm in your area, so this system is off the table for Eacotts. Closing our file.",
+    "whatsappOutreach": {
+        "message1": "Hi team, we are auditing chartered accounting practices across Burnham and Slough to grant exclusive territory rights to our client intake infrastructure.",
+        "message2": "While running forensic checks on eacotts.com earlier, we observed that your telephone numbers across your contact page are published as unclickable text without tel: links, completely preventing mobile visitors from calling your team with one tap.",
+        "message3": "We have already engineered a working prototype of a proper practice website with instant mobile dialling and automated corporate fee triage: https://uk-accountancy-os-prototype.vercel.app/ - We only license this to a single practice in your area. Open to a 10-minute call this week?",
+        "quickDirectPitch": "Hi team, we are auditing Slough chartered practices for exclusive territory licensing. We observed that your phone numbers on eacotts.com are unclickable plain text on mobile. We built this high-converting practice prototype: https://uk-accountancy-os-prototype.vercel.app/ - If you want exclusivity, let's speak for 10 minutes this week. If not, we will move on. If you'd rather not hear from us, just say stop."
+    },
+    "emailOutreach": {
+        "subject": "Exclusive practice territory licensing & mobile dialler note for Eacotts",
+        "body": "Hi team,\n\nWe are currently selecting a single chartered accounting practice in the Burnham and Slough district for exclusive licensing of our practice acquisition operating system.\n\nWhile running technical checks on eacotts.com, we noted that your telephone numbers are published as unclickable plain text without tel: protocol links, preventing mobile business owners from calling with one tap.\n\nWe have already engineered a live working prototype with instant mobile dialling and automated corporate fee triage:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nWe only deploy this with one firm per district. If you want to review the walkthrough on a brief 10-minute call this week before we offer exclusivity to your competitor, let us know.\n\nIf you prefer your existing setup, we will simply move on.\n\nIf you would prefer not to receive further updates, reply with \"stop\".\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+    }
+},
+  'sweetingandsmedley.co.uk': {
+    "domain": "sweetingandsmedley.co.uk",
+    "businessName": "Sweeting & Smedley Ltd",
+    "ownerOrDirector": "Practice Directors",
+    "phone": "01628 665675",
+    "trade": "Accountants & Tax Consultants",
+    "location": "2 Church St, Burnham, Slough SL1 7HZ",
+    "pageLocation": "Apex Domain & SSL Certificate",
+    "observableFriction": "Website triggers full-screen expired SSL security warnings and returns HTTP 403 Forbidden, locking out 100% of digital traffic and referrals.",
+    "frictionBadge": "Expired SSL Certificate & 403 Lockout",
+    "evidence": "Direct HTTPS requests trigger NET::ERR_CERT_DATE_INVALID and HTTP 403 Forbidden barrier.",
+    "recognizableReason": "Every prospective business client encountering red security interstitials immediately bounces to an active competitor.",
+    "consequenceMechanics": "Near 100% destruction of digital brand equity and referral intake.",
+    "prototypeRemedy": "Bank-grade HTTPS infrastructure with interactive Corporation Tax estimator and 60-second direct booking.",
+    "prototypeUrl": "https://uk-accountancy-os-prototype.vercel.app/",
+    "customNotes": "Expired SSL certificate and HTTP 403 Forbidden error. Machiavellian takeaway positioning.",
+    "followUp1": "Update: we are locking in our territory allocation for Burnham this week. Before we assign this high-converting infrastructure to another local firm, here is a 30-second preview of what they will be running. Let us know today if you want to see it.",
+    "followUp2": "Closing our file on Sweeting & Smedley. We have moved forward with another tax advisory firm in your area. Wishing you the best.",
+    "whatsappOutreach": {
+        "message1": "Hi team, we are selecting a single independent tax practice in Burnham/Slough for exclusive deployment of our practice acquisition operating system.",
+        "message2": "A heads-up on your digital asset: sweetingandsmedley.co.uk currently throws an expired SSL security warning followed by a hard HTTP 403 Forbidden lockout, turning away every prospective client who searches for you.",
+        "message3": "We already engineered an authoritative, secure practice prototype built to capture high-value SME accounts effortlessly: https://uk-accountancy-os-prototype.vercel.app/ - Open to a 10-minute call this week?",
+        "quickDirectPitch": "Hi team, selecting one exclusive tax practice partner in Burnham. Note: your website currently throws an expired SSL error and 403 Forbidden lockout. We already built this high-converting practice prototype: https://uk-accountancy-os-prototype.vercel.app/ - If you want territory exclusivity, let's speak for 10 minutes this week. If not, we will move on. If you'd rather not hear from us, just say stop."
+    },
+    "emailOutreach": {
+        "subject": "Urgent notice regarding expired SSL & 403 lockout on sweetingandsmedley.co.uk",
+        "body": "Hi team,\n\nWe wanted to reach out with an urgent notice regarding your digital storefront.\n\nNavigating to sweetingandsmedley.co.uk currently triggers an expired SSL security certificate error followed by an HTTP 403 Forbidden lockout, completely blocking prospective clients from viewing your services.\n\nWe already engineered an authoritative, bank-grade practice prototype built to capture and qualify SME retainers effortlessly:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nWe strictly grant single-practice territory exclusivity. If you want to review how this restores your positioning on a 10-minute call this week before we offer territory rights to another local firm, let us know.\n\nIf you prefer to leave it as is, we will simply move on.\n\nIf you would prefer not to receive future communications, reply with \"stop\".\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+    }
+},
+  'bracc.co.uk': {
+    "domain": "bracc.co.uk",
+    "businessName": "Bold Rose Accountants",
+    "ownerOrDirector": "Executive Management",
+    "phone": "020 7097 3749",
+    "trade": "Chartered Certified Accountants",
+    "location": "Plus X Innovation, 2 Brunel Wy., Slough SL1 1FQ",
+    "pageLocation": "Homepage Hero & Mobile Containers",
+    "observableFriction": "Complete absence of tel: links on homepage and hardcoded 1300px container width causing horizontal layout blowout on smartphones.",
+    "frictionBadge": "Zero Tap-to-Call & 1300px Mobile Blowout",
+    "evidence": "No tel: links exist in DOM; page contains 1300px fixed width elements causing horizontal scroll on 390px screens.",
+    "recognizableReason": "Tech-forward founders visiting from mobile encounter broken styling and no way to tap-to-call reception.",
+    "consequenceMechanics": "High-growth startup and scale-up retainers bounce to modern cloud practices.",
+    "prototypeRemedy": "Fluid responsive practice OS with instant mobile dialling and automated onboarding.",
+    "prototypeUrl": "https://uk-accountancy-os-prototype.vercel.app/",
+    "customNotes": "No tel: links and 1300px mobile overflow. Machiavellian exclusive territory positioning.",
+    "followUp1": "Heads-up: we are making our Slough partner decision this week. Before we hand this exclusive intake flow to another Brunel Way firm, here is a 30-second walkthrough of the system. Let us know if you want to claim it or pass.",
+    "followUp2": "Closing our file on Bold Rose Accountants. We have partnered with another firm in your postcode. All the best.",
+    "whatsappOutreach": {
+        "message1": "Hi team, we are reviewing innovative accounting practices in Slough to select an exclusive partner for our practice acquisition OS.",
+        "message2": "During our technical inspection of bracc.co.uk, we noticed that your homepage has zero tap-to-call phone links and contains hardcoded 1300px width containers that blow out mobile layouts, making client booking cumbersome.",
+        "message3": "We already built an interactive practice prototype with frictionless mobile booking and automatic turnover pre-qualification: https://uk-accountancy-os-prototype.vercel.app/ - Open to a brief 10-minute call this week?",
+        "quickDirectPitch": "Hi team, selecting one exclusive partner in Slough. Noticed bracc.co.uk has zero tap-to-call links and 1300px layout overflow on mobile. We built this high-converting prototype: https://uk-accountancy-os-prototype.vercel.app/ - If you want exclusive territory rights, let's speak for 10 minutes this week. If not, we will move on. If you'd rather not hear from us, just say stop."
+    },
+    "emailOutreach": {
+        "subject": "Exclusive practice acquisition infrastructure for Bold Rose Accountants",
+        "body": "Hi team,\n\nWe are reviewing innovative accounting practices in Slough to grant exclusive territory rights to our client acquisition operating system.\n\nWhile running tests on bracc.co.uk, we noticed that your homepage has zero tap-to-call phone links and contains hardcoded 1300px width containers that blow out mobile layouts.\n\nWe already engineered an interactive practice prototype with frictionless mobile booking and automatic turnover pre-qualification:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nWe strictly grant single-practice territory exclusivity. If you want to see the system on a 10-minute call this week before we deploy it with a competing practice down the road, let us know.\n\nIf you are content with your current intake, we will move on.\n\nReply with \"stop\" to opt out.\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+    }
+},
+  'kingston-wells.co.uk': {
+    "domain": "kingston-wells.co.uk",
+    "businessName": "Kingston Wells Accountants",
+    "ownerOrDirector": "Practice Directors",
+    "phone": "020 3006 8099",
+    "trade": "Accountancy & Tax Specialists",
+    "location": "The Porter Building, 1 Brunel Wy., Slough SL1 1FQ",
+    "pageLocation": "Homepage Layout & Header",
+    "observableFriction": "Zero clickable tel: links across homepage and rigid 1024px containers forcing mobile side-scrolling for corporate directors.",
+    "frictionBadge": "Missing Tel Links & 1024px Mobile Side-Scroll",
+    "evidence": "DOM lacks tel: protocol links; 1024px layout width causes horizontal overflow on mobile viewports.",
+    "recognizableReason": "Commercial prospects visiting from mobile are unable to tap to call and must struggle with horizontal scrolling.",
+    "consequenceMechanics": "Direct corporate leads abandon and seek practices with modern mobile intake.",
+    "prototypeRemedy": "Modern, fully responsive practice portal with instant tap-to-call and 60-second booking hold.",
+    "prototypeUrl": "https://uk-accountancy-os-prototype.vercel.app/",
+    "customNotes": "No tel: links and 1024px mobile scroll. Machiavellian territory takeaway.",
+    "followUp1": "Update: we are finalizing our Central Slough practice partnership this week. Before we transfer this prototype and client pipeline to a competing practice, here is a 30-second walkthrough. Let us know if you want to inspect it today.",
+    "followUp2": "Closing our file on Kingston Wells. We have moved forward with another Central Slough practice. Best regards.",
+    "whatsappOutreach": {
+        "message1": "Hi team, we are currently vetting accountancy practices in Central Slough to license our automated client acquisition OS.",
+        "message2": "We audited kingston-wells.co.uk and observed that you have zero direct tel: links on your homepage, coupled with rigid 1024px containers that break mobile formatting for busy directors trying to reach you.",
+        "message3": "We built a live practice prototype showing how high-growth firms automate enquiry triage and direct booking: https://uk-accountancy-os-prototype.vercel.app/ - Open to a 10-minute call this week?",
+        "quickDirectPitch": "Hi team, licensing our client acquisition OS to one Central Slough practice. Noticed kingston-wells.co.uk lacks direct mobile phone links and has 1024px overflow. We built this working prototype: https://uk-accountancy-os-prototype.vercel.app/ - If you want exclusivity, let's speak for 10 minutes this week. If not, we will move on. If you'd rather not hear from us, just say stop."
+    },
+    "emailOutreach": {
+        "subject": "Exclusive practice acquisition OS for Kingston Wells Accountants",
+        "body": "Hi team,\n\nWe are currently vetting accountancy practices in Central Slough to license our automated client acquisition OS.\n\nWhile inspecting kingston-wells.co.uk, we observed that you have zero direct tel: links on your homepage, coupled with rigid 1024px containers that break mobile formatting.\n\nWe built a live practice prototype showing how high-growth firms automate enquiry triage and direct booking:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nWe only partner with one firm in your postcode. If you want to evaluate this on a 10-minute call this week before we hand territory rights to another local team, let us know.\n\nIf you prefer your existing setup, we will simply proceed elsewhere.\n\nReply with \"stop\" to opt out.\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+    }
+},
+  'ouryclark.com': {
+    "domain": "ouryclark.com",
+    "businessName": "Oury Clark",
+    "ownerOrDirector": "Executive Partners",
+    "phone": "01753 551111",
+    "trade": "Chartered Accountants & Legal Advisors",
+    "location": "58 Herschel St, Slough SL1 1PG",
+    "pageLocation": "Header & Contact Links",
+    "observableFriction": "Telephone links use malformed syntax tel:+44 (0) 1753 551111 with spaces and parentheses, breaking RFC 3966 protocol and failing on mobile diallers.",
+    "frictionBadge": "Illegal Spaces & Parentheses in Mobile Diallers",
+    "evidence": "Anchor href=\"tel:+44 (0) 1753 551111\" contains spaces and brackets forbidden by RFC 3966.",
+    "recognizableReason": "Smartphones reject malformed tel: URLs, causing immediate dialler crashes or failed call connection.",
+    "consequenceMechanics": "High-net-worth commercial directors fail to connect directly to partner lines.",
+    "prototypeRemedy": "RFC 3966 compliant mobile diallers + corporate consultation scheduling hold.",
+    "prototypeUrl": "https://uk-accountancy-os-prototype.vercel.app/",
+    "customNotes": "RFC 3966 violation in tel: links. Machiavellian exclusive advisory positioning.",
+    "followUp1": "Quick note: we are finalizing our Slough corporate practice allocation this week. Before we deploy this client triage system with a rival firm, here is a 30-second video of the workflow. Let us know today if you want to inspect the numbers.",
+    "followUp2": "Closing our file on Oury Clark. We have engaged with another corporate advisory practice in the region. Wishing your partners continued success.",
+    "whatsappOutreach": {
+        "message1": "Hi team, we are auditing premier advisory and accounting firms in Slough to select an exclusive partner for our enterprise intake OS.",
+        "message2": "During our technical inspection of ouryclark.com, we noted that your primary phone links contain illegal spaces and parentheses tel:+44 (0) 1753 551111, which violates RFC 3966 standards and causes mobile devices to fail when tapping to call.",
+        "message3": "We engineered an enterprise practice prototype designed to pre-qualify multi-entity corporate retainers and lock in partner consultations in under 60 seconds: https://uk-accountancy-os-prototype.vercel.app/ - Open to a 10-minute call this week?",
+        "quickDirectPitch": "Hi team, auditing Slough advisory firms for exclusive territory licensing. Noticed phone links on ouryclark.com violate RFC 3966 with spaces and parentheses, failing on smartphones. We built this enterprise practice prototype: https://uk-accountancy-os-prototype.vercel.app/ - If you want exclusivity, let's speak for 10 minutes this week. If not, we will move on. If you'd rather not hear from us, just say stop."
+    },
+    "emailOutreach": {
+        "subject": "Notice regarding mobile dialler syntax & exclusive enterprise OS for Oury Clark",
+        "body": "Hi team,\n\nWe are auditing premier advisory and accounting firms in Slough to select an exclusive partner for our enterprise intake OS.\n\nDuring our technical inspection of ouryclark.com, we noted that your primary phone links contain illegal spaces and parentheses tel:+44 (0) 1753 551111, which violates RFC 3966 standards and causes mobile devices to fail when tapping to call.\n\nWe engineered an enterprise practice prototype designed to pre-qualify multi-entity corporate retainers and lock in partner consultations in under 60 seconds:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nWe only work with one firm of your tier per territory. If you want to review the walkthrough on a brief 10-minute call this week before we offer this to another regional advisory practice, let us know.\n\nIf you prefer your existing setup, we will simply move on.\n\nReply with \"stop\" to opt out.\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+    }
+},
+  'wisetax.org.uk': {
+    "domain": "wisetax.org.uk",
+    "businessName": "Wisetax Accountants Ltd",
+    "ownerOrDirector": "Managing Director",
+    "phone": "07533 686857",
+    "trade": "Accountancy & Tax Specialists",
+    "location": "1st Floor, 7 Mackenzie St, Slough SL1 1XQ",
+    "pageLocation": "Homepage & Intake Form",
+    "observableFriction": "Hardcoded 1200px container width causing horizontal overflow on smartphones, and absence of direct appointment booking engine.",
+    "frictionBadge": "1200px Mobile Overflow & Missing Booking Engine",
+    "evidence": "Fixed 1200px width styling triggers mobile viewport horizontal scroll; contact form lacks calendar integration.",
+    "recognizableReason": "Local business owners navigating on mobile face horizontal scrolling and delayed manual quotation loops.",
+    "consequenceMechanics": "Urgent MTD and payroll clients drop off and book with automated local rivals.",
+    "prototypeRemedy": "Responsive mobile intake OS with Corporation Tax slider and 60-second calendar hold.",
+    "prototypeUrl": "https://uk-accountancy-os-prototype.vercel.app/",
+    "customNotes": "1200px layout width blowout and missing booking engine. Machiavellian takeaway.",
+    "followUp1": "Heads-up: we are locking in our Slough partner firm this week. Before we hand this prototype and its client onboarding flow to another local practice, here is a 30-second video of how it operates. Let us know if you want to see it before we sign off.",
+    "followUp2": "Closing our file on Wisetax Accountants. We have moved forward with another practice in your postal area. All the best.",
+    "whatsappOutreach": {
+        "message1": "Hi team, we are reviewing accountancy practices in Slough to grant exclusive territory rights to our client acquisition OS.",
+        "message2": "While running tests on wisetax.org.uk on mobile, we observed that your 1200px layout width forces horizontal scrolling on phones, and your intake relies on an untiered contact form without automated booking.",
+        "message3": "We already engineered an interactive intake prototype tailored for UK accountancy firms: https://uk-accountancy-os-prototype.vercel.app/ - Open to a 10-minute call this week?",
+        "quickDirectPitch": "Hi team, granting exclusive territory rights to one Slough firm. Noticed wisetax.org.uk has 1200px layout blowout on mobile and lacks direct booking. We built this high-converting practice prototype: https://uk-accountancy-os-prototype.vercel.app/ - If you want exclusivity, let's speak for 10 minutes this week. If not, we will move on. If you'd rather not hear from us, just say stop."
+    },
+    "emailOutreach": {
+        "subject": "Exclusive practice acquisition infrastructure for Wisetax Accountants",
+        "body": "Hi team,\n\nWe are reviewing accountancy practices in Slough to grant exclusive territory rights to our client acquisition OS.\n\nWhile running tests on wisetax.org.uk on mobile, we observed that your 1200px layout width forces horizontal scrolling on phones, and your intake relies on an untiered contact form without automated booking.\n\nWe already engineered an interactive intake prototype tailored for UK accountancy firms:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nWe only license this to one practice per postcode. If you want to review the prototype on a 10-minute call this week before we assign exclusivity to a competitor down the road, let us know.\n\nIf you are content with your current intake, we will move on.\n\nReply with \"stop\" to opt out.\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+    }
+},
+  'wilson-partners.co.uk': {
+    "domain": "wilson-partners.co.uk",
+    "businessName": "Wilson Partners Accounting",
+    "ownerOrDirector": "Partnership Board",
+    "phone": "01628 770770",
+    "trade": "Chartered Practice Accounting & Corporate Finance",
+    "location": "TOR, Saint-Cloud Way, Maidenhead SL6 8BN",
+    "pageLocation": "Navigation & Contact Funnel",
+    "observableFriction": "Inquiry pathway requires 4 separate navigation hops before reaching a contact form, and lacks instant out-of-hours partner scheduling.",
+    "frictionBadge": "Multi-Click Booking Funnel & No Instant Partner Hold",
+    "evidence": "Inquiry flow routes through 4 intermediate page transitions before displaying contact fields; zero live booking.",
+    "recognizableReason": "Busy managing directors researching M&A or corporate tax advisory drop off during prolonged multi-step navigation.",
+    "consequenceMechanics": "Premium corporate advisory instructions bounce to direct-booking London and Thames Valley competitors.",
+    "prototypeRemedy": "Executive single-page acquisition OS with instant partner calendar locking.",
+    "prototypeUrl": "https://uk-accountancy-os-prototype.vercel.app/",
+    "customNotes": "4-step inquiry navigation funnel and no direct booking. Machiavellian executive takeaway.",
+    "followUp1": "Update: we are selecting our Thames Valley corporate partner this week. Before we deliver this intake system to another commercial firm in your corridor, here is a 30-second preview of the engine. Let us know today if your partners want to see it.",
+    "followUp2": "Closing our file on Wilson Partners. We have initiated partnership onboarding with another practice in your region. Best regards.",
+    "whatsappOutreach": {
+        "message1": "Hi team, we are auditing Thames Valley corporate accounting and tax firms to grant exclusive territory rights to our high-growth acquisition OS.",
+        "message2": "While inspecting your client pathway on wilson-partners.co.uk, we noted that prospective commercial clients have to navigate 4 separate pages to reach an enquiry form, with zero instant booking available for partners.",
+        "message3": "We engineered a streamlined practice prototype showing how high-tier advisory firms pre-qualify corporate clients and lock in discovery sessions in 60 seconds: https://uk-accountancy-os-prototype.vercel.app/ - Open to a 10-minute call this week?",
+        "quickDirectPitch": "Hi team, granting exclusive Thames Valley territory rights for our corporate acquisition OS. Noticed wilson-partners.co.uk requires 4 clicks to reach an enquiry form with zero instant booking. We built this executive prototype: https://uk-accountancy-os-prototype.vercel.app/ - If you want exclusivity, let's speak for 10 minutes this week. If not, we will move on. If you'd rather not hear from us, just say stop."
+    },
+    "emailOutreach": {
+        "subject": "Exclusive corporate practice acquisition OS for Wilson Partners",
+        "body": "Hi team,\n\nWe are auditing Thames Valley corporate accounting and tax firms to grant exclusive territory rights to our high-growth acquisition OS.\n\nWhile inspecting your client pathway on wilson-partners.co.uk, we noted that prospective commercial clients have to navigate 4 separate pages to reach an enquiry form, with zero instant booking available for partners.\n\nWe engineered a streamlined practice prototype showing how high-tier advisory firms pre-qualify corporate clients and lock in discovery sessions in 60 seconds:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nWe strictly partner with one firm of your tier in this corridor. If you want to inspect this on a brief 10-minute call this week before we offer it to another regional player, let us know.\n\nIf you prefer your existing pathway, we will move on.\n\nReply with \"stop\" to opt out.\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+    }
+},
 }
 
 export function findAccountantIntelligence(
