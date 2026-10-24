@@ -271,7 +271,7 @@ export default function LeadsPage() {
   const [contactedInSessionIds, setContactedInSessionIds] = useState<Set<string>>(new Set())
 
   // Direct 1-Click Quick Filter: 'all' | 'new' | 'contacted' | 'pipeline' | 'landlines' | 'needs_review'
-  const [quickFilter, setQuickFilter] = useState<'all' | 'new' | 'contacted' | 'pipeline' | 'landlines' | 'needs_review'>('all')
+  const [quickFilter, setQuickFilter] = useState<'all' | 'new' | 'follow_up' | 'contacted' | 'pipeline' | 'landlines' | 'needs_review'>('all')
   // Dedicated Follow-Up Cadence Sub-Filter: 'all' | 'due_fu1' | 'due_fu2' | 'cooling_down'
   const [followUpSubFilter, setFollowUpSubFilter] = useState<'all' | 'due_fu1' | 'due_fu2' | 'cooling_down'>('all')
 
