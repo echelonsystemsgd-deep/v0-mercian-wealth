@@ -652,10 +652,16 @@ export default function LeadsPage() {
     let landlines = 0
     let activePipeline = 0
     let needsReview = 0
+    let dueFollowUpNow = 0
+    let dueFu1 = 0
+    let dueFu2 = 0
+    let coolingDown = 0
 
     leads.forEach((l) => {
       const phoneInfo = classifyPhoneNumber(l.phone)
       const pathway = getLeadPathway(l)
+
+      const cadence = getLeadFollowUpCadence(l)
 
       if (l.status === 'New') {
         freshNew++
@@ -663,6 +669,10 @@ export default function LeadsPage() {
       }
       if (l.status === 'Contacted') {
         contacted++
+        if (cadence.isDueNow) dueFollowUpNow++
+        if (cadence.stage === 'due_fu1') dueFu1++
+        if (cadence.stage === 'due_fu2') dueFu2++
+        if (cadence.stage === 'cooling_down') coolingDown++
       }
       if (phoneInfo.type === 'uk_landline') {
         landlines++
@@ -689,6 +699,10 @@ export default function LeadsPage() {
       landlines,
       activePipeline,
       needsReview,
+      dueFollowUpNow,
+      dueFu1,
+      dueFu2,
+      coolingDown,
     }
   }, [leads])
 
@@ -700,8 +714,24 @@ export default function LeadsPage() {
       // 1. Direct Quick Filter (New Leads vs Contacted Leads vs Pipeline)
       if (quickFilter === 'new') {
         list = list.filter((l) => l.status === 'New' || contactedInSessionIds.has(l.id))
+      } else if (quickFilter === 'follow_up') {
+        list = list.filter((l) => {
+          if (l.status !== 'Contacted') return false
+          const cadence = getLeadFollowUpCadence(l)
+          if (followUpSubFilter === 'due_fu1') return cadence.stage === 'due_fu1'
+          if (followUpSubFilter === 'due_fu2') return cadence.stage === 'due_fu2'
+          if (followUpSubFilter === 'cooling_down') return cadence.stage === 'cooling_down'
+          return cadence.isDueNow
+        })
       } else if (quickFilter === 'contacted') {
         list = list.filter((l) => l.status === 'Contacted')
+        if (followUpSubFilter === 'due_fu1') {
+          list = list.filter((l) => getLeadFollowUpCadence(l).stage === 'due_fu1')
+        } else if (followUpSubFilter === 'due_fu2') {
+          list = list.filter((l) => getLeadFollowUpCadence(l).stage === 'due_fu2')
+        } else if (followUpSubFilter === 'cooling_down') {
+          list = list.filter((l) => getLeadFollowUpCadence(l).stage === 'cooling_down')
+        }
       } else if (quickFilter === 'pipeline') {
         list = list.filter((l) => ['Call Booked', 'Proposal Sent', 'Won'].includes(l.status))
       } else if (quickFilter === 'landlines') {
@@ -968,6 +998,62 @@ export default function LeadsPage() {
       </section>
 
       {/* ───────────────────────────────────────────────────────────────────────── */}
+      {/* EXECUTIVE FOLLOW-UP CADENCE RADAR (Prominently visible on top)             */}
+      {/* ───────────────────────────────────────────────────────────────────────── */}
+      <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 via-[#141417] to-amber-500/5 border border-amber-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-lg backdrop-blur-sm animate-fade-in">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-amber-400/20 border border-amber-400/40 text-amber-300 flex items-center justify-center shrink-0">
+            <Clock size={20} className="text-amber-400" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h2 className="text-sm font-bold text-white tracking-wide">Follow-Up Cadence Hub</h2>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-400/20 text-amber-300 border border-amber-400/40 animate-pulse">
+                {filterCounts.dueFollowUpNow} Due Today
+              </span>
+            </div>
+            <p className="text-xs text-zinc-400 mt-0.5">
+              <span className="text-amber-300 font-semibold">{filterCounts.dueFu1} practices</span> past 48h window • <span className="text-sky-300 font-semibold">{filterCounts.coolingDown} practices</span> cooling (&lt;48h) • Strict territory exclusivity.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 self-stretch md:self-auto flex-wrap">
+          <button
+            onClick={() => {
+              setQuickFilter('follow_up')
+              setFollowUpSubFilter('due_fu1')
+              setStatusFilter([])
+              setQueueFilter('all')
+            }}
+            className={`px-4 py-2 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md active:scale-95 cursor-pointer ${
+              quickFilter === 'follow_up' && followUpSubFilter === 'due_fu1'
+                ? 'bg-amber-400 text-black shadow-amber-400/20'
+                : 'bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 border border-amber-400/40'
+            }`}
+          >
+            <Sparkles size={13} />
+            <span>Review {filterCounts.dueFollowUpNow} Due Follow-Ups</span>
+          </button>
+          <button
+            onClick={() => {
+              setQuickFilter('follow_up')
+              setFollowUpSubFilter('cooling_down')
+              setStatusFilter([])
+              setQueueFilter('all')
+            }}
+            className={`px-3.5 py-2 rounded-xl text-xs font-medium flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+              quickFilter === 'follow_up' && followUpSubFilter === 'cooling_down'
+                ? 'bg-white text-black font-bold'
+                : 'bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10'
+            }`}
+          >
+            <span>Cooling Down ({filterCounts.coolingDown})</span>
+          </button>
+        </div>
+      </div>
+
+      {/* ───────────────────────────────────────────────────────────────────────── */}
       {/* 1. IN-SESSION RETENTION BANNER (Keeps contacted leads accessible)          */}
       {/* ───────────────────────────────────────────────────────────────────────── */}
       {contactedInSessionIds.size > 0 && (
@@ -1028,6 +1114,21 @@ export default function LeadsPage() {
               <span>New Leads</span>
               <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${quickFilter === 'new' ? 'bg-black/20 text-black' : 'bg-amber-400/10 text-amber-400'}`}>
                 {filterCounts.freshNew}
+              </span>
+            </button>
+
+            <button
+              onClick={() => { setQuickFilter('follow_up'); setFollowUpSubFilter('due_fu1'); setStatusFilter([]); setQueueFilter('all'); }}
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
+                quickFilter === 'follow_up'
+                  ? 'bg-amber-400 text-black font-bold shadow-md shadow-amber-400/20'
+                  : 'bg-[#141417] text-amber-300 hover:text-amber-200 border border-amber-400/30'
+              }`}
+            >
+              <Clock size={13} className={quickFilter === 'follow_up' ? 'text-black' : 'text-amber-400'} />
+              <span>Due Follow-Ups</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${quickFilter === 'follow_up' ? 'bg-black/20 text-black' : 'bg-amber-400/20 text-amber-300'}`}>
+                {filterCounts.dueFollowUpNow} Due
               </span>
             </button>
 
@@ -1099,8 +1200,8 @@ export default function LeadsPage() {
                   id: 'due_followup',
                   label: 'Due Follow-Up',
                   icon: Clock,
-                  count: filterCounts.contacted,
-                  highlight: false,
+                  count: filterCounts.dueFollowUpNow > 0 ? `${filterCounts.dueFollowUpNow} Due` : filterCounts.contacted,
+                  highlight: filterCounts.dueFollowUpNow > 0,
                 },
                 {
                   id: 'active_pipeline',
@@ -1166,6 +1267,74 @@ export default function LeadsPage() {
               {displayedLeads.length} leads in queue
             </span>
           </div>
+
+          {/* Dedicated Follow-Up Cadence Sub-Filter Bar */}
+          {(quickFilter === 'contacted' || quickFilter === 'follow_up' || queueFilter === 'due_followup') && (
+            <div className="p-2.5 rounded-2xl bg-amber-500/[0.05] border border-amber-500/20 flex flex-wrap items-center justify-between gap-2 animate-fade-in">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-xs font-bold text-amber-400 flex items-center gap-1.5 px-2 font-mono uppercase tracking-wider">
+                  <Clock size={13} /> Follow-Up Cadence:
+                </span>
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <button
+                    onClick={() => setFollowUpSubFilter('all')}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                      followUpSubFilter === 'all'
+                        ? 'bg-amber-400 text-black font-bold shadow-sm'
+                        : 'bg-[#141417] text-zinc-400 hover:text-white border border-white/10'
+                    }`}
+                  >
+                    All Contacted ({filterCounts.contacted})
+                  </button>
+                  <button
+                    onClick={() => setFollowUpSubFilter('due_fu1')}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                      followUpSubFilter === 'due_fu1'
+                        ? 'bg-amber-400 text-black font-bold shadow-sm'
+                        : 'bg-[#141417] text-amber-300 hover:text-amber-200 border border-amber-400/30'
+                    }`}
+                  >
+                    <Sparkles size={11} className={followUpSubFilter === 'due_fu1' ? 'text-black' : 'text-amber-400'} />
+                    <span>Due Follow-Up 1 (48h+)</span>
+                    <span className={`px-1.5 py-0.2 rounded text-[10px] font-mono ${followUpSubFilter === 'due_fu1' ? 'bg-black/20 text-black' : 'bg-amber-400/20 text-amber-300'}`}>
+                      {filterCounts.dueFu1}
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => setFollowUpSubFilter('due_fu2')}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                      followUpSubFilter === 'due_fu2'
+                        ? 'bg-rose-500 text-white font-bold shadow-sm'
+                        : 'bg-[#141417] text-zinc-400 hover:text-white border border-white/10'
+                    }`}
+                  >
+                    <Clock size={11} />
+                    <span>Due Final Close (Day 5+)</span>
+                    <span className={`px-1.5 py-0.2 rounded text-[10px] font-mono ${followUpSubFilter === 'due_fu2' ? 'bg-black/20 text-white' : 'bg-white/5 text-zinc-400'}`}>
+                      {filterCounts.dueFu2}
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => setFollowUpSubFilter('cooling_down')}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                      followUpSubFilter === 'cooling_down'
+                        ? 'bg-white text-black font-bold shadow-sm'
+                        : 'bg-[#141417] text-zinc-400 hover:text-white border border-white/10'
+                    }`}
+                  >
+                    <span>Cooling Down (&lt;48h)</span>
+                    <span className={`px-1.5 py-0.2 rounded text-[10px] font-mono ${followUpSubFilter === 'cooling_down' ? 'bg-black/20 text-black' : 'bg-white/5 text-zinc-400'}`}>
+                      {filterCounts.coolingDown}
+                    </span>
+                  </button>
+                </div>
+              </div>
+              <div className="text-[11px] font-mono text-zinc-400 hidden xl:flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                <span>{filterCounts.dueFollowUpNow} lead{filterCounts.dueFollowUpNow === 1 ? '' : 's'} require outreach action today</span>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
