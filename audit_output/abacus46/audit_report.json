@@ -1,0 +1,20 @@
+{
+  "homeData": {
+    "title": "WordPress › Error",
+    "forms": [],
+    "telLinks": [],
+    "whatsappLinks": [],
+    "hasCalendar": false,
+    "bodySample": "There has been a critical error on this website.\n\nLearn more about troubleshooting WordPress.",
+    "links": [
+      {
+        "text": "Learn more about troubleshooting WordPress.",
+        "href": "https://wordpress.org/documentation/article/faq-troubleshooting/"
+      }
+    ]
+  },
+  "contactData": {},
+  "hasOverflow390": false,
+  "url": "https://abacus46.com/",
+  "contactUrl": "https://abacus46.com/"
+}

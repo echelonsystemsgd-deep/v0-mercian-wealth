@@ -1,0 +1,269 @@
+{
+  "homeData": {
+    "title": "Accounting and Management Services | Slough - MPI Accounting and Management Services",
+    "forms": [
+      {
+        "id": "",
+        "action": "https://www.accountantsslough.com/search.php",
+        "inputs": [
+          {
+            "name": "search_text",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "Submit",
+            "type": "submit",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": ""
+      },
+      {
+        "id": "",
+        "action": "https://www.accountantsslough.com/includes/feedback-recaptcha.php?type=callback",
+        "inputs": [
+          {
+            "name": "name",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "email",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "telephone_number",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "g-recaptcha-response",
+            "type": "textarea",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "Submit",
+            "type": "submit",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "\n\n\n\n\nPlease ensure you have completed this captcha, otherwise your query will not be sent.\n\n"
+      }
+    ],
+    "telLinks": [],
+    "whatsappLinks": [],
+    "hasCalendar": false,
+    "bodySample": "\n\nHome\nAbout us\nServices\nTaxation\nStart Ups\nContact Us\n\nLets Support Your Growth\n\nAccountant in Slough ~ Accountants in Reading ~ Tax Advisors in Slough ~ Payroll Services in Slough ~ Payroll Services in Reading ~ Annual Returns in Slough\nContact Details\nAddress:\n173 Langley Road\nSlough\nBerkshire\nSL3 7EA\nTel:\n01753 586813\nMobile\n07802836255\nFax:\n01753 586811\nRequest A Call Back\n\n\n\n\n\nPlease ensure you have completed this captcha, otherwise your query will not be sent.\n\n\nWelcome to MPI Accounting and Management Services\nDo you need help with your annual accounts or tax return?\nDo you need help in setting up a business?\nAre you looking for an accountant to provide monthly management accounts?\nDo you need help with VAT or payroll?\nDo you need to retain a part-time financial controller?\n\nIf so, then you have come to the right place. MPI Accounting and Management Services offers reliable and professional accounting advice to small and medium-sized businesses in the South East and London areas.\n\nOur services include:\nVAT Accounting and Returns\nCompany Accounts\nDue Diligence \nTax Advice\nPayroll\nManagement Accounts\nSelf Assessments and Accounts\nAnnual Returns\nBusiness Start-Ups\nCashflow and Profit Forecasts\nServing as Part-time Financial Controller\n\nWe offer a free initial consultation!\n\nContact Us Today\n\nFor more details contact MPI Accounting And Management Services today!\n\n\"LET'S SUPPORT YOUR GROWTH\"\n\n\n\n\n\n© Copyright MPI Accounting and Management Services 2026. All Rights Reserved\n",
+    "links": [
+      {
+        "text": "Home",
+        "href": "https://www.accountantsslough.com/"
+      },
+      {
+        "text": "About us",
+        "href": "https://www.accountantsslough.com/about-us.html"
+      },
+      {
+        "text": "Services",
+        "href": "https://www.accountantsslough.com/services.html"
+      },
+      {
+        "text": "Taxation",
+        "href": "https://www.accountantsslough.com/taxation.html"
+      },
+      {
+        "text": "Start Ups",
+        "href": "https://www.accountantsslough.com/start-ups.html"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://www.accountantsslough.com/contact.html"
+      },
+      {
+        "text": "Prev",
+        "href": ""
+      },
+      {
+        "text": "Next",
+        "href": ""
+      },
+      {
+        "text": "1",
+        "href": ""
+      },
+      {
+        "text": "2",
+        "href": ""
+      },
+      {
+        "text": "3",
+        "href": ""
+      },
+      {
+        "text": "4",
+        "href": ""
+      },
+      {
+        "text": "Home",
+        "href": "https://www.accountantsslough.com/"
+      },
+      {
+        "text": "About us",
+        "href": "https://www.accountantsslough.com/about-us.html"
+      },
+      {
+        "text": "Services",
+        "href": "https://www.accountantsslough.com/services.html"
+      },
+      {
+        "text": "Taxation",
+        "href": "https://www.accountantsslough.com/taxation.html"
+      },
+      {
+        "text": "Start Ups",
+        "href": "https://www.accountantsslough.com/start-ups.html"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://www.accountantsslough.com/contact.html"
+      },
+      {
+        "text": "Sitemap",
+        "href": "https://www.accountantsslough.com/sitemap.html"
+      },
+      {
+        "text": "",
+        "href": "https://www.accountantsslough.com/"
+      },
+      {
+        "text": "",
+        "href": "https://www.accountantsslough.com/"
+      },
+      {
+        "text": "",
+        "href": ""
+      },
+      {
+        "text": "",
+        "href": ""
+      }
+    ]
+  },
+  "contactData": {
+    "forms": [
+      {
+        "id": "",
+        "action": "https://www.accountantsslough.com/search.php",
+        "inputs": [
+          {
+            "name": "search_text",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "Submit",
+            "type": "submit",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": ""
+      },
+      {
+        "id": "",
+        "action": "https://www.accountantsslough.com/includes/feedback-recaptcha.php?type=callback",
+        "inputs": [
+          {
+            "name": "name",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "email",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "telephone_number",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "g-recaptcha-response",
+            "type": "textarea",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "Submit",
+            "type": "submit",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "\n\n\n\n\nPlease ensure you have completed this captcha, otherwise your query will not be sent.\n\n"
+      },
+      {
+        "id": "",
+        "action": "https://www.accountantsslough.com/includes/feedback-recaptcha.php?type=contactform",
+        "inputs": [
+          {
+            "name": "name",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "email",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "telephone_number",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "enquiry",
+            "type": "textarea",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "g-recaptcha-response",
+            "type": "textarea",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "Submit",
+            "type": "submit",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "Name:\n\nEmail:\n\nTelephone:\n\nEnquiry:\n\n\nPlease ensure you have completed this captcha, otherwise your query will not be sent.\n\n"
+      }
+    ],
+    "telLinks": [],
+    "bodySample": "\n\nHome\nAbout us\nServices\nTaxation\nStart Ups\nContact Us\n\nLets Support Your Growth\n\nAccountant in Slough ~ Accountants in Reading ~ Tax Advisors in Slough ~ Payroll Services in Slough ~ Payroll Services in Reading ~ Annual Returns in Slough\nContact Details\nAddress:\n173 Langley Road\nSlough\nBerkshire\nSL3 7EA\nTel:\n01753 586813\nMobile\n07802836255\nFax:\n01753 586811\nRequest A Call Back\n\n\n\n\n\nPlease ensure you have completed this captcha, otherwise your query will not be sent.\n\n\nContact Us\nIf you would like to know more about any of our products or services please contact us with our form below.\n\n\n\nDirections\nDrive in to Langley Road. 173 is easy to spot as it has a hedge in front of it. - See more at: http://accountantsslough.com/start-ups.html\nContact Form\nName:\n\nEmail:\n\nTelephone:\n\nEnquiry:\n\n\nPlease ensure you have completed this captcha, otherwise your query will not be sent.\n\n\n\n\n\n\n© Copyright MPI Accounting and Management Services 2026. All Rights Reserved\n\nHome | About us | Services | Taxa"
+  },
+  "hasOverflow390": true,
+  "url": "http://www.accountantsslough.com/",
+  "contactUrl": "https://www.accountantsslough.com/contact.html"
+}

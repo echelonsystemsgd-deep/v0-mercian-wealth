@@ -1,0 +1,308 @@
+{
+  "id": "dains",
+  "name": "Dains Accountants Limited",
+  "url": "https://dains.com/",
+  "home": {
+    "title": "Accounting Firm for UK Businesses: Tax & Audit | Dains",
+    "forms": [
+      {
+        "id": "",
+        "action": "https://www.dains.com/search?",
+        "inputs": [
+          {
+            "name": "q",
+            "type": "search",
+            "placeholder": "Search",
+            "required": false
+          }
+        ],
+        "text": ""
+      },
+      {
+        "id": "",
+        "action": "https://www.dains.com/!/forms/newsletter",
+        "inputs": [
+          {
+            "name": "_token",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "email",
+            "type": "email",
+            "placeholder": "Enter your email",
+            "required": false
+          },
+          {
+            "name": "workbooks_id_field",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "honeypot",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "cf-turnstile-response",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "Email *\nNotify me"
+      }
+    ],
+    "telLinks": [
+      {
+        "text": "General Enquiries\n\n0121 200 7900",
+        "href": "tel:01212007900"
+      },
+      {
+        "text": "New Business Enquiries\n\n0800 298 3899",
+        "href": "tel:08002983899"
+      },
+      {
+        "text": "Call General Enquiries on 0121 200 7900",
+        "href": "tel:01212007900"
+      },
+      {
+        "text": "General Enquiries\n                    \n                    \n                        \n                            \n                                \n                            \n                        \n                        0121 200 7900",
+        "href": "tel:01212007900"
+      },
+      {
+        "text": "New Business Enquiries\n                    \n                    \n                        \n                            \n                                \n                            \n                        \n                        0800 298 3899",
+        "href": "tel:08002983899"
+      },
+      {
+        "text": "+44(0)1332 826812",
+        "href": "tel:4401332826812"
+      },
+      {
+        "text": "+44(0)116 2610 061",
+        "href": "tel:4401162610061"
+      },
+      {
+        "text": "01563 626000",
+        "href": "tel:01563626000"
+      },
+      {
+        "text": "+44 (0)771 4458123",
+        "href": "tel:4407714458123"
+      },
+      {
+        "text": "+44(0)1895 256423",
+        "href": "tel:4401895256423"
+      },
+      {
+        "text": "01383 721421",
+        "href": "tel:01383721421"
+      },
+      {
+        "text": "+44(0)121 200 7903",
+        "href": "tel:4401212007903"
+      },
+      {
+        "text": "+44(0)116 2610 061",
+        "href": "tel:4401162610061"
+      },
+      {
+        "text": "+44(0)7970 613819",
+        "href": "tel:4407970613819"
+      },
+      {
+        "text": "+44(0)116 2610 061",
+        "href": "tel:4401162610061"
+      },
+      {
+        "text": "+44(0)1543 261205",
+        "href": "tel:4401543261205"
+      },
+      {
+        "text": "General Enquiries\n\n0121 200 7900",
+        "href": "tel:01212007900"
+      },
+      {
+        "text": "New Business Enquiries\n\n0800 298 3899",
+        "href": "tel:08002983899"
+      }
+    ],
+    "whatsappLinks": [],
+    "hasCalendar": false,
+    "links": [
+      {
+        "text": "Skip to content",
+        "href": "https://www.dains.com/#content"
+      },
+      {
+        "text": "Client Area",
+        "href": "https://www.dains.com/login"
+      },
+      {
+        "text": "Sustainability",
+        "href": "https://www.dains.com/about/esg-and-sustainability"
+      },
+      {
+        "text": "General Enquiries\n\n0121 200 7900",
+        "href": "tel:01212007900"
+      },
+      {
+        "text": "New Business Enquiries\n\n0800 298 3899",
+        "href": "tel:08002983899"
+      },
+      {
+        "text": "",
+        "href": "https://www.dains.com/"
+      },
+      {
+        "text": "Services",
+        "href": "https://www.dains.com/services"
+      },
+      {
+        "text": "Accounting and Business Advisory Services",
+        "href": "https://www.dains.com/services/accounting-and-business-advisory"
+      },
+      {
+        "text": "Audit and Assurance Services",
+        "href": "https://www.dains.com/services/audit"
+      },
+      {
+        "text": "Business Recovery Services",
+        "href": "https://www.dains.com/services/business-recovery"
+      },
+      {
+        "text": "Corporate Finance Services",
+        "href": "https://www.dains.com/services/corporate-finance"
+      },
+      {
+        "text": "Customs and VAT Services",
+        "href": "https://www.dains.com/services/customs-vat"
+      },
+      {
+        "text": "Forensic Accounting Services",
+        "href": "https://www.dains.com/services/forensic-accounting"
+      },
+      {
+        "text": "Payroll Services",
+        "href": "https://www.dains.com/services/payroll"
+      },
+      {
+        "text": "Taxation Services",
+        "href": "https://www.dains.com/services/taxation"
+      },
+      {
+        "text": "International Services",
+        "href": "https://www.dains.com/services/international"
+      },
+      {
+        "text": "Case Studies",
+        "href": "https://www.dains.com/services/done-deals"
+      },
+      {
+        "text": "Individuals",
+        "href": "https://www.dains.com/services/individuals"
+      },
+      {
+        "text": "Private Companies",
+        "href": "https://www.dains.com/services/private-companies"
+      },
+      {
+        "text": "Large Corporates (PLCs)",
+        "href": "https://www.dains.com/services/large-corporates-plcs"
+      },
+      {
+        "text": "Not For Profits",
+        "href": "https://www.dains.com/services/not-for-profits"
+      },
+      {
+        "text": "Academies",
+        "href": "https://www.dains.com/services/academies"
+      },
+      {
+        "text": "Architects",
+        "href": "https://www.dains.com/services/accountants-for-architects"
+      },
+      {
+        "text": "Agriculture",
+        "href": "https://www.dains.com/services/agriculture"
+      },
+      {
+        "text": "Charities",
+        "href": "https://www.dains.com/services/charities"
+      },
+      {
+        "text": "Hospitality",
+        "href": "https://www.dains.com/services/hospitality"
+      },
+      {
+        "text": "Manufacturing",
+        "href": "https://www.dains.com/services/manufacturing"
+      },
+      {
+        "text": "Medical, Dental, Healthcare",
+        "href": "https://www.dains.com/services/medical-dental-healthcare"
+      },
+      {
+        "text": "Property",
+        "href": "https://www.dains.com/services/property"
+      },
+      {
+        "text": "Recruitment",
+        "href": "https://www.dains.com/services/recruitment"
+      },
+      {
+        "text": "People",
+        "href": "https://www.dains.com/people"
+      },
+      {
+        "text": "Careers",
+        "href": "https://www.dains.com/why-dains"
+      },
+      {
+        "text": "Current Vacancies",
+        "href": "https://careers.dains.com/"
+      },
+      {
+        "text": "Graduate Programme",
+        "href": "https://www.dains.com/why-dains/graduate-recruitment"
+      },
+      {
+        "text": "School Leavers",
+        "href": "https://www.dains.com/why-dains/apprenticeships"
+      },
+      {
+        "text": "Work Experience",
+        "href": "https://www.dains.com/why-dains/work-experience"
+      },
+      {
+        "text": "About",
+        "href": "https://www.dains.com/about"
+      },
+      {
+        "text": "Our DNA",
+        "href": "https://www.dains.com/about/our-dna"
+      },
+      {
+        "text": "Our History",
+        "href": "https://www.dains.com/about/our-history"
+      },
+      {
+        "text": "The Dains Group - Our Businesses",
+        "href": "https://www.dains.com/about/the-dains-group"
+      }
+    ],
+    "bodySample": "Skip to content\nClient Area\nSustainability\n\nGeneral Enquiries\n\n0121 200 7900\n\nNew Business Enquiries\n\n0800 298 3899\n\nServices\nOpen Services Menu\nPeople\nCareers\nOpen Careers Menu\nAbout\nOpen About Menu\nInsights\nOpen Insights Menu\nContact\nHigh Contrast\nExpert accounting, tax and business advisory services - built around you\nWhatever success looks like for you, we have the accounting, tax and business advisory services to help you achieve it.\nContact our team\nChartered accountants for all businesses\n\nYour business is about more than numbers. Our accountants and advisors work alongside organisations and individuals to bring clarity, minimise risk, and help you move forward with confidence. Whether you are an owner-managed business, a small to medium-sized enterprise (SME) or an individual, our advisors and chartered accountants are here to help.\n\nAccountants, auditors and tax advisors for private companies\n\nGain clarity and confidence in your business finances with our accountancy, audit and tax planning solutions.\n\nLearn more\nAuditors, tax advisors and accountants for large corporates\n\nExpert auditing, accounting and tax advice. Corporate finance solutions to give you clarity and confidence in your numbers.\n\nLearn more\nAccounting services for not-for-profit organisations\n\nDiscover solutions for your not-for-profit organisation and maximise your funds to achieve longer term results.\n\nLearn more\nAccountants for individuals\n\nIf you are an individual needing a tax advisor, an account"
+  },
+  "contact": {},
+  "mobile": {
+    "overflow": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "metaViewport": "width=device-width, initial-scale=1.0, viewport-fit=cover"
+  },
+  "status": 200,
+  "contactUrl": "https://dains.com/"
+}

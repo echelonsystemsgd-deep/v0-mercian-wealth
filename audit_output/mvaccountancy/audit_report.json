@@ -1,0 +1,263 @@
+{
+  "id": "mvaccountancy",
+  "name": "M V Accountancy Services Ltd",
+  "url": "https://www.mvaccountancy.co.uk/",
+  "home": {
+    "title": "MV Accountancy | Hassle-Free Accounting & Bookkeeping Services",
+    "forms": [
+      {
+        "id": "",
+        "action": "https://mvaccountancy.co.uk/",
+        "inputs": [
+          {
+            "name": "et_pb_contact_name_0",
+            "type": "text",
+            "placeholder": "Name",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_email_0",
+            "type": "text",
+            "placeholder": "Email Address",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_phone_0",
+            "type": "text",
+            "placeholder": "Phone",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_message_0",
+            "type": "textarea",
+            "placeholder": "Message",
+            "required": false
+          },
+          {
+            "name": "et_pb_contactform_submit_0",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wpnonce-et-pb-contact-form-submitted-0",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wp_http_referer",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "SUBMIT"
+      }
+    ],
+    "telLinks": [
+      {
+        "text": "01753 903056",
+        "href": "tel:01753%20903056"
+      },
+      {
+        "text": "01753 903056",
+        "href": "tel:01753903056"
+      }
+    ],
+    "whatsappLinks": [],
+    "hasCalendar": false,
+    "links": [
+      {
+        "text": "01753 903056",
+        "href": "tel:01753%20903056"
+      },
+      {
+        "text": "info@mvaccountancy.co.uk",
+        "href": "mailto:info@mvaccountancy.co.uk"
+      },
+      {
+        "text": "Home",
+        "href": "https://mvaccountancy.co.uk/"
+      },
+      {
+        "text": "Accounts & Tax",
+        "href": "https://mvaccountancy.co.uk/#"
+      },
+      {
+        "text": "",
+        "href": "https://mvaccountancy.co.uk/bookkeeping/"
+      },
+      {
+        "text": "",
+        "href": "https://mvaccountancy.co.uk/vat-returns/"
+      },
+      {
+        "text": "",
+        "href": "https://mvaccountancy.co.uk/self-assesment-tax-returns/"
+      },
+      {
+        "text": "",
+        "href": "https://mvaccountancy.co.uk/corporation-tax-returns/"
+      },
+      {
+        "text": "HMRC Compliance Checks",
+        "href": "https://mvaccountancy.co.uk/hmrc-compliance-checks/"
+      },
+      {
+        "text": "Payroll",
+        "href": "https://mvaccountancy.co.uk/payroll/"
+      },
+      {
+        "text": "Fees & Pricing",
+        "href": "https://mvaccountancy.co.uk/fees-pricing/"
+      },
+      {
+        "text": "About Us",
+        "href": "https://mvaccountancy.co.uk/about-us/"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://mvaccountancy.co.uk/contact-us/"
+      },
+      {
+        "text": "Home",
+        "href": "https://mvaccountancy.co.uk/"
+      },
+      {
+        "text": "Accounts & Tax",
+        "href": "https://mvaccountancy.co.uk/#"
+      },
+      {
+        "text": "Bookkeeping",
+        "href": "https://mvaccountancy.co.uk/bookkeeping/"
+      },
+      {
+        "text": "VAT Returns",
+        "href": "https://mvaccountancy.co.uk/vat-returns/"
+      },
+      {
+        "text": "Self-Assesment Tax Returns",
+        "href": "https://mvaccountancy.co.uk/self-assesment-tax-returns/"
+      },
+      {
+        "text": "Corporation Tax Returns",
+        "href": "https://mvaccountancy.co.uk/corporation-tax-returns/"
+      },
+      {
+        "text": "HMRC Compliance Checks",
+        "href": "https://mvaccountancy.co.uk/hmrc-compliance-checks/"
+      },
+      {
+        "text": "Payroll",
+        "href": "https://mvaccountancy.co.uk/payroll/"
+      },
+      {
+        "text": "Fees & Pricing",
+        "href": "https://mvaccountancy.co.uk/fees-pricing/"
+      },
+      {
+        "text": "About Us",
+        "href": "https://mvaccountancy.co.uk/about-us/"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://mvaccountancy.co.uk/contact-us/"
+      },
+      {
+        "text": "01753 903056",
+        "href": "tel:01753903056"
+      },
+      {
+        "text": "info@mvaccountancy.co.uk",
+        "href": "mailto:info@mvaccountancy.co.uk"
+      },
+      {
+        "text": "Privacy Policy",
+        "href": "httpss://osamweb.com/privacy-policy/"
+      },
+      {
+        "text": "Cookie Policy",
+        "href": "httpss://osamweb.com/cookie-policy/"
+      },
+      {
+        "text": "Conditions of Use",
+        "href": "httpss://osamweb.com/conditions-of-using-our-website/"
+      }
+    ],
+    "bodySample": "MV Accountancy Services Limited\n\nHassle-Free Accounting and Bookkeeping\n\nContact Us Today for More Information\n01753 903056 | info@mvaccountancy.co.uk\nHome\nAccounts & Tax\nHMRC Compliance Checks\nPayroll\nFees & Pricing\nAbout Us\nContact Us\nOutstanding Accounting Services throughout Berkshire, London, and Surrey\n\nUnlimited Telephone Consultations and Face-to-Face Meetings\n\nExperienced Bookkeepers\n\nIf you need help maintaining accurate accounts for your records, turn to our professional accounts to take care of all aspects of your bookkeeping. With up-to-date books, you will be able to easily prepare, submit, and pay tax returns with minimal hassle.\n\nMaking Tax Digital\n\n\nSpecialising in digital returns, we are well placed to submit your VAT return for you via Making Tax Digital. Using third-party software to compile accurate returns, we serve a wide array of businesses and sole traders.\n\nTax Returns\n\n\nWhether you need to complete a self-assessment or submit your corporate tax returns, our accountants have got you covered. When you choose our comprehensive services, we will ensure all returns are submitted in time for the annual deadline.\n\nQualified and Experienced Accountants\n\nAs friendly and professional accountants, we provide a wide array of accounting services.\n\nAbout Us\n\nCount on MV Accountancy Services Limited for reliable accounting services throughout Berkshire, London, and Surrey. Based in Slough, our accountants have more than 8 years’ experience with a reputable account"
+  },
+  "contact": {
+    "title": "Contact Us - MV Accountancy | Hassle-Free Accounting & Bookkeeping Services",
+    "forms": [
+      {
+        "id": "",
+        "action": "https://mvaccountancy.co.uk/contact-us/",
+        "inputs": [
+          {
+            "name": "et_pb_contact_name_0",
+            "type": "text",
+            "placeholder": "Name",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_email_0",
+            "type": "text",
+            "placeholder": "Email Address",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_phone_0",
+            "type": "text",
+            "placeholder": "Phone",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_message_0",
+            "type": "textarea",
+            "placeholder": "Message",
+            "required": false
+          },
+          {
+            "name": "et_pb_contactform_submit_0",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wpnonce-et-pb-contact-form-submitted-0",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wp_http_referer",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "SUBMIT"
+      }
+    ],
+    "telLinks": [
+      {
+        "text": "01753 903056",
+        "href": "tel:01753%20903056"
+      },
+      {
+        "text": "01753 903056",
+        "href": "tel:01753903056"
+      }
+    ],
+    "bodySample": "MV Accountancy Services Limited\n\nHassle-Free Accounting and Bookkeeping\n\nContact Us Today for More Information\n01753 903056 | info@mvaccountancy.co.uk\nHome\nAccounts & Tax\nHMRC Compliance Checks\nPayroll\nFees & Pricing\nAbout Us\nContact Us\nContact\n\n\nPlease contact us with any questions or comments using the information below. We look forward to hearing from you. Thank you!\n\nCONTACT US\n\nPhone:\n\n01753 903056\n\nEmail:\n\ninfo@mvaccountancy.co.uk\n\nAddress:\n\n65 Bradley Road\nSlough, Berkshire SL1 3PL\nBusiness Hours:\nMonday – Friday 09:00 – 18:00\n\nGET IN TOUCH\n\nSUBMIT\n\nPrivacy Policy | Cookie Policy | Conditions of Use"
+  },
+  "mobile": {
+    "overflow": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "metaViewport": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+  },
+  "status": 200,
+  "contactUrl": "https://mvaccountancy.co.uk/contact-us/"
+}

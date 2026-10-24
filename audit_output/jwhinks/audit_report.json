@@ -1,0 +1,367 @@
+{
+  "id": "jwhinks",
+  "name": "JW Hinks LLP Chartered Accountants",
+  "url": "https://jwhinks.co.uk/",
+  "home": {
+    "title": "JW Hinks - Chartered Accountants Birmingham",
+    "forms": [
+      {
+        "id": "",
+        "action": "https://jwhinks.co.uk/#wpcf7-f7-o1",
+        "inputs": [
+          {
+            "name": "_wpcf7",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wpcf7_version",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wpcf7_locale",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wpcf7_unit_tag",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wpcf7_container_post",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wpcf7_posted_data_hash",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "your-name",
+            "type": "text",
+            "placeholder": "Name*",
+            "required": false
+          },
+          {
+            "name": "company-name",
+            "type": "text",
+            "placeholder": "Company name",
+            "required": false
+          },
+          {
+            "name": "your-email",
+            "type": "email",
+            "placeholder": "Email address*",
+            "required": false
+          },
+          {
+            "name": "your-telephone",
+            "type": "tel",
+            "placeholder": "Phone number*",
+            "required": false
+          },
+          {
+            "name": "your-message",
+            "type": "textarea",
+            "placeholder": "Enquiry*",
+            "required": false
+          },
+          {
+            "name": "",
+            "type": "submit",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": ""
+      }
+    ],
+    "telLinks": [
+      {
+        "text": "0121 456 0190",
+        "href": "tel:0121 456 0190"
+      },
+      {
+        "text": "+44 (0) 121 456 0190",
+        "href": "tel:+44 (0) 121 456 0190"
+      }
+    ],
+    "whatsappLinks": [],
+    "hasCalendar": false,
+    "links": [
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/"
+      },
+      {
+        "text": "0121 456 0190",
+        "href": "tel:0121 456 0190"
+      },
+      {
+        "text": "ONLINE PAYMENTS",
+        "href": "https://jwhinks.co.uk/pay-now/"
+      },
+      {
+        "text": "ABOUT",
+        "href": "https://jwhinks.co.uk/about-us/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/about-us/#team"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/charity/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/about-us/#environmental"
+      },
+      {
+        "text": "SERVICES",
+        "href": "https://jwhinks.co.uk/#"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/accounting/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/accounting/bookkeeping/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/accounting/end-of-year-accounts/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/accounting/management-accounts/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/accounting/vat/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/accounting/business-plan-forecasting/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/audit/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/audit/statutory-audits/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/audit/due-diligence/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/taxation/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/taxation/corporation-tax-planning/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/taxation/personal-tax-planning/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/taxation/hmrc/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/taxation/inheritance-tax-planning/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/taxation/pension-tax-change/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/payroll/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/payroll/auto-enrolment/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/payroll/monthly-and-weekly-payroll/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/payroll/submission/"
+      },
+      {
+        "text": "SECTORS",
+        "href": "https://jwhinks.co.uk/sectors/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/sectors/#sme-corporate"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/sectors/#corporate"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/sectors/#healthcare"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/sectors/#property-services"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/sectors/#solicitors"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/sectors/#charities"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/sectors/#private-clients"
+      },
+      {
+        "text": "RESOURCES",
+        "href": "https://jwhinks.co.uk/resources/"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/resources/#downloads"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/resources/#useful-resources"
+      },
+      {
+        "text": "",
+        "href": "https://jwhinks.co.uk/latest-news/"
+      },
+      {
+        "text": "CONTACT",
+        "href": "https://jwhinks.co.uk/contact-us/"
+      }
+    ],
+    "bodySample": "0121 456 0190\nONLINE PAYMENTS\nABOUT\nSERVICES\nSECTORS\nRESOURCES\nCONTACT\nCLIENT AREA\nCAREERS\nJW Hinks\nSupporting Growth\nWelcome to JW Hinks - a traditionally modern accountancy practice\n\nJW Hinks is an independent firm of chartered accountants that has remained at the forefront of accountancy and business advisory services since its founding in 1896. Based in Edgbaston, Birmingham, our premises are easily accessible, with plenty of free parking – and our friendly, welcoming, and professional team is always happy to advise clients face-to-face or at a distance.\n\nEverything you need in just one place\nAccounting Services\nAudits\nTaxation\nPayroll\nShare over 125 years of expertise\n\nEven experts need expert advice. We have provided various sectors with consultancy services for well over a century, giving us valuable insight into how you can build a better, more profitable, and more resilient business. Click an icon below to learn how we can help the sectors we deal with most regularly.\n\nSME\nRead more\nCorporate\nRead more\nHealthcare\nRead more\nProperty Services\nRead more\nSolicitors\nRead more\nCharity\nRead more\nStay up to date with JW Hinks\nBuilt over generations: Dignus Group and JW Hinks\n07/10/2026\nRead Article\nMandatory Payrolling of Benefits in Kind: what employers need to know\n02/09/2026\nRead Article\nMaking Tax Digital deadlines: what we learned from the first update\n14/08/2026\nRead Article\n\n“JW Hinks has a traditional and highly professional approach, providing good service and timel"
+  },
+  "contact": {
+    "title": "Contact Us - JW Hinks Accountants Birmingham",
+    "forms": [
+      {
+        "id": "",
+        "action": "https://jwhinks.co.uk/contact-us/#wpcf7-f7-o1",
+        "inputs": [
+          {
+            "name": "_wpcf7",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wpcf7_version",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wpcf7_locale",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wpcf7_unit_tag",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wpcf7_container_post",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wpcf7_posted_data_hash",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "your-name",
+            "type": "text",
+            "placeholder": "Name*",
+            "required": false
+          },
+          {
+            "name": "company-name",
+            "type": "text",
+            "placeholder": "Company name",
+            "required": false
+          },
+          {
+            "name": "your-email",
+            "type": "email",
+            "placeholder": "Email address*",
+            "required": false
+          },
+          {
+            "name": "your-telephone",
+            "type": "tel",
+            "placeholder": "Phone number*",
+            "required": false
+          },
+          {
+            "name": "your-message",
+            "type": "textarea",
+            "placeholder": "Enquiry*",
+            "required": false
+          },
+          {
+            "name": "",
+            "type": "submit",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": ""
+      }
+    ],
+    "telLinks": [
+      {
+        "text": "0121 456 0190",
+        "href": "tel:0121 456 0190"
+      },
+      {
+        "text": "+44 (0) 121 456 0190",
+        "href": "tel:+44 (0) 121 456 0190"
+      }
+    ],
+    "bodySample": "We value your privacy\n\nWe use cookies to enhance your browsing experience, serve personalised ads or content, and analyse our traffic. By clicking \"Accept All\", you consent to our use of cookies.\n\nCustomise\nAccept All\nPowered by\n0121 456 0190\nONLINE PAYMENTS\nABOUT\nSERVICES\nSECTORS\nRESOURCES\nCONTACT\nCLIENT AREA\nCAREERS\nContact Us\nGet in touch\n\nFeel free to drop us a line with any questions you may have. Alternatively, use the contact form below, and a member of our team will respond as soon as possible.\n\nJW Hinks LLP\n19 Highfield Road, Edgbaston,\nBirmingham B15 3BH\n\nPhone: +44 (0) 121 456 0190\nEmail: info@jwhinks.co.uk\nFax:+44 (0) 121 456 0191\n\nPRIVACY & COOKIE POLICY\n|\nTERMS & CONDITIONS\n \n \n\n© 2026 JW Hinks. Registered office and a list of the LLP members is available at the above address. Limited liability partnership registered number OC377435 in England and Wales. Registered to carry on audit work in the UK and regulated for a range of investment business activities by the Institute of Chartered Accountants in England and Wales.\n\nWebsite Hosted by EDGE Creative"
+  },
+  "mobile": {
+    "overflow": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "metaViewport": "width=device-width, initial-scale=1, shrink-to-fit=no"
+  },
+  "status": 200,
+  "contactUrl": "https://jwhinks.co.uk/contact-us/"
+}

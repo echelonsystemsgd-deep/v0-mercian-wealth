@@ -1,0 +1,56 @@
+{
+  "title": "Affordable Accountant In Slough | Janjua & Co Accountants | England",
+  "forms": [
+    {
+      "id": "comp-kv1cvl9f",
+      "action": "https://www.janjuaaccountants.com/",
+      "inputs": [
+        {
+          "name": "name",
+          "type": "text",
+          "placeholder": "Enter your name",
+          "required": true
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "placeholder": "Enter your email",
+          "required": true
+        },
+        {
+          "name": "phone",
+          "type": "tel",
+          "placeholder": "Enter your phone number",
+          "required": false
+        },
+        {
+          "name": "address",
+          "type": "text",
+          "placeholder": "Enter your address",
+          "required": false
+        },
+        {
+          "name": "subject",
+          "type": "text",
+          "placeholder": "Type the subject",
+          "required": false
+        },
+        {
+          "name": "",
+          "type": "textarea",
+          "placeholder": "Type your message here...",
+          "required": false
+        }
+      ],
+      "text": "Name\nEmail\nPhone\nAddress\nSubject\nMessage\nSubmit"
+    }
+  ],
+  "telLinks": [],
+  "whatsappLinks": [],
+  "hasCalendar": false,
+  "isWix": true,
+  "isWordPress": false,
+  "bodySample": "JANJUA & CO. ACCOUNTANTS\n\nHome\n\nAbout Us\n\nServices\n\nPricing\n\nBook Online\n\nJANJUA & CO. ACCOUNTANTS\n\nSaving you time and money since 2010\n\nWelcome\nto Our Site\n\nWelcome to Janjua & Co. Accountants, where we specialize in helping businesses and individuals achieve financial success. With our expert accounting services and personalized approach, we empower our clients to take control of their finances, make informed decisions, and reach their goals. Whether you're looking for tax assistance, bookkeeping services, or strategic financial planning, our team of skilled professionals is here to help. Explore our site to learn more about our services, and contact us today to discover how we can help you achieve your financial dreams.\n\nThis Is What Our Happy Clients Have To Say\nConsultation\n\nFor providing various types of accountancy services.\n\nFree\n\nFree\n\nBook Now\nAddress\n\nThe Porter Building, 1 Brunel Wy., Slough SL1 1FQ\n\nPhone\n\n07789 957679\n\nCall Us\nEmail\n\ninfo@janjuaaccountants.com\n\nConnect\nDON'T WAIT TO TAKE CONTROL OF YOUR FINANCES - CONTACT US NOW\nName\nEmail\nPhone\nAddress\nSubject\nMessage\nSubmit\n\n07789 957679\n\n©2021 by Janjua & Co. Accountants. Proudly created with Wix.com",
+  "hasOverflow390": true,
+  "url": "https://www.janjuaaccountants.com/"
+}

@@ -1,0 +1,343 @@
+{
+  "id": "ryecroftglenton",
+  "name": "Ryecroft Glenton Chartered Accountants",
+  "url": "https://ryecroftglenton.com/",
+  "realEmails": [
+    "email@ryecroftglenton.com"
+  ],
+  "realPhones": [
+    {
+      "text": "Call Now Button",
+      "href": "tel:01912811292"
+    }
+  ],
+  "home": {
+    "title": "Accountants and Tax Advisors in Newcastle - RG - Accountants & Business Advisors",
+    "forms": [
+      {
+        "id": "mc-embedded-subscribe-form",
+        "action": "https://ryecroftglenton.us2.list-manage.com/subscribe/post?u=71b3a91b72bbf5d7a8c023d5b&id=d979826505&f_id=001276e0f0",
+        "inputs": [
+          {
+            "name": "EMAIL",
+            "type": "email",
+            "placeholder": "",
+            "required": true
+          },
+          {
+            "name": "b_71b3a91b72bbf5d7a8c023d5b_d979826505",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "subscribe",
+            "type": "submit",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "                           * indicates required  \tEmail Address  *  \t \t  \t \t\t \t\t \t                    "
+      },
+      {
+        "id": "",
+        "action": "https://ryecroftglenton.com/",
+        "inputs": [
+          {
+            "name": "product_cat",
+            "type": "select-one",
+            "required": false
+          },
+          {
+            "name": "s",
+            "type": "search",
+            "placeholder": "Search…",
+            "required": false
+          },
+          {
+            "name": "post_type",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": ""
+      },
+      {
+        "id": "mc-embedded-subscribe-form",
+        "action": "https://ryecroftglenton.us2.list-manage.com/subscribe/post?u=71b3a91b72bbf5d7a8c023d5b&id=d979826505&f_id=001276e0f0",
+        "inputs": [
+          {
+            "name": "EMAIL",
+            "type": "email",
+            "placeholder": "",
+            "required": true
+          },
+          {
+            "name": "b_71b3a91b72bbf5d7a8c023d5b_d979826505",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "subscribe",
+            "type": "submit",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "* indicates required\nEmail Address *"
+      },
+      {
+        "id": "",
+        "action": "https://ryecroftglenton.com/",
+        "inputs": [
+          {
+            "name": "product_cat",
+            "type": "select-one",
+            "required": false
+          },
+          {
+            "name": "s",
+            "type": "search",
+            "placeholder": "Search…",
+            "required": false
+          },
+          {
+            "name": "post_type",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "\n\t\n\t\t\t\t\t\n\t\t\t\tAllAgricultural JournalsM&A Technology Sector SnapshotCareersHuman Capital ReportFinancial JournalsWealth ManagementBudgetFactsheetsCorporate FinanceBusiness TaxPersonal TaxAccounts and Business ServicesAudit and Assurance\t\t\t\n\t\t\t\t\t\t\n\t\t\tSearch for:\n\t\t\t\n\t\t\t\n\t\t\t\t\t\n\t\t\n\t\t\t\n\t\t\t\t\t\t\t\n\t\t\n\t\n\t\n"
+      }
+    ],
+    "telLinks": [
+      {
+        "text": "Call Now Button",
+        "href": "tel:01912811292"
+      }
+    ],
+    "mailtoLinks": [
+      "email@ryecroftglenton.com",
+      "email@ryecroftglenton.com",
+      "email@ryecroftglenton.com"
+    ],
+    "emailMatches": [],
+    "whatsappLinks": [],
+    "hasCalendar": false,
+    "links": [
+      {
+        "text": "Skip to content",
+        "href": "https://ryecroftglenton.com/#main"
+      },
+      {
+        "text": "Newsletter",
+        "href": "https://ryecroftglenton.com/#header-newsletter-signup"
+      },
+      {
+        "text": "",
+        "href": "https://www.instagram.com/ryecroftglenton/"
+      },
+      {
+        "text": "",
+        "href": "https://twitter.com/ryecroftglenton"
+      },
+      {
+        "text": "",
+        "href": "mailto:email@ryecroftglenton.com"
+      },
+      {
+        "text": "",
+        "href": "https://www.linkedin.com/company/2009721/"
+      },
+      {
+        "text": "",
+        "href": "https://www.youtube.com/channel/UC589L76SvnZ3-fzLfRFBJrA"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/#"
+      },
+      {
+        "text": "",
+        "href": "https://www.instagram.com/ryecroftglenton/"
+      },
+      {
+        "text": "",
+        "href": "https://twitter.com/ryecroftglenton"
+      },
+      {
+        "text": "",
+        "href": "mailto:email@ryecroftglenton.com"
+      },
+      {
+        "text": "",
+        "href": "https://www.linkedin.com/company/2009721/"
+      },
+      {
+        "text": "",
+        "href": "https://www.youtube.com/channel/UC589L76SvnZ3-fzLfRFBJrA"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/#"
+      },
+      {
+        "text": "SERVICES",
+        "href": "https://ryecroftglenton.com/services/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/services/accounts-and-business-services/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/services/audit-and-assurance/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/services/business-tax/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/services/corporate-finance/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/services/outsourced-fd/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/services/personal-tax/"
+      },
+      {
+        "text": "",
+        "href": "https://pfm-uk.com/"
+      },
+      {
+        "text": "SECTORS",
+        "href": "https://ryecroftglenton.com/sectors/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/sectors/agriculture-and-landed-estates/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/sectors/fca-regulated-businesses/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/sectors/industrial/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/sectors/legal-sector/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/sectors/professional-services/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/sectors/property-investment/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/sectors/public-sector-and-not-for-profit/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/sectors/recruitment-training-and-skills/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/sectors/technology/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/sectors/trusts-estates/"
+      },
+      {
+        "text": "OUR PEOPLE",
+        "href": "https://ryecroftglenton.com/our-people"
+      },
+      {
+        "text": "TESTIMONIALS",
+        "href": "https://ryecroftglenton.com/about/testimonials/"
+      },
+      {
+        "text": "RESOURCES",
+        "href": "https://ryecroftglenton.com/knowledge/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/knowledge-category/agricultural-journals/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/knowledge-category/budget/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/knowledge-category/factsheets/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/knowledge-category/financial-journals/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/knowledge-category/human-capital-report/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/knowledge/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/knowledge-category/technology-sector-snapshot/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/knowledge/budget/tax-card-2026-27/"
+      },
+      {
+        "text": "CAREERS",
+        "href": "https://ryecroftglenton.com/#"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/about/rg-jobs/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/about/rg-life/"
+      },
+      {
+        "text": "",
+        "href": "https://ryecroftglenton.com/about/rg-values/"
+      },
+      {
+        "text": "ABOUT",
+        "href": "https://ryecroftglenton.com/#"
+      }
+    ],
+    "bodySample": "Skip to content\nNewsletter\n0191 281 1292\n\nClear advice, Creative thinking\n\nSERVICES\nSECTORS\nOUR PEOPLE\nTESTIMONIALS\nRESOURCES\nCAREERS\nABOUT\nEVENTS\nNEWS\nCONTACT\n\nRG Corporate Finance named Corporate Finance Advisory Firm of the Year\n\nRG Corporate Finance (RGCF) has been named Corporate Finance Advisory Firm of the Year at the 2026 Insider North East Dealmakers Awards, as the business marks its 15th anniversary and another record year.\n\nREAD MORE\nServices\nCareers\nEvents\nWe can provide you with advice on every aspect of your financial affairs, whether personal, business or a mixture of both.\n \nIt is rare that an important decision can be made without consideration of the financial implications.  You can turn to us whenever you want to seek guidance, share a problem that is troubling you, or ask for an opinion. \n \nWe see it as our job to help you reach your decisions efficiently while providing you with clarity about the potential outcomes. \n \nAccountants in Newcastle\nConfessions of an Entrepreneur\n\nWatch the video of our first live ‘Confessions of an Entrepreneur’ panel event which we hosted alongside Ward Hadaway.\nThe event was facilitated by Carl Swansbury with highly esteemed panellists Sara Davies MBE, Peter Kirkham, Geoff Ramm and Geoff Hodgson. \n\nStart Your RG Life Today\n\nWe are always keen to talk to anyone who is interested in finding out more about working at RG. Click here to see the vacancies we are currently seeking experienced professionals for and to find out more about our trainee recruitment programme.\n\nVIEW VACANCIES\n\nWe are happy to support The Great North Children’s Hospital for the 2026 / 2027 period.\n\nFIND OUT MORE\nLocal Expertise, Global Reach\n\nAt RG, we are proud to be an independent North East firm, providing the personal, partner-led service our clients value. But our reach extends beyond the UK.\n\nFIND OUT MORE\nLATEST NEWS\n\nNEWS PERSONAL TAX UNDER THE SPOTLIGHT\n\nLyndsay Kay, Tax Manager in our Personal Tax team, goes under the spotlight\nRead Mo"
+  },
+  "contact": {},
+  "mobile": {
+    "overflow": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "metaViewport": "width=device-width, initial-scale=1"
+  },
+  "status": 200,
+  "contactUrl": "https://ryecroftglenton.com/"
+}

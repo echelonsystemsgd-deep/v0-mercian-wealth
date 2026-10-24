@@ -1,0 +1,60 @@
+{
+  "site": "IAC Accountants",
+  "url": "http://www.iacaccountants.co.uk/",
+  "contactUrl": "http://www.iacaccountants.co.uk/",
+  "homeData": {
+    "forms": [],
+    "links": [
+      {
+        "text": "Cloudflare",
+        "href": "https://www.cloudflare.com/5xx-error-landing/"
+      },
+      {
+        "text": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1000/",
+        "href": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1000/"
+      },
+      {
+        "text": "login to Cloudflare",
+        "href": "https://www.cloudflare.com/login?utm_source=error_100x"
+      },
+      {
+        "text": "Cloudflare",
+        "href": "https://www.cloudflare.com/5xx-error-landing"
+      }
+    ],
+    "telLinks": [],
+    "whatsappLinks": [],
+    "title": "DNS points to prohibited IP | www.iacaccountants.co.uk | Cloudflare",
+    "bodySample": "Error 1000 Ray ID: a4f86ad5cb0c9538 • 2026-10-24 10:49:52 UTC\nDNS points to prohibited IP\nWhat happened?\n\nYou've requested a page on a website (www.iacaccountants.co.uk) that is on the Cloudflare network. Unfortunately, it is resolving to an IP address that is creating a conflict within Cloudflare's system.\n\nPlease see https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1000/ for more details.\n\nWhat can I do?\n\nIf you are the owner of this website:\nyou should login to Cloudflare and change the DNS A records for www.iacaccountants.co.uk to resolve to a different IP address.\n\nWas this page helpful? Yes No\n\nCloudflare Ray ID: a4f86ad5cb0c9538 • Your IP: Click to reveal • Performance & security by Cloudflare",
+    "viewportMeta": "width=device-width,initial-scale=1"
+  },
+  "contactData": {
+    "forms": [],
+    "telLinks": [],
+    "whatsappLinks": [],
+    "hasCalendar": false,
+    "bodySample": "Error 1000\nRay ID: a4f86aecefd8c4f1 •\n2026-10-24 10:49:55 UTC\nDNS points to prohibited IP\nWhat happened?\n\nYou've requested a page on a website (www.iacaccountants.co.uk) that is on the Cloudflare network. Unfortunately, it is resolving to an IP address that is creating a conflict within Cloudflare's system.\n\nPlease see https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1000/ for more details.\n\nWhat can I do?\n\nIf you are the owner of this website:\nyou should login to Cloudflare and change the DNS A records for www.iacaccountants.co.uk to resolve to a different IP address.\n\nWas this page helpful? Yes No\n\nCloudflare Ray ID: a4f86aecefd8c4f1\nYour IP: Click to reveal\nPerformance & security by Cloudflare"
+  },
+  "findings": [
+    {
+      "id": "IACACCOUNTANTS-RESP-OVERFLOW-320",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow on 320px viewport",
+      "measuredValue": "scrollWidth > innerWidth",
+      "url": "http://www.iacaccountants.co.uk/",
+      "viewport": "320x600"
+    },
+    {
+      "id": "IACACCOUNTANTS-RESP-OVERFLOW-390",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow on 390px viewport",
+      "measuredValue": "scrollWidth > innerWidth",
+      "url": "http://www.iacaccountants.co.uk/",
+      "viewport": "390x844"
+    }
+  ]
+}

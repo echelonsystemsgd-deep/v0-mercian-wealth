@@ -1,0 +1,304 @@
+{
+  "id": "wildercoe",
+  "name": "Wilder Coe Ltd Chartered Accountants",
+  "url": "https://wildercoe.co.uk/",
+  "realEmails": [
+    "info@wildercoe.co.uk"
+  ],
+  "realPhones": [],
+  "home": {
+    "title": "Wilder Coe - Chartered Accountants & Corporate Advisors",
+    "platform": "WordPress / Divi",
+    "confidence": "high",
+    "evidence": [
+      "wp-content detected"
+    ],
+    "forms": [
+      {
+        "id": "mc-embedded-subscribe-form",
+        "action": "https://wildercoe.us17.list-manage.com/subscribe/post?u=76d29fea914ce51f1a22e851e&id=bf5d8cc18a",
+        "inputs": [
+          {
+            "name": "EMAIL",
+            "type": "email",
+            "placeholder": "Email Address *",
+            "required": false
+          },
+          {
+            "name": "FNAME",
+            "type": "text",
+            "placeholder": "First Name *",
+            "required": false
+          },
+          {
+            "name": "LNAME",
+            "type": "text",
+            "placeholder": "Last Name *",
+            "required": false
+          },
+          {
+            "name": "b_76d29fea914ce51f1a22e851e_bf5d8cc18a",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "subscribe",
+            "type": "submit",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "If you would like to see full details of our data practices please visit our Privacy Policy and if you have any questions please email info@wildercoe.co.uk."
+      },
+      {
+        "id": "",
+        "action": "https://www.wildercoe.co.uk/",
+        "inputs": [
+          {
+            "name": "s",
+            "type": "search",
+            "placeholder": "Search",
+            "required": false
+          }
+        ],
+        "text": "\n        \n    "
+      }
+    ],
+    "telLinks": [],
+    "mailtoLinks": [
+      "info@wildercoe.co.uk"
+    ],
+    "emailMatches": [
+      "info@wildercoe.co.uk"
+    ],
+    "whatsappLinks": [],
+    "hasCalendar": false,
+    "links": [
+      {
+        "text": "Skip to content",
+        "href": "https://www.wildercoe.co.uk/#content"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/"
+      },
+      {
+        "text": "About us",
+        "href": "https://www.wildercoe.co.uk/about-us/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/about-us/who-we-help/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/meet-the-team/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/about-us/work-with-us/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/about-us/work-with-us/trainee-recruitment/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/about-us/client-testimonials/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/about-us/corporate-social-responsibility/"
+      },
+      {
+        "text": "How we help you",
+        "href": "https://www.wildercoe.co.uk/how-we-help-you/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/how-we-help-you/start-ups/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/how-we-help-you/growing-businesses/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/how-we-help-you/planning-to-exit/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/international-business/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/international-business/setting-up-a-uk-business/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/download-setting-up-a-uk-business-guide/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/how-we-help-you/renewable-energy/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/?page_id=19214"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/how-we-help-you/charities-and-not-for-profit/"
+      },
+      {
+        "text": "What we do",
+        "href": "https://www.wildercoe.co.uk/what-we-do/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/how-we-help-you/growing-businesses/audit-and-assurance/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/outsourcing/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/bookkeeping/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/human-resources/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/payroll-outsourcing/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/vat/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/how-we-help-you/start-ups/cloud-accounting-technology/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/credit-management/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/corporate-finance/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/company-secretarial/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/forensic-accounting-and-dispute-resolution/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/international-business/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/tax/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/outsourcing/corporate-tax/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/employment-tax/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/outsourcing/partnership-tax/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/tax/personal-tax/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/tax/property-tax/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/tax/rd-tax-credits/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/stamp-taxes/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/tax-investigations/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/estate-planning-and-trusts/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/vat/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/what-we-do/tax/wealth-management/"
+      },
+      {
+        "text": "Meet the team",
+        "href": "https://www.wildercoe.co.uk/meet-the-team/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/meet-the-team/partners/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/meet-the-team/consultants/"
+      },
+      {
+        "text": "Insights",
+        "href": "https://www.wildercoe.co.uk/insights/"
+      },
+      {
+        "text": "",
+        "href": "https://www.wildercoe.co.uk/insights/latest-news-and-updates/"
+      }
+    ],
+    "bodySample": "Skip to content\nAbout us\nHow we help you\nWhat we do\nMeet the team\nInsights\nContact\nGuiding you through\nthe complexities\nCorporate Finance and Consultancy\nABOUT US\nRead more\nSETTING UP A\nBUSINESS IN THE UK?\nGet our free guide\nWELCOME TO\nWILDER COE\nChartered Accountants since 1972\n\nAre you looking for a team of advisors who take the time to understand you and your objectives, before taking you to the next level?\n\nDo you want to work with professionals who are people first, not just number-crunchers?\n\nRelationships are at the centre of everything we do. We listen to you and take pride in the honest advice we deliver.\n\nWork with us. We will help you to maximise your revenue, minimise your risk and achieve your goals.\n\nGet in touch and find out how to work with Wilder Coe today\nHOW WE\nHELP YOU\nWHO\nWE ARE\nWHO WE’VE\nHELPED\nWHAT\nWE DO\nCHARITIES AND NOT FOR PROFITS\nFind out more\nSubscribe to news\n\nIf you would like to see full details of our data practices please visit our Privacy Policy and if you have any questions please email info@wildercoe.co.uk.\n\nLatest news\nExpert Determination Explained\n29-07-2026\nExpert Determination to Resolve Accounting, Purchase Price, Deferred Consideration and Share Valuation Issues in M&A, and Shareholder Disputes Where there are contested accounting, purchase price, deferred consideration and share valuation technical (or expert) issues in M&A and shareholder disputes, placing them for final and binding resolution in the hands of an experienced independent accountant expert determiner (as “Expert”), can provide for their more private and faster resolution than rigidly formal public court litigation proceedings.  What is expert determination? In outline, and\nRead the latest news here\nTossed\n\nFounded by Managing Director Neil Sebba and Angelina Harrison (Brand Director) in 2020, BNW Food Limited owns and operates the Tossed brand of… Read more\n“Tossed”\n\nNeil Sebba\nBNW Foods Limited t/a Tossed\nRead full testimonials\nNext Slide\n\nCopyright © 2026 "
+  },
+  "contact": {},
+  "viewports": {
+    "320": {
+      "width": 320,
+      "scrollWidth": 449,
+      "innerWidth": 320,
+      "overflow": true
+    },
+    "390": {
+      "width": 390,
+      "scrollWidth": 449,
+      "innerWidth": 390,
+      "overflow": true
+    },
+    "768": {
+      "width": 768,
+      "scrollWidth": 768,
+      "innerWidth": 768,
+      "overflow": false
+    }
+  },
+  "status": 200,
+  "contactUrl": "https://wildercoe.co.uk/"
+}

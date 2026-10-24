@@ -1,0 +1,94 @@
+{
+  "title": "Slough | TaxAssist Accountants",
+  "forms": [
+    {
+      "id": "",
+      "action": "https://www.taxassist.co.uk/locations/slough",
+      "inputs": [
+        {
+          "name": "formOrigin",
+          "type": "hidden",
+          "placeholder": "",
+          "required": false
+        },
+        {
+          "name": "gclid",
+          "type": "hidden",
+          "placeholder": "",
+          "required": false
+        },
+        {
+          "name": "otherSourceId",
+          "type": "hidden",
+          "placeholder": "",
+          "required": false
+        },
+        {
+          "name": "emailAlt",
+          "type": "text",
+          "placeholder": "",
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "placeholder": "",
+          "required": false
+        },
+        {
+          "name": "phoneNumber",
+          "type": "tel",
+          "placeholder": "",
+          "required": false
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "placeholder": "",
+          "required": false
+        },
+        {
+          "name": "message",
+          "type": "textarea",
+          "placeholder": "",
+          "required": false
+        },
+        {
+          "name": "source",
+          "type": "select-one",
+          "required": false
+        },
+        {
+          "name": "marketingConsent",
+          "type": "checkbox",
+          "placeholder": "",
+          "required": false
+        },
+        {
+          "name": "cf-turnstile-response",
+          "type": "hidden",
+          "placeholder": "",
+          "required": false
+        }
+      ],
+      "text": "Do not fill this in\nYour name *\nPhone number *\nEmail *\nHow can we help? *\nWhere did you hear about us? *\nPlease select an option\nAI Search\nBillboards\nDirect Mail\nExhibitions\nFacebook\nGoogle\nInstagram\nLandlord Knowledge\nLinkedIn\nNetworking\nPrinted Advert\nRadio\nRecommendation\nReddit\nSeen a shopfront\nT"
+    }
+  ],
+  "telLinks": [
+    {
+      "text": "01628 951322",
+      "href": "tel:01628951322"
+    },
+    {
+      "text": "01628 951322",
+      "href": "tel:01628951322"
+    }
+  ],
+  "whatsappLinks": [],
+  "hasCalendar": false,
+  "isWix": false,
+  "isWordPress": false,
+  "bodySample": "Skip to main content\n\nCall us today01628 951322\n\nContact us\nBusiness\nPersonal\nWho We Help\nLocations\nResources\nAbout Us\nHome\n›\nOur locations\n›\nSlough\nYour Accountants in\nSlough\n\nTaxAssist Accountants Slough provides expert tax and accounting services for sole traders, landlords and businesses with straightforward advice and local support you can always rely on.\n\nSpeak to us\nOur services\nFind us\nWorking with us\nOur partners\nContact us\n\n4.6 Rating|4,671 reviews\n\n4.8 Rating|7,252 reviews\n\nUK branches\n400+\nQuickbooks Primary Partner\nDext partner\nXero provider\nClients supported\n100,000+\nCompany accounts filing deadline approaching?\n\nIf your accounts filing deadline is approaching and you're looking for better financial advice and support, speak to our accountants today. We offer experienced and proactive face to face meetings to give you the support and advice you need. Call us today to get your financial affairs in order.\n\nRead our tax and accounts guide\nGet in touch\nServing Slough\n\nWhether you’re starting a new venture, growing an established business or simply looking for help with your personal tax affairs, TaxAssist Accountants Slough is here to support you. Our experienced team provides local practical advice, proactive guidance and straightforward accountancy services designed to help you stay in control of your finances and plan confidently for the future.\n\nBusinesses\n\nIf you run a business and need help with tax, accounts, or anything else no matter how simple or complex t",
+  "hasOverflow390": false,
+  "url": "https://www.taxassist.co.uk/accountants/slough/"
+}

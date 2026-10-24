@@ -1,0 +1,30 @@
+{
+  "site": "E-Tax Associates",
+  "url": "https://etaxassociates.com/",
+  "contactUrl": "https://etaxassociates.com/contact/",
+  "platform": "WordPress (Elementor)",
+  "details": {
+    "forms": [],
+    "bodyTextSample": "Skip to content\nMain Menu\nContact\n\nWe offer a free, no obligation initial consultation. Please free to to contact us at anytime to discuss your business, accounting or taxation needs.\n\nOFFICE\n\n66 Keel, Drive Slough,\nBerkshire SL1 2XY\n\nPHONE\n\n+44 1753 521153\n+44 7868 748272\n\nFAX\n\n+44 8723 316635\n\nEMAIL\n\ninfo@etaxassociates.com\n\nEtax Associates offering accounts, taxation, business advisory and support services to a wide range of businesses and individuals. Whatever your needs are, we can help.\n\nServices\nCompliance Services\nSupport Services\nConsultancy & systems Advice\nCorporation Tax Services\nBusiness Start-Up\nPersonal Tax (including Partnerships)\nContact Us\n\nAddress: 66 Keel Drive Slough, Berkshire, SL1 2XY, UK\nTel: 01753 521153\nMobile: 07868 748272\nFax: 08723 316635\n\n© 2026 Etax Accociates. Carefully crafted by TheProjectHero.",
+    "title": "Contact – Etax Accociates",
+    "isWordPress": true,
+    "isWix": false,
+    "isSquarespace": false,
+    "isElementor": true,
+    "isDivi": true,
+    "isWebflow": false,
+    "isHubSpot": false,
+    "whatsappLinks": [],
+    "telLinks": [
+      "tel:01753521153",
+      "tel:07868748272"
+    ],
+    "mailtoLinks": [
+      "mailto:info@etaxassociates.com",
+      "mailto:info@etaxassociates.com"
+    ],
+    "viewportMeta": "width=device-width, initial-scale=1",
+    "hasCalendar": false
+  },
+  "findings": []
+}

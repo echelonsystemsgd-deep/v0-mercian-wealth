@@ -1,0 +1,464 @@
+{
+  "id": "champion",
+  "name": "Champion Accountants Limited",
+  "url": "https://championgroup.co.uk/",
+  "realEmails": [
+    "info@championgroup.co.uk"
+  ],
+  "realPhones": [
+    {
+      "text": "(HEAD OFFICE) 0161 703 2500",
+      "href": "tel:01617032500"
+    },
+    {
+      "text": "01253 768 718",
+      "href": "tel:01253768718"
+    },
+    {
+      "text": "01244 404 420",
+      "href": "tel:01244404420"
+    },
+    {
+      "text": "01772 735 000",
+      "href": "tel:01772735000"
+    },
+    {
+      "text": "0161 703 2500",
+      "href": "tel:01617032500"
+    },
+    {
+      "text": "01253 768 718",
+      "href": "tel:01253768718"
+    },
+    {
+      "text": "01244 404 420",
+      "href": "tel:01244404420"
+    },
+    {
+      "text": "01772 735 000",
+      "href": "tel:01772735000"
+    },
+    {
+      "text": "",
+      "href": "tel:01617032500"
+    },
+    {
+      "text": "Phone",
+      "href": "tel:01617032500"
+    }
+  ],
+  "home": {
+    "title": "Champion Accountants | Expert advisory & accountancy services",
+    "forms": [
+      {
+        "id": "stickyelements-form",
+        "action": {
+          "jQuery3710022376389732257751": {
+            "events": {
+              "click": [
+                {
+                  "type": "click",
+                  "origType": "click",
+                  "handler": {
+                    "guid": 31
+                  },
+                  "guid": 31,
+                  "namespace": ""
+                }
+              ],
+              "keyup": [
+                {
+                  "type": "keyup",
+                  "origType": "keyup",
+                  "handler": {
+                    "guid": 42
+                  },
+                  "guid": 42,
+                  "namespace": ""
+                }
+              ]
+            },
+            "handle": {}
+          }
+        },
+        "inputs": [
+          {
+            "name": "action",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "security",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "contact-form-name",
+            "type": "text",
+            "placeholder": "Name*",
+            "required": true
+          },
+          {
+            "name": "contact-form[custom_field][1]",
+            "type": "text",
+            "placeholder": "Company Name",
+            "required": false
+          },
+          {
+            "name": "contact-form-phone",
+            "type": "tel",
+            "placeholder": "Phone*",
+            "required": true
+          },
+          {
+            "name": "",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "contact-form-email",
+            "type": "email",
+            "placeholder": "Email*",
+            "required": true
+          },
+          {
+            "name": "contact-form-dropdown",
+            "type": "select-one",
+            "required": true
+          },
+          {
+            "name": "contact-form[custom_field][2]",
+            "type": "text",
+            "placeholder": "Please tell us who referred you to Champion",
+            "required": false
+          },
+          {
+            "name": "contact-form-message",
+            "type": "textarea",
+            "placeholder": "Message",
+            "required": false
+          },
+          {
+            "name": "g-recaptcha-response",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "contact-form-submit",
+            "type": "submit",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "nonce",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "widget_name",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "widget_number",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "form_id",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "page_id",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "stickyelements-page-link",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "Name\nCompany Name\nPhone\nEmail\n- How did you hear about Champion -\n- How did you hear about Champion -*\nSearch Engine\nSocial Media\nWord of Mouth\nReferral\nOther\nPlease tell us who referred you to Champion\nMessage"
+      }
+    ],
+    "telLinks": [
+      {
+        "text": "(HEAD OFFICE) 0161 703 2500",
+        "href": "tel:01617032500"
+      },
+      {
+        "text": "01253 768 718",
+        "href": "tel:01253768718"
+      },
+      {
+        "text": "01244 404 420",
+        "href": "tel:01244404420"
+      },
+      {
+        "text": "01772 735 000",
+        "href": "tel:01772735000"
+      },
+      {
+        "text": "0161 703 2500",
+        "href": "tel:01617032500"
+      },
+      {
+        "text": "01253 768 718",
+        "href": "tel:01253768718"
+      },
+      {
+        "text": "01244 404 420",
+        "href": "tel:01244404420"
+      },
+      {
+        "text": "01772 735 000",
+        "href": "tel:01772735000"
+      },
+      {
+        "text": "",
+        "href": "tel:01617032500"
+      },
+      {
+        "text": "Phone",
+        "href": "tel:01617032500"
+      }
+    ],
+    "mailtoLinks": [
+      "info@championgroup.co.uk",
+      "info@championgroup.co.uk"
+    ],
+    "emailMatches": [],
+    "whatsappLinks": [],
+    "hasCalendar": false,
+    "links": [
+      {
+        "text": "MANCHESTER:",
+        "href": "https://www.championgroup.co.uk/manchester/"
+      },
+      {
+        "text": "(HEAD OFFICE) 0161 703 2500",
+        "href": "tel:01617032500"
+      },
+      {
+        "text": "BLACKPOOL:",
+        "href": "https://www.championgroup.co.uk/blackpool/"
+      },
+      {
+        "text": "01253 768 718",
+        "href": "tel:01253768718"
+      },
+      {
+        "text": "CHESTER:",
+        "href": "https://www.championgroup.co.uk/chester/"
+      },
+      {
+        "text": "01244 404 420",
+        "href": "tel:01244404420"
+      },
+      {
+        "text": "PRESTON:",
+        "href": "https://www.championgroup.co.uk/preston/"
+      },
+      {
+        "text": "01772 735 000",
+        "href": "tel:01772735000"
+      },
+      {
+        "text": "Champion Accountants",
+        "href": "https://www.championgroup.co.uk/"
+      },
+      {
+        "text": "HOME",
+        "href": "https://www.championgroup.co.uk/"
+      },
+      {
+        "text": "SERVICES",
+        "href": "https://www.championgroup.co.uk/services/"
+      },
+      {
+        "text": "Business Advisory",
+        "href": "https://www.championgroup.co.uk/services/business-advisory/"
+      },
+      {
+        "text": "Compliance",
+        "href": "https://www.championgroup.co.uk/services/compliance/"
+      },
+      {
+        "text": "Accounts Preparation",
+        "href": "https://www.championgroup.co.uk/services/compliance/accounts-preparation/"
+      },
+      {
+        "text": "Audit",
+        "href": "https://www.championgroup.co.uk/services/compliance/audit/"
+      },
+      {
+        "text": "Tax Compliance",
+        "href": "https://www.championgroup.co.uk/services/compliance/tax-compliance/"
+      },
+      {
+        "text": "Tax Advisory",
+        "href": "https://www.championgroup.co.uk/services/tax-advisory/"
+      },
+      {
+        "text": "Management Accounts",
+        "href": "https://www.championgroup.co.uk/services/management-accounts/"
+      },
+      {
+        "text": "Cloud Accounting",
+        "href": "https://www.championgroup.co.uk/services/management-accounts/cloud-accounting/"
+      },
+      {
+        "text": "Corporate Finance",
+        "href": "https://www.championgroup.co.uk/services/corporate-finance/"
+      },
+      {
+        "text": "R&D Tax Relief",
+        "href": "https://www.championgroup.co.uk/services/rd-tax-relief/"
+      },
+      {
+        "text": "Property",
+        "href": "https://www.championgroup.co.uk/services/property/"
+      },
+      {
+        "text": "Payroll",
+        "href": "https://www.championgroup.co.uk/services/payroll/"
+      },
+      {
+        "text": "Business Insurance",
+        "href": "https://www.championgroup.co.uk/services/insurance/"
+      },
+      {
+        "text": "Contractor Services",
+        "href": "https://www.championgroup.co.uk/services/contractor-services/"
+      },
+      {
+        "text": "SECTORS",
+        "href": "https://www.championgroup.co.uk/sectors/"
+      },
+      {
+        "text": "Agriculture",
+        "href": "https://www.championgroup.co.uk/sectors/agriculture/"
+      },
+      {
+        "text": "Charity",
+        "href": "https://www.championgroup.co.uk/sectors/charity/"
+      },
+      {
+        "text": "Ecommerce",
+        "href": "https://www.championgroup.co.uk/sectors/ecommerce/"
+      },
+      {
+        "text": "Education – EOYC",
+        "href": "https://www.championgroup.co.uk/end-of-year-certificate/"
+      },
+      {
+        "text": "IT & Digital",
+        "href": "https://www.championgroup.co.uk/sectors/it-digital/"
+      },
+      {
+        "text": "Leisure & Hospitality",
+        "href": "https://www.championgroup.co.uk/sectors/leisure-hospitality/"
+      },
+      {
+        "text": "Manufacturing & Engineering",
+        "href": "https://www.championgroup.co.uk/sectors/manufacturing-engineering/"
+      },
+      {
+        "text": "Medical",
+        "href": "https://www.championgroup.co.uk/sectors/medical/"
+      },
+      {
+        "text": "Professional Services",
+        "href": "https://www.championgroup.co.uk/sectors/professional-services/"
+      },
+      {
+        "text": "Property & Construction",
+        "href": "https://www.championgroup.co.uk/sectors/property-construction/"
+      },
+      {
+        "text": "Retail",
+        "href": "https://www.championgroup.co.uk/sectors/retail/"
+      },
+      {
+        "text": "Social Media & Influencers",
+        "href": "https://www.championgroup.co.uk/sectors/social-media-influencers/"
+      },
+      {
+        "text": "Sport",
+        "href": "https://www.championgroup.co.uk/sectors/sport/"
+      },
+      {
+        "text": "ABOUT US",
+        "href": "https://www.championgroup.co.uk/about-us/"
+      },
+      {
+        "text": "History & Culture",
+        "href": "https://www.championgroup.co.uk/about-us/history-culture/"
+      },
+      {
+        "text": "ESG",
+        "href": "https://www.championgroup.co.uk/about-us/esg/"
+      },
+      {
+        "text": "OUR TEAM",
+        "href": "https://www.championgroup.co.uk/our-team/"
+      },
+      {
+        "text": "CAREERS",
+        "href": "https://www.championgroup.co.uk/careers/"
+      },
+      {
+        "text": "Current Vacancies",
+        "href": "https://www.championgroup.co.uk/careers/current-vacancies/"
+      },
+      {
+        "text": "Trainee Programme",
+        "href": "https://www.championgroup.co.uk/careers/trainee-programme/"
+      },
+      {
+        "text": "Why Choose Champion",
+        "href": "https://www.championgroup.co.uk/careers/trainee-programme/why-choose-champion/"
+      },
+      {
+        "text": "Trainee Success Stories",
+        "href": "https://www.championgroup.co.uk/careers/trainee-programme/trainee-success-stories/"
+      },
+      {
+        "text": "How to Apply",
+        "href": "https://www.championgroup.co.uk/careers/trainee-programme/how-to-apply/"
+      },
+      {
+        "text": "NEWS & INSIGHTS",
+        "href": "https://www.championgroup.co.uk/news-insights/"
+      }
+    ],
+    "bodySample": "MANCHESTER: (HEAD OFFICE) 0161 703 2500   |   BLACKPOOL: 01253 768 718   |   CHESTER: 01244 404 420   |   PRESTON: 01772 735 000\nChampion Accountants\nExpert business advisory and accountancy services\nHOME\nSERVICES\nSECTORS\nABOUT US\nOUR TEAM\nCAREERS\nNEWS & INSIGHTS\nCONTACT US\nWe are more than\njust accountants.\nWe are true business advisors, specialising in supporting our clients from start-up to sale.\n\nAt Champion Accountants, we support owner-managed SMEs and entrepreneurs across every sector, advising on all aspects of running a business and at every stage of their growth journey.\n\nOur range of expert business advisory and accountancy services have been developed over 50 years and have built us a market-leading reputation. As one of the North West’s leading accountancy groups, we have forged a nationwide footprint and a reputation for exceptional quality, professionalism and innovation.\n\nAs an SME ourselves – having grown from one site to four and now employing 100+ business experts, qualified accountants, qualified tax advisors and support teams – we have lived and breathed the opportunities and challenges that come with running a business. Doing so provides us with a unique insight into our clients’ worlds and an ability to deliver bespoke solutions.\n\nWHAT OUR CLIENTS SAY...\n\n“I’m so pleased with our relationship with Champion – honestly, they are brilliant! Their advisors have added so much to our group of businesses and I really value their opinion and viewpoint. The whole team is extremely detail-orientated, unlike other advisors who may skim over things.\n\n“They pick up on even the most minor of points, going on to explain how it could be relevant to X, Y and Z. The staff always go above and beyond – they recently worked on a Saturday helping me meet a deadline for our parent company! Another accountant may have left it because it was outside of normal practice hours, but my client manager worked in his own time to make sure that we met our deadline.\n\n“Champion"
+  },
+  "contact": {},
+  "mobile": {
+    "overflow": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "metaViewport": "width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  },
+  "status": 200,
+  "contactUrl": "https://championgroup.co.uk/"
+}

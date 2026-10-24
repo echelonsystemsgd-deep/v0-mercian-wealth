@@ -1,0 +1,219 @@
+{
+  "site": "H A & Co Accountants",
+  "url": "https://haandco.uk/",
+  "contactUrl": "https://haandco.uk/contact/",
+  "homeData": {
+    "forms": [],
+    "links": [
+      {
+        "text": "",
+        "href": "https://haandco.uk/"
+      },
+      {
+        "text": "020 8288 1525",
+        "href": "tel:02082881525"
+      },
+      {
+        "text": "Contact",
+        "href": "https://haandco.uk/contact/"
+      },
+      {
+        "text": "Home",
+        "href": "https://haandco.uk/"
+      },
+      {
+        "text": "About Us",
+        "href": "https://haandco.uk/about-us/"
+      },
+      {
+        "text": "Services",
+        "href": "https://haandco.uk/services/"
+      },
+      {
+        "text": "Xero",
+        "href": "https://haandco.uk/xero/"
+      },
+      {
+        "text": "Client Area",
+        "href": "https://haandco.uk/client-area/"
+      },
+      {
+        "text": "Contact",
+        "href": "https://haandco.uk/contact/"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://haandco.uk/contact/"
+      },
+      {
+        "text": "Explore Our Services",
+        "href": "https://haandco.uk/services/"
+      },
+      {
+        "text": "Annual Accounts",
+        "href": "https://haandco.uk/our-services/annual-accounts/"
+      },
+      {
+        "text": "Find out more\n→",
+        "href": "https://haandco.uk/our-services/annual-accounts/"
+      },
+      {
+        "text": "Free Cloud Accounting Software",
+        "href": "https://haandco.uk/our-services/free-cloud-accounting-software/"
+      },
+      {
+        "text": "Find out more\n→",
+        "href": "https://haandco.uk/our-services/free-cloud-accounting-software/"
+      },
+      {
+        "text": "Payroll and PAYE Returns",
+        "href": "https://haandco.uk/our-services/payroll-and-paye-returns/"
+      },
+      {
+        "text": "Find out more\n→",
+        "href": "https://haandco.uk/our-services/payroll-and-paye-returns/"
+      },
+      {
+        "text": "Tax Enquiries and Investigations",
+        "href": "https://haandco.uk/our-services/tax-enquiries-and-investigations/"
+      },
+      {
+        "text": "Find out more\n→",
+        "href": "https://haandco.uk/our-services/tax-enquiries-and-investigations/"
+      },
+      {
+        "text": "VAT Returns",
+        "href": "https://haandco.uk/our-services/vat-returns/"
+      },
+      {
+        "text": "Find out more\n→",
+        "href": "https://haandco.uk/our-services/vat-returns/"
+      },
+      {
+        "text": "Book Keeping",
+        "href": "https://haandco.uk/our-services/book-keeping/"
+      },
+      {
+        "text": "Find out more\n→",
+        "href": "https://haandco.uk/our-services/book-keeping/"
+      },
+      {
+        "text": "View all 18 services →",
+        "href": "https://haandco.uk/services/"
+      },
+      {
+        "text": "Learn more about us →",
+        "href": "https://haandco.uk/about-us/"
+      },
+      {
+        "text": "",
+        "href": "https://haandco.uk/xero/"
+      },
+      {
+        "text": "Explore our Xero services →",
+        "href": "https://haandco.uk/xero/"
+      },
+      {
+        "text": "View all FAQs →",
+        "href": "https://haandco.uk/faqs/"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://haandco.uk/contact/"
+      },
+      {
+        "text": "Call 020 8288 1525",
+        "href": "tel:02082881525"
+      }
+    ],
+    "telLinks": [
+      "tel:02082881525",
+      "tel:02082881525",
+      "tel:02082881525"
+    ],
+    "whatsappLinks": [],
+    "title": "Accountants in Slough & Chessington | HA & CO",
+    "bodySample": "020 8288 1525\nContact\nHome\nAbout Us\nServices\nXero\nClient Area\nContact\n\nHA & CO\n\nBusiness Advisors & Tax Consultants\n\nWe provide a personalised service to meet your accountancy requirements and business goals.\n\nContact Us\nExplore Our Services\n\nOUR SERVICES\n\nExpert Advice, Built for You\n\nWith years of experience and a results-focused approach, we empower businesses to navigate complexity and achieve their goals.\n\nAnnual Accounts\n\nAccounts are prepared to agreed timescales and deadlines.\n\nFind out more\n→\nFree Cloud Accounting Software\n\nSimple is good, Simple and effective is better.\n\nFind out more\n→\nPayroll and PAYE Returns\n\nWe provide a tailor-made service for running payrolls on time.\n\nFind out more\n→\nTax Enquiries and Investigations\n\nIt is an unfortunate fact of business life that you may well come under enquiry by HMRC through no fault of your own or of your accountant.\n\nFind out more\n→\nVAT Returns\n\nCompliance with VAT is complex. Investigations by the VAT Man can be intense – all the more important that your VAT returns are completed correctly.\n\nFind out more\n→\nBook Keeping\n\nStressed out with the paperwork? Let us take it off your hands.\n\nFind out more\n→\nView all 18 services →\n\nABOUT HA & CO\n\nAccountancy with a personal approach\n\nWe are a firm of accountants who pride ourselves on giving your business the time and effort it deserves. Blending traditional values with a modern approach, we pride ourselves on the ability to provide your business with personal, forward looking ",
+    "viewportMeta": "width=device-width, initial-scale=1"
+  },
+  "contactData": {
+    "forms": [
+      {
+        "id": "contact-form",
+        "action": "https://haandco.uk/api/contact",
+        "inputs": [
+          {
+            "name": "website_url",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "name",
+            "type": "text",
+            "placeholder": "",
+            "required": true
+          },
+          {
+            "name": "email",
+            "type": "email",
+            "placeholder": "",
+            "required": true
+          },
+          {
+            "name": "phone",
+            "type": "tel",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "subject",
+            "type": "text",
+            "placeholder": "",
+            "required": true
+          },
+          {
+            "name": "message",
+            "type": "textarea",
+            "placeholder": "",
+            "required": true
+          },
+          {
+            "name": "consent",
+            "type": "checkbox",
+            "placeholder": "",
+            "required": true
+          },
+          {
+            "name": "cf-turnstile-response",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "Do not fill this field\nFull name *\nEmail address *\nPhone number (optional)\nSubject *\nMessage *\nI have read the Privacy Policy and understand how my information will be used to respond to my enquiry. *\n\nSecurity check *\n\nLoading security verification…\n\nIf verification is unavailable, call 020 8288 15"
+      }
+    ],
+    "telLinks": [
+      "tel:02082881525",
+      "tel:02082881525",
+      "tel:02082881525",
+      "tel:02082881525"
+    ],
+    "whatsappLinks": [],
+    "hasCalendar": false,
+    "bodySample": "Home\n/\nContact Us\n\nHA & CO\n\nContact Us\n\nWe Look Forward to Connecting With You\n\nSend us a message\nDo not fill this field\nFull name *\nEmail address *\nPhone number (optional)\nSubject *\nMessage *\nI have read the Privacy Policy and understand how my information will be used to respond to my enquiry. *\n\nSecurity check *\n\nLoading security verification…\n\nIf verification is unavailable, call 020 8288 1525 or email info@haandco.uk.\n\nSend Message\nGet in touch\n\nContact our team directly or visit one of our branch locations.\n\nContact Details\nTelephone:020 8288 1525\nEmail:info@haandco.uk\nOffice Locations\nChessington branch\n\n100 Gilders Road, Chessington, KT9 2AN\n\nSlough branch\n\nRegal Court Business Centre, 42 High Street, Slough, SL1 1EL\n\nChessington branch:\n100 Gilders Road, Chessington, KT9 2AN\n\nSlough branch:\nRegal Court Business Centre, 42 High Street, Slough, SL1 1EL\n\nContact\n020 8288 1525\ninfo@haandco.uk\nClient portal\nUseful links\nFAQs\nPrivacy Policy\nLegal Disclaimer\n\nHA & CO is a trading name of H A & CO ACCOUNTANTS LTD. Registered in England and Wales. Company number 11177488. Registered office: Regal Court Business Centre, 42-44 High Street, Slough, England, SL1 1EL.\n\nWebsite designed & maintained by Solworx Technologies"
+  },
+  "findings": [
+    {
+      "id": "HAANDCO-RESP-OVERFLOW-320",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow on 320px viewport",
+      "measuredValue": "scrollWidth > innerWidth",
+      "url": "https://haandco.uk/contact/",
+      "viewport": "320x600"
+    }
+  ]
+}

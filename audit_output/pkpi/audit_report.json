@@ -1,0 +1,263 @@
+{
+  "id": "pkpi",
+  "name": "PKPI Chartered Accountants",
+  "url": "https://pkpi.uk/",
+  "home": {
+    "title": "PKPI Accountants | Accountant Slough",
+    "forms": [
+      {
+        "id": "comp-lpr67pwx",
+        "action": "https://www.pkpi.uk/",
+        "inputs": [
+          {
+            "name": "name",
+            "type": "text",
+            "placeholder": "",
+            "required": true
+          },
+          {
+            "name": "email",
+            "type": "email",
+            "placeholder": "",
+            "required": true
+          },
+          {
+            "name": "phone",
+            "type": "tel",
+            "placeholder": "",
+            "required": true
+          },
+          {
+            "name": "",
+            "type": "textarea",
+            "placeholder": "",
+            "required": true
+          }
+        ],
+        "text": "Your premier partner in dental accounting\n\nName\nEmail Address\nPhone Number\nWhat services do you need?\nGet a Callback"
+      }
+    ],
+    "telLinks": [
+      {
+        "text": "",
+        "href": "tel:+442079418160"
+      }
+    ],
+    "whatsappLinks": [],
+    "hasCalendar": false,
+    "links": [
+      {
+        "text": "",
+        "href": "https://www.pkpi.uk/"
+      },
+      {
+        "text": "Client Services",
+        "href": "https://www.pkpi.uk/clientservices"
+      },
+      {
+        "text": "Dental Practice Groups",
+        "href": "https://www.pkpi.uk/accounts-for-dental-group"
+      },
+      {
+        "text": "Dental Practice Owner",
+        "href": "https://www.pkpi.uk/dental-practice-owner"
+      },
+      {
+        "text": "Dental Professional",
+        "href": "https://www.pkpi.uk/dental-professional"
+      },
+      {
+        "text": "GP Surgery",
+        "href": "https://www.pkpi.uk/gp-surgery"
+      },
+      {
+        "text": "Pharmacies",
+        "href": "https://www.pkpi.uk/pharmacies"
+      },
+      {
+        "text": "Accounting Solutions for Veterinary",
+        "href": "https://www.pkpi.uk/accounting-solutions-for-veterinary"
+      },
+      {
+        "text": "Retail & E-commerce",
+        "href": "https://www.pkpi.uk/retail-e-commerce"
+      },
+      {
+        "text": "Business Growth Services",
+        "href": "https://www.pkpi.uk/business-growth-services"
+      },
+      {
+        "text": "Management Accounts & Review",
+        "href": "https://www.pkpi.uk/management-accounts"
+      },
+      {
+        "text": "Cloud Accounting & Automation",
+        "href": "https://www.pkpi.uk/cloud-accounting-and-automation"
+      },
+      {
+        "text": "Payroll Services",
+        "href": "https://www.pkpi.uk/payroll-services"
+      },
+      {
+        "text": "SME Accounting Services",
+        "href": "https://www.pkpi.uk/sme-packages"
+      },
+      {
+        "text": "Resources",
+        "href": "https://www.pkpi.uk/resource-hub"
+      },
+      {
+        "text": "PKPI News & Events",
+        "href": "https://www.pkpi.uk/pkpi-news-events"
+      },
+      {
+        "text": "About Us",
+        "href": "https://www.pkpi.uk/get-in-touch"
+      },
+      {
+        "text": "Fees",
+        "href": "https://www.pkpi.uk/fees-structure"
+      },
+      {
+        "text": "Perfect Knowledge by PKPI",
+        "href": "https://www.pkpi.uk/perfect-knowledge-by-pkpi"
+      },
+      {
+        "text": "Charitable Activities",
+        "href": "https://www.pkpi.uk/charitable-activities"
+      },
+      {
+        "text": "Subscribe to our Newsletter",
+        "href": "https://www.pkpi.uk/subscribe-to-our-newsletter"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://www.pkpi.uk/contact-us"
+      },
+      {
+        "text": "Contact us",
+        "href": "https://www.pkpi.uk/contact-us"
+      },
+      {
+        "text": "Book Consultation",
+        "href": "https://www.pkpi.uk/contact-us"
+      },
+      {
+        "text": "Dentist",
+        "href": "https://www.pkpi.uk/dental-practice-owner"
+      },
+      {
+        "text": "Vets",
+        "href": "https://www.pkpi.uk/accounting-solutions-for-veterinary"
+      },
+      {
+        "text": "SMEs",
+        "href": "https://www.pkpi.uk/sme-packages"
+      },
+      {
+        "text": "GP Surgery",
+        "href": "https://www.pkpi.uk/gp-surgery"
+      },
+      {
+        "text": "Daycare Nurseries",
+        "href": "https://www.pkpi.uk/day-care-nursaries"
+      },
+      {
+        "text": "Startup Squats",
+        "href": "https://www.pkpi.uk/startup-squats"
+      },
+      {
+        "text": "Pharmacies",
+        "href": "https://www.pkpi.uk/pharmacies"
+      },
+      {
+        "text": "Facial Aestheticians",
+        "href": "https://www.pkpi.uk/facial-aestheticians"
+      },
+      {
+        "text": "",
+        "href": "https://www.google.com/search?q=pkpi+reviews&rlz=1C1ONGR_enGB1010GB1010&oq=pkpi+reviews&aqs=chrome..69i57j0i546l3j0i30i546j0i546j69i60.2435j0j7&sourceid=chrome&ie=UTF-8#lrd=0x487664c413620b93:0xbe6b27925c39c506,1,,,"
+      },
+      {
+        "text": "",
+        "href": "https://www.google.com/search?q=pkpi+reviews&rlz=1C1ONGR_enGB1010GB1010&oq=pkpi+reviews&aqs=chrome..69i57j0i546l3j0i30i546j0i546j69i60.2435j0j7&sourceid=chrome&ie=UTF-8#lrd=0x487664c413620b93:0xbe6b27925c39c506,1,,,"
+      },
+      {
+        "text": "",
+        "href": "https://www.pkpi.uk/#comp-lpr62gzo"
+      },
+      {
+        "text": "",
+        "href": "https://www.pkpi.uk/#comp-lv3vp1fj"
+      },
+      {
+        "text": "",
+        "href": "https://www.pkpi.uk/#comp-lv3vrmys"
+      },
+      {
+        "text": "",
+        "href": "https://www.pkpi.uk/#comp-lv3vv6vq"
+      },
+      {
+        "text": "team@pkpi.uk",
+        "href": "mailto:team@pkpi.uk"
+      },
+      {
+        "text": "",
+        "href": "https://www.facebook.com/PKPIuk-101814679267542/"
+      }
+    ],
+    "bodySample": "Client Services\n\nBusiness Growth Services\n\nResources\n\nAbout Us\n\n364 Days a Year\n\n7am to 9pm\n\nContact us\nWelcome to \nPKPI Accountants\nEmpowering Dental Practices for Financial Excellence: Let PKP Dental Accountants Guide Your Path to Success\nBook Consultation\n\nWe don't just meet quality standards, we define them internationally\n\nAwarded the Global 100 Award for\n\nBest Accounting Business of the Year 2026 in the UK.\n\nPKPI Accountants has been honored with the Global 100 Award for Best Accounting Business of the Year 2026 in the United Kingdom. This global stage recognition is an excellent testament to our dedication, accuracy, integrity, and outstanding accounting and advisory services. We thank our accounts and advisors for standing at an international level, as well as our clients, for their trust and support.\n\nAwarded the Best Healthcare Specialist Accountancy Firm by SME News UK Enterprise Award 2024.\n\nWe're excited to share that PKPI  Accountants has won the Best Healthcare Specialist Accountancy Firm 2024 award! This honour highlights our commitment to excellence and expertise in the healthcare sector. A big thank you to our amazing team and loyal clients for their ongoing support. We’re more dedicated than ever to delivering top-notch accountancy services tailored for healthcare professionals.\n\nOur\nStory\n\n​\n\nThe Birth of PKPI\n\nA few years ago, while working closely with individual clients and small business owners, I noticed a troubling pattern: too many were overpaying o"
+  },
+  "contact": {
+    "title": "PKPI Accountants | Dental Specialist Accountants",
+    "forms": [
+      {
+        "id": "comp-l7rfrs37",
+        "action": "https://www.pkpi.uk/contact-us",
+        "inputs": [
+          {
+            "name": "name",
+            "type": "text",
+            "placeholder": "",
+            "required": true
+          },
+          {
+            "name": "email",
+            "type": "email",
+            "placeholder": "",
+            "required": true
+          },
+          {
+            "name": "phone",
+            "type": "tel",
+            "placeholder": "",
+            "required": true
+          },
+          {
+            "name": "",
+            "type": "textarea",
+            "placeholder": "",
+            "required": true
+          }
+        ],
+        "text": "Your premier partner in dental accounting\n\nName\nEmail Address\nPhone Number\nWhat services do you need?\nGet a Callback"
+      }
+    ],
+    "telLinks": [
+      {
+        "text": "",
+        "href": "tel:+442079418160"
+      }
+    ],
+    "bodySample": "Skip to Main Content\n\nClient Services\n\nBusiness Growth Services\n\nResources\n\nAbout Us\n\n364 Days a Year\n\n7am to 9pm\n\nContact us\nUnleash Your Practice's Full Potential!\n\nWith years of experience serving the dental community, we understand the financial intricacies of your practice and in optimising your financial health\n\nBook A Consultation\n\nYour premier partner in dental accounting\n\nName\nEmail Address\nPhone Number\nWhat services do you need?\nGet a Callback\n\nOur Customers say...\n\nExpress Service - PE Backed Tech Firm\n\n\"Very grateful to PKPI for all the assistance and ongoing support. Extremely helpful and professional, very transparent with information and advice provided. I would highly recommend PKPI to everyone\n\nAre you looking for accountants in Slough?\n\nAccountants in Slough\n\n\nChallenging economic times means a fresh way of thinking to ensure you can continue to grow and not stagnate. Having a trusted partner by your side, someone who can offer a unique perspective and with their own expertise is invaluable. PKPI accountants near Slough can provide such a personal service, drawing on years of experience and business acumen to help your business when it needs it.\n\nSlough Tax Advice\n\n​\n\nOur veteran tax team is comprised of friendly and approachable professionals with considerable experience within the finance industry. We are a Slough based company that specialises in complex tax planning and ensuring your tax liability is as low as possible. \n\nStarting a business in Slough\n\n​"
+  },
+  "mobile": {
+    "overflow": true,
+    "scrollWidth": 980,
+    "innerWidth": 390,
+    "metaViewport": "width=device-width, initial-scale=1"
+  },
+  "status": 200,
+  "contactUrl": "https://www.pkpi.uk/contact-us"
+}

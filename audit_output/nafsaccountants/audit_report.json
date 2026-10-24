@@ -1,0 +1,134 @@
+{
+  "site": "NAFS Accountants Slough",
+  "url": "https://nafsaccountantslough.com/",
+  "contactUrl": "https://nafsaccountantslough.com/",
+  "homeData": {
+    "forms": [
+      {
+        "id": "",
+        "action": "https://nafsaccountantslough.com/",
+        "inputs": [
+          {
+            "name": "",
+            "type": "text",
+            "placeholder": "John Smith",
+            "required": true
+          },
+          {
+            "name": "",
+            "type": "email",
+            "placeholder": "john@company.co.uk",
+            "required": true
+          },
+          {
+            "name": "",
+            "type": "tel",
+            "placeholder": "07123 456789",
+            "required": true
+          },
+          {
+            "name": "",
+            "type": "select-one",
+            "required": true
+          },
+          {
+            "name": "",
+            "type": "textarea",
+            "placeholder": "Tell us about your accounting needs...",
+            "required": false
+          }
+        ],
+        "text": "Full Name *\nBusiness Email Address *\nContact Number *\nBusiness Type *\nSelect your business type\nSole Trader\nLimited Company\nPartnership\nContractor\nStartup\nOther\nBrief Description of Requirements\nRequest Consultation"
+      }
+    ],
+    "links": [
+      {
+        "text": "NAFS Accountants Slough",
+        "href": "https://nafsaccountantslough.com/#"
+      },
+      {
+        "text": "07446 140933",
+        "href": "tel:07446140933"
+      },
+      {
+        "text": "info@nafsaccountantslough.com",
+        "href": "mailto:info@nafsaccountantslough.com"
+      },
+      {
+        "text": "info@nafsaccountantslough.com",
+        "href": "mailto:info@nafsaccountantslough.com"
+      },
+      {
+        "text": "07446 140933",
+        "href": "tel:07446140933"
+      }
+    ],
+    "telLinks": [
+      "tel:07446140933",
+      "tel:07446140933"
+    ],
+    "whatsappLinks": [],
+    "title": "NAFS Accountants Slough | Professional Accounting & Tax Services",
+    "bodySample": "NAFS Accountants Slough\nServices\nWhy Us\nPricing\nContact\nGet Started\nNAFS Accountants Slough\n\nProfessional Accounting & Compliance Services\n\nNAFS Accountants is a dedicated accountancy firm providing reliable, compliant, and cost-effective accounting services to businesses and individuals. We work closely with our clients to ensure accuracy, regulatory compliance, and complete peace of mind, allowing them to focus on sustainable growth.\n\nRequest a Free Consultation\nUK Certified\nHMRC Compliant\nProfessional Indemnity Insured\nOur Services\n\nComprehensive accounting and compliance services tailored to meet your business needs\n\nCompany Incorporation\n\nComplete company formation services including registration with Companies House and initial compliance setup.\n\nStatutory Company Accounts\n\nPreparation and filing of annual accounts in compliance with UK accounting standards and regulations.\n\nPayroll Management & PAYE\n\nFull payroll services including RTI submissions, payslips, and year-end reporting for your employees.\n\nVAT Registration & Returns\n\nVAT registration assistance and quarterly return preparation to ensure timely and accurate submissions.\n\nSelf-Assessment Tax Returns\n\nPersonal tax return preparation and submission to HMRC, maximising allowances and minimising liability.\n\nSole Trader Accounts\n\nComprehensive bookkeeping and accounts preparation tailored specifically for sole traders.\n\nPartnership Accounts\n\nComplete accounting services for partnerships including profit allocation",
+    "viewportMeta": "width=device-width, initial-scale=1.0"
+  },
+  "contactData": {
+    "forms": [
+      {
+        "id": "",
+        "action": "https://nafsaccountantslough.com/",
+        "inputs": [
+          {
+            "name": "",
+            "type": "text",
+            "placeholder": "John Smith",
+            "required": true
+          },
+          {
+            "name": "",
+            "type": "email",
+            "placeholder": "john@company.co.uk",
+            "required": true
+          },
+          {
+            "name": "",
+            "type": "tel",
+            "placeholder": "07123 456789",
+            "required": true
+          },
+          {
+            "name": "",
+            "type": "select-one",
+            "required": true
+          },
+          {
+            "name": "",
+            "type": "textarea",
+            "placeholder": "Tell us about your accounting needs...",
+            "required": false
+          }
+        ],
+        "text": "Full Name *\nBusiness Email Address *\nContact Number *\nBusiness Type *\nSelect your business type\nSole Trader\nLimited Company\nPartnership\nContractor\nStartup\nOther\nBrief Description of Requirements\nRequest Consultation"
+      }
+    ],
+    "telLinks": [
+      "tel:07446140933",
+      "tel:07446140933"
+    ],
+    "whatsappLinks": [],
+    "hasCalendar": false,
+    "bodySample": "NAFS Accountants Slough\nNAFS Accountants Slough\n\nProfessional Accounting & Compliance Services\n\nNAFS Accountants is a dedicated accountancy firm providing reliable, compliant, and cost-effective accounting services to businesses and individuals. We work closely with our clients to ensure accuracy, regulatory compliance, and complete peace of mind, allowing them to focus on sustainable growth.\n\nRequest a Free Consultation\nUK Certified\nHMRC Compliant\nProfessional Indemnity Insured\nOur Services\n\nComprehensive accounting and compliance services tailored to meet your business needs\n\nCompany Incorporation\n\nComplete company formation services including registration with Companies House and initial compliance setup.\n\nStatutory Company Accounts\n\nPreparation and filing of annual accounts in compliance with UK accounting standards and regulations.\n\nPayroll Management & PAYE\n\nFull payroll services including RTI submissions, payslips, and year-end reporting for your employees.\n\nVAT Registration & Returns\n\nVAT registration assistance and quarterly return preparation to ensure timely and accurate submissions.\n\nSelf-Assessment Tax Returns\n\nPersonal tax return preparation and submission to HMRC, maximising allowances and minimising liability.\n\nSole Trader Accounts\n\nComprehensive bookkeeping and accounts preparation tailored specifically for sole traders.\n\nPartnership Accounts\n\nComplete accounting services for partnerships including profit allocation and partner tax returns.\n\nWhy Choose NAFS A"
+  },
+  "findings": [
+    {
+      "id": "NAFSACCOUNTANTS-RESP-OVERFLOW-320",
+      "category": "B. Mobile and responsive",
+      "severity": 3,
+      "confidence": "verified",
+      "title": "Horizontal scroll overflow on 320px viewport",
+      "measuredValue": "scrollWidth > innerWidth",
+      "url": "https://nafsaccountantslough.com/",
+      "viewport": "320x600"
+    }
+  ]
+}

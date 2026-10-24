@@ -1,0 +1,88 @@
+{
+  "site": "Adam Accountancy Limited",
+  "url": "https://adamaccountancy.co.uk/",
+  "contactUrl": "https://adamaccountancy.co.uk/contact-us/",
+  "platform": "WordPress (Divi)",
+  "details": {
+    "forms": [
+      {
+        "inputs": [
+          {
+            "name": "contact-form-name",
+            "type": "text",
+            "required": false,
+            "placeholder": "Name*"
+          },
+          {
+            "name": "contact-form-phone",
+            "type": "tel",
+            "required": false,
+            "placeholder": "Phone*"
+          },
+          {
+            "name": "",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "contact-form-email",
+            "type": "text",
+            "required": false,
+            "placeholder": "Email*"
+          },
+          {
+            "name": "contact-form-message",
+            "type": "textarea",
+            "required": false,
+            "placeholder": "Message*"
+          },
+          {
+            "name": "contact-form-submit",
+            "type": "submit",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "nonce",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "form_id",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "stickyelements-page-link",
+            "type": "hidden",
+            "required": false,
+            "placeholder": ""
+          }
+        ],
+        "text": "Name Phone Email Message",
+        "action": ""
+      }
+    ],
+    "bodyTextSample": "Skip to content\nGo to...\nLooks like you are lost…\nServices\n\nGet a razor sharp focus on your business\n\nLEARN MORE\nServices\n\nStrengthen your business’ financial core.\n\nLEARN MORE\nLet us to make your business less stressful for you\nCopyright © 2026 Adam Accountancy All Rights Reserved.\nFacebook\nX\nInstagram\nYouTube\nLinkedIn\n↓\nContact Us\nContact Form\nName\nPhone\nEmail\nMessage\nWhatsApp\nSMS\nGo to Top",
+    "title": "Page not found - Adam Accountancy | Accountants in Slough",
+    "isWordPress": true,
+    "isWix": false,
+    "isSquarespace": false,
+    "isElementor": false,
+    "isDivi": true,
+    "isWebflow": false,
+    "isHubSpot": false,
+    "whatsappLinks": [
+      "https://web.whatsapp.com/send?phone=+00447775906400",
+      "https://web.whatsapp.com/send?phone=+00447775906400"
+    ],
+    "telLinks": [],
+    "mailtoLinks": [],
+    "viewportMeta": "width=device-width, initial-scale=1",
+    "hasCalendar": false
+  },
+  "findings": []
+}

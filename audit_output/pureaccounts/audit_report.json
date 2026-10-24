@@ -1,0 +1,353 @@
+{
+  "id": "pureaccounts",
+  "name": "Pure Accounts & Management Ltd",
+  "url": "https://pureaccounts.services/",
+  "home": {
+    "title": "Accountants | Pure Accounts & Management Ltd | Slough",
+    "forms": [
+      {
+        "id": "",
+        "action": "https://www.pureaccounts.services/",
+        "inputs": [
+          {
+            "name": "et_pb_contact_name_0",
+            "type": "text",
+            "placeholder": "Name *",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_email_0",
+            "type": "text",
+            "placeholder": "Email Address *",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_phone_0",
+            "type": "text",
+            "placeholder": "Phone *",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_message_0",
+            "type": "textarea",
+            "placeholder": "Message *",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_upload_0",
+            "type": "text",
+            "placeholder": "Please upload any relevant files here.",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_upload_0",
+            "type": "file",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_upload_0_is_file",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_upload_0_file_token",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "et_pb_contactform_submit_0",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wpnonce-et-pb-contact-form-submitted-0",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wp_http_referer",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_field_referer_url",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "File Input\nCHOOSE FILESNo Files Chosen\nAccepted file types: jpg, jpeg, jpe, gif, png, wax, wri. Max. file size: 1 MB\n\nSUBMIT"
+      }
+    ],
+    "telLinks": [
+      {
+        "text": "02033724696",
+        "href": "tel:02033724696"
+      },
+      {
+        "text": "02037287896",
+        "href": "tel:02037287896"
+      },
+      {
+        "text": "07894233988",
+        "href": "tel:07894233988"
+      }
+    ],
+    "whatsappLinks": [
+      "https://wa.me/447894233988"
+    ],
+    "hasCalendar": false,
+    "links": [
+      {
+        "text": "02033724696",
+        "href": "tel:02033724696"
+      },
+      {
+        "text": "mail@pureaccounts.services",
+        "href": "mailto:mail@pureaccounts.services"
+      },
+      {
+        "text": "",
+        "href": "https://wa.me/447894233988"
+      },
+      {
+        "text": "",
+        "href": "https://www.pureaccounts.services/"
+      },
+      {
+        "text": "Home",
+        "href": "https://www.pureaccounts.services/"
+      },
+      {
+        "text": "Our Services",
+        "href": "https://www.pureaccounts.services/#"
+      },
+      {
+        "text": "",
+        "href": "https://www.pureaccounts.services/accountancy-business-support/"
+      },
+      {
+        "text": "",
+        "href": "https://www.pureaccounts.services/bookkeeping/"
+      },
+      {
+        "text": "",
+        "href": "https://www.pureaccounts.services/mortgages-property-investment/"
+      },
+      {
+        "text": "",
+        "href": "https://www.pureaccounts.services/payroll-services/"
+      },
+      {
+        "text": "",
+        "href": "https://www.pureaccounts.services/personal-tax-returns/"
+      },
+      {
+        "text": "Blog",
+        "href": "https://www.pureaccounts.services/blog/"
+      },
+      {
+        "text": "Contact",
+        "href": "https://www.pureaccounts.services/contact/"
+      },
+      {
+        "text": "BOOK A CONSULTATION",
+        "href": "https://www.pureaccounts.services/booking"
+      },
+      {
+        "text": "Home",
+        "href": "https://www.pureaccounts.services/"
+      },
+      {
+        "text": "Our Services",
+        "href": "https://www.pureaccounts.services/#"
+      },
+      {
+        "text": "Accountancy & Business Support",
+        "href": "https://www.pureaccounts.services/accountancy-business-support/"
+      },
+      {
+        "text": "Bookkeeping",
+        "href": "https://www.pureaccounts.services/bookkeeping/"
+      },
+      {
+        "text": "Mortgages & Property Investment",
+        "href": "https://www.pureaccounts.services/mortgages-property-investment/"
+      },
+      {
+        "text": "Payroll Services",
+        "href": "https://www.pureaccounts.services/payroll-services/"
+      },
+      {
+        "text": "Personal Tax Returns",
+        "href": "https://www.pureaccounts.services/personal-tax-returns/"
+      },
+      {
+        "text": "Blog",
+        "href": "https://www.pureaccounts.services/blog/"
+      },
+      {
+        "text": "Contact",
+        "href": "https://www.pureaccounts.services/contact/"
+      },
+      {
+        "text": "BOOK A CONSULTATION",
+        "href": "https://www.pureaccounts.services/booking"
+      },
+      {
+        "text": "GET IN TOUCH",
+        "href": "https://www.pureaccounts.services/contact/"
+      },
+      {
+        "text": "PERSONAL TAX RETURNS",
+        "href": "https://www.pureaccounts.services/personal-tax-returns/"
+      },
+      {
+        "text": "",
+        "href": "https://www.pureaccounts.services/"
+      },
+      {
+        "text": "02037287896",
+        "href": "tel:02037287896"
+      },
+      {
+        "text": "07894233988",
+        "href": "tel:07894233988"
+      },
+      {
+        "text": "mail@pureaccounts.services",
+        "href": "mailto:mail@pureaccounts.services"
+      },
+      {
+        "text": "Privacy Policy",
+        "href": "https://osamweb.com/privacy-policy/"
+      },
+      {
+        "text": "Cookie Policy",
+        "href": "https://osamweb.com/cookie-policy/"
+      },
+      {
+        "text": "Conditions of Use",
+        "href": "https://osamweb.com/conditions-of-using-our-website/"
+      }
+    ],
+    "bodySample": "02033724696 mail@pureaccounts.services\n \nHome\n \nOur Services\n \nBlog\n \nContact\n \nBOOK A CONSULTATION\nPURE ACCOUNTS MANAGEMENT LTD\nHighly skilled accountants, assisting businesses in Slough & beyond.\n\nDiscover the innovative approach behind our business solutions and experience the priceless services provided by the expert team at Pure Accounts & Management Ltd.\n\nGET IN TOUCH\n\nAAT (Association of Accounting Technicians) qualified\n\nProfessional, honest and transparent\n}\n12yrs+ Industry Experience\nWe’re more than accountants\n\nOperating from Slough and serving the Berkshire region, we excel in providing comprehensive support for running a successful business. From accounts management and bookkeeping to handling essential tasks that ensure seamless operations, we take pride in managing our clients’ to-do lists efficiently. At Pure Accounts & Management Ltd, our highly qualified team is dedicated to making a positive impact on organisations across diverse industries.\n\nSetting ourselves apart from traditional accountants, we collaborate closely with our clients, assisting them in overcoming obstacles that hinder their progress towards achieving business objectives. Connect with our experts today and explore the possibilities of how we can propel your business forward.\n\nHow can we help?\n\nMuch more than just bookkeeping and accounts, Pure Accounts & Management Ltd goes the extra mile to offer tailored support, empowering your business to reach its desired destination. Our comprehensi"
+  },
+  "contact": {
+    "title": "Business support | Pure Accounts & Management | Slough",
+    "forms": [
+      {
+        "id": "",
+        "action": "https://www.pureaccounts.services/contact/",
+        "inputs": [
+          {
+            "name": "et_pb_contact_name_0",
+            "type": "text",
+            "placeholder": "Name *",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_email_0",
+            "type": "text",
+            "placeholder": "Email Address *",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_phone_0",
+            "type": "text",
+            "placeholder": "Phone *",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_message_0",
+            "type": "textarea",
+            "placeholder": "Message *",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_upload_0",
+            "type": "text",
+            "placeholder": "Please upload any relevant files here.",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_upload_0",
+            "type": "file",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_upload_0_is_file",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_upload_0_file_token",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "et_pb_contactform_submit_0",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wpnonce-et-pb-contact-form-submitted-0",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "_wp_http_referer",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "et_pb_contact_field_referer_url",
+            "type": "hidden",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "File Input\nCHOOSE FILESNo Files Chosen\nAccepted file types: jpg, jpeg, jpe, gif, png, wax, wri. Max. file size: 1 MB\n\nSUBMIT"
+      }
+    ],
+    "telLinks": [
+      {
+        "text": "02033724696",
+        "href": "tel:02033724696"
+      },
+      {
+        "text": "+442037287896",
+        "href": "tel:+442037287896"
+      },
+      {
+        "text": "02037287896",
+        "href": "tel:02037287896"
+      },
+      {
+        "text": "07894233988",
+        "href": "tel:07894233988"
+      }
+    ],
+    "bodySample": "02033724696 mail@pureaccounts.services\n \nHome\n \nOur Services\n \nBlog\n \nContact\n \nBOOK A CONSULTATION\nGET IN TOUCH WITH US FOR BUSINESS SUPPORT SOLUTIONS THAT HANDLE ALL THE ESSENTIALS\nWhatever you need\n\nFor all your business needs, rely on Pure Accounts & Management Ltd for expert assistance. Serving Slough and Bracknell, we have earned the trust of businesses throughout Berkshire & West London areas.\n\nLET'S WORK TOGETHER\nDedicated to your success\n\nEvery business requires additional support at some point. Whether you seek assistance with accountancy, payroll, tax returns, financial investments, or bookkeeping, Pure Accounts & Management Ltd is here to provide our expertise.\n\nContact our team in Slough to explore the comprehensive business support solutions we can offer your organisation. You can book a consultation with us or reach out through email, phone, or our online contact form. We’ll promptly respond to your inquiries and provide the support you need.\n\nBook a consultation below\n\nDate & Time\n\nYour Information\n\nGet in Touch\n+442037287896\nadmin@pureaccounts.service\nCollapse menu\nDate & Time\nOctober\n2026\nMon\n\t\nTue\n\t\nWed\n\t\nThu\n\t\nFri\n\t\nSat\n\t\nSun\n\n\n28\n\t\n29\n\t\n30\n\t\n1\n\t\n2\n\t\n3\n\t\n4\n\n\n5\n\t\n6\n\t\n7\n\t\n8\n\t\n9\n\t\n10\n\t\n11\n\n\n12\n\t\n13\n\t\n14\n\t\n15\n\t\n16\n\t\n17\n\t\n18\n\n\n19\n\t\n20\n\t\n21\n\t\n22\n\t\n23\n\t\n24\n\t\n25\n\n\n26\n\t\n27\n\t\n28\n\t\n29\n\t\n30\n\t\n31\n\t\n1\n\n\n2\n\t\n3\n\t\n4\n\t\n5\n\t\n6\n\t\n7\n\t\n8\nContinue\nChoose us to manage your accounts\n\nWe promise you won’t be left disappointed. Contact our team in Slough today.\n\nPROFESSIONAL SERVICES"
+  },
+  "mobile": {
+    "overflow": false,
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "metaViewport": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+  },
+  "status": 200,
+  "contactUrl": "https://www.pureaccounts.services/contact/"
+}

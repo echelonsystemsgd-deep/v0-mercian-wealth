@@ -1,0 +1,64 @@
+{
+  "site": "Uppal Accountants",
+  "url": "https://www.uppalaccountants.co.uk/",
+  "contactUrl": "https://www.uppalaccountants.co.uk/contact-us/",
+  "platform": "Custom",
+  "details": {
+    "forms": [
+      {
+        "inputs": [
+          {
+            "name": "mod-form-5854766-text-986530",
+            "type": "text",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "mod-form-5854766-text-986533",
+            "type": "text",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "mod-form-5854766-textarea-986538",
+            "type": "textarea",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "cap",
+            "type": "text",
+            "required": false,
+            "placeholder": ""
+          },
+          {
+            "name": "mod-form-submit",
+            "type": "submit",
+            "required": false,
+            "placeholder": ""
+          }
+        ],
+        "text": "Name: * E-mail address: * Message: * Captcha (spam protection code): * Please enter the code ↺ Note: Fields marked with * are required",
+        "action": null
+      }
+    ],
+    "bodyTextSample": "Expand/collapse navigation\nUppal & Co Accountants (UK) Ltd\nContact us\n\nUppal & Co Accountants (UK) Ltd\n\n\n2 Copse Close\n\nSlough\n\nSL1 5DT\n\nPhone: 0044 7888 763635\nE-mail: rohit@uppalaccountants.co.uk\n\nYou can also contact us by using the form below:\n\n\nName: * \nE-mail address: * \nMessage: * \nCaptcha (spam protection code): *\nPlease enter the code \n↺\n\n\n\nNote: Fields marked with * are required\n\nAddress\n\nUppal & Co Accountants (UK) Ltd\n\n\n2 Copse Close\n\nSlough\n\nSL1 5DT\n\nMaking an appointment\n\nIf you have any queries or wish to make an appointment please contact us:\n\n \n\nTel: 0044 7888 763635\n\nEmail: \n\nrohit@uppalaccountants.co.uk\n\n \n\nAlternatively, please use our contact form.\n\nTweet this page\n\n Share\n Print | Sitemap\n© Uppal & Co Accountants (UK) Ltd\nLogin\n\nWeb View",
+    "title": "Uppal Accountants - Contact Us",
+    "isWordPress": false,
+    "isWix": false,
+    "isSquarespace": false,
+    "isElementor": false,
+    "isDivi": false,
+    "isWebflow": false,
+    "isHubSpot": false,
+    "whatsappLinks": [],
+    "telLinks": [],
+    "mailtoLinks": [
+      "mailto:rohit@uppalaccountants.co.uk",
+      "mailto:rohit@uppalaccountants.co.uk"
+    ],
+    "viewportMeta": "width=device-width, initial-scale=1, maximum-scale=1, minimal-ui",
+    "hasCalendar": false
+  },
+  "findings": []
+}

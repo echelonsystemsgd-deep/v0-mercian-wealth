@@ -1,0 +1,140 @@
+{
+  "homeData": {
+    "title": "A G ACCOUNTANCY",
+    "forms": [],
+    "telLinks": [],
+    "whatsappLinks": [],
+    "hasCalendar": false,
+    "bodySample": "+44 1234 567890\nHOME\nSERVICES\nCONTACT US\nA G ACCOUNTANCY\n\nWEBSITE UNDER CONSTRUCTION\n\nWHO WE HELP @ A G ACCOUNTANCY\n\n \n\nOur team of professionals  provide help to small and medium sized businesses in and arround Slough, Berkshire. \n \nLTD Companies \nIndividuals\nSmall Businesses\nStartups\nContractors\nFreelancers\nSole traders\nProperty landlords\nWHAT WE DO\nACCOUNTS\nTAX\nVIEW ALL SERVICES\n\nBUSINESS MANAGEMENT\n\nA G ACCOUNTANCY\n+44 1234 567890\nyour@email.com\nBusiness title, Street address, City, Zip code\nHome\nServices\nContact Us\n\nCopyright © All Rights Reserved",
+    "links": [
+      {
+        "text": "A G ACCOUNTANCY",
+        "href": "https://www.agaccountancy.co.uk/"
+      },
+      {
+        "text": "Home",
+        "href": "https://www.agaccountancy.co.uk/"
+      },
+      {
+        "text": "Services",
+        "href": "https://www.agaccountancy.co.uk/services"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://www.agaccountancy.co.uk/contact-us"
+      },
+      {
+        "text": "HOME",
+        "href": "https://www.agaccountancy.co.uk/"
+      },
+      {
+        "text": "SERVICES",
+        "href": "https://www.agaccountancy.co.uk/services"
+      },
+      {
+        "text": "CONTACT US",
+        "href": "https://www.agaccountancy.co.uk/contact-us"
+      },
+      {
+        "text": "A G ACCOUNTANCY",
+        "href": "https://www.agaccountancy.co.uk/"
+      },
+      {
+        "text": "",
+        "href": "https://www.agaccountancy.co.uk/services"
+      },
+      {
+        "text": "ACCOUNTS",
+        "href": ""
+      },
+      {
+        "text": "T",
+        "href": ""
+      },
+      {
+        "text": "VIEW ALL SERVICES",
+        "href": "https://www.agaccountancy.co.uk/services"
+      },
+      {
+        "text": "A G ACCOUNTANCY",
+        "href": "https://www.agaccountancy.co.uk/"
+      },
+      {
+        "text": "Home",
+        "href": "https://www.agaccountancy.co.uk/"
+      },
+      {
+        "text": "Services",
+        "href": "https://www.agaccountancy.co.uk/services"
+      },
+      {
+        "text": "Contact Us",
+        "href": "https://www.agaccountancy.co.uk/contact-us"
+      },
+      {
+        "text": "",
+        "href": ""
+      },
+      {
+        "text": "",
+        "href": ""
+      },
+      {
+        "text": "",
+        "href": ""
+      }
+    ]
+  },
+  "contactData": {
+    "forms": [
+      {
+        "id": "04054636-4ABB-4A7B-B1E3-06FD7DAA7A4B",
+        "action": "https://www.agaccountancy.co.uk/contact-us",
+        "inputs": [
+          {
+            "name": "Name",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "Email",
+            "type": "email",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "Phone",
+            "type": "tel",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "Message",
+            "type": "textarea",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "some-randome-random",
+            "type": "text",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "name": "",
+            "type": "submit",
+            "placeholder": "",
+            "required": false
+          }
+        ],
+        "text": "Name *\n \nEmail *\n \nPhone *\n \nMessage *\n \nsome-randome-random\n "
+      }
+    ],
+    "telLinks": [],
+    "bodySample": "+44 1234 567890\nHOME\nSERVICES\nCONTACT US\nA G ACCOUNTANCY\nLET'S WORK TOGETHER\nCONTACT US\n\n\n\n\nContact us if you would like to know more about our services or to book your free telephone consultation\n\n+44 1234 567890\nyour@email.com\nBusiness title, Street address, City, Zip code\nName *\n \nEmail *\n \nPhone *\n \nMessage *\n \nsome-randome-random\n \nA G ACCOUNTANCY\n+44 1234 567890\nyour@email.com\nBusiness title, Street address, City, Zip code\nHome\nServices\nContact Us\n\nCopyright © All Rights Reserved"
+  },
+  "hasOverflow390": false,
+  "url": "http://www.agaccountancy.co.uk/",
+  "contactUrl": "https://www.agaccountancy.co.uk/contact-us"
+}
