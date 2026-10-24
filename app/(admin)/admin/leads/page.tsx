@@ -131,15 +131,117 @@ export function getLeadFollowUps(lead: Lead) {
   const businessName = lead.business_name || lead.name || 'your firm'
   const friction = meta.observable_problem || meta.friction_title || 'intake friction points'
 
+  // Scrub any legacy prototype URLs that might be in stored strings
+  if (fu1) {
+    fu1 = fu1.replace(/https?:\/\/[^\s]+prototype[^\s]*/gi, '').replace(/\s{2,}/g, ' ').trim()
+  }
+  if (fu2) {
+    fu2 = fu2.replace(/https?:\/\/[^\s]+prototype[^\s]*/gi, '').replace(/\s{2,}/g, ' ').trim()
+  }
+
   if (!fu1) {
-    fu1 = `Hi ${businessName} team, following up on our note regarding ${friction}. We prepared a 30-second walkthrough video of a high-converting practice prototype built specifically for UK accounting practices. Would you like me to send the clip over?`
+    fu1 = `Hi ${businessName} team, following up on our note regarding ${friction}. We mapped a private walkthrough of how modern UK practices capture high-value clients and eliminate intake drop-off before peak filing season. We only implement this with one firm per postcode. Would you like us to share the walkthrough notes with your partners?`
   }
 
   if (!fu2) {
-    fu2 = `Hi ${businessName} team, closing out our notes before statutory filing deadlines kick in. The custom intake prototype we built for your firm remains ready whenever you want to inspect how it captures clients without friction. Best regards, Gurtej.`
+    fu2 = `Hi ${businessName} team, concluding our outreach here as we only reserve territory implementation for a single accounting practice in your area and are moving forward with other enquiries. If you ever want to review the private intake architecture we built, feel free to reach out. Wishing your practice a strong filing quarter.`
   }
 
   return { fu1, fu2 }
+}
+
+export interface FollowUpCadenceState {
+  stage: 'cooling_down' | 'due_fu1' | 'waiting_fu2' | 'due_fu2' | 'completed'
+  hoursSinceContact: number
+  hoursUntilFu1: number
+  badgeText: string
+  badgeColor: string
+  isDueNow: boolean
+  activeStep: 1 | 2 | null
+}
+
+export function getLeadFollowUpCadence(lead: Lead): FollowUpCadenceState {
+  if (lead.status !== 'Contacted') {
+    return {
+      stage: 'cooling_down',
+      hoursSinceContact: 0,
+      hoursUntilFu1: 0,
+      badgeText: '',
+      badgeColor: '',
+      isDueNow: false,
+      activeStep: null,
+    }
+  }
+
+  const meta = (lead.scraped_metadata || {}) as Record<string, any>
+  const contactDateStr = meta.contacted_at || lead.updated_at || lead.created_at
+  const contactTime = new Date(contactDateStr).getTime()
+  const now = Date.now()
+  const hoursSinceContact = Math.max(0, Math.round((now - contactTime) / (1000 * 60 * 60)))
+
+  const fu1SentAt = meta.follow_up_1_sent_at
+  const fu2SentAt = meta.follow_up_final_sent_at || meta.follow_up_2_sent_at
+
+  if (fu2SentAt) {
+    return {
+      stage: 'completed',
+      hoursSinceContact,
+      hoursUntilFu1: 0,
+      badgeText: 'Cadence Closed',
+      badgeColor: 'bg-zinc-800 text-zinc-400 border-zinc-700',
+      isDueNow: false,
+      activeStep: null,
+    }
+  }
+
+  if (fu1SentAt) {
+    const fu1Time = new Date(fu1SentAt).getTime()
+    const hoursSinceFu1 = Math.max(0, Math.round((now - fu1Time) / (1000 * 60 * 60)))
+    if (hoursSinceFu1 >= 72 || hoursSinceContact >= 120) {
+      return {
+        stage: 'due_fu2',
+        hoursSinceContact,
+        hoursUntilFu1: 0,
+        badgeText: 'Due Final Close (Day 5+)',
+        badgeColor: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
+        isDueNow: true,
+        activeStep: 2,
+      }
+    }
+    const hoursLeft = Math.max(1, 72 - hoursSinceFu1)
+    return {
+      stage: 'waiting_fu2',
+      hoursSinceContact,
+      hoursUntilFu1: 0,
+      badgeText: `FU1 Sent • Final in ${hoursLeft}h`,
+      badgeColor: 'bg-sky-500/15 text-sky-300 border-sky-500/30',
+      isDueNow: false,
+      activeStep: null,
+    }
+  }
+
+  if (hoursSinceContact >= 48) {
+    return {
+      stage: 'due_fu1',
+      hoursSinceContact,
+      hoursUntilFu1: 0,
+      badgeText: `Due Follow-Up 1 (${hoursSinceContact}h ago)`,
+      badgeColor: 'bg-amber-400/20 text-amber-300 border-amber-400/40',
+      isDueNow: true,
+      activeStep: 1,
+    }
+  }
+
+  const hoursUntilFu1 = Math.max(1, 48 - hoursSinceContact)
+  return {
+    stage: 'cooling_down',
+    hoursSinceContact,
+    hoursUntilFu1,
+    badgeText: `Cooling Down (${hoursUntilFu1}h to FU1)`,
+    badgeColor: 'bg-white/5 text-zinc-400 border-white/10',
+    isDueNow: false,
+    activeStep: null,
+  }
 }
 
 type ActionQueue = 'todays_queue' | 'ready_to_whatsapp' | 'due_followup' | 'active_pipeline' | 'needs_review' | 'all'
@@ -170,6 +272,8 @@ export default function LeadsPage() {
 
   // Direct 1-Click Quick Filter: 'all' | 'new' | 'contacted' | 'pipeline' | 'landlines' | 'needs_review'
   const [quickFilter, setQuickFilter] = useState<'all' | 'new' | 'contacted' | 'pipeline' | 'landlines' | 'needs_review'>('all')
+  // Dedicated Follow-Up Cadence Sub-Filter: 'all' | 'due_fu1' | 'due_fu2' | 'cooling_down'
+  const [followUpSubFilter, setFollowUpSubFilter] = useState<'all' | 'due_fu1' | 'due_fu2' | 'cooling_down'>('all')
 
   // Sub-Category / Niche filter
   const [tradeFilter, setTradeFilter] = useState<string>('All')
@@ -240,6 +344,42 @@ export default function LeadsPage() {
       setTimeout(() => setCopiedFollowUpId(null), 2000)
     } catch (err) {
       console.error('Failed to copy follow-up text:', err)
+    }
+  }
+
+  const handleMarkFollowUpSent = async (leadId: string, stage: 1 | 2) => {
+    const nowIso = new Date().toISOString()
+    const targetLead = leads.find((l) => l.id === leadId)
+    if (!targetLead) return
+
+    const currentMeta = (targetLead.scraped_metadata || {}) as Record<string, any>
+    const updatedMeta = {
+      ...currentMeta,
+      ...(stage === 1 ? { follow_up_1_sent_at: nowIso } : { follow_up_final_sent_at: nowIso, follow_up_2_sent_at: nowIso }),
+    }
+
+    // Optimistic local state update
+    setLeads((prev) =>
+      prev.map((l) => (l.id === leadId ? { ...l, scraped_metadata: updatedMeta } : l))
+    )
+
+    triggerToast(
+      stage === 1
+        ? '✓ Follow-Up 1 marked sent. Cadence moved to Day 5 countdown.'
+        : '✓ Final Takeaway marked sent. Postcode territory released.'
+    )
+
+    // Background DB persistence
+    try {
+      const { error } = await supabase
+        .from('leads')
+        .update({ scraped_metadata: updatedMeta })
+        .eq('id', leadId)
+      if (error) throw error
+      loadFiltersAndCounts()
+    } catch (err: any) {
+      triggerToast(`Update failed: ${err.message}`)
+      fetchLeads()
     }
   }
 
@@ -646,7 +786,7 @@ export default function LeadsPage() {
     })
 
     return list
-  }, [leads, queueFilter, quickFilter, tradeFilter, sortBy, sortDirection, activeTab, contactedInSessionIds])
+  }, [leads, queueFilter, quickFilter, followUpSubFilter, tradeFilter, sortBy, sortDirection, activeTab, contactedInSessionIds])
 
   const toggleStatus = (s: string) => {
     setStatusFilter((prev) => {
@@ -1493,26 +1633,48 @@ export default function LeadsPage() {
                           {isExpanded && (
                             <div className="space-y-2.5 pt-1">
                               {/* Follow-Up 1 */}
-                              <div className="p-3 rounded-xl bg-black/60 border border-white/5 space-y-1.5">
+                              <div className={`p-3 rounded-xl bg-black/60 border transition-all space-y-1.5 ${
+                                cadence.stage === 'due_fu1'
+                                  ? 'border-amber-400/50 shadow-sm shadow-amber-400/10'
+                                  : 'border-white/5'
+                              }`}>
                                 <div className="flex items-center justify-between">
-                                  <span className="text-[10px] font-mono font-bold text-amber-400/90 uppercase flex items-center gap-1">
-                                    <Sparkles size={10} className="text-amber-400" /> Follow-Up 1 (48h Value Check-in):
-                                  </span>
-                                  <button
-                                    type="button"
-                                    onClick={() => handleCopyFollowUp(`fu1-${lead.id}`, followUps.fu1)}
-                                    className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-[10px] font-mono flex items-center gap-1 transition-all cursor-pointer"
-                                    title="Copy Follow-Up 1"
-                                  >
-                                    {copiedFollowUpId === `fu1-${lead.id}` ? <Check size={10} className="text-emerald-400" /> : <Copy size={10} />}
-                                    <span>{copiedFollowUpId === `fu1-${lead.id}` ? 'Copied' : 'Copy'}</span>
-                                  </button>
+                                  <div className="flex items-center gap-1.5">
+                                    <span className="text-[10px] font-mono font-bold text-amber-400/90 uppercase flex items-center gap-1">
+                                      <Sparkles size={10} className="text-amber-400" /> Follow-Up 1 (48h Value Check-in):
+                                    </span>
+                                    {cadence.stage === 'due_fu1' && (
+                                      <span className="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                                        DUE NOW
+                                      </span>
+                                    )}
+                                  </div>
+                                  <div className="flex items-center gap-1.5">
+                                    <button
+                                      type="button"
+                                      onClick={() => handleMarkFollowUpSent(lead.id, 1)}
+                                      className="px-2 py-0.5 rounded bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 text-amber-300 text-[10px] font-mono flex items-center gap-1 transition-all cursor-pointer"
+                                      title="Mark Follow-Up 1 as Sent"
+                                    >
+                                      <CheckCheck size={10} className="text-amber-400" />
+                                      <span>Mark Sent</span>
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => handleCopyFollowUp(`fu1-${lead.id}`, followUps.fu1)}
+                                      className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-[10px] font-mono flex items-center gap-1 transition-all cursor-pointer"
+                                      title="Copy Follow-Up 1"
+                                    >
+                                      {copiedFollowUpId === `fu1-${lead.id}` ? <Check size={10} className="text-emerald-400" /> : <Copy size={10} />}
+                                      <span>{copiedFollowUpId === `fu1-${lead.id}` ? 'Copied' : 'Copy'}</span>
+                                    </button>
+                                  </div>
                                 </div>
                                 <p className="text-xs text-zinc-300 font-sans leading-relaxed whitespace-pre-wrap">
                                   {followUps.fu1}
                                 </p>
-                                {phoneInfo.isWhatsAppViable && (
-                                  <div className="flex justify-end pt-1">
+                                <div className="flex items-center justify-end gap-3 pt-1">
+                                  {phoneInfo.isWhatsAppViable && (
                                     <a
                                       href={`https://wa.me/${phoneInfo.cleanDigits || lead.phone}?text=${encodeURIComponent(followUps.fu1)}`}
                                       target="_blank"
@@ -1521,25 +1683,55 @@ export default function LeadsPage() {
                                     >
                                       <MessageSquare size={10} /> Send via WhatsApp
                                     </a>
-                                  </div>
-                                )}
+                                  )}
+                                  {lead.email && (
+                                    <a
+                                      href={`mailto:${lead.email}?subject=${encodeURIComponent(`Follow-up for ${businessName}`)}&body=${encodeURIComponent(followUps.fu1)}`}
+                                      className="text-[10px] font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1 transition-colors"
+                                    >
+                                      <Mail size={10} /> Send via Email
+                                    </a>
+                                  )}
+                                </div>
                               </div>
 
                               {/* Follow-Up 2 */}
-                              <div className="p-3 rounded-xl bg-black/60 border border-white/5 space-y-1.5">
+                              <div className={`p-3 rounded-xl bg-black/60 border transition-all space-y-1.5 ${
+                                cadence.stage === 'due_fu2'
+                                  ? 'border-rose-500/50 shadow-sm shadow-rose-500/10'
+                                  : 'border-white/5'
+                              }`}>
                                 <div className="flex items-center justify-between">
-                                  <span className="text-[10px] font-mono font-bold text-sky-400/90 uppercase flex items-center gap-1">
-                                    <Clock size={10} className="text-sky-400" /> Follow-Up 2 (Day 5 Close / Pre-Crunch):
-                                  </span>
-                                  <button
-                                    type="button"
-                                    onClick={() => handleCopyFollowUp(`fu2-${lead.id}`, followUps.fu2)}
-                                    className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-[10px] font-mono flex items-center gap-1 transition-all cursor-pointer"
-                                    title="Copy Follow-Up 2"
-                                  >
-                                    {copiedFollowUpId === `fu2-${lead.id}` ? <Check size={10} className="text-emerald-400" /> : <Copy size={10} />}
-                                    <span>{copiedFollowUpId === `fu2-${lead.id}` ? 'Copied' : 'Copy'}</span>
-                                  </button>
+                                  <div className="flex items-center gap-1.5">
+                                    <span className="text-[10px] font-mono font-bold text-sky-400/90 uppercase flex items-center gap-1">
+                                      <Clock size={10} className="text-sky-400" /> Follow-Up 2 (Day 5 Takeaway Close):
+                                    </span>
+                                    {cadence.stage === 'due_fu2' && (
+                                      <span className="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                                        DUE NOW
+                                      </span>
+                                    )}
+                                  </div>
+                                  <div className="flex items-center gap-1.5">
+                                    <button
+                                      type="button"
+                                      onClick={() => handleMarkFollowUpSent(lead.id, 2)}
+                                      className="px-2 py-0.5 rounded bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 text-[10px] font-mono flex items-center gap-1 transition-all cursor-pointer"
+                                      title="Mark Final Takeaway as Sent"
+                                    >
+                                      <CheckCheck size={10} className="text-rose-400" />
+                                      <span>Mark Sent</span>
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => handleCopyFollowUp(`fu2-${lead.id}`, followUps.fu2)}
+                                      className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 hover:text-white text-[10px] font-mono flex items-center gap-1 transition-all cursor-pointer"
+                                      title="Copy Follow-Up 2"
+                                    >
+                                      {copiedFollowUpId === `fu2-${lead.id}` ? <Check size={10} className="text-emerald-400" /> : <Copy size={10} />}
+                                      <span>{copiedFollowUpId === `fu2-${lead.id}` ? 'Copied' : 'Copy'}</span>
+                                    </button>
+                                  </div>
                                 </div>
                                 <p className="text-xs text-zinc-300 font-sans leading-relaxed whitespace-pre-wrap">
                                   {followUps.fu2}
