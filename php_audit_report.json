@@ -1,0 +1,827 @@
+{
+  "timestamp": "2026-10-26T11:32:46.111Z",
+  "totalContacted": 64,
+  "phpCount": 35,
+  "nonPhpCount": 27,
+  "noSiteCount": 2,
+  "phpBusinesses": [
+    {
+      "id": "ce455df0-19d8-4674-b975-0620b7098417",
+      "name": "852 Accounting",
+      "website": "https://852.limited",
+      "phone": "+447700900852",
+      "email": null,
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "IONOS Webserver",
+      "platform": "WordPress"
+    },
+    {
+      "id": "284c197b-7902-43ca-9e24-5e19b4240db9",
+      "name": "HSL Accountancy Solutions",
+      "website": "https://hslaccountancysolutions.co.uk",
+      "phone": "+447700900654",
+      "email": null,
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected (PHP-based CMS)"
+      ],
+      "server": "LiteSpeed",
+      "platform": "WordPress"
+    },
+    {
+      "id": "42ac92cc-6aed-4a50-b4e3-8afad87f0b9d",
+      "name": "Berg Kaprow Lewis LLP",
+      "website": "https://bkl.co.uk",
+      "phone": "+447700900222",
+      "email": null,
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "cloudflare",
+      "platform": "WordPress"
+    },
+    {
+      "id": "0af4fb43-43ec-4e90-9d0e-14d89b2fbd3b",
+      "name": "Barrie Ingram Accounts Ltd",
+      "website": "https://barrieingramaccounts.co.uk",
+      "phone": "+447908228472",
+      "email": null,
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected v7.1.3 (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "cloudflare",
+      "platform": "WordPress"
+    },
+    {
+      "id": "d5533d32-26cf-470e-b610-66533c7e8879",
+      "name": "Midland Corporate Audit Group",
+      "website": "https://rkpartners.co.uk",
+      "phone": "+447700900444",
+      "email": null,
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Cookie: PHPSESSID session",
+        "Direct .php endpoints: 1 form action(s), 49 script link(s)"
+      ],
+      "server": "Apache",
+      "platform": "PHP Stack"
+    },
+    {
+      "id": "9b3e4dba-7d67-4302-aa8d-7ac53aa21a6f",
+      "name": "Finchley Chartered Practice Advisory",
+      "website": "https://bkl.co.uk",
+      "phone": "+447700900847",
+      "email": null,
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "cloudflare",
+      "platform": "WordPress"
+    },
+    {
+      "id": "400df6a9-71ec-4bc7-b0ee-53557cf516d3",
+      "name": "Milsted Langdon LLP",
+      "website": "https://milstedlangdon.co.uk",
+      "phone": "+447700900818",
+      "email": null,
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Header X-Powered-By: PHP/8.3.36",
+        "WordPress detected v7.1.3 (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "",
+      "platform": "WordPress"
+    },
+    {
+      "id": "b5eb3d21-8dcd-40dd-b114-10158a084bda",
+      "name": "Hazlewoods LLP",
+      "website": "https://hazlewoods.co.uk",
+      "phone": "+447700900842",
+      "email": null,
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Header X-Powered-By: PHP/8.5.12",
+        "WordPress detected v7.1.3 (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "Apache",
+      "platform": "WordPress"
+    },
+    {
+      "id": "9e8440a6-1a71-4104-8a31-79f1d69784be",
+      "name": "Wilder Coe Ltd Chartered Accountants",
+      "website": "https://wildercoe.co.uk",
+      "phone": "020 7724 6060",
+      "email": "info@wildercoe.co.uk",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Header X-Powered-By: PHP/7.4.33",
+        "WordPress detected v7.0.7 (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 2 script link(s)"
+      ],
+      "server": "LiteSpeed",
+      "platform": "WordPress"
+    },
+    {
+      "id": "044861a8-024d-42b2-b4d3-e7eb4f955f0d",
+      "name": "French Duncan LLP",
+      "website": "https://frenchduncan.co.uk",
+      "phone": "+447700900851",
+      "email": null,
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Cookie: PHPSESSID session",
+        "WordPress detected (PHP-based CMS)"
+      ],
+      "server": "Apache",
+      "platform": "WordPress"
+    },
+    {
+      "id": "f98e3c87-e999-4ffe-9874-77f0e40412ae",
+      "name": "Hunter Gee Holroyd Chartered Accountants",
+      "website": "https://hghyork.co.uk",
+      "phone": "+447700900836",
+      "email": null,
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected v7.1.2 (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "Apache",
+      "platform": "WordPress"
+    },
+    {
+      "id": "f0dad1b6-c6b6-49a3-97aa-bdc7cb178b56",
+      "name": "JW Hinks LLP Chartered Accountants",
+      "website": "https://jwhinks.co.uk",
+      "phone": "0121 456 0190",
+      "email": "info@jwhinks.co.uk",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "cloudflare",
+      "platform": "WordPress"
+    },
+    {
+      "id": "a53517c6-2d20-48c6-a291-a59e943624d7",
+      "name": "Monahans Chartered Accountants",
+      "website": "https://monahans.co.uk",
+      "phone": "+447700900841",
+      "email": null,
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected (PHP-based CMS)"
+      ],
+      "server": "Prometheus",
+      "platform": "WordPress"
+    },
+    {
+      "id": "91384197-6bde-4f65-a439-f9a5cc9079bd",
+      "name": "Champion Accountants Limited",
+      "website": "https://championgroup.co.uk",
+      "phone": "0161 703 2500",
+      "email": "info@championgroup.co.uk",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Cookie: PHPSESSID session",
+        "WordPress detected (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "LiteSpeed",
+      "platform": "WordPress"
+    },
+    {
+      "id": "2d424555-89a0-4112-97a4-da8bad182abe",
+      "name": "George Hay Chartered Accountants",
+      "website": "https://georgehay.co.uk",
+      "phone": "+447700900849",
+      "email": null,
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Header X-Powered-By: PHP/8.3.36",
+        "WordPress detected v7.1.3 (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "",
+      "platform": "WordPress"
+    },
+    {
+      "id": "c5da6008-25de-4a18-8bd9-494308a8c5ce",
+      "name": "Silver Levene LLP",
+      "website": "https://silverlevene.co.uk",
+      "phone": "+447700900844",
+      "email": null,
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected (PHP-based CMS)"
+      ],
+      "server": "",
+      "platform": "WordPress"
+    },
+    {
+      "id": "911c32be-5167-4114-b3df-3ab7704f9848",
+      "name": "Ryecroft Glenton Chartered Accountants",
+      "website": "https://ryecroftglenton.com",
+      "phone": "0191 281 1292",
+      "email": "info@ryecroftglenton.com",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected v7.1.3 (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 2 script link(s)"
+      ],
+      "server": "nginx",
+      "platform": "WordPress"
+    },
+    {
+      "id": "b70323b3-68c9-43c2-831e-96f0442e660c",
+      "name": "ASTON Accountants",
+      "website": "https://astonaccountants.com",
+      "phone": "01753 722181",
+      "email": "info@astonaccountants.com",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Header X-Powered-By: PHP/5.6.40"
+      ],
+      "server": "Apache",
+      "platform": "PHP Stack"
+    },
+    {
+      "id": "678bca34-e999-4dd2-a988-92d4e9e20e04",
+      "name": "MPI Accounting & Management Services",
+      "website": "https://accountantsslough.com",
+      "phone": "01753 586813",
+      "email": "info@accountantsslough.com",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Cookie: PHPSESSID session",
+        "Direct .php endpoints: 2 form action(s), 1 script link(s)"
+      ],
+      "server": "cloudflare",
+      "platform": "PHP Stack"
+    },
+    {
+      "id": "ad4c1e98-fa14-4543-b035-99ed562c5f35",
+      "name": "dns accountants Slough",
+      "website": "https://dnsassociates.co.uk",
+      "phone": "01753 290111",
+      "email": "info@dnsassociates.co.uk",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Header X-Powered-By: PHP/5.6.31"
+      ],
+      "server": "cloudflare",
+      "platform": "PHP Stack"
+    },
+    {
+      "id": "78809d7e-2f4c-4467-8997-2fcf2b90fb64",
+      "name": "Adam Accountancy Limited",
+      "website": "https://adamaccountancy.co.uk",
+      "phone": "01753 534544",
+      "email": "info@adamaccountancy.co.uk",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected v7.1.3 (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "LiteSpeed",
+      "platform": "WordPress"
+    },
+    {
+      "id": "461e35a3-288b-4404-ae60-0bc33d2cc4fa",
+      "name": "MA Accountancy",
+      "website": "https://maaccountancy.co.uk",
+      "phone": "01753 553444",
+      "email": "info@maaccountancy.co.uk",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Header X-Powered-By: PHP/7.3.33"
+      ],
+      "server": "Apache",
+      "platform": "PHP Stack"
+    },
+    {
+      "id": "3c8f1f24-de64-4e1c-bf53-27ada87c893e",
+      "name": "Direct Assist Accountants",
+      "website": "https://directassistaccountants.co.uk",
+      "phone": "01753 570707",
+      "email": "info@directassistaccountants.co.uk",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected (PHP-based CMS)"
+      ],
+      "server": "LiteSpeed",
+      "platform": "WordPress"
+    },
+    {
+      "id": "1868f0f5-880d-44e8-a12c-13f505e4eb3e",
+      "name": "E-Tax Associates",
+      "website": "https://etaxassociates.com",
+      "phone": "01753 575775",
+      "email": "info@etaxassociates.com",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected v7.1.3 (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "Apache",
+      "platform": "WordPress"
+    },
+    {
+      "id": "7217a7a6-c55b-48e1-a6b4-cb3375767145",
+      "name": "Pure Accounts & Management Ltd",
+      "website": "https://pureaccounts.services",
+      "phone": "07894 233988",
+      "email": "mail@pureaccounts.services",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 2 script link(s)"
+      ],
+      "server": "LiteSpeed",
+      "platform": "WordPress"
+    },
+    {
+      "id": "815b354a-a854-41c0-ad6f-fc1f801ea840",
+      "name": "Asmat & Co",
+      "website": "https://asmataccountants.co.uk",
+      "phone": "01753 424968",
+      "email": "info@asmataccountants.co.uk",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "Apache",
+      "platform": "WordPress"
+    },
+    {
+      "id": "ff4fa1f7-e169-49f6-ae63-9ba4818ee382",
+      "name": "Smooth Feathers Accountants",
+      "website": "https://smoothfeathers.co.uk",
+      "phone": "01753 537333",
+      "email": "info@smoothfeathers.co.uk",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Header X-Powered-By: PHP/8.2.35",
+        "Cookie: PHPSESSID session",
+        "WordPress detected v7.1.3 (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "hcdn",
+      "platform": "WordPress"
+    },
+    {
+      "id": "ca2b0814-7fb6-48d9-aed9-97da283a7aa5",
+      "name": "Uppal Accountants",
+      "website": "https://uppalaccountants.co.uk",
+      "phone": "01753 692888",
+      "email": "info@uppalaccountants.co.uk",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Direct .php endpoints: 0 form action(s), 3 script link(s)"
+      ],
+      "server": "Apache",
+      "platform": "PHP Stack"
+    },
+    {
+      "id": "f945cbe3-49ee-4192-b925-c9d80281db97",
+      "name": "Abacus Accountants",
+      "website": "https://abacus46.com",
+      "phone": "01753 543322",
+      "email": "info@abacus46.com",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Header X-Powered-By: PHP/8.2.34"
+      ],
+      "server": "nginx",
+      "platform": "PHP Stack"
+    },
+    {
+      "id": "5748d599-84e4-43fd-9e92-ffe6a9cdebf7",
+      "name": "A G Accountancy",
+      "website": "https://agaccountancy.co.uk",
+      "phone": "01753 578875",
+      "email": "info@agaccountancy.co.uk",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Direct .php endpoints: 0 form action(s), 2 script link(s)"
+      ],
+      "server": "Apache",
+      "platform": "PHP Stack"
+    },
+    {
+      "id": "1e0195a0-f7e7-4e86-a514-80034f14f412",
+      "name": "Eacotts",
+      "website": "https://eacotts.com",
+      "phone": "01628 665432",
+      "email": "services@eacotts.com",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "nginx",
+      "platform": "WordPress"
+    },
+    {
+      "id": "74aba72d-b264-4fff-82d8-8fe52296a5ec",
+      "name": "Bold Rose Accountants",
+      "website": "https://bracc.co.uk",
+      "phone": "020 7097 3749",
+      "email": "info@bracc.co.uk",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "LiteSpeed",
+      "platform": "WordPress"
+    },
+    {
+      "id": "b61e29b2-09a1-47f9-b31a-e1806581f12c",
+      "name": "Kingston Smith LLP",
+      "website": "https://kingston-wells.co.uk",
+      "phone": "020 3006 8099",
+      "email": "info@kingston-wells.co.uk",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "Apache",
+      "platform": "PHP Stack"
+    },
+    {
+      "id": "e8e3cd91-7809-485f-9d44-7c202969b4b0",
+      "name": "Veracity Accountants Limited",
+      "website": "https://veracityaccountants.com",
+      "phone": "01628 950500",
+      "email": "info@veracityaccountants.com",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected v6.6.10 (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "LiteSpeed",
+      "platform": "WordPress"
+    },
+    {
+      "id": "abc292f2-4470-4c45-bb02-e676e0cb355e",
+      "name": "Wilson Partners Accounting",
+      "website": "https://wilson-partners.co.uk",
+      "phone": "01628 770770",
+      "email": "info@wilson-partners.co.uk",
+      "usesPhp": true,
+      "confidence": "HIGH",
+      "evidence": [
+        "WordPress detected (PHP-based CMS)",
+        "Direct .php endpoints: 0 form action(s), 1 script link(s)"
+      ],
+      "server": "cloudflare",
+      "platform": "WordPress"
+    }
+  ],
+  "nonPhpBusinesses": [
+    {
+      "id": "75e2419d-1075-4ff8-b348-4172fb6783c0",
+      "name": "Pro Tax Accountant Chelmsford",
+      "website": "https://protaxaccountant.co.uk",
+      "phone": "+447700900456",
+      "email": null,
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Wix (Node.js/Cloud)",
+      "server": "cloudflare"
+    },
+    {
+      "id": "c1599192-84ab-4d8e-aa06-b45b67593485",
+      "name": "Future Focus Consultants Ltd",
+      "website": "https://ffconsultants.co.uk",
+      "phone": "+447700900789",
+      "email": null,
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "hcdn"
+    },
+    {
+      "id": "ed4a8181-5d22-4421-b39f-383fc885e842",
+      "name": "KP Tax Consultants Ltd",
+      "website": "https://kptc.co.uk",
+      "phone": "+447861690954",
+      "email": null,
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Wix (Node.js/Cloud)",
+      "server": "cloudflare"
+    },
+    {
+      "id": "a96fd9d3-2f17-41bc-acf3-88800b62881b",
+      "name": "K S Rathod & Co Ltd",
+      "website": "https://ksrathod.co.uk",
+      "phone": "+447831587536",
+      "email": null,
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "nginx"
+    },
+    {
+      "id": "ef8167ba-601c-4645-9915-3564e68859dd",
+      "name": "Aggarwal Accounts",
+      "website": "https://aggarwalaccounts.com",
+      "phone": "+447700900321",
+      "email": null,
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Squarespace (Java/Node)",
+      "server": "Squarespace"
+    },
+    {
+      "id": "f8864f45-bdb7-408f-9a07-7bd0736863a6",
+      "name": "Jackson Stephen LLP",
+      "website": "https://jacksonstephen.co.uk",
+      "phone": "+447700900832",
+      "email": null,
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": ""
+    },
+    {
+      "id": "47006a72-8319-4d70-b18a-a685d299057e",
+      "name": "Chiene + Tait LLP Chartered Accountants",
+      "website": "https://chiene.co.uk",
+      "phone": "0131 558 5800",
+      "email": "mail@chiene.co.uk",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": ""
+    },
+    {
+      "id": "b94cc114-2294-43d8-b88b-e36dd4e8865f",
+      "name": "Blick Rothenberg Limited",
+      "website": "https://blickrothenberg.com",
+      "phone": "+447700900823",
+      "email": null,
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "cloudflare"
+    },
+    {
+      "id": "bc384c2a-1280-4773-9e0d-e13475258996",
+      "name": "Tait Walker LLP (Azets Newcastle)",
+      "website": "https://azets.co.uk",
+      "phone": "0191 285 0321",
+      "email": "newcastle@azets.co.uk",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "Vercel"
+    },
+    {
+      "id": "1b440d35-7fd0-4272-bc1e-2e2a76d52f02",
+      "name": "Lambert Chapman LLP",
+      "website": "https://lambert-chapman.co.uk",
+      "phone": "+447700900826",
+      "email": null,
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "nginx"
+    },
+    {
+      "id": "1e440d22-09bd-443d-9b5b-810abc5179c9",
+      "name": "Jerroms Chartered Accountants",
+      "website": "https://jerroms.co.uk",
+      "phone": "+447700900812",
+      "email": null,
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Webflow (Node/Edge)",
+      "server": "cloudflare"
+    },
+    {
+      "id": "3e2fb875-8abe-4cd6-aa94-df99cfd24e51",
+      "name": "Baldwins / Azets Birmingham",
+      "website": "https://azets.co.uk",
+      "phone": "0121 236 7000",
+      "email": "birmingham@azets.co.uk",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "Vercel"
+    },
+    {
+      "id": "834075a8-973a-4e5f-aa00-b4417a25778e",
+      "name": "Mercer & Hole Chartered Accountants",
+      "website": "https://mercerhole.co.uk",
+      "phone": "020 7236 2601",
+      "email": "info@mercerhole.co.uk",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "nginx"
+    },
+    {
+      "id": "e5278553-becb-4adb-a87f-67ac2a5ecdff",
+      "name": "Dains Accountants Limited",
+      "website": "https://dains.com",
+      "phone": "0121 200 7900",
+      "email": "info@dains.com",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "cloudflare"
+    },
+    {
+      "id": "96fb0455-11b3-48e7-8b70-1ff19d6333a4",
+      "name": "ST Accountants Limited",
+      "website": "http://staccountant.co.uk",
+      "phone": "07851 395756",
+      "email": "info@staccountant.co.uk",
+      "usesPhp": false,
+      "confidence": "none",
+      "details": "getaddrinfo ENOTFOUND staccountant.co.uk"
+    },
+    {
+      "id": "f21d2351-9081-4ac3-8bca-8e0c273c1988",
+      "name": "PKPI Chartered Accountants",
+      "website": "https://pkpi.uk",
+      "phone": "020 7941 8160",
+      "email": "team@pkpi.uk",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Wix (Node.js/Cloud)",
+      "server": "cloudflare"
+    },
+    {
+      "id": "72d9ed52-013f-44d5-83f6-3108fec6b708",
+      "name": "Sterling Gate Accountants",
+      "website": "https://sterlinggate.co.uk",
+      "phone": "01753 539165",
+      "email": "info@sterlinggate.co.uk",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "nginx"
+    },
+    {
+      "id": "0bd4723b-80db-4fff-9a39-665f9d212949",
+      "name": "M V Accountancy Services Ltd",
+      "website": "https://mvaccountancy.co.uk",
+      "phone": "01753 903056",
+      "email": "info@mvaccountancy.co.uk",
+      "usesPhp": false,
+      "confidence": "none",
+      "details": "Timeout (9s)"
+    },
+    {
+      "id": "19cc7f3e-1213-47da-92fb-3b049459a30d",
+      "name": "TaxAssist Accountants Slough",
+      "website": "https://taxassist.co.uk/accountants/slough/",
+      "phone": "01628 606810",
+      "email": "slough@taxassist.co.uk",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "Vercel"
+    },
+    {
+      "id": "ddc66873-c851-4d14-ab72-372d11edd387",
+      "name": "Nafs Accountants",
+      "website": "https://nafsaccountants.co.uk",
+      "phone": "07931 977239",
+      "email": "info@nafsaccountants.co.uk",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "nginx/1.18.0 (Ubuntu)"
+    },
+    {
+      "id": "876970dd-6d32-45fa-a4e7-d342b249c865",
+      "name": "H A & Co Accountants",
+      "website": "https://haandco.uk",
+      "phone": "020 8288 1525",
+      "email": "info@haandco.uk",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "cloudflare"
+    },
+    {
+      "id": "1ea9fee5-1441-4451-afd1-d23f8ef6c6a6",
+      "name": "Janjua & Co",
+      "website": "https://janjuaaccountants.com",
+      "phone": "01753 516100",
+      "email": "info@janjuaaccountants.com",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Wix (Node.js/Cloud)",
+      "server": "cloudflare"
+    },
+    {
+      "id": "62a4a8e6-0a7a-483a-9b87-c1b55f6345c3",
+      "name": "IAC Accountants",
+      "website": "https://iacaccountants.co.uk",
+      "phone": "01753 533444",
+      "email": "info@iacaccountants.co.uk",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "nginx"
+    },
+    {
+      "id": "14a8f865-f367-466e-88f8-cbcf003b78db",
+      "name": "Al-Baraka Accountants",
+      "website": "https://al-baraka.co.uk",
+      "phone": "01753 535350",
+      "email": "info@al-baraka.co.uk",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "cloudflare"
+    },
+    {
+      "id": "046d9d79-f887-4233-90fb-b8e956b0d3c1",
+      "name": "Sweeting & Smedley Ltd",
+      "website": "https://sweetingandsmedley.co.uk",
+      "phone": "01628 665675",
+      "email": "info@sweetingandsmedley.co.uk",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "cloudflare"
+    },
+    {
+      "id": "dfc780f0-4558-4f36-a327-001eecaffbe8",
+      "name": "Oury Clark",
+      "website": "https://ouryclark.com",
+      "phone": "01753 551111",
+      "email": "contact@ouryclark.com",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "nginx"
+    },
+    {
+      "id": "94121452-abe0-4ba8-aa75-4a7a4360e654",
+      "name": "Wisetax Accountants Ltd",
+      "website": "https://wisetax.org.uk",
+      "phone": "07533 686857",
+      "email": "info@wisetax.org.uk",
+      "usesPhp": false,
+      "confidence": "LOW_OR_NEGATIVE",
+      "nonPhpPlatform": "Custom / Unknown",
+      "server": "Apache"
+    }
+  ]
+}

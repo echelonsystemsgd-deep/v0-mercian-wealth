@@ -174,7 +174,7 @@ export function getLeadFollowUpCadence(lead: Lead): FollowUpCadenceState {
   }
 
   const meta = (lead.scraped_metadata || {}) as Record<string, any>
-  const contactDateStr = meta.contacted_at || lead.updated_at || lead.created_at
+  const contactDateStr = meta.contacted_at || (lead as any).updated_at || lead.created_at
   const contactTime = new Date(contactDateStr).getTime()
   const now = Date.now()
   const hoursSinceContact = Math.max(0, Math.round((now - contactTime) / (1000 * 60 * 60)))
@@ -360,7 +360,7 @@ export default function LeadsPage() {
 
     // Optimistic local state update
     setLeads((prev) =>
-      prev.map((l) => (l.id === leadId ? { ...l, scraped_metadata: updatedMeta } : l))
+      prev.map((l) => (l.id === leadId ? ({ ...l, scraped_metadata: updatedMeta as any } as OutreachLead) : l))
     )
 
     triggerToast(
@@ -593,9 +593,7 @@ export default function LeadsPage() {
 
     query = query.order('created_at', { ascending: false })
 
-    if (statusFilter.length > 0 && activeTab !== 'spam') {
-      query = query.in('status', statusFilter)
-    }
+    // Note: statusFilter is applied client-side in displayedLeads for instant 0ms switching without cache distortion
     if (serviceFilter !== 'All') {
       query = query.eq('service_interested', serviceFilter)
     }
@@ -711,6 +709,11 @@ export default function LeadsPage() {
     let list = leads
 
     if (activeTab === 'active') {
+      // Status filter from Motion Stats Grid (Fresh Leads, Contacted, Won, Lost, etc.)
+      if (statusFilter.length > 0) {
+        list = list.filter((l) => statusFilter.includes(l.status))
+      }
+
       // 1. Direct Quick Filter (New Leads vs Contacted Leads vs Pipeline)
       if (quickFilter === 'new') {
         list = list.filter((l) => l.status === 'New' || contactedInSessionIds.has(l.id))
@@ -763,7 +766,14 @@ export default function LeadsPage() {
             return l.status === 'New' && phoneInfo.isWhatsAppViable
           })
         } else if (queueFilter === 'due_followup') {
-          list = list.filter((l) => l.status === 'Contacted')
+          list = list.filter((l) => {
+            if (l.status !== 'Contacted') return false
+            const cadence = getLeadFollowUpCadence(l)
+            if (followUpSubFilter === 'due_fu1') return cadence.stage === 'due_fu1'
+            if (followUpSubFilter === 'due_fu2') return cadence.stage === 'due_fu2'
+            if (followUpSubFilter === 'cooling_down') return cadence.stage === 'cooling_down'
+            return true
+          })
         } else if (queueFilter === 'active_pipeline') {
           list = list.filter((l) => ['Call Booked', 'Proposal Sent'].includes(l.status))
         } else if (queueFilter === 'needs_review') {
@@ -820,8 +830,11 @@ export default function LeadsPage() {
 
   const toggleStatus = (s: string) => {
     setStatusFilter((prev) => {
-      const next = prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]
-      if (next.length > 0) setQueueFilter('all')
+      const next = prev.includes(s) ? prev.filter((x) => x !== s) : [s]
+      if (next.length > 0) {
+        setQueueFilter('all')
+        setQuickFilter('all')
+      }
       return next
     })
   }
@@ -857,6 +870,29 @@ export default function LeadsPage() {
       fetchLeads()
     } catch (err: any) {
       triggerToast(`Update failed: ${err.message}`)
+      setLoading(false)
+    }
+  }
+
+  const handleBulkMarkFollowUp = async (stage: 1 | 2) => {
+    if (selectedIds.length === 0) return
+    setLoading(true)
+    const nowIso = new Date().toISOString()
+    try {
+      const targets = leads.filter((l) => selectedIds.includes(l.id))
+      for (const t of targets) {
+        const currentMeta = (t.scraped_metadata || {}) as Record<string, any>
+        const updatedMeta = {
+          ...currentMeta,
+          ...(stage === 1 ? { follow_up_1_sent_at: nowIso } : { follow_up_final_sent_at: nowIso, follow_up_2_sent_at: nowIso }),
+        }
+        await supabase.from('leads').update({ scraped_metadata: updatedMeta }).eq('id', t.id)
+      }
+      triggerToast(`✓ Marked Follow-Up ${stage} sent for ${selectedIds.length} practices!`)
+      setSelectedIds([])
+      fetchLeads()
+    } catch (err: any) {
+      triggerToast(`Bulk follow-up failed: ${err.message}`)
       setLoading(false)
     }
   }
@@ -919,11 +955,19 @@ export default function LeadsPage() {
           <button
             onClick={() => setIsSprintOpen(true)}
             disabled={displayedLeads.length === 0}
-            className="flex items-center gap-2 px-3.5 py-2.5 text-xs font-bold rounded-xl bg-amber-400/15 border border-amber-400/30 text-amber-300 hover:bg-amber-400/25 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer shadow-sm"
+            className={`flex items-center gap-2 px-3.5 py-2.5 text-xs font-bold rounded-xl border transition-all cursor-pointer shadow-sm disabled:opacity-40 disabled:cursor-not-allowed ${
+              selectedIds.length > 0
+                ? 'bg-amber-400 text-black border-amber-400 shadow-amber-400/20'
+                : 'bg-amber-400/15 border-amber-400/30 text-amber-300 hover:bg-amber-400/25'
+            }`}
             title="Start sequential outreach sprint through current queue"
           >
-            <Zap size={14} className="text-amber-400" />
-            <span>Sprint ({displayedLeads.length})</span>
+            <Zap size={14} className={selectedIds.length > 0 ? 'text-black' : 'text-amber-400'} />
+            <span>
+              {selectedIds.length > 0
+                ? `Sprint Selected (${selectedIds.length})`
+                : `Sprint (${displayedLeads.length})`}
+            </span>
           </button>
           <button
             onClick={() => setIsSheetSyncOpen(true)}
@@ -1492,7 +1536,40 @@ export default function LeadsPage() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+          <div className="space-y-4">
+            {/* ── CARD SELECTION TOOLBAR ── */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3 px-4 rounded-2xl bg-[#0B0B0D] border border-white/10 text-xs shadow-sm">
+              <label className="flex items-center gap-2.5 cursor-pointer font-medium text-zinc-300 hover:text-white select-none">
+                <input
+                  type="checkbox"
+                  checked={selectedIds.length === displayedLeads.length && displayedLeads.length > 0}
+                  onChange={(e) => handleSelectAll(e.target.checked)}
+                  className="w-4 h-4 accent-[#DAA640] rounded border-white/20 bg-[#141417] text-[#DAA640] focus:ring-0 cursor-pointer"
+                />
+                <span>
+                  {selectedIds.length === displayedLeads.length && displayedLeads.length > 0
+                    ? `All ${displayedLeads.length} leads selected`
+                    : `Select all ${displayedLeads.length} leads in this view`}
+                </span>
+              </label>
+
+              {selectedIds.length > 0 && (
+                <div className="flex items-center gap-3 self-end sm:self-auto">
+                  <span className="text-amber-400 font-mono font-bold text-[11px] bg-amber-400/10 px-2.5 py-1 rounded-lg border border-amber-400/25">
+                    {selectedIds.length} of ${displayedLeads.length} selected
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedIds([])}
+                    className="text-zinc-400 hover:text-white underline text-xs cursor-pointer"
+                  >
+                    Clear
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
             {displayedLeads.map((lead) => {
               const businessName = lead.business_name || lead.name
               const rawTrade = lead.local_business_niche || lead.scraped_metadata?.trade || 'Accountant'
@@ -1526,14 +1603,30 @@ export default function LeadsPage() {
               }
               const mapsUrl = lead.scraped_metadata?.google_maps_url
 
+              const isChecked = selectedIds.includes(lead.id)
+
               return (
                 <div
                   key={lead.id}
-                  className={`rounded-2xl border p-4 sm:p-5 flex flex-col justify-between transition-all duration-200 group relative ${getCardBorderClass(lead.status)}`}
+                  className={`rounded-2xl border p-4 sm:p-5 flex flex-col justify-between transition-all duration-200 group relative ${
+                    isChecked
+                      ? 'border-amber-400/70 bg-[#16161d] shadow-lg shadow-amber-400/5'
+                      : getCardBorderClass(lead.status)
+                  }`}
                 >
                   <div className="space-y-3">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3 min-w-0">
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={(e) => {
+                            e.stopPropagation()
+                            handleSelectRow(lead.id, e.target.checked)
+                          }}
+                          className="w-4 h-4 accent-[#DAA640] rounded border-white/20 bg-[#141417] text-[#DAA640] focus:ring-0 cursor-pointer shrink-0"
+                          title="Select lead"
+                        />
                         <div className="w-10 h-10 rounded-xl bg-[#141417] border border-white/10 text-zinc-200 flex items-center justify-center font-bold text-xs tracking-wider shrink-0">
                           {getInitials(businessName)}
                         </div>
@@ -1778,6 +1871,7 @@ export default function LeadsPage() {
                     {/* Tailored Follow-Up Sequences Drawer for Contacted Leads */}
                     {(lead.status === 'Contacted' || isRetainedInSession) && (() => {
                       const followUps = getLeadFollowUps(lead)
+                      const cadence = getLeadFollowUpCadence(lead)
                       const isExpanded = expandedFollowUpIds.has(lead.id) || quickFilter === 'contacted'
                       return (
                         <div className="mt-3.5 pt-3 border-t border-amber-500/20 bg-amber-500/[0.03] -mx-4 sm:-mx-5 -mb-4 sm:-mb-5 p-4 sm:p-5 rounded-b-2xl space-y-3">
@@ -1935,6 +2029,7 @@ export default function LeadsPage() {
                 </div>
               )
             })}
+            </div>
           </div>
         )
       ) : viewMode === 'kanban' && activeTab === 'active' ? (
@@ -2276,7 +2371,7 @@ export default function LeadsPage() {
       <OutreachSprintRunner
         isOpen={isSprintOpen}
         onClose={() => setIsSprintOpen(false)}
-        leads={displayedLeads}
+        leads={selectedIds.length > 0 ? displayedLeads.filter(l => selectedIds.includes(l.id)) : displayedLeads}
         onUpdateStatus={async (id, status) => {
           await handleUpdateLeadStatus(id, status)
         }}
@@ -2284,32 +2379,58 @@ export default function LeadsPage() {
 
       {/* FLOATING BULK ACTIONS TOOLBAR */}
       {selectedIds.length > 0 && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-[#0B0B0D]/95 border border-white/15 shadow-2xl px-5 py-3 rounded-2xl flex items-center gap-5 sm:gap-8 animate-fade-in w-[90%] max-w-xl justify-between backdrop-blur-md">
-          <div className="flex items-center gap-2">
-            <span className="w-5 h-5 rounded-full bg-[#DAA640] text-black text-[10px] font-bold flex items-center justify-center">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-[#0B0B0D]/95 border border-amber-400/30 shadow-2xl px-4 py-2.5 rounded-2xl flex flex-wrap items-center gap-2.5 sm:gap-4 animate-fade-in w-[95%] max-w-2xl justify-between backdrop-blur-md">
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="w-6 h-6 rounded-full bg-amber-400 text-black text-xs font-bold flex items-center justify-center shadow-sm">
               {selectedIds.length}
             </span>
-            <span className="text-xs text-white font-medium">Selected</span>
+            <span className="text-xs text-white font-bold hidden sm:inline">Selected</span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <button
+              onClick={() => setIsSprintOpen(true)}
+              className="px-2.5 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-black text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm"
+              title="Launch sprint through selected leads"
+            >
+              <Zap size={12} /> Sprint ({selectedIds.length})
+            </button>
+            <button
+              onClick={() => handleBulkStatusUpdate('Contacted')}
+              className="px-2.5 py-1.5 rounded-xl bg-amber-400/15 hover:bg-amber-400/25 border border-amber-400/30 text-amber-300 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
+            >
+              <MessageSquare size={12} /> Contacted
+            </button>
+            <button
+              onClick={() => handleBulkMarkFollowUp(1)}
+              className="px-2.5 py-1.5 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
+            >
+              <Clock size={12} /> Mark FU 1
+            </button>
             <button
               onClick={() => handleBulkStatusUpdate('Won')}
-              className="px-3 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
+              className="px-2.5 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Mark Won
+              <Trophy size={12} /> Won
             </button>
             <button
               onClick={() => handleBulkStatusUpdate('Lost')}
-              className="px-3 py-1 rounded-lg bg-rose-500/15 border border-rose-500/30 text-rose-400 hover:bg-rose-500/25 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
+              className="px-2.5 py-1.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-400 hover:bg-rose-500/25 text-xs font-semibold transition-all cursor-pointer flex items-center gap-1"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-rose-500" /> Mark Lost
+              <XCircle size={12} /> Lost
             </button>
             <button
               onClick={handleBulkDelete}
-              className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-rose-500/20 text-zinc-300 hover:text-rose-300 text-xs font-medium transition-all cursor-pointer"
+              className="px-2.5 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:bg-rose-500/20 text-zinc-400 hover:text-rose-300 text-xs font-medium transition-all cursor-pointer"
             >
-              Delete
+              <Trash2 size={12} />
+            </button>
+            <button
+              onClick={() => setSelectedIds([])}
+              className="px-2 py-1.5 rounded-xl text-zinc-500 hover:text-zinc-300 text-xs font-medium transition-all cursor-pointer"
+              title="Deselect all"
+            >
+              Clear
             </button>
           </div>
         </div>
