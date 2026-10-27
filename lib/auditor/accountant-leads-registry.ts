@@ -50,7 +50,7 @@ export const TARGET_ACCOUNTANT_LEADS_REGISTRY: Record<string, AccountantLeadInte
 • PROTOTYPE FIX: Corporation Tax slider + direct calendar booking session.`,
     whatsappOutreach: {
       message1: `Hi Barrie 👋 Came across Barrie Ingram Accounts in Colchester — quick question: when new Ltd Co directors land on your website in the evening, how does your team pre-qualify their turnover before scheduling discovery calls?`,
-      message2: `Makes complete sense! I had a quick look through barrieingramaccounts.co.uk on mobile and noticed the enquiry form doesn't anchor retainer tiers or let directors reserve a consultation slot on the spot. Usually leads to telephone tag or tire-kickers who aren't ready for professional fees.`,
+      message2: `Makes complete sense! I had a quick look through barrieingramaccounts.co.uk on mobile and noticed the enquiry form doesn\'t anchor retainer tiers or let directors reserve a consultation slot on the spot. Usually leads to telephone tag or tire-kickers who aren't ready for professional fees.`,
       message3: `We engineered an interactive intake prototype specifically for UK accounting practices:
 It lets directors calculate their Corporation Tax band, view estimated retainers, and book directly in 60 seconds.
 
@@ -68,7 +68,7 @@ Book a call with me here: [Link to Book a Call]`
 
 I was looking at barrieingramaccounts.co.uk and noticed prospective clients have to fill out a static contact form with no idea of fees or tax thresholds before you speak with them.
 
-For high-turnover directors, that friction usually means phone-tag or tire-kickers who don't fit your ideal retainer.
+For high-turnover directors, that friction usually means phone-tag or tire-kickers who don\'t fit your ideal retainer.
 
 I put together a live prototype of an interactive client acquisition engine specifically for UK accountants:
 It features an instant Corporation Tax & retainer estimator and a direct 60-second consultation booking flow, so only pre-qualified clients reach your calendar.
@@ -278,7 +278,7 @@ Book a call with me here: [Link to Book a Call]`
       subject: 'Streamlining inbound client qualification at Pro Tax Accountant',
       body: `Hi team,
 
-I was analyzing the intake journey on protaxaccountant.co.uk. The site drives high traffic, but prospective clients are met with extensive service lists and generic web forms that don't pre-qualify turnover or budget.
+I was analyzing the intake journey on protaxaccountant.co.uk. The site drives high traffic, but prospective clients are met with extensive service lists and generic web forms that don\'t pre-qualify turnover or budget.
 
 As a result, your team likely spends hours filtering out low-margin inquiries.
 
@@ -332,7 +332,7 @@ Book a call with me here: [Link to Book a Call]`
       subject: 'Interactive client intake for FF Consultants',
       body: `Hi team,
 
-I was reviewing ffconsultants.co.uk. You clearly have strong technical expertise, but the website relies on standard contact forms that don't give the visitor an immediate commercial reason to engage right then and there.
+I was reviewing ffconsultants.co.uk. You clearly have strong technical expertise, but the website relies on standard contact forms that don\'t give the visitor an immediate commercial reason to engage right then and there.
 
 We engineered a live prototype demonstrating how progressive UK firms convert passive visitors into confirmed discovery calls:
 It lets business owners run a 10-second tax assessment and immediately lock in an appointment on your calendar.
@@ -469,7 +469,7 @@ Mercian Wealth`
 • HUMAN REALITY: Partners spend evenings in manual discovery calls with price-shoppers instead of focusing on high-value advisory.
 • CARING BLUEPRINT: Automated turnover qualification slider anchoring standard retainers and saving 10+ hours of admin.`,
     whatsappOutreach: {
-      message1: `Hi team 👋 Came across AccountAbility Yorkshire — really liked how you present your services. Quick question if you don't mind: ahead of the upcoming 7 November quarterly update deadline and MTD updates, is your team currently taking on new clients, or is capacity booked out right now?`,
+      message1: `Hi team 👋 Came across AccountAbility Yorkshire — really liked how you present your services. Quick question if you don\'t mind: ahead of the upcoming 7 November quarterly update deadline and MTD updates, is your team currently taking on new clients, or is capacity booked out right now?`,
       message2: `Makes complete sense! Reason I asked is that on accability.co.uk, prospective clients submit general forms without turnover tiering. We often see fee-earners spend hours speaking with micro-businesses not ready for standard advisory retainers, when your time is worth much more.`,
       message3: `We engineered an interactive prototype showing how UK accounting firms anchor standard advisory retainers and filter enquiries before they book into your diary:
 Happy to share a 30-second walkthrough if you're curious? (Zero pressure at all 👍)`,
@@ -664,7 +664,7 @@ Mercian Wealth`
     },
     "emailOutreach": {
         "subject": "Mobile intake & consultation booking for PKPI Accountants",
-        "body": "Hi PKPI team,\n\nI noticed on pkpi.uk that the mobile layout suffers from fixed-width overflow on smartphones, and the Book Consultation link doesn't provide live booking.\n\nWe built an interactive practice prototype showing how healthcare accountants capture enquiries smoothly:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nOpen to a 10-minute call this week?\n\nBest regards,\nGurtej Singh\nMercian Wealth"
+        "body": "Hi PKPI team,\n\nI noticed on pkpi.uk that the mobile layout suffers from fixed-width overflow on smartphones, and the Book Consultation link doesn\'t provide live booking.\n\nWe built an interactive practice prototype showing how healthcare accountants capture enquiries smoothly:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nOpen to a 10-minute call this week?\n\nBest regards,\nGurtej Singh\nMercian Wealth"
     }
 },
   'mvaccountancy.co.uk': {
@@ -957,6 +957,564 @@ Mercian Wealth`
         "body": "Hi team,\n\nWe are auditing Thames Valley corporate accounting and tax firms to grant exclusive territory rights to our high-growth acquisition OS.\n\nWhile inspecting your client pathway on wilson-partners.co.uk, we noted that prospective commercial clients have to navigate 4 separate pages to reach an enquiry form, with zero instant booking available for partners.\n\nWe engineered a streamlined practice prototype showing how high-tier advisory firms pre-qualify corporate clients and lock in discovery sessions in 60 seconds:\nhttps://uk-accountancy-os-prototype.vercel.app/\n\nWe strictly partner with one firm of your tier in this corridor. If you want to inspect this on a brief 10-minute call this week before we offer it to another regional player, let us know.\n\nIf you prefer your existing pathway, we will move on.\n\nReply with \"stop\" to opt out.\n\nBest regards,\nGurtej Singh\nMercian Wealth"
     }
 },
+
+  'caaass.in': {
+    domain: 'caaass.in',
+    businessName: 'A A S S & Associates',
+    ownerOrDirector: 'CA Shivam Sharma & CA Akhil Aggarwal',
+    phone: '+918360179845',
+    trade: 'Chartered Accountants & Cross-Border Tax Consultants',
+    location: '68-C, Kashmir Avenue, Amritsar, Punjab 143001',
+    pageLocation: 'Homepage & /contact',
+    observableFriction: 'High-stakes cross-border NRI & UAE corporate tax practice using an open single-page contact form with no encrypted client portal or document verification.',
+    frictionBadge: 'Unprotected Cross-Border Intake',
+    evidence: 'Website on Vercel runs an open unencrypted form with no client document upload or identity validation for international filings.',
+    recognizableReason: 'When international corporate directors submit cross-border books, submitting sensitive accounts via an unauthenticated web form creates hesitation.',
+    consequenceMechanics: 'High-ticket transfer pricing & NRI litigation clients abandon the inquiry before scheduling, while partners field unstructured inquiries manually.',
+    prototypeRemedy: 'Institutional-grade cross-border client intake portal with encrypted multi-jurisdiction document upload and instant consultation scheduling.',
+    prototypeUrl: 'https://uk-accountancy-os-prototype.vercel.app/',
+    customNotes: `• VERIFIED FLAW: Open unencrypted contact form on Next.js/Vercel handling cross-border NRI/UAE corporate tax.
+• LOCATION: Homepage & Contact section.
+• COMMERCIAL LEAK: High-net-worth international clients hesitate to submit financial accounts over generic open web forms.
+• PROTOTYPE FIX: Institutional client portal with encrypted document intake vault.`,
+    followUp1: `Hi Shivam and Akhil, following up on our note regarding caaass.in. We put together a short video walkthrough demonstrating how Tier-1 international advisory firms triage multi-jurisdiction NRI and corporate tax filings in a secure client portal before the first consultation. Would you like me to send over the 2-minute walkthrough?`,
+    followUp2: `Hi Shivam, closing our outreach here as we only implement our client intake infrastructure with one cross-border advisory practice in your region. If you ever want to review the institutional portal architecture we put together, feel free to reach out. Wishing your practice continued growth across India and the UAE.`,
+    whatsappOutreach: {
+      message1: `Hi Shivam, hope your week is off to a good start.
+
+I came across A A S S & Associates while looking at cross-border advisory firms in Amritsar.
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days, and attackers weaponised it in hours. Technology is shifting fast, and your practice runs on the same foundations. 
+
+Looking at caaass.in, you handle high-stakes NRI and UAE corporate taxation, but your primary digital intake still runs through an open standard web form. When international directors submit sensitive financial data, doing so without an encrypted client portal can create hesitation right at the first consultation step.
+
+We build institutional-grade client portals specifically for accounting practices, and I’ve put together a working prototype demonstrating how structured cross-border intake works.
+
+Would you be open to a short 10-minute call this week so I can show you how it looks?`,
+      message2: `Would you be open to a short 10-minute call this week so I can show you how it looks?`,
+      message3: `Here is the working prototype demonstrating encrypted cross-border intake: https://uk-accountancy-os-prototype.vercel.app/`,
+      quickDirectPitch: `Hi Shivam, noticed on caaass.in that high-stakes cross-border inquiries hit an open web form without encrypted document collection. We built an institutional portal prototype tailored for international tax practices. Open to a 10-minute call to walk through it?`
+    },
+    emailOutreach: {
+      subject: 'Quick idea regarding cross-border intake on caaass.in',
+      body: `Hi Shivam and Akhil,
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days. Then attackers used AI to weaponise it in hours. Hospitals went offline. Government sites went dark. Your business runs on the same technology.
+
+I came across A A S S & Associates while looking at cross-border advisory practices in Amritsar and noticed your setup on caaass.in. You're handling high-stakes international taxation across the UAE, UK, and India, but your primary digital touchpoint is a standard single-page contact form.
+
+When multinational directors or NRI clients look for transfer pricing and cross-border advisory, submitting sensitive corporate details through an open web form rather than a dedicated, encrypted intake portal can cause hesitation before the first consultation.
+
+The question isn\'t whether AI is changing the game. It already has. The only question is which side of it you\'re on. We put AI on your side.
+
+We specialize in client intake systems for international tax and advisory practices, and we’ve built an institutional-grade client portal prototype demonstrating structured intake and cross-border document collection.
+
+Would you be open to a quick 10–15 minute call so I can walk you through it?
+
+Best,
+Gurtej Singh
+Founder | Mercian Wealth
+T 07851055929
+E mercianwealthgs@gmail.com
+W www.mercianwealth.com`
+    }
+  },
+
+  'ranjitsinghca.com': {
+    domain: 'ranjitsinghca.com',
+    businessName: 'Ranjit Singh & Co. Chartered Accountants',
+    ownerOrDirector: 'CA Ranjit Singh',
+    phone: '+919779997198',
+    trade: 'Chartered Accountants & Statutory Auditors',
+    location: 'Office No. 26 MK Complex Avtar Avenue / 536 Rajinder Nagar, Amritsar',
+    pageLocation: 'Directory listings & Google Maps',
+    observableFriction: 'Decades of audit and compliance pedigree operating without a direct digital intake portal, leaving prospective clients to unverified third-party directory listings.',
+    frictionBadge: 'Zero Direct Intake Portal',
+    evidence: 'Listing routes to generic directory aggregators with no direct intake portal for statutory audit inquiries.',
+    recognizableReason: 'When enterprise clients look for statutory audit or tax advisory, having to rely solely on unverified business directories makes it harder to initiate engagements.',
+    consequenceMechanics: 'High-value corporate audit opportunities bounce to modernized practices while the firm relies on offline word-of-mouth.',
+    prototypeRemedy: 'Bespoke client portal with institutional intake workflows for statutory audits and corporate tax compliance.',
+    prototypeUrl: 'https://uk-accountancy-os-prototype.vercel.app/',
+    customNotes: `• VERIFIED FLAW: Zero direct digital portal presence; reliant on third-party aggregators.
+• LOCATION: Google Maps practice listing.
+• COMMERCIAL LEAK: Qualified corporate leads drop off without a direct verified intake channel.
+• PROTOTYPE FIX: Institutional client acquisition portal.`,
+    followUp1: `Hi Ranjit, following up on my note regarding digital intake for Ranjit Singh & Co. We mapped out how established statutory audit practices capture high-value corporate clients directly online without relying on aggregators. Would you be open to seeing the 2-minute walkthrough?`,
+    followUp2: `Hi Ranjit, concluding our outreach here as we strictly partner with one established CA firm in Amritsar for our intake platform. If you ever decide to establish an institutional client portal for your practice, feel free to reach out. Wishing you and your team a successful audit quarter.`,
+    whatsappOutreach: {
+      message1: `Hi Ranjit, hope you're well.
+
+I came across Ranjit Singh & Co. through your practice listing in Amritsar.
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days, and attackers weaponised it in hours. Technology has changed the playing field, and your business runs on the same infrastructure.
+
+With your firm\'s decades of statutory audit and advisory experience, I noticed that prospective clients searching for your practice currently have no direct, encrypted digital portal to initiate an engagement, leaving them to rely on unverified third-party directories.
+
+We build institutional client intake portals specifically for Chartered Accountants, and I’ve put together a prototype demonstrating how a modern intake system works for an established practice.
+
+Would you be open to a quick 10-minute call so I can show you?`,
+      message2: `Would you be open to a quick 10-minute call so I can show you?`,
+      message3: `Here is the prototype demonstrating institutional practice intake: https://uk-accountancy-os-prototype.vercel.app/`,
+      quickDirectPitch: `Hi Ranjit, noticed Ranjit Singh & Co. lacks a direct digital intake portal, leaving clients to third-party directories. We built a prototype client portal for CAs. Open to a 10-minute call to see it?`
+    },
+    emailOutreach: {
+      subject: 'Quick idea for Ranjit Singh & Co.',
+      body: `Hi Ranjit,
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days. Then attackers used AI to weaponise it in hours. Hospitals went offline. Government sites went dark. Your business runs on the same technology.
+
+I came across Ranjit Singh & Co. through your Avtar Avenue practice listing and noticed that despite your established audit and corporate advisory standing, prospective clients searching for your firm have no direct, encrypted intake point to initiate an engagement.
+
+When businesses look for statutory audit or tax advisory, having to rely solely on unverified third-party directory listings can make it harder for qualified clients to connect directly with your partners.
+
+The question isn\'t whether AI is changing the game. It already has. The only question is which side of it you\'re on. We put AI on your side.
+
+We specialize in client intake infrastructure for Chartered Accountants, and we’ve put together a prototype demonstrating an institutional-grade, fully encrypted client portal for accounting practices.
+
+Would you be open to a quick 10–15 minute call so I can walk you through it?
+
+Best,
+Gurtej Singh
+Founder | Mercian Wealth
+T 07851055929
+E mercianwealthgs@gmail.com
+W www.mercianwealth.com`
+    }
+  },
+
+  'jlkhanna.com': {
+    domain: 'jlkhanna.com',
+    businessName: 'J.L.Khanna & Co.',
+    ownerOrDirector: 'CA Jiwan Lal Khanna & CA Vaibhav Khanna',
+    phone: '+919814770030',
+    trade: 'Chartered Accountants & Tax Consultants',
+    location: '47-A, Lane No 1, Dayanand Nagar, Amritsar, Punjab 143001',
+    pageLocation: 'Homepage & server headers',
+    observableFriction: 'Missing mobile viewport tag forcing smartphones into a shrunk 980px desktop view + Apache Mod_Security 406 Not Acceptable error blocking incoming client traffic.',
+    frictionBadge: 'Mobile 406 Block & No Viewport',
+    evidence: 'https://jlkhanna.com/ returns HTTP 406 Mod_Security block on standard mobile requests and lacks <meta name="viewport">.',
+    recognizableReason: 'Corporate directors researching tax appeals or GST compliance on mobile devices encounter an unreadable desktop view or an automated server error screen.',
+    consequenceMechanics: 'Over 65% of mobile traffic bounces immediately upon hitting the security block, burning qualified corporate leads.',
+    prototypeRemedy: 'High-reliability, responsive client intake portal with zero firewall false positives and 60-second corporate pre-qualification.',
+    prototypeUrl: 'https://uk-accountancy-os-prototype.vercel.app/',
+    customNotes: `• VERIFIED FLAW: Apache Mod_Security 406 Not Acceptable error on mobile + missing responsive viewport tag.
+• LOCATION: Web server & homepage root.
+• COMMERCIAL LEAK: Over 65% of corporate traffic on smartphones is hit with a server firewall error.
+• PROTOTYPE FIX: Always-on high-availability responsive client portal.`,
+    followUp1: `Hi Vaibhav, following up on my observation regarding jlkhanna.com\'s mobile 406 server block. We built a fast, always-on client portal designed to handle mobile traffic seamlessly and pre-qualify corporate tax clients in 60 seconds. Would you like me to share a 2-minute walkthrough?`,
+    followUp2: `Hi Vaibhav, concluding our outreach here as we only implement this with a single tax practice in Amritsar. If you ever want to resolve the mobile server friction and see the portal architecture, feel free to reach out. Wishing J.L.Khanna & Co. a great filing season.`,
+    whatsappOutreach: {
+      message1: `Hi Vaibhav, hope you're having a productive week.
+
+I came across J.L.Khanna & Co. through your practice listing in Amritsar.
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days, and attackers weaponised it in hours. Technology has changed the playing field, and your firm relies on the same digital infrastructure.
+
+I checked jlkhanna.com on mobile and noticed the site has no responsive viewport tag, meaning smartphones render it as a tiny, shrunk desktop page that requires constant manual pinching to read. On top of that, your Apache server is triggering an "HTTP 406 Not Acceptable" block for incoming visitors. When prospective corporate clients research your firm on their phones, that friction often leads them to abandon the site immediately.
+
+We build responsive, institutional-grade intake portals specifically for Chartered Accountants, and I’ve put together a prototype demonstrating an always-on client intake flow.
+
+Would you be open to a quick 10-minute call so I can show you how it works?`,
+      message2: `Would you be open to a quick 10-minute call so I can show you how it works?`,
+      message3: `Here is the prototype demonstrating always-on intake: https://uk-accountancy-os-prototype.vercel.app/`,
+      quickDirectPitch: `Hi Vaibhav, noticed on jlkhanna.com that mobile visitors face an unreadable desktop view and an Apache 406 server block. We built a responsive practice portal prototype for CAs. Open to a 10-minute call to see it?`
+    },
+    emailOutreach: {
+      subject: 'Quick observation regarding mobile intake on jlkhanna.com',
+      body: `Hi Jiwan and Vaibhav,
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days. Then attackers used AI to weaponise it in hours. Hospitals went offline. Government sites went dark. Your business runs on the same technology.
+
+I came across J.L.Khanna & Co. through your practice listing in Amritsar and noticed a critical multi-device friction on jlkhanna.com: the site lacks a responsive mobile viewport tag, forcing modern smartphones to render it as a shrunk 980px desktop screen where text is unreadable without zooming, while your Apache server intermittently blocks mobile visitors with an "HTTP 406 Not Acceptable" error.
+
+When business owners research your 40-year tax practice on their phones, hitting an unformatted mobile view or a server block often causes them to bounce to another firm before reaching out.
+
+The question isn\'t whether AI is changing the game. It already has. The only question is which side of it you\'re on. We put AI on your side.
+
+We specialize in high-reliability, responsive client intake portals for Chartered Accountants, and we’ve built an institutional-grade prototype demonstrating a seamless mobile-first client portal.
+
+Would you be open to a quick 10–15 minute call so I can walk you through it?
+
+Best,
+Gurtej Singh
+Founder | Mercian Wealth
+T 07851055929
+E mercianwealthgs@gmail.com
+W www.mercianwealth.com`
+    }
+  },
+
+  'riteshglobalca.com': {
+    domain: 'riteshglobalca.com',
+    businessName: 'Ritesh Arora & Associates',
+    ownerOrDirector: 'CA Ritesh Arora',
+    phone: '+919888466739',
+    trade: 'Chartered Accountants & Financial Advisors',
+    location: '4th Floor, SCO 91, B-Block, Ranjit Avenue, Amritsar, Punjab 143001',
+    pageLocation: 'Google search snippet & /services',
+    observableFriction: 'Google search snippet displays unconfigured developer placeholder metadata ("Built with Next.js and Tailwind CSS") and lacks secure client file intake.',
+    frictionBadge: 'Developer Template Leak in SEO',
+    evidence: 'Google search listing renders default Tailwind boilerplate metadata in place of professional service descriptions.',
+    recognizableReason: 'Corporate clients seeking audit and advisory see developer demo text on Google, raising doubts about the active maintenance of the firm\'s systems.',
+    consequenceMechanics: 'Prospective business owners hesitate to submit sensitive financial information, seeking more polished institutional practices.',
+    prototypeRemedy: 'Clean, production-ready institutional client portal with verified metadata, SEO hygiene, and encrypted client intake.',
+    prototypeUrl: 'https://uk-accountancy-os-prototype.vercel.app/',
+    customNotes: `• VERIFIED FLAW: Developer demo metadata displayed live in Google search snippet.
+• LOCATION: SEO meta tags on riteshglobalca.com.
+• COMMERCIAL LEAK: High-value corporate clients question firm technical competence.
+• PROTOTYPE FIX: Production-grade CA client portal.`,
+    followUp1: `Hi Ritesh, following up on my note regarding the placeholder metadata displaying on riteshglobalca.com\'s Google snippet. We designed an institutional client portal for CAs that replaces template gaps with automated client onboarding. Would you be open to a 2-minute walkthrough?`,
+    followUp2: `Hi Ritesh, wrapping up our outreach here as we only work with one practice in Ranjit Avenue for our portal infrastructure. If you ever want to inspect the client acquisition engine we built, feel free to reach out. Wishing your practice continued success.`,
+    whatsappOutreach: {
+      message1: `Hi Ritesh, hope you're doing well.
+
+I came across Ritesh Arora & Associates through your Ranjit Avenue practice listing.
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days, and attackers weaponised it in hours. The question isn't whether AI is changing the game, but which side of it you're on.
+
+I was looking at riteshglobalca.com and noticed your Google search listing is currently broadcasting default developer placeholder text ("Built with Next.js and Tailwind CSS"). When corporate clients search for your firm, seeing template strings can cause hesitation about the active maintenance of your digital systems.
+
+We specialize in client intake portals for Chartered Accountants, and I’ve built a working prototype showing how an institutional-grade portal looks and functions.
+
+Would you be open to a quick 10-minute call so I can walk you through it?`,
+      message2: `Would you be open to a quick 10-minute call so I can walk you through it?`,
+      message3: `Here is the working prototype: https://uk-accountancy-os-prototype.vercel.app/`,
+      quickDirectPitch: `Hi Ritesh, noticed riteshglobalca.com displays developer placeholder text on Google. We built a dedicated client portal prototype for CAs. Open to a 10-minute call to see it?`
+    },
+    emailOutreach: {
+      subject: 'Quick observation regarding riteshglobalca.com',
+      body: `Hi Ritesh,
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days. Then attackers used AI to weaponise it in hours. Hospitals went offline. Government sites went dark. Your business runs on the same technology.
+
+I came across Ritesh Arora & Associates through your Ranjit Avenue office listing and noticed a metadata issue on riteshglobalca.com: your public search snippet is currently displaying default developer placeholder text ("Consulting and advisory services. Built with Next.js and Tailwind CSS.").
+
+When corporate clients look up your practice for consulting or advisory, seeing unconfigured developer placeholder tags can make them wonder if the firm\'s digital systems are actively maintained.
+
+The question isn\'t whether AI is changing the game. It already has. The only question is which side of it you\'re on. We put AI on your side.
+
+We specialize in client intake systems and web infrastructure for Chartered Accountants, and we’ve built an institutional-grade prototype demonstrating a fully configured, secure client portal.
+
+Would you be open to a quick 10–15 minute call so I can walk you through it?
+
+Best,
+Gurtej Singh
+Founder | Mercian Wealth
+T 07851055929
+E mercianwealthgs@gmail.com
+W www.mercianwealth.com`
+    }
+  },
+
+  'pnarora.com': {
+    domain: 'pnarora.com',
+    businessName: 'P.N. Arora and Associates',
+    ownerOrDirector: 'CA P.N. Arora',
+    phone: '+919356004533',
+    trade: 'Chartered Accountants & Tax Consultants',
+    location: 'Upper Ground Floor, Unit No 1, SRK Mall, Mall Rd, Amritsar, Punjab 143001',
+    pageLocation: 'Server firewall root',
+    observableFriction: 'Web server firewall returning HTTP 406 Not Acceptable on all direct visits, taking the firm\'s digital presence completely offline for prospective clients.',
+    frictionBadge: 'HTTP 406 Server Outage',
+    evidence: 'http://pnarora.com/ throws automated HTTP 406 error response to standard browser traffic.',
+    recognizableReason: 'When clients seek out tax or consulting services, running into an automated server block leads them to assume the firm is inactive.',
+    consequenceMechanics: '100% of organic inbound web traffic is lost at the firewall layer.',
+    prototypeRemedy: 'High-availability client intake infrastructure running on modern edge servers with instant booking.',
+    prototypeUrl: 'https://uk-accountancy-os-prototype.vercel.app/',
+    customNotes: `• VERIFIED FLAW: Server returns HTTP 406 Not Acceptable on all direct visits.
+• LOCATION: Entire pnarora.com web presence.
+• COMMERCIAL LEAK: Inbound corporate tax inquiries blocked at server level.
+• PROTOTYPE FIX: Modern edge-deployed intake portal.`,
+    followUp1: `Hi P.N., following up on my note regarding pnarora.com\'s server firewall error. We put together a high-reliability portal prototype for accounting practices that ensures zero downtime and captures high-value inquiries 24/7. Would you like to review the 2-minute walkthrough?`,
+    followUp2: `Hi P.N., concluding our outreach here as we only reserve this system for one firm in Amritsar. If you ever want to get your digital intake back up on an institutional portal, feel free to get in touch. Wishing you all the best.`,
+    whatsappOutreach: {
+      message1: `Hi P.N., hope you're having a productive week.
+
+I came across P.N. Arora and Associates through your SRK Mall listing.
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days, and attackers weaponised it in hours. Web infrastructure is shifting rapidly, and your firm relies on the same digital channels.
+
+I tried visiting your website pnarora.com and noticed your server is actively blocking visitors with an "HTTP 406 Not Acceptable" error. When prospective clients look for tax advisory and hit an immediate server block, they often assume the firm\'s web presence is down or unmonitored.
+
+We build secure, high-reliability client intake systems for Chartered Accountants, and I’ve built a prototype demonstrating an institutional-grade client portal.
+
+Would you be open to a brief 10-minute call so I can walk you through it?`,
+      message2: `Would you be open to a brief 10-minute call so I can walk you through it?`,
+      message3: `Here is the working prototype: https://uk-accountancy-os-prototype.vercel.app/`,
+      quickDirectPitch: `Hi P.N., noticed pnarora.com throws an HTTP 406 server error blocking all visitors. We built an always-on client portal prototype for CAs. Open to a 10-minute call to see it?`
+    },
+    emailOutreach: {
+      subject: 'Technical issue noticed on pnarora.com',
+      body: `Hi P.N.,
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days. Then attackers used AI to weaponise it in hours. Hospitals went offline. Government sites went dark. Your business runs on the same technology.
+
+I came across P.N. Arora and Associates through your SRK Mall listing and noticed an issue when trying to visit pnarora.com: your server currently returns an HTTP 406 Not Acceptable error, blocking standard web visitors from loading your firm\'s pages.
+
+When potential clients seek out your tax or consulting services, running into an automated server block often leads them to assume the firm is inactive or unreachable online.
+
+The question isn\'t whether AI is changing the game. It already has. The only question is which side of it you\'re on. We put AI on your side.
+
+We specialize in high-reliability client intake infrastructure for Chartered Accountants, and we’ve put together an institutional-grade prototype demonstrating an always-on client portal.
+
+Would you be open to a quick 10–15 minute call so I can show you how it works?
+
+Best,
+Gurtej Singh
+Founder | Mercian Wealth
+T 07851055929
+E mercianwealthgs@gmail.com
+W www.mercianwealth.com`
+    }
+  },
+
+  'carishimahajan.com': {
+    domain: 'carishimahajan.com',
+    businessName: 'Vijay Rishi & Co. / CA Rishi Mahajan',
+    ownerOrDirector: 'CA Rishi Mahajan',
+    phone: '+919780913380',
+    trade: 'Chartered Accountants & GST Specialists',
+    location: '2nd Floor, 104, Lawrence Road, Opposite Ritu Wears, Joshi Colony, Amritsar 143001',
+    pageLocation: 'Primary domain redirect & carishimahajan.com',
+    observableFriction: 'Listed business domain easyonlinereturn.com hijacked and redirecting to Indonesian online casino TOKEK88; personal domain has 0 intake forms.',
+    frictionBadge: 'Compromised Domain Redirect',
+    evidence: 'Visiting easyonlinereturn.com redirects directly to Indonesian gambling portal TOKEK88.',
+    recognizableReason: 'When tax and GST clients click your link, an offshore gambling redirect creates an immediate crisis of trust and damages reputation.',
+    consequenceMechanics: 'Devastating loss of institutional credibility and immediate lead abandonment.',
+    prototypeRemedy: 'Encrypted client intake portal with secure domain routing, automated GST filing triage, and instant appointment booking.',
+    prototypeUrl: 'https://uk-accountancy-os-prototype.vercel.app/',
+    customNotes: `• VERIFIED FLAW: easyonlinereturn.com hijacked by TOKEK88 Indonesian gambling casino.
+• LOCATION: Google Business Profile primary URL.
+• COMMERCIAL LEAK: Severe reputational compromise; 100% bounce on GST inquiries.
+• PROTOTYPE FIX: Encrypted secure practice intake platform.`,
+    followUp1: `Hi Rishi, following up on my note regarding the casino redirect on your registered domain easyonlinereturn.com. We built an enterprise-grade, encrypted intake portal for tax practices that secures client data and automates GST intake. Would you be open to a quick 2-minute walkthrough?`,
+    followUp2: `Hi Rishi, concluding our outreach here as we strictly partner with one firm in the Lawrence Road corridor. If you'd like to see how we secure client intake with our prototype, feel free to reach out anytime. Wishing your practice continued success.`,
+    whatsappOutreach: {
+      message1: `Hi Rishi, hope you're well.
+
+I'm reaching out because I came across Vijay Rishi & Co. through your Lawrence Road listing and noticed a critical issue with your web presence.
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days, and attackers weaponised it in hours. The question isn't whether AI is changing security, but which side of it you're on.
+
+Your primary listed domain easyonlinereturn.com has been compromised and is actively redirecting visitors to an overseas online casino site (TOKEK88). When tax and GST clients click your link, this kind of redirection immediately undermines client trust.
+
+We specialize in secure, institutional-grade client portals for CAs, and I’ve put together a prototype showing what a modern, secure client intake system looks like.
+
+Would you be open to a quick 10-minute call so I can walk you through it?`,
+      message2: `Would you be open to a quick 10-minute call so I can walk you through it?`,
+      message3: `Here is the secure prototype: https://uk-accountancy-os-prototype.vercel.app/`,
+      quickDirectPitch: `Hi Rishi, your primary domain easyonlinereturn.com is compromised and redirects to an online casino. We built a secure portal prototype for CAs. Open to a 10-minute call to walk through securing it?`
+    },
+    emailOutreach: {
+      subject: 'Urgent security issue regarding easyonlinereturn.com',
+      body: `Hi Rishi,
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days. Then attackers used AI to weaponise it in hours. Hospitals went offline. Government sites went dark. Your business runs on the same technology.
+
+I came across Vijay Rishi & Co. through your Lawrence Road practice listing and noticed a critical security problem: your registered domain easyonlinereturn.com is currently compromised and redirecting visitors directly to an Indonesian online gambling portal (TOKEK88).
+
+When clients search for your GST or tax return services, being redirected to an offshore gambling site creates an immediate crisis of trust and damages professional credibility.
+
+The question isn\'t whether AI is changing the game. It already has. The only question is which side of it you\'re on. We put AI on your side.
+
+We build secure, institutional-grade client intake portals for Chartered Accountants, and we’ve put together a prototype demonstrating an enterprise-grade client platform for tax practices.
+
+Would you be open to a quick 10–15 minute call so I can show you how to secure your practice\'s intake?
+
+Best,
+Gurtej Singh
+Founder | Mercian Wealth
+T 07851055929
+E mercianwealthgs@gmail.com
+W www.mercianwealth.com`
+    }
+  },
+
+  'saraccounting.com': {
+    domain: 'saraccounting.com',
+    businessName: 'SAR Accounting & Tax Solutions',
+    ownerOrDirector: 'Sharn Gill, CPA, CGA',
+    phone: '+14034557077',
+    trade: 'Chartered Professional Accountants',
+    location: 'Unit 214, 2880 45 Ave SE, Calgary, AB T2B 3M1',
+    pageLocation: 'Homepage & /contact',
+    observableFriction: 'Outdated Google reCAPTCHA v2 badge cluttering mobile viewports with no corporate tax calculator or instant booking flow for Calgary business owners.',
+    frictionBadge: 'Cluttered CAPTCHA & Static Intake',
+    evidence: 'Homepage features visible reCAPTCHA badge obstructing mobile content with a static delayed enquiry form.',
+    recognizableReason: 'Calgary corporate directors needing rapid year-end tax filings bounce from forms with no fee indication or instant scheduling.',
+    consequenceMechanics: 'Partner time wasted on unqualified calls while high-fee corporate retainers book elsewhere.',
+    prototypeRemedy: 'Alberta Corporate Tax & Retainer Estimator with direct 60-second consultation booking.',
+    prototypeUrl: 'https://uk-accountancy-os-prototype.vercel.app/',
+    customNotes: `• VERIFIED FLAW: Cluttered reCAPTCHA badge and static contact form without retainer pre-qualification.
+• LOCATION: Calgary, AB homepage & contact.
+• COMMERCIAL LEAK: Corporate clients drop off into telephone tag.
+• PROTOTYPE FIX: Corporate tax calculator + direct calendar hold.`,
+    followUp1: `Hi Sharn, following up on my note regarding saraccounting.com. We built a working prototype of a Canadian CPA client acquisition engine with an instant corporate tax calculator and direct discovery booking. Would you like to review the 2-minute walkthrough?`,
+    followUp2: `Hi Sharn, wrapping up our outreach here as we reserve territory implementation for a single accounting practice in Calgary. If you ever want to review the prototype architecture, feel free to reach out. Wishing your practice a strong quarter.`,
+    whatsappOutreach: {
+      message1: `Hi Sharn, hope you're having a productive week.
+
+I came across SAR Accounting & Tax Solutions in Calgary.
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days, and attackers weaponised it in hours. Technology has transformed how clients choose professionals, and your firm relies on the same infrastructure.
+
+Looking at saraccounting.com on mobile, prospective corporate clients hit a static inquiry form cluttered with a floating reCAPTCHA badge, with no upfront corporate tax calculation or direct booking hold. For high-turnover Alberta directors, that delay often leads to telephone tag.
+
+We engineered a Canadian CPA intake prototype featuring an instant corporate tax estimator and 60-second discovery scheduling.
+
+Would you be open to a quick 10-minute call so I can walk you through it?`,
+      message2: `Would you be open to a quick 10-minute call so I can walk you through it?`,
+      message3: `Here is the Canadian CPA intake prototype: https://uk-accountancy-os-prototype.vercel.app/`,
+      quickDirectPitch: `Hi Sharn, noticed saraccounting.com uses a static contact form without corporate tax tiering or instant booking. We built a prototype for Canadian CPAs. Open to a 10-minute call to see it?`
+    },
+    emailOutreach: {
+      subject: 'Corporate tax calculator & direct booking for SAR Accounting',
+      body: `Hi Sharn,
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days. Then attackers used AI to weaponise it in hours. Hospitals went offline. Government sites went dark. Your business runs on the same technology.
+
+I came across SAR Accounting & Tax Solutions through your Calgary SE office listing and noticed prospective corporate clients have to submit a static contact form obstructed by a floating reCAPTCHA badge, with no immediate fee expectations or booking hold.
+
+For busy Alberta business owners needing corporate tax planning, having to wait for manual email callbacks usually means lost momentum or tire-kickers who don\'t fit your ideal retainer.
+
+The question isn\'t whether AI is changing the game. It already has. The only question is which side of it you\'re on. We put AI on your side.
+
+We built an institutional-grade intake prototype specifically for Canadian CPA practices, featuring an instant Corporate Tax & Retainer Estimator and direct discovery scheduling.
+
+Would you be open to a quick 10–15 minute call so I can walk you through it?
+
+Best,
+Gurtej Singh
+Founder | Mercian Wealth
+T 07851055929
+E mercianwealthgs@gmail.com
+W www.mercianwealth.com`
+    }
+  },
+
+  'marraccountants.ca': {
+    domain: 'marraccountants.ca',
+    businessName: 'Marr & Company Chartered Professional Accountants',
+    ownerOrDirector: 'Rob Marr, CPA, CA',
+    phone: '+14032636338',
+    trade: 'Chartered Professional Accountants',
+    location: 'Suite 700, 1015 4th St SW, Calgary, AB T2R 1J4',
+    pageLocation: 'Homepage & /contact-us',
+    observableFriction: 'Multi-step form requiring full company details before any consultation date or fee expectations are provided, creating drop-off.',
+    frictionBadge: 'High-Friction Pre-Consultation Form',
+    evidence: 'Website contact form enforces multi-step corporate data entry with zero fee transparency.',
+    recognizableReason: 'High-intent Calgary business owners abandon long pre-qualification questionnaires before speaking with an accountant.',
+    consequenceMechanics: 'Significant top-of-funnel drop-off for lucrative corporate restructuring clients.',
+    prototypeRemedy: 'Friction-free corporate intake with automated turnover tiering and instant discovery hold.',
+    prototypeUrl: 'https://uk-accountancy-os-prototype.vercel.app/',
+    customNotes: `• VERIFIED FLAW: Long multi-step pre-consultation form causing drop-off.
+• LOCATION: Downtown Calgary practice.
+• COMMERCIAL LEAK: Inbound corporate leads bounce before completion.
+• PROTOTYPE FIX: 60-second frictionless booking hold.`,
+    followUp1: `Hi Rob, following up on my note regarding marraccountants.ca. We designed a friction-free client intake portal for Canadian CPA practices that pre-qualifies corporate clients in 60 seconds without long forms. Would you be open to a 2-minute walkthrough?`,
+    followUp2: `Hi Rob, concluding our outreach here as we only implement this with one downtown Calgary practice. If you ever want to review the prototype intake engine, feel free to get in touch. Wishing Marr & Company continued success.`,
+    whatsappOutreach: {
+      message1: `Hi Rob, hope you're having a productive week.
+
+I came across Marr & Company through your 4th St SW practice listing in Calgary.
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days, and attackers weaponised it in hours. Technology is changing how enterprise clients evaluate advisory firms, and your practice runs on the same infrastructure.
+
+Looking at marraccountants.ca, your intake requires business owners to complete a detailed multi-step form before they can see availability or fee parameters. For busy corporate directors, high form friction often causes them to bounce before completing the inquiry.
+
+We build streamlined client acquisition systems for CPA practices that pre-qualify corporate turnover and lock in discovery holds in 60 seconds.
+
+Would you be open to a quick 10-minute call so I can show you how it works?`,
+      message2: `Would you be open to a quick 10-minute call so I can show you how it works?`,
+      message3: `Here is the CPA intake prototype: https://uk-accountancy-os-prototype.vercel.app/`,
+      quickDirectPitch: `Hi Rob, noticed marraccountants.ca uses a multi-step pre-consultation form that creates drop-off. We built a 60-second intake prototype for CPAs. Open to a 10-minute call to see it?`
+    },
+    emailOutreach: {
+      subject: 'Streamlined corporate intake for Marr & Company CPA',
+      body: `Hi Rob,
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days. Then attackers used AI to weaponise it in hours. Hospitals went offline. Government sites went dark. Your business runs on the same technology.
+
+I came across Marr & Company while reviewing downtown Calgary CPA firms and noticed your intake requires potential clients to complete a multi-step data form before speaking with a partner or viewing consultation availability.
+
+When high-value Calgary directors seek accounting or tax restructuring, heavy initial form friction often leads to high drop-off before the conversation even begins.
+
+The question isn\'t whether AI is changing the game. It already has. The only question is which side of it you\'re on. We put AI on your side.
+
+We built an institutional-grade intake prototype for Canadian CPAs that pre-qualifies corporate clients through interactive sliders and reserves discovery holds in under 60 seconds.
+
+Would you be open to a quick 10–15 minute call so I can show you the workflow?
+
+Best,
+Gurtej Singh
+Founder | Mercian Wealth
+T 07851055929
+E mercianwealthgs@gmail.com
+W www.mercianwealth.com`
+    }
+  },
+
+  'focusllp.ca': {
+    domain: 'focusllp.ca',
+    businessName: 'Focus LLP Chartered Professional Accountants',
+    ownerOrDirector: 'Practice Partners',
+    phone: '+14035093200',
+    trade: 'Chartered Professional Accountants',
+    location: 'Suite 500, 638 11 Ave SW, Calgary, AB T2R 0E2',
+    pageLocation: 'Homepage & /contact',
+    observableFriction: 'Generic WordPress contact form with zero price tiering or automated retainer pre-qualification for Alberta businesses.',
+    frictionBadge: 'Static Unqualified Contact Form',
+    evidence: 'Contact page routes to a generic unvalidated form without response time commitment or calendar booking.',
+    recognizableReason: 'Corporate directors researching advisory services face telephone tag without knowing fee brackets.',
+    consequenceMechanics: 'Fee-earners waste time on price-shopping leads while qualified retainers move to responsive firms.',
+    prototypeRemedy: 'Modern CPA practice portal with interactive retainer calculator and direct partner booking.',
+    prototypeUrl: 'https://uk-accountancy-os-prototype.vercel.app/',
+    customNotes: `• VERIFIED FLAW: Generic WordPress contact form with zero price tiering.
+• LOCATION: 11 Ave SW Calgary practice.
+• COMMERCIAL LEAK: Delayed response loops and telephone tag.
+• PROTOTYPE FIX: Interactive retainer estimator + direct booking hold.`,
+    followUp1: `Hi Team, following up on our note regarding focusllp.ca. We engineered an interactive practice portal that pre-qualifies corporate retainers and allows qualified Calgary directors to reserve consultation holds instantly. Would you like to see a brief 2-minute walkthrough?`,
+    followUp2: `Hi Team, wrapping up our outreach here as we only implement our practice OS with one firm in your Calgary corridor. If you ever want to inspect the portal prototype, feel free to reach out. Wishing Focus LLP a great quarter.`,
+    whatsappOutreach: {
+      message1: `Hi there, hope you're having a productive week.
+
+I came across Focus LLP through your 11 Ave SW practice listing in Calgary.
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days, and attackers weaponised it in hours. Digital intake is shifting rapidly, and your firm relies on the same digital playing field.
+
+Looking at focusllp.ca, prospective clients currently submit a generic static form without fee expectations or direct consultation scheduling. For corporate clients seeking tax planning, this delay often turns into telephone tag.
+
+We build modern client intake portals for CPA practices that pre-qualify corporate clients and allow them to reserve consultation holds in 60 seconds.
+
+Would you be open to a quick 10-minute call so I can show you how it works?`,
+      message2: `Would you be open to a quick 10-minute call so I can show you how it works?`,
+      message3: `Here is the CPA portal prototype: https://uk-accountancy-os-prototype.vercel.app/`,
+      quickDirectPitch: `Hi Team, noticed focusllp.ca uses a static contact form without retainer pre-qualification. We built a 60-second client intake prototype for CPAs. Open to a 10-minute call to see it?`
+    },
+    emailOutreach: {
+      subject: 'Interactive client intake prototype for Focus LLP',
+      body: `Hi Team,
+
+A bug sat hidden inside 70% of the world\'s websites for ten years. AI found it in days. Then attackers used AI to weaponise it in hours. Hospitals went offline. Government sites went dark. Your business runs on the same technology.
+
+I came across Focus LLP through your Calgary office listing and noticed that prospective corporate clients submit an unvalidated static contact form with no immediate retainer brackets or calendar availability.
+
+For busy business owners, waiting for manual callbacks often leads to phone-tag and unaligned expectations before the first call.
+
+The question isn\'t whether AI is changing the game. It already has. The only question is which side of it you\'re on. We put AI on your side.
+
+We built an institutional-grade client portal prototype for Canadian CPAs featuring an interactive retainer calculator and direct consultation scheduling.
+
+Would you be open to a quick 10–15 minute call so I can walk you through it?
+
+Best,
+Gurtej Singh
+Founder | Mercian Wealth
+T 07851055929
+E mercianwealthgs@gmail.com
+W www.mercianwealth.com`
+    }
+  },
 }
 
 export function findAccountantIntelligence(

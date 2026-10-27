@@ -77,7 +77,7 @@ export async function POST(request: Request) {
     } else {
       const fromEmail = process.env.RESEND_FROM_EMAIL || 'Mercian Wealth <onboarding@resend.dev>'
       const timestamp = new Date().toLocaleString('en-GB', { timeZone: 'UTC' }) + ' UTC'
-      const prodUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mercianwealth.co.uk'
+      const prodUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mercianwealth.com'
 
       // Email A: Notification to business owner (mercianwealthgs@gmail.com)
       const ownerEmailHtml = `

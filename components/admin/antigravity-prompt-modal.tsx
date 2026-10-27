@@ -76,7 +76,7 @@ export function AntigravityPromptModal({
   // Dynamic Live Demo URL
   const demoUrl = typeof window !== 'undefined'
     ? `${window.location.origin}/preview/demo?name=${encodeURIComponent(businessName)}&trade=${encodeURIComponent(trade)}&phone=${encodeURIComponent(lead.phone || '')}&city=${encodeURIComponent(address)}&rating=${rating}&reviews=${reviewsCount}`
-    : `https://mercianwealth.co.uk/preview/demo?name=${encodeURIComponent(businessName)}`
+    : `https://mercianwealth.com/preview/demo?name=${encodeURIComponent(businessName)}`
 
   // ─────────────────────────────────────────────────────────────────────────────
   // 1. UNIVERSAL PROTOTYPE PROMPT
