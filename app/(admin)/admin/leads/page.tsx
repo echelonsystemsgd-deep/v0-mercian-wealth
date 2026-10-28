@@ -772,7 +772,7 @@ export default function LeadsPage() {
             if (followUpSubFilter === 'due_fu1') return cadence.stage === 'due_fu1'
             if (followUpSubFilter === 'due_fu2') return cadence.stage === 'due_fu2'
             if (followUpSubFilter === 'cooling_down') return cadence.stage === 'cooling_down'
-            return true
+            return cadence.isDueNow
           })
         } else if (queueFilter === 'active_pipeline') {
           list = list.filter((l) => ['Call Booked', 'Proposal Sent'].includes(l.status))
@@ -1276,6 +1276,9 @@ export default function LeadsPage() {
                     key={q.id}
                     onClick={() => {
                       setQueueFilter(q.id as ActionQueue)
+                      if (q.id === 'due_followup') {
+                        setFollowUpSubFilter('due_fu1')
+                      }
                       setQuickFilter('all')
                       setStatusFilter([])
                     }}
@@ -1604,6 +1607,7 @@ export default function LeadsPage() {
               const mapsUrl = lead.scraped_metadata?.google_maps_url
 
               const isChecked = selectedIds.includes(lead.id)
+              const cadence = getLeadFollowUpCadence(lead)
 
               return (
                 <div
@@ -1651,6 +1655,15 @@ export default function LeadsPage() {
                           <CheckCheck size={11} className="text-amber-400" />
                           <span>Contacted (Active)</span>
                         </span>
+                      ) : lead.status === 'Contacted' ? (
+                        <div className="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
+                          <StatusBadge status={lead.status} />
+                          {cadence.badgeText && (
+                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border shrink-0 ${cadence.badgeColor}`}>
+                              {cadence.badgeText}
+                            </span>
+                          )}
+                        </div>
                       ) : (
                         <StatusBadge status={lead.status} />
                       )}
@@ -1906,11 +1919,15 @@ export default function LeadsPage() {
                                     <span className="text-[10px] font-mono font-bold text-amber-400/90 uppercase flex items-center gap-1">
                                       <Sparkles size={10} className="text-amber-400" /> Follow-Up 1 (48h Value Check-in):
                                     </span>
-                                    {cadence.stage === 'due_fu1' && (
-                                      <span className="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">
-                                        DUE NOW
+                                    {cadence.stage === 'due_fu1' ? (
+                                      <span className="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30 animate-pulse">
+                                        DUE TODAY
                                       </span>
-                                    )}
+                                    ) : cadence.stage === 'cooling_down' ? (
+                                      <span className="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                                        Cooling Down ({cadence.hoursUntilFu1}h to FU1)
+                                      </span>
+                                    ) : null}
                                   </div>
                                   <div className="flex items-center gap-1.5">
                                     <button
