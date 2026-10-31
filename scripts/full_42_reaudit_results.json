@@ -1,0 +1,1031 @@
+[
+  {
+    "leadId": "a29176c7-3afe-4dec-8b05-ed8d74861229",
+    "business_name": "CA Gaurav Aggarwal (Arora Aggarwal & Co)",
+    "website": "https://aroraaggarwal.com",
+    "email": "gauravca77@yahoo.com",
+    "phone": "+919814310561",
+    "statusCode": 200,
+    "finalUrl": "https://aroraaggarwal.com",
+    "history": [
+      "https://aroraaggarwal.com"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "8-field contact wall before discovery",
+        "details": "Prospective clients must manually complete 8 required fields (New Form, post_id, form_id, referer_title...) before seeing availability."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "8-field contact wall before discovery",
+    "commercialOutcome": "Company directors on smartphones abandon the questionnaire midway, costing your firm £3k–£5k annual retainers.",
+    "concreteFix": "A 60-second interactive triage widget pre-qualifying turnover and instantly holding a discovery call on your partner calendar."
+  },
+  {
+    "leadId": "2932c7f8-56de-484c-a306-76699ea6790a",
+    "business_name": "Abacus Tax Advisors Ltd",
+    "website": "https://www.abacusleeds.co.uk",
+    "email": "tax@abacusleeds.co.uk",
+    "phone": "0113 245 1200",
+    "statusCode": 200,
+    "finalUrl": "https://www.abacusleeds.co.uk",
+    "history": [
+      "https://www.abacusleeds.co.uk"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "9-field contact wall before discovery",
+        "details": "Prospective clients must manually complete 9 required fields (New Form, post_id, form_id, referer_title...) before seeing availability."
+      },
+      {
+        "flaw": "Legacy Google reCAPTCHA v2 checkbox on mobile",
+        "details": "Presents visual image grid challenges on mobile touchscreens, causing high abandonment rates for busy directors."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "9-field contact wall before discovery",
+    "commercialOutcome": "Company directors on smartphones abandon the questionnaire midway, costing your firm £3k–£5k annual retainers.",
+    "concreteFix": "A 60-second interactive triage widget pre-qualifying turnover and instantly holding a discovery call on your partner calendar."
+  },
+  {
+    "leadId": "8e8bdc53-1411-4127-994f-cda3faa21aaa",
+    "business_name": "Armstrong Watson (Manchester Hub)",
+    "website": "https://www.armstrongwatson.co.uk",
+    "email": "help@armstrongwatson.co.uk",
+    "phone": "0161 832 6800",
+    "statusCode": 200,
+    "finalUrl": "https://www.armstrongwatson.co.uk",
+    "history": [
+      "https://www.armstrongwatson.co.uk"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "94fe0531-add7-42f9-9603-c89a4bc009c1",
+    "business_name": "Infincible Limited",
+    "website": "https://www.infincible.com",
+    "email": "marianne.green@infincible.com",
+    "phone": "0117 900 1600",
+    "statusCode": 200,
+    "finalUrl": "https://www.infincible.com",
+    "history": [
+      "https://www.infincible.com"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Missing responsive viewport meta tag",
+        "details": "Page renders in miniature desktop view on mobile screens, requiring manual pinch-and-zoom to read text or tap buttons."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      },
+      {
+        "flaw": "Unlinked phone numbers in mobile header (no tel: protocol)",
+        "details": "Smartphone users cannot tap to dial, requiring manual copy-pasting between browser and dialer."
+      }
+    ],
+    "primaryFriction": "Missing responsive viewport meta tag",
+    "commercialOutcome": "Text and buttons appear microscopic on smartphones, causing over 60% of mobile traffic to bounce back to Google search.",
+    "concreteFix": "Mobile-first responsive architecture tailored for iOS Safari and Android with native 48px touch targets."
+  },
+  {
+    "leadId": "3399a827-c697-4109-b3a0-f059901af8ac",
+    "business_name": "Chitram TV / Shiva Technology Ltd",
+    "website": "https://uk-streaming-client-prototype.vercel.app/",
+    "email": null,
+    "phone": null,
+    "statusCode": 200,
+    "finalUrl": "https://uk-streaming-client-prototype.vercel.app/",
+    "history": [
+      "https://uk-streaming-client-prototype.vercel.app/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "ba44e7cc-e09f-4890-a272-0f7476ec55b4",
+    "business_name": "Padam Dhawan & Co.",
+    "website": "http://pdamritsar.com/",
+    "email": "sahil.dhawan@yahoo.co.in",
+    "phone": "+919216907388",
+    "statusCode": 200,
+    "finalUrl": "http://pdamritsar.com/",
+    "history": [
+      "http://pdamritsar.com/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Insecure HTTP entrypoint without apex HSTS header",
+        "details": "Initial connection to http://pdamritsar.com/ does not enforce strict transport security, exposing visitors to mixed-content/unsecured warnings."
+      },
+      {
+        "flaw": "9-field contact wall before discovery",
+        "details": "Prospective clients must manually complete 9 required fields (form_213674994[ed-f-213674997], form_213674994[ed-f-213675000], form_213674994[ed-f-213675003], form_213674994[ed-f-213675006]...) before seeing availability."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "Insecure HTTP entrypoint without apex HSTS header",
+    "commercialOutcome": "Corporate devices and Safari/Chrome show a \"Not Secure\" browser flag, creating immediate trust hesitation for directors handling confidential company financials.",
+    "concreteFix": "Bank-grade SSL/HSTS enforcement guaranteeing 100% encrypted client interactions across all corporate networks."
+  },
+  {
+    "leadId": "020dce40-6894-4340-af87-f3e02cb9eee2",
+    "business_name": "B.K. Joshi & Associates Law Firm",
+    "website": null,
+    "email": "puneetkrishanjoshi@gmail.com",
+    "phone": "+919872037320",
+    "finalUrl": null,
+    "history": [],
+    "error": "no_public_website",
+    "frictions": [],
+    "primaryFriction": "Site connection failure (no_public_website)",
+    "commercialOutcome": "Prospective clients unable to access services or contact details during discovery.",
+    "concreteFix": "High-availability Practice OS deployment with 99.99% uptime guarantee."
+  },
+  {
+    "leadId": "1995f4aa-58da-4230-93b6-05215aba043c",
+    "business_name": "Parul A Gupta & Associates",
+    "website": null,
+    "email": null,
+    "phone": "+919781411070",
+    "finalUrl": null,
+    "history": [],
+    "error": "no_public_website",
+    "frictions": [],
+    "primaryFriction": "Site connection failure (no_public_website)",
+    "commercialOutcome": "Prospective clients unable to access services or contact details during discovery.",
+    "concreteFix": "High-availability Practice OS deployment with 99.99% uptime guarantee."
+  },
+  {
+    "leadId": "c2ba06c1-deee-4750-90c1-e467ee48213d",
+    "business_name": "V.Bhatia & Associates",
+    "website": null,
+    "email": null,
+    "phone": "+919888960702",
+    "finalUrl": null,
+    "history": [],
+    "error": "no_public_website",
+    "frictions": [],
+    "primaryFriction": "Site connection failure (no_public_website)",
+    "commercialOutcome": "Prospective clients unable to access services or contact details during discovery.",
+    "concreteFix": "High-availability Practice OS deployment with 99.99% uptime guarantee."
+  },
+  {
+    "leadId": "ea8e8095-2097-43bd-bc0f-b5786a377f1c",
+    "business_name": "A&C Chartered Accountants",
+    "website": "https://www.ac-accounts.co.uk",
+    "email": "info@ac-accounts.co.uk",
+    "phone": "0161 832 4841",
+    "statusCode": 200,
+    "finalUrl": "https://www.ac-accounts.co.uk",
+    "history": [
+      "https://www.ac-accounts.co.uk"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "384b018b-7aef-4fcd-a8fa-c4d1c14b6432",
+    "business_name": "Collins Chartered Accountants",
+    "website": "https://www.collins-chartered-accountants.co.uk",
+    "email": "admin@collins-chartered-accountants.co.uk",
+    "phone": "0121 748 7100",
+    "statusCode": 200,
+    "finalUrl": "https://collins-chartered-accountants.co.uk/",
+    "history": [
+      "https://www.collins-chartered-accountants.co.uk",
+      "https://collins-chartered-accountants.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "6-field contact wall before discovery",
+        "details": "Prospective clients must manually complete 6 required fields (Asesor Demo Form, EMAIL, _mc4wp_honeypot, _mc4wp_timestamp...) before seeing availability."
+      },
+      {
+        "flaw": "Legacy Google reCAPTCHA v2 checkbox on mobile",
+        "details": "Presents visual image grid challenges on mobile touchscreens, causing high abandonment rates for busy directors."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "6-field contact wall before discovery",
+    "commercialOutcome": "Company directors on smartphones abandon the questionnaire midway, costing your firm £3k–£5k annual retainers.",
+    "concreteFix": "A 60-second interactive triage widget pre-qualifying turnover and instantly holding a discovery call on your partner calendar."
+  },
+  {
+    "leadId": "7a174a93-49c6-44ea-941b-1ad4be96769b",
+    "business_name": "Sell Your Stamps UK",
+    "website": "https://v0-stamp-valuation-app-eight.vercel.app/",
+    "email": null,
+    "phone": "+447935220677",
+    "statusCode": 200,
+    "finalUrl": "https://v0-stamp-valuation-app-eight.vercel.app/",
+    "history": [
+      "https://v0-stamp-valuation-app-eight.vercel.app/"
+    ],
+    "error": null,
+    "frictions": [],
+    "primaryFriction": "Static unstructured contact form with 24-48h email triage lag",
+    "commercialOutcome": "High-value Ltd Co prospects wait days for scope qualification and consult rival chartered firms in the interim.",
+    "concreteFix": "Instant retainer pre-qualification platform capturing scope and booking the discovery call upfront."
+  },
+  {
+    "leadId": "22c9d313-e7ef-4ac6-8d36-8c30468719c6",
+    "business_name": "Vale and West",
+    "website": "https://www.valewest.com/",
+    "email": null,
+    "phone": "0118 957 3238",
+    "statusCode": 403,
+    "finalUrl": "https://www.valewest.com/",
+    "history": [
+      "https://www.valewest.com/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      },
+      {
+        "flaw": "Unlinked phone numbers in mobile header (no tel: protocol)",
+        "details": "Smartphone users cannot tap to dial, requiring manual copy-pasting between browser and dialer."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "adad63c0-f2a4-417e-be9d-6c0412b8ca5d",
+    "business_name": "Jose & Associates",
+    "website": "https://www.joseassociates.co.uk/",
+    "email": "info@joseassociates.co.uk",
+    "phone": "07375 054827",
+    "statusCode": 200,
+    "finalUrl": "https://www.joseassociates.co.uk/",
+    "history": [
+      "https://www.joseassociates.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      },
+      {
+        "flaw": "Unlinked phone numbers in mobile header (no tel: protocol)",
+        "details": "Smartphone users cannot tap to dial, requiring manual copy-pasting between browser and dialer."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "05fca5a4-a8fd-4cef-b4c5-f64bfe60c768",
+    "business_name": "GTS Accounting",
+    "website": "https://www.gtsaccounting.co.uk/",
+    "email": null,
+    "phone": "07595 399694",
+    "statusCode": 200,
+    "finalUrl": "https://www.gtsaccounting.co.uk/",
+    "history": [
+      "https://www.gtsaccounting.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      },
+      {
+        "flaw": "Unlinked phone numbers in mobile header (no tel: protocol)",
+        "details": "Smartphone users cannot tap to dial, requiring manual copy-pasting between browser and dialer."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "a1d2c465-8c0a-4416-8538-8c9296f02a76",
+    "business_name": "AG Accountant Polska",
+    "website": "https://agaccountant.co.uk/",
+    "email": null,
+    "phone": "07742 858404",
+    "statusCode": 200,
+    "finalUrl": "https://agaccountant.co.uk/",
+    "history": [
+      "https://agaccountant.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Legacy Google reCAPTCHA v2 checkbox on mobile",
+        "details": "Presents visual image grid challenges on mobile touchscreens, causing high abandonment rates for busy directors."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "Legacy Google reCAPTCHA v2 checkbox on mobile",
+    "commercialOutcome": "Mobile users on touchscreens encounter failed image verification or puzzle loops, dropping off before submitting their books.",
+    "concreteFix": "Invisible bot protection that verifies legitimate corporate inquiries in the background with zero user friction."
+  },
+  {
+    "leadId": "05726692-4d3e-4afa-b45a-e7d051ef18d7",
+    "business_name": "Cryer Sandham Limited",
+    "website": "https://www.cryer-sandham.co.uk/",
+    "email": "info@cryersandham.co.uk",
+    "phone": "0118 959 0221",
+    "statusCode": 200,
+    "finalUrl": "https://www.cryer-sandham.co.uk/",
+    "history": [
+      "https://www.cryer-sandham.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "fd3e1116-67b6-4863-bc38-791efaa8c93f",
+    "business_name": "Edmonds Accountancy",
+    "website": "https://www.edmonds-accountancy.co.uk/",
+    "email": "admin@edmonds-accountancy.co.uk",
+    "phone": "0118 988 8899",
+    "statusCode": 200,
+    "finalUrl": "https://www.edmonds-accountancy.co.uk/",
+    "history": [
+      "https://www.edmonds-accountancy.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "16-field contact wall before discovery",
+        "details": "Prospective clients must manually complete 16 required fields (input_758befbaf0db4f55f79edb12dec25966, input_2, input_3.1, gform_submission_method...) before seeing availability."
+      },
+      {
+        "flaw": "Legacy Google reCAPTCHA v2 checkbox on mobile",
+        "details": "Presents visual image grid challenges on mobile touchscreens, causing high abandonment rates for busy directors."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "16-field contact wall before discovery",
+    "commercialOutcome": "Company directors on smartphones abandon the questionnaire midway, costing your firm £3k–£5k annual retainers.",
+    "concreteFix": "A 60-second interactive triage widget pre-qualifying turnover and instantly holding a discovery call on your partner calendar."
+  },
+  {
+    "leadId": "075f5814-68f8-4395-9a72-7cce7c0f5ec7",
+    "business_name": "Avery Clifton Accountants",
+    "website": "https://averyclifton.com/",
+    "email": null,
+    "phone": "0118 907 9224",
+    "finalUrl": "https://averyclifton.com/",
+    "history": [
+      "https://averyclifton.com/"
+    ],
+    "error": "timeout",
+    "frictions": [],
+    "primaryFriction": "Site connection failure (timeout)",
+    "commercialOutcome": "Prospective clients unable to access services or contact details during discovery.",
+    "concreteFix": "High-availability Practice OS deployment with 99.99% uptime guarantee."
+  },
+  {
+    "leadId": "ce1177e1-bdbe-423b-a35f-6796405ea65a",
+    "business_name": "Redwood Accountants",
+    "website": "https://redwoodaccountants.com/",
+    "email": "admin@planet53.uk",
+    "phone": "0118 995 2011",
+    "statusCode": 200,
+    "finalUrl": "https://redwoodaccountants.com/",
+    "history": [
+      "https://redwoodaccountants.com/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "5e82cb59-ee41-40b5-9460-eed839aaba0b",
+    "business_name": "James Cowper Kreston",
+    "website": "https://www.jamescowperkreston.co.uk/",
+    "email": "info@jamescowperkreston.co.uk",
+    "phone": "0118 959 0261",
+    "statusCode": 200,
+    "finalUrl": "https://www.jamescowperkreston.co.uk/",
+    "history": [
+      "https://www.jamescowperkreston.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      },
+      {
+        "flaw": "Unlinked phone numbers in mobile header (no tel: protocol)",
+        "details": "Smartphone users cannot tap to dial, requiring manual copy-pasting between browser and dialer."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "fea20a06-bd81-4b45-b24e-bfd9afaa3e25",
+    "business_name": "Richardsons Accountants",
+    "website": "https://richardsonsaccountancy.co.uk/",
+    "email": null,
+    "phone": "0118 957 3118",
+    "statusCode": 200,
+    "finalUrl": "https://richardsonsaccountancy.co.uk/",
+    "history": [
+      "https://richardsonsaccountancy.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Missing responsive viewport meta tag",
+        "details": "Page renders in miniature desktop view on mobile screens, requiring manual pinch-and-zoom to read text or tap buttons."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      },
+      {
+        "flaw": "Unlinked phone numbers in mobile header (no tel: protocol)",
+        "details": "Smartphone users cannot tap to dial, requiring manual copy-pasting between browser and dialer."
+      }
+    ],
+    "primaryFriction": "Missing responsive viewport meta tag",
+    "commercialOutcome": "Text and buttons appear microscopic on smartphones, causing over 60% of mobile traffic to bounce back to Google search.",
+    "concreteFix": "Mobile-first responsive architecture tailored for iOS Safari and Android with native 48px touch targets."
+  },
+  {
+    "leadId": "3e5088b8-e6e1-4729-9373-1ded1b0a2886",
+    "business_name": "Holloway Cook Ltd",
+    "website": "https://www.hollowaycook.co.uk/",
+    "email": null,
+    "phone": "0118 939 1333",
+    "statusCode": 200,
+    "finalUrl": "https://www.hollowaycook.co.uk/",
+    "history": [
+      "https://www.hollowaycook.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      },
+      {
+        "flaw": "Unlinked phone numbers in mobile header (no tel: protocol)",
+        "details": "Smartphone users cannot tap to dial, requiring manual copy-pasting between browser and dialer."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "8c3b0d2f-af3f-46e7-8509-2ea1109910e3",
+    "business_name": "MAH Cloud Accountancy",
+    "website": "http://www.mahandco-acca.co.uk/cgi-sys/suspendedpage.cgi",
+    "email": "webmaster@mahandco-acca.co.uk",
+    "phone": "0800 772 0607",
+    "statusCode": 200,
+    "finalUrl": "http://www.mahandco-acca.co.uk/cgi-sys/suspendedpage.cgi",
+    "history": [
+      "http://www.mahandco-acca.co.uk/cgi-sys/suspendedpage.cgi"
+    ],
+    "error": null,
+    "frictions": [],
+    "primaryFriction": "Server hosting suspended (cPanel /cgi-sys/suspendedpage.cgi)",
+    "commercialOutcome": "Prospective corporate retainers encounter a host suspension message and immediately navigate to a local competitor.",
+    "concreteFix": "Cloud-hosted practice portal restoring client intake and appointment hold immediately."
+  },
+  {
+    "leadId": "6447d6e7-6004-4205-b39f-58b7014b98b2",
+    "business_name": "Tax Minds Limited",
+    "website": "https://www.taxminds.uk/",
+    "email": "admin@taxminds.uk",
+    "phone": "07585 424845",
+    "statusCode": 200,
+    "finalUrl": "https://www.taxminds.uk/",
+    "history": [
+      "https://www.taxminds.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "01e5684a-3241-4ca0-bb79-69e617db54ba",
+    "business_name": "Biz Accounting Solutions",
+    "website": "https://bizasl.co.uk/",
+    "email": "enquiry@bizasl.co.uk",
+    "phone": "07877 224964",
+    "statusCode": 200,
+    "finalUrl": "https://bizasl.co.uk/",
+    "history": [
+      "https://bizasl.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "12-field contact wall before discovery",
+        "details": "Prospective clients must manually complete 12 required fields (_wpcf7, _wpcf7_version, _wpcf7_locale, _wpcf7_unit_tag...) before seeing availability."
+      },
+      {
+        "flaw": "Legacy Google reCAPTCHA v2 checkbox on mobile",
+        "details": "Presents visual image grid challenges on mobile touchscreens, causing high abandonment rates for busy directors."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "12-field contact wall before discovery",
+    "commercialOutcome": "Company directors on smartphones abandon the questionnaire midway, costing your firm £3k–£5k annual retainers.",
+    "concreteFix": "A 60-second interactive triage widget pre-qualifying turnover and instantly holding a discovery call on your partner calendar."
+  },
+  {
+    "leadId": "f757623a-a6d2-492a-8da5-997e3afebd31",
+    "business_name": "Brimz Financials Ltd",
+    "website": "https://www.brimzfinancials.com/",
+    "email": "brimzbookkeeping@gmail.com",
+    "phone": "07868 668283",
+    "statusCode": 200,
+    "finalUrl": "https://www.brimzfinancials.com/",
+    "history": [
+      "https://www.brimzfinancials.com/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      },
+      {
+        "flaw": "Unlinked phone numbers in mobile header (no tel: protocol)",
+        "details": "Smartphone users cannot tap to dial, requiring manual copy-pasting between browser and dialer."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "32daf0b0-534c-4cea-9056-7a919c20e7c9",
+    "business_name": "Melanie Curtis Accountants",
+    "website": "https://melaniecurtisaccountants.co.uk/",
+    "email": null,
+    "phone": "0118 402 9900",
+    "statusCode": 200,
+    "finalUrl": "https://melaniecurtisaccountants.co.uk/",
+    "history": [
+      "https://melaniecurtisaccountants.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "20-field contact wall before discovery",
+        "details": "Prospective clients must manually complete 20 required fields (input_9, input_5.3, input_5.6, input_7...) before seeing availability."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "20-field contact wall before discovery",
+    "commercialOutcome": "Company directors on smartphones abandon the questionnaire midway, costing your firm £3k–£5k annual retainers.",
+    "concreteFix": "A 60-second interactive triage widget pre-qualifying turnover and instantly holding a discovery call on your partner calendar."
+  },
+  {
+    "leadId": "763f3e8d-4087-4876-bf93-814fbbb1820a",
+    "business_name": "Goringe Accountants",
+    "website": "https://goringeaccountants.co.uk/",
+    "email": "info@goringe.email",
+    "phone": "0118 914 4500",
+    "statusCode": 200,
+    "finalUrl": "https://goringeaccountants.co.uk/",
+    "history": [
+      "https://goringeaccountants.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "0b8e1aee-d734-4af3-a5a2-0c6559535ef4",
+    "business_name": "Hurn Accountants Limited",
+    "website": "https://www.hurntax.co.uk/",
+    "email": null,
+    "phone": "0118 909 9616",
+    "statusCode": 200,
+    "finalUrl": "https://www.hurntax.co.uk/",
+    "history": [
+      "https://www.hurntax.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      },
+      {
+        "flaw": "Unlinked phone numbers in mobile header (no tel: protocol)",
+        "details": "Smartphone users cannot tap to dial, requiring manual copy-pasting between browser and dialer."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "98c0d29f-4266-434d-8b12-05a3ddb75a91",
+    "business_name": "Brywel Associates",
+    "website": "http://www.brywelassociates.co.uk/",
+    "email": null,
+    "phone": "0118 946 3443",
+    "statusCode": 404,
+    "finalUrl": "http://www.brywelassociates.co.uk/",
+    "history": [
+      "http://www.brywelassociates.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Insecure HTTP entrypoint without apex HSTS header",
+        "details": "Initial connection to http://www.brywelassociates.co.uk/ does not enforce strict transport security, exposing visitors to mixed-content/unsecured warnings."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      },
+      {
+        "flaw": "Unlinked phone numbers in mobile header (no tel: protocol)",
+        "details": "Smartphone users cannot tap to dial, requiring manual copy-pasting between browser and dialer."
+      }
+    ],
+    "primaryFriction": "Insecure HTTP entrypoint without apex HSTS header",
+    "commercialOutcome": "Corporate devices and Safari/Chrome show a \"Not Secure\" browser flag, creating immediate trust hesitation for directors handling confidential company financials.",
+    "concreteFix": "Bank-grade SSL/HSTS enforcement guaranteeing 100% encrypted client interactions across all corporate networks."
+  },
+  {
+    "leadId": "fd09a3f0-a1a7-4c69-9a73-b07fb511f42d",
+    "business_name": "Goldstar Accountants Ltd",
+    "website": "https://www.goldstaraccountants.com/",
+    "email": "info@goldstaraccountants.com",
+    "phone": "0118 987 5500",
+    "statusCode": 200,
+    "finalUrl": "https://www.goldstaraccountants.com/",
+    "history": [
+      "https://www.goldstaraccountants.com/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "e859a9c7-2255-4b3d-9f94-a7f77897ba48",
+    "business_name": "Raw Accounting",
+    "website": "https://www.rawaccounting.co.uk/",
+    "email": "hello@rawaccounting.co.uk",
+    "phone": "0118 370 2547",
+    "statusCode": 200,
+    "finalUrl": "https://www.rawaccounting.co.uk/",
+    "history": [
+      "https://www.rawaccounting.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Legacy Google reCAPTCHA v2 checkbox on mobile",
+        "details": "Presents visual image grid challenges on mobile touchscreens, causing high abandonment rates for busy directors."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "Legacy Google reCAPTCHA v2 checkbox on mobile",
+    "commercialOutcome": "Mobile users on touchscreens encounter failed image verification or puzzle loops, dropping off before submitting their books.",
+    "concreteFix": "Invisible bot protection that verifies legitimate corporate inquiries in the background with zero user friction."
+  },
+  {
+    "leadId": "775f521e-5e35-4944-a87f-3ffe2a9809e2",
+    "business_name": "Chart Accountancy",
+    "website": "https://chartaccountancy.com/",
+    "email": null,
+    "phone": "0118 449 2321",
+    "statusCode": 200,
+    "finalUrl": "https://chartaccountancy.com/",
+    "history": [
+      "https://chartaccountancy.com/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "ced32935-cdfb-4cbf-a18d-b7a5f4f2b435",
+    "business_name": "Berkshire Accountants Limited",
+    "website": "https://berkshireaccountants.com/",
+    "email": "info@berkshireaccountants.com",
+    "phone": "0118 327 4200",
+    "statusCode": 200,
+    "finalUrl": "https://berkshireaccountants.com/",
+    "history": [
+      "https://berkshireaccountants.com/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "5796355f-201a-4a61-852b-0667f2a1eb04",
+    "business_name": "Dead Simple Accounting",
+    "website": "https://www.deadsimpleaccounting.co.uk/",
+    "email": "info@deadsimpleaccounting.co.uk",
+    "phone": "0118 359 3666",
+    "statusCode": 200,
+    "finalUrl": "https://www.deadsimpleaccounting.co.uk/",
+    "history": [
+      "https://www.deadsimpleaccounting.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "37046325-127b-4417-a684-e4365ae1cff1",
+    "business_name": "Growth Accountants",
+    "website": "https://www.growth.accountants/",
+    "email": "enquiries@growth.accountants",
+    "phone": "0345 990 0041",
+    "statusCode": 200,
+    "finalUrl": "https://www.growth.accountants/",
+    "history": [
+      "https://www.growth.accountants/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      },
+      {
+        "flaw": "Unlinked phone numbers in mobile header (no tel: protocol)",
+        "details": "Smartphone users cannot tap to dial, requiring manual copy-pasting between browser and dialer."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "e1e03a04-1b7f-4018-beaf-22c88d9f786c",
+    "business_name": "KBN Accountants Limited",
+    "website": "https://www.kbnaccountants.co.uk/",
+    "email": "info@kbnaccountants.co.uk",
+    "phone": "0118 957 2932",
+    "statusCode": 200,
+    "finalUrl": "https://www.kbnaccountants.co.uk/",
+    "history": [
+      "https://www.kbnaccountants.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      },
+      {
+        "flaw": "Unlinked phone numbers in mobile header (no tel: protocol)",
+        "details": "Smartphone users cannot tap to dial, requiring manual copy-pasting between browser and dialer."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "e56b7ab6-3518-4dd9-af85-69303d131e7e",
+    "business_name": "Finanche Ltd",
+    "website": "https://finanche.co.uk/",
+    "email": "finance@finanche.co.uk",
+    "phone": "0345 512 0102",
+    "statusCode": 200,
+    "finalUrl": "https://finanche.co.uk/",
+    "history": [
+      "https://finanche.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "13-field contact wall before discovery",
+        "details": "Prospective clients must manually complete 13 required fields (_wpcf7, _wpcf7_version, _wpcf7_locale, _wpcf7_unit_tag...) before seeing availability."
+      },
+      {
+        "flaw": "Legacy Google reCAPTCHA v2 checkbox on mobile",
+        "details": "Presents visual image grid challenges on mobile touchscreens, causing high abandonment rates for busy directors."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "13-field contact wall before discovery",
+    "commercialOutcome": "Company directors on smartphones abandon the questionnaire midway, costing your firm £3k–£5k annual retainers.",
+    "concreteFix": "A 60-second interactive triage widget pre-qualifying turnover and instantly holding a discovery call on your partner calendar."
+  },
+  {
+    "leadId": "dfc75c61-ad55-45d5-8724-b569117b6192",
+    "business_name": "Specialist Accounting Solutions Ltd",
+    "website": "https://teamsas.co.uk/",
+    "email": "info@teamsas.co.uk",
+    "phone": "0118 911 3777",
+    "statusCode": 200,
+    "finalUrl": "https://teamsas.co.uk/",
+    "history": [
+      "https://teamsas.co.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "13-field contact wall before discovery",
+        "details": "Prospective clients must manually complete 13 required fields (Meeting Request, post_id, form_id, referer_title...) before seeing availability."
+      },
+      {
+        "flaw": "Legacy Google reCAPTCHA v2 checkbox on mobile",
+        "details": "Presents visual image grid challenges on mobile touchscreens, causing high abandonment rates for busy directors."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      }
+    ],
+    "primaryFriction": "13-field contact wall before discovery",
+    "commercialOutcome": "Company directors on smartphones abandon the questionnaire midway, costing your firm £3k–£5k annual retainers.",
+    "concreteFix": "A 60-second interactive triage widget pre-qualifying turnover and instantly holding a discovery call on your partner calendar."
+  },
+  {
+    "leadId": "8f32d341-43e6-455f-a3a6-3f398a4163b6",
+    "business_name": "Holy Brook Accountants",
+    "website": "https://www.holybrook.com/",
+    "email": "rachel@holybrook.com",
+    "phone": "07914 211828",
+    "statusCode": 200,
+    "finalUrl": "https://www.holybrook.com/",
+    "history": [
+      "https://www.holybrook.com/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      },
+      {
+        "flaw": "Unlinked phone numbers in mobile header (no tel: protocol)",
+        "details": "Smartphone users cannot tap to dial, requiring manual copy-pasting between browser and dialer."
+      }
+    ],
+    "primaryFriction": "Zero stated turnaround SLA or response guarantee on intake",
+    "commercialOutcome": "Prospective clients face 24-48h email delays and reach out to rival local firms while waiting for a manual reply.",
+    "concreteFix": "An automated Practice OS holding discovery consultations in real time."
+  },
+  {
+    "leadId": "febc85dd-e34a-4912-903e-6e09b53cdc9b",
+    "business_name": "Assets Accounting Ltd",
+    "website": "https://www.assets.ltd.uk/",
+    "email": "mail@assets.ltd.uk",
+    "phone": "0118 946 4700",
+    "statusCode": 200,
+    "finalUrl": "https://www.assets.ltd.uk/",
+    "history": [
+      "https://www.assets.ltd.uk/"
+    ],
+    "error": null,
+    "frictions": [
+      {
+        "flaw": "Legacy Google reCAPTCHA v2 checkbox on mobile",
+        "details": "Presents visual image grid challenges on mobile touchscreens, causing high abandonment rates for busy directors."
+      },
+      {
+        "flaw": "Zero stated turnaround SLA or response guarantee on intake",
+        "details": "Prospective clients submit confidential company data into an open-ended queue with no visibility on when an accountant will respond."
+      },
+      {
+        "flaw": "Unlinked phone numbers in mobile header (no tel: protocol)",
+        "details": "Smartphone users cannot tap to dial, requiring manual copy-pasting between browser and dialer."
+      }
+    ],
+    "primaryFriction": "Legacy Google reCAPTCHA v2 checkbox on mobile",
+    "commercialOutcome": "Mobile users on touchscreens encounter failed image verification or puzzle loops, dropping off before submitting their books.",
+    "concreteFix": "Invisible bot protection that verifies legitimate corporate inquiries in the background with zero user friction."
+  }
+]

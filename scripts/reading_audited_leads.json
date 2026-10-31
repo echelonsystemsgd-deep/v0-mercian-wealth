@@ -1,0 +1,545 @@
+[
+  {
+    "name": "Goldstar Accountants Ltd",
+    "phone": "0118 987 5500",
+    "website": "http://www.goldstaraccountants.com/",
+    "address": "63 London St, Reading",
+    "rating": 4.9,
+    "reviews": 34,
+    "keyPerson": "Amrit",
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Insecure HTTP entrypoint with missing apex HSTS header",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Insecure HTTP entrypoint with missing apex HSTS header"
+  },
+  {
+    "name": "Raw Accounting",
+    "phone": "0118 370 2547",
+    "website": "https://rawaccounting.co.uk/",
+    "address": "The White Building, 33 Kings Rd, Reading",
+    "rating": 4.9,
+    "reviews": 34,
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Missing responsive viewport meta tag (breaks mobile scaling)"
+  },
+  {
+    "name": "Chart Accountancy",
+    "phone": "0118 449 2321",
+    "website": "https://www.chartaccountancy.com/",
+    "address": "The Blade, Abbey Square, Reading",
+    "rating": 5,
+    "reviews": 76,
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Missing responsive viewport meta tag (breaks mobile scaling)"
+  },
+  {
+    "name": "Berkshire Accountants Limited",
+    "phone": "0118 327 4200",
+    "website": "https://www.berkshireaccountants.com/",
+    "address": "50A London St, Reading",
+    "rating": 4.9,
+    "reviews": 37,
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Missing responsive viewport meta tag (breaks mobile scaling)"
+  },
+  {
+    "name": "Dead Simple Accounting",
+    "phone": "0118 359 3666",
+    "website": "https://www.deadsimpleaccounting.co.uk/",
+    "address": "Ste 30, 105 London St, Reading",
+    "rating": 5,
+    "reviews": 263,
+    "statusCode": 200,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "No stated turnaround or response SLA on intake form"
+  },
+  {
+    "name": "Growth Accountants",
+    "phone": "0345 990 0041",
+    "website": "http://growth.accountants/",
+    "address": "Quadrant House, Broad St, Reading",
+    "rating": 4.8,
+    "reviews": 41,
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Insecure HTTP entrypoint with missing apex HSTS header",
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Insecure HTTP entrypoint with missing apex HSTS header"
+  },
+  {
+    "name": "KBN Accountants Limited",
+    "phone": "0118 957 2932",
+    "website": "http://www.kbnaccountants.co.uk/",
+    "address": "12A Castle St, Reading",
+    "rating": 5,
+    "reviews": 36,
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Insecure HTTP entrypoint with missing apex HSTS header",
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Insecure HTTP entrypoint with missing apex HSTS header"
+  },
+  {
+    "name": "Finanche Ltd",
+    "phone": "0345 512 0102",
+    "website": "https://www.finanche.co.uk/",
+    "address": "100 Grovelands Rd, Reading",
+    "rating": 5,
+    "reviews": 32,
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Missing responsive viewport meta tag (breaks mobile scaling)"
+  },
+  {
+    "name": "Specialist Accounting Solutions Ltd",
+    "phone": "0118 911 3777",
+    "website": "https://teamsas.co.uk/",
+    "address": "The Blade, Abbey Square, Reading",
+    "rating": 5,
+    "reviews": 18,
+    "statusCode": 200,
+    "emails": [
+      "info@teamsas.co.uk"
+    ],
+    "primaryEmail": "info@teamsas.co.uk",
+    "frictions": [
+      "High-friction contact wall (11 input fields before discovery)",
+      "Legacy Google reCAPTCHA v2 badge introducing mobile conversion drop-off",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "High-friction contact wall (11 input fields before discovery)"
+  },
+  {
+    "name": "Holy Brook Accountants",
+    "phone": "07914 211828",
+    "website": "http://www.holybrook.com/",
+    "address": "Thames Tower, Fora, Station Rd, Reading",
+    "rating": 5,
+    "reviews": 31,
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Insecure HTTP entrypoint with missing apex HSTS header",
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Insecure HTTP entrypoint with missing apex HSTS header"
+  },
+  {
+    "name": "Assets Accounting Ltd",
+    "phone": "0118 946 4700",
+    "website": "https://www.assets.ltd.uk/",
+    "address": "Chiltern Chambers, 37 St Peter's Ave, Reading",
+    "rating": 5,
+    "reviews": 32,
+    "keyPerson": "Andrew",
+    "statusCode": 200,
+    "emails": [
+      "mail@assets.ltd.uk"
+    ],
+    "primaryEmail": "mail@assets.ltd.uk",
+    "frictions": [
+      "Legacy Google reCAPTCHA v2 badge introducing mobile conversion drop-off",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Legacy Google reCAPTCHA v2 badge introducing mobile conversion drop-off"
+  },
+  {
+    "name": "Vale and West",
+    "phone": "0118 957 3238",
+    "website": "https://www.valewest.com/",
+    "address": "Victoria House, 26 Queen Victoria St, Reading",
+    "rating": 4.8,
+    "reviews": 4,
+    "statusCode": 403,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "No direct WhatsApp or instant messaging alternative for mobile prospects"
+  },
+  {
+    "name": "Jose & Associates",
+    "phone": "07375 054827",
+    "website": "https://www.joseassociates.co.uk/",
+    "address": "26 Mead Cl, Reading",
+    "rating": 5,
+    "reviews": 1,
+    "statusCode": 200,
+    "emails": [
+      "info@joseassociates.co.uk"
+    ],
+    "primaryEmail": "info@joseassociates.co.uk",
+    "frictions": [
+      "High-friction contact wall (9 input fields before discovery)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "High-friction contact wall (9 input fields before discovery)"
+  },
+  {
+    "name": "GTS Accounting",
+    "phone": "07595 399694",
+    "website": "http://www.gtsaccounting.co.uk/",
+    "address": "Kennet island, The Piazza, Reading",
+    "rating": 4.7,
+    "reviews": 27,
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Insecure HTTP entrypoint with missing apex HSTS header",
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Insecure HTTP entrypoint with missing apex HSTS header"
+  },
+  {
+    "name": "AG Accountant Polska",
+    "phone": "07742 858404",
+    "website": "https://agaccountant.co.uk/",
+    "address": "3, Sulham Place, Pangbourne St, Reading",
+    "rating": 5,
+    "reviews": 18,
+    "statusCode": 200,
+    "emails": [
+      "info@qmaibdnift.cfolks.pl"
+    ],
+    "primaryEmail": "info@qmaibdnift.cfolks.pl",
+    "frictions": [
+      "High-friction contact wall (7 input fields before discovery)",
+      "Legacy Google reCAPTCHA v2 badge introducing mobile conversion drop-off",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "High-friction contact wall (7 input fields before discovery)"
+  },
+  {
+    "name": "Cryer Sandham Limited",
+    "phone": "0118 959 0221",
+    "website": "https://www.cryer-sandham.co.uk/",
+    "address": "55 Russell St, Reading",
+    "rating": 5,
+    "reviews": 1,
+    "statusCode": 200,
+    "emails": [
+      "info@cryersandham.co.uk"
+    ],
+    "primaryEmail": "info@cryersandham.co.uk",
+    "frictions": [
+      "High-friction contact wall (6 input fields before discovery)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "High-friction contact wall (6 input fields before discovery)"
+  },
+  {
+    "name": "Edmonds Accountancy",
+    "phone": "0118 988 8899",
+    "website": "https://www.edmonds-accountancy.co.uk/",
+    "address": "Unit 11, Lambwood Hill, Reading",
+    "rating": 4.8,
+    "reviews": 41,
+    "statusCode": 200,
+    "emails": [
+      "admin@edmonds-accountancy.co.uk"
+    ],
+    "primaryEmail": "admin@edmonds-accountancy.co.uk",
+    "frictions": [
+      "High-friction contact wall (15 input fields before discovery)",
+      "Legacy Google reCAPTCHA v2 badge introducing mobile conversion drop-off",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "High-friction contact wall (15 input fields before discovery)"
+  },
+  {
+    "name": "Avery Clifton Accountants",
+    "phone": "0118 907 9224",
+    "website": "http://averyclifton.com/",
+    "address": "30 Harrogate Rd, Reading",
+    "rating": 5,
+    "reviews": 19,
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Insecure HTTP entrypoint with missing apex HSTS header",
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Insecure HTTP entrypoint with missing apex HSTS header"
+  },
+  {
+    "name": "Redwood Accountants",
+    "phone": "0118 995 2011",
+    "website": "http://www.redwoodaccountants.com/",
+    "address": "26 Martingale Grv, Reading",
+    "rating": 4.8,
+    "reviews": 19,
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Insecure HTTP entrypoint with missing apex HSTS header",
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Insecure HTTP entrypoint with missing apex HSTS header"
+  },
+  {
+    "name": "James Cowper Kreston",
+    "phone": "0118 959 0261",
+    "website": "http://www.jamescowperkreston.co.uk/",
+    "address": "Apex, Forbury Rd, Reading",
+    "rating": 5,
+    "reviews": 10,
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Missing responsive viewport meta tag (breaks mobile scaling)"
+  },
+  {
+    "name": "Richardsons Accountants",
+    "phone": "0118 957 3118",
+    "website": "https://richardsonsaccountancy.co.uk/",
+    "address": "99 London St, Reading",
+    "rating": 5,
+    "reviews": 5,
+    "statusCode": 200,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Missing responsive viewport meta tag (breaks mobile scaling)"
+  },
+  {
+    "name": "Holloway Cook Ltd",
+    "phone": "0118 939 1333",
+    "website": "http://www.hollowaycook.co.uk/",
+    "address": "55 Russell St, Reading",
+    "rating": 5,
+    "reviews": 1,
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Insecure HTTP entrypoint with missing apex HSTS header",
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Insecure HTTP entrypoint with missing apex HSTS header"
+  },
+  {
+    "name": "MAH Cloud Accountancy",
+    "phone": "0800 772 0607",
+    "website": "http://www.mahandco-acca.co.uk/",
+    "address": "211 Basingstoke Rd, Reading",
+    "rating": 5,
+    "reviews": 6,
+    "statusCode": 302,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Insecure HTTP entrypoint with missing apex HSTS header",
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Insecure HTTP entrypoint with missing apex HSTS header"
+  },
+  {
+    "name": "Tax Minds Limited",
+    "phone": "07585 424845",
+    "website": "https://www.taxminds.uk/",
+    "address": "27 Pangbourne St, Reading",
+    "rating": 5,
+    "reviews": 6,
+    "statusCode": 200,
+    "emails": [
+      "admin@taxminds.uk"
+    ],
+    "primaryEmail": "admin@taxminds.uk",
+    "frictions": [
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "No direct WhatsApp or instant messaging alternative for mobile prospects"
+  },
+  {
+    "name": "Biz Accounting Solutions",
+    "phone": "07877 224964",
+    "website": "https://bizasl.co.uk/",
+    "address": "12 Fuchsia Grove, Reading",
+    "rating": 5,
+    "reviews": 12,
+    "statusCode": 200,
+    "emails": [
+      "enquiry@bizasl.co.uk"
+    ],
+    "primaryEmail": "enquiry@bizasl.co.uk",
+    "frictions": [
+      "High-friction contact wall (14 input fields before discovery)",
+      "Legacy Google reCAPTCHA v2 badge introducing mobile conversion drop-off",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "High-friction contact wall (14 input fields before discovery)"
+  },
+  {
+    "name": "Brimz Financials Ltd",
+    "phone": "07868 668283",
+    "website": "https://www.brimzfinancials.com/",
+    "address": "9 Greyfriars Rd, Reading",
+    "rating": 5,
+    "reviews": 22,
+    "statusCode": 200,
+    "emails": [
+      "brimzbookkeeping@gmail.com",
+      "user@domain.com"
+    ],
+    "primaryEmail": "brimzbookkeeping@gmail.com",
+    "frictions": [
+      "Legacy Google reCAPTCHA v2 badge introducing mobile conversion drop-off",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Legacy Google reCAPTCHA v2 badge introducing mobile conversion drop-off"
+  },
+  {
+    "name": "Melanie Curtis Accountants",
+    "phone": "0118 402 9900",
+    "website": "https://www.melaniecurtisaccountants.co.uk/",
+    "address": "9 Greyfriars Rd, Reading",
+    "rating": 5,
+    "reviews": 2,
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Missing responsive viewport meta tag (breaks mobile scaling)"
+  },
+  {
+    "name": "Goringe Accountants",
+    "phone": "0118 914 4500",
+    "website": "https://goringeaccountants.co.uk/",
+    "address": "Arlington Business Park, Reading",
+    "rating": 4.9,
+    "reviews": 69,
+    "statusCode": 200,
+    "emails": [
+      "info@goringe.email"
+    ],
+    "primaryEmail": "info@goringe.email",
+    "frictions": [
+      "High-friction contact wall (9 input fields before discovery)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "High-friction contact wall (9 input fields before discovery)"
+  },
+  {
+    "name": "Hurn Accountants Limited",
+    "phone": "0118 909 9616",
+    "website": "http://www.hurntax.co.uk/",
+    "address": "54 Norcot Rd, Reading",
+    "rating": 5,
+    "reviews": 3,
+    "statusCode": 301,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Insecure HTTP entrypoint with missing apex HSTS header",
+      "Missing responsive viewport meta tag (breaks mobile scaling)",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Insecure HTTP entrypoint with missing apex HSTS header"
+  },
+  {
+    "name": "Brywel Associates",
+    "phone": "0118 946 3443",
+    "website": "http://www.brywelassociates.co.uk/",
+    "address": "37 St Peter's Ave, Reading",
+    "rating": 4.8,
+    "reviews": 4,
+    "keyPerson": "Andy",
+    "statusCode": 404,
+    "emails": [],
+    "primaryEmail": null,
+    "frictions": [
+      "Insecure HTTP entrypoint with missing apex HSTS header",
+      "No direct WhatsApp or instant messaging alternative for mobile prospects",
+      "No stated turnaround or response SLA on intake form"
+    ],
+    "primaryFlaw": "Insecure HTTP entrypoint with missing apex HSTS header"
+  }
+]

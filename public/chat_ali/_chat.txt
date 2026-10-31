@@ -1,0 +1,1097 @@
+[26/12/2025, 14:23:40] Ali Nawaz: ‎Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them.
+[26/12/2025, 14:23:40] Gurtej Singh: Hey Ali, this is Gurtej.
+[22/01/2026, 20:53:16] Gurtej Singh: Hi Ali, I hope I’m not disturbing you.
+
+This is Gurtej — from the gym. I’m the 17-year-old who’s gone into automation.
+Just wanted to follow up and say hi.
+
+Hope you’ve been well.
+[05/03/2026, 17:27:12] Gurtej Singh: https://youtube.com/shorts/Tv2BudxPrnI?si=LcKPQrykjJmpp5sm
+[05/03/2026, 17:27:21] Gurtej Singh: Hey bro, this is how I fixed my shoulder.
+[20/03/2026, 08:21:37] Gurtej Singh: Eid Mubarak bro.
+How’s things?
+[20/03/2026, 11:07:23] Ali Nawaz: Thankyou my bro! 
+
+All is well and hope your well too just spending time with family
+[24/03/2026, 18:57:43] Gurtej Singh:
+‎[24/03/2026, 18:57:43] Gurtej Singh: ‎image omitted
+‎[24/03/2026, 18:57:43] Gurtej Singh: ‎image omitted
+[24/03/2026, 18:58:45] Gurtej Singh: Hey bro, I’ve sent you the leaflet from the free posture assessment I had—the one I was telling you about at the gym.
+[29/03/2026, 12:12:37] Gurtej Singh: Hey bro, you coming gym today?
+[29/03/2026, 12:12:56] Ali Nawaz: Thankyou bro
+[29/03/2026, 12:13:02] Ali Nawaz: I’ll have to check today not sure
+[29/03/2026, 12:13:11] Ali Nawaz: Hope your keeping well bro
+[29/03/2026, 12:13:21] Gurtej Singh: Thanks bro.
+[29/03/2026, 12:13:29] Gurtej Singh: Ok, let me know if you are.
+[29/03/2026, 12:14:54] Ali Nawaz: Okay bro
+[31/03/2026, 15:34:22] Ali Nawaz: Hey bro are you around today.
+
+I was going to speak to my usual person who does websites for me but thought I’ll give you a shot for a basic website. 
+
+Lmk
+[31/03/2026, 15:37:51] Gurtej Singh: Hey bro, yeah I’ve been a bit off the past few days — fell sick and haven’t even been able to hit the gym.
+
+I should be back on it tomorrow though, so we can chat then properly.
+
+What time works for you?
+[31/03/2026, 15:41:00] Ali Nawaz: Hope you get better my bro.
+
+Yeah we can do it then I’ll let you know but normally is around 3pm onwards I’m there.
+
+Speak soon.
+
+Thanks
+[31/03/2026, 19:56:21] Gurtej Singh: Hey bro, I just realised I completely forgot I’ve got a chiropractic appointment tomorrow at 16:45.
+
+Is there any chance we could meet a bit earlier at the gym instead? Let me know what works for you.
+[01/04/2026, 13:21:16] Gurtej Singh: Hey bro, if it’s easier we can just schedule a call instead. I’m free tomorrow, or let me know when you’re free and we can sort a time that works.
+[01/04/2026, 15:15:21] Ali Nawaz: Hi bro,
+
+Sorry just looking now.
+
+Let’s do tomorrow
+[01/04/2026, 15:15:37] Gurtej Singh: No worries bro.
+[01/04/2026, 15:15:53] Gurtej Singh: See you tomorrow
+[02/04/2026, 11:31:49] Gurtej Singh: Hey bro, what time are you at the gym today?
+[02/04/2026, 11:47:03] Ali Nawaz: Hi bro,
+
+Hopefully around 4ish I’ll message you beforehand to let you know exactly when
+[02/04/2026, 11:47:23] Gurtej Singh: That’s perfect.
+
+See you soon.
+[02/04/2026, 14:37:54] Gurtej Singh: Bro, I’ve left just now, I’ll be there around 3ish.
+
+Finish around 5, should be fine?
+[02/04/2026, 16:03:55] Ali Nawaz: ‎Voice call, ‎23 sec
+[02/04/2026, 16:12:14] Ali Nawaz: https://webuyanystamps.co.uk
+[02/04/2026, 16:13:56] Ali Nawaz: I need to make a buying postage stamps website similar to this
+[02/04/2026, 16:14:28] Ali Nawaz: My current website for selling postage stamps is 
+
+www.DiscountedPostageStamps.co.uk
+
+If you can tweak that and give any suggestions as well.
+
+Thanks
+‎[03/04/2026, 00:30:27] Gurtej Singh: Hey bro, I’ve put together an initial prototype for your new stamp collection website. Everything shown can be refined or adjusted, so consider this a starting point rather than the final version.
+
+I’ve designed the style with an older audience in mind to reflect the nature of the collection, but I’d really like to hear your thoughts on whether this direction feels right.
+
+The name “Sterling & Post” was suggested by the AI tool I used, but this is completely open to change if you’d prefer something different.
+
+This is just a first draft created over the past few hours, so I’d appreciate your feedback on both the design and overall direction. ‎image omitted
+‎[03/04/2026, 00:30:27] Gurtej Singh: ‎image omitted
+‎[03/04/2026, 00:30:27] Gurtej Singh: ‎image omitted
+‎[03/04/2026, 00:30:27] Gurtej Singh: ‎image omitted
+‎[03/04/2026, 00:30:27] Gurtej Singh: ‎image omitted
+‎[03/04/2026, 00:30:28] Gurtej Singh: ‎image omitted
+‎[03/04/2026, 00:30:28] Gurtej Singh: ‎image omitted
+‎[03/04/2026, 10:34:40] Gurtej Singh: Hey bro, I've changed the landing page for the website to this newer design.
+
+I just need some information from you if you don't mind.
+
+For this website as it is frontend only and you can see that there is a popup of a call icon, I would need a phone number that the customer can call.
+
+Also, I need to know where the leads will be going to after the customer fills out their information form. ‎image omitted
+[03/04/2026, 13:58:54] Ali Nawaz: Hi bro 
+
+I’ll have a check after Friday prayer and will reply back
+
+Thanks
+[03/04/2026, 15:14:26] Ali Nawaz: Hi bro,
+
+I will allocate some time this evening and reply back to everything
+[03/04/2026, 15:14:46] Gurtej Singh: No worries, I’ve made you a quick video preview of the website.
+‎[03/04/2026, 15:15:00] Gurtej Singh: ‎video omitted
+[03/04/2026, 15:17:57] Ali Nawaz: Perfect I’ll be with my cousin as he’s come last minute to me so ima play badminton with him and afterwards we can look into everything
+[03/04/2026, 20:54:06] Ali Nawaz: Hi bro,
+
+I’m stuck in a meeting so I’ll be free tomorrow midday ish to update the website
+[03/04/2026, 21:01:59] Gurtej Singh: No worries bro.
+[03/04/2026, 21:02:52] Gurtej Singh: I’ll wait for your response—once I have it, I can move forward with the next steps.
+[03/04/2026, 21:05:42] Gurtej Singh: If you would also like, I could bring my laptop to the gym aswell tomorrow.
+[03/04/2026, 23:50:21] Ali Nawaz: Yeah that will be great let’s do that instead.
+
+I’ll let you know what time I’m heading to the gym and we can talk through it over there as well
+[03/04/2026, 23:56:39] Gurtej Singh: Perfect.
+[04/04/2026, 11:53:51] Ali Nawaz: Should be looking at afternoon probably 2-3pm ish I’ll let u know bro
+[04/04/2026, 12:00:41] Gurtej Singh: Ok bro, lmk.
+[04/04/2026, 13:14:05] Gurtej Singh: Hey bro, I’m probably going to show up at around 2pm
+[04/04/2026, 14:17:08] Ali Nawaz: Hey bro okay no problem I’ll let you know shortly 
+
+Thanks
+[04/04/2026, 14:40:23] Gurtej Singh: I’ve reached just now bro. No worries.
+I’m here until like 17:00 anyways. After training going to use the sauna and steam room.
+[04/04/2026, 14:52:29] Ali Nawaz: Hi bro,
+
+Slight issue any chance we can meet at Lombardy retail park at Costa? 
+
+My car is gone in to the mechanics so using someone else’s car but need to be around there.
+
+Lmk
+[04/04/2026, 14:53:30] Gurtej Singh: Ohh, umm, if you send me the location I can pull up.
+[04/04/2026, 14:53:53] Ali Nawaz: Thanks bro much appreciated but car went on me last minute 😩
+[04/04/2026, 14:54:02] Gurtej Singh: ‎Voice call, ‎58 sec
+‎[04/04/2026, 14:55:28] Ali Nawaz: ‎image omitted
+[04/04/2026, 15:11:01] Gurtej Singh: ‎Voice call, ‎27 sec
+[04/04/2026, 15:16:04] Ali Nawaz: I’m inside Costa
+[04/04/2026, 15:16:21] Gurtej Singh: Ok bro. Coming.
+[04/04/2026, 23:16:51] Gurtej Singh: ‎You deleted this message.
+[05/04/2026, 13:17:18] Gurtej Singh: Hey, just wanted to update you that the website is coming together really well. I’ve made the amendments we discussed, and I believe it’s a strong improvement on what you saw originally.
+
+Would it be alright if I show you the updated version as another iteration and get your feedback on it? It’s not the final version, just another step in refining it.
+
+Also, are you at the gym today so that I can show it to you?
+[05/04/2026, 13:44:15] Ali Nawaz: Hi bro,
+
+Hope your well,
+
+That’s good and yeah no worries more than happy to do as many as required as every time it will get better and better.
+
+I’ll let you know if I’m around today but most likely I am.
+
+Thanks bro
+[05/04/2026, 15:37:20] Gurtej Singh: Hey bro, I made it to the gym.
+[05/04/2026, 15:37:34] Ali Nawaz: Hi bro
+[05/04/2026, 15:37:40] Ali Nawaz: I’ll be there in 15 minutes
+[05/04/2026, 15:37:57] Gurtej Singh: Calm my bro.
+[05/04/2026, 15:50:11] Ali Nawaz: Just arrived
+[05/04/2026, 15:50:24] Ali Nawaz: See you in the restaurant area
+[05/04/2026, 15:50:37] Gurtej Singh: Ok bro.
+Imma get my laptop from my car.
+[05/04/2026, 23:19:02] Gurtej Singh:
+‎[05/04/2026, 23:19:02] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:02] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:02] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:02] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:02] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:02] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:02] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:02] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:02] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:02] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:02] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:02] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:02] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:02] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+‎[05/04/2026, 23:19:03] Gurtej Singh: ‎image omitted
+[05/04/2026, 23:19:07] Gurtej Singh: Hey bro, I’ve just sent over some screenshots of the updated website—let me know what you think when you’ve had a look.
+[06/04/2026, 14:17:16] Ali Nawaz: Perfect I’ll have a check after Padel
+[06/04/2026, 14:17:32] Gurtej Singh: No worries bro.
+[06/04/2026, 22:40:36] Gurtej Singh: Hey bro, I’ve sent you a video showing the website’s mobile layout (just the basic structure for now). Have a look when you can and let me know your thoughts.
+‎[06/04/2026, 22:46:53] Gurtej Singh: ‎video omitted
+[07/04/2026, 22:12:43] Gurtej Singh: Hey bro, just wanted to check you saw the video I sent over yesterday—no rush, just let me know your thoughts when you get a chance.
+
+Also, whenever you’re ready, I’ll need a few things from you so I can move things forward:
+
+Company name
+Phone number
+Pictures of the stamps
+Pricing and any percentages
+Where you’d like the leads to go after someone fills in the form
+
+Once I’ve got those, I can push ahead and get everything properly set up.
+[07/04/2026, 23:21:35] Ali Nawaz: Hey bro,
+
+Apologies, work schedule been mega busy last day or so. 
+
+I’m in the gym tomorrow if your around perhaps we can see this over then if not I’ll have a look tomorrow and send you a VM on WhatsApp
+[07/04/2026, 23:22:43] Gurtej Singh: No worries my bro. I thought you would be busy thats’s y I sent the message later.
+
+Yeah we can definitely meet tomorrow.
+[08/04/2026, 13:47:04] Gurtej Singh: ‎You deleted this message.
+[08/04/2026, 13:47:18] Gurtej Singh: Hey bro, I’ve got to head to Reading unexpectedly for something that’s come up.
+
+If I’m back before 4, I can still make it to the gym—what time are you going?
+[08/04/2026, 15:42:15] Ali Nawaz: Hey bro don’t worry about it,
+
+That’s fine I’ll let you know what time I’m hitting the gym today.
+
+Speak soon bro
+[08/04/2026, 15:42:20] Ali Nawaz: And hope everything is okay
+[08/04/2026, 16:31:53] Gurtej Singh: Thanks bro.
+
+Just came back.
+[08/04/2026, 16:31:56] Gurtej Singh: Imma go gym now.
+[08/04/2026, 17:21:45] Gurtej Singh: I’ve reached now my bro.
+[08/04/2026, 18:35:35] Gurtej Singh: Just left the gym bro, had to head back to Reading again.
+
+Apologies my bro for this, let me know when you’re going next and we’ll run it back 👊
+[08/04/2026, 18:44:08] Ali Nawaz: Hi bro don’t worry I had an emergency meeting so could come either
+[08/04/2026, 18:44:15] Ali Nawaz: Hope everything is okay
+[08/04/2026, 21:39:27] Gurtej Singh: Thanks bro.
+
+Yeah, just got back 30 mins ago.
+Everything is alright now.
+
+See you tomorrow.
+[09/04/2026, 11:23:57] Ali Nawaz: That’s good bro 
+
+No problem I’ll let you know once I’m heading to the gym.
+[09/04/2026, 16:08:11] Gurtej Singh: Hey bro, I’ve reached gym now.
+I’m here till 18:00, lmk when you head off to the gym.
+
+Speak to you soon.
+[09/04/2026, 16:12:07] Ali Nawaz: Hey bro okay I’ll reach there in about 20 minutes
+[09/04/2026, 16:34:54] Ali Nawaz: Yo bro today gonna be tight I need to train then go spa and get a shower all in 30 mins so best we do it tomorrow as I’m more free cause I have a meeting in London at 6pm
+[09/04/2026, 16:35:36] Gurtej Singh: No worries bro.
+[10/04/2026, 14:47:49] Gurtej Singh: Hey bro, lmk what time you heading off to the gym.
+[10/04/2026, 15:06:57] Ali Nawaz: Hey bro
+[10/04/2026, 15:06:59] Ali Nawaz: I’m here
+[10/04/2026, 15:07:03] Ali Nawaz: Lmk what time your coming
+[10/04/2026, 15:07:26] Gurtej Singh: Snm bro, imma come now. Leaving house in 5 mins.
+[10/04/2026, 15:13:20] Ali Nawaz: Bro
+[10/04/2026, 15:13:27] Ali Nawaz: Got appointment at 4:20
+[10/04/2026, 15:13:39] Ali Nawaz: Can we do after that
+[10/04/2026, 15:13:42] Ali Nawaz: As I’m finishing gym
+[10/04/2026, 15:14:15] Gurtej Singh: Sure bro, imma first train arms and shoulders and then go sauna steam room.
+[10/04/2026, 15:14:28] Gurtej Singh: I’ll be there till around 5/6
+[10/04/2026, 15:14:39] Ali Nawaz: Okay perfect
+[10/04/2026, 15:15:02] Ali Nawaz: I’ll be training arms
+[10/04/2026, 15:15:04] Ali Nawaz: Rn
+[10/04/2026, 15:15:19] Ali Nawaz: Then I’ll leave here in 25 mins
+[10/04/2026, 15:15:26] Gurtej Singh: Calm bro.
+[10/04/2026, 15:15:29] Gurtej Singh: See you soon.
+[10/04/2026, 15:15:35] Ali Nawaz: Okay bro
+[10/04/2026, 15:36:21] Gurtej Singh: I’ve reached my bro.
+[11/04/2026, 14:17:02] Gurtej Singh: Hey bro, what time you going gym today?
+[11/04/2026, 14:39:25] Ali Nawaz: Hey bro
+[11/04/2026, 14:39:29] Ali Nawaz: I have just arrived
+[11/04/2026, 14:39:33] Ali Nawaz: Lmk when your coming
+[11/04/2026, 14:39:42] Gurtej Singh: Snm bro.
+[11/04/2026, 14:39:50] Gurtej Singh: I’ll be there in 30 mins.
+[11/04/2026, 14:39:56] Ali Nawaz: That’s fine
+[11/04/2026, 14:39:59] Ali Nawaz: I’ll train for a bit
+[11/04/2026, 14:40:11] Gurtej Singh: Calm.
+[11/04/2026, 15:04:42] Gurtej Singh: Hey bro, I’m here.
+[11/04/2026, 15:05:03] Ali Nawaz: Okay bro just finishing warm up and I’m coming
+[11/04/2026, 15:05:17] Gurtej Singh: Ok.
+[11/04/2026, 15:06:22] Ali Nawaz: Coming now
+[11/04/2026, 22:11:47] Gurtej Singh: ‎You deleted this message.
+[11/04/2026, 22:12:09] Gurtej Singh: Hey Bro, I've implemented everything that we discussed at the gym. ‎<This message was edited>
+[11/04/2026, 22:15:01] Gurtej Singh: https://v0-stamp-valuation-app.vercel.app/
+
+This should be the link so that you can access the website bro.
+[11/04/2026, 22:15:09] Gurtej Singh: Lmk if it stops working and i can send over a new one.
+[13/04/2026, 09:35:37] Ali Nawaz: Hey bro 
+
+No problem was super busy over weekend will have a look today.
+
+Thanks
+[13/04/2026, 09:36:16] Gurtej Singh: No worries my bro.
+
+lmk what needs to be done when you have the time to do so.
+
+Thanks.
+[14/04/2026, 16:47:50] Ali Nawaz: No worries will sort tonight fingers crossed as just mad busy yesterday
+[14/04/2026, 16:56:29] Gurtej Singh: No worries my bro.
+[14/04/2026, 21:42:33] Gurtej Singh: Hey bro, no rush at all—whenever you get a chance to go through it, just let me know what you think.
+
+Once I’ve got your feedback, I’ll carry on from there 👍
+[15/04/2026, 15:43:13] Gurtej Singh: Hey bro, you coming gym today?
+[16/04/2026, 09:45:57] Gurtej Singh: Hey my bro, lmk know what time you heading off to the gym today, I will bring my laptop and you can review the website over there.
+
+Lmk what works for you.
+[16/04/2026, 12:50:37] Ali Nawaz: Hey bro what I’ll be doing is tomorrow I’m going for a trip up north so in the car I’ll get a detailed analysis done and send your latest version of what needs to be updated and then we can prob sort everything this week fingers crossed
+[16/04/2026, 12:52:55] Gurtej Singh: Hey bro, sounds good 👍
+
+Safe trip, and just send everything over when you’ve had a proper look—once I’ve got that, I’ll get everything updated and we can move it forward this week.
+‎[17/04/2026, 10:52:44] Ali Nawaz: Hey bro website looks nearly done you have done a good job.
+
+Just a few things left I would say put a sell now box where I have put it in green on that side of the page so it’s in the customers face all the time ‎image omitted
+‎[17/04/2026, 10:53:13] Ali Nawaz: Same here ‎image omitted
+‎[17/04/2026, 10:54:56] Ali Nawaz: Same here lol dw about my camera angles in the car 😂😂😂 ‎image omitted
+[17/04/2026, 10:55:25] Gurtej Singh: 🤣no worries my bro.
+[17/04/2026, 10:55:31] Gurtej Singh: I shall get it sorted today.
+‎[17/04/2026, 10:55:42] Ali Nawaz: ‎image omitted
+‎[17/04/2026, 10:55:43] Ali Nawaz: Same like how they have done it at the top can you instead just put a phone sign and then put a number beside it as it doesn’t show on mobile page ‎image omitted
+[17/04/2026, 10:56:40] Ali Nawaz: Apart from that the skeleton is done and now just needs the information to be edited and pictures and logo
+[17/04/2026, 18:56:01] Gurtej Singh: Hey bro, Sunday 16:00 padel?
+[17/04/2026, 19:01:38] Ali Nawaz: Hey bro should be okay.
+
+Is it free?
+[17/04/2026, 19:03:32] Gurtej Singh: Yeah bro, I’ve booked one with Daniel aswell
+[17/04/2026, 19:03:35] Gurtej Singh: Put your name down?
+[17/04/2026, 19:04:52] Ali Nawaz: Sunday 4pm yeah? ‎<This message was edited>
+[17/04/2026, 19:25:02] Gurtej Singh: Yeah bro.
+[17/04/2026, 23:18:25] Gurtej Singh: All sorted bro 👍
+
+I’ve added the sell now box where you mentioned and updated the phone icon with the number so it shows properly on mobile as well.
+
+Have a look when you get a chance—once that’s all good, we can move on to adding the final info, pictures, and logo.
+[19/04/2026, 12:37:21] Gurtej Singh: Padel today bro at 4pm today?
+[19/04/2026, 12:57:00] Ali Nawaz: Okay perfect will have a look next week
+[19/04/2026, 12:57:02] Ali Nawaz: Yup
+[19/04/2026, 12:57:23] Gurtej Singh: Awesome.
+[19/04/2026, 12:57:31] Gurtej Singh: See you there.
+[20/04/2026, 11:26:57] Ali Nawaz: Yo bro
+[20/04/2026, 11:26:59] Ali Nawaz: Good game
+[20/04/2026, 11:27:02] Ali Nawaz: Yesterday
+[20/04/2026, 11:27:16] Gurtej Singh: Thanks bro.
+[20/04/2026, 11:27:21] Gurtej Singh: It's alright what happened.
+[20/04/2026, 11:27:29] Gurtej Singh: I got some work done in the mean time.
+[20/04/2026, 11:27:37] Ali Nawaz: U free to play 3pm? Got my sis playing at 3pm so if your free lmk
+[20/04/2026, 11:27:49] Ali Nawaz: Yeah too many people at the court 🤣🤣🤣
+[20/04/2026, 11:28:06] Gurtej Singh: Umm, I can try because I'll be arriving at the gym around 14:30 / 14:45
+[20/04/2026, 11:28:10] Gurtej Singh: Should be fine.
+[20/04/2026, 11:28:17] Ali Nawaz: Okay message chat bro
+[20/04/2026, 11:28:17] Gurtej Singh: Are you going to train after?
+[20/04/2026, 11:28:21] Ali Nawaz: Saying your taking
+[20/04/2026, 11:28:24] Ali Nawaz: The slot
+[20/04/2026, 11:28:35] Gurtej Singh: I did.
+[20/04/2026, 11:28:40] Ali Nawaz: Perfect
+[20/04/2026, 11:29:10] Gurtej Singh: Are you going to train afterwards?
+[20/04/2026, 11:29:24] Ali Nawaz: Not sure I’ll check cause I’ll be with my sis
+[20/04/2026, 11:29:45] Gurtej Singh: ok, thats fine, I will train at around 4-5pm after the game.
+[20/04/2026, 11:29:56] Gurtej Singh: See you then.
+[20/04/2026, 11:29:59] Ali Nawaz: Perfect my bro
+[20/04/2026, 14:24:22] Gurtej Singh: I’m here bro. ‎<This message was edited>
+[20/04/2026, 14:42:52] Gurtej Singh: Lmk when you reach and then imma come get a racket.
+[20/04/2026, 14:51:22] Ali Nawaz: 10 mins bro
+[20/04/2026, 14:51:29] Gurtej Singh: Calm.
+[20/04/2026, 15:09:33] Ali Nawaz: Come court 3
+[20/04/2026, 15:09:45] Gurtej Singh: I’m there bro.
+[20/04/2026, 15:09:48] Gurtej Singh: Bring a ball.
+[20/04/2026, 15:09:54] Gurtej Singh: ‎You deleted this message.
+[20/04/2026, 16:24:36] Gurtej Singh: Thanks for the session bro.
+[20/04/2026, 16:52:24] Gurtej Singh: Also my bro, I’m going to make a few extra tweaks to improve the website further.
+
+You’ll be able to see all the updates through the same link—if anything changes, I’ll send over a new one.
+
+I’ll also take a look at your first website and think of ways we can improve the copy as well.
+[20/04/2026, 23:36:10] Ali Nawaz: Yeah bro I enjoyed it too. 
+
+Plus your getting a lot better now as well so keep it up and play regularly
+[20/04/2026, 23:36:27] Ali Nawaz: Okay perfect
+[20/04/2026, 23:37:00] Ali Nawaz: Apologies just been mad busy and then obviously need to relax in the gym and just came back home now so shattered.
+
+Speak soon bro
+[24/04/2026, 10:23:03] Gurtej Singh: Hey bro, when you heading off to the gym?
+
+Wanna get a gym session in beforehand?
+[24/04/2026, 10:25:01] Ali Nawaz: Hey bro,
+
+I’ll be an hour before Padel session but Daniel asked me to train with him yesterday. Idm if you wanna join just ask him.
+
+Also this weekend we will get the finish product sorted so then next week we can add all the info and pictures to finalised the website
+[24/04/2026, 10:25:28] Gurtej Singh: That’s fine my bro.
+[24/04/2026, 10:25:46] Gurtej Singh: Yeah, I’ve asked Daniel aswell.
+[24/04/2026, 15:35:20] Gurtej Singh: Hey bro, lmk when you here then imma go get the racket.
+[24/04/2026, 15:37:10] Ali Nawaz: Hey bro
+[24/04/2026, 15:37:13] Ali Nawaz: I’m here
+[24/04/2026, 15:37:51] Gurtej Singh: Calm bro.
+Imma do 1 set and come.
+[27/04/2026, 12:51:54] Gurtej Singh: Hey Bro, Hows things?
+[27/04/2026, 12:52:27] Gurtej Singh: Did you happen to get the chance to take a look at the website?
+
+I believe that the overall structure and button placements have been integrated, and we can move forward.
+[27/04/2026, 13:42:45] Ali Nawaz: Hi bro,
+
+All well and hope your well too!
+
+Apologies just managed to get on top of things I will look into it today/tomorrow
+[27/04/2026, 14:13:33] Gurtej Singh: That’s fine bro.
+[29/04/2026, 17:09:08] Ali Nawaz: Hey bro just at the gym,
+
+Had to sort out VAT stuff should be done tomorrow evening and then I can look into the website
+[29/04/2026, 17:09:39] Gurtej Singh: No worries bro. I’m also here.
+[30/04/2026, 15:20:25] Gurtej Singh: Hey bro, can you make it to padel on the 7th May at 15:00?
+[02/05/2026, 11:36:04] Gurtej Singh: Hey bro, how’s things?
+
+Have you happened to get the chance to review the website?
+[02/05/2026, 11:39:57] Ali Nawaz: Yes that’s fine
+[02/05/2026, 11:40:32] Ali Nawaz: Will check over it tonight
+[02/05/2026, 11:42:42] Gurtej Singh: I’ve booked it for Thursday at 15:00. It will be my brother and me attending, along with yourself.
+[02/05/2026, 11:42:49] Gurtej Singh: We just need 1 more.
+[02/05/2026, 11:43:14] Gurtej Singh: Perfect.
+[02/05/2026, 11:50:51] Ali Nawaz: That’s fine will ask some others privately
+‎[03/05/2026, 16:39:31] Gurtej Singh: Hey bro, David Lloyd’s has cancelled the booking for Thursday due to not enough players. ‎image omitted
+[05/05/2026, 16:27:01] Ali Nawaz: Hey bro 
+
+Seems good to me if anything pops up in my head I’ll let u know
+[05/05/2026, 16:27:34] Gurtej Singh: That’s perfect my bro.
+
+When you have the time, send me over the information that I can add to the website.
+[14/05/2026, 10:00:55] Gurtej Singh: Hey bro, hope you’re doing well.
+
+I’ve made a few changes and improvements to the website and would really appreciate it if you could take a look when you get a chance.
+
+Would love to hear your thoughts on the new updates and see if there’s anything you think could be improved further.
+‎[14/05/2026, 10:01:11] Gurtej Singh: I’ve also created this logo if you like it. ‎image omitted
+[14/05/2026, 10:03:26] Ali Nawaz: Hey bro,
+
+Sorry been manic as usual.
+
+I’ve got meetings up north today so will look at it over the weekend and yes that logo looks good
+[14/05/2026, 10:04:34] Gurtej Singh: No worries bro, sounds hectic as always 😂
+
+Appreciate you taking the time to check it over the weekend, and glad you’re liking the logo as well.
+
+Just let me know what you think once you’ve had a proper look through it 👍
+[23/05/2026, 09:37:56] Gurtej Singh: Hey bro, how’s things.
+
+Just wanted to ask if you could send over the pricing and images so that I can add them to the website.
+[23/05/2026, 11:58:06] Gurtej Singh: https://v0-gs-legacy-wealth-app.vercel.app/
+
+Also my bro, take a look at my website to see if you like anything from it to add to your website.
+[25/05/2026, 13:16:54] Gurtej Singh: Hey my bro, hope everything is fine.
+
+Just wanted to know if you had the chance to take a look at the website?
+[25/05/2026, 13:23:31] Ali Nawaz: Hey bro,
+
+All is well and pray your well too.
+
+Came back yesterday 2am so I should look over on it on Tuesday or Thursday
+‎[25/05/2026, 13:29:10] Ali Nawaz: ‎video omitted
+[25/05/2026, 13:31:05] Gurtej Singh: True my bro.
+
+Best thing is to enjoy life. 
+Become the best version of yourself that you can be, conquer the world, and be grateful.🙏🙏🙏🧿
+[28/05/2026, 14:01:52] Ali Nawaz: Ofc my bro facts
+[28/05/2026, 14:02:02] Ali Nawaz: Will get website stuff sorted over weekend now everything has calmed down
+[28/05/2026, 14:02:18] Gurtej Singh: No worries my bro.
+[31/05/2026, 11:25:35] Gurtej Singh: Hey bro, hope you’re doing well. Just wanted to check in and see if you’ve had a chance to look over the website yet. No rush at all, I just wanted to get your thoughts when you have a moment.
+
+Once you’re happy with the structure and layout, I’ll also need the required pictures, logos, and any detailed information you’d like included throughout the website so I can replace the placeholder content and make everything specific to your business.
+
+After that, I can move on to building out the backend functionality and the remaining features.
+
+Let me know what you think and if there’s anything you’d like changed, added, or adjusted.
+[31/05/2026, 12:56:15] Ali Nawaz: Hi bro,
+
+Rates for stamp prices:
+
+1st class purple sheets of 25/50 - 57%
+
+1st class purple books of 4/8 - 57%
+
+1st class purple part sheets and booklets - 55%
+
+1st class Xmas QR code - 48%
+
+1st class Incomplete Xmas QR - 45%
+
+2nd class sheets - 78%
+
+2nd class books of 8 - 78%
+
+2nd class incomplete - 73%
+
+2nd class Xmas QR - 68%
+
+2nd class Xmas QR incomplete - 67%
+
+1st large take two top parts out of commemorative and leave it with 3 columns 
+
+1st large sheet of 25 and 50 - 55%
+
+1st large books of 4 - 55%
+
+1st large incomplete sheets - 53%
+
+2nd large sheets - 75%
+
+2nd large books of 4 needs to be added as a seperate column at 75%
+
+2nd large incomplete - 72%
+
+2nd large Xmas complete - 70% 
+
+2nd large Xmas incomplete - 67%
+[31/05/2026, 12:56:48] Gurtej Singh: I will implement it shortly.
+[31/05/2026, 12:56:56] Ali Nawaz: Also format them in subheadings starting:
+
+1st class 
+1st class large 
+2nd class 
+2nd class large
+[31/05/2026, 12:57:02] Gurtej Singh: Ok.
+[31/05/2026, 12:57:34] Ali Nawaz: Face price for stamps are:
+
+1st - £1.80
+1st large - £3.30
+2nd - 91p
+2nd large - £1.55
+[31/05/2026, 12:57:46] Gurtej Singh: Thanks.
+[31/05/2026, 12:57:51] Ali Nawaz: No probs
+[31/05/2026, 12:58:00] Ali Nawaz: Lmk once done and I’ll have another look
+[31/05/2026, 12:58:06] Gurtej Singh: No worries bro.
+[31/05/2026, 12:58:09] Gurtej Singh: Gimme 1hr
+[31/05/2026, 12:58:09] Ali Nawaz: No rush as I will be out till evening
+‎[31/05/2026, 13:02:13] Ali Nawaz: Can you also add this part in and pay same % as they have shown for this ‎image omitted
+[31/05/2026, 13:05:29] Gurtej Singh: Ok
+‎[31/05/2026, 19:24:51] Gurtej Singh: Hey bro, this is how this has been added to your website, lmk if the wording needs to be changed as I just copied it from the competitor. ‎image omitted
+‎[31/05/2026, 22:02:25] Gurtej Singh: ‎image omitted
+‎[31/05/2026, 22:02:30] Gurtej Singh: ‎video omitted
+[04/06/2026, 11:20:48] Gurtej Singh: Hey bro, hope things going well for you, lmk when you want to move forward with the website.
+[07/06/2026, 09:00:28] Gurtej Singh: ‎You deleted this message.
+[09/06/2026, 17:34:53] Gurtej Singh: Hi
+[12/06/2026, 16:28:54] Gurtej Singh: Hey Ali 👋
+
+Hope you’re doing well bro.
+
+Just wanted to give you a quick heads up — I was chatting with Daniel and mentioned that I’ve built a website for you, so I thought I’d let you know in case it comes up 😊
+
+Whenever you get a chance, send over any photos, logos, or information you’d like added and I’ll get everything updated.
+
+Speak soon bro 👍
+‎[14/06/2026, 17:52:40] Gurtej Singh: GS Legacy Wealth - Website Project Summary Ali-stamp website.docx ‎document omitted
+[16/06/2026, 22:10:34] Gurtej Singh: Hey bro 👋
+
+From our conversation at the gym today, I thought I’d send over my website so you can have a look:
+
+gslegacywealth.com
+
+If there’s anything you like from it that you’d want integrated into your website, just let me know and I can incorporate it.
+
+When you get a chance, could you also send over the remaining images, business information, and the best contact details you’d like enquiries directed to.
+
+Once I’ve got those final bits, I can finish off the content side and then move on to the backend functionality, including:
+
+• Enquiry management
+• Customer information storage
+• Lead tracking
+• Admin dashboard features
+• Any other business-specific functionality you require
+
+We’re not far off getting everything completed now 👍
+[17/06/2026, 16:32:03] Ali Nawaz: Hi bro,
+
+Yes no problem that’s fine will sort over the weekend when I’m free from all this madness.
+
+Speak soon!
+[17/06/2026, 16:56:24] Gurtej Singh: No worries my bro. 
+
+Lmk when you’re free, we’ll finish off the website later.
+
+Hope the madness gets sorted well for you.🤞
+[20/06/2026, 16:42:55] Gurtej Singh: ‎You deleted this message.
+[20/06/2026, 16:42:55] Gurtej Singh: ‎You deleted this message.
+[20/06/2026, 16:42:55] Gurtej Singh: ‎You deleted this message.
+[20/06/2026, 16:42:56] Gurtej Singh: ‎You deleted this message.
+[20/06/2026, 16:42:56] Gurtej Singh: ‎You deleted this message.
+[20/06/2026, 16:42:56] Gurtej Singh: ‎You deleted this message.
+[20/06/2026, 16:42:56] Gurtej Singh: ‎You deleted this message.
+[20/06/2026, 16:42:56] Gurtej Singh: ‎You deleted this message.
+[20/06/2026, 16:42:56] Gurtej Singh: ‎You deleted this message.
+[20/06/2026, 16:43:12] Gurtej Singh: ‎You deleted this message.
+[22/06/2026, 18:24:38] Gurtej Singh: Hey bro 👋
+
+Just wanted to check where we stand with the website.
+
+From my side, the frontend is pretty much there now and the remaining work depends on the business information and final approval from you.
+
+When you get a chance, could you send over:
+
+• The images you’d like used throughout the website 📸
+• The main contact email address 📧
+• Phone number(s) ☎️
+• Any business descriptions or content you’d like included 📝
+• Confirmation that you’re happy with the current layout and structure ✅
+
+Also, one thing worth considering is whether you’d like an admin portal built into the website.
+
+This would allow you or your team to:
+
+• Respond to enquiries directly
+• View and manage leads
+• Update rates and content
+• Add or remove information from the website
+• Track submissions and customer details
+
+It’s not something we have to do immediately, but it’s worth thinking about before I start planning the backend side of things.
+
+I’ve got a few other projects coming in over the next couple of weeks, so I just wanted to see what timeline you’re working towards and when you think you’ll be able to send everything across.
+
+No rush bro, just let me know where you’re at 👍
+[23/06/2026, 22:03:54] Gurtej Singh: Hey bro 👋
+
+Quick one.
+
+I’ve now finished building out the client portal on my website and I’d like to get you added to it.
+
+The idea is that everything for your project sits in one place, including:
+
+• Website progress and updates 🚀
+• Messages and communication 💬
+• Pricing and invoices 💷
+• Deposits and payments 📊
+• Documents and assets 📁
+• Future website requests and amendments 🔧
+
+Rather than us having bits spread across WhatsApp, emails, and different places, you’ll have one central dashboard where everything can be tracked.
+
+When you get a minute, send me the best email address for you and I’ll create your account and send over the invite link 🔑
+
+It’ll also make it much easier for us as we move towards the final stages of the website and any future work together.
+
+Thanks bro 👍
+[24/06/2026, 12:26:39] Ali Nawaz: Hey bro,
+
+Yes send it to 
+
+ali_nawaz122@outlook.com 
+
+Was supposed to get this sorted yesterday but I had an accident with the Aston Martin.
+
+Will speak soon bro.
+
+Thanks for your patience as always
+[24/06/2026, 12:39:35] Gurtej Singh: Thanks my bro.
+
+Hope your fit and fine.
+
+Speak soon.
+[24/06/2026, 12:40:44] Gurtej Singh: Sent the email. ‎<This message was edited>
+[24/06/2026, 12:59:32] Gurtej Singh: Now you should be able to login and reset your password for the email on
+
+gslegacywealth.com
+[24/06/2026, 12:59:41] Gurtej Singh: Lmk if there are any issues my bro.
+[25/06/2026, 17:23:57] Gurtej Singh: nawaz123
+[25/06/2026, 17:30:04] Gurtej Singh: ali_nawaz122@outlook.com
+[25/06/2026, 17:30:13] Gurtej Singh: ‎You deleted this message.
+[27/06/2026, 15:37:47] Gurtej Singh: ‎You deleted this message.
+[27/06/2026, 15:51:33] Gurtej Singh: ‎You deleted this message.
+[30/06/2026, 10:42:39] Gurtej Singh: Hey bro 👋
+
+Hope you’re doing well.
+
+Whenever you get a chance, I’d really appreciate it if you could log into your client dashboard on GS Legacy Wealth and have a look through it.
+
+I’ve spent a lot of time building it so that everything for your website project is organised in one place. Rather than going back and forth over WhatsApp, the dashboard walks you through exactly what I need from you, step by step, making it much easier for both of us to get the project over the line.
+
+I’d recommend starting with the guided tour first. It only takes a few minutes and gives you a complete overview of how everything works. From there, you can work through each section at your own pace.
+
+Once everything on your side has been completed, I’ll be able to move straight onto the backend development and the remaining functionality for the website.
+
+Your login details are:
+
+🌐 gslegacywealth.com
+📧 ali_nawaz122@outlook.com
+🔑 Password: nawaz123
+
+If anything doesn’t make sense or you have any questions, just drop me a message either on WhatsApp or through the Message Desk inside the dashboard. I’ll get back to you as soon as I can.
+
+Looking forward to hearing what you think. I think you’ll really like how everything has been put together.
+
+Thanks bro 👍
+[30/06/2026, 14:05:55] Ali Nawaz: Hi bro,
+
+That’s perfect and been extremely busy with property purchase where completion is this Friday. Will aim to look at it tonight.
+
+Thanks
+[30/06/2026, 14:11:07] Gurtej Singh: No worries at all bro.
+
+I really appreciate you letting me know.
+
+I know you’ve got a lot going on at the moment, so there’s absolutely no pressure. I just get excited about the projects I’m working on and sometimes I’m conscious that I might come across as chasing too much 😂.
+
+Take your time, focus on Friday first, and whenever you get a chance to go through it, just let me know your thoughts.
+
+Wishing you all the best with the completion. 🤞
+[30/06/2026, 22:32:38] Ali Nawaz: Hi bro,
+
+Thanks and dw about it will push it forward after all this property thing is done by Friday.
+
+Thanks again for your patience my bro and speak soon!
+[04/07/2026, 22:34:45] Gurtej Singh: Hey bro 👋
+
+Hope you’re doing well and that the property acquisition all went through smoothly. 🤞🏡
+
+Just wanted to check if you’re at the gym tomorrow and what time you’ll be there. 
+
+I’ve got my laptop with me anyway, so if you’ve got 10 mins we can have a quick look through the website and get the last few bits sorted.
+
+Happy to go through it either before or after training, whatever works best for you.
+
+Speak soon bro.
+[08/07/2026, 10:26:44] Gurtej Singh: Hey bro 👋
+
+Hope you’re doing well.
+
+I wanted to ask you a quick favour if that’s okay. I need a witness to sign a declaration form for my mum’s property purchase, and it just needs to be someone over 18 who isn’t related to me.
+
+Would you be able to witness and sign it for me, I’d really appreciate it.
+
+No worries at all if you’re busy—just thought I’d ask. 
+
+Thanks bro 🙏
+[08/07/2026, 10:31:12] Ali Nawaz: Hi bro,
+
+Sorry had a lot going on.
+
+Need to get this website done this week.
+
+Yes that’s fine.
+
+I believe you just need my full name and email address.
+
+Thanks
+‎[08/07/2026, 10:33:45] Gurtej Singh: ‎image omitted
+[08/07/2026, 10:34:23] Gurtej Singh: Lmk my bro if I shall bring it to the gym and you can sign there?
+[08/07/2026, 10:36:36] Ali Nawaz: Perfect get that printed and I’ll sign it at the gym for u
+[08/07/2026, 10:36:47] Gurtej Singh: Thanks my bro.
+[08/07/2026, 10:36:55] Gurtej Singh: Lmk when you head off, I’ll come.
+[08/07/2026, 10:38:04] Ali Nawaz: No worries bro I got u 👍
+[08/07/2026, 10:38:08] Ali Nawaz: Np
+[08/07/2026, 16:14:03] Ali Nawaz: Hey bro going central today so I’ll be back this evening if you want to do it or tomorrow I’ll be at the gym.
+
+Whatever you want lmk
+[08/07/2026, 16:37:42] Gurtej Singh: ‎You deleted this message.
+[08/07/2026, 16:41:46] Gurtej Singh: ‎You deleted this message.
+[08/07/2026, 16:42:08] Gurtej Singh: ‎You deleted this message.
+[08/07/2026, 16:57:20] Gurtej Singh: That’s fine my bro, dw, we’ve found someone who can sign it for us.
+[08/07/2026, 17:01:10] Ali Nawaz: Okay bro apologies but had something pop up like I have said I would have done it in the evening if you needed it today.
+
+Speak soon and let me know how it goes
+[08/07/2026, 17:04:21] Gurtej Singh: Nah, no worries my bro. We managed to sort it in the end and got someone else to sign the document, so it’s all good. Don’t apologise—these things happen.
+
+Hope everything’s alright your end. Let me know how it goes. We’ll get the website sorted. 👊
+[08/07/2026, 21:29:06] Ali Nawaz: Yes no worries bro just arrived back gotta sort admin and then will look into your stuff fingers crossed over the next few days
+[08/07/2026, 21:57:17] Gurtej Singh: No worries, hope you get on top of everything.
+
+Out of interest, is much of your admin repetitive? 
+
+We help businesses automate that kind of work, so if there are tasks that are taking up loads of your time, there’s a good chance we can help. 
+
+Might be worth having a chat once you’ve had a chance to catch up.
+[10/07/2026, 23:05:37] Gurtej Singh: Hey bro 👋
+
+Hope you’re doing well, and sorry for messaging this late.
+
+Just wanted to let you know that I’ve made a few changes to my own website and the way I’m now managing client projects moving forward.
+
+When you get a chance, log into your client account on:
+
+https://mercianwealth.com
+
+and have a look around. I’ve added a few new features so everything is in one place, including project progress, documentation, communication, pricing, and the next stages of development.
+
+Login Details:
+📧 Email: ali_nawaz122@outlook.com
+🔑 Password: nawaz123
+
+Also, I’m planning on bringing my laptop to the gym tomorrow. Let me know what time you’re going, and if you’re happy to, we can have a quick meeting before training. It’ll be much easier to go through everything together, get your feedback, sort the remaining bits (images, contact details, etc.), and finally get things moving forward. 💪
+
+Let me know what works best for you, bro. 🤝
+[10/07/2026, 23:05:45] Ali Nawaz: ‎You pinned a message
+[13/07/2026, 10:31:02] Gurtej Singh: Morning bro 👋
+
+Hope you’re doing well.
+
+Just a heads up, I’ll be bringing my laptop to the gym later today. If you’ve got 10–15 minutes either before or after you’re finished, we can have a quick look through the website, go over any final changes, and get everything moving forward.
+
+What time are you heading to the gym today? 
+Let me know what works best for you. 👍🤝
+[13/07/2026, 16:41:44] Ali Nawaz: Good Afternoon bro,
+
+Yeah that’s fine let’s do that after gym sesh
+[13/07/2026, 16:42:14] Ali Nawaz: I had taken a break over the weekend as was very busy with work
+[13/07/2026, 16:42:42] Gurtej Singh: Calm my bro, I’m at the gym.
+
+We’ll leave around 19:00
+[13/07/2026, 18:31:11] Gurtej Singh: Hey bro, 
+
+Yeah, I’ve finished just now.
+
+Lmk when you wanna do it.
+[13/07/2026, 18:31:18] Gurtej Singh: I’m here till 19:00?
+[13/07/2026, 18:59:26] Gurtej Singh: Hey bro, sorry, I had to go.
+
+My laptop will be with me everyday.
+
+Lmk when tomorrow is the best time.
+[13/07/2026, 19:30:46] Ali Nawaz: Hey bro sorry man let’s do tomorrow
+[13/07/2026, 19:31:04] Gurtej Singh: No worries my bro, yeah, lmk.
+[14/07/2026, 16:51:38] Gurtej Singh: Hey my bro, I’m at the gym.
+
+Lmk when you arrive then we get get it sorted.
+[14/07/2026, 16:52:10] Ali Nawaz: Yo bro
+[14/07/2026, 16:52:13] Ali Nawaz: Just in
+[14/07/2026, 16:52:17] Ali Nawaz: Will do after sesh
+[14/07/2026, 16:57:52] Gurtej Singh: Calm.
+[15/07/2026, 16:53:53] Ali Nawaz: Yo bro
+[15/07/2026, 16:54:10] Ali Nawaz: Just managed to get ahead of work
+[15/07/2026, 16:54:23] Ali Nawaz: Will sort website this evening
+[15/07/2026, 17:00:28] Gurtej Singh: Calm my bro.
+
+I’m at the gym, you training today?
+[15/07/2026, 17:14:05] Gurtej Singh: ‎Voice call, ‎1 min
+[15/07/2026, 21:29:36] Gurtej Singh: Great session today bro.
+
+My shoulders are fully pumped.🙂
+[15/07/2026, 22:22:34] Ali Nawaz: Haha yes sick sesh my bro, 
+
+Got a good pump. 
+
+Will sort website tomorrow as mad tired rn
+[15/07/2026, 22:23:07] Gurtej Singh: No worries my bro.
+
+Lmk when you gonna send over the stuff, I’ll change the site.
+[16/07/2026, 15:56:02] Ali Nawaz: Hi bro
+[16/07/2026, 15:56:15] Ali Nawaz: Alterations should be done tonight
+[16/07/2026, 15:56:21] Ali Nawaz: How’s your shoulders?
+[16/07/2026, 15:56:24] Ali Nawaz: 🤣🤣🤣
+[16/07/2026, 15:56:27] Gurtej Singh: Sore
+[16/07/2026, 15:56:30] Gurtej Singh: 🤣
+[16/07/2026, 15:56:45] Gurtej Singh: Calm bro.
+[17/07/2026, 11:00:07] Gurtej Singh: Morning bro 👋
+
+Hope you’re good.
+
+Just checking in to see how you’re getting on with the alterations. Were you able to go through everything last night?
+
+Once you’ve got the remaining bits together, send them over whenever you can and I’ll get everything updated so we can move this over the line. 🤝
+[17/07/2026, 15:17:08] Ali Nawaz: Good Afternoon bro,
+
+I came back 3am yesterday as had been called in as an emergency to a meeting in London.
+
+Just gonna hit quick gym sesh and then go solicitors afterwards and then will be done tonight.
+[19/07/2026, 10:21:45] Ali Nawaz: Hey bro,
+
+Ima hit the gym quickly and gotta go up north, while I’m being driven there I’ll send you alterations for the website.
+[19/07/2026, 10:37:06] Gurtej Singh: Perfect, thanks bro.
+‎[20/07/2026, 12:50:45] Ali Nawaz: At the end change:
+
+Stamps into cash. ‎image omitted
+‎[20/07/2026, 12:51:33] Ali Nawaz: Change to:
+
+For their stamps ‎image omitted
+‎[20/07/2026, 12:55:14] Ali Nawaz: Where it has special delivery write 
+
+Special Delivery / Signed For service ‎image omitted
+‎[20/07/2026, 12:58:51] Ali Nawaz: Change to:
+
+Clarity and security matter - especially when selling stamps.
+
+See how our streamlined approach compares to traditional routes ‎image omitted
+‎[20/07/2026, 13:01:20] Ali Nawaz: Change second bullet point:
+
+Fast - once received payment same day 
+
+Change last bullet point to 10+ years experience, UK-based ‎image omitted
+[20/07/2026, 13:02:01] Ali Nawaz: Also add another bullet point at the end and write 
+
+Discrete Service ‎<This message was edited>
+‎[20/07/2026, 13:03:57] Ali Nawaz: Change title to:
+
+Get an instant price today 
+
+
+Also change results within 1-12 hours. ‎image omitted
+‎[20/07/2026, 13:05:48] Ali Nawaz: Change to:
+
+For over 10 years, we have been buying postage stamps across the United Kingdom and getting sellers paid out fast and discreetly. ‎image omitted
+‎[20/07/2026, 13:07:13] Ali Nawaz: Take this part which is highlighted out ‎image omitted
+‎[20/07/2026, 13:08:01] Ali Nawaz: All stamps are carefully checked by our head buyer before any purchase. ‎image omitted
+‎[20/07/2026, 13:09:15] Ali Nawaz: Our team has decades of combined experience ‎image omitted
+‎[20/07/2026, 13:09:49] Ali Nawaz: We treat every sale with care and every customer with respect, regardless of the sale size ‎image omitted
+‎[20/07/2026, 13:11:49] Ali Nawaz: When you choose Sell Your Stamps UK, you’re working with a team that genuinely cares about buying your stamps and aims to purchase them as efficient as possible. ‎image omitted
+‎[20/07/2026, 13:13:58] Ali Nawaz: 5th bullet point:
+
+Fast payment within same day ‎image omitted
+[20/07/2026, 13:14:31] Ali Nawaz: Same page appears on about us to change to this
+[20/07/2026, 13:14:45] Ali Nawaz: Same again
+[20/07/2026, 13:15:01] Ali Nawaz: Will go through next part after food
+[20/07/2026, 13:15:15] Gurtej Singh: ok bro.
+[20/07/2026, 13:53:20] Gurtej Singh: Hey bro 👋
+
+I’ve updated this latest set of alterations on the website.
+
+When you get a chance, have another look through it and let me know if there’s anything else you’d like changed, added, or adjusted.
+
+I’m heading to the gym in about 10 minutes, but I’ll finish off any remaining bits as soon as I’m back. 👍🤝
+[23/07/2026, 17:25:10] Gurtej Singh: Hey my bro, hope thing well.
+
+Have you gotten the chance to send me the rest of the alterations and the email address to use so that automated emails can be sent to users when the request valuations?
+[26/07/2026, 10:24:14] Gurtej Singh: Good morning bro 👋
+
+Hope you’re doing well.
+
+Just wanted to check in and see if you’ve had a chance to go through the website.
+
+Whenever you get a chance, could you send me over the remaining bits I need to get everything finished off:
+
+• The updated copy/text for the website
+• The images you’d like to use
+• The phone number you’d like displayed
+• The email address you’d like connected for the enquiry forms and email automation
+
+Once I’ve got those from you, I’ll get everything implemented and we’ll be in a good position to get the site live. 👍🤝
+[26/07/2026, 10:37:36] Ali Nawaz: Good morning bro,
+
+All is well and hope your well too.
+
+Will be sorted today evening.
+
+Thanks
+[01/08/2026, 11:42:01] Gurtej Singh: Morning bro 👋
+
+Hope you’re doing well.
+
+Just wanted to follow up on the website. Whenever you get a chance today, could you send over everything in one go so I can get the final bits wrapped up?
+
+I’ll just need:
+• The updated website copy/text
+• The images you’d like to use
+• The phone number and email address you’d like connected
+• Any final alterations or changes you’d like made
+
+Once I’ve got those, I’ll get everything implemented and we can get the site finished and ready to launch. 🤝
+
+Appreciate it bro.
+[05/08/2026, 12:35:36] Gurtej Singh: Good afternoon my bro 👋
+hope your well.
+
+Did you happen to get a chance to take a look at the site?
+[07/08/2026, 15:50:53] Gurtej Singh: Hey my bro,
+How’s things?
+
+What time are you in the gym today?
+[07/08/2026, 19:29:26] Ali Nawaz: Hi bro,
+
+I barely gone to the gym this week as I have had a family bereavement so should be semi-training this week. 
+
+Will keep in touch
+[07/08/2026, 21:08:21] Gurtej Singh: Ah bro, I’m really sorry to hear that. My condolences to you and your family. Take all the time you need and look after yourself. We’ll catch up when you’re ready 🤝
+[14/08/2026, 14:43:40] Gurtej Singh: Hey my bro, hope you’re doing as well as you can, especially with everything you’re going through with the family at the moment. I don’t want to bother you or put anything on your mind while you’ve got a lot going on.
+
+When you get a chance, I wanted to ask if you happen to know of a trustworthy solicitor or someone you’d recommend who I could speak to regarding some financial matters.
+
+And if you’re coming to the gym today and have the time, I can explain the situation properly in person — but honestly, no pressure at all bro, whenever you’re comfortable. 🤝
+[15/08/2026, 08:33:05] Ali Nawaz: Hey bro,
+
+Yes just a lot is going on since the news but I should be training today. 
+
+No problem I can give you a solicitor’s number and will you be around the gym today around midday? 
+
+Hope all is well
+[15/08/2026, 12:20:00] Gurtej Singh: Ok bro, thanks, we’ll probably arrive around 14:30.
+[16/08/2026, 09:48:09] Gurtej Singh: Hey bro, hope you’re doing well. Just wanted to ask if you’re free sometime soon to continue working on the site? 
+
+No rush at all,
+Let me know when you’re available and we can pick it back up. ‎<This message was edited>
+[21/08/2026, 08:28:54] Ali Nawaz: ‎Your business is now using a secure service from Meta to manage this chat. Tap to learn more.
+[21/08/2026, 08:29:11] Gurtej Singh: Good Morning bro 👋
+
+Hope you’re all good and everything’s going well with you.
+
+Whenever you get a chance, could you send me over the final alterations for the site, along with any images, updated pricing, descriptions or anything else you want included?
+
+I’ll also need a working phone number and the best email/contact details for enquiries, so I can set up the email side properly — for example, something like contact@sellyourstampsuk.co.uk where users can receive a response after enquiring about their stamps.
+
+Once I’ve got all of that, I can get the remaining bits tied together and we’ll be in a good position to get everything finished and live. 🤝
+[05/09/2026, 15:31:01] Gurtej Singh: Hey bro, how’s things?
+[10/09/2026, 11:47:01] Gurtej Singh: Hey bro 👋
+
+Wanted to run something past you — we could actually take the site a lot further than just the basics, if it's useful to you. Not talking bells and whistles, more stuff that directly puts money in your pocket or time back in your day, like:
+
+⏱️ Instant reply to anyone messaging you at 11pm about selling stamps — so you're not losing them to someone else by morning
+
+🎯 Auto-qualifying enquiries — so you're only spending your time on people who are actually ready to sell, not going back and forth on messages that go nowhere
+
+📉 Auto follow-up on anyone who started a quote but didn't finish — recovering deals that would've just gone cold
+
+All optional, all separate from the £500 — just want to know what would actually be useful to you day to day. What's the most annoying/time-consuming part of running the stamps side right now? We can build around that 🤝
+[10/09/2026, 11:48:42] Ali Nawaz: Hey bro,
+
+Everything is fine, just abroad for 2 weeks where one week is in Dubai and one week in Pakistan. 
+
+Currently in my last week but don’t tell anyone as only a few people know.
+[10/09/2026, 11:48:52] Ali Nawaz: Pray you and your family are well
+[10/09/2026, 11:49:08] Gurtej Singh: Sorry bro.
+
+Hope you have a great vacation.
+[10/09/2026, 11:50:22] Ali Nawaz: To be honest I’ve run similar buying websites and beacuse of this niche, the people who are selling postage stamps will only sell to the website as it’s not like many stamp buyers are listed so this wouldn’t apply for me.
+
+Thanks for the consideration though.
+[10/09/2026, 11:50:33] Ali Nawaz: Don’t apologies lol it’s fine
+[10/09/2026, 11:50:48] Gurtej Singh: Take care my bro.
+[10/09/2026, 11:50:55] Gurtej Singh: No worries.
+[10/09/2026, 11:51:33] Ali Nawaz: Made a little montage lol
+[10/09/2026, 11:51:41] Ali Nawaz: For Dubai
+[10/09/2026, 11:52:00] Gurtej Singh: That’s great my bro.
+[18/09/2026, 16:59:58] Gurtej Singh: Take care bro.
+[24/09/2026, 11:49:38] Gurtej Singh: Good Morning my bro,
+
+How's things going?
+
+Wanted to see if you were ready to move things forward and finalise the website?
+[30/09/2026, 12:05:15] Gurtej Singh: Good afternoon my bro, following the conversation yesterday, I will need the following:
+
+Business & Contact Details
+
+Final buy-back rates sign-off (1st Class, 2nd Class, Barcoded stamps, etc.) — happy to hop on a call to go through the current numbers if easier
+Full names + emails for anyone who needs an Admin or Worker login
+Your official business phone number and main inbound email
+Registered company name, Companies House number, and registered office address
+Confirm your support/phone hours and VAT number if you're VAT registered
+
+Technical
+
+Which domain is the main one — sellyourstamps.co.uk or ukstampvaluations.co.uk (the other will redirect to it)
+Access to your domain DNS (Cloudflare/GoDaddy/Namecheap etc.) so I can point it live
+Which email address should get notified every time someone submits a valuation request
+
+Legal
+
+Sign-off on the Terms of Service draft (or send your solicitor's version if you've got one)
+Your policy on return postage if stamps get rejected — do you cover it or does the customer?
+Data controller name and ICO registration number for the Privacy Policy
+Any specific wording you want for the "I own these stamps" declaration on the form
+
+A couple of quick decisions
+
+The site currently says transit insurance up to £50k — can you confirm your actual policy covers that, or should I change the number?
+Reference format for logging payouts, e.g. BACS-12345 or CHQ-1001
+Keep the "Sign In (Admin)" link in the footer, or would you rather staff just bookmark the login page?
+For error monitoring and ongoing site management — I'll keep this on my end and manage everything for £50/month, which also covers hosting.
+
+Also, quick one on branding — need your logo (high-res, light + dark versions plus a favicon), a few real reviews from customers if you've got them, and any real photos of your setup/team if you want them on the site.
+
+https://v0-stamp-valuation-app-eight.vercel.app/
+
+Let me know when you've got a bit of time and we can knock most of this out on a call. Speak soon 🙏 ‎<This message was edited>
+[30/09/2026, 12:39:51] Ali Nawaz: ‎You pinned a message
+[09/10/2026, 12:06:59] Gurtej Singh: Good Afternoon my bro 👋
+
+Hope you're doing well and settling back in after everything.
+
+Wanted to be straight with you on something, because I think it's worth a proper look. 
+We started this website back in March and it's now October. 
+That's roughly six months of the site not being live, which means every person searching to sell their stamps in that time has potentially gone to someone else instead of you.
+
+You know this niche better than me: people selling stamps only sell to websites, so being the site they find is the whole game. 
+Every week it sits unfinished is potential leads you never get to see, which is exactly why it's easy to miss.
+
+The good news is we're really close. 
+The site is built, your rates are in and the structure is done. 
+
+What's holding it back is a short list that only you can give me:
+• Final sign-off on the buy-back rates
+• The main phone number and email for enquiries
+• Which domain is the main one, plus DNS access so I can point it live
+• Your logo and a few real photos - logo can remain if you like it.
+• Company details for the legal pages (company number, registered address)
+• Confirmation of the £50k transit insurance, or I'll change the wording anywhere else also.
+
+Honestly, 30 minutes on a call or at the gym with my laptop and we can clear nearly all of it. After that I can get it live shortly after.
+
+When are you free this week? I'll work around you 🤝
+
+https://v0-stamp-valuation-app-eight.vercel.app ‎<This message was edited>
