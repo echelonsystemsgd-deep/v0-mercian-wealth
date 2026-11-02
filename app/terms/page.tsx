@@ -27,7 +27,7 @@ export default function TermsPage() {
       <PageHeader 
         title="Terms of"
         highlight="Service"
-        subtitle="Last updated: May 23, 2026. Please read these terms carefully before utilizing our services."
+        subtitle="Last updated: November 2, 2026. Please read these terms carefully before utilizing our services."
       />
       <section className="relative pb-24 lg:pb-32 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto glass border border-accent-gold/15 rounded-3xl p-6 sm:p-12 space-y-10 relative overflow-hidden">
@@ -118,6 +118,19 @@ export default function TermsPage() {
               <h2 className="font-serif text-xl sm:text-2xl font-bold text-white">4. Limitation of Liability</h2>
               <p className="text-text-primary opacity-80 leading-relaxed text-sm sm:text-base">
                 <span className="text-white font-semibold">In no event shall Mercian Wealth be liable for any indirect, incidental, special, consequential, or punitive damages</span> (including loss of profits, data, or business opportunities) arising out of or related to your use of our platforms, automation strategies, or consulting assets.
+              </p>
+            </div>
+          </div>
+
+          {/* Section 5 */}
+          <div className="flex gap-4 sm:gap-6 items-start">
+            <div className="p-3 border border-accent-gold/20 bg-accent-gold/5 text-accent-gold rounded-xl shrink-0 mt-1">
+              <Award className="w-5 h-5 stroke-[1.5]" />
+            </div>
+            <div className="space-y-3">
+              <h2 className="font-serif text-xl sm:text-2xl font-bold text-white">5. Managed Cloud Hosting & Retainers</h2>
+              <p className="text-text-primary opacity-80 leading-relaxed text-sm sm:text-base">
+                Ongoing managed edge hosting, SSL certificates, continuous uptime monitoring, and schema refinements (<span className="text-white font-semibold">£29/month for Practice Core, £49/month for Practice Growth OS</span>) are billed monthly via automated direct debit. There are <span className="text-white font-semibold">zero lock-in contracts</span>; services may be cancelled with 30 days written notice. Mercian Wealth holds no assets hostage; upon cancellation, full DNS direction and source assets are facilitated for client handover.
               </p>
             </div>
           </div>

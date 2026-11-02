@@ -27,7 +27,7 @@ export default function PrivacyPage() {
       <PageHeader 
         title="Privacy"
         highlight="Policy"
-        subtitle="Last updated: May 23, 2026. This policy explains how we collect, use, and safeguard your data."
+        subtitle="Last updated: November 2, 2026. This policy explains how we collect, use, and safeguard your data."
       />
       <section className="relative pb-24 lg:pb-32 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto glass border border-accent-gold/15 rounded-3xl p-6 sm:p-12 space-y-10 relative overflow-hidden">
