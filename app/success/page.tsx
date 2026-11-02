@@ -15,7 +15,7 @@ const CALENDLY_PARAMS = new URLSearchParams({
 })
 
 const TRUST_ITEMS = [
-  { icon: Clock, text: "30-minute clinical evaluation" },
+  { icon: Clock, text: "15-minute practice diagnostic" },
   { icon: Shield, text: "Candid operational analysis" },
   { icon: Star, text: "Strictly limited allocations" },
 ]
@@ -192,7 +192,7 @@ export default function SuccessPage() {
                   <span className="text-gradient-gold">Alignment Session</span>
                 </h1>
                 <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
-                  Your application is registered. Select a time below to request your clinical evaluation session. We confirm all bookings within one business day.
+                  Your enquiry is registered. Select a time below to request your 15-minute practice diagnostic session. We confirm all bookings within one business hour.
                 </p>
               </div>
 

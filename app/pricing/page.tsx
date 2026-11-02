@@ -57,18 +57,18 @@ export default async function PricingPage() {
     "itemListElement": [
       {
         "@type": "Offer",
-        "name": "Practice Core",
+        "name": "Practice Core (Base entry)",
         "price": "595",
         "priceCurrency": "GBP",
-        "description": "High-converting mobile-engineered practice storefront with 48-hour delivery, direct call/email routing, and speed-to-lead enquiry capture.",
+        "description": "Sub-second mobile-first practice hub, partner call/email routing, MTD/ICAEW trust badges, 100% IP & DNS ownership. £29/mo managed hosting, 48-hour delivery.",
         "url": "https://mercianwealth.com/pricing",
       },
       {
         "@type": "Offer",
-        "name": "Practice Growth OS",
+        "name": "Practice Growth OS (Sales Prof Tier)",
         "price": "1495",
         "priceCurrency": "GBP",
-        "description": "Complete client acquisition engine with 60-second inbound enquiry triage, automated calendar booking, and CRM pipeline synchronization.",
+        "description": "60-second inbound enquiry triage, Calendly/Google/Outlook booking sync, instant WhatsApp partner dispatches, CRM lead routing. £49/mo managed infrastructure, 7-10 days delivery.",
         "url": "https://mercianwealth.com/pricing",
       },
       {
@@ -76,7 +76,15 @@ export default async function PricingPage() {
         "name": "Institutional Practice Engine",
         "price": "4995",
         "priceCurrency": "GBP",
-        "description": "End-to-end bespoke digital infrastructure for multi-partner, high-turnover practices needing custom tax calculators, client portal routing, and multi-office directory architecture.",
+        "description": "Bespoke multi-office infrastructure (WealthWise tier), custom tax/dividend estimators, client portal & practice management routing. £99/mo managed hosting, staged sprints delivery.",
+        "url": "https://mercianwealth.com/pricing",
+      },
+      {
+        "@type": "Offer",
+        "name": "Bespoke Practice Architecture",
+        "price": "Custom Scope",
+        "priceCurrency": "GBP",
+        "description": "Custom enterprise practice infrastructure for multi-partner groups and multi-office firms with custom Karbon/Iris/AccountancyManager integrations.",
         "url": "https://mercianwealth.com/pricing",
       },
     ]

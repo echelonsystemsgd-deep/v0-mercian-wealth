@@ -57,20 +57,20 @@ export default function PortfolioPage() {
         {
           "@type": "CreativeWork",
           "position": 1,
-          "name": "Second Shine Jewellers · Luxury Estate & Horology Platform",
-          "description": "Sub-second load time, virtual loupe inspection, and mobile VIP concierge.",
+          "name": "WealthWise Advisory & Private Wealth · Multi-Partner Platform",
+          "description": "Sub-second load time, corporate tax triage, and partner routing.",
         },
         {
           "@type": "CreativeWork",
           "position": 2,
-          "name": "Vanguard Construction — Extensions & Conversions",
-          "description": "Instant project quote and upfront deposit calculation engine.",
+          "name": "Raw Accounting & Advisory · Client Intake Engine",
+          "description": "60-second inbound lead triage and two-way Calendly diary sync.",
         },
         {
           "@type": "CreativeWork",
           "position": 3,
-          "name": "AURĒLIA Longevity Atelier",
-          "description": "Private clinic consultation intake, duodenal delivery, and automated subscriptions.",
+          "name": "Goringe Practice Engine · Corporate Retainer Hub",
+          "description": "48-hour practice hub deployment and MTD compliance alignment.",
         },
       ]
     }

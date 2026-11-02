@@ -48,53 +48,53 @@ interface ComparisonCategory {
 const comparisonCategories: ComparisonCategory[] = [
   {
     id: "web",
-    category: "Custom Web Architecture & UI/UX",
+    category: "Practice Hub & Speed Architecture",
     icon: Globe,
     badge: "Sub-Second Load",
-    description: "Bespoke digital design, mobile storefront flow, search discoverability, and upfront payment capture.",
+    description: "Bespoke digital design, mobile speed optimization, practice search discoverability, and MTD trust signals.",
     items: [
-      { name: "Mobile Page Speed", detail: "Optimized Next.js code and global edge CDN delivering sub-second first contentful paint", essential: "High-Performance Edge CDN", pro: "Optimized Edge Render", custom: "Dedicated Edge Cluster", highlight: true },
-      { name: "Bespoke Brand Design", detail: "Custom designed layouts tailored to your business, with zero generic templates", essential: "Bespoke Storefront (3 Pages)", pro: "Interactive Order Flow (Up to 7 Pages)", custom: "Multi-Service & Multi-Location Web Architecture" },
-      { name: "Search & Structured Schema Discovery", detail: "Technical SEO, rich snippets, and machine-readable Schema.org JSON-LD for Google and search crawlers", essential: "Local SEO & Core Schema.org", pro: "Advanced FAQ & Service Schema", custom: "Multi-Location Regional Entity Graph" },
-      { name: "Payment & Deposit Processing", detail: "Direct Stripe / Apple Pay checkout for instant customer commitment and deposits", essential: "✓ Standard Checkout", pro: "✓ Dynamic Deposit & Quote Lock", custom: "✓ Bespoke Checkout Gateway Architecture" },
+      { name: "Mobile Page Speed", detail: "Optimized Next.js code and global edge CDN delivering sub-second first contentful paint", essential: "Sub-400ms Edge CDN", pro: "Optimized Edge Render", custom: "Dedicated Edge Cluster", highlight: true },
+      { name: "Practice Brand Design", detail: "Custom designed layouts tailored to your firm, with zero generic leaflet templates", essential: "Core Practice Hub (3 Pages)", pro: "Interactive Intake Hub (Up to 7 Pages)", custom: "Multi-Partner & Multi-Office Web Architecture" },
+      { name: "Accountancy Schema & Discovery", detail: "Technical SEO, rich snippets, and machine-readable Schema.org JSON-LD for Google and AI engines", essential: "Local SEO & Practice Schema", pro: "Advanced FAQ & Sector Tax Schema", custom: "Multi-Location Regional Entity Graph" },
+      { name: "Compliance & Trust Badges", detail: "ICAEW, ACCA, CTA, AAT compliance badging and MTD-ready trust indicators", essential: "✓ Core Compliance Badges", pro: "✓ Dynamic Sector Trust Badging", custom: "✓ Multi-Entity Institutional Badging" },
     ]
   },
   {
-    id: "booking",
-    category: "Booking Flow & Operational CRM",
+    id: "triage",
+    category: "Client Intake & Two-Way Diary Sync",
     icon: Navigation,
-    badge: "Frictionless Flow",
-    description: "Frictionless customer booking interfaces, instant smartphone notifications, and back-end CRM sync.",
+    badge: "60-Second Triage",
+    description: "Structured intake flows qualifying turnover, sector, and accounting software without open-box form fatigue.",
     items: [
-      { name: "Customer Booking Intake", detail: "Mobile-first booking or order builder so customers confirm without bouncing", essential: "Direct Quote Intake", pro: "✓ Interactive Order Builder", custom: "✓ Bespoke Multi-Branch Dispatch", highlight: true },
-      { name: "Back-End Calendar Booking", detail: "Automated client scheduling with two-way calendar synchronization and slot rules", essential: "Google / Outlook Sync", pro: "✓ Two-Way Calendar Management", custom: "✓ Multi-Calendar Staff Dispatch" },
-      { name: "Back-End CRM System", detail: "Centralized customer pipeline tracking, contact records, and inquiry management", essential: "Lead Notification Inbox", pro: "✓ Centralized Back-End CRM", custom: "✓ Bespoke CRM & Pipeline Automation" },
-      { name: "Direct Owner Alerts", detail: "Instant notification with complete customer and job details sent immediately", essential: "✓ Direct Email & Phone Alert", pro: "✓ Instant Mobile & WhatsApp Dispatch", custom: "✓ Dedicated Control Panel & Webhooks" },
+      { name: "Client Intake Triage", detail: "Mobile-first intake qualifying sector, business structure, and turnover in under 60 seconds", essential: "Direct Partner Call & Routing", pro: "✓ 60-Second Interactive Triage", custom: "✓ Bespoke Multi-Branch Intake Routing", highlight: true },
+      { name: "Two-Way Calendar Booking", detail: "Automated partner scheduling with Calendly, Google, or Outlook calendar synchronization", essential: "Direct Contact Routing", pro: "✓ Direct Two-Way Calendar Sync", custom: "✓ Multi-Partner Diary Routing" },
+      { name: "Back-End CRM & Routing", detail: "Centralized client inquiry pipeline tracking, software tagging, and practice CRM sync", essential: "Partner Lead Inbox", pro: "✓ Centralized Practice CRM", custom: "✓ Custom Practice Pipeline Sync" },
+      { name: "Speed-to-Lead Partner Alerts", detail: "Instant notification with complete client turnover and service specs sent immediately", essential: "✓ Direct Partner Email & Call", pro: "✓ Instant WhatsApp & Mobile Alert", custom: "✓ Multi-Partner Branch Webhook Routing" },
     ]
   },
   {
     id: "growth",
-    category: "Conversion & Email Automation",
+    category: "Retainer Acquisition & Follow-Ups",
     icon: Zap,
     badge: "Zero Leaked Leads",
-    description: "Automated booking confirmations, email sequences, Google review collection, and conversion optimization.",
+    description: "Automated discovery confirmations, email sequences, document checklists, and conversion optimization.",
     items: [
-      { name: "Automated Email Sequences", detail: "Automated booking confirmation, receipts, and client pre-appointment instructions", essential: "Standard Confirmation Email", pro: "✓ Multi-Step Email Sequences", custom: "✓ Bespoke Lifecycle Email Journeys", highlight: true },
-      { name: "Google Review Generation Engine", detail: "Post-service automated review requests to systematically scale 5-star Google ratings", essential: "—", pro: "✓ Automated Google Review Flow", custom: "✓ Multi-Platform Review Engine" },
-      { name: "Dormant Lead Recovery", detail: "Follow-up workflows re-engaging prospective customers who inquired but haven't finalized", essential: "—", pro: "✓ Automated Follow-Up Sequences", custom: "✓ Custom Lead Reactivation Campaigns" },
+      { name: "Automated Intake Sequences", detail: "Automated booking confirmation, onboarding checklists, and meeting reminders", essential: "Standard Confirmation Email", pro: "✓ Multi-Step Practice Sequences", custom: "✓ Bespoke Lifecycle Client Journeys", highlight: true },
+      { name: "Fee Scoper & Estimator", detail: "Interactive bookkeeping and tax quote scoper to set fee expectations upfront", essential: "—", pro: "✓ Interactive Fee Estimator", custom: "✓ Custom Multi-Service Calculator" },
+      { name: "Quiet Lead Re-Engagement", detail: "Follow-up workflows re-engaging prospective clients who inquired but haven't booked", essential: "—", pro: "✓ Automated Follow-Up Sequences", custom: "✓ Custom Corporate Re-Engagement" },
     ]
   },
   {
     id: "hosting",
-    category: "Cloud Infrastructure & Managed Care",
+    category: "Managed Cloud Infrastructure & Care",
     icon: ShieldCheck,
     badge: "Verified Uptime",
-    description: "High-performance edge cloud hosting, search maintenance, ongoing intake optimization, and priority support.",
+    description: "High-performance edge cloud hosting, monthly speed checks, schema tuning, and priority partner support.",
     items: [
-      { name: "Edge Cloud Infrastructure", detail: "Global edge CDN with automated failover, SSL encryption, and high bandwidth", essential: "High-Performance Edge CDN", pro: "Dedicated Edge Cluster", custom: "Isolated Multi-Region CDN" },
-      { name: "Monthly SEO & Indexing Audits", detail: "Ongoing ranking checks, Search Console health audits, and structured schema updates", essential: "Monthly Discoverability Report", pro: "✓ Active Keyword & Schema Tuning", custom: "✓ Multi-Location Search Architecture" },
-      { name: "Booking & Intake Flow Maintenance", detail: "Ongoing health checks and rule refinement for order builders, intake forms, and calendars", essential: "Standard System Checks", pro: "✓ Monthly Booking Flow Optimization", custom: "✓ Continuous Workflow & Intake Tuning", highlight: true },
-      { name: "Technical Support Desk", detail: "Hands-off support for service adjustments, pricing changes, and workflow maintenance", essential: "Standard Support Desk", pro: "Priority Engineering Support Desk", custom: "Dedicated WhatsApp / Slack Channel" },
+      { name: "Managed Cloud Infrastructure", detail: "UK edge cloud hosting with automated SSL renewals, daily backups, and uptime monitoring", essential: "£29/mo Managed Hosting", pro: "£49/mo Managed Care", custom: "£99/mo Priority Infrastructure" },
+      { name: "Monthly SEO & Schema Audits", detail: "Ongoing ranking audits, Google Search Console checks, and structured schema maintenance", essential: "Monthly Health Check", pro: "✓ Active Search & Schema Tuning", custom: "✓ Multi-Location Regional Graph Audits" },
+      { name: "Intake Flow & Triage Maintenance", detail: "Ongoing tuning for inquiry forms, triage options, and calendar slot rules", essential: "Standard Care", pro: "✓ Monthly Triage Flow Tuning", custom: "✓ Continuous Workflow & Portal Tuning", highlight: true },
+      { name: "Partner Engineering Support Desk", detail: "Direct technical support for copy changes, fee updates, and service tier additions", essential: "Standard Support Desk", pro: "Priority Support Desk", custom: "Direct WhatsApp / Slack Partner Desk" },
     ]
   }
 ]
@@ -106,24 +106,14 @@ interface PricingProps {
   revenueShareTiers?: PricingTier[]
 }
 
-export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retainerTiers: propRetainerTiers, revenueShareTiers: propRevenueShareTiers }: PricingProps) {
-  const [billingCycle, setBillingCycle] = useState<"oneTime" | "monthly" | "revenueShare">("oneTime")
+export function Pricing({ isHomepage = false, setupTiers: propSetupTiers }: PricingProps) {
   const [activeCategoryFilter, setActiveCategoryFilter] = useState<string>("all")
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  // All accordion cards closed by default to keep page compact and clean
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({})
   const [activeTierFocus, setActiveTierFocus] = useState<"all" | "essential" | "pro" | "custom">("all")
 
   const oneTimeTiers = (SITE_COPY.pricingPage as any).oneTimeTiers || []
-  const monthlyTiers = (SITE_COPY.pricingPage as any).monthlyTiers || []
-  const revenueShareTiers = (SITE_COPY.pricingPage as any).revenueShareTiers || []
-
-  const activeTiers = 
-    billingCycle === "oneTime"
-      ? (propSetupTiers && propSetupTiers.length > 0 ? propSetupTiers : oneTimeTiers)
-      : billingCycle === "monthly"
-      ? (propRetainerTiers && propRetainerTiers.length > 0 ? propRetainerTiers : monthlyTiers)
-      : (propRevenueShareTiers && propRevenueShareTiers.length > 0 ? propRevenueShareTiers : revenueShareTiers)
+  const activeTiers = propSetupTiers && propSetupTiers.length > 0 ? propSetupTiers : oneTimeTiers
 
   const toggleCategory = (id: string) => {
     setExpandedCategories(prev => ({
@@ -136,7 +126,6 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
     setActiveCategoryFilter(domainId)
     setIsDropdownOpen(false)
     if (domainId !== "all") {
-      // Automatically expand the filtered domain for focused inspection
       setExpandedCategories({ [domainId]: true })
     }
   }
@@ -176,206 +165,145 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
           </div>
         )}
 
-        {/* Engineered Scope & Skin in the Game Framing Banner */}
-        <div className="max-w-3xl mx-auto mb-8 p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-white/10 text-center space-y-1.5 shadow-xl">
+        {/* Engineered Practice Scope & Transparent Terms Banner */}
+        <div className="max-w-3xl mx-auto mb-10 p-4 sm:p-5 rounded-2xl bg-[#0B0B0D] border border-white/10 text-center space-y-1.5 shadow-xl">
           <span className="text-[10px] font-mono text-[#DAA640] uppercase tracking-widest font-bold block">
-            ENGINEERED SCOPE · TRANSPARENT COMMERCIAL TERMS
+            PRACTICE INFRASTRUCTURE · 3 TRANSPARENT COMMERCIAL TIERS
           </span>
           <p className="text-xs sm:text-sm text-zinc-300 font-sans leading-relaxed">
-            We do not build generic template sites, and we do not sell one-size-fits-all price tags. Every Mercian Wealth build is custom-engineered to your booking logic and customer volume. We scope fixed milestones on our discovery call — or, if you qualify, our <strong className="text-emerald-400">Revenue Share partnership (5%–10%)</strong> ties compensation strictly to digital orders and deposits processed through your online checkout gateway.
+            Every build is engineered specifically for UK accountancy firms, commercial tax advisors, and multi-partner practices. One-time setup fee + automated monthly cloud infrastructure (<strong className="text-white font-semibold">£29–£99/mo</strong>) via direct debit with zero lock-in contracts and 100% intellectual property ownership.
           </p>
         </div>
 
-        {/* Billing Switcher Header (3 Tabs: System Build -> Revenue Share -> Growth Retainer) */}
-        <div className="flex justify-center mb-8 sm:mb-12 relative z-20 px-2">
-          <div className="inline-flex items-center justify-center p-1 rounded-xl sm:rounded-full bg-[#0B0B0D] border border-white/10 relative shadow-lg max-w-full overflow-x-auto scrollbar-none">
-            <button
-              suppressHydrationWarning
-              onClick={() => setBillingCycle("oneTime")}
-              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[10px] sm:text-xs font-semibold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer min-h-[40px] shrink-0 ${
-                billingCycle === "oneTime" ? "text-black font-bold" : "text-zinc-400 hover:text-white"
-              }`}
-            >
-              {billingCycle === "oneTime" && (
-                <motion.div
-                  layoutId="pricingBillingBg"
-                  className="absolute inset-0 rounded-lg sm:rounded-full bg-[#DAA640] z-[-1]"
-                  transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                />
-              )}
-              <span className="hidden sm:inline">System Build (One-Time)</span>
-              <span className="sm:hidden">System Build</span>
-            </button>
-            <button
-              suppressHydrationWarning
-              onClick={() => setBillingCycle("revenueShare")}
-              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[10px] sm:text-xs font-semibold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer min-h-[40px] shrink-0 ${
-                billingCycle === "revenueShare" ? "text-black font-bold" : "text-zinc-400 hover:text-white"
-              }`}
-            >
-              {billingCycle === "revenueShare" && (
-                <motion.div
-                  layoutId="pricingBillingBg"
-                  className="absolute inset-0 rounded-lg sm:rounded-full bg-[#DAA640] z-[-1]"
-                  transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                />
-              )}
-              <span className="hidden sm:inline">Revenue Share (5%–10%)</span>
-              <span className="sm:hidden">Rev Share</span>
-            </button>
-            <button
-              suppressHydrationWarning
-              onClick={() => setBillingCycle("monthly")}
-              className={`px-3 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-full text-[10px] sm:text-xs font-semibold tracking-wider uppercase transition-all duration-300 relative z-10 cursor-pointer min-h-[40px] shrink-0 ${
-                billingCycle === "monthly" ? "text-black font-bold" : "text-zinc-400 hover:text-white"
-              }`}
-            >
-              {billingCycle === "monthly" && (
-                <motion.div
-                  layoutId="pricingBillingBg"
-                  className="absolute inset-0 rounded-lg sm:rounded-full bg-[#DAA640] z-[-1]"
-                  transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                />
-              )}
-              <span className="hidden sm:inline">Growth Retainer (Monthly)</span>
-              <span className="sm:hidden">Retainer</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Revenue Share Digital Gateway Attribution Callout */}
-        {billingCycle === "revenueShare" && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-3xl mx-auto mb-8 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center space-y-1 shadow-lg"
-          >
-            <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-emerald-400 font-mono uppercase tracking-wider">
-              <ShieldCheck className="w-4 h-4 shrink-0" />
-              <span>Digital Gateway Attribution Guarantee</span>
-            </div>
-            <p className="text-xs text-zinc-300 leading-relaxed max-w-2xl mx-auto">
-              Revenue share applies strictly to customer deposits, orders, and booking fees processed directly through your website checkout. In-store, telephone, and cash transactions are 100% yours and never tracked.
-            </p>
-          </motion.div>
-        )}
-
-        {/* Pricing Cards Grid */}
+        {/* 3 Main Practice Pricing Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-7 mb-14">
           <AnimatePresence mode="wait">
-            {activeTiers.map((tier: PricingTier, idx: number) => (
-              <motion.div
-                key={`${billingCycle}-${tier.id || idx}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.35, delay: idx * 0.08 }}
-                className={`flex flex-col relative rounded-2xl sm:rounded-3xl border transition-all duration-300 overflow-hidden ${
-                  tier.featured
-                    ? "bg-[#0B0B0D] border-[#DAA640] shadow-2xl shadow-[#DAA640]/10 lg:-translate-y-2 z-10"
-                    : "bg-[#0B0B0D] border-white/10 hover:border-white/20 shadow-xl"
-                }`}
-              >
-                {tier.featured && (
-                  <div className="bg-[#DAA640] text-black py-1.5 px-4 text-center text-[10px] sm:text-xs font-bold uppercase tracking-widest font-mono flex items-center justify-center gap-1.5 shadow-sm">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>Most High-Growth UK Operations</span>
-                  </div>
-                )}
+            {activeTiers.slice(0, 3).map((tier: PricingTier, idx: number) => {
+              const isFirst = idx === 0
+              const isSecond = idx === 1
+              const isThird = idx === 2
 
-                <div className="p-4 sm:p-7 flex-1 flex flex-col justify-between">
-                  <CardContent className="p-0 space-y-4 sm:space-y-5">
-                    <div>
-                      <div className="flex items-center justify-between gap-2 mb-1.5 sm:mb-2">
-                        <span className="text-xs font-mono font-bold text-[#DAA640] uppercase tracking-wider">
-                          {tier.highlight || `Tier 0${idx + 1}`}
-                        </span>
-                        {tier.featured && (
-                          <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                            Guaranteed SLA
+              const hostingFee = isFirst ? "£29/mo" : isSecond ? "£49/mo" : "£99/mo"
+              const deliveryTime = isFirst ? "48 Hours" : isSecond ? "7–10 Days" : "Staged Sprints"
+
+              return (
+                <motion.div
+                  key={`practice-tier-${tier.id || idx}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, delay: idx * 0.08 }}
+                  className={`flex flex-col relative rounded-2xl sm:rounded-3xl border transition-all duration-300 overflow-hidden ${
+                    tier.featured
+                      ? "bg-[#0B0B0D] border-[#DAA640] shadow-2xl shadow-[#DAA640]/10 lg:-translate-y-2 z-10"
+                      : "bg-[#0B0B0D] border-white/10 hover:border-white/20 shadow-xl"
+                  }`}
+                >
+                  {tier.featured && (
+                    <div className="bg-[#DAA640] text-black py-1.5 px-4 text-center text-[10px] sm:text-xs font-bold uppercase tracking-widest font-mono flex items-center justify-center gap-1.5 shadow-sm">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Sales Prof Tier · Most Popular</span>
+                    </div>
+                  )}
+
+                  <div className="p-4 sm:p-7 flex-1 flex flex-col justify-between">
+                    <CardContent className="p-0 space-y-4 sm:space-y-5">
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-1.5 sm:mb-2">
+                          <span className="text-xs font-mono font-bold text-[#DAA640] uppercase tracking-wider">
+                            {tier.highlight || `Tier 0${idx + 1}`}
                           </span>
+                          <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                            {deliveryTime}
+                          </span>
+                        </div>
+                        <h3 className="text-lg sm:text-2xl font-bold text-white tracking-tight">
+                          {tier.name}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-zinc-300 mt-1 leading-relaxed min-h-[36px]">
+                          {tier.description}
+                        </p>
+                      </div>
+
+                      {/* Price Block */}
+                      <div className="py-3 sm:py-4 border-y border-white/10">
+                        <div className="flex items-baseline gap-2 flex-wrap">
+                          <span className="text-xl sm:text-3xl font-extrabold font-mono tracking-tight text-white">
+                            {tier.price.startsWith('£') ? tier.price : `£${tier.price}`}
+                          </span>
+                          <span className="text-xs text-zinc-400 font-mono">
+                            {tier.interval}
+                          </span>
+                        </div>
+
+                        {/* Optional Promo or Price Clarification */}
+                        {isFirst && (
+                          <div className="mt-1 text-[11px] font-mono text-amber-400">
+                            (or £495 promotional entry rate)
+                          </div>
+                        )}
+
+                        {/* Delivery & Hosting Specs Bar */}
+                        <div className="mt-2.5 grid grid-cols-2 gap-2 text-[10px] sm:text-[11px] font-mono">
+                          <div className="p-2 rounded-lg bg-[#141417] border border-white/10 text-zinc-300 flex items-center gap-1.5">
+                            <Clock className="w-3.5 h-3.5 text-[#DAA640] shrink-0" />
+                            <span>{deliveryTime}</span>
+                          </div>
+                          <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 flex items-center gap-1.5">
+                            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                            <span>{hostingFee} hosting</span>
+                          </div>
+                        </div>
+
+                        {(tier as any).milestoneBreakdown && (
+                          <div className="mt-2 p-2 rounded-lg bg-[#141417] border border-white/10 text-[10px] sm:text-[11px] text-zinc-300 leading-relaxed flex items-center gap-2 font-mono">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640] shrink-0" />
+                            <span>{(tier as any).milestoneBreakdown}</span>
+                          </div>
                         )}
                       </div>
-                      <h3 className="text-lg sm:text-2xl font-bold text-white tracking-tight">
-                        {tier.name}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-zinc-300 mt-1 leading-relaxed min-h-[36px]">
-                        {tier.description}
-                      </p>
-                    </div>
 
-                    {/* Price Block */}
-                    <div className="py-3 sm:py-4 border-y border-white/10">
-                      <div className="flex items-baseline gap-2 flex-wrap">
-                        <span className={`text-xl sm:text-3xl font-extrabold font-mono tracking-tight ${
-                          billingCycle === 'revenueShare' ? 'text-emerald-400' : 'text-white'
-                        }`}>
-                          {billingCycle === 'revenueShare' 
-                            ? tier.price 
-                            : tier.price.startsWith('£') 
-                            ? tier.price 
-                            : `£${tier.price}`}
-                        </span>
-                        <span className="text-xs text-zinc-400 font-mono">
-                          {billingCycle === 'monthly' ? '/month' : tier.interval}
-                        </span>
+                      {/* Features List */}
+                      <div className="space-y-2 sm:space-y-2.5">
+                        {tier.features.map((feature: string, i: number) => (
+                          <div key={i} className="flex items-start gap-2.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640] shrink-0 mt-1.5" />
+                            <span className="text-xs text-zinc-300 leading-normal font-medium">
+                              {feature}
+                            </span>
+                          </div>
+                        ))}
                       </div>
-                      {(tier as any).milestoneBreakdown && (
-                        <div className="mt-2 p-2 rounded-lg bg-[#141417] border border-white/10 text-[10px] sm:text-[11px] text-zinc-300 leading-relaxed flex items-center gap-2 font-mono">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640] shrink-0" />
-                          <span>{(tier as any).milestoneBreakdown}</span>
-                        </div>
-                      )}
-                      {(tier as any).domainHostingNote && (
-                        <div className="mt-2.5 p-2 rounded-lg bg-emerald-500/5 border border-emerald-500/20 text-[10px] sm:text-[11px] text-zinc-300 leading-relaxed flex items-start gap-2">
-                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                          <span>{(tier as any).domainHostingNote}</span>
-                        </div>
-                      )}
-                    </div>
+                    </CardContent>
 
-                    {/* Features List */}
-                    <div className="space-y-2 sm:space-y-2.5">
-                      {tier.features.map((feature: string, i: number) => (
-                        <div key={i} className="flex items-start gap-2.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#DAA640] shrink-0 mt-1.5" />
-                          <span className="text-xs text-zinc-300 leading-normal font-medium">
-                            {feature}
-                          </span>
-                        </div>
-                      ))}
+                    {/* Tier Action CTA */}
+                    <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-white/10">
+                      <Button
+                        asChild
+                        size="lg"
+                        className={`w-full min-h-[44px] py-4 text-xs font-semibold rounded-xl transition-all ${
+                          tier.featured
+                            ? "bg-[#DAA640] hover:bg-[#E5B85C] text-black shadow-lg shadow-[#DAA640]/20"
+                            : "border border-white/10 bg-[#141417] text-white hover:bg-white/10"
+                        }`}
+                      >
+                        <Link href="/book">
+                          <span>Book a call</span>
+                        </Link>
+                      </Button>
                     </div>
-                  </CardContent>
-
-                  {/* Tier Action CTA */}
-                  <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-white/10">
-                    <Button
-                      asChild
-                      size="lg"
-                      className={`w-full min-h-[44px] py-4 text-xs font-semibold rounded-xl transition-all ${
-                        tier.featured
-                          ? "bg-[#DAA640] hover:bg-[#E5B85C] text-black shadow-lg shadow-[#DAA640]/20"
-                          : "border border-white/10 bg-[#141417] text-white hover:bg-white/10"
-                      }`}
-                    >
-                      <Link href="/book">
-                        <span>Book a call</span>
-                      </Link>
-                    </Button>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              )
+            })}
           </AnimatePresence>
         </div>
 
-        {/* Custom Scope Option for Active Tab */}
+        {/* 4th Card: Bespoke Practice Architecture for Custom Scopes */}
         {(() => {
-          const customScope = (SITE_COPY.pricingPage as any).customScopeTiers?.[billingCycle]
+          const customScope = (SITE_COPY.pricingPage as any).customScopeTiers?.oneTime
           if (!customScope) return null
           return (
             <motion.div
-              key={`custom-scope-${billingCycle}`}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
@@ -386,10 +314,13 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                 <div className="space-y-2.5 max-w-2xl">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="px-2.5 py-0.5 rounded-full bg-[#DAA640]/15 border border-[#DAA640]/30 text-[#DAA640] text-[10px] font-mono font-bold uppercase tracking-wider">
-                      {customScope.tag || "Custom Scope"}
+                      {customScope.tag || "Enterprise Bespoke"}
                     </span>
                     <span className="text-[11px] font-mono text-zinc-300">
                       {customScope.interval}
+                    </span>
+                    <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-mono">
+                      Scoped Sprints Delivery
                     </span>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
@@ -441,7 +372,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                 <ShieldCheck className="w-4 h-4" />
               </span>
               <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-                Deployment Scope &amp; Commercial Terms
+                Practice Deployment Scope &amp; Commercial Terms
               </span>
             </div>
             <span className="text-[10px] font-mono text-[#DAA640] bg-[#DAA640]/10 px-2.5 py-0.5 rounded-full border border-[#DAA640]/30 w-fit">
@@ -456,17 +387,17 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                 <span>Sprint-Based Milestone Delivery</span>
               </div>
               <p className="text-zinc-400 text-[11px] leading-relaxed">
-                We work in agile, focused sprints scoped around your operational bottlenecks. Exact milestones and review check-ins are locked transparently during kickoff with zero guesswork.
+                We work in agile, focused sprints scoped around your firm's intake bottlenecks. Exact milestones and review check-ins are locked transparently during kickoff with zero guesswork.
               </p>
             </div>
 
             <div className="p-4 rounded-xl bg-[#141417] border border-white/10 space-y-2">
               <div className="font-bold text-white flex items-center gap-2">
                 <Zap className="w-4 h-4 text-[#DAA640]" />
-                <span>Client-Owned Hosting &amp; Domain</span>
+                <span>Practice-Owned Code &amp; DNS</span>
               </div>
               <p className="text-zinc-400 text-[11px] leading-relaxed">
-                You retain 100% ownership of your domain, codebase, and customer database. Hosting is configured directly under your own accounts with zero platform lock-in.
+                You retain 100% ownership of your domain, codebase, and client records. Hosting is configured under direct automated billing with zero agency lock-in.
               </p>
             </div>
 
@@ -476,7 +407,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                 <span>Clear Upfront Scope</span>
               </div>
               <p className="text-zinc-400 text-[11px] leading-relaxed">
-                Booking flows, CRM pipelines, payment integration, and AI search schemas are 100% included in agreed tiers. Any specialized third-party ERP connectors outside agreed specs are quoted clearly in advance.
+                Intake flows, calendar synchronization, and practice search schemas are 100% included in agreed tiers. Any specialized practice management connectors outside agreed specs are quoted clearly in advance.
               </p>
             </div>
           </div>
@@ -498,7 +429,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
             </Link>
           </div>
         ) : (
-          /* MODERN FLOATING DROPDOWN ARCHITECTURE MATRIX (No Static Rigid Table) */
+          /* MODERN FLOATING DROPDOWN ARCHITECTURE MATRIX */
           <div className="border-t border-white/10 pt-16 mt-4">
             
             {/* Header */}
@@ -511,7 +442,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                 Technical Deliverables &amp; SLA Breakdown
               </h3>
               <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl mx-auto font-sans leading-relaxed">
-                Compare page speed, booking flows, deposit capture, and managed website care SLAs across all tiers.
+                Compare mobile speed, client intake triage, two-way diary sync, and managed practice cloud care SLAs across all tiers.
               </p>
             </div>
 
@@ -589,7 +520,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                         activeTierFocus === "essential" ? "bg-[#DAA640] text-black" : "text-zinc-400 hover:text-white"
                       }`}
                     >
-                      Essential
+                      Practice Core
                     </button>
                     <button
                       onClick={() => setActiveTierFocus("pro")}
@@ -597,7 +528,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                         activeTierFocus === "pro" ? "bg-[#DAA640] text-black" : "text-zinc-400 hover:text-white"
                       }`}
                     >
-                      Pro
+                      Growth OS
                     </button>
                     <button
                       onClick={() => setActiveTierFocus("custom")}
@@ -605,7 +536,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                         activeTierFocus === "custom" ? "bg-[#DAA640] text-black" : "text-zinc-400 hover:text-white"
                       }`}
                     >
-                      Custom
+                      Institutional
                     </button>
                   </div>
 
@@ -701,7 +632,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                               {/* 3 Interactive Spec Cards */}
                               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                                 
-                                {/* 1. Essential Build */}
+                                {/* 1. Practice Core */}
                                 <div
                                   className={`p-3 rounded-xl border transition-all ${
                                     activeTierFocus === "essential" || activeTierFocus === "all"
@@ -710,14 +641,14 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                                   }`}
                                 >
                                   <div className="text-[9px] font-mono text-zinc-400 uppercase font-bold mb-1">
-                                    Essential Build
+                                    Practice Core (£595)
                                   </div>
                                   <div className="text-xs font-semibold">
                                     {item.essential}
                                   </div>
                                 </div>
 
-                                {/* 2. Growth System (Featured) */}
+                                {/* 2. Practice Growth OS (Featured) */}
                                 <div
                                   className={`p-3 rounded-xl border relative transition-all ${
                                     activeTierFocus === "pro" || activeTierFocus === "all"
@@ -727,7 +658,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                                 >
                                   <div className="flex items-center justify-between mb-1">
                                     <span className="text-[9px] font-mono text-[#DAA640] uppercase font-bold">
-                                      Growth System
+                                      Practice Growth OS (£1,495)
                                     </span>
                                     <span className="text-[8px] font-mono text-black bg-[#DAA640] px-1.5 rounded font-bold">
                                       RECOMMENDED
@@ -738,7 +669,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                                   </div>
                                 </div>
 
-                                {/* 3. Flagship Custom */}
+                                {/* 3. Institutional Practice Engine */}
                                 <div
                                   className={`p-3 rounded-xl border transition-all ${
                                     activeTierFocus === "custom" || activeTierFocus === "all"
@@ -747,7 +678,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers, retain
                                   }`}
                                 >
                                   <div className="text-[9px] font-mono text-zinc-400 uppercase font-bold mb-1">
-                                    Flagship Custom
+                                    Institutional Engine (£4,995–£7,495)
                                   </div>
                                   <div className="text-xs font-semibold text-zinc-300">
                                     {item.custom}
