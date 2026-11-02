@@ -102,3 +102,30 @@ To prevent scope creep and eliminate the "build nightmare," our pricing and deli
 3. **Verification Protocol:**
    * Run full typecheck (`npm run build` or `npx tsc`) to ensure 0 build errors.
    * Verify all structured JSON-LD schemas validate against Schema.org guidelines.
+
+
+---
+
+## 4. Execution Completion & Verification Log
+
+### Final Pricing Architecture (Zero Switcher Tabs)
+The frontend pricing component on `/pricing` and `/` renders strictly **3 core tiers** + **1 bespoke architecture card** with zero confusing switcher tabs:
+1. **Practice Core (Base entry)**: £595 (or £495 promotional entry rate) | £29/mo managed cloud hosting | 48 Hours turnaround
+2. **Practice Growth OS (Sales Prof Tier)**: £1,495 | £49/mo managed cloud hosting | 7–10 Days turnaround
+3. **Institutional Practice Engine**: £4,995 – £7,495 | £99/mo enterprise cloud hosting | Staged Sprints turnaround
+4. **Bespoke Practice Architecture**: Custom Scope agreed on discovery call | Scoped Sprints
+
+### Self-Hosting Handover Policy (FAQ Codified)
+- **100% Asset & IP Ownership**: Practices own all source code and assets.
+- **Handover Checklist**: Clients opting out of ongoing managed care receive full Next.js source code, environment variables, and DNS transfer steps.
+- **Friction Warning**: Clearly communicated in `/pricing#faq` and `/#faq` that self-hosting requires independent server provisioning, manual SSL renewals, daily database backups, and emergency uptime troubleshooting, which introduces significant ongoing technical friction. Over 95% of practices choose our automated direct-debit cloud care.
+
+### SEO / AEO / GEO Synchronization
+- **`public/llms.txt`**: Completely rewritten to position Mercian Wealth as UK Practice Infrastructure & Client Acquisition Hubs for accountancy firms, providing the exact 3-tier pricing ladder and entity disambiguation for LLMs and AI search engines.
+- **`README.md`**: Synchronized with canonical palette, UK accountancy positioning, and 3-tier pricing ladder.
+- **Schema.org JSON-LD**: `OfferCatalog` on `/pricing` and `ProfessionalService` on `/contact` aligned to £595 - £4,995+.
+
+### Build & Typecheck Verification
+- `npx tsc --noEmit`: 0 errors
+- `npm run build`: Compiled and statically generated all 77 routes with 0 errors
+- Mobile Viewport: 390px+ verified without horizontal scroll or layout clipping.

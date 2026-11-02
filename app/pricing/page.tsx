@@ -103,7 +103,7 @@ export default async function PricingPage() {
         subtitle={data.headerSubtitle}
       />
       <Suspense fallback={<div className="py-20 text-center text-accent-gold font-mono text-sm">Loading Pricing Systems...</div>}>
-        <Pricing setupTiers={setupTiers} retainerTiers={retainerTiers} revenueShareTiers={revenueShareTiers} />
+        <Pricing setupTiers={setupTiers} />
       </Suspense>
       
       {/* SLA & Performance Guarantees Section */}

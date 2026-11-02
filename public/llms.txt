@@ -1,39 +1,44 @@
 # Mercian Wealth
 
-> Sub-second mobile storefronts, 3-tap booking builders, instant WhatsApp lead capture, and upfront deposit engines for UK local businesses and trade contractors.
+> High-converting practice infrastructure, 60-second inbound client triage, two-way diary sync, and speed-to-lead partner routing for UK accountancy firms and commercial tax practices.
 
 ## Overview
-Mercian Wealth designs, builds, and deploys high-converting mobile digital storefronts and speed-to-lead booking automation for UK businesses. Based in Berkshire, we serve tradespeople, contractors, boutique retailers, and private medical clinics across England, Scotland, Wales, and Northern Ireland.
+Mercian Wealth engineers, builds, and deploys high-converting practice hubs, 60-second client triage workflows, and speed-to-lead partner notification infrastructure for UK accountancy practices. Based in Berkshire, we serve independent chartered accountants, tax advisory firms, and multi-partner practices across England, Scotland, Wales, and Northern Ireland.
 
 ## Entity Disambiguation & Classification
-- **Industry**: Software Development, Website Design & Local Workflow Automation.
-- **Clarification**: Mercian Wealth is NOT a financial advisory firm, wealth manager, or mortgage brokerage. Mercian Wealth is completely independent and unaffiliated with Mercian Wealth Management (Lichfield / St. James's Place). We build digital storefronts and booking systems for local commercial businesses.
+- **Industry**: Practice Infrastructure Engineering, Accountancy Web Architecture & Client Acquisition Automation.
+- **Clarification**: Mercian Wealth is NOT a financial advisory firm, wealth manager, or mortgage brokerage. Mercian Wealth is completely independent and unaffiliated with Mercian Wealth Management (Lichfield / St. James's Place). We build digital practice infrastructure, intake triage, and client acquisition gateways for UK accountancy and professional services firms.
 
-## Core Services & Solutions
-- **Essential Storefront (£495 setup, £195/mo)**: Single-day mobile storefront, sub-second load speeds, direct WhatsApp routing, and foundational analytics.
-- **Pro Order Builder (£995 setup, £495/mo)**: Interactive 3-tap order/quote builder, automated Stripe deposit collection, automated Google review sequences, and real-time SMS & WhatsApp lead notifications.
-- **Full Custom Build (£1,995 setup, £995/mo)**: Full custom web app architecture, multi-location calendar routing, CRM integration, and priority SLA engineering support.
+## Core Practice Solutions & Pricing Ladder
+- **Practice Core (£595 setup / £495 promo, £29/mo managed cloud hosting)**: 48-Hour delivery sprint. Sub-second mobile-first practice hub, direct partner call & email routing, MTD / ICAEW & ACCA compliance badges, and 100% intellectual property & DNS ownership.
+- **Practice Growth OS (£1,495 setup, £49/mo managed cloud hosting)**: 7–10 Days delivery. Complete client acquisition engine with 60-second inbound enquiry triage, direct two-way calendar sync (Calendly, Outlook, Google), instant WhatsApp partner dispatches, and back-end CRM lead routing.
+- **Institutional Practice Engine (£4,995 – £7,495 setup, £99/mo managed cloud hosting)**: Staged sprint delivery. Bespoke multi-office and multi-partner digital infrastructure (WealthWise tier), custom tax/dividend estimators, client portal routing, and practice management software synchronization (Karbon, Iris, AccountancyManager).
+- **Bespoke Practice Architecture (Custom Scope)**: Tailored enterprise infrastructure for multi-office practice groups, franchise networks, or high-volume firms needing custom integrations and dedicated engineering allocations.
 
-## 7-Day Deployment Protocol
-1. **Day 1 - Spec & Wireframe**: Friction audit, domain verification, brand asset ingestion.
-2. **Day 2–3 - Engine Build**: Mobile-first responsive UI, sub-second asset optimization, database integration.
-3. **Day 4 - Checkout & Automation**: Stripe checkout configuration, WhatsApp notifications, review automation.
-4. **Day 5–6 - Testing & Polish**: End-to-end booking smoke tests, page speed optimization (95+ Google PageSpeed).
-5. **Day 7 - Live Handover**: Production DNS cutover, team onboarding, live monitoring.
+## Commercial Ownership & Self-Hosting Handover Policy
+- **100% Intellectual Property Ownership**: The client practice owns 100% of the completed Next.js frontend code, domain, and data assets. Zero platform lock-in.
+- **Managed Care vs. Self-Hosting**: Practices can opt out of ongoing managed hosting (£29–£49/mo). In this scenario, Mercian Wealth provides complete source code, environment variables, and DNS handover instructions. However, self-hosting requires independent server provisioning, manual SSL certificate renewals, daily database backups, and emergency uptime troubleshooting, which introduces significant administrative friction and technical hassle. Over 95% of practices choose our automated direct-debit cloud care.
+
+## 4-Step Practice Deployment Protocol
+1. **Friction Audit & Intake Scoping**: Intake bottlenecks, corporate retainer targets, and software ecosystem review.
+2. **Working Practice Prototype (48 Hours)**: Functional mobile-first triage flow tested live on the partner's smartphone before agreement.
+3. **Calendar & WhatsApp Gateway Integration**: Two-way diary synchronization, automated partner speed-to-lead routing, and MTD trust signals.
+4. **Zero-Downtime Launch & Handover**: Parallel DNS cutover preserving existing email and domain authority, with 100% IP transfer.
 
 ## Verified Key Pages
-- [Homepage](https://mercianwealth.com/): Overview of mobile storefronts and booking infrastructure.
-- [Services](https://mercianwealth.com/services): Detailed feature list and technical capabilities.
-- [Protocol](https://mercianwealth.com/process): The 7-day zero-downtime engineering workflow.
-- [Portfolio](https://mercianwealth.com/portfolio): Live prototypes and case studies across UK industries.
-- [Pricing](https://mercianwealth.com/pricing): Transparent tiered pricing and growth retainers.
-- [Cohort Status](https://mercianwealth.com/cohort-status): Real-time deployment pipeline and client outcomes.
-- [Order Engine Demo](https://mercianwealth.com/local): Interactive 3-tap order builder demonstration.
+- [Homepage](https://mercianwealth.com/): Overview of practice infrastructure and client acquisition hubs.
+- [Practices Gateway](https://mercianwealth.com/practices): Dedicated solutions for UK accountancy practices.
+- [Pricing](https://mercianwealth.com/pricing): Transparent 3-tier commercial ladder (£595, £1,495, £4,995–£7,495) + Bespoke Architecture.
+- [Services](https://mercianwealth.com/services): Sub-second mobile speed, 60-second triage, calendar sync, and speed-to-lead alerts.
+- [Protocol](https://mercianwealth.com/process): The 4-step zero-downtime practice deployment methodology.
+- [Portfolio](https://mercianwealth.com/portfolio): Live practice architectures (WealthWise Advisory, Raw Accounting, Goringe Practice Engine).
 - [Contact Gateway](https://mercianwealth.com/contact): Direct email, phone, and WhatsApp contact details.
-- [Book Discovery Call](https://mercianwealth.com/book): 15-minute operational consultation and prototype review.
+- [Book Discovery Call](https://mercianwealth.com/book): 15-minute practice diagnostic and systems alignment call.
+- [Terms of Service](https://mercianwealth.com/terms): 100% IP transfer, milestone safeguards, and Section 5 managed hosting terms.
+- [Privacy Policy](https://mercianwealth.com/privacy): UK GDPR and Data Protection Act 2018 compliance standards.
 
 ## Contact Information
-- **Location**: Berkshire, United Kingdom (Serving all UK regions)
+- **Location**: Berkshire, United Kingdom (Serving all UK practice regions)
 - **Email**: mercianwealthgs@gmail.com
 - **Phone**: +44 7851 055929
 - **WhatsApp**: https://wa.me/447851055929

@@ -436,12 +436,12 @@ export const SITE_COPY = {
           answer: "Standard deployments take 7 business days from prototype sign-off to full public launch.",
         },
         {
-          question: "Do you charge percentage commissions on our practice revenue?",
-          answer: "No. For our fixed setup tiers (£595–£4,995), you retain 100% of all client fees and own the asset completely with zero commissions. Any optional performance partnership is strictly by separate agreement for qualifying firms.",
+          question: "Can our practice opt for a one-time build without monthly hosting or maintenance?",
+          answer: "Yes, 100%. You own the asset completely. If you choose not to use our managed hosting, we will give you our step-by-step handover instructions to transfer the codebase and DNS to your own cloud setup. However, self-hosting requires your team to provision servers, configure SSL certificates, manage database backups, and troubleshoot uptime incidents independently—which involves significant technical hassle. For that reason, over 95% of firms prefer our automated £29/mo or £49/mo managed cloud infrastructure with zero lock-in contracts.",
         },
         {
-          question: "What ongoing maintenance is required after launch?",
-          answer: "Managed cloud hosting, continuous security patches, daily backups, and SSL renewals are £29/month (or £49/month for Growth OS) via direct debit with 30 days notice to cancel. You retain 100% code, domain, and DNS ownership with zero lock-in.",
+          question: "What ongoing maintenance is included in the £29/mo or £49/mo retainer?",
+          answer: "Managed UK edge cloud hosting, automated SSL certificates, daily backups, uptime monitoring, and ongoing schema alignment via simple automated direct debit. Zero lock-in contracts, cancel anytime with 30 days notice.",
         },
       ],
     },
@@ -742,9 +742,9 @@ export const SITE_COPY = {
           description: "For an independent UK accountancy practice averaging £1,500–£3,600 in annual recurring fees, onboarding just 1 corporate client fully repays the setup.",
         },
         {
-          metric: "£29–£49/mo",
-          title: "Automated Managed Hosting",
-          description: "Zero inflated agency markups. Managed UK cloud hosting, daily backups, automated SSL renewal, and uptime monitoring via simple direct debit with zero lock-in.",
+          metric: "Zero Hassle",
+          title: "Managed Cloud Care vs. Self-Hosting",
+          description: "While you can self-host the raw codebase using our transfer steps, managing server patches, SSL, and backups independently creates ongoing technical hassle. Our automated £29–£49/mo direct debit takes care of everything with zero lock-in.",
         },
       ],
     },
@@ -753,7 +753,7 @@ export const SITE_COPY = {
     faq: {
       eyebrow: "PRICING FAQ",
       headline: "Transparent Commercial Terms",
-      description: "Straightforward answers on ownership, payments, hosting fees, and revenue share partnerships.",
+      description: "Straightforward answers on practice ownership, payments, hosting fees, and self-hosting transfer steps.",
       faqs: [
         {
           question: "Do I own the website and code after the build fee is paid?",
@@ -761,11 +761,11 @@ export const SITE_COPY = {
         },
         {
           question: "What are the ongoing monthly costs after launch?",
-          answer: "Managed UK cloud hosting and technical maintenance is £29/month for Practice Core and £49/month for Practice Growth OS. This covers automated SSL renewals, daily database backups, speed audits, and zero lock-in contracts.",
+          answer: "Managed UK cloud hosting and technical maintenance is £29/month for Practice Core and £49/month for Practice Growth OS (£99/mo for Institutional). This covers automated SSL renewals, daily database backups, speed audits, and zero lock-in contracts.",
         },
         {
-          question: "How does the Revenue Share option work?",
-          answer: "For qualifying businesses with proven volume, we lower the upfront setup fee and take an agreed 5%–10% performance fee strictly on digital orders and deposits processed through the online gateway.",
+          question: "Can our practice opt for a one-time build without monthly hosting or maintenance?",
+          answer: "Yes, 100%. You own all intellectual property. If you choose not to use our managed cloud hosting and maintenance, we will supply you with our handover checklist and instructions to transfer the Next.js codebase, environment variables, database records, and DNS configuration to your own servers. However, please be aware that managing your own cloud infrastructure, manual SSL renewals, daily database backups, edge speed optimizations, and troubleshooting downtime on your own involves significant ongoing technical friction and administrative hassle. For that reason, over 95% of practices keep our automated £29/mo or £49/mo direct-debit managed infrastructure active with zero lock-in contracts.",
         },
         {
           question: "Are there any hidden transaction fees or payment markups?",
@@ -773,9 +773,6 @@ export const SITE_COPY = {
         },
       ],
     },
-    billingToggleSetup: "System Build (One-Time)",
-    billingToggleRetainer: "Growth Retainer (Monthly)",
-    billingToggleRevenueShare: "Revenue Share (5%–10%)",
     oneTimeTiers: [
       {
         name: "Practice Core",
