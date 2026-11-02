@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 
 export default function LocalPage() {
   return (
-    <main className="min-h-screen bg-[#050505] text-white font-sans overflow-x-hidden">
+    <main className="min-h-screen bg-[#050505] text-white font-sans overflow-x-clip">
       <Navbar />
       
       {/* Background Watermark */}
@@ -64,3 +64,4 @@ export default function LocalPage() {
     </main>
   )
 }
+

@@ -653,3 +653,22 @@ input[type="range"].mobile-touch-slider::-moz-range-thumb {
   border: 2px solid #0B0B0D;
   box-shadow: 0 0 10px rgba(218, 166, 64, 0.4);
 }
+
+/* Mobile Navigation Drawer: Background Lock & Total Interactivity Isolation */
+body.mobile-menu-open {
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+  touch-action: none !important;
+}
+
+body.mobile-menu-open main,
+body.mobile-menu-open footer,
+body.mobile-menu-open [data-floating-ui],
+body.mobile-menu-open #whatsapp-widget {
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  filter: blur(4px);
+  opacity: 0.55;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}

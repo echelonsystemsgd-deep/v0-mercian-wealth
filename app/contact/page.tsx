@@ -70,7 +70,7 @@ export default function ContactPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#09090B] text-slate-100 overflow-x-hidden font-sans">
+    <main className="min-h-screen bg-[#09090B] text-slate-100 overflow-x-clip font-sans">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
@@ -173,3 +173,4 @@ export default function ContactPage() {
     </main>
   )
 }
+
