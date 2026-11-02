@@ -171,7 +171,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers }: Pric
             PRACTICE INFRASTRUCTURE · 3 TRANSPARENT COMMERCIAL TIERS
           </span>
           <p className="text-xs sm:text-sm text-zinc-300 font-sans leading-relaxed">
-            Every build is engineered specifically for UK accountancy firms, commercial tax advisors, and multi-partner practices. One-time setup fee + automated monthly cloud infrastructure (<strong className="text-white font-semibold">£29–£99/mo</strong>) via direct debit with zero lock-in contracts and 100% intellectual property ownership.
+            Every build is engineered specifically for UK accountancy firms, commercial tax advisors, and premier businesses. One-time setup fee + automated monthly cloud infrastructure (<strong className="text-white font-semibold">£29–£99/mo</strong>) via direct debit with zero lock-in contracts and 100% asset ownership. Turnaround timelines commence upon receipt of client onboarding details, copy assets, and credentials.
           </p>
         </div>
 
@@ -184,7 +184,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers }: Pric
               const isThird = idx === 2
 
               const hostingFee = isFirst ? "£29/mo" : isSecond ? "£49/mo" : "£99/mo"
-              const deliveryTime = isFirst ? "48 Hours" : isSecond ? "7–10 Days" : "Staged Sprints"
+              const deliveryTime = isFirst ? "2 Weeks" : isSecond ? "3–4 Weeks" : "6–8 Weeks"
 
               return (
                 <motion.div

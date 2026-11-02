@@ -165,16 +165,10 @@ export function Navbar() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-[100] flex flex-col font-sans pointer-events-none translate-y-0">
-      {/* Floating Pill Navbar Container (Carbon Zinc Surface) */}
-      <div className="w-full flex justify-center px-3 sm:px-6 pt-3 sm:pt-4">
-        <header
-          className={`pointer-events-auto w-full max-w-7xl transition-all duration-200 rounded-full border bg-[#0B0B0D] shadow-2xl ${
-            isScrolled
-              ? "border-white/20 py-2 px-4 sm:px-6"
-              : "border-white/10 py-2.5 px-4 sm:px-6"
-          } flex items-center justify-between flex-nowrap`}
-        >
+      <header className={`sticky top-0 z-[100] w-full border-b bg-[#09090B]/95 backdrop-blur-xl transition-all duration-200 shadow-xl font-sans ${
+        isScrolled ? "border-white/20 py-2" : "border-white/10 py-2.5"
+      }`}>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between flex-nowrap">
           {/* Brand Logo & Name */}
           <Link 
             href="/" 
@@ -512,9 +506,8 @@ export function Navbar() {
             </button>
 
           </div>
-        </header>
-      </div>
-    </div>
+        </div>
+      </header>
 
       {/* Luxury Slide-Over Navigation Drawer */}
       <AnimatePresence>
