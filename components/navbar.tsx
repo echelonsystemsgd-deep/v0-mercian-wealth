@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef, useCallback } from "react"
+import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { 
@@ -50,6 +51,10 @@ export function Navbar() {
   const { scrollDirection, isAtTop } = useScrollDirection({ threshold: 12, topThreshold: 60 })
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
   const [activeDropdown, setActiveDropdown] = useState<"solutions" | "sandboxes" | null>(null)
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -71,31 +76,19 @@ export function Navbar() {
   useEffect(() => {
     if (!isMobileMenuOpen) return
 
-    const scrollY = window.scrollY
-    const originalBodyPosition = document.body.style.position
-    const originalBodyTop = document.body.style.top
-    const originalBodyWidth = document.body.style.width
-    const originalBodyOverflow = document.body.style.overflow
-    const originalHtmlOverflow = document.documentElement.style.overflow
-    const originalBodyTouchAction = document.body.style.touchAction
-
-    // Lock body in place to completely eliminate mobile Safari elastic scrolling/rubber banding
     document.body.classList.add("mobile-menu-open")
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.width = "100%"
     document.body.style.overflow = "hidden"
     document.documentElement.style.overflow = "hidden"
-    document.body.style.touchAction = "none"
 
-    // Disallow background interaction: query all background blocks and mark inert
+    // Disallow background interaction on main, footer & floating buttons (never the portal)
     const bgElements = Array.from(document.querySelectorAll("main, footer, [data-floating-ui], #whatsapp-widget"))
     bgElements.forEach((el) => {
-      el.setAttribute("inert", "")
-      el.setAttribute("aria-hidden", "true")
+      if (el.id !== "mobile-nav-portal" && !el.contains(document.getElementById("mobile-nav-portal"))) {
+        el.setAttribute("inert", "")
+        el.setAttribute("aria-hidden", "true")
+      }
     })
 
-    // Keyboard listener for accessibility (Escape closes menu)
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setIsMobileMenuOpen(false)
@@ -106,21 +99,13 @@ export function Navbar() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
       document.body.classList.remove("mobile-menu-open")
-      
-      document.body.style.position = originalBodyPosition
-      document.body.style.top = originalBodyTop
-      document.body.style.width = originalBodyWidth
-      document.body.style.overflow = originalBodyOverflow
-      document.documentElement.style.overflow = originalHtmlOverflow
-      document.body.style.touchAction = originalBodyTouchAction
+      document.body.style.overflow = ""
+      document.documentElement.style.overflow = ""
 
       bgElements.forEach((el) => {
         el.removeAttribute("inert")
         el.removeAttribute("aria-hidden")
       })
-
-      // Seamlessly restore scroll position without flashing
-      window.scrollTo(0, scrollY)
     }
   }, [isMobileMenuOpen])
 
@@ -552,177 +537,180 @@ export function Navbar() {
         </div>
       </header>
 
-      {/* Luxury Slide-Over Navigation Drawer */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <div 
-            id="mobile-nav-portal"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation Menu"
-            className="fixed inset-0 z-[99999] flex justify-end pointer-events-auto"
-          >
-            {/* Soft Darkened Blur Backdrop (Tap outside to close) */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={() => setIsMobileMenuOpen(false)}
-              onTouchMove={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-              }}
-              className="fixed inset-0 bg-black/85 backdrop-blur-md cursor-pointer touch-none"
-              aria-hidden="true"
-            />
-
-            {/* Slide-in Sheet (Right-anchored, perfectly framed for mobile viewports) */}
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 320 }}
-              className="relative w-[86vw] max-w-[360px] h-[100dvh] bg-[#0B0B0D] border-l border-white/10 shadow-2xl flex flex-col justify-between z-10 font-sans select-none overflow-hidden"
+      {/* Luxury Slide-Over Navigation Drawer — Mounted to document.body via Portal to prevent any parent container inheritance */}
+      {mounted && typeof document !== "undefined" && createPortal(
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <div 
+              id="mobile-nav-portal"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation Menu"
+              className="fixed inset-0 z-[99999] flex justify-end pointer-events-auto"
             >
-              {/* Top Header - Fixed & Pinned */}
-              <div className="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between shrink-0 bg-[#0B0B0D]">
-                <Link
-                  href="/"
-                  onClick={(e) => {
-                    setIsMobileMenuOpen(false)
-                    handleHomeClick(e)
-                  }}
-                  className="flex items-center gap-2.5 group"
-                >
-                  <div className="relative h-8 w-8 rounded-lg overflow-hidden border border-[#DAA640]/40 shadow-md shrink-0">
-                    <BrandLogo variant="watermark" alt="Mercian Wealth" fill className="object-cover" priority />
-                  </div>
-                  <span className="font-sans text-sm font-extrabold tracking-tight text-white flex items-center gap-1 uppercase">
-                    <span>Mercian</span>
-                    <span className="text-[#DAA640]">Wealth</span>
-                  </span>
-                </Link>
+              {/* Soft Darkened Blur Backdrop (Tap outside to close) */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setIsMobileMenuOpen(false)}
+                onTouchMove={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                }}
+                className="fixed inset-0 bg-black/85 backdrop-blur-md cursor-pointer touch-none"
+                aria-hidden="true"
+              />
 
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-2 rounded-full bg-[#141417] text-zinc-300 hover:text-white border border-white/10 transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#DAA640] active:scale-95"
-                  aria-label="Close Navigation Menu"
-                >
-                  <X className="w-5 h-5 text-zinc-300" />
-                </button>
-              </div>
-
-              {/* Scrollable Nav Content */}
-              <div className="flex-1 overflow-y-auto overscroll-contain px-4 sm:px-5 py-4 space-y-4 touch-pan-y">
-                {/* Mission / Practice Infrastructure Badge */}
-                <div className="p-3 rounded-xl bg-[#141417] border border-white/10 flex items-center gap-2.5 text-xs">
-                  <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                  <span className="text-[11px] font-mono text-zinc-400 leading-tight">
-                    Practice Acquisition Infrastructure · UK Firms
-                  </span>
-                </div>
-
-                {/* Direct Navigation Links */}
-                <nav className="space-y-1.5" aria-label="Mobile Navigation Links">
-                  {[
-                    { name: "Home", href: "/", icon: Sparkles, badge: null },
-                    { name: "Practice Infrastructure", href: "/practices", icon: Landmark, badge: "MTD 2026" },
-                    { name: "AI Solutions", href: "/services", icon: Cpu, badge: "5 Systems" },
-                    { name: "Workflow Visualizer", href: "/#automation-flow", icon: Zap, badge: "Interactive" },
-                    { name: "Case Studies", href: "/portfolio", icon: Layers, badge: "Metrics" },
-                    { name: "Pricing & Retainers", href: "/pricing", icon: CreditCard, badge: "Plans" },
-                    { name: "Deployment Protocol", href: "/process", icon: Activity, badge: null },
-                    { name: "Contact", href: "/contact", icon: Mail, badge: "UK HQ" },
-                  ].map((item) => {
-                    const Icon = item.icon
-                    const isActive = pathname === item.href
-                    return (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className={`flex items-center justify-between px-3.5 py-3 rounded-xl transition-all group cursor-pointer min-h-[44px] ${
-                          isActive
-                            ? "bg-[#DAA640]/15 text-[#DAA640] font-bold border border-[#DAA640]/30"
-                            : "text-zinc-300 hover:bg-white/5 hover:text-white border border-transparent"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className={`p-2 rounded-lg border transition-colors ${
-                            isActive 
-                              ? "bg-[#DAA640] text-black border-[#DAA640]" 
-                              : "bg-[#141417] text-[#DAA640] border-white/10 group-hover:border-[#DAA640]/40"
-                          }`}>
-                            <Icon className="w-4 h-4" />
-                          </div>
-                          <span className="text-sm font-semibold tracking-tight">{item.name}</span>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                          {item.badge && (
-                            <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#141417] border border-white/10 text-zinc-400 group-hover:text-[#DAA640] transition-colors">
-                              {item.badge}
-                            </span>
-                          )}
-                          <ChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
-                        </div>
-                      </Link>
-                    )
-                  })}
-                </nav>
-              </div>
-
-              {/* Pinned Bottom Action Deck */}
-              <div className="p-4 sm:p-5 border-t border-white/10 shrink-0 space-y-2.5 bg-[#0B0B0D]/95 backdrop-blur-md">
-                <Link
-                  href="/book"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full py-3.5 px-4 rounded-xl bg-[#DAA640] hover:bg-[#E5B85C] text-black font-bold text-xs uppercase tracking-wider text-center shadow-lg shadow-[#DAA640]/20 flex items-center justify-center gap-2 transition-all cursor-pointer min-h-[46px] active:scale-[0.98]"
-                >
-                  <span>Book Consultation (15-Min)</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <div className="grid grid-cols-2 gap-2">
-                  <a
-                    href="tel:+447851055929"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl bg-[#141417] hover:bg-[#1c1c22] text-zinc-300 hover:text-white border border-white/10 text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors cursor-pointer min-h-[44px] active:scale-[0.98]"
-                  >
-                    <PhoneCall className="w-3.5 h-3.5 text-[#DAA640]" />
-                    <span>Call Direct</span>
-                  </a>
-
-                  <a
-                    href={SITE_COPY.navbar.whatsappHref}
-                    target="_blank"
-                    rel="noopener noreferrer nofollow"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="py-2.5 px-3 rounded-xl bg-[#141417] hover:bg-[#1c1c22] text-zinc-300 hover:text-white border border-white/10 text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors cursor-pointer min-h-[44px] active:scale-[0.98]"
-                  >
-                    <MessageSquare className="w-3.5 h-3.5 text-[#DAA640]" />
-                    <span>WhatsApp</span>
-                  </a>
-                </div>
-
-                <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 pt-2 px-1">
-                  <span>Berkshire &amp; Across UK</span>
+              {/* Slide-in Sheet (Right-anchored, perfectly framed for mobile viewports) */}
+              <motion.div
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", damping: 30, stiffness: 320 }}
+                className="relative w-[86vw] max-w-[360px] h-[100dvh] bg-[#0B0B0D] border-l border-white/10 shadow-2xl flex flex-col justify-between z-10 font-sans select-none overflow-hidden"
+              >
+                {/* Top Header - Fixed & Pinned */}
+                <div className="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between shrink-0 bg-[#0B0B0D]">
                   <Link
-                    href="/login"
-                    rel="nofollow"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-zinc-400 hover:text-[#DAA640] transition-colors"
+                    href="/"
+                    onClick={(e) => {
+                      setIsMobileMenuOpen(false)
+                      handleHomeClick(e)
+                    }}
+                    className="flex items-center gap-2.5 group"
                   >
-                    Client Login →
+                    <div className="relative h-8 w-8 rounded-lg overflow-hidden border border-[#DAA640]/40 shadow-md shrink-0">
+                      <BrandLogo variant="watermark" alt="Mercian Wealth" fill className="object-cover" priority />
+                    </div>
+                    <span className="font-sans text-sm font-extrabold tracking-tight text-white flex items-center gap-1 uppercase">
+                      <span>Mercian</span>
+                      <span className="text-[#DAA640]">Wealth</span>
+                    </span>
                   </Link>
-                </div>
-              </div>
 
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+                  <button
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="p-2 rounded-full bg-[#141417] text-zinc-300 hover:text-white border border-white/10 transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#DAA640] active:scale-95"
+                    aria-label="Close Navigation Menu"
+                  >
+                    <X className="w-5 h-5 text-zinc-300" />
+                  </button>
+                </div>
+
+                {/* Scrollable Nav Content */}
+                <div className="flex-1 overflow-y-auto overscroll-contain px-4 sm:px-5 py-4 space-y-4 touch-pan-y">
+                  {/* Mission / Practice Infrastructure Badge */}
+                  <div className="p-3 rounded-xl bg-[#141417] border border-white/10 flex items-center gap-2.5 text-xs">
+                    <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                    <span className="text-[11px] font-mono text-zinc-400 leading-tight">
+                      Practice Acquisition Infrastructure · UK Firms
+                    </span>
+                  </div>
+
+                  {/* Direct Navigation Links */}
+                  <nav className="space-y-1.5" aria-label="Mobile Navigation Links">
+                    {[
+                      { name: "Home", href: "/", icon: Sparkles, badge: null },
+                      { name: "Practice Infrastructure", href: "/practices", icon: Landmark, badge: "MTD 2026" },
+                      { name: "AI Solutions", href: "/services", icon: Cpu, badge: "5 Systems" },
+                      { name: "Workflow Visualizer", href: "/#automation-flow", icon: Zap, badge: "Interactive" },
+                      { name: "Case Studies", href: "/portfolio", icon: Layers, badge: "Metrics" },
+                      { name: "Pricing & Retainers", href: "/pricing", icon: CreditCard, badge: "Plans" },
+                      { name: "Deployment Protocol", href: "/process", icon: Activity, badge: null },
+                      { name: "Contact", href: "/contact", icon: Mail, badge: "UK HQ" },
+                    ].map((item) => {
+                      const Icon = item.icon
+                      const isActive = pathname === item.href
+                      return (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`flex items-center justify-between px-3.5 py-3 rounded-xl transition-all group cursor-pointer min-h-[44px] ${
+                            isActive
+                              ? "bg-[#DAA640]/15 text-[#DAA640] font-bold border border-[#DAA640]/30"
+                              : "text-zinc-300 hover:bg-white/5 hover:text-white border border-transparent"
+                          }`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className={`p-2 rounded-lg border transition-colors ${
+                              isActive 
+                                ? "bg-[#DAA640] text-black border-[#DAA640]" 
+                                : "bg-[#141417] text-[#DAA640] border-white/10 group-hover:border-[#DAA640]/40"
+                            }`}>
+                              <Icon className="w-4 h-4" />
+                            </div>
+                            <span className="text-sm font-semibold tracking-tight">{item.name}</span>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            {item.badge && (
+                              <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#141417] border border-white/10 text-zinc-400 group-hover:text-[#DAA640] transition-colors">
+                                {item.badge}
+                              </span>
+                            )}
+                            <ChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                          </div>
+                        </Link>
+                      )
+                    })}
+                  </nav>
+                </div>
+
+                {/* Pinned Bottom Action Deck */}
+                <div className="p-4 sm:p-5 border-t border-white/10 shrink-0 space-y-2.5 bg-[#0B0B0D]/95 backdrop-blur-md">
+                  <Link
+                    href="/book"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="w-full py-3.5 px-4 rounded-xl bg-[#DAA640] hover:bg-[#E5B85C] text-black font-bold text-xs uppercase tracking-wider text-center shadow-lg shadow-[#DAA640]/20 flex items-center justify-center gap-2 transition-all cursor-pointer min-h-[46px] active:scale-[0.98]"
+                  >
+                    <span>Book Consultation (15-Min)</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <a
+                      href="tel:+447851055929"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="py-2.5 px-3 rounded-xl bg-[#141417] hover:bg-[#1c1c22] text-zinc-300 hover:text-white border border-white/10 text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors cursor-pointer min-h-[44px] active:scale-[0.98]"
+                    >
+                      <PhoneCall className="w-3.5 h-3.5 text-[#DAA640]" />
+                      <span>Call Direct</span>
+                    </a>
+
+                    <a
+                      href={SITE_COPY.navbar.whatsappHref}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="py-2.5 px-3 rounded-xl bg-[#141417] hover:bg-[#1c1c22] text-zinc-300 hover:text-white border border-white/10 text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors cursor-pointer min-h-[44px] active:scale-[0.98]"
+                    >
+                      <MessageSquare className="w-3.5 h-3.5 text-[#DAA640]" />
+                      <span>WhatsApp</span>
+                    </a>
+                  </div>
+
+                  <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 pt-2 px-1">
+                    <span>Berkshire &amp; Across UK</span>
+                    <Link
+                      href="/login"
+                      rel="nofollow"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-zinc-400 hover:text-[#DAA640] transition-colors"
+                    >
+                      Client Login →
+                    </Link>
+                  </div>
+                </div>
+
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   )
 }

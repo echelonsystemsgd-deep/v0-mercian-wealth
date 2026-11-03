@@ -48,10 +48,10 @@ Built with an institutional, high-trust technology aesthetic (Charcoal + Solid T
 
 | Tier | Setup Price | Monthly Managed Care | Turnaround Delivery | Core Scope |
 | :--- | :--- | :--- | :--- | :--- |
-| **Practice Core** *(Base entry)* | **£595** *(or £495 promo rate)* | **£29/mo** | **48 Hours** | Sub-second mobile-first practice hub, partner call/email routing, MTD/ICAEW trust badges, 100% IP & DNS ownership. |
-| **Practice Growth OS** *(Sales Prof Tier)* | **£1,495** | **£49/mo** | **7–10 Days** | 60-second inbound enquiry triage, Calendly/Google/Outlook booking sync, instant WhatsApp partner dispatches, CRM lead routing. |
-| **Institutional Practice Engine** | **£4,995 – £7,495** | **£99/mo** | **Staged Sprints** | Bespoke multi-office infrastructure (WealthWise tier), custom tax/dividend estimators, client portal & practice management routing. |
-| **Bespoke Practice Architecture** | **Custom Scope** | Custom SLA | **Scoped Sprints** | Enterprise multi-office firms, franchise networks, or custom Karbon/Iris/AccountancyManager integrations. |
+| **Practice Core** *(Base entry)* | **£595** *(or £495 promo rate)* | **£29/mo** | **2 Weeks** | Sub-second mobile-first practice hub, partner call/email routing, MTD/ICAEW trust badges, 100% IP & DNS ownership. |
+| **Practice Growth OS** *(Sales Prof Tier)* | **£1,495** | **£49/mo** | **3–4 Weeks (~1 Month)** | 60-second inbound enquiry triage, Calendly/Google/Outlook booking sync, instant WhatsApp partner dispatches, CRM lead routing. |
+| **Institutional Practice Engine** | **£4,995 – £7,495** | **£99/mo** | **6–8 Weeks (2 Months)** | Bespoke multi-office infrastructure (WealthWise tier), custom tax/dividend estimators, client portal & practice management routing. |
+| **Bespoke Practice Architecture** | **Custom Scope** | Custom SLA | **8–12+ Weeks** | Enterprise multi-office firms, franchise networks, or custom Karbon/Iris/AccountancyManager integrations. |
 
 > **Self-Hosting Policy**: Clients retain 100% IP ownership. Practices opting out of monthly managed care (£29–£49/mo) receive full codebase and DNS transfer steps. However, self-hosting requires independent server provisioning, manual SSL renewals, and database backups, which introduces significant ongoing technical friction.
 
