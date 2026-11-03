@@ -208,8 +208,8 @@ export function Navbar() {
 
   return (
     <>
-      <header className={`sticky top-0 z-[100] w-full border-b bg-[#09090B]/95 backdrop-blur-xl transition-all duration-200 shadow-xl font-sans ${
-        isScrolled ? "border-white/20 py-2" : "border-white/10 py-2.5"
+      <header className={`fixed top-0 left-0 right-0 z-[100] w-full border-b bg-[#09090B]/95 backdrop-blur-xl transition-all duration-200 shadow-xl font-sans ${
+        isScrolled ? "border-white/20 py-2 shadow-2xl bg-[#09090B]/98" : "border-white/10 py-2.5 sm:py-3"
       }`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between flex-nowrap">
           {/* Brand Logo & Name */}
