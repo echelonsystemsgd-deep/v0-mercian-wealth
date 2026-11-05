@@ -429,3 +429,24 @@ Per site: one-page report readable on a phone (verdict and grade, build fingerpr
 ## L. Tests and guardrails
 - Tests fail if: two different sites produce the same finding set; any finding has no evidence; an unobservable item is marked verified; a message contains a claim with no matching finding id; a false-positive rule is violated (for example a honeypot field flagged); a Level 1-2 finding leads a message; or the first message lacks the stop line.
 - Guardrails: public pages only, respect robots.txt and rate limits, no form submissions or logins, no scanning or exploitation, minimal data with source and date, no claims of legal compliance or non-compliance. If unsure, ask me.
+
+
+---
+
+## M. Caller Conviction & Human-Observable Friction Rules (Accepted vs Rejected)
+
+> [!CRITICAL]
+> **The Human Eyeball Test**: The friction MUST be immediately obvious and undeniable to a human business owner looking at their phone screen without opening DevTools or inspecting source code. If the managing director cannot see or replicate the flaw in 2 seconds on their own smartphone, caller conviction collapses and the lead is rejected.
+
+### 1. Accepted Winning Frictions (High Caller Conviction)
+- **Broken Copy-to-Form Promise**: Page text explicitly directs action (*"Complete the enquiry form below"*, *"Fill in your details"*) but the area below is empty or missing (e.g. Avery Clifton, verified live by director).
+- **Dead Primary Conversion CTAs**: Key action buttons (*"Book a Free Consultation"*, *"Get in Touch"*) that reload the page or do nothing on tap (`href="#"`).
+- **Midday 'Closed' Status**: Website banner/header actively declaring *"We are currently closed"* during prime business hours (e.g. Tuesday midday).
+- **Missing Contact Pathway**: Complete absence of an enquiry form or booking flow on `/contact/`, forcing visitors off-site into raw unguided email (e.g. Holy Brook).
+- **Broken Mobile Navigation / Visual Overlap**: Hamburger menus that fail to open or sticky elements that visibly obscure headlines/CTAs on a 390px viewport.
+
+### 2. Rejected Frictions (Never Lead Outreach With These)
+- **Subtle DOM Syntax Quirks**: Invisible code-level issues like `tel:++44`, URL-encoded spaces, or missing country prefixes when the visible phone number looks perfectly normal on screen. Owners dismiss this as technical pedantry.
+- **Hidden / Attribute Mismatches**: Unexposed developer test mailto targets that aren't obvious without inspecting links.
+- **Premature 'Missing Form' Claims**: Claiming a page has no form when a form is situated lower down or lazy-loaded. Always inspect the entire rendered DOM and viewports.
+- **Baseline Industry Norms**: A standard 4-field contact form without live diary sync is the UK accounting standard; never claim it is a "bug" or "broken". Frame it solely around conversion speed-to-lead during the discovery transition.

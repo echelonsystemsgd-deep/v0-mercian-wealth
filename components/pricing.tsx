@@ -91,7 +91,7 @@ const comparisonCategories: ComparisonCategory[] = [
     badge: "Verified Uptime",
     description: "High-performance edge cloud hosting, monthly speed checks, schema tuning, and priority partner support.",
     items: [
-      { name: "Managed Cloud Infrastructure", detail: "UK edge cloud hosting with automated SSL renewals, daily backups, and uptime monitoring", essential: "£29/mo Managed Hosting", pro: "£49/mo Managed Care", custom: "£99/mo Priority Infrastructure" },
+      { name: "Managed Practice Infrastructure", detail: "UK edge cloud hosting, SSL renewals, continuous backups, and enquiry follow-up systems", essential: "£29/mo Practice Care", pro: "£75/mo Practice Growth", custom: "£99/mo Priority Infrastructure" },
       { name: "Monthly SEO & Schema Audits", detail: "Ongoing ranking audits, Google Search Console checks, and structured schema maintenance", essential: "Monthly Health Check", pro: "✓ Active Search & Schema Tuning", custom: "✓ Multi-Location Regional Graph Audits" },
       { name: "Intake Flow & Triage Maintenance", detail: "Ongoing tuning for inquiry forms, triage options, and calendar slot rules", essential: "Standard Care", pro: "✓ Monthly Triage Flow Tuning", custom: "✓ Continuous Workflow & Portal Tuning", highlight: true },
       { name: "Partner Engineering Support Desk", detail: "Direct technical support for copy changes, fee updates, and service tier additions", essential: "Standard Support Desk", pro: "Priority Support Desk", custom: "Direct WhatsApp / Slack Partner Desk" },
@@ -171,7 +171,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers }: Pric
             PRACTICE INFRASTRUCTURE · 3 TRANSPARENT COMMERCIAL TIERS
           </span>
           <p className="text-xs sm:text-sm text-zinc-300 font-sans leading-relaxed">
-            Every build is engineered specifically for UK accountancy firms, commercial tax advisors, and premier businesses. One-time setup fee + automated monthly cloud infrastructure (<strong className="text-white font-semibold">£29–£99/mo</strong>) via direct debit with zero lock-in contracts and 100% asset ownership. Turnaround timelines commence upon receipt of client onboarding details, copy assets, and credentials.
+            Every build is engineered specifically for UK accountancy firms, commercial tax advisors, and premier businesses. One-time setup fee + automated monthly practice care (<strong className="text-white font-semibold">£29/mo Practice Care</strong> or <strong className="text-white font-semibold">£75/mo Practice Growth</strong>) via Direct Debit with an initial 3-month onboarding term, followed by 30 days' notice and 100% asset ownership. Turnaround timelines commence upon receipt of client onboarding details, copy assets, and credentials.
           </p>
         </div>
 
@@ -183,7 +183,7 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers }: Pric
               const isSecond = idx === 1
               const isThird = idx === 2
 
-              const hostingFee = isFirst ? "£29/mo" : isSecond ? "£49/mo" : "£99/mo"
+              const hostingFee = isFirst ? "£29/mo" : isSecond ? "£75/mo" : "£99/mo"
               const deliveryTime = isFirst ? "2 Weeks" : isSecond ? "3–4 Weeks" : "6–8 Weeks"
 
               return (

@@ -60,7 +60,7 @@ export default async function PricingPage() {
         "name": "Practice Core (Base entry)",
         "price": "595",
         "priceCurrency": "GBP",
-        "description": "Sub-second mobile-first practice hub, partner call/email routing, MTD/ICAEW trust badges, 100% IP & DNS ownership. £29/mo managed hosting, 48-hour delivery.",
+        "description": "Sub-second mobile-first practice hub, partner call/email routing, MTD/ICAEW trust badges, 100% IP & DNS ownership. £29/mo Practice Care, 2-week delivery.",
         "url": "https://mercianwealth.com/pricing",
       },
       {
@@ -68,7 +68,7 @@ export default async function PricingPage() {
         "name": "Practice Growth OS (Sales Prof Tier)",
         "price": "1495",
         "priceCurrency": "GBP",
-        "description": "60-second inbound enquiry triage, Calendly/Google/Outlook booking sync, instant WhatsApp partner dispatches, CRM lead routing. £49/mo managed infrastructure, 7-10 days delivery.",
+        "description": "60-second inbound enquiry triage, Calendly/Google/Outlook booking sync, instant WhatsApp partner dispatches, CRM lead routing. £75/mo managed growth engine, 3–4 weeks delivery.",
         "url": "https://mercianwealth.com/pricing",
       },
       {

@@ -29,7 +29,7 @@ function makeTierId(name: string, idx: number): string {
 const DEFAULTS: Record<BillingModel, PricingTier[]> = {
   oneTime:  SITE_COPY.pricingPage.oneTimeTiers.map((t, i) => ({ id: makeTierId(t.name, i), ...t } as PricingTier)),
   monthly:  SITE_COPY.pricingPage.monthlyTiers.map((t, i) => ({ id: makeTierId(t.name, i), ...t } as PricingTier)),
-  revShare: SITE_COPY.pricingPage.revenueShareTiers.map((t, i) => ({ id: makeTierId(t.name, i), ...t } as PricingTier)),
+  revShare: (SITE_COPY.pricingPage.revenueShareTiers as any[]).map((t: any, i: number) => ({ id: makeTierId(t.name, i), ...t } as PricingTier)),
 }
 
 // ── Tier Card ─────────────────────────────────────────────────────────────────

@@ -44,7 +44,7 @@ const FALLBACK_RETAINER_TIERS: PricingTier[] = SITE_COPY.pricingPage.monthlyTier
   ...t
 }))
 
-const FALLBACK_REVSHARE_TIERS: PricingTier[] = SITE_COPY.pricingPage.revenueShareTiers.map((t, idx) => ({
+const FALLBACK_REVSHARE_TIERS: PricingTier[] = (SITE_COPY.pricingPage.revenueShareTiers as any[]).map((t: any, idx: number) => ({
   id: t.name?.toLowerCase().replace(/\s+/g, '-') || `tier-${idx}`,
   ...t
 }))

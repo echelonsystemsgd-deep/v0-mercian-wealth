@@ -130,7 +130,7 @@ export default function TermsPage() {
             <div className="space-y-3">
               <h2 className="font-serif text-xl sm:text-2xl font-bold text-white">5. Managed Cloud Hosting & Retainers</h2>
               <p className="text-text-primary opacity-80 leading-relaxed text-sm sm:text-base">
-                Ongoing managed edge hosting, SSL certificates, continuous uptime monitoring, and schema refinements (<span className="text-white font-semibold">£29/month for Practice Core, £49/month for Practice Growth OS</span>) are billed monthly via automated direct debit. There are <span className="text-white font-semibold">zero lock-in contracts</span>; services may be cancelled with 30 days written notice. Mercian Wealth holds no assets hostage; upon cancellation, full DNS direction and source assets are facilitated for client handover.
+                Ongoing managed edge hosting, SSL certificates, continuous uptime monitoring, and client enquiry follow-up systems (<span className="text-white font-semibold">£29/month for Practice Care, £75/month for Practice Growth</span>) are billed monthly via automated Direct Debit. Services operate on an initial 3-month onboarding period to calibrate intake flows and data telemetry, followed by standard rolling 30 days written notice. Mercian Wealth holds no assets hostage; upon cancellation, full DNS direction and source assets are facilitated for client handover.
               </p>
             </div>
           </div>
