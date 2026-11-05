@@ -26,6 +26,8 @@ export function WhatsAppButton({
   // 1. Exclude on portal/admin/booking routes matching MOBILE_AUDIT_FIXES
   const excludedPrefixes = [
     '/admin',
+    '/audit',
+    '/invoice',
     '/client',
     '/dashboard',
     '/forgot-password',
@@ -87,7 +89,7 @@ export function WhatsAppButton({
 
   return (
     <div
-      className={`hidden sm:flex fixed right-6 z-40 flex-col items-end gap-3 font-sans transition-all duration-300 ease-in-out pointer-events-auto bottom-6 ${
+      className={`hidden sm:flex fixed right-6 z-40 flex-col items-end gap-3 font-sans transition-all duration-300 ease-in-out pointer-events-auto bottom-6 print:hidden ${
         isHidden
           ? "translate-y-20 opacity-0 pointer-events-none"
           : "translate-y-0 opacity-100 pointer-events-auto"
