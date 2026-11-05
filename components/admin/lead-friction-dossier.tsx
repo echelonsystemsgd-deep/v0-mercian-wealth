@@ -73,9 +73,10 @@ export function LeadFrictionDossier({
   // ── SALES PROF SCRIPTS (WORD FOR WORD) ───────────────────────────────────
   const cleanFriction = observableProblem.replace(/^[^:]+:\s*/, '').trim()
 
-  // 1. Day 1 Call & Voicemail
-  const day1CallScript = `“Hey ${directorName}, I was on the ${businessName} site earlier and noticed ${cleanFriction}. That’s exactly why I’m calling. Would it be totally crazy for a two minute chat to see if that’s even relevant on your end?”`
-  const day1BookScript = `“Let’s book 15-20 minutes next week. I’ll show you what I’d change on your contact page to eliminate drop-off. Does next Tuesday or Wednesday at 10:30am work better for you?”`
+  // 1. Day 1 Call & Voicemail (3-Phase Cold Call Architecture)
+  const step1Permission = `“Hey ${directorName}, I was on the ${businessName} site earlier and noticed ${cleanFriction}. That’s exactly why I’m calling. Would it be totally crazy for a two minute chat to see if that’s even relevant on your end?”`
+  const step2Diagnostic = `“Appreciate that. Basically, when new Ltd Co or sole trader enquiries land on your website out of hours, without structured triage they submit vague emails with missing turnover and records. Do your fee-earners spend a lot of time chasing prospects for missing details, or is intake pretty smooth on your side?”`
+  const step3BridgeTo15Min = `“Makes total sense. Look, I promised to keep this to two minutes and I respect your time. What I've done on my end is put together a 60-second interactive scoper specifically for ${businessName} that pre-qualifies turnover and books directly into your calendar. Would it be a terrible idea to hop on a 15-minute screen share next Tuesday or Wednesday morning at 10:30am so I can show you how it works? If it’s not for you, no hard feelings at all.”`
   const voicemailScript = `“Hi ${directorName}, it's Gurtej calling regarding the ${businessName} website. I noticed an issue on your contact page where ${cleanFriction}. I'm sending a quick 10-second screenshot to your email so you can see it directly. My number is 07851 055929. Speak soon.”`
 
   // 2. Day 1 Follow-Up Email & WhatsApp
@@ -364,19 +365,41 @@ export function LeadFrictionDossier({
                       DAY 1 CALL SCRIPT (WORD FOR WORD)
                     </span>
                     <button
-                      onClick={() => handleCopyText('day1_call', day1CallScript)}
+                      onClick={() => handleCopyText('day1_call', `${step1Permission}\n\n[When they say go ahead]:\n${step2Diagnostic}\n\n[Bridge to 15-min demo]:\n${step3BridgeTo15Min}`)}
                       className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-zinc-300 font-mono flex items-center gap-1 cursor-pointer transition-colors"
                     >
                       {copiedId === 'day1_call' ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}
                       <span>{copiedId === 'day1_call' ? 'Copied' : 'Copy Script'}</span>
                     </button>
                   </div>
-                  <div className="p-3 rounded-lg bg-black/60 border border-white/5 text-xs text-zinc-200 italic leading-relaxed font-sans">
-                    {day1CallScript}
+                  {/* Step 1: Permission */}
+                  <div className="p-3 rounded-lg bg-black/60 border border-white/5 space-y-1">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 font-bold block">
+                      Step 1: Permission (15 Seconds)
+                    </span>
+                    <p className="text-xs text-zinc-200 italic leading-relaxed font-sans">
+                      {step1Permission}
+                    </p>
                   </div>
-                  <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-300">
-                    <strong className="text-white">When they say yes to 2 mins: </strong>
-                    {day1BookScript}
+
+                  {/* Step 2: The 2-Minute Diagnostic */}
+                  <div className="p-3 rounded-lg bg-sky-500/10 border border-sky-500/20 space-y-1">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-sky-400 font-bold block">
+                      Step 2: When They Say "Go Ahead / What Is It?" (Use Your 2 Mins)
+                    </span>
+                    <p className="text-xs text-zinc-200 italic leading-relaxed font-sans">
+                      {step2Diagnostic}
+                    </p>
+                  </div>
+
+                  {/* Step 3: Respect The Limit & Bridge to 15 Mins */}
+                  <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 space-y-1">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold block">
+                      Step 3: After They Answer (Respect The 2-Min Limit & Bridge)
+                    </span>
+                    <p className="text-xs text-zinc-200 italic leading-relaxed font-sans">
+                      {step3BridgeTo15Min}
+                    </p>
                   </div>
                 </div>
 
