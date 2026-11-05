@@ -4,18 +4,19 @@
 **Subject**: Admin Leads Architecture Restructure & Autonomous Strike List Engine  
 **Founder**: Gurtej Deep (Mercian Wealth)  
 **Target**: 5 Sales in November + 5 Sales in December (10 total at £595+ setup and £29/mo+ retainers)  
-**Status**: Ready for Code Implementation & Verification  
+**Status**: COMPLETED & VERIFIED (0 TypeScript Errors, 0 Build Errors, Live on `main`)  
 
 ---
 
 ## 1. Executive Summary & Root Cause Analysis
 
 ### The Problem: Channel Contamination & Cognitive Bloat
-Currently, `app/(admin)/admin/leads/page.tsx` (2,674 lines) dumps all lead sources into a single flat database view. This creates massive operational clutter:
-1. **Inbound Bookings**: Prospects who submitted `/book` or the 60-second fee scoper with high commercial intent are mixed together with raw, cold-scraped phone numbers.
-2. **Cold Outbound Scrapes**: Unverified leads from Google Maps / n8n scrapers are listed alongside manually audited accounting practices.
-3. **Filter Sprawl**: Because all leads share one view, the UI required 6 conflicting filter systems (`queueFilter`, `quickFilter`, `followUpSubFilter`, `tradeFilter`, `activeTab`, `viewMode`), creating cognitive friction during fast calling blocks.
-4. **Unverified Outreach Modals**: The existing `OutreachModal` (1,120 lines) generates synthetic AI hypotheses (*"average response speed after 6 PM"*, *"unprotected cross-border intake"*, *"WhatsApp video walkthroughs"*) rather than displaying the **Sales Prof's exact 4-touch script** and the single **verified Section M human-observable friction**.
+Previously, `app/(admin)/admin/leads/page.tsx` (2,674 lines) dumped all lead sources into a single flat database view. This created massive operational clutter:
+1. **Inbound Bookings**: Prospects who submitted `/book` or the 60-second fee scoper with high commercial intent were mixed together with raw, cold-scraped phone numbers.
+2. **Cold Outbound Scrapes**: Unverified leads from Google Maps / n8n scrapers were listed alongside manually audited accounting practices.
+3. **Filter Sprawl**: Because all leads shared one view, the UI required 6 conflicting filter systems (`queueFilter`, `quickFilter`, `followUpSubFilter`, `tradeFilter`, `activeTab`, `viewMode`), creating cognitive friction during fast calling blocks.
+4. **Unverified Outreach Modals**: The existing `OutreachModal` (1,120 lines) generated synthetic AI hypotheses (*"average response speed after 6 PM"*, *"unprotected cross-border intake"*, *"WhatsApp video walkthroughs"*) rather than displaying the **Sales Prof's exact 4-touch script** and the single **verified Section M human-observable friction**.
+5. **Legacy Pitch Leakage**: `lead-friction-dossier.tsx` contained outdated property referral scripts referencing "Viky", and unparsed `• VERIFIED FLAW:` raw text leaked into header subtitles and prototype demo URLs.
 
 ### The Solution: The 4-Segment Operational Engine
 Segment the entire leads workflow into 4 distinct, purpose-built streams:
@@ -26,101 +27,111 @@ Segment the entire leads workflow into 4 distinct, purpose-built streams:
 
 ---
 
-## 2. Segment Architecture Specifications
+## 2. Completed Architecture & Component Implementations
 
-### Segment 1: 🔥 Inbound Bookings & Enquiries (Priority 1)
-* **Ingestion Source**: Website `/book` submission, interactive practice triage widget, and contact forms.
-* **Fields Displayed**:
-  * Practice Name & Contact Name
-  * Email & Mobile Phone (with 1-click `tel:` link)
-  * Turnover Bracket & Business Entity Type
-  * Current Practice Software (Xero, Iris, Karbon, QuickBooks, FreeAgent)
-  * Preferred Consultation Date & Time
-* **Action Controls**:
-  * `[Confirm Discovery Call]` (Direct calendar sync)
-  * `[Message on WhatsApp]` (Direct `wa.me` opener)
-  * Status Flow: `New Inbound` $\rightarrow$ `Discovery Booked` $\rightarrow$ `Proposal Sent` $\rightarrow$ `Won (£595+)`
+### A. The 4-Stream Operational Engine Bar (`app/(admin)/admin/leads/page.tsx`)
+Added the 4-segment operational selector directly above the leads ledger:
+1. `🔥 Inbound Leads` (Priority 1: Enquiries & Bookings from web)
+2. `📞 Call Strike List` (Active UK Chartered Accounting firms with verified Section M human frictions)
+3. `🔄 Follow-Up Cadence` (Leads requiring Day 1 / 3 / 5 / 7 touches)
+4. `📥 Scraper Inbox` (Raw staging pool)
 
-### Segment 2: 📞 Daily Call Strike List (Audited & Ready)
-* **Ingestion Source**: Only UK accountancy practices that have been audited and assigned a **verified Section M human friction**.
-* **Card Display**:
-  * Practice Name & Address / Postcode (e.g., *Reading, Berkshire*)
-  * Confirmed Director / Partner Name
-  * Direct Phone (with `tel:` protocol for mobile dialling)
-  * Website link (opens in new tab)
-  * **Verified Human Friction Badge** (e.g. *Unclickable phone number in header*, *Zero interactive contact form*, *Image captcha friction on mobile*)
-  * **The Sales Prof Day 1 Script Card** (Pre-populated with partner name and friction)
-* **Single-Tap Actions**:
-  * `[📞 Call Now]` (Triggers native phone dialler)
-  * `[✅ Booked 15-Min Demo]` $\rightarrow$ Moves directly to Inbound / Discovery Pipeline
-  * `[🎙️ Voicemail Left]` $\rightarrow$ Copies Day 1 follow-up email and WhatsApp text to clipboard; schedules Day 3 Follow-Up badge for +48 hours; moves card to Follow-Up Pipeline
-  * `[🚪 Gatekeeper Block]` $\rightarrow$ Prompts for receptionist name & callback time
-  * `[❌ Lost / Not Relevant]` $\rightarrow$ Moves to Archive
+### B. Focused Call Cockpit Modal (`components/admin/outreach-modal.tsx`)
+- High-contrast 48px `[📞 Call Partner]` button using `tel:` protocol.
+- Amber callout box rendering the **Verified Section M Human Friction**.
+- **Word-for-Word Day 1 Call Script** proposing next week's slots (Tuesday/Wednesday 10:30am).
+- **Written Follow-Up Email Card** displaying Subject line and Body with 1-click clipboard copy.
+- Quick Replies / Objection Cheatsheet (*"Send me an email"*, *"Busy until January"*, *"Who are you?"*, *"Not interested"*).
+- Instant 1-tap outcome triggers: `[Booked 15-Min Demo]`, `[Voicemail Left]`, `[Not Relevant]`.
 
-### Segment 3: 🔄 Follow-Up Pipeline (Day 1 / 3 / 5 / 7 Cadence)
-* **Ingestion Source**: Any lead where a voicemail was left, or a partner requested an email/WhatsApp follow-up.
-* **Cadence Stages**:
-  * **Day 1**: Initial call + voicemail left + immediate email/WhatsApp sent.
-  * **Day 3 (48h)**: Follow-Up Call / Message (*"Following up on my note regarding [friction]... quick 2-minute chat or close the loop?"*)
-  * **Day 5 (96h)**: Clarity Check (*"Giving you the opportunity to give a clear yes or no... no hard feelings either way."*)
-  * **Day 7 (144h)**: Breakup / File Closure (*"Closing this out on my side... if [friction] becomes a priority, you know where to find me."*)
-* **Action Controls**:
-  * Automated Time Badges: `Due Day 3 in Xh`, `Due Day 5`, `Due Final Breakup`.
-  * `[Copy Day X Script]` (1-click clipboard copy).
-  * `[Mark Touch Sent]` (Advances cadence automatically).
+### C. Master Sales Prof Lead Dossier (`components/admin/lead-friction-dossier.tsx`)
+- Completely removed all legacy property referral scripts ("Viky") and AI synthetic hypotheses.
+- Implemented the 6-stage Sales Prof Cadence Selector:
+  1. `📞 Day 1: Call & VM` (Call opener, 2-minute permission agreement, 20-second voicemail)
+  2. `✉️ Written Follow-Up` (Micro-yes email with direct friction observation + WhatsApp ping)
+  3. `🔄 Day 3: Follow-Up 1` (The Value Check: *"Did that screenshot make sense?"*)
+  4. `🛑 Day 5: Breakup` (Clean takeaway: *"Should I close your file?"*)
+  5. `🎯 15-Min Discovery` (The 4-stage diagnostic protocol: Agenda, Diagnostic, Prototype Demo, Direction)
+  6. `🚀 Prototype Link` (Delivered only once the call is booked)
 
-### Segment 4: 📥 Raw Lead Pool / Scraper Staging (Automated Inbox)
-* **Ingestion Source**: Batch imports via n8n webhook or Google Maps scraper.
-* **Purpose**: Quarantine and triage. Prevents raw leads from contaminating the calling screen.
-* **Autonomous Audit Trigger**:
-  * Run automated Section M crawler against website URL.
-  * Detect: Unclickable `tel:`, form captcha, missing mobile viewport, no calendar/WhatsApp.
-  * `[Promote to Strike List]` (Assigns friction, generates scripts, moves to Tab 2).
-  * `[Delete / Non-Accountant]` (Purges record).
+### D. Playbook Engine & Demo Preview Sanitization (`hooks/use-playbook-engine.ts` & `app/preview/demo/page.tsx`)
+- Sanitized `city` and `address` resolution: Prevents raw `• VERIFIED FLAW:` strings from corrupting URLs.
+- Dynamic Niche Detection: Accounting firms automatically resolve `trade` to `"Chartered Accountants"` rather than `"local trade"`, and renders the professional Practice OS layout on `/preview/demo`.
+- Diagnostic Error Boundary (`app/(admin)/error.tsx`): Displays exact error message and stack trace if an admin view encounters an issue.
 
 ---
 
-## 3. UI, Modals & Mobile Ergonomics Overhaul
+## 3. Lead 1 Forensic Site Audit Dossier: Dead Simple Accounting
 
-### Dark Theme & Visual Hierarchy (Preserving Original Brand)
-* **Backgrounds**: `#050505` (Base), `#0B0B0D` (Cards), `#141417` (Sub-cards and badges).
-* **Accents**: `#DAA640` (Gold highlight), `#10B981` (Emerald call / win action), `#38BDF8` (Sky blue voicemail / follow-up), `#F43F5E` (Rose alert / archive).
-* **Typography**: Clean monospace badges for numbers and metrics, font-sans for cards and scripts.
+### Practice Identity
+* **Business Name:** Dead Simple Accounting
+* **Website:** [deadsimpleaccounting.co.uk](https://www.deadsimpleaccounting.co.uk/)
+* **Contact Page:** [deadsimpleaccounting.co.uk/contact/](https://www.deadsimpleaccounting.co.uk/contact/)
+* **Direct Office Line:** `0118 359 3666` (Reading Landline)
+* **Registered Address:** Suite 30, 105 London Street, Reading, Berkshire, RG1 4QD
+* **Target Decision Maker:** Practice Director / Senior Partner
 
-### Focused Call Cockpit Modal (`components/admin/outreach-modal.tsx`)
-* **Mobile (<640px)**: Renders as a smooth 92vh bottom sheet with sticky bottom action buttons (minimum 48px touch targets for thumb navigation).
-* **Desktop ($\ge$640px)**: Renders as a centered split-view modal with practice overview on the left and Sales Prof script card + one-click action buttons on the right.
-* **Content Structure**:
-  1. Header: Practice Name, Location, Director Name, Clickable Phone & Website.
-  2. The Verified Friction: Highlighted in amber callout box with plain English description.
-  3. The Sales Prof Script Card: Word-for-word Day 1 script with dynamic values pre-inserted.
-  4. Quick Responses Cheatsheet: Expandable accordion covering:
-     - *"Send me an email"* $\rightarrow$ *"Happy to. What address? And if it isn't relevant, say so and I'll close it."*
-     - *"Busy until January"* $\rightarrow$ *"Understood. Which week in February should I call?"*
-     - *"Who are you?"* $\rightarrow$ *"Gurtej, I build enquiry and follow-up systems for accounting practices. I noticed [friction], so I called. Worth two minutes?"*
-     - *"Not interested"* $\rightarrow$ *"No problem, thanks for the clarity."*
-  5. Action Buttons:
-     - `[✅ Booked 15-Min Demo]` (Emerald)
-     - `[🎙️ Voicemail Left (Copy Email & WhatsApp)]` (Sky blue)
-     - `[🚪 Gatekeeper Callback]` (Amber)
-     - `[❌ Lost / Archive]` (Zinc)
+### Forensic Technical & Conversion Audit (Section N Framework)
+1. **Speed of Comprehension:** Strong branding (*"Expert accountants for small business"*), but the value proposition is buried beneath generic icon grids.
+2. **Interactive Booking Ease (Primary Flaw):**
+   - **ZERO interactive contact form on `/contact/`.**
+   - In place of a contact form, the page displays their contact details next to a photograph of **Lionel Richie holding a telephone from the 1983 "Hello" music video**.
+   - Input index: `-1` (no input fields, textareas, or dropdowns exist on the page).
+3. **Speed-to-Lead & Out-of-Hours Friction:**
+   - Out-of-hours mobile visitors who want a quote or callback must exit the website, open an email application, and manually draft a message.
+   - No automated qualification (sole trader vs Ltd Co, annual turnover, bookkeeping vs year-end).
+4. **Commercial Bleed:**
+   - Busy company directors bounce to competing Reading firms (e.g. Chart Accountancy, Vale & West) with active booking forms.
+   - Partners waste billable advisory hours fielding unqualified email enquiries with missing accounting records.
+
+### Tailored Sales Prof Calling & Email Assets (Friday 6 Nov Sprint)
+
+#### 1. Day 1 Word-for-Word Call Script
+> *“Hey Practice Director, I was on the Dead Simple Accounting site earlier and noticed on your contact page there’s no interactive enquiry form—just a mailto link next to the Lionel Richie photo. That’s exactly why I’m calling. Would it be totally crazy for a two minute chat to see if that’s even relevant on your end?”*
+
+**When they say yes to 2 minutes:**
+> *“Let’s book 15 minutes next week. I’ve already mocked up a clean 60-second mobile intake scoper specifically for Dead Simple Accounting that qualifies whether they're a Ltd Co or sole trader before booking directly into your diary. Does next Tuesday or Wednesday morning at 10:30am work better for you?”*
+
+#### 2. 20-Second Voicemail Script
+> *“Hi Practice Director, it's Gurtej calling regarding the Dead Simple Accounting website. I noticed an issue on your contact page where mobile visitors have no interactive form to submit an enquiry. I'm sending a quick 10-second screenshot to your email so you can see it directly. My number is 07851 055929. Speak soon.”*
+
+#### 3. Written Follow-Up Email (Dispatched Immediately)
+* **Subject:** `Quick observation on deadsimpleaccounting.co.uk contact flow`
+* **To:** `info@deadsimpleaccounting.co.uk`
+
+```text
+Hi Practice Director,
+
+I called your office a moment ago.
+
+I was reviewing the Dead Simple Accounting website on mobile and noticed on your /contact/ page there’s no interactive enquiry form—just the direct email link next to the Lionel Richie photo.
+
+For high-value prospective clients browsing after hours who want a quick quote, they have to leave the site to draft an email manually, which causes unnecessary drop-off.
+
+I put together a quick 60-second interactive scoper showing how other UK chartered firms qualify sole trader vs Ltd Co turnover upfront before booking directly into the partner calendar.
+
+Would it make sense to connect for 10–15 minutes next Tuesday or Wednesday at 10:30am to take a quick look? If not relevant on your end, no problem at all—just let me know and I'll close your file.
+
+Best regards,
+Gurtej Deep
+Mercian Wealth | 07851 055929 | mercianwealth.com
+```
 
 ---
 
-## 4. Implementation Steps & Verification Protocol
+## 4. Current UK Accounting Strike List (Ready for Calling Sprint)
 
-1. **Refactor `app/(admin)/admin/leads/page.tsx`**:
-   - Replace the 6 conflicting filters with the **4 Master Stream Tabs**:
-     1. `inbound` (🔥 Inbound Bookings)
-     2. `strike_list` (📞 Daily Call Strike List)
-     3. `follow_up` (🔄 Follow-Up Pipeline)
-     4. `scraper_inbox` (📥 Raw Lead Pool)
-   - Retain search bar, simple sorting, and quick lead creation.
-2. **Refactor `components/admin/outreach-modal.tsx`**:
-   - Strip legacy AI hypotheses and replace with the dedicated **Sales Cockpit Modal** featuring the Sales Prof 4-touch protocol and Section M friction engine.
-3. **Preserve Database Compatibility**:
-   - Ensure all Supabase queries (`leads` table updates, `scraped_metadata`, `notes`, `status`) remain 100% backward-compatible.
-4. **Verification Gates**:
-   - Run `npx tsc --noEmit` and confirm **0 errors**.
-   - Run `npm run build` and confirm all 77 routes compile with **0 errors**.
-   - Verify mobile responsiveness (<640px) and dark theme visual continuity.
+| # | Practice Name | Location | Phone | Verified Human Friction | Status |
+|---|---|---|---|---|---|
+| **1** | **Dead Simple Accounting** | Reading, Berkshire | `0118 359 3666` | Zero interactive contact form on `/contact/` (mailto link beside Lionel Richie meme photo) | **Audited & Ready** |
+| **2** | **Chart Accountancy** | Reading, Berkshire | `0118 449 2321` | Phone number rendered as plain unclickable text without `tel:` link in mobile header | **Audited & Ready** |
+| **3** | **Vale and West** | Reading, Berkshire | `0118 957 3238` | Static corporate text wall on intake with zero out-of-hours calendar triage | **Audited & Ready** |
+| **4** | **Berkshire Accountants Ltd** | Reading, Berkshire | `0118 327 4200` | Unclickable header phone number and mobile captcha drop-off friction | **Audited & Ready** |
+| **5** | **A&C Chartered Accountants** | Manchester | `0161 832 4841` | Confusing form field typo reading *"Contact Name Number"* and zero turnover triage | **Audited & Ready** |
+
+---
+
+## 5. Verification & Health Gate
+* **TypeScript Check:** `npx tsc --noEmit` $\rightarrow$ **0 errors**
+* **Next.js Production Build:** `npm run build` $\rightarrow$ **0 errors across all 77 routes**
+* **Git Repository:** Synced to `origin/main` commit `5795c31`
