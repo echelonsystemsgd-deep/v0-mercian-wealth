@@ -107,7 +107,7 @@ export function LeadWorkspaceClient({ lead: initialLead, sessions, activities }:
   const engine = usePlaybookEngine(lead)
   const {
     businessName, hasWebsite, isMobile, protoUrl,
-    rating, reviewsCount, address,
+    rating, reviewsCount, address, city,
   } = engine
 
   const showToast = useCallback((message: string, type: 'success' | 'error' = 'success') => {
@@ -229,12 +229,17 @@ export function LeadWorkspaceClient({ lead: initialLead, sessions, activities }:
                     <Star size={9} className="fill-amber-400" /> {rating} ({reviewsCount})
                   </span>
                 )}
-                {address && address !== 'UK Regional' && (
+                {city && city !== 'your area' && !city.startsWith('•') ? (
+                  <span className="flex items-center gap-0.5 text-zinc-400 truncate">
+                    <MapPin size={9} className="text-[#DAA640] shrink-0" />
+                    {city}
+                  </span>
+                ) : address && address !== 'UK Regional' && !address.startsWith('•') ? (
                   <span className="flex items-center gap-0.5 text-zinc-500 truncate">
                     <MapPin size={8} className="text-zinc-600 shrink-0" />
                     {address.split(',')[0]}
                   </span>
-                )}
+                ) : null}
               </div>
             </div>
 

@@ -35,6 +35,12 @@ export interface OutreachLead {
     follow_up_final?: string
     google_maps_url?: string
     channel?: string
+    city?: string
+    observable_problem?: string
+    friction_title?: string
+    commercial_outcome?: string
+    concrete_fix?: string
+    [key: string]: any
   }
 }
 
@@ -227,11 +233,18 @@ function detectNiche(trade: string, businessName: string): NicheProfile {
 
 export function usePlaybookEngine(lead: OutreachLead | null): PlaybookEngine {
   const businessName = lead?.business_name || lead?.name || 'Local Business'
-  const rawTrade = lead?.local_business_niche || lead?.scraped_metadata?.trade || 'local trade'
+  const isAcctName =
+    (lead?.business_name || '').toLowerCase().includes('account') ||
+    (lead?.business_name || '').toLowerCase().includes('tax') ||
+    (lead?.local_business_niche || '').toLowerCase().includes('account') ||
+    (lead?.local_business_niche || '').toLowerCase().includes('tax')
+  const rawTrade = lead?.local_business_niche || lead?.scraped_metadata?.trade || (isAcctName ? 'Chartered Accountants' : 'local trade')
   const cleanTrade =
-    !rawTrade || rawTrade.length > 30 || rawTrade.startsWith('Hi ') || rawTrade.toLowerCase().includes('came across')
-      ? 'local trade'
-      : rawTrade
+    isAcctName
+      ? 'Chartered Accountants'
+      : (!rawTrade || rawTrade.length > 30 || rawTrade.startsWith('Hi ') || rawTrade.toLowerCase().includes('came across')
+        ? 'local trade'
+        : rawTrade)
   const trade = cleanTrade
 
   const nicheProfile = detectNiche(trade, businessName)
@@ -268,27 +281,30 @@ export function usePlaybookEngine(lead: OutreachLead | null): PlaybookEngine {
     }
   }
 
-  // Address
+  // Address & City sanitization
   const rawAddr = (lead?.scraped_metadata?.address || '').trim()
   const rawNotes = (lead?.notes || '').trim()
   let address = rawAddr
-  if (!address && rawNotes && !rawNotes.startsWith('·') && !rawNotes.includes('★')) {
+  if (!address && rawNotes && !rawNotes.startsWith('·') && !rawNotes.startsWith('•') && !rawNotes.includes('★') && !rawNotes.includes('VERIFIED FLAW') && rawNotes.length < 60) {
     address = rawNotes
   }
-  if (!address || address.startsWith('·') || address.includes('★')) {
-    address = 'UK Regional'
+  if (!address || address.startsWith('·') || address.startsWith('•') || address.includes('★') || address.includes('VERIFIED FLAW') || address.length > 60) {
+    address = lead?.scraped_metadata?.city ? `${lead.scraped_metadata.city}, UK` : 'Reading, Berkshire'
   }
-  const city =
-    address && address !== 'UK Regional' && !address.includes('·')
-      ? address.split(',')[0].trim()
-      : 'your area'
+  let city = (lead?.scraped_metadata?.city as string || '').trim()
+  if (!city && address && address !== 'UK Regional' && !address.includes('·') && !address.includes('•') && !address.includes('VERIFIED')) {
+    city = address.split(',')[0].trim()
+  }
+  if (!city || city.includes('VERIFIED') || city.length > 30) {
+    city = 'Reading'
+  }
 
   const mapsUrl = lead?.scraped_metadata?.google_maps_url
 
   // Prototype URL
   const demoUrl =
     typeof window !== 'undefined'
-      ? `${window.location.origin}/preview/demo?name=${encodeURIComponent(businessName)}&trade=${encodeURIComponent(trade)}&phone=${encodeURIComponent(lead?.phone || '')}&city=${encodeURIComponent(address)}&rating=${rating}&reviews=${reviewsCount}`
+      ? `${window.location.origin}/preview/demo?name=${encodeURIComponent(businessName)}&trade=${encodeURIComponent(trade)}&phone=${encodeURIComponent(lead?.phone || '')}&city=${encodeURIComponent(city)}&rating=${rating}&reviews=${reviewsCount}`
       : `https://mercianwealth.com/preview/demo?name=${encodeURIComponent(businessName)}`
 
   const isJewellery =
@@ -447,7 +463,13 @@ export function usePlaybookEngine(lead: OutreachLead | null): PlaybookEngine {
   const nextActionReason = !hasWebsite
     ? `No digital storefront detected${reviewsCount > 0 ? ` — ${reviewsCount} Google reviews show established reputation` : ''}`
     : `Website detected — mobile friction angle available`
-  const suggestedAngle = whatsAppSequence.message1.text
+  const verifiedFriction =
+    (lead?.scraped_metadata?.observable_problem as string) ||
+    (lead?.scraped_metadata?.friction_title as string) ||
+    'a friction point on your contact page where mobile visitors have no simple way to enquire'
+
+  const salesProfDay1Script = `“Hey ${lead?.name || 'Practice Partner'}, I was on the ${businessName} site earlier and noticed ${verifiedFriction.replace(/^[^:]+:\s*/, '')}. That's exactly why I'm calling. Would it be totally crazy for a two minute chat to see if that's even relevant on your end?”`
+  const suggestedAngle = salesProfDay1Script
   const recommendedApproach = !hasWebsite
     ? `Lead with digital presence opportunity. ${businessName} has an established local reputation but no digital storefront for evening customers. Offer the prototype.`
     : `Lead with one specific observation about ${trackAStep === 'a1_mobile' ? 'mobile form friction' : trackAStep === 'a2_password' ? 'password lock on storefront' : trackAStep === 'a3_linktree' ? 'Linktree rather than dedicated storefront' : 'observed friction point'}. Never pitch on message 1.`

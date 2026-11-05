@@ -103,15 +103,16 @@ export function OutreachModal({
   const waUrl = buildWhatsAppOpenerUrl(lead.phone, `Hi ${directorName}, Gurtej here from Mercian Wealth regarding the ${businessName} website.`)
 
   // Sales Prof Scripts
-  const day1CallScript = `“Hey ${directorName}, I was on the ${businessName} site earlier and noticed ${rawFriction}. That’s exactly why I’m calling. Would it be totally crazy for a two minute chat to see if this is even relevant on your end?”`
-  const bookScript = `“Let’s book 15-20 minutes later this week. I’ll show you what I’d change on your contact page to eliminate drop-off. Does Thursday or Friday at 10:30am work?”`
+  const cleanFriction = rawFriction.replace(/^[^:]+:\s*/, '').trim()
+  const day1CallScript = `“Hey ${directorName}, I was on the ${businessName} site earlier and noticed ${cleanFriction}. That’s exactly why I’m calling. Would it be totally crazy for a two minute chat to see if that’s even relevant on your end?”`
+  const bookScript = `“Let’s book 15-20 minutes next week. I’ll show you what I’d change on your contact page to eliminate drop-off. Does next Tuesday or Wednesday at 10:30am work better for you?”`
   
-  const voicemailScript = `“Hi ${directorName}, it's Gurtej calling regarding the ${businessName} website. I noticed an issue on your mobile contact flow where ${rawFriction}. I'm sending a quick 10-second screenshot to your email and WhatsApp so you can see it directly. My number is 07851 055929. Speak soon.”`
+  const voicemailScript = `“Hi ${directorName}, it's Gurtej calling regarding the ${businessName} website. I noticed an issue on your contact page where ${cleanFriction}. I'm sending a quick 10-second screenshot to your email so you can see it directly. My number is 07851 055929. Speak soon.”`
   
-  const followUpEmailSubject = `Quick note regarding ${businessName} website (${rawFriction.slice(0, 40)}...)`
-  const followUpEmailBody = `Hi ${directorName},\n\nI called your office a moment ago.\n\nI was reviewing your website on mobile and noticed ${rawFriction}.\n\nFor an established practice handling corporate and commercial accounts, that creates unnecessary drop-off when prospects browse on their phones.\n\nI've put together a quick working prototype showing how other UK practices capture and qualify those enquiries instantly.\n\nWould it make sense to connect for 10–15 minutes this week to show you? If not, no problem at all—just let me know and I'll close the loop.\n\nBest regards,\nGurtej Deep\nMercian Wealth | 07851 055929 | mercianwealth.com`
+  const followUpEmailSubject = `Quick observation on ${businessName.toLowerCase().replace(/[^a-z0-9]/g, '')}.co.uk contact flow`
+  const followUpEmailBody = `Hi ${directorName},\n\nI called your office a moment ago.\n\nI was reviewing your website on mobile earlier and noticed ${cleanFriction}.\n\nFor an established practice handling corporate and commercial accounts, that creates unnecessary drop-off when prospective clients browse after hours or on mobile.\n\nI've put together a quick 60-second interactive practice scoper showing how other UK firms qualify sole trader vs Ltd Co turnover upfront before booking directly into the partner calendar.\n\nWould it make sense to connect for 10–15 minutes next Tuesday or Wednesday at 10:30am to take a look? If not relevant on your end, no problem at all—just let me know and I'll close your file.\n\nBest regards,\nGurtej Deep\nMercian Wealth | 07851 055929 | mercianwealth.com`
 
-  const whatsAppMessage = `Hi ${directorName}, Gurtej here from Mercian Wealth. Left a brief voicemail at your office earlier regarding the ${businessName} site—noticed ${rawFriction}. Just emailed you the details. Let me know if you'd like to see the quick prototype fix.`
+  const whatsAppMessage = `Hi ${directorName}, Gurtej here from Mercian Wealth. Left a brief voicemail at your office earlier regarding the ${businessName} site—noticed ${cleanFriction}. Just emailed you a quick observation on it. Let me know if you'd like to see the 60-second prototype scoper.`
 
   const handleCopy = async (key: string, text: string) => {
     try {
@@ -352,17 +353,39 @@ export function OutreachModal({
               </div>
             </div>
 
+            {/* Written Email Preview */}
+            <div className="p-3 rounded-xl bg-black/50 border border-white/5 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-mono text-sky-400 font-bold uppercase tracking-wider">
+                  WRITTEN FOLLOW-UP EMAIL (SUBJECT + BODY)
+                </span>
+                <button
+                  onClick={() => handleCopy('email_full', `Subject: ${followUpEmailSubject}\n\n${followUpEmailBody}`)}
+                  className="hover:text-white flex items-center gap-1 text-xs text-sky-300 cursor-pointer font-mono"
+                >
+                  {copiedKey === 'email_full' ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}
+                  <span>{copiedKey === 'email_full' ? 'Copied Full Email' : 'Copy Full Email'}</span>
+                </button>
+              </div>
+              <div className="text-[11px] font-mono text-zinc-400 border-b border-white/5 pb-1">
+                <strong>Subject:</strong> {followUpEmailSubject}
+              </div>
+              <div className="text-xs text-zinc-300 whitespace-pre-wrap leading-relaxed font-sans max-h-32 overflow-y-auto">
+                {followUpEmailBody}
+              </div>
+            </div>
+
             {/* Email & WhatsApp Quick Copy */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
               <button
-                onClick={() => handleCopy('email', followUpEmailBody)}
+                onClick={() => handleCopy('email_body', followUpEmailBody)}
                 className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium text-white flex items-center justify-between transition-all cursor-pointer"
               >
                 <div className="flex items-center gap-2">
                   <Mail size={14} className="text-sky-400" />
-                  <span>Copy Follow-Up Email</span>
+                  <span>Copy Email Body Only</span>
                 </div>
-                {copiedKey === 'email' ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
+                {copiedKey === 'email_body' ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
               </button>
 
               {lead.phone && (

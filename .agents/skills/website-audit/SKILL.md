@@ -450,3 +450,46 @@ Per site: one-page report readable on a phone (verdict and grade, build fingerpr
 - **Hidden / Attribute Mismatches**: Unexposed developer test mailto targets that aren't obvious without inspecting links.
 - **Premature 'Missing Form' Claims**: Claiming a page has no form when a form is situated lower down or lazy-loaded. Always inspect the entire rendered DOM and viewports.
 - **Baseline Industry Norms**: A standard 4-field contact form without live diary sync is the UK accounting standard; never claim it is a "bug" or "broken". Frame it solely around conversion speed-to-lead during the discovery transition.
+
+
+---
+
+## N. The AI Search & Instant-Decision Audit Framework (Conversion Infrastructure)
+
+> [!IMPORTANT]
+> **The AI Decision-Maker Shift**: In the AI era, search is compressed. Buyers don't browse 15 websites for 20 minutes—they ask AI, receive a recommendation, click one link, and land decision-ready with "credit card half out." The website is the only object standing between paid and the back button. If the site is slow, vague, generic, or confusing, they bounce instantly and that qualified buyer is lost forever.
+
+### The 5 Core Conversion Infrastructure Audits (Run Automatically on Every Lead)
+
+#### 1. Speed of Comprehension (3-Second Above-the-Fold Test)
+- **Check**: Does the visitor immediately understand who the practice is for, what core outcome they deliver, and what exact step to take next?
+- **Flag**:
+  - Gimmicky typewriter animations that pause mid-sentence (e.g. leaving *"Expert accountants for small|"* on screen).
+  - Vague headlines (*"Welcome to our practice"*, *"Your trusted partner"*).
+  - Missing immediate action buttons above the fold.
+
+#### 2. Booking Ease & Action Ergonomics (The Back-Button Test)
+- **Check**: How many friction points exist between landing and a confirmed conversation?
+- **Flag**:
+  - Missing interactive intake forms on `/contact/` (forcing users off-site into email apps).
+  - Requiring multiple manual steps without an interactive triage or direct diary booking.
+  - Form fields that trigger numeric keypads for email addresses or image captchas on mobile viewports.
+
+#### 3. Media & Visual Credibility (Functional Proof vs Distraction)
+- **Check**: Do images and videos build commercial authority and trust, or do they undermine professional credibility?
+- **Flag**:
+  - Unprofessional memes or joke imagery on core commercial conversion pages (e.g. Lionel Richie meme on a professional practice contact page).
+  - Heavy video embeds that destroy mobile Time-to-Interactive (TTI).
+  - Generic stock photos of models shaking hands instead of verified partner proof, ICAEW/ACCA credentials, or authentic reviews.
+
+#### 4. Speed-to-Lead & Channel Utility
+- **Check**: Are direct response channels (WhatsApp, Phone, Email) configured for instant 1-to-1 client capture?
+- **Flag**:
+  - WhatsApp buttons routed to one-way "Broadcast Channels" rather than direct 1-to-1 partner triage.
+  - Plain-text phone numbers that cannot be tapped to dial on mobile devices.
+  - Contact pages with no out-of-hours capture, leaving prospects who visit at 8 PM waiting days for an email reply.
+
+#### 5. Audience-Specific Triage & Scoping
+- **Check**: For practices listing multiple sectors (e.g. Photographers, Freelancers, Contractors, Limited Companies), can a visitor select their niche and get scoped in 60 seconds?
+- **Flag**:
+  - Listing 10+ niche sectors in the footer, but routing all of them to the same generic contact box with zero intake qualification.

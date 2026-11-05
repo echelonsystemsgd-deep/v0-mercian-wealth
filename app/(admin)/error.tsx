@@ -24,6 +24,13 @@ export default function AdminError({
         <p className="text-sm text-muted-foreground">
           Something went wrong loading this page. Your session is still active.
         </p>
+        {error?.message && (
+          <div className="text-left p-3 rounded-lg bg-black/60 border border-rose-500/30 text-rose-300 font-mono text-xs overflow-x-auto max-h-36">
+            <span className="text-zinc-500 font-bold block mb-1">Diagnostic Details:</span>
+            {error.message}
+            {error.digest && <span className="block text-zinc-600 mt-1">Digest: {error.digest}</span>}
+          </div>
+        )}
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button onClick={reset} size="sm">Try Again</Button>
           <Button asChild variant="outline" size="sm">

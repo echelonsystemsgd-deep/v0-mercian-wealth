@@ -23,11 +23,27 @@ function DemoContent() {
   const searchParams = useSearchParams()
 
   const businessName = searchParams.get('name') || 'Premier Trade Specialists'
-  const trade = searchParams.get('trade') || 'Roofing & Building'
+  const rawTrade = searchParams.get('trade') || 'Roofing & Building'
   const phone = searchParams.get('phone') || '+44 7976 225517'
-  const city = searchParams.get('city') || 'Berkshire & Across UK'
+  const rawCity = searchParams.get('city') || 'Berkshire & Across UK'
   const rating = searchParams.get('rating') || '5.0'
   const reviews = searchParams.get('reviews') || '57'
+
+  // Sanitize city if audit notes were mistakenly passed
+  let cleanCity = rawCity.trim()
+  if (cleanCity.includes('VERIFIED') || cleanCity.includes('•') || cleanCity.includes('FLAW') || cleanCity.length > 40) {
+    cleanCity = 'Reading, Berkshire'
+  }
+  const city = cleanCity
+
+  // Detect accounting practices
+  const isAccounting =
+    rawTrade.toLowerCase().includes('account') ||
+    rawTrade.toLowerCase().includes('tax') ||
+    businessName.toLowerCase().includes('account') ||
+    businessName.toLowerCase().includes('tax')
+
+  const trade = isAccounting ? 'Chartered Accountants' : rawTrade
 
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [quoteData, setQuoteData] = useState({
@@ -86,7 +102,7 @@ function DemoContent() {
                 {businessName}
               </h1>
               <p className="text-xs text-amber-400 font-semibold tracking-wider uppercase">
-                {trade} • Certified Local Specialists
+                {isAccounting ? 'Chartered Accountants • Certified Xero & MTD Specialists' : `${trade} • Certified Local Specialists`}
               </p>
             </div>
           </div>
@@ -104,7 +120,7 @@ function DemoContent() {
               href="#quote-form"
               className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-extrabold text-xs shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all cursor-pointer flex items-center gap-1.5"
             >
-              <span>Get Free Estimate</span>
+              <span>{isAccounting ? 'Book Consultation' : 'Get Free Estimate'}</span>
               <ArrowRight size={13} />
             </a>
           </div>
@@ -134,12 +150,14 @@ function DemoContent() {
             {city.split(',')[0]}’s Trusted{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500">
               {trade}
-            </span>{' '}
-            Contractors
+            </span>
+            {!isAccounting && ' Contractors'}
           </h2>
 
           <p className="max-w-2xl mx-auto text-sm sm:text-base text-slate-300 leading-relaxed">
-            Delivering high-specification workmanship for residential and commercial properties across {city}. Fully insured, guaranteed timelines, and zero upfront deposit required.
+            {isAccounting
+              ? `Expert practice advisory, corporation tax, Making Tax Digital compliance, and 60-second client triage for businesses across ${city}. Certified accountants with direct partner access.`
+              : `Delivering high-specification workmanship for residential and commercial properties across ${city}. Fully insured, guaranteed timelines, and zero upfront deposit required.`}
           </p>
 
           {/* Action Row */}
