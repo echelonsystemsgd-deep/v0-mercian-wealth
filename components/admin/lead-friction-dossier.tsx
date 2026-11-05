@@ -12,6 +12,7 @@ import {
   ChevronDown,
   ChevronUp,
   Sparkles,
+  FileText,
   CheckCircle2,
   Calendar,
   Clock,
@@ -219,16 +220,28 @@ export function LeadFrictionDossier({
             <span className="text-[10px] font-mono uppercase text-[#DAA640] font-bold block">Tailored Prototype Fix:</span>
             <p className="text-xs text-zinc-200 font-medium">{prototypeRemedy}</p>
           </div>
-          <a
-            href={protoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded-lg bg-[#DAA640] hover:bg-[#C4932C] text-black font-bold text-xs flex items-center gap-1.5 transition-all shrink-0 cursor-pointer shadow-sm"
-          >
-            <Sparkles size={12} />
-            <span>Test Live Prototype</span>
-            <ExternalLink size={10} />
-          </a>
+          <div className="flex items-center gap-2 shrink-0">
+            <a
+              href={`/audit/${lead.id}/pdf`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-sm border border-white/10"
+              title="Download 1-Page Forensic PDF Audit"
+            >
+              <FileText size={12} className="text-[#DAA640]" />
+              <span>1-Page PDF Audit</span>
+            </a>
+            <a
+              href={protoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded-lg bg-[#DAA640] hover:bg-[#C4932C] text-black font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-sm"
+            >
+              <Sparkles size={12} />
+              <span>Test Live Prototype</span>
+              <ExternalLink size={10} />
+            </a>
+          </div>
         </div>
       </div>
 

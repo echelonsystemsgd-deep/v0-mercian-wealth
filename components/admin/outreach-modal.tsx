@@ -20,6 +20,7 @@ import {
   XCircle,
   HelpCircle,
   Building,
+  FileText,
   User,
   ExternalLink,
   ShieldAlert,
@@ -241,7 +242,17 @@ export function OutreachModal({
             </div>
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
+            <a
+              href={`/audit/${lead.id}/pdf`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded-xl bg-[#DAA640]/15 hover:bg-[#DAA640]/25 border border-[#DAA640]/40 text-[#DAA640] hover:text-white text-xs font-mono font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+              title="Generate and Download 1-Page PDF Audit"
+            >
+              <FileText size={14} />
+              <span className="hidden sm:inline">1-Page PDF</span>
+            </a>
             <button
               onClick={handleDelete}
               className="p-2 rounded-xl bg-white/5 hover:bg-rose-500/20 text-zinc-400 hover:text-rose-400 transition-colors cursor-pointer"
