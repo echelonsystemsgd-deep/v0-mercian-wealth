@@ -295,7 +295,10 @@ export default function LeadAuditPdfPage({
             </div>
 
             <p className="text-xs text-zinc-300 print:text-zinc-800 leading-relaxed">
-              Deployment of a secure, headless React/Next.js intake system that qualifies turnover (Sole Trader vs Partnership vs Ltd Co) in under 60 seconds and integrates directly with partner diaries and practice CRM workflows. Eliminates 100% of legacy CMS attack surfaces with zero server-side PHP dependencies.
+              Deployment of the proprietary <strong>Mercian Practice OS™</strong>: A secure, serverless edge intake engine engineered specifically for regulated UK practices. Features sub-second qualification algorithms (Sole Trader vs Ltd Co vs LLP), real-time AML record collection, and direct bi-directional calendar synchronization. Eliminates 100% of legacy CMS attack surfaces with zero server-side PHP dependencies.
+            </p>
+            <p className="text-[11px] text-zinc-400 print:text-zinc-600 italic">
+              *Architecture note: Delivered exclusively via Mercian Wealth's pre-compiled cloud edge nodes and verified compliance webhooks.
             </p>
 
             <div className="pt-1 flex items-center justify-between text-xs">
@@ -328,7 +331,7 @@ export default function LeadAuditPdfPage({
 
             <div className="text-xs text-zinc-300 print:text-zinc-800 leading-relaxed space-y-1">
               <p>
-                <strong>State-Funded Support Mechanism:</strong> Under regional Growth Hub Digital Innovation and AI Workforce directives, qualifying UK accountancy firms are eligible for government-backed digital vouchers covering up to <strong>{grantAmount}</strong> in external technical implementation and staff compliance training.
+                <strong>State-Funded Support Mechanism:</strong> Under regional Growth Hub Digital Innovation and AI Workforce directives, qualifying UK accountancy firms are eligible for government-backed digital vouchers covering up to <strong>{grantAmount}</strong> in external technical implementation and staff compliance training. Grant regulations require technical delivery and completion verification by an authorized external digital solutions provider (Mercian Wealth).
               </p>
               <p className="text-emerald-300 print:text-emerald-800 font-medium">
                 <strong>Practice Cost Impact:</strong> £0 net cost under eligible regional voucher allocations. Invoiced directly to the designated enterprise funding agency upon completion of technical deployment.
