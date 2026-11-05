@@ -261,7 +261,7 @@ export default function LeadAuditPdfPage({
                 <span className="font-mono font-bold text-white print:text-black">{platform}</span>.
               </p>
               <p>
-                <strong>Active CVE Advisory Notice:</strong> CISA (Cybersecurity & Infrastructure Security Agency) added WordPress Core{' '}
+                <strong>Active CVE Advisory Notice:</strong> Global cyber security authorities (in coordinated disclosure with the UK National Cyber Security Centre) flagged WordPress Core{' '}
                 <strong>CVE-2026-119977</strong> (TOCTOU Race Condition RCE prior to 7.1.4) to the Known Exploited Vulnerabilities catalog on Nov 3, 2026. Concurrently, core memory corruption flaws known as{' '}
                 <strong>PHP2Shell (CVE-2026-109618 / 109619, CVSS 9.2 Critical)</strong> actively impact unhardened PHP/WordPress contact points.
               </p>
