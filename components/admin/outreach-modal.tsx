@@ -244,7 +244,7 @@ export function OutreachModal({
 
           <div className="flex items-center gap-1.5">
             <a
-              href={`/audit/${lead.id}/pdf`}
+              href={`/audit/${lead.id}/pdf?print=true`}
               target="_blank"
               rel="noopener noreferrer"
               className="px-3 py-1.5 rounded-xl bg-[#DAA640]/15 hover:bg-[#DAA640]/25 border border-[#DAA640]/40 text-[#DAA640] hover:text-white text-xs font-mono font-bold flex items-center gap-1.5 transition-all cursor-pointer"
@@ -521,6 +521,17 @@ export function OutreachModal({
           >
             Not Relevant
           </button>
+
+          <a
+            href={`/audit/${lead.id}/pdf?print=true`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3.5 py-2.5 min-h-[44px] rounded-xl bg-[#DAA640]/15 hover:bg-[#DAA640]/25 border border-[#DAA640]/40 text-[#DAA640] hover:text-white text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+            title="Download Branded 1-Page Forensic PDF Audit"
+          >
+            <FileText size={14} />
+            <span>Download 1-Page PDF</span>
+          </a>
 
           <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
             <button

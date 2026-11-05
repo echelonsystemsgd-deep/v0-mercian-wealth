@@ -58,6 +58,15 @@ export default function LeadAuditPdfPage({
     }
   }, [leadId])
 
+  useEffect(() => {
+    if (lead && typeof window !== 'undefined' && window.location.search.includes('print=true')) {
+      const timer = setTimeout(() => {
+        window.print()
+      }, 700)
+      return () => clearTimeout(timer)
+    }
+  }, [lead])
+
   const copyShareableLink = () => {
     navigator.clipboard.writeText(window.location.href)
     setCopied(true)
