@@ -119,7 +119,69 @@ Mercian Wealth | 07851 055929 | mercianwealth.com
 
 ---
 
-## 4. Current UK Accounting Strike List (Ready for Calling Sprint)
+
+---
+
+## 4. Lead 2 Forensic Site Audit Dossier: Vale & West
+
+### Practice Identity
+* **Business Name:** Vale & West (Chartered Accountants & Registered Auditors)
+* **Heritage:** Established 1894 (130-year Thames Valley institution)
+* **Website:** [valewest.com](https://www.valewest.com/)
+* **Direct Office Line:** `0118 957 3238` (Reading Landline)
+* **Intake Email:** `accountants@valewest.com`
+* **Registered Address:** Victoria House, 26 Queen Victoria Street, Reading, Berkshire, RG1 1TG
+* **Key Partners:** 
+  * **Jason Pyke (FCA)** – Senior Partner (Joined 1989, Partner since 2000)
+  * **Lee Paul Gardner** – Partner (Joined 1998, Partner since 2009)
+  * **Terry Wright (FCA, CTA)** – Tax Partner & Chartered Tax Adviser
+
+### Forensic Technical & Conversion Audit (Section N Framework)
+1. **1890s Heritage Trapped in a Legacy Intake Funnel:**
+   - Established in 1894 with deep corporate audit credentials, but their online intake is restricted to an open 4-field generic comments box (`Name`, `Telephone`, `Email`, `Comments`).
+   - Still prominently lists a **fax number (`0118 956 7282`)** on their contact page.
+2. **Zero Turnover or Entity Triage:**
+   - A £5M turnover group requiring a statutory audit receives the exact same unstructured contact box as a £30k sole trader.
+   - Zero qualification of company structure, turnover band, or required service (Statutory Audit vs Corporate Tax vs Payroll).
+3. **The Partner Time Drain:**
+   - Senior partners like Jason Pyke and Lee Gardner spend billable advisory hours fielding unqualified emails and playing phone tag to gather basic company details.
+4. **Out-of-Hours Drop-Off:**
+   - Decision-ready company directors searching for Reading accountants in the evening cannot book a 15-minute consultation directly into a partner calendar.
+
+### Tailored Sales Prof Calling & Email Assets (Friday 6 Nov Sprint)
+
+#### 1. Day 1 Word-for-Word Call Script (When Jason Pyke / Partner Picks Up)
+> *“Hey Jason, I was on the Vale & West site earlier and noticed on your enquiry intake there’s no turnover or entity triage—just an open comments box and a fax number. That’s exactly why I’m calling. Would it be totally crazy for a two minute chat to see if that’s even relevant on your end?”*
+
+**When they agree to 2 minutes:**
+> *“Let’s book 15 minutes next week. I’ve already put together a quick 60-second interactive scoper tailored for Vale & West that pre-qualifies Ltd Co turnover and lets high-value Thames Valley businesses book discovery calls directly into your diary. Does next Tuesday or Wednesday morning at 10:30am work better for you?”*
+
+#### 2. 20-Second Voicemail Script
+> *“Hi Jason, it's Gurtej calling regarding the Vale & West website. I noticed an issue on your enquiry intake where corporate clients have no turnover triage to scope their audit or tax requirements. I'm sending a quick 10-second screenshot to your email so you can see it directly. My number is 07851 055929. Speak soon.”*
+
+#### 3. Written Follow-Up Email (Dispatched Immediately)
+* **Subject:** `Quick observation on valewest.com client intake`
+* **To:** `accountants@valewest.com`
+
+```text
+Hi Jason,
+
+I called your office a moment ago.
+
+I was reviewing the Vale & West website earlier and noticed on your enquiry intake there’s no turnover or entity triage—just an open comments box and the legacy fax listing.
+
+For an established firm operating since 1894 handling corporate audits and high-value Thames Valley businesses, an open comments box forces your fee-earners to spend valuable time manually qualifying turnover, software, and entity scope over email.
+
+I put together a quick 60-second interactive practice scoper tailored for Vale & West that qualifies Ltd Co turnover and scopes whether they need statutory audit, corporate tax, or advisory before booking directly into your calendar.
+
+Would you be open to a 10–15 minute walk-through next Tuesday or Wednesday at 10:30am? If not relevant on your end, no problem at all—just let me know and I'll close your file.
+
+Best regards,
+Gurtej Deep
+Mercian Wealth | 07851 055929 | mercianwealth.com
+```
+
+## 5. Current UK Accounting Strike List (Ready for Calling Sprint)
 
 | # | Practice Name | Location | Phone | Verified Human Friction | Status |
 |---|---|---|---|---|---|
@@ -131,7 +193,7 @@ Mercian Wealth | 07851 055929 | mercianwealth.com
 
 ---
 
-## 5. Verification & Health Gate
+## 6. Verification & Health Gate
 * **TypeScript Check:** `npx tsc --noEmit` $\rightarrow$ **0 errors**
 * **Next.js Production Build:** `npm run build` $\rightarrow$ **0 errors across all 77 routes**
 * **Git Repository:** Synced to `origin/main` commit `5795c31`
