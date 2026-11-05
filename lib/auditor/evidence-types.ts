@@ -41,6 +41,10 @@ export interface BuildFingerprint {
   platform: BuildPlatform
   confidence: 'high' | 'medium' | 'low'
   evidence: string[]
+  isLegacyPhpOrWordPress?: boolean
+  cveAlerts?: string[]
+  grantEligible?: boolean
+  grantAmount?: string
 }
 
 export interface FormInspection {

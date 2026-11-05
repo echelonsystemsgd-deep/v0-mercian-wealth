@@ -35,85 +35,112 @@ export function detectBuildFingerprint(html: string): BuildFingerprint {
   const lower = html.toLowerCase()
   const evidence: string[] = []
 
+  let rawPlatform: BuildPlatform = 'Custom'
+  let confidence: 'high' | 'medium' | 'low' = 'medium'
+
   // Check generator meta
   const metaMatch = html.match(/<meta\s+name=["']generator["']\s+content=["']([^"']+)["']/i)
   if (metaMatch) {
     const gen = metaMatch[1].trim()
     evidence.push(`Generator meta: ${gen}`)
-    if (gen.toLowerCase().includes('wordpress')) {
-      return { platform: 'WordPress', confidence: 'high', evidence }
-    }
-    if (gen.toLowerCase().includes('elementor')) {
-      return { platform: 'Elementor', confidence: 'high', evidence }
-    }
-    if (gen.toLowerCase().includes('webflow')) {
-      return { platform: 'Webflow', confidence: 'high', evidence }
-    }
-    if (gen.toLowerCase().includes('framer')) {
-      return { platform: 'Framer', confidence: 'high', evidence }
-    }
-    if (gen.toLowerCase().includes('wix')) {
-      return { platform: 'Wix', confidence: 'high', evidence }
-    }
-    if (gen.toLowerCase().includes('squarespace')) {
-      return { platform: 'Squarespace', confidence: 'high', evidence }
+    const genLower = gen.toLowerCase()
+    if (genLower.includes('wordpress')) {
+      rawPlatform = 'WordPress'
+      confidence = 'high'
+    } else if (genLower.includes('elementor')) {
+      rawPlatform = 'Elementor'
+      confidence = 'high'
+    } else if (genLower.includes('webflow')) {
+      rawPlatform = 'Webflow'
+      confidence = 'high'
+    } else if (genLower.includes('framer')) {
+      rawPlatform = 'Framer'
+      confidence = 'high'
+    } else if (genLower.includes('wix')) {
+      rawPlatform = 'Wix'
+      confidence = 'high'
+    } else if (genLower.includes('squarespace')) {
+      rawPlatform = 'Squarespace'
+      confidence = 'high'
     }
   }
 
   // Check AI builder indicators
-  if (lower.includes('lovable.dev') || lower.includes('cdn.lovable')) {
-    evidence.push('Lovable.dev scripts detected')
-    return { platform: 'Lovable', confidence: 'high', evidence }
-  }
-  if (lower.includes('v0.dev') || lower.includes('v0-generated')) {
-    evidence.push('v0 generator signature detected')
-    return { platform: 'v0', confidence: 'high', evidence }
-  }
-  if (lower.includes('bolt.new') || lower.includes('stackblitz.com')) {
-    evidence.push('Bolt/StackBlitz runtime detected')
-    return { platform: 'Bolt', confidence: 'high', evidence }
-  }
-
-  // Check asset domains & paths
-  if (lower.includes('/wp-content/') || lower.includes('/wp-includes/')) {
-    evidence.push('WordPress asset paths (/wp-content/)')
-    if (lower.includes('elementor')) {
-      evidence.push('Elementor page builder classes & styles')
-      return { platform: 'Elementor', confidence: 'high', evidence }
+  if (rawPlatform === 'Custom') {
+    if (lower.includes('lovable.dev') || lower.includes('cdn.lovable')) {
+      evidence.push('Lovable.dev scripts detected')
+      rawPlatform = 'Lovable'
+      confidence = 'high'
+    } else if (lower.includes('v0.dev') || lower.includes('v0-generated')) {
+      evidence.push('v0 generator signature detected')
+      rawPlatform = 'v0'
+      confidence = 'high'
+    } else if (lower.includes('bolt.new') || lower.includes('stackblitz.com')) {
+      evidence.push('Bolt/StackBlitz runtime detected')
+      rawPlatform = 'Bolt'
+      confidence = 'high'
+    } else if (lower.includes('/wp-content/') || lower.includes('/wp-includes/')) {
+      evidence.push('WordPress asset paths (/wp-content/)')
+      if (lower.includes('elementor')) {
+        evidence.push('Elementor page builder classes & styles')
+        rawPlatform = 'Elementor'
+      } else {
+        rawPlatform = 'WordPress'
+      }
+      confidence = 'high'
+    } else if (lower.includes('static.wixstatic.com') || lower.includes('wix.com')) {
+      evidence.push('Wix CDN static asset host')
+      rawPlatform = 'Wix'
+      confidence = 'high'
+    } else if (lower.includes('assets.squarespace.com') || lower.includes('squarespace-cdn')) {
+      evidence.push('Squarespace asset CDN')
+      rawPlatform = 'Squarespace'
+      confidence = 'high'
+    } else if (lower.includes('framerusercontent.com') || lower.includes('framer-')) {
+      evidence.push('Framer user assets and runtime scripts')
+      rawPlatform = 'Framer'
+      confidence = 'high'
+    } else if (lower.includes('uploads-ssl.webflow.com') || lower.includes('w-layout-')) {
+      evidence.push('Webflow layout classes and CDN')
+      rawPlatform = 'Webflow'
+      confidence = 'high'
+    } else if (lower.includes('powered by wordpress')) {
+      evidence.push('Footer credit: Powered by WordPress')
+      rawPlatform = 'WordPress'
+      confidence = 'high'
+    } else if (lower.includes('powered by squarespace')) {
+      evidence.push('Footer credit: Powered by Squarespace')
+      rawPlatform = 'Squarespace'
+      confidence = 'high'
     }
-    return { platform: 'WordPress', confidence: 'high', evidence }
-  }
-  if (lower.includes('static.wixstatic.com') || lower.includes('wix.com')) {
-    evidence.push('Wix CDN static asset host')
-    return { platform: 'Wix', confidence: 'high', evidence }
-  }
-  if (lower.includes('assets.squarespace.com') || lower.includes('squarespace-cdn')) {
-    evidence.push('Squarespace asset CDN')
-    return { platform: 'Squarespace', confidence: 'high', evidence }
-  }
-  if (lower.includes('framerusercontent.com') || lower.includes('framer-')) {
-    evidence.push('Framer user assets and runtime scripts')
-    return { platform: 'Framer', confidence: 'high', evidence }
-  }
-  if (lower.includes('uploads-ssl.webflow.com') || lower.includes('w-layout-')) {
-    evidence.push('Webflow layout classes and CDN')
-    return { platform: 'Webflow', confidence: 'high', evidence }
   }
 
-  // Footer credits check
-  if (lower.includes('powered by wordpress')) {
-    evidence.push('Footer credit: Powered by WordPress')
-    return { platform: 'WordPress', confidence: 'high', evidence }
+  if (rawPlatform === 'Custom') {
+    evidence.push('Standard web architecture or legacy CMS templates')
   }
-  if (lower.includes('powered by squarespace')) {
-    evidence.push('Footer credit: Powered by Squarespace')
-    return { platform: 'Squarespace', confidence: 'high', evidence }
+
+  // Detect Legacy PHP / WordPress and attach Security + £4,000 State Grant Angle
+  const isLegacyPhpOrWordPress =
+    rawPlatform === 'WordPress' ||
+    rawPlatform === 'Elementor' ||
+    lower.includes('totalsolution') ||
+    lower.includes('.php') ||
+    lower.includes('wp-json')
+
+  const cveAlerts: string[] = []
+  if (isLegacyPhpOrWordPress) {
+    cveAlerts.push('CVE-2026-119977 (CISA KEV Nov 3, 2026: WordPress Core TOCTOU Race Condition RCE)')
+    cveAlerts.push('CVE-2026-109618 / CVE-2026-109619 (PHP2Shell: 9.2 CVSS Memory Corruption Unauthenticated RCE)')
   }
 
   return {
-    platform: 'Custom',
-    confidence: 'medium',
-    evidence: ['Standard modern web architecture without known builder signatures']
+    platform: rawPlatform,
+    confidence,
+    evidence,
+    isLegacyPhpOrWordPress,
+    cveAlerts: cveAlerts.length > 0 ? cveAlerts : undefined,
+    grantEligible: isLegacyPhpOrWordPress,
+    grantAmount: isLegacyPhpOrWordPress ? '£4,000+' : undefined
   }
 }
 

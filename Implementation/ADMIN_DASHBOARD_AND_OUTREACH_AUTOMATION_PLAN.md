@@ -193,7 +193,32 @@ Mercian Wealth | 07851 055929 | mercianwealth.com
 
 ---
 
-## 6. Verification & Health Gate
+---
+
+## 6. The CISA / PHP2Shell Security Advisory & £4,000+ State Grant Weapon
+
+### The Security Exposure
+1. **CISA KEV Alert (Added November 3, 2026):**
+   * **CVE-2026-119977:** WordPress Core Time-of-Check Time-of-Use (TOCTOU) Race Condition Vulnerability affecting core versions prior to 7.1.4. Unauthenticated Remote Code Execution actively targeted in the wild.
+2. **PHP2Shell Core Vulnerability (Disclosed October 2026):**
+   * **CVE-2026-109618 & CVE-2026-109619 (CVSS 9.2 Critical):** Fatal memory allocation corruption in PHP core (PHP 5.4 - 8.5) allowing remote code execution and memory exposure on over 70% of legacy web servers.
+   * Practices handling confidential payroll, VAT, and client records running on WordPress/PHP are exposed to severe GDPR & AML regulatory non-compliance.
+
+### The £4,000+ State-Funded Grant Upsell Model
+* **The Opportunity:** Regional EU & UK enterprise/workforce agencies fund employee training in AI adoption, cybersecurity hygiene, and data compliance.
+* **The Economics:**
+  * **Practice Out-of-Pocket:** **£0** (100% funded).
+  * **Our Direct Payout:** **£4,000+** directly invoiced to and paid by the funding agency per practice.
+  * **Our Tech Package:** £595 setup + £29/mo recurring retainer for modern Next.js/React re-platforming and automated practice scoping.
+  * **Combined Deal Value:** **£4,595+ cash upfront + £29/mo recurring retainer per practice!**
+
+### Dual-Angle Calling Scripts Built Into Dashboard
+* **Intake UX Angle:** Focuses on lost enquiries, out-of-hours drop-off, and missing turnover qualification.
+* **CISA & Grant Angle:** Focuses on the recent CISA KEV advisory on WordPress/PHP and securing the £4,000 state grant allocation before regional funding caps close.
+
+---
+
+## 7. Verification & Health Gate
 * **TypeScript Check:** `npx tsc --noEmit` $\rightarrow$ **0 errors**
 * **Next.js Production Build:** `npm run build` $\rightarrow$ **0 errors across all 77 routes**
-* **Git Repository:** Synced to `origin/main` commit `5795c31`
+* **Git Status:** Fully committed and synchronized to `origin/main`

@@ -75,6 +75,7 @@ export function OutreachModal({
   const [copiedKey, setCopiedKey] = useState<string | null>(null)
   const [showObjections, setShowObjections] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
+  const [scriptMode, setScriptMode] = useState<'intake' | 'security_grant'>('intake')
   const supabase = createClient()
 
   if (!isOpen || !lead) return null
@@ -114,6 +115,28 @@ export function OutreachModal({
   const followUpEmailBody = `Hi ${directorName},\n\nI called your office a moment ago.\n\nI was reviewing your website on mobile earlier and noticed ${cleanFriction}.\n\nFor an established practice handling corporate and commercial accounts, that creates unnecessary drop-off when prospective clients browse after hours or on mobile.\n\nI've put together a quick 60-second interactive practice scoper showing how other UK firms qualify sole trader vs Ltd Co turnover upfront before booking directly into the partner calendar.\n\nWould it make sense to connect for 10–15 minutes next Tuesday or Wednesday at 10:30am to take a look? If not relevant on your end, no problem at all—just let me know and I'll close your file.\n\nBest regards,\nGurtej Deep\nMercian Wealth | 07851 055929 | mercianwealth.com`
 
   const whatsAppMessage = `Hi ${directorName}, Gurtej here from Mercian Wealth. Left a brief voicemail at your office earlier regarding the ${businessName} site—noticed ${cleanFriction}. Just emailed you a quick observation on it. Let me know if you'd like to see the 60-second prototype scoper.`
+
+    // Security & State-Funded Grant Scripts (CISA CVE-2026-119977 / PHP2Shell + £4,000 Grant)
+  const platformName = meta.build_platform || 'WordPress / PHP'
+  const step1SecurityPermission = `“Hey ${directorName}, I was reviewing the ${businessName} website earlier and noticed it's running on ${platformName}. CISA just added an active remote code vulnerability (CVE-2026-119977 / PHP2Shell) to their Known Exploited catalog, but more importantly, there's an approved state-funded grant covering £4,000+ for staff AI and cyber compliance that pays 100% of the cost. Would it be totally crazy for a two minute chat to see if that's even relevant on your end?”`
+  const step2SecurityDiagnostic = `“Appreciate that. Basically, for chartered practices holding confidential payroll, VAT, and client records, running unhardened PHP/WordPress contact forms is creating AML and GDPR exposure. But under the new workforce directive, qualifying UK practices can claim £4,000+ to upgrade intake systems and train staff with zero out-of-pocket cost. Are you already claiming your practice's regional allocation for this, or has no one walked you through the grant yet?”`
+  const step3SecurityBridgeTo15Min = `“Makes total sense. Look, I promised to keep this to two minutes and I respect your time. I've prepared a 1-page compliance audit and grant eligibility summary specifically for ${businessName} showing how the £4,000 voucher gets claimed. Would it be a terrible idea to hop on a 15-minute screen share next Tuesday or Wednesday morning at 10:30am so I can run through the paperwork and show you how it works? If it’s not for you, no hard feelings at all.”`
+
+  const voicemailSecurityScript = `“Hi ${directorName}, it's Gurtej calling regarding ${businessName}. I'm calling about the new CISA security advisory affecting your website platform, and the £4,000 state-funded AI and cyber compliance grant available for your practice. I'm emailing you the 1-page diagnostic and grant details directly. My number is 07851 055929. Speak soon.”`
+
+  const followUpSecurityEmailSubject = `Notice: CISA security advisory & £4,000 state cyber grant qualification for ${businessName}`
+  const followUpSecurityEmailBody = `Hi ${directorName},\n\nI called your office a moment ago regarding ${businessName}.\n\nTwo urgent items came up during a technical review of your practice's digital presence:\n\n1. Platform Security Advisory: CISA (Cybersecurity & Infrastructure Security Agency) recently added WordPress Core CVE-2026-119977 (TOCTOU RCE) and the PHP2Shell memory corruption flaws (CVE-2026-109618 / 109619, rated 9.2/10) to the Known Exploited Vulnerabilities catalog. For chartered accountancy practices handling confidential payroll, VAT, and client records, unhardened legacy CMS and PHP contact forms create active regulatory exposure.\n\n2. £4,000+ State-Funded Grant Allocation: Under the new workforce AI & Cybersecurity compliance directives, qualifying UK practices are eligible for a state-funded grant voucher covering £4,000+ in staff training and modern intake infrastructure. This is invoiced directly to the funding agency with £0 out-of-pocket cost to your firm.\n\nWe help practices migrate off legacy CMS setups to high-security, sub-second React/Next.js portals with automated client scoping, while facilitating the £4,000 grant application.\n\nWould it make sense to connect for 10–15 minutes next Tuesday or Wednesday at 10:30am to review your practice's grant qualification and security score? If not relevant on your end, no problem at all—just let me know and I'll close your file.\n\nBest regards,\nGurtej Deep\nMercian Wealth | 07851 055929 | mercianwealth.com`
+
+  const whatsAppSecurityMessage = `Hi ${directorName}, Gurtej from Mercian Wealth. Left a brief voicemail at your office regarding the CISA security advisory for your website and the £4,000 state-funded AI & cyber compliance voucher available for ${businessName}. Just emailed you the 1-page summary. Let me know if you'd like to review the grant qualification next week.`
+
+  const isSecurityMode = scriptMode === 'security_grant'
+  const activeStep1 = isSecurityMode ? step1SecurityPermission : step1Permission
+  const activeStep2 = isSecurityMode ? step2SecurityDiagnostic : step2Diagnostic
+  const activeStep3 = isSecurityMode ? step3SecurityBridgeTo15Min : step3BridgeTo15Min
+  const activeVmScript = isSecurityMode ? voicemailSecurityScript : voicemailScript
+  const activeEmailSubject = isSecurityMode ? followUpSecurityEmailSubject : followUpEmailSubject
+  const activeEmailBody = isSecurityMode ? followUpSecurityEmailBody : followUpEmailBody
+  const activeWaMessage = isSecurityMode ? whatsAppSecurityMessage : whatsAppMessage
 
   const handleCopy = async (key: string, text: string) => {
     try {
@@ -261,18 +284,70 @@ export function OutreachModal({
             )}
           </div>
 
-          {/* Section M: The 1 Verified Human Friction */}
-          <div className="p-3.5 sm:p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 space-y-1.5">
-            <div className="flex items-center gap-2">
-              <AlertTriangle size={15} className="text-amber-400" />
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-400">
-                VERIFIED SECTION M FRICTION (CALL HOOK)
-              </span>
-            </div>
-            <p className="text-xs sm:text-sm text-zinc-200 leading-relaxed font-medium">
-              {rawFriction}
-            </p>
+          {/* Dual-Angle Script Switcher */}
+          <div className="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-[#141417] border border-white/10">
+            <button
+              type="button"
+              onClick={() => setScriptMode('intake')}
+              className={`py-2.5 px-3 rounded-xl text-xs font-mono font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                !isSecurityMode
+                  ? 'bg-[#DAA640] text-black shadow-lg shadow-[#DAA640]/20'
+                  : 'text-zinc-400 hover:text-white bg-transparent'
+              }`}
+            >
+              <Sparkles size={13} />
+              <span>Intake Qualification Hook</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setScriptMode('security_grant')}
+              className={`py-2.5 px-3 rounded-xl text-xs font-mono font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                isSecurityMode
+                  ? 'bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow-lg shadow-rose-500/20'
+                  : 'text-zinc-400 hover:text-white bg-transparent'
+              }`}
+            >
+              <ShieldAlert size={13} />
+              <span>🛡️ CISA / PHP & £4k Grant Hook</span>
+            </button>
           </div>
+
+          {isSecurityMode ? (
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-rose-500/15 via-amber-500/10 to-[#141417] border border-rose-500/30 space-y-2">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div className="flex items-center gap-2">
+                  <ShieldAlert size={16} className="text-rose-400" />
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-rose-400">
+                    CISA KEV ALERT (CVE-2026-119977) & PHP2SHELL + £4,000 STATE GRANT
+                  </span>
+                </div>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  £0 Client Cost (£4k Voucher)
+                </span>
+              </div>
+              <div className="text-xs text-zinc-300 leading-relaxed space-y-1">
+                <p>
+                  <strong className="text-rose-300">Vulnerabilities:</strong> CISA added WordPress Core CVE-2026-119977 (TOCTOU RCE) on Nov 3, 2026, alongside PHP2Shell (CVE-2026-109618 / 109619, CVSS 9.2). Critical RCE flaws actively targeted across legacy PHP/WordPress sites.
+                </p>
+                <p>
+                  <strong className="text-emerald-300">Commercial Upsell:</strong> Government agencies cover £4,000+ for staff AI & cybersecurity adoption. The practice pays £0; we invoice the state agency directly while migrating them to modern Next.js (£595 setup + £29/mo).
+                </p>
+              </div>
+            </div>
+          ) : (
+            /* Section M: The 1 Verified Human Friction */
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 space-y-1.5">
+              <div className="flex items-center gap-2">
+                <AlertTriangle size={15} className="text-amber-400" />
+                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-400">
+                  VERIFIED SECTION M FRICTION (CALL HOOK)
+                </span>
+              </div>
+              <p className="text-xs sm:text-sm text-zinc-200 leading-relaxed font-medium">
+                {rawFriction}
+              </p>
+            </div>
+          )}
 
           {/* The Sales Prof Day 1 Script Card */}
           <div className="p-4 rounded-2xl bg-[#141417] border border-white/10 space-y-3">
@@ -281,7 +356,7 @@ export function OutreachModal({
                 DAY 1 CALL SCRIPT (WORD FOR WORD)
               </span>
               <button
-                onClick={() => handleCopy('script', `${step1Permission}\n\n[When they say go ahead]:\n${step2Diagnostic}\n\n[Bridge to 15-min demo]:\n${step3BridgeTo15Min}`)}
+                onClick={() => handleCopy('script', `${activeStep1}\n\n[When they say go ahead]:\n${activeStep2}\n\n[Bridge to 15-min demo]:\n${activeStep3}`)}
                 className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-zinc-300 font-mono flex items-center gap-1 transition-colors cursor-pointer"
               >
                 {copiedKey === 'script' ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
@@ -295,7 +370,7 @@ export function OutreachModal({
                 Step 1: Permission (15 Seconds)
               </span>
               <p className="text-xs sm:text-sm text-zinc-200 leading-relaxed font-sans italic">
-                {step1Permission}
+                {activeStep1}
               </p>
             </div>
 
@@ -305,7 +380,7 @@ export function OutreachModal({
                 Step 2: When They Say "Go ahead / What is it?" (Use Your 2 Mins)
               </span>
               <p className="text-xs sm:text-sm text-zinc-200 leading-relaxed font-sans italic">
-                {step2Diagnostic}
+                {activeStep2}
               </p>
             </div>
 
@@ -315,7 +390,7 @@ export function OutreachModal({
                 Step 3: After They Answer (Respect The 2-Min Limit & Bridge)
               </span>
               <p className="text-xs sm:text-sm text-zinc-200 leading-relaxed font-sans italic">
-                {step3BridgeTo15Min}
+                {activeStep3}
               </p>
             </div>
           </div>
@@ -363,7 +438,7 @@ export function OutreachModal({
               <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400">
                 <span>Voicemail Message:</span>
                 <button
-                  onClick={() => handleCopy('vm', voicemailScript)}
+                  onClick={() => handleCopy('vm', activeVmScript)}
                   className="hover:text-white flex items-center gap-1 cursor-pointer"
                 >
                   {copiedKey === 'vm' ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}
@@ -371,7 +446,7 @@ export function OutreachModal({
                 </button>
               </div>
               <div className="p-2.5 rounded-xl bg-black/40 border border-white/5 text-xs text-zinc-300 italic">
-                {voicemailScript}
+                {activeVmScript}
               </div>
             </div>
 
@@ -382,7 +457,7 @@ export function OutreachModal({
                   WRITTEN FOLLOW-UP EMAIL (SUBJECT + BODY)
                 </span>
                 <button
-                  onClick={() => handleCopy('email_full', `Subject: ${followUpEmailSubject}\n\n${followUpEmailBody}`)}
+                  onClick={() => handleCopy('email_full', `Subject: ${activeEmailSubject}\n\n${activeEmailBody}`)}
                   className="hover:text-white flex items-center gap-1 text-xs text-sky-300 cursor-pointer font-mono"
                 >
                   {copiedKey === 'email_full' ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}
@@ -390,17 +465,17 @@ export function OutreachModal({
                 </button>
               </div>
               <div className="text-[11px] font-mono text-zinc-400 border-b border-white/5 pb-1">
-                <strong>Subject:</strong> {followUpEmailSubject}
+                <strong>Subject:</strong> {activeEmailSubject}
               </div>
               <div className="text-xs text-zinc-300 whitespace-pre-wrap leading-relaxed font-sans max-h-32 overflow-y-auto">
-                {followUpEmailBody}
+                {activeEmailBody}
               </div>
             </div>
 
             {/* Email & WhatsApp Quick Copy */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
               <button
-                onClick={() => handleCopy('email_body', followUpEmailBody)}
+                onClick={() => handleCopy('email_body', activeEmailBody)}
                 className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium text-white flex items-center justify-between transition-all cursor-pointer"
               >
                 <div className="flex items-center gap-2">
@@ -412,7 +487,7 @@ export function OutreachModal({
 
               {lead.phone && (
                 <button
-                  onClick={() => handleCopy('wa', whatsAppMessage)}
+                  onClick={() => handleCopy('wa', activeWaMessage)}
                   className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium text-white flex items-center justify-between transition-all cursor-pointer"
                 >
                   <div className="flex items-center gap-2">
@@ -439,7 +514,7 @@ export function OutreachModal({
           <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
             <button
               onClick={() => {
-                handleCopy('combo', `${followUpEmailBody}\n\n---\nWhatsApp:\n${whatsAppMessage}`)
+                handleCopy('combo', `${activeEmailBody}\n\n---\nWhatsApp:\n${activeWaMessage}`)
                 handleStatusUpdate('Contacted')
               }}
               disabled={isUpdating}
