@@ -271,6 +271,7 @@ export default function LeadsPage() {
   const [contactedInSessionIds, setContactedInSessionIds] = useState<Set<string>>(new Set())
 
   // Direct 1-Click Quick Filter: 'all' | 'new' | 'contacted' | 'pipeline' | 'landlines' | 'needs_review'
+  const [masterStream, setMasterStream] = useState<'all' | 'inbound' | 'strike_list' | 'follow_up' | 'scraper_inbox'>('strike_list')
   const [quickFilter, setQuickFilter] = useState<'all' | 'new' | 'follow_up' | 'contacted' | 'pipeline' | 'landlines' | 'needs_review'>('all')
   // Dedicated Follow-Up Cadence Sub-Filter: 'all' | 'due_fu1' | 'due_fu2' | 'cooling_down'
   const [followUpSubFilter, setFollowUpSubFilter] = useState<'all' | 'due_fu1' | 'due_fu2' | 'cooling_down'>('all')
@@ -988,6 +989,108 @@ export default function LeadsPage() {
             <span>Add Lead</span>
           </button>
         </div>
+      </div>
+
+      {/* ───────────────────────────────────────────────────────────────────────── */}
+      {/* 4-STREAM OPERATIONAL ENGINE (High-Converting Architecture)                */}
+      {/* ───────────────────────────────────────────────────────────────────────── */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 p-1.5 rounded-2xl bg-[#0B0B0D] border border-white/10 shadow-xl">
+        <button
+          onClick={() => {
+            setMasterStream('inbound')
+            setQuickFilter('pipeline')
+            setStatusFilter([])
+          }}
+          className={`p-3.5 rounded-xl flex items-center justify-between text-left transition-all cursor-pointer ${
+            masterStream === 'inbound'
+              ? 'bg-[#141417] border border-amber-400/50 shadow-md shadow-amber-400/5'
+              : 'hover:bg-white/5 border border-transparent text-zinc-400'
+          }`}
+        >
+          <div className="flex items-center gap-2.5">
+            <span className="text-xl">🔥</span>
+            <div>
+              <div className="text-xs font-bold text-white">Inbound Leads</div>
+              <div className="text-[10px] text-zinc-400 font-mono">Website & /book</div>
+            </div>
+          </div>
+          <span className="text-xs font-bold font-mono px-2 py-0.5 rounded-lg bg-amber-400/15 text-amber-300 border border-amber-400/30">
+            {filterCounts.activePipeline}
+          </span>
+        </button>
+
+        <button
+          onClick={() => {
+            setMasterStream('strike_list')
+            setQuickFilter('new')
+            setStatusFilter(['New'])
+          }}
+          className={`p-3.5 rounded-xl flex items-center justify-between text-left transition-all cursor-pointer ${
+            masterStream === 'strike_list'
+              ? 'bg-[#141417] border border-emerald-400/50 shadow-md shadow-emerald-400/5'
+              : 'hover:bg-white/5 border border-transparent text-zinc-400'
+          }`}
+        >
+          <div className="flex items-center gap-2.5">
+            <span className="text-xl">📞</span>
+            <div>
+              <div className="text-xs font-bold text-white">Call Strike List</div>
+              <div className="text-[10px] text-emerald-400 font-mono">Audited & Ready</div>
+            </div>
+          </div>
+          <span className="text-xs font-bold font-mono px-2 py-0.5 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+            {filterCounts.freshNew}
+          </span>
+        </button>
+
+        <button
+          onClick={() => {
+            setMasterStream('follow_up')
+            setQuickFilter('follow_up')
+            setFollowUpSubFilter('all')
+            setStatusFilter(['Contacted'])
+          }}
+          className={`p-3.5 rounded-xl flex items-center justify-between text-left transition-all cursor-pointer ${
+            masterStream === 'follow_up'
+              ? 'bg-[#141417] border border-sky-400/50 shadow-md shadow-sky-400/5'
+              : 'hover:bg-white/5 border border-transparent text-zinc-400'
+          }`}
+        >
+          <div className="flex items-center gap-2.5">
+            <span className="text-xl">🔄</span>
+            <div>
+              <div className="text-xs font-bold text-white">Follow-Up Cadence</div>
+              <div className="text-[10px] text-sky-400 font-mono">Day 1 / 3 / 5 / 7</div>
+            </div>
+          </div>
+          <span className="text-xs font-bold font-mono px-2 py-0.5 rounded-lg bg-sky-500/15 text-sky-300 border border-sky-500/30">
+            {filterCounts.contacted}
+          </span>
+        </button>
+
+        <button
+          onClick={() => {
+            setMasterStream('scraper_inbox')
+            setQuickFilter('all')
+            setStatusFilter([])
+          }}
+          className={`p-3.5 rounded-xl flex items-center justify-between text-left transition-all cursor-pointer ${
+            masterStream === 'scraper_inbox'
+              ? 'bg-[#141417] border border-white/30 shadow-md shadow-white/5'
+              : 'hover:bg-white/5 border border-transparent text-zinc-400'
+          }`}
+        >
+          <div className="flex items-center gap-2.5">
+            <span className="text-xl">📥</span>
+            <div>
+              <div className="text-xs font-bold text-white">Scraper Inbox</div>
+              <div className="text-[10px] text-zinc-400 font-mono">Raw Staging Pool</div>
+            </div>
+          </div>
+          <span className="text-xs font-bold font-mono px-2 py-0.5 rounded-lg bg-white/10 text-zinc-300 border border-white/10">
+            {filterCounts.total}
+          </span>
+        </button>
       </div>
 
       {/* Motion Stats Grid */}
@@ -2376,10 +2479,10 @@ export default function LeadsPage() {
         isOpen={isOutreachOpen}
         onClose={() => setIsOutreachOpen(false)}
         lead={outreachLead}
-        onUpdateStatus={async (id, status) => {
+        onUpdateStatus={async (id: string, status: string) => {
           await handleUpdateLeadStatus(id, status)
         }}
-        onDeleteLead={async (id) => {
+        onDeleteLead={async (id: string) => {
           await handleDeleteLead(id)
         }}
       />
@@ -2389,7 +2492,7 @@ export default function LeadsPage() {
         isOpen={isSprintOpen}
         onClose={() => setIsSprintOpen(false)}
         leads={selectedIds.length > 0 ? displayedLeads.filter(l => selectedIds.includes(l.id)) : displayedLeads}
-        onUpdateStatus={async (id, status) => {
+        onUpdateStatus={async (id: string, status: string) => {
           await handleUpdateLeadStatus(id, status)
         }}
       />
