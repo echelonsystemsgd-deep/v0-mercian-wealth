@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useMemo } from 'react'
+import React, { useState } from 'react'
 import {
   X,
   Phone,
@@ -85,19 +85,19 @@ export function OutreachModal({
     ? lead.name.trim()
     : 'Partner'
 
-  // Extract Section M verified friction
-  const rawFriction = useMemo(() => {
-    const meta = (lead.scraped_metadata || {}) as Record<string, any>
-    if (lead.friction_found) return lead.friction_found
-    if (meta.friction_title) return meta.friction_title
-    if (meta.observable_problem) return meta.observable_problem
-    if (lead.notes && lead.notes.includes('VERIFIED FLAW:')) {
-      const match = lead.notes.match(/VERIFIED FLAW:\s*([^\n]+)/i)
-      if (match) return match[1].trim()
-    }
-    // Contextual fallback based on domain/notes
-    return "Contact phone number isn't tap-to-call on mobile, and the contact page has no business triage form."
-  }, [lead])
+  // Extract Section M verified friction synchronously (no hook after early return)
+  const meta = (lead.scraped_metadata || {}) as Record<string, any>
+  let rawFriction = "Contact phone number isn't tap-to-call on mobile, and the contact page has no business triage form."
+  if (lead.friction_found) {
+    rawFriction = lead.friction_found
+  } else if (meta.friction_title) {
+    rawFriction = meta.friction_title
+  } else if (meta.observable_problem) {
+    rawFriction = meta.observable_problem
+  } else if (lead.notes && lead.notes.includes('VERIFIED FLAW:')) {
+    const match = lead.notes.match(/VERIFIED FLAW:\s*([^\n]+)/i)
+    if (match) rawFriction = match[1].trim()
+  }
 
   const telLink = buildTelUrl(lead.phone)
   const waUrl = buildWhatsAppOpenerUrl(lead.phone, `Hi ${directorName}, Gurtej here from Mercian Wealth regarding the ${businessName} website.`)
