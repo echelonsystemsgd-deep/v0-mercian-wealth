@@ -5,6 +5,7 @@ import { checkRateLimit } from '@/lib/rate-limit'
 import { 
   generateOwnerLeadEmail, 
   generateCustomerConfirmationEmail,
+  generatePrototypeConfirmationEmail,
   generateBookingConfirmedEmail,
   generateLoomAuditEmail
 } from '@/lib/email-templates'
@@ -240,7 +241,8 @@ export async function POST(request: Request) {
     // 2. Email Notifications (Transactional via Resend)
     const resend = getResendClient()
     if (resend) {
-      const fromEmail = process.env.RESEND_FROM_EMAIL || 'Mercian Wealth <hello@mercianwealth.com>'
+      const rawFrom = process.env.RESEND_FROM_EMAIL || 'Mercian Wealth <hello@mercianwealth.com>'
+      const fromEmail = rawFrom.replace(/^["']|["']$/g, '').trim()
       const timestamp = new Date().toLocaleString('en-GB', { timeZone: 'UTC' }) + ' UTC'
       const cleanSource = source.replace(/_/g, ' ').toUpperCase()
 
@@ -285,11 +287,8 @@ export async function POST(request: Request) {
         customerSubject = "Strategy Consultation Application Received — Mercian Wealth"
         customerEmailHtml = generateCustomerConfirmationEmail(emailPayload)
       } else if (source === 'prototype_request') {
-        customerSubject = "Your Working Prototype Request Received — Mercian Wealth"
-        customerEmailHtml = generateCustomerConfirmationEmail({
-          ...emailPayload,
-          notes: `We received your request for a free working prototype for ${business_name || 'your business'}. We are preparing your interactive demo and will send your access link shortly.`
-        })
+        customerSubject = `⚡ Your Free Mobile Storefront Prototype Request Received — ${business_name || 'Mercian Wealth'}`
+        customerEmailHtml = generatePrototypeConfirmationEmail(emailPayload)
       } else if (source === 'fast_track_audit') {
         customerSubject = "Fast-Track Technical Audit Scheduled — Mercian Wealth"
         customerEmailHtml = generateLoomAuditEmail({

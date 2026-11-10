@@ -64,10 +64,16 @@ export interface LoomAuditPayload {
   keyTakeaways?: string[]
 }
 
+export interface PasswordResetPayload {
+  email: string
+  resetUrl: string
+  name?: string | null
+}
+
 const BRAND = {
   name: 'Mercian Wealth',
   tagline: 'UK AI Automations & High-Performance Web Design',
-  logoUrl: 'https://mercianwealth.com/MercianWealthLogo.jpeg',
+  logoUrl: 'https://mercianwealth.com/Logo1.jpeg',
   siteUrl: 'https://mercianwealth.com',
   primaryGold: '#DAA640',
   warmGold: '#EBB755',
@@ -106,7 +112,14 @@ export function generateOwnerLeadEmail(payload: LeadEmailPayload): string {
   const safeWebsite = escapeHtml(payload.website)
   const safeNotes = escapeHtml(payload.notes)
 
-  const cleanPhoneDigits = payload.phone ? payload.phone.replace(/\D/g, '') : ''
+  const rawPhoneDigits = payload.phone ? payload.phone.replace(/\D/g, '') : ''
+  let cleanPhoneDigits = rawPhoneDigits
+  if (cleanPhoneDigits.startsWith('0') && cleanPhoneDigits.length === 11) {
+    cleanPhoneDigits = '44' + cleanPhoneDigits.substring(1)
+  } else if (cleanPhoneDigits.startsWith('440') && cleanPhoneDigits.length === 13) {
+    cleanPhoneDigits = '44' + cleanPhoneDigits.substring(3)
+  }
+
   const whatsappPrefill = encodeURIComponent(`Hi ${payload.name ? payload.name.split(' ')[0] : 'there'}, thanks for reaching out to Mercian Wealth! I received your inquiry regarding ${payload.service_interested || 'our AI & web automation systems'}. When is a good time for a quick 5-min chat?`)
 
   return `
@@ -324,6 +337,141 @@ export function generateCustomerConfirmationEmail(payload: LeadEmailPayload): st
               <p style="margin: 0; font-size: 11px; line-height: 1.5;">
                 Engineered for High-Converting Digital Operations & AI Infrastructure.<br>
                 UK & EU GDPR Compliant with strict data sovereignty guarantees.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `
+}
+
+/**
+ * 2B. CUSTOMER PROTOTYPE REQUEST CONFIRMATION & WELCOME
+ * Tailored specifically for leads requesting a free interactive mobile prototype.
+ * Highlighting business name, reference link, 48-hour delivery timeline, and zero obligation.
+ */
+export function generatePrototypeConfirmationEmail(payload: LeadEmailPayload): string {
+  const firstName = payload.name ? escapeHtml(payload.name.split(' ')[0]) : 'there'
+  const safeBusiness = escapeHtml(payload.business_name) || 'your business'
+  const safeWebsite = escapeHtml(payload.website) || ''
+  const safeEmail = escapeHtml(payload.email)
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Free Prototype Request — ${BRAND.name}</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #010817; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: ${BRAND.textLight};">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #010817; padding: 30px 10px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width: 600px; width: 100%; background-color: ${BRAND.cardNavy}; border: 1px solid rgba(218, 166, 64, 0.35); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.6);">
+          
+          <!-- Header Banner -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #0C1D4D 0%, #07153B 100%); padding: 36px 24px; text-align: center; border-bottom: 1px solid rgba(218, 166, 64, 0.25);">
+              <img src="${BRAND.logoUrl}" alt="${BRAND.name}" style="height: 60px; width: 60px; border-radius: 12px; border: 1px solid rgba(218, 166, 64, 0.4); margin-bottom: 12px; display: inline-block;">
+              <h1 style="margin: 0; color: ${BRAND.primaryGold}; font-size: 22px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;">${BRAND.name}</h1>
+              <p style="margin: 6px 0 0 0; color: #34D399; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700;">✦ Free Prototype Build Initiated</p>
+            </td>
+          </tr>
+
+          <!-- Body Content -->
+          <tr>
+            <td style="padding: 32px 28px;">
+              <p style="font-size: 18px; font-weight: 700; color: #FFFFFF; margin: 0 0 16px 0;">Hello ${firstName},</p>
+              
+              <p style="font-size: 15px; line-height: 1.7; color: ${BRAND.textLight}; margin: 0 0 20px 0;">
+                We have received your request for a <strong>free, working mobile storefront prototype</strong> configured specifically for <span style="color: ${BRAND.warmGold}; font-weight: 700;">${safeBusiness}</span>.
+              </p>
+
+              <p style="font-size: 14px; line-height: 1.7; color: ${BRAND.textMuted}; margin: 0 0 24px 0;">
+                We don't do theoretical slide decks or endless agency sales pitches. We build a live, functioning smartphone preview running your services, pricing, and booking flow so you can test it directly on your own device before spending a single penny.
+              </p>
+
+              <!-- Prototype Order Spec Box -->
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #020E28; border: 1px solid rgba(218, 166, 64, 0.3); border-radius: 12px; padding: 20px; margin: 20px 0;">
+                <tr>
+                  <td colspan="2" style="padding-bottom: 12px; color: ${BRAND.primaryGold}; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    📋 Prototype Configuration Specifications
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 0 6px 0; color: ${BRAND.textMuted}; font-size: 13px; font-weight: 600; width: 140px;">Target Business:</td>
+                  <td style="padding: 10px 0 6px 0; color: #FFFFFF; font-size: 14px; font-weight: 700;">${safeBusiness}</td>
+                </tr>
+                ${safeWebsite ? `
+                <tr>
+                  <td style="padding: 6px 0; color: ${BRAND.textMuted}; font-size: 13px; font-weight: 600;">Reference Link:</td>
+                  <td style="padding: 6px 0; color: ${BRAND.warmGold}; font-size: 13px; font-family: monospace;">
+                    <a href="${safeWebsite.startsWith('http') ? safeWebsite : 'https://' + safeWebsite}" target="_blank" style="color: ${BRAND.warmGold}; text-decoration: underline;">${safeWebsite}</a>
+                  </td>
+                </tr>` : ''}
+                <tr>
+                  <td style="padding: 6px 0; color: ${BRAND.textMuted}; font-size: 13px; font-weight: 600;">Delivery Target:</td>
+                  <td style="padding: 6px 0; color: #34D399; font-size: 13px; font-weight: 700; font-family: monospace;">Within 24 to 48 Hours</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0 2px 0; color: ${BRAND.textMuted}; font-size: 13px; font-weight: 600;">Delivery Inbox:</td>
+                  <td style="padding: 6px 0 2px 0; color: #FFFFFF; font-size: 13px; font-family: monospace;">${safeEmail}</td>
+                </tr>
+              </table>
+
+              <!-- What Happens Next Protocol -->
+              <div style="background-color: ${BRAND.bgNavy}; border: 1px solid rgba(218, 166, 64, 0.2); border-radius: 12px; padding: 20px; margin: 24px 0;">
+                <h3 style="margin: 0 0 14px 0; color: ${BRAND.primaryGold}; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">✦ The 3-Step Prototype Protocol</h3>
+                
+                <div style="margin-bottom: 14px;">
+                  <span style="display: inline-block; background-color: rgba(218, 166, 64, 0.2); color: ${BRAND.primaryGold}; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 4px; margin-bottom: 4px;">STAGE 1 · RECON & EXTRACTION</span>
+                  <p style="margin: 2px 0 0 0; color: ${BRAND.textLight}; font-size: 13px; line-height: 1.6;">Our engineering team analyzes your current web/social profile to extract your core services, brand colors, and pricing structure.</p>
+                </div>
+
+                <div style="margin-bottom: 14px;">
+                  <span style="display: inline-block; background-color: rgba(52, 211, 153, 0.15); color: #34D399; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 4px; margin-bottom: 4px;">STAGE 2 · ZERO-LATENCY BUILD</span>
+                  <p style="margin: 2px 0 0 0; color: ${BRAND.textLight}; font-size: 13px; line-height: 1.6;">We configure a sub-second mobile storefront with interactive 3-tap booking, instant WhatsApp notifications, and deposit checkout logic.</p>
+                </div>
+
+                <div>
+                  <span style="display: inline-block; background-color: rgba(56, 189, 248, 0.15); color: #38BDF8; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 4px; margin-bottom: 4px;">STAGE 3 · PRIVATE PREVIEW HANDOVER</span>
+                  <p style="margin: 2px 0 0 0; color: ${BRAND.textLight}; font-size: 13px; line-height: 1.6;">You receive a direct private demo URL to test drive on your smartphone. Completely free, with zero aggressive follow-up or sales pressure.</p>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top: 30px; text-align: center;">
+                <tr>
+                  <td align="center">
+                    <a href="${BRAND.siteUrl}/book" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #DAA640 0%, #B88528 100%); color: #020E28; font-size: 14px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; text-decoration: none; padding: 15px 32px; border-radius: 10px; box-shadow: 0 4px 20px rgba(218, 166, 64, 0.3); margin-bottom: 14px;">
+                      Fast-Track: Book 15-Min Live Demo Call →
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <a href="${BRAND.whatsappUrl}" target="_blank" style="color: #34D399; font-size: 13px; font-weight: 600; text-decoration: underline;">
+                      Have specific requirements for your prototype? Message on WhatsApp →
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #020E28; padding: 24px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: ${BRAND.textMuted};">
+              <p style="margin: 0 0 6px 0; font-weight: 700; color: ${BRAND.primaryGold};">${BRAND.name} • United Kingdom</p>
+              <p style="margin: 0; font-size: 11px; line-height: 1.5;">
+                Engineered for High-Converting Digital Operations & AI Infrastructure.<br>
+                UK GDPR & NCSC Compliant. We respect your inbox privacy with absolute discretion.
               </p>
             </td>
           </tr>
@@ -701,6 +849,99 @@ export function generateLoomAuditEmail(payload: LoomAuditPayload): string {
               <p style="margin: 0 0 6px 0; font-weight: 700; color: ${BRAND.primaryGold};">${BRAND.name} • Engineering Advisory</p>
               <p style="margin: 0; font-size: 11px; line-height: 1.5;">
                 Engineered exclusively for high-growth United Kingdom enterprises.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `
+}
+
+/**
+ * 7. CLIENT / ADMIN SECURE PASSWORD RESET EMAIL
+ * Sent when a user clicks "Forgot your password?" on the login page.
+ * Provides a direct single-use recovery link, 60-minute expiry warning, and security note.
+ */
+export function generatePasswordResetEmail(payload: PasswordResetPayload): string {
+  const firstName = payload.name ? escapeHtml(payload.name.split(' ')[0]) : 'there'
+  const safeEmail = escapeHtml(payload.email)
+  const safeResetUrl = escapeHtml(payload.resetUrl)
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reset Your Password — ${BRAND.name}</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #010817; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: ${BRAND.textLight};">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #010817; padding: 30px 10px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width: 600px; width: 100%; background-color: ${BRAND.cardNavy}; border: 1px solid rgba(218, 166, 64, 0.35); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.6);">
+          
+          <!-- Header Banner -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #0C1D4D 0%, #07153B 100%); padding: 36px 24px; text-align: center; border-bottom: 1px solid rgba(218, 166, 64, 0.25);">
+              <img src="${BRAND.logoUrl}" alt="${BRAND.name}" style="height: 60px; width: 60px; border-radius: 12px; border: 1px solid rgba(218, 166, 64, 0.4); margin-bottom: 12px; display: inline-block;">
+              <h1 style="margin: 0; color: ${BRAND.primaryGold}; font-size: 22px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;">${BRAND.name}</h1>
+              <p style="margin: 6px 0 0 0; color: ${BRAND.warmGold}; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700;">🔒 Secure Account Verification</p>
+            </td>
+          </tr>
+
+          <!-- Body Content -->
+          <tr>
+            <td style="padding: 32px 28px;">
+              <p style="font-size: 18px; font-weight: 700; color: #FFFFFF; margin: 0 0 16px 0;">Hello ${firstName},</p>
+              
+              <p style="font-size: 15px; line-height: 1.7; color: ${BRAND.textLight}; margin: 0 0 20px 0;">
+                We received a request to reset the password for your <strong>${BRAND.name}</strong> portal account associated with <strong style="color: ${BRAND.warmGold}; font-family: monospace;">${safeEmail}</strong>.
+              </p>
+
+              <p style="font-size: 14px; line-height: 1.7; color: ${BRAND.textMuted}; margin: 0 0 28px 0;">
+                To choose a new password and restore instant access to your client automation portal, click the secure verification button below:
+              </p>
+
+              <!-- Single-Click Reset Action Button -->
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin: 25px 0 30px 0; text-align: center;">
+                <tr>
+                  <td align="center">
+                    <a href="${safeResetUrl}" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #DAA640 0%, #B88528 100%); color: #020E28; font-size: 14px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; text-decoration: none; padding: 16px 36px; border-radius: 10px; box-shadow: 0 4px 20px rgba(218, 166, 64, 0.35);">
+                      Reset My Password →
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Security Notice Callout -->
+              <div style="background-color: #020E28; border-left: 4px solid ${BRAND.primaryGold}; padding: 16px 20px; border-radius: 8px; margin: 24px 0;">
+                <p style="margin: 0 0 6px 0; color: ${BRAND.primaryGold}; font-size: 12px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;">⏱ Single-Use & Time Sensitive</p>
+                <p style="margin: 0; color: ${BRAND.textMuted}; font-size: 13px; line-height: 1.6;">
+                  This link is valid for <strong>60 minutes</strong> and can only be used once. If you did not request a password reset, you can safely ignore this email — your account remains completely secure and no changes will be made.
+                </p>
+              </div>
+
+              <!-- Fallback Link -->
+              <p style="font-size: 12px; color: ${BRAND.textMuted}; line-height: 1.6; margin-top: 25px; word-break: break-all;">
+                Button not working? Copy and paste this URL into your browser:<br>
+                <a href="${safeResetUrl}" target="_blank" style="color: ${BRAND.primaryGold}; text-decoration: underline;">${safeResetUrl}</a>
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #020E28; padding: 24px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: ${BRAND.textMuted};">
+              <p style="margin: 0 0 6px 0; font-weight: 700; color: ${BRAND.primaryGold};">${BRAND.name} • United Kingdom</p>
+              <p style="margin: 0; font-size: 11px; line-height: 1.5;">
+                Engineered for High-Converting Digital Operations & AI Infrastructure.<br>
+                UK GDPR & NCSC Compliant. Automated Security Dispatch.
               </p>
             </td>
           </tr>

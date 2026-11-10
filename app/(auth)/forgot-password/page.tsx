@@ -16,19 +16,38 @@ export default function ForgotPasswordPage() {
     setError(null)
     setLoading(true)
 
-    const supabase = createClient()
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/callback?next=/reset-password`,
-    })
+    try {
+      const res = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim().toLowerCase() }),
+      })
 
-    if (error) {
-      setError(error.message || 'Something went wrong. Please try again.')
+      const data = await res.json().catch(() => null)
+
+      if (!res.ok) {
+        throw new Error(data?.error || 'Unable to process reset request. Please try again.')
+      }
+
+      setSubmitted(true)
+    } catch (err: any) {
+      // Fallback directly to client-side Supabase if server route is unreachable
+      try {
+        const supabase = createClient()
+        const { error: clientError } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
+          redirectTo: `${window.location.origin}/auth/callback?next=/reset-password`,
+        })
+        if (clientError) {
+          setError(clientError.message || 'Something went wrong. Please try again.')
+        } else {
+          setSubmitted(true)
+        }
+      } catch {
+        setError(err.message || 'Something went wrong. Please try again.')
+      }
+    } finally {
       setLoading(false)
-      return
     }
-
-    setSubmitted(true)
-    setLoading(false)
   }
 
   if (submitted) {

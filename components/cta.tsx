@@ -3,13 +3,19 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight, ShieldCheck, MessageSquare } from "lucide-react"
+import { ArrowRight, ShieldCheck, MessageSquare, Sparkles } from "lucide-react"
 import { SITE_COPY } from "@/lib/site-copy"
 
 import { SectionDivider } from "@/components/section-divider"
 
 export function CTA() {
   const data = SITE_COPY.homepage.cta
+
+  const openPrototypeModal = () => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("open-prototype-modal"))
+    }
+  }
 
   return (
     <section id="cta" className="relative py-16 sm:py-24 overflow-hidden bg-[#09090B]">
@@ -57,12 +63,22 @@ export function CTA() {
           className="w-full flex flex-col items-center gap-4 pt-2"
         >
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full">
-            {/* Primary Action: Book a call */}
-            <Link
-              href="/book"
+            {/* Primary Action: See Your Free Prototype */}
+            <button
+              type="button"
+              onClick={openPrototypeModal}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-sm sm:text-base font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] rounded-xl transition-all duration-200 shadow-lg shadow-[#DCAE53]/20 cursor-pointer"
             >
-              <span>Book a call</span>
+              <Sparkles size={16} className="text-black shrink-0" />
+              <span>{data.buttonText || "See Your Free Prototype"}</span>
+            </button>
+
+            {/* Secondary Action: Book a call */}
+            <Link
+              href="/book"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 text-sm sm:text-base font-semibold text-white bg-[#141417] border border-white/10 hover:border-[#DCAE53]/50 hover:bg-[#1C1C22] rounded-xl transition-all duration-200 cursor-pointer"
+            >
+              <span>{data.secondaryButtonText || "Book a call"}</span>
               <ArrowRight size={16} />
             </Link>
 
