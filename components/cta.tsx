@@ -63,22 +63,21 @@ export function CTA() {
           className="w-full flex flex-col items-center gap-4 pt-2"
         >
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full">
-            {/* Primary Action: See Your Free Prototype */}
-            <button
-              type="button"
-              onClick={openPrototypeModal}
+            {/* Primary Action: Test-Drive Live Demo */}
+            <Link
+              href="/preview/demo"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-sm sm:text-base font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] rounded-xl transition-all duration-200 shadow-lg shadow-[#DCAE53]/20 cursor-pointer"
             >
               <Sparkles size={16} className="text-black shrink-0" />
-              <span>{data.buttonText || "See Your Free Prototype"}</span>
-            </button>
+              <span>{data.buttonText || "Test-Drive Live Demo"}</span>
+            </Link>
 
             {/* Secondary Action: Book a call */}
             <Link
               href="/book"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 text-sm sm:text-base font-semibold text-white bg-[#141417] border border-white/10 hover:border-[#DCAE53]/50 hover:bg-[#1C1C22] rounded-xl transition-all duration-200 cursor-pointer"
             >
-              <span>{data.secondaryButtonText || "Book a call"}</span>
+              <span>{data.secondaryButtonText || "Book 15-Min Scoping Call"}</span>
               <ArrowRight size={16} />
             </Link>
 

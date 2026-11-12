@@ -80,15 +80,14 @@ export function Hero() {
             <ArrowRight size={15} />
           </Link>
 
-          {/* Secondary Action: See a free prototype */}
-          <button
-            type="button"
-            onClick={openPrototypeModal}
+          {/* Secondary Action: Test-Drive Live Architecture */}
+          <Link
+            href="/preview/demo"
             className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 text-xs sm:text-sm font-semibold text-[#DAA640] bg-[#141417] border border-[#DAA640]/40 hover:border-[#DAA640] hover:bg-[#1C1C22] rounded-xl transition-all text-center cursor-pointer shadow-sm"
           >
             <Sparkles size={14} className="text-[#DAA640] shrink-0" />
-            <span>{data.secondaryCtaText || "See a free prototype for your business"}</span>
-          </button>
+            <span>{data.secondaryCtaText || "Test-Drive Live Architecture"}</span>
+          </Link>
 
           {/* Direct WhatsApp CTA */}
           <a
