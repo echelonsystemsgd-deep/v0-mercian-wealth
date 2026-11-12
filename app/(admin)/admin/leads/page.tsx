@@ -58,6 +58,7 @@ import {
 import { useInspector } from '@/hooks/use-inspector'
 import { OutreachModal, OutreachLead } from '@/components/admin/outreach-modal'
 import { OutreachSprintRunner } from '@/components/admin/outreach-sprint-runner'
+import { CallingCockpit } from '@/components/admin/outreach/calling-cockpit'
 import { AntigravityPromptModal } from '@/components/admin/antigravity-prompt-modal'
 import { GoogleSheetSyncModal } from '@/components/admin/google-sheet-sync-modal'
 
@@ -293,6 +294,8 @@ export default function LeadsPage() {
   const [outreachLead, setOutreachLead] = useState<Lead | null>(null)
   const [isOutreachOpen, setIsOutreachOpen] = useState(false)
   const [isSprintOpen, setIsSprintOpen] = useState(false)
+  const [isCallingCockpitOpen, setIsCallingCockpitOpen] = useState(false)
+  const [callingCockpitIndex, setCallingCockpitIndex] = useState(0)
 
   // Dedicated Antigravity Prompt Modal State
   const [promptLead, setPromptLead] = useState<Lead | null>(null)
@@ -401,8 +404,10 @@ export default function LeadsPage() {
   }
 
   const handleOpenOutreach = (lead: Lead) => {
+    const idx = displayedLeads.findIndex(l => l.id === lead.id)
+    setCallingCockpitIndex(idx >= 0 ? idx : 0)
+    setIsCallingCockpitOpen(true)
     setOutreachLead(lead)
-    setIsOutreachOpen(true)
   }
 
   // Load distinct filters and total counts
@@ -620,6 +625,9 @@ export default function LeadsPage() {
     if (statusParam) {
       setStatusFilter([statusParam])
       setQueueFilter('all')
+    }
+    if (searchParams.get('cockpit') === 'true') {
+      setIsCallingCockpitOpen(true)
     }
   }, [searchParams])
 
@@ -953,6 +961,18 @@ export default function LeadsPage() {
           </p>
         </div>
         <div className="flex items-center gap-2 self-start sm:self-center flex-wrap">
+          <button
+            onClick={() => {
+              setCallingCockpitIndex(0)
+              setIsCallingCockpitOpen(true)
+            }}
+            disabled={displayedLeads.length === 0}
+            className="flex items-center gap-2 px-3.5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-[#DCAE53] to-[#DAA640] hover:from-[#E5B85C] hover:to-[#E5B85C] text-[#09090B] transition-all cursor-pointer shadow-lg shadow-[#DCAE53]/20 disabled:opacity-40 disabled:cursor-not-allowed active:scale-95"
+            title="Launch 3-Pane Cold Calling Cockpit (Kokonut 3D Flip Cards & 1-Click Outcome Dock)"
+          >
+            <Phone size={14} className="fill-[#09090B]" />
+            <span>Calling Cockpit ({selectedIds.length > 0 ? selectedIds.length : displayedLeads.length})</span>
+          </button>
           <button
             onClick={() => setIsSprintOpen(true)}
             disabled={displayedLeads.length === 0}
@@ -2473,6 +2493,20 @@ export default function LeadsPage() {
         </div>
       )}
 
+      {/* 3-PANE CALLING COCKPIT (Kokonut UI 3D Flip Cards + Live 390px Sandbox + 1-Click Outcome Logging) */}
+      <CallingCockpit
+        isOpen={isCallingCockpitOpen}
+        onClose={() => setIsCallingCockpitOpen(false)}
+        leads={selectedIds.length > 0 ? displayedLeads.filter(l => selectedIds.includes(l.id)) : displayedLeads}
+        initialIndex={callingCockpitIndex}
+        onStatusUpdate={async (id: string, status: string) => {
+          await handleUpdateLeadStatus(id, status, true)
+        }}
+        onOutcomeRecorded={async (id: string, outcome: string, notes: string) => {
+          setLeads(prev => prev.map(l => l.id === id ? { ...l, notes: l.notes ? `${l.notes}\n${notes}` : notes } : l))
+        }}
+      />
+
       {/* DEDICATED OUTREACH COCKPIT MODAL */}
       <OutreachModal
         key={outreachLead?.id || 'none'}
@@ -2508,6 +2542,16 @@ export default function LeadsPage() {
           </div>
 
           <div className="flex items-center gap-1.5 flex-wrap">
+            <button
+              onClick={() => {
+                setCallingCockpitIndex(0)
+                setIsCallingCockpitOpen(true)
+              }}
+              className="px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-[#DCAE53] to-[#DAA640] hover:from-[#E5B85C] hover:to-[#E5B85C] text-[#09090B] text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm"
+              title="Launch Calling Cockpit for selected leads"
+            >
+              <Phone size={12} className="fill-[#09090B]" /> Cockpit ({selectedIds.length})
+            </button>
             <button
               onClick={() => setIsSprintOpen(true)}
               className="px-2.5 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-black text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-sm"

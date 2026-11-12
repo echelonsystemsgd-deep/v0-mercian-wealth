@@ -74,13 +74,22 @@ export function TodayOutreachStrip({ leads }: TodayOutreachStripProps) {
           </div>
         </div>
 
-        <Link
-          href="/admin/leads"
-          className="text-xs text-[#DAA640] hover:text-[#F5D90A] font-semibold flex items-center gap-1 self-start sm:self-center transition-colors py-1"
-        >
-          <span>View All in Ledger</span>
-          <ArrowRight size={12} />
-        </Link>
+        <div className="flex items-center gap-2 self-start sm:self-center">
+          <Link
+            href="/admin/leads?cockpit=true"
+            className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#DCAE53] to-[#DAA640] hover:from-[#E5B85C] hover:to-[#E5B85C] text-[#09090B] font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
+          >
+            <Zap size={12} className="fill-[#09090B]" />
+            <span>Launch Cockpit</span>
+          </Link>
+          <Link
+            href="/admin/leads"
+            className="text-xs text-[#DAA640] hover:text-[#F5D90A] font-semibold flex items-center gap-1 transition-colors py-1"
+          >
+            <span>View All</span>
+            <ArrowRight size={12} />
+          </Link>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
