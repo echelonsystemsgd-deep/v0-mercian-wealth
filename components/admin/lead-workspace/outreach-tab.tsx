@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Phone, MessageSquare, Mail, ChevronDown, ChevronUp, Calculator, Globe } from 'lucide-react'
 import { OutreachMessageCard } from './outreach-message-card'
 import { CallOutcomeSheet } from './call-outcome-sheet'
+import { ColdCallHud } from './cold-call-hud'
 import { WhatsAppSequenceBlocks } from '@/components/admin/whatsapp-sequence-blocks'
 import type { PlaybookEngine } from '@/hooks/use-playbook-engine'
 import { findAccountantIntelligence } from '@/lib/auditor/accountant-leads-registry'
@@ -75,7 +76,7 @@ export function OutreachTab({ lead, engine, onOutcomeRecorded, onStatusUpdate, o
   }
 
   const effectiveEmailSubject = engineEmailSubject || `Quick question regarding ${businessName}`
-  const effectiveEmailBody = emailXMessage || `Hi,\n\n${callOpener}\n\nWould love to show you a quick example.\n\nBest regards,\nGurtej\nMercian Wealth`
+  const effectiveEmailBody = emailXMessage || `Hi,\n\n${callOpener}\n\nAre most of your new client discovery calls currently scheduled manually over email, or do you have an automated scoper in place?\n\nBest regards,\nGurtej\nMercian Wealth`
 
   const accountantIntel = findAccountantIntelligence(lead.website, lead.business_name || lead.name)
   const supabase = createClient()
@@ -84,7 +85,14 @@ export function OutreachTab({ lead, engine, onOutcomeRecorded, onStatusUpdate, o
   }
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
+      {/* Live Cold Call Teleprompter & Battlecard HUD */}
+      <ColdCallHud
+        lead={lead as any}
+        onOutcomeRecorded={onOutcomeRecorded}
+        onStatusUpdate={onStatusUpdate}
+      />
+
       {/* Forensic Friction & Notes Dossier */}
       <LeadFrictionDossier
         lead={lead as any}

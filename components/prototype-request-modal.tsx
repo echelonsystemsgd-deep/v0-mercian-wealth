@@ -36,6 +36,17 @@ export function PrototypeRequestModal({ isOpen: propIsOpen, onClose: propOnClose
     }, 300)
   }
 
+  // Lock body scroll when modal is open to prevent background scrolling
+  useEffect(() => {
+    if (isOpen) {
+      const originalOverflow = document.body.style.overflow
+      document.body.style.overflow = "hidden"
+      return () => {
+        document.body.style.overflow = originalOverflow
+      }
+    }
+  }, [isOpen])
+
   // Global event listener to trigger modal from any component via window dispatch or URL hash #prototype-modal
   useEffect(() => {
     const handleOpenEvent = () => setInternalIsOpen(true)
