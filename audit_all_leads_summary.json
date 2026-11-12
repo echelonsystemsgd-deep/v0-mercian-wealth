@@ -1,0 +1,1076 @@
+[
+  {
+    "name": "Dead Simple Accounting",
+    "url": "https://www.deadsimpleaccounting.co.uk/",
+    "grade": "D+",
+    "techStack": "WordPress v7.1.4 (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.1.4 (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "CA Gaurav Aggarwal (Arora Aggarwal & Co)",
+    "url": "https://aroraaggarwal.com",
+    "grade": "D+",
+    "techStack": "WordPress v7.1.4 (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on WordPress v7.1.4 (PHP/MySQL CMS)).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.1.4 (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "A&C Chartered Accountants",
+    "url": "https://www.ac-accounts.co.uk",
+    "grade": "D",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on WordPress (PHP/MySQL CMS)).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Padam Dhawan & Co.",
+    "url": "http://pdamritsar.com/",
+    "grade": "C",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on Custom Web Architecture).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Parul A Gupta & Associates",
+    "url": "None",
+    "status": "No Website",
+    "grade": "F"
+  },
+  {
+    "name": "V.Bhatia & Associates",
+    "url": "None",
+    "status": "No Website",
+    "grade": "F"
+  },
+  {
+    "name": "Berkshire Accountants Limited",
+    "url": "https://berkshireaccountants.com/",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Abacus Tax Advisors Ltd",
+    "url": "https://www.abacusleeds.co.uk",
+    "grade": "D",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on WordPress (PHP/MySQL CMS)).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Chart Accountancy",
+    "url": "https://chartaccountancy.com/",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile conversion flow is constrained by a legacy WordPress (PHP/MySQL CMS) intake with unvetted contact submission.",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Armstrong Watson (Manchester Hub)",
+    "url": "https://www.armstrongwatson.co.uk",
+    "grade": "D+",
+    "techStack": "Drupal (PHP CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic Drupal (PHP CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Collins Chartered Accountants",
+    "url": "https://www.collins-chartered-accountants.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress v6.5.14 (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v6.5.14 (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Infincible Limited",
+    "url": "https://www.infincible.com",
+    "grade": "F",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Sell Your Stamps UK",
+    "url": "https://v0-stamp-valuation-app-eight.vercel.app/",
+    "grade": "C",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Mobile conversion flow is constrained by a legacy Custom Web Architecture intake with unvetted contact submission.",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Vale & West",
+    "url": "https://www.valewest.com/",
+    "grade": "F",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "A A S S & Associates",
+    "url": "https://caaass.in/",
+    "grade": "C",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Mobile conversion flow is constrained by a legacy Custom Web Architecture intake with unvetted contact submission.",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Ritesh Arora & Associates",
+    "url": "http://www.riteshglobalca.com/",
+    "grade": "C",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Mobile conversion flow is constrained by a legacy Custom Web Architecture intake with unvetted contact submission.",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "KP Tax Consultants Ltd",
+    "url": "https://kptc.co.uk",
+    "grade": "F",
+    "techStack": "Wix Cloud Builder",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Gurveen Narang & Associates",
+    "url": "http://cagurveennarang.com/",
+    "grade": "F",
+    "techStack": "Custom PHP Application",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic Custom PHP Application backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "K S Rathod & Co Ltd",
+    "url": "https://ksrathod.co.uk",
+    "grade": "D+",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on Custom Web Architecture).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Ranjit Singh & Co. Chartered Accountants",
+    "url": "http://ranjitsinghca.com/",
+    "grade": "F",
+    "techStack": "Unknown / Domain Offline",
+    "observableFlaw": "Domain is unreachable or timing out, leaving zero digital inbound funnel."
+  },
+  {
+    "name": "HSL Accountancy Solutions",
+    "url": "https://hslaccountancysolutions.co.uk",
+    "grade": "D",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on WordPress (PHP/MySQL CMS)).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Berg Kaprow Lewis LLP",
+    "url": "https://bkl.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Tax Minds Limited",
+    "url": "https://www.taxminds.uk/",
+    "grade": "C",
+    "techStack": "Wix Cloud Builder",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Northern Quarter Bookkeeping & Tax",
+    "url": "None",
+    "status": "No Website",
+    "grade": "F"
+  },
+  {
+    "name": "J.L.Khanna & Co.",
+    "url": "https://jlkhanna.com/",
+    "grade": "C",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Vijay Rishi & Co. / CA Rishi Mahajan",
+    "url": "http://carishimahajan.com/",
+    "grade": "C",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "NRDN & Associates (Chartered Accountants)",
+    "url": "https://nrdnassociates.in/",
+    "grade": "F",
+    "techStack": "Unknown / Domain Offline",
+    "observableFlaw": "Domain is unreachable or timing out, leaving zero digital inbound funnel."
+  },
+  {
+    "name": "Ahluwalia & Associates",
+    "url": "http://www.ahluwaliaandassociates.in/",
+    "grade": "C",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Ryecroft Glenton Chartered Accountants",
+    "url": "https://ryecroftglenton.com",
+    "grade": "D+",
+    "techStack": "WordPress v7.1.4 (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile conversion flow is constrained by a legacy WordPress v7.1.4 (PHP/MySQL CMS) intake with unvetted contact submission.",
+    "frictions": [
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.1.4 (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "P.N. Arora and Associates",
+    "url": "http://pnarora.com/",
+    "grade": "C",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "ASA & Associates (Law Firm)",
+    "url": "https://www.lawatasa.com/",
+    "grade": "D+",
+    "techStack": "Wix Cloud Builder",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on Wix Cloud Builder).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Marr & Company Chartered Professional Accountants",
+    "url": "https://marraccountants.ca/",
+    "grade": "F",
+    "techStack": "Custom PHP Application",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic Custom PHP Application backend with slower server response time"
+    ]
+  },
+  {
+    "name": "B.K. Joshi & Associates Law Firm",
+    "url": "None",
+    "status": "No Website",
+    "grade": "F"
+  },
+  {
+    "name": "Ishita Business Services",
+    "url": "http://bizfiling.in/",
+    "grade": "D+",
+    "techStack": "WordPress v7.0.8 (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.0.8 (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "SAR Accounting & Tax Solutions",
+    "url": "https://saraccounting.com/",
+    "grade": "D+",
+    "techStack": "WordPress v7.1.4 (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on WordPress v7.1.4 (PHP/MySQL CMS)).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.1.4 (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Finchley Chartered Practice Advisory",
+    "url": "https://bkl.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Chiene + Tait LLP Chartered Accountants",
+    "url": "https://chiene.co.uk",
+    "grade": "F",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Monahans Chartered Accountants",
+    "url": "https://monahans.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Blick Rothenberg Limited",
+    "url": "https://blickrothenberg.com",
+    "grade": "F",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "French Duncan LLP",
+    "url": "https://frenchduncan.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "JW Hinks LLP Chartered Accountants",
+    "url": "https://jwhinks.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on WordPress (PHP/MySQL CMS)).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Tait Walker LLP (Azets Newcastle)",
+    "url": "https://azets.co.uk",
+    "grade": "F",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Dunkley's Chartered Accountants",
+    "url": "https://dunkleys.accountants",
+    "grade": "D+",
+    "techStack": "WordPress v6.9.10 (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v6.9.10 (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Jerroms Chartered Accountants",
+    "url": "https://jerroms.co.uk",
+    "grade": "C",
+    "techStack": "Webflow",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Baldwins / Azets Birmingham",
+    "url": "https://azets.co.uk",
+    "grade": "F",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Milsted Langdon LLP",
+    "url": "https://milstedlangdon.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress v7.1.4 (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile conversion flow is constrained by a legacy WordPress v7.1.4 (PHP/MySQL CMS) intake with unvetted contact submission.",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.1.4 (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Silver Levene LLP",
+    "url": "https://silverlevene.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Mercer & Hole Chartered Accountants",
+    "url": "https://mercerhole.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "M V Accountancy Services Ltd",
+    "url": "https://mvaccountancy.co.uk",
+    "grade": "F",
+    "techStack": "Unknown / Domain Offline",
+    "observableFlaw": "Domain is unreachable or timing out, leaving zero digital inbound funnel."
+  },
+  {
+    "name": "Holy Brook Accountants",
+    "url": "https://www.holybrook.com/",
+    "grade": "D+",
+    "techStack": "WordPress v7.1.4 (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.1.4 (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Jose & Associates",
+    "url": "https://www.joseassociates.co.uk/",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on WordPress (PHP/MySQL CMS)).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Cryer Sandham Limited",
+    "url": "https://www.cryer-sandham.co.uk/",
+    "grade": "C",
+    "techStack": "Wix Cloud Builder",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on Wix Cloud Builder).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Richardsons Accountants",
+    "url": "https://richardsonsaccountancy.co.uk/",
+    "grade": "F",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Avery Clifton Accountants",
+    "url": "https://averyclifton.com/",
+    "grade": "D+",
+    "techStack": "WordPress v5.3.27 (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v5.3.27 (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Biz Accounting Solutions",
+    "url": "https://bizasl.co.uk/",
+    "grade": "D+",
+    "techStack": "WordPress v6.9.4 (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile conversion flow is constrained by a legacy WordPress v6.9.4 (PHP/MySQL CMS) intake with unvetted contact submission.",
+    "frictions": [
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v6.9.4 (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Brimz Financials Ltd",
+    "url": "https://www.brimzfinancials.com/",
+    "grade": "F",
+    "techStack": "Squarespace",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Hazlewoods LLP",
+    "url": "https://hazlewoods.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress v7.1.4 (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile conversion flow is constrained by a legacy WordPress v7.1.4 (PHP/MySQL CMS) intake with unvetted contact submission.",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.1.4 (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Raw Accounting",
+    "url": "https://www.rawaccounting.co.uk/",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile conversion flow is constrained by a legacy WordPress (PHP/MySQL CMS) intake with unvetted contact submission.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Hurn Accountants Limited",
+    "url": "https://www.hurntax.co.uk/",
+    "grade": "D+",
+    "techStack": "Wix Cloud Builder",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on Wix Cloud Builder).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Niraj Jewellers",
+    "url": "https://www.niraj-jewellers.co.uk/",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on WordPress (PHP/MySQL CMS)).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Jackson Stephen LLP",
+    "url": "https://jacksonstephen.co.uk",
+    "grade": "D+",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on Custom Web Architecture).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Edmonds Accountancy",
+    "url": "https://www.edmonds-accountancy.co.uk/",
+    "grade": "D",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on WordPress (PHP/MySQL CMS)).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Hunter Gee Holroyd Chartered Accountants",
+    "url": "https://hghyork.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress v7.1.4 (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile conversion flow is constrained by a legacy WordPress v7.1.4 (PHP/MySQL CMS) intake with unvetted contact submission.",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.1.4 (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "IAC Accountants",
+    "url": "https://iacaccountants.co.uk",
+    "grade": "F",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Holloway Cook Ltd",
+    "url": "https://www.hollowaycook.co.uk/",
+    "grade": "D",
+    "techStack": "WordPress v7.1.4 (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on WordPress v7.1.4 (PHP/MySQL CMS)).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.1.4 (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Sweeting & Smedley Ltd",
+    "url": "https://sweetingandsmedley.co.uk",
+    "grade": "F",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "George Hay Chartered Accountants",
+    "url": "https://georgehay.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress v7.1.4 (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.1.4 (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Dains Accountants Limited",
+    "url": "https://dains.com",
+    "grade": "C",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Kingston Smith LLP",
+    "url": "https://kingston-wells.co.uk",
+    "grade": "D+",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on Custom Web Architecture).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Bold Rose Accountants",
+    "url": "https://bracc.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on WordPress (PHP/MySQL CMS)).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Lambert Chapman LLP",
+    "url": "https://lambert-chapman.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress v6.9.10 (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v6.9.10 (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Punjab Plates UK",
+    "url": "https://www.tiktok.com/@punjabplatesuk",
+    "grade": "F",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Champion Accountants Limited",
+    "url": "https://championgroup.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile conversion flow is constrained by a legacy WordPress (PHP/MySQL CMS) intake with unvetted contact submission.",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Wilson Partners Accounting",
+    "url": "https://wilson-partners.co.uk",
+    "grade": "F",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Barrie Ingram Accounts Ltd",
+    "url": "https://barrieingramaccounts.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress v7.1.4 (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.1.4 (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Pro Tax Accountant Chelmsford",
+    "url": "https://protaxaccountant.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on WordPress (PHP/MySQL CMS)).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Chitram TV / Shiva Technology Ltd",
+    "url": "https://uk-streaming-client-prototype.vercel.app/",
+    "grade": "C",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on Custom Web Architecture).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "Aggarwal Accounts",
+    "url": "https://aggarwalaccounts.com",
+    "grade": "F",
+    "techStack": "Squarespace",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Future Focus Consultants Ltd",
+    "url": "https://ffconsultants.co.uk",
+    "grade": "F",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth"
+    ]
+  },
+  {
+    "name": "KBN Accountants Limited",
+    "url": "https://www.kbnaccountants.co.uk/",
+    "grade": "D+",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on Custom Web Architecture).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "James Cowper Kreston",
+    "url": "https://www.jamescowperkreston.co.uk/",
+    "grade": "C",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "852 Accounting",
+    "url": "https://852.limited",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on WordPress (PHP/MySQL CMS)).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Wisetax Accountants Ltd",
+    "url": "https://wisetax.org.uk",
+    "grade": "C",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Mobile conversion flow is constrained by a legacy Custom Web Architecture intake with unvetted contact submission.",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Oury Clark",
+    "url": "https://ouryclark.com",
+    "grade": "D+",
+    "techStack": "WordPress v7.1.4 (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.1.4 (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Eacotts",
+    "url": "https://eacotts.com",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Veracity Accountants Limited",
+    "url": "https://veracityaccountants.com",
+    "grade": "D+",
+    "techStack": "WordPress v6.6.11 (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on WordPress v6.6.11 (PHP/MySQL CMS)).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v6.6.11 (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Smooth Feathers Accountants",
+    "url": "https://smoothfeathers.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress v7.1.4 (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.1.4 (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "Wilder Coe Ltd Chartered Accountants",
+    "url": "https://wildercoe.co.uk",
+    "grade": "D+",
+    "techStack": "WordPress v7.0.8 (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress v7.0.8 (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  },
+  {
+    "name": "H A & Co Accountants",
+    "url": "https://haandco.uk",
+    "grade": "D+",
+    "techStack": "Custom Web Architecture",
+    "observableFlaw": "Mobile intake uses an unvalidated open message box with zero turnover qualification and no calendar booking hold (running on Custom Web Architecture).",
+    "frictions": [
+      "Open, unvalidated message textarea (\"How can we help?\") inviting low-margin tire-kickers",
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "Goringe Accountants",
+    "url": "https://goringeaccountants.co.uk/",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Mobile conversion flow is constrained by a legacy WordPress (PHP/MySQL CMS) intake with unvetted contact submission.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time",
+      "Generic hero proposition that blends in with local commodity bookkeepers"
+    ]
+  },
+  {
+    "name": "My Online Lawyer",
+    "url": "https://www.myonlinelawyer.co.uk/",
+    "grade": "D+",
+    "techStack": "WordPress (PHP/MySQL CMS)",
+    "observableFlaw": "Contact intake lacks turnover pre-qualification and forces prospective Ltd Co clients into email ping-pong instead of an instant scoping call hold.",
+    "frictions": [
+      "Zero pre-qualification for Ltd Co turnover or fee brackets before submitting",
+      "No direct calendar booking hold—relies on manual email back-and-forth",
+      "Monolithic WordPress (PHP/MySQL CMS) backend with slower server response time"
+    ]
+  }
+]
