@@ -150,12 +150,20 @@ export function PrototypeRequestModal({ isOpen: propIsOpen, onClose: propOnClose
                   Prototype Request Received
                 </h3>
                 <p className="text-sm text-slate-300 max-w-sm mx-auto leading-relaxed">
-                  Thank you, <strong className="text-white">{name}</strong>. I will review <strong className="text-[#DCAE53]">{businessName}</strong> and prepare a working prototype. Your preview link will be sent to <strong className="text-white">{email}</strong>.
+                  Thank you, <strong className="text-white">{name}</strong>. Your confirmation has been sent to <strong className="text-white">{email}</strong>. You can test-drive our live interactive practice architecture right now:
                 </p>
-                <div className="pt-2">
+                <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <a
+                    href="/preview/demo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 text-xs font-extrabold uppercase tracking-wider transition-all min-h-[44px] flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20"
+                  >
+                    <span>✦ Test-Drive Live Demo Now →</span>
+                  </a>
                   <button
                     onClick={handleClose}
-                    className="px-6 py-2.5 rounded-xl bg-[#18181F] text-slate-200 border border-slate-700 hover:bg-[#20202a] text-xs font-bold transition-all min-h-[44px]"
+                    className="w-full sm:w-auto px-5 py-3 rounded-xl bg-[#18181F] text-slate-300 border border-slate-700 hover:bg-[#20202a] text-xs font-bold transition-all min-h-[44px]"
                   >
                     Back to Site
                   </button>

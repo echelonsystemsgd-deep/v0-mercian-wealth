@@ -449,15 +449,26 @@ export function generatePrototypeConfirmationEmail(payload: LeadEmailPayload): s
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top: 30px; text-align: center;">
                 <tr>
                   <td align="center">
-                    <a href="${BRAND.siteUrl}/book" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #DAA640 0%, #B88528 100%); color: #020E28; font-size: 14px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; text-decoration: none; padding: 15px 32px; border-radius: 10px; box-shadow: 0 4px 20px rgba(218, 166, 64, 0.3); margin-bottom: 14px;">
-                      Fast-Track: Book 15-Min Live Demo Call →
+                    <!-- Immediate Live Prototype Sandbox Access -->
+                    <a href="${BRAND.siteUrl}/preview/demo" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #FFFFFF; font-size: 14px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; text-decoration: none; padding: 16px 36px; border-radius: 10px; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4); margin-bottom: 14px;">
+                      ✦ Test-Drive Live Interactive Architecture Now →
+                    </a>
+                    <p style="margin: 0 0 16px 0; font-size: 12px; color: ${BRAND.warmGold};">
+                      Immediate access: Test our 60-second client triage & booking sandbox directly on your phone.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <a href="${BRAND.siteUrl}/book" target="_blank" style="display: inline-block; background-color: rgba(218, 166, 64, 0.15); border: 1px solid rgba(218, 166, 64, 0.4); color: ${BRAND.primaryGold}; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; padding: 12px 28px; border-radius: 8px; margin-bottom: 14px;">
+                      Schedule 15-Min Practice Scoping Session →
                     </a>
                   </td>
                 </tr>
                 <tr>
                   <td align="center">
                     <a href="${BRAND.whatsappUrl}" target="_blank" style="color: #34D399; font-size: 13px; font-weight: 600; text-decoration: underline;">
-                      Have specific requirements for your prototype? Message on WhatsApp →
+                      Have specific questions about your practice setup? Message on WhatsApp →
                     </a>
                   </td>
                 </tr>
