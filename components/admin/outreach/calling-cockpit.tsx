@@ -123,6 +123,13 @@ export function CallingCockpit({
       ? currentLead.notes.match(/• ARCHITECTURE FIX:\s*([^\n]+)/i)?.[1]?.trim()
       : 'Interactive 60-second client intake scoper pre-qualifying Ltd Co turnover with direct calendar sync.')
 
+  // 2-Tier Monetization Architecture
+  const trojanHorse = meta.trojan_horse_storefront || 'Sub-second luxury mobile storefront fixing intake drop-off.'
+  const automatorUpsell = meta.automator_upsell_engine || '60s turnover qualification filter + Speed-to-lead WhatsApp + calendar hold.'
+  const setupPrice = meta.deal_tier_setup || '£1,995'
+  const retainerPrice = meta.deal_tier_retainer || '£695/mo'
+  const y1Value = meta.deal_total_y1_value || '£10,335'
+
   // 3-Phase Benevolent Call Script
   const phase1Gatekeeper = partnerName
     ? `Good morning — could you connect me with ${partnerName}, please?`
@@ -455,6 +462,40 @@ export function CallingCockpit({
                 <p className="text-[11px] text-white/50 leading-relaxed">
                   {vulnerabilities}
                 </p>
+              </div>
+
+              {/* 2-Tier Monetization Architecture Card */}
+              <div className="p-3 bg-gradient-to-br from-[#1C1C22] to-[#141417] border border-[#DCAE53]/30 rounded-xl space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#DCAE53] flex items-center gap-1">
+                    <Sparkles size={11} /> Monetization Blueprint
+                  </span>
+                  <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#DCAE53]/15 text-[#DCAE53] border border-[#DCAE53]/30">
+                    Est. Y1: {y1Value}
+                  </span>
+                </div>
+
+                <div className="space-y-1.5 text-xs">
+                  <div className="bg-white/5 p-2 rounded-lg">
+                    <div className="flex items-center justify-between text-[11px] font-bold text-white mb-0.5">
+                      <span className="text-emerald-400">Tier 1 · Door-Opener</span>
+                      <span className="text-white font-mono">{setupPrice}</span>
+                    </div>
+                    <p className="text-[10px] text-white/70 leading-snug">
+                      {trojanHorse}
+                    </p>
+                  </div>
+
+                  <div className="bg-white/5 p-2 rounded-lg">
+                    <div className="flex items-center justify-between text-[11px] font-bold text-white mb-0.5">
+                      <span className="text-[#DCAE53]">Tier 2 · Automator Engine</span>
+                      <span className="text-white font-mono">{retainerPrice}</span>
+                    </div>
+                    <p className="text-[10px] text-white/70 leading-snug">
+                      {automatorUpsell}
+                    </p>
+                  </div>
+                </div>
               </div>
 
               {/* Local London Time Reference */}
