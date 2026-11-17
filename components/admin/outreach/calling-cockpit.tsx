@@ -24,6 +24,7 @@ import {
   Send,
   MessageSquare,
   Mail,
+  Share2,
   Zap,
   RotateCw,
   Eye,
@@ -67,7 +68,8 @@ export function CallingCockpit({
 }: CallingCockpitProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex)
   const [copiedKey, setCopiedKey] = useState<string | null>(null)
-  const [activeChannel, setActiveChannel] = useState<'phone' | 'whatsapp' | 'email'>('phone')
+  const [activeChannel, setActiveChannel] = useState<'phone' | 'whatsapp' | 'email' | 'social'>('email')
+  const [activeStep, setActiveStep] = useState<'day1' | 'day3' | 'day5'>('day1')
   const [quickNote, setQuickNote] = useState('')
   const [showLivePreview, setShowLivePreview] = useState(false)
   const [autoAdvance, setAutoAdvance] = useState(true)
@@ -141,17 +143,44 @@ export function CallingCockpit({
 
   const phase3Close = `“Makes total sense. Look, I promised to keep this to two minutes and I respect your time.\n\nWhat other high-growth practices do is deploy a 60-second interactive scoper that pre-qualifies sole trader vs Ltd Co turnover upfront before booking directly into the partner calendar.\n\nWould it be totally crazy to connect for 15 minutes next Tuesday or Wednesday morning at 10:30am so you can evaluate the architecture? If it's not relevant on your end, no hard feelings at all.”`
 
-  // WhatsApp & Email Copy (Strictly ZERO prototype mentions)
+  // Lesson-Accurate Written Outreach Suite (Day 1, Day 3, Day 5)
   const cleanFirstName = partnerName ? partnerName.split(' ')[0] : 'Partner'
-  const cleanFrictionSnippet = observableFlaw.replace(/^[^:]+:\s*/, '').slice(0, 140)
+  const observationShort = (observableFlaw || 'mobile intake lacks turnover qualification and calendar hold')
+    .replace(/^[^:]+:\s*/, '')
+    .replace(/\.$/, '')
 
-  const whatsAppCopy = `Hi ${cleanFirstName}, Gurtej here from Mercian Wealth. Left a brief voicemail at your ${businessName} office earlier regarding your mobile contact intake—noticed ${cleanFrictionSnippet}. Ahead of statutory tax deadlines, are your partners losing billable hours manually qualifying enquiries over email?`
+  // 1. WhatsApp Suite
+  const whatsAppDay1 = `Hey ${cleanFirstName}, was on ${businessName}'s site earlier and noticed ${observationShort}. We engineered a clean Practice OS prototype for your firm that unifies intake into a 60-second corporate flow with native scheduling. Would it be totally crazy to share a quick 60-second preview?`
+  const whatsAppDay3 = `Hey ${cleanFirstName}, messaged earlier this week regarding the intake friction on ${businessName}'s site. Worth a quick 2-minute look, or should I just close the loop here?`
+  const whatsAppDay5 = `Hey ${cleanFirstName}, reached out a couple times after reviewing your site. Before I move on, just wanted to give you the opportunity to give a clear yes or no on this, no hard feelings either way.`
 
-  const emailSubject = `Quick observation regarding ${businessName} mobile client intake`
-  const emailBody = `Hi ${cleanFirstName},\n\nI called your office a moment ago.\n\nI was reviewing ${businessName} on mobile earlier and noticed a specific friction in your client intake: ${observableFlaw}.\n\nAhead of statutory tax deadlines, this causes high-turnover Ltd Co directors searching out of hours to abandon before reaching you, while partners waste billable hours chasing missing details over email.\n\nWould it make sense to connect for 15 minutes next Tuesday or Wednesday morning at 10:30am to review how other UK firms automate turnover triage with direct calendar sync? If it's not relevant on your end, no problem at all.\n\nBest regards,\nGurtej Deep\nFounder · Mercian Wealth\n07851 055929 | mercianwealth.com`
+  // 2. Email Suite
+  const emailDay1Subject = `Quick observation regarding ${businessName} mobile client intake`
+  const emailDay1Body = `Hey ${cleanFirstName},\n\nI was on ${businessName}'s site earlier and noticed ${observationShort}.\n\nThat's exactly why I'm reaching out. We actually engineered a clean Practice OS prototype specifically for ${businessName} that unifies your intake into a sleek 60-second corporate pre-qualification flow with native scheduling on your domain.\n\nWould it be totally crazy for a quick 10-minute side-by-side look early next week to see if this is even relevant on your end?\n\nBest regards,\nGurtej Deep\nFounder · Mercian Wealth\n07851 055929 | mercianwealth.com`
+
+  const emailDay3Subject = `Re: Quick observation regarding ${businessName} mobile client intake`
+  const emailDay3Body = `Hey ${cleanFirstName},\n\nSent a quick note earlier this week regarding the intake friction on ${businessName}'s site.\n\nWorth a quick 2-minute look, or should I just close the loop here?\n\nBest,\nGurtej`
+
+  const emailDay5Subject = `Re: Quick observation regarding ${businessName} mobile client intake`
+  const emailDay5Body = `Hey ${cleanFirstName},\n\nReached out a couple of times after reviewing your site. Before I move on, just wanted to give you the opportunity to give a clear yes or no on this, no hard feelings either way.\n\nBest,\nGurtej`
+
+  // 3. Social DM Suite (LinkedIn / Instagram)
+  const socialDay1 = `Hey ${cleanFirstName}, was on ${businessName}'s site earlier and noticed ${observationShort}. We engineered a clean Practice OS prototype for your firm that fixes this with instant corporate qualification & scheduling. Would it be totally crazy to share a 60-second preview to see if it's relevant?`
+  const socialDay3 = `Hey ${cleanFirstName}, sent a note earlier regarding the intake friction on your site. Worth a quick 2-min look, or should I close the loop here?`
+  const socialDay5 = `Hey ${cleanFirstName}, reached out a couple times. Before I move on, just wanted to give you a chance to give a clear yes or no, no hard feelings either way.`
+
+  // Social Discovery Links
+  const linkedInSearchUrl = `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent((partnerName ? `${partnerName} ` : '') + businessName)}`
+  const instagramSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(`${businessName} instagram`)}`
+
+  // Current Dynamic Content based on activeStep
+  const currentWhatsAppCopy = activeStep === 'day1' ? whatsAppDay1 : activeStep === 'day3' ? whatsAppDay3 : whatsAppDay5
+  const currentEmailSubject = activeStep === 'day1' ? emailDay1Subject : activeStep === 'day3' ? emailDay3Subject : emailDay5Subject
+  const currentEmailBody = activeStep === 'day1' ? emailDay1Body : activeStep === 'day3' ? emailDay3Body : emailDay5Body
+  const currentSocialCopy = activeStep === 'day1' ? socialDay1 : activeStep === 'day3' ? socialDay3 : socialDay5
 
   const telUrl = buildTelUrl(phone)
-  const waUrl = buildWhatsAppOpenerUrl(phone, whatsAppCopy)
+  const waUrl = buildWhatsAppOpenerUrl(phone, currentWhatsAppCopy)
 
   // Copy helper
   const handleCopy = (text: string, key: string) => {
@@ -514,17 +543,17 @@ export function CallingCockpit({
               <span className="text-[10px] font-bold uppercase tracking-wider text-white/40 block mb-2">
                 Outreach Channel
               </span>
-              <div className="grid grid-cols-3 gap-1 bg-white/5 p-1 rounded-xl border border-white/10">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 bg-white/5 p-1 rounded-xl border border-white/10">
                 <button
                   type="button"
-                  onClick={() => setActiveChannel('phone')}
+                  onClick={() => setActiveChannel('email')}
                   className={`py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                    activeChannel === 'phone'
-                      ? 'bg-[#DCAE53] text-[#09090B] shadow-sm'
+                    activeChannel === 'email'
+                      ? 'bg-blue-500 text-white shadow-sm'
                       : 'text-white/60 hover:text-white'
                   }`}
                 >
-                  <Phone size={13} /> Phone
+                  <Mail size={13} /> Email
                 </button>
                 <button
                   type="button"
@@ -539,14 +568,25 @@ export function CallingCockpit({
                 </button>
                 <button
                   type="button"
-                  onClick={() => setActiveChannel('email')}
+                  onClick={() => setActiveChannel('social')}
                   className={`py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                    activeChannel === 'email'
-                      ? 'bg-blue-500 text-white shadow-sm'
+                    activeChannel === 'social'
+                      ? 'bg-purple-500 text-white shadow-sm'
                       : 'text-white/60 hover:text-white'
                   }`}
                 >
-                  <Mail size={13} /> Email
+                  <Share2 size={13} /> Social DM
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveChannel('phone')}
+                  className={`py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                    activeChannel === 'phone'
+                      ? 'bg-[#DCAE53] text-[#09090B] shadow-sm'
+                      : 'text-white/60 hover:text-white'
+                  }`}
+                >
+                  <Phone size={13} /> Phone
                 </button>
               </div>
             </div>
@@ -686,31 +726,60 @@ export function CallingCockpit({
                 {/* ── CHANNEL: WHATSAPP DIRECT ── */}
                 {activeChannel === 'whatsapp' && (
                   <div className="p-5 rounded-xl bg-[#141417] border border-emerald-500/30 space-y-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
-                        <MessageSquare size={14} /> Direct WhatsApp Message
+                        <MessageSquare size={14} /> WhatsApp Outreach Sequence
                       </span>
-                      <span className="text-[11px] text-white/40">Zero prototype mentions</span>
+                      {/* Sequence Step Toggle */}
+                      <div className="flex items-center gap-1 bg-black/40 p-1 rounded-lg border border-white/10 self-start sm:self-auto">
+                        <button
+                          type="button"
+                          onClick={() => setActiveStep('day1')}
+                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                            activeStep === 'day1' ? 'bg-emerald-500 text-black shadow-sm' : 'text-white/60 hover:text-white'
+                          }`}
+                        >
+                          Day 1 (Context)
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setActiveStep('day3')}
+                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                            activeStep === 'day3' ? 'bg-emerald-500 text-black shadow-sm' : 'text-white/60 hover:text-white'
+                          }`}
+                        >
+                          Day 3 (Clarity)
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setActiveStep('day5')}
+                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                            activeStep === 'day5' ? 'bg-emerald-500 text-black shadow-sm' : 'text-white/60 hover:text-white'
+                          }`}
+                        >
+                          Day 5 (Decision)
+                        </button>
+                      </div>
                     </div>
 
                     <div className="p-4 bg-black/40 rounded-xl border border-white/10 text-sm sm:text-base text-white/90 leading-relaxed font-mono">
-                      {whatsAppCopy}
+                      {currentWhatsAppCopy}
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 flex-wrap">
                       {waUrl && (
                         <a
                           href={waUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-sm inline-flex items-center gap-2 transition-colors cursor-pointer"
+                          className="px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-sm inline-flex items-center gap-2 transition-colors cursor-pointer shadow-md"
                         >
                           <MessageSquare size={16} /> Open WhatsApp Web
                         </a>
                       )}
                       <button
                         type="button"
-                        onClick={() => handleCopy(whatsAppCopy, 'wa')}
+                        onClick={() => handleCopy(currentWhatsAppCopy, 'wa')}
                         className="px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-sm inline-flex items-center gap-2 transition-colors cursor-pointer"
                       >
                         {copiedKey === 'wa' ? <Check size={16} className="text-emerald-400" /> : <Copy size={16} />}
@@ -723,11 +792,40 @@ export function CallingCockpit({
                 {/* ── CHANNEL: FOLLOW-UP EMAIL ── */}
                 {activeChannel === 'email' && (
                   <div className="p-5 rounded-xl bg-[#141417] border border-blue-500/30 space-y-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <span className="text-xs font-bold uppercase tracking-wider text-blue-400 flex items-center gap-1.5">
-                        <Mail size={14} /> Same-Thread Follow-Up Email
+                        <Mail size={14} /> Direct Email Sequence
                       </span>
-                      <span className="text-[11px] text-white/40">Zero prototype claims</span>
+                      {/* Sequence Step Toggle */}
+                      <div className="flex items-center gap-1 bg-black/40 p-1 rounded-lg border border-white/10 self-start sm:self-auto">
+                        <button
+                          type="button"
+                          onClick={() => setActiveStep('day1')}
+                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                            activeStep === 'day1' ? 'bg-blue-500 text-white shadow-sm' : 'text-white/60 hover:text-white'
+                          }`}
+                        >
+                          Day 1 (Cold)
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setActiveStep('day3')}
+                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                            activeStep === 'day3' ? 'bg-blue-500 text-white shadow-sm' : 'text-white/60 hover:text-white'
+                          }`}
+                        >
+                          Day 3 (Clarity)
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setActiveStep('day5')}
+                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                            activeStep === 'day5' ? 'bg-blue-500 text-white shadow-sm' : 'text-white/60 hover:text-white'
+                          }`}
+                        >
+                          Day 5 (Decision)
+                        </button>
+                      </div>
                     </div>
 
                     <div>
@@ -737,7 +835,7 @@ export function CallingCockpit({
                       <input
                         type="text"
                         readOnly
-                        value={emailSubject}
+                        value={currentEmailSubject}
                         className="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-lg text-xs font-mono text-white/90"
                       />
                     </div>
@@ -747,30 +845,104 @@ export function CallingCockpit({
                         Body Copy
                       </label>
                       <textarea
-                        rows={8}
+                        rows={7}
                         readOnly
-                        value={emailBody}
+                        value={currentEmailBody}
                         className="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-lg text-xs font-mono text-white/90 leading-relaxed"
                       />
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 flex-wrap">
                       <button
                         type="button"
-                        onClick={() => handleCopy(`${emailSubject}\n\n${emailBody}`, 'email')}
-                        className="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm inline-flex items-center gap-2 transition-colors cursor-pointer"
+                        onClick={() => handleCopy(`${currentEmailSubject}\n\n${currentEmailBody}`, 'email')}
+                        className="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm inline-flex items-center gap-2 transition-colors cursor-pointer shadow-md"
                       >
                         {copiedKey === 'email' ? <Check size={16} className="text-emerald-400" /> : <Copy size={16} />}
                         Copy Subject & Body
                       </button>
-                      {currentLead.email && (
+                      {currentLead.email ? (
                         <a
-                          href={`mailto:${currentLead.email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`}
-                          className="px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-sm inline-flex items-center gap-2 transition-colors"
+                          href={`mailto:${currentLead.email}?subject=${encodeURIComponent(currentEmailSubject)}&body=${encodeURIComponent(currentEmailBody)}`}
+                          className="px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-sm inline-flex items-center gap-2 transition-colors cursor-pointer"
                         >
-                          <Send size={16} /> Open in Mail App
+                          <Send size={16} /> Open in Mail App ({currentLead.email})
                         </a>
+                      ) : (
+                        <span className="text-[11px] text-white/40 self-center">No direct email on file — send via website form or LinkedIn</span>
                       )}
+                    </div>
+                  </div>
+                )}
+
+                {/* ── CHANNEL: SOCIAL DM (LINKEDIN & INSTAGRAM) ── */}
+                {activeChannel === 'social' && (
+                  <div className="p-5 rounded-xl bg-[#141417] border border-purple-500/30 space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <span className="text-xs font-bold uppercase tracking-wider text-purple-400 flex items-center gap-1.5">
+                        <Share2 size={14} /> Social Direct Message (LinkedIn & Instagram)
+                      </span>
+                      {/* Sequence Step Toggle */}
+                      <div className="flex items-center gap-1 bg-black/40 p-1 rounded-lg border border-white/10 self-start sm:self-auto">
+                        <button
+                          type="button"
+                          onClick={() => setActiveStep('day1')}
+                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                            activeStep === 'day1' ? 'bg-purple-500 text-white shadow-sm' : 'text-white/60 hover:text-white'
+                          }`}
+                        >
+                          Day 1 (Hook DM)
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setActiveStep('day3')}
+                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                            activeStep === 'day3' ? 'bg-purple-500 text-white shadow-sm' : 'text-white/60 hover:text-white'
+                          }`}
+                        >
+                          Day 3 (Clarity)
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setActiveStep('day5')}
+                          className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                            activeStep === 'day5' ? 'bg-purple-500 text-white shadow-sm' : 'text-white/60 hover:text-white'
+                          }`}
+                        >
+                          Day 5 (Decision)
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="p-4 bg-black/40 rounded-xl border border-white/10 text-sm sm:text-base text-white/90 leading-relaxed font-mono">
+                      {currentSocialCopy}
+                    </div>
+
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(currentSocialCopy, 'social')}
+                        className="px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm inline-flex items-center gap-2 transition-colors cursor-pointer shadow-md"
+                      >
+                        {copiedKey === 'social' ? <Check size={16} className="text-emerald-400" /> : <Copy size={16} />}
+                        Copy DM Message
+                      </button>
+                      <a
+                        href={linkedInSearchUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-3 rounded-xl bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 font-medium text-sm inline-flex items-center gap-2 transition-colors cursor-pointer"
+                      >
+                        <ExternalLink size={15} /> Find on LinkedIn
+                      </a>
+                      <a
+                        href={instagramSearchUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-3 rounded-xl bg-pink-600/20 hover:bg-pink-600/30 text-pink-300 border border-pink-500/30 font-medium text-sm inline-flex items-center gap-2 transition-colors cursor-pointer"
+                      >
+                        <ExternalLink size={15} /> Find on Instagram
+                      </a>
                     </div>
                   </div>
                 )}
