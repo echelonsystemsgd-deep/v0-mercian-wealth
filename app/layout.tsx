@@ -139,7 +139,6 @@ const jsonLd = {
       image: 'https://mercianwealth.com/Logo2.jpeg',
       telephone: '+447851055929',
       ...(process.env.CONTACT_EMAIL ? { email: process.env.CONTACT_EMAIL } : {}),
-      priceRange: '£495 - £1,995',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Reading',
@@ -241,7 +240,7 @@ export default function RootLayout({
         <Watermark position="center" opacity={0.15} />
         <TabRetention />
         <WhatsAppButton />
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {(process.env.VERCEL === '1' || process.env.NEXT_PUBLIC_VERCEL_ENV) && <Analytics />}
         <CalendlyInit />
       </body>
     </html>

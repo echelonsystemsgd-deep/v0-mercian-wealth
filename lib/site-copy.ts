@@ -343,7 +343,7 @@ export const SITE_COPY = {
         title: "Client Acquisition Hubs Engineered For UK Accountancy Firms",
         paragraph1: "We deploy sub-second mobile storefronts, 60-second inbound client triage, and hands-off workflow automations for UK accountancy firms and professional practices who refuse to lose corporate clients to slow response.",
         paragraph2: "Direct diary synchronization, instant partner WhatsApp/email alerts, and structured MTD compliance positioning included as standard.",
-        paragraph3: "Fixed Setup (£595–£4,995) + Managed Infrastructure (£29/mo Care or £75/mo Growth). 3-month onboarding term then 30 days' notice, 100% practice asset ownership.",
+        paragraph3: "Fixed Setup (£595–£4,995) + Managed Infrastructure (managed Care or managed Growth). 3-month onboarding term then 30 days' notice, 100% practice asset ownership.",
         enquiryCtaText: "To review your practice's enquiry conversion and test a working prototype tailored to your firm, book your 15-minute call below or message us directly on WhatsApp.",
       },
       trustPoints: [
@@ -437,11 +437,11 @@ export const SITE_COPY = {
         },
         {
           question: "Can our practice opt for a one-time build without monthly hosting or maintenance?",
-          answer: "Yes, 100%. You own the asset completely. If you choose not to use our managed hosting, we will give you our step-by-step handover instructions to transfer the codebase and DNS to your own cloud setup. However, self-hosting requires your team to provision servers, configure SSL certificates, manage database backups, and troubleshoot uptime incidents independently—which involves significant technical hassle. Our managed Practice Care (£29/mo) and Practice Growth (£75/mo) infrastructure operate via automated Direct Debit with an initial 3-month onboarding period, followed by standard rolling 30 days' notice.",
+          answer: "Yes, 100%. You own the asset completely. If you choose not to use our managed hosting, we will give you our step-by-step handover instructions to transfer the codebase and DNS to your own cloud setup. However, self-hosting requires your team to provision servers, configure SSL certificates, manage database backups, and troubleshoot uptime incidents independently—which involves significant technical hassle. Our managed Managed Practice Infrastructure infrastructure operate via automated Direct Debit with an initial 3-month onboarding period, followed by standard rolling 30 days' notice.",
         },
         {
-          question: "What ongoing maintenance is included in Practice Care (£29/mo) vs Practice Growth (£75/mo)?",
-          answer: "Practice Care (£29/mo) covers managed UK edge cloud hosting, automated SSL certificates, daily backups, and uptime monitoring. Practice Growth (£75/mo) adds the 24h / 3-day / 7-day multi-touch speed-to-lead enquiry follow-up engine and monthly inbound reporting. Both run via automated Direct Debit with an initial 3-month onboarding period, then rolling 30 days' notice.",
+          question: "What ongoing maintenance is included in our ongoing practice infrastructure?",
+          answer: "Practice Care (managed) covers managed UK edge cloud hosting, automated SSL certificates, daily backups, and uptime monitoring. Practice Growth (managed) adds the 24h / 3-day / 7-day multi-touch speed-to-lead enquiry follow-up engine and monthly inbound reporting. Both run via automated Direct Debit with an initial 3-month onboarding period, then rolling 30 days' notice.",
         },
       ],
     },
@@ -744,7 +744,7 @@ export const SITE_COPY = {
         {
           metric: "Zero Hassle",
           title: "Managed Cloud Care vs. Self-Hosting",
-          description: "While you can self-host the raw codebase using our transfer steps, managing server patches, SSL, and backups independently creates ongoing technical hassle. Our automated Direct Debit (£29/mo Practice Care or £75/mo Practice Growth) takes care of everything with an initial 3-month onboarding term, then rolling 30 days' notice.",
+          description: "While you can self-host the raw codebase using our transfer steps, managing server patches, SSL, and backups independently creates ongoing technical hassle. Our automated Direct Debit (Managed Practice Infrastructure or Managed Speed-to-Lead Engine) takes care of everything with an initial 3-month onboarding term, then rolling 30 days' notice.",
         },
       ],
     },
@@ -761,11 +761,11 @@ export const SITE_COPY = {
         },
         {
           question: "What are the ongoing monthly costs after launch?",
-          answer: "Managed UK practice infrastructure is £29/month for Practice Care (hosting, security, uptime monitoring, and small monthly edits) or £75/month for Practice Growth (which adds the 24h / 3-day / 7-day speed-to-lead follow-up engine and monthly enquiry reporting). Services operate on an initial 3-month onboarding period, then rolling 30 days' written notice.",
+          answer: "Managed UK practice infrastructure is managednth for Practice Care (hosting, security, uptime monitoring, and small monthly edits) or managednth for Practice Growth (which adds the 24h / 3-day / 7-day speed-to-lead follow-up engine and monthly enquiry reporting). Services operate on an initial 3-month onboarding period, then rolling 30 days' written notice.",
         },
         {
           question: "Can our practice opt for a one-time build without monthly hosting or maintenance?",
-          answer: "Yes, 100%. You own all intellectual property. If you choose not to use our managed cloud hosting and maintenance, we will supply you with our handover checklist and instructions to transfer the Next.js codebase, environment variables, database records, and DNS configuration to your own servers. However, please be aware that managing your own cloud infrastructure, manual SSL renewals, daily database backups, edge speed optimizations, and troubleshooting downtime on your own involves significant ongoing technical friction and administrative hassle. Our managed Practice Care (£29/mo) and Practice Growth (£75/mo) infrastructure operate via automated Direct Debit with an initial 3-month onboarding period, followed by standard rolling 30 days' notice.",
+          answer: "Yes, 100%. You own all intellectual property. If you choose not to use our managed cloud hosting and maintenance, we will supply you with our handover checklist and instructions to transfer the Next.js codebase, environment variables, database records, and DNS configuration to your own servers. However, please be aware that managing your own cloud infrastructure, manual SSL renewals, daily database backups, edge speed optimizations, and troubleshooting downtime on your own involves significant ongoing technical friction and administrative hassle. Our managed Managed Practice Infrastructure infrastructure operate via automated Direct Debit with an initial 3-month onboarding period, followed by standard rolling 30 days' notice.",
         },
         {
           question: "Are there any hidden transaction fees or payment markups?",
@@ -781,7 +781,7 @@ export const SITE_COPY = {
         monthlyHosting: "29",
         delivery: "2 Weeks",
         interval: "one-time setup (or £495 promo)",
-        milestoneBreakdown: "£29/mo Practice Care · 100% asset ownership",
+        milestoneBreakdown: "Managed Practice Infrastructure · 100% asset ownership",
         description: "Sub-second mobile-first practice hub, partner call/email routing, MTD/ICAEW trust badges, 100% IP & DNS ownership.",
         features: [
           "High-Performance Mobile-First Practice Hub",
@@ -791,7 +791,7 @@ export const SITE_COPY = {
           "Local SEO & UK Practice Schema.org Structured Data",
           "100% Intellectual Property & DNS Transfer",
         ],
-        domainHostingNote: "Delivered in 2 weeks once client assets & info are received. £29/mo Practice Care with 3-month initial onboarding term.",
+        domainHostingNote: "Delivered in 2 weeks once client assets & info are received. Managed Practice Infrastructure with 3-month initial onboarding term.",
         cta: "Book a call",
         featured: false,
         tag: "Practice Core (Base entry)",
@@ -803,7 +803,7 @@ export const SITE_COPY = {
         monthlyHosting: "75",
         delivery: "3–4 Weeks",
         interval: "one-time setup",
-        milestoneBreakdown: "£75/mo Practice Growth engine · Milestone-staged delivery",
+        milestoneBreakdown: "Managed Speed-to-Lead Engine engine · Milestone-staged delivery",
         description: "60-second inbound enquiry triage, Calendly/Google/Outlook booking sync, instant WhatsApp partner dispatches, CRM lead routing.",
         features: [
           "60-Second Inbound Client Triage & Interactive Fee Scoper",
@@ -813,7 +813,7 @@ export const SITE_COPY = {
           "Centralized Back-End CRM Pipeline & Lead Routing",
           "3–4 Week Delivery (From Onboarding & Info Sign-Off)",
         ],
-        domainHostingNote: "Delivered in 3–4 weeks (approx. 1 month) from client onboarding sign-off. £75/mo Practice Growth retention engine, 100% practice-owned.",
+        domainHostingNote: "Delivered in 3–4 weeks (approx. 1 month) from client onboarding sign-off. Managed Speed-to-Lead Engine retention engine, 100% practice-owned.",
         cta: "Book a call",
         featured: true,
         tag: "Sales Prof Tier · Most Popular",

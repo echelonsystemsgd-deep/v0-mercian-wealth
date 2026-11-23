@@ -57,7 +57,6 @@ export default function ContactPage() {
       "url": "https://mercianwealth.com",
       "telephone": "+447851055929",
       "email": process.env.CONTACT_EMAIL || "",
-      "priceRange": "£595 - £4,995",
       "image": "https://mercianwealth.com/Logo2.jpeg",
       "disambiguatingDescription": "Mercian Wealth provides practice infrastructure, client acquisition engineering, and speed-to-lead automation for UK accountancy firms and professional service practices.",
       "address": {
