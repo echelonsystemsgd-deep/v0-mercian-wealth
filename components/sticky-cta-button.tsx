@@ -119,7 +119,7 @@ export function StickyCTAButton() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.2 }}
-            className="hidden sm:flex fixed bottom-20 right-8 z-30 items-center pointer-events-auto"
+            className="hidden sm:flex fixed bottom-26 right-8 z-30 items-center pointer-events-auto"
           >
             <button
               onClick={scrollToTop}

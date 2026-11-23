@@ -25,7 +25,6 @@ export function ViewportHUD() {
     updateTime()
     const timer = setInterval(updateTime, 1000)
 
-    // FPS measurement
     let frameCount = 0
     let lastTime = performance.now()
     let animId: number
@@ -48,7 +47,7 @@ export function ViewportHUD() {
     }
   }, [])
 
-  // 2. Scroll percentage & active section tracking
+  // 2. Scroll percentage & 8-section tracking
   useEffect(() => {
     const handleScroll = () => {
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight
@@ -57,13 +56,15 @@ export function ViewportHUD() {
       const pct = Math.min(Math.max(Math.round((currentScroll / totalScroll) * 100), 0), 100)
       setScrollPercent(pct)
 
-      // Section calculation based on scroll threshold
-      if (pct < 15) setCurrentSection("01")
-      else if (pct < 32) setCurrentSection("02")
-      else if (pct < 50) setCurrentSection("03")
-      else if (pct < 70) setCurrentSection("04")
-      else if (pct < 88) setCurrentSection("05")
-      else setCurrentSection("06")
+      // 8 Sections Thresholds
+      if (pct < 12) setCurrentSection("01")
+      else if (pct < 25) setCurrentSection("02")
+      else if (pct < 38) setCurrentSection("03")
+      else if (pct < 51) setCurrentSection("04")
+      else if (pct < 64) setCurrentSection("05")
+      else if (pct < 77) setCurrentSection("06")
+      else if (pct < 90) setCurrentSection("07")
+      else setCurrentSection("08")
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
@@ -71,46 +72,49 @@ export function ViewportHUD() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const formattedPercent = scrollPercent.toString().padStart(3, "0")
+
   return (
     <div className="fixed inset-0 pointer-events-none z-30 select-none overflow-hidden" aria-hidden="true">
-      {/* Corner L-Brackets (Shown on wide desktop viewports >= 1280px to avoid narrow content card collisions) */}
+      {/* 4 Corner L-Brackets */}
       <div className="absolute top-20 left-4 text-[#E2B857]/40 font-mono text-[10px] hidden xl:block">
         ┌ <span className="opacity-60 text-[9px]">MW-01</span>
       </div>
       <div className="absolute top-20 right-4 text-[#E2B857]/40 font-mono text-[10px] hidden xl:block">
         <span className="opacity-60 text-[9px]">SYS-ARMED</span> ┐
       </div>
-      <div className="absolute bottom-4 left-4 text-[#E2B857]/40 font-mono text-[10px] hidden xl:block">
-        └ <span className="opacity-60 text-[9px]">LATENCY &lt;45MS</span>
+      <div className="absolute bottom-5 left-4 text-[#E2B857]/40 font-mono text-[10px] hidden xl:block">
+        └
       </div>
-      <div className="absolute bottom-4 right-4 text-[#E2B857]/40 font-mono text-[10px] hidden xl:block">
-        <span className="opacity-60 text-[9px]">ENCRYPTED</span> ┘
+      <div className="absolute bottom-5 right-4 text-[#E2B857]/40 font-mono text-[10px] hidden xl:block">
+        ┘
       </div>
 
       {/* Crosshair Hairline Reticles */}
-      <div className="absolute top-1/3 left-4 text-[#E2B857]/20 font-mono text-[11px] hidden 2xl:block">+</div>
-      <div className="absolute top-2/3 left-4 text-[#E2B857]/20 font-mono text-[11px] hidden 2xl:block">+</div>
-      <div className="absolute top-1/3 right-4 text-[#E2B857]/20 font-mono text-[11px] hidden 2xl:block">+</div>
-      <div className="absolute top-2/3 right-4 text-[#E2B857]/20 font-mono text-[11px] hidden 2xl:block">+</div>
+      <div className="absolute top-1/3 left-6 text-[#E2B857]/20 font-mono text-[11px] hidden lg:block">+</div>
+      <div className="absolute top-2/3 left-6 text-[#E2B857]/20 font-mono text-[11px] hidden lg:block">+</div>
+      <div className="absolute top-1/3 right-6 text-[#E2B857]/20 font-mono text-[11px] hidden lg:block">+</div>
+      <div className="absolute top-2/3 right-6 text-[#E2B857]/20 font-mono text-[11px] hidden lg:block">+</div>
 
-      {/* Centered Cockpit Telemetry Bar (Zero conflict with bottom corner action buttons) */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-3 px-3 py-1 rounded-none bg-[#0B0B0E]/90 border border-[#E2B857]/30 font-mono text-[10px] text-zinc-400 backdrop-blur-md chamfered-sm shadow-xl pointer-events-auto">
-        <div className="flex items-center gap-1.5 text-[#E2B857]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#E2B857] animate-pulse" />
-          <span className="font-semibold uppercase tracking-wider">SEC {currentSection} / 06</span>
-        </div>
-        <span className="text-zinc-700">|</span>
-        <span className="text-zinc-300 font-mono">{scrollPercent.toString().padStart(3, "0")} %</span>
-        <span className="text-zinc-700">|</span>
-        <span className="text-zinc-400">UK // GMT: <strong className="text-white font-normal">{ukTime || "12:00:00"}</strong></span>
-        <span className="text-zinc-700">|</span>
-        <span className="text-emerald-400 font-semibold">{fps} FPS</span>
+      {/* Bottom-Left Telemetry: ● SEC 01 / 08 · 000 % */}
+      <div className="absolute bottom-4 left-6 sm:left-10 hidden sm:flex items-center gap-2 font-mono text-[10px] text-zinc-400 tracking-wider">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#E2B857] animate-pulse" />
+        <span className="text-zinc-200 font-semibold">SEC {currentSection} / 08</span>
+        <span className="text-zinc-500">·</span>
+        <span className="text-zinc-400">{formattedPercent} %</span>
       </div>
 
-      {/* Right-Edge Scroll Progress Rail (Guaranteed zero card collision) */}
-      <div className="absolute top-24 bottom-24 right-1.5 w-[2px] bg-white/5 rounded-full overflow-hidden hidden xl:block">
+      {/* Bottom-Right Telemetry: UK 15:30:00 · 60 FPS */}
+      <div className="absolute bottom-4 right-6 sm:right-10 hidden sm:flex items-center gap-2 font-mono text-[10px] text-zinc-400 tracking-wider">
+        <span className="text-zinc-300">UK {ukTime || "12:00:00"}</span>
+        <span className="text-zinc-500">·</span>
+        <span className="text-[#E2B857]">{fps} FPS</span>
+      </div>
+
+      {/* Right Edge Thin Vertical Scroll Progress Rail */}
+      <div className="absolute right-0 top-0 bottom-0 w-[2px] bg-white/[0.04] hidden md:block">
         <div
-          className="w-full bg-gradient-to-b from-[#E2B857] via-[#F59E0B] to-[#D4AF37] shadow-[0_0_8px_rgba(226,184,87,0.6)] transition-all duration-75 origin-top rounded-full"
+          className="w-full bg-[#E2B857]/60 transition-all duration-100 origin-top"
           style={{ height: `${scrollPercent}%` }}
         />
       </div>

@@ -1,26 +1,19 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
-import { WhatChanged } from "@/components/what-changed"
-import { Bottleneck } from "@/components/bottleneck"
+import { 
+  ApproachSection, 
+  StorefrontsSection, 
+  AutomationSection, 
+  TriageSection, 
+  WorkTeaserSection, 
+  ClosingCTASection 
+} from "@/components/cerbo-style-homepage"
 import { OfferMechanism } from "@/components/offer-mechanism"
-import { InteractiveAutomationFlow } from "@/components/interactive-automation-flow"
-import { Portfolio } from "@/components/portfolio"
-import { ProofCaseStudies } from "@/components/proof-case-studies"
-import { WhyMercianWealth } from "@/components/why-mercian-wealth"
-import { Pricing } from "@/components/pricing"
-import { CTA } from "@/components/cta"
 import { Footer } from "@/components/footer"
-import { ZeroDisruptionGuarantee } from "@/components/zero-disruption"
-import { FAQHome } from "@/components/faq-home"
-import { getPricingTiers } from "@/lib/pricing"
-import { Suspense } from "react"
 import dynamic from "next/dynamic"
 
-const ChapterTracker = dynamic(() => import("@/components/chapter-tracker").then((mod) => mod.ChapterTracker))
-const PrototypeRequestModal = dynamic(() => import("@/components/prototype-request-modal").then((mod) => mod.PrototypeRequestModal))
-const FloatingAiConcierge = dynamic(() => import("@/components/floating-ai-concierge").then((mod) => mod.FloatingAiConcierge))
 const ViewportHUD = dynamic(() => import("@/components/hud/viewport-hud").then((mod) => mod.ViewportHUD))
-const SpeedToLeadCalculator = dynamic(() => import("@/components/calculator/speed-to-lead-calculator").then((mod) => mod.SpeedToLeadCalculator))
+const WealthParticleCore = dynamic(() => import("@/components/three/wealth-particle-core").then((mod) => mod.WealthParticleCore))
 
 import { SITE_COPY } from "@/lib/site-copy"
 import type { Metadata } from "next"
@@ -31,38 +24,36 @@ export const metadata: Metadata = {
   title: SITE_COPY.metadata.home.title,
   description: SITE_COPY.metadata.home.description,
   alternates: {
-    canonical: 'https://mercianwealth.com',
+    canonical: "https://mercianwealth.com",
   },
   openGraph: {
     title: SITE_COPY.metadata.home.title,
     description: SITE_COPY.metadata.home.description,
-    url: 'https://mercianwealth.com',
-    siteName: 'Mercian Wealth Automation',
+    url: "https://mercianwealth.com",
+    siteName: "Mercian Wealth Automation",
     images: [
       {
-        url: '/Logo2.jpeg',
+        url: "/Logo2.jpeg",
         width: 1200,
         height: 630,
-        alt: 'Mercian Wealth Automation | Mobile Storefronts & Booking Engines for UK Local Businesses',
+        alt: "Mercian Wealth Automation | Mobile Storefronts & Booking Engines for UK Local Businesses",
       },
     ],
-    locale: 'en_GB',
-    type: 'website',
+    locale: "en_GB",
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
+    card: "summary_large_image",
     title: SITE_COPY.metadata.home.title,
     description: SITE_COPY.metadata.home.description,
-    images: ['/Logo2.jpeg'],
-    creator: '@mercianwealth',
+    images: ["/Logo2.jpeg"],
+    creator: "@mercianwealth",
   },
 }
 
 export default async function Home() {
-  const { setupTiers, retainerTiers } = await getPricingTiers()
-
   return (
-    <main className="min-h-screen bg-[#050505] text-white overflow-x-clip font-sans selection:bg-[#DAA640] selection:text-black">
+    <main className="min-h-screen bg-[#070709] text-white overflow-x-clip font-sans selection:bg-[#E2B857] selection:text-black relative">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -72,74 +63,49 @@ export default async function Home() {
             "@id": "https://mercianwealth.com/#webpage",
             "url": "https://mercianwealth.com",
             "name": "Mercian Wealth Automation | Conversion Infrastructure & Mobile Storefronts",
-            "isPartOf": {
-              "@id": "https://mercianwealth.com/#website"
-            },
-            "about": {
-              "@id": "https://mercianwealth.com/#organization"
-            },
-            "description": "When AI search compresses attention, your website is the only barrier between paid and the back button. Sub-second mobile storefronts, 3-tap booking builders, instant WhatsApp lead capture, and upfront Stripe deposit collection for UK businesses."
-          })
+            "description": "Sub-second mobile storefronts, 3-tap booking builders, instant WhatsApp lead capture, and upfront Stripe deposit collection for UK businesses.",
+          }),
         }}
       />
-      
+
+      {/* Persistent Full-Viewport 3D WebGL Canvas */}
+      <WealthParticleCore />
+
       {/* Global Viewport HUD & Telemetry */}
       <ViewportHUD />
 
-      {/* 1. Header Navigation */}
+      {/* Persistent Minimalist Single-Row Navigation */}
       <Navbar />
 
-      {/* 2. Outcomes Hero Section */}
-      <Hero />
+      {/* 8 Clean Stage-Aligned Sections */}
+      <div className="relative z-10">
+        {/* SEC 01 · Hero (Left Stacked H1, 3D Crest Center, Scroll Hint) */}
+        <Hero />
 
-      {/* 3. SYSTEM I · What Changed (4 Market Shifts) */}
-      <WhatChanged />
+        {/* SEC 02 · Approach (First the why, then the code) */}
+        <ApproachSection />
 
-      {/* 4. SYSTEM II · Revenue Haemorrhage (The 4 Leakage Categories) */}
-      <Bottleneck />
+        {/* SEC 03 · 01 Bespoke Storefronts (Turn visitors into enquiries) */}
+        <StorefrontsSection />
 
-      {/* SYSTEM III · Speed-to-Lead & Capacity 3D Interactive Calculator */}
-      <SpeedToLeadCalculator />
+        {/* SEC 04 · 02 Workflow Automation (Repetitive work, done by computer) */}
+        <AutomationSection />
 
-      {/* Zero-Disruption Guarantee */}
-      <ZeroDisruptionGuarantee />
+        {/* SEC 05 · 03 Speed-to-Lead (An assistant that knows your business) */}
+        <TriageSection />
 
-      {/* 5. SYSTEM III · The Offer Protocol (Prototype-First 3-Step Sequence) */}
-      <OfferMechanism />
+        {/* SEC 06 · Selected Deployments (Tools that really work) */}
+        <WorkTeaserSection />
 
-      {/* SYSTEM IV-B · Autonomous 4-Step Revenue Chain Visualizer */}
-      <InteractiveAutomationFlow />
+        {/* SEC 07 · The Method (2x2 Frosted Glass Cards with Client Sovereignty) */}
+        <OfferMechanism />
 
-      {/* 6. SYSTEM IV · AI Systems & Deployments Showcase */}
-      <Portfolio />
+        {/* SEC 08 · Closing CTA (Let's Talk over Centered 3D Crest) */}
+        <ClosingCTASection />
+      </div>
 
-      {/* 7. SYSTEM V · Verified Proof (Commercial Trade + Aesthetics Deployments) */}
-      <ProofCaseStudies />
-
-      {/* 8. SYSTEM VI · Operator & Founder Commitment */}
-      <WhyMercianWealth />
-
-      {/* 9. SYSTEM VII · Retainer Terms & Transparent Pricing */}
-      <Suspense fallback={<div className="py-20 text-center text-[#DCAE53] font-mono text-sm">Loading Solutions & Retainer Pricing...</div>}>
-        <Pricing isHomepage={true} setupTiers={setupTiers} retainerTiers={retainerTiers} />
-      </Suspense>
-
-      {/* Frequently Asked Questions with FAQPage Schema */}
-      <FAQHome />
-
-      {/* 10. SYSTEM VIII · Closing Prototype CTA & Footer */}
-      <CTA />
+      {/* Minimalist 2-Row Footer */}
       <Footer />
-
-      {/* Floating Systems Tracking Pill */}
-      <ChapterTracker />
-
-      {/* 3-Field Prototype Request Modal */}
-      <PrototypeRequestModal />
-
-      {/* Bottom-Left Questions Assistant (Hidden on mobile <640px) */}
-      <FloatingAiConcierge />
     </main>
   )
 }
-

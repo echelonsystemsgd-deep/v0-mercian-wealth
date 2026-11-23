@@ -65,7 +65,7 @@ export function OfferMechanism() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-4 chamfered-sm">
             <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
-            <span>[ SEC 04 / 06 · SYSTEM DEPLOYMENT METHOD ]</span>
+            <span>[ SEC 07 / 08 · SYSTEM DEPLOYMENT METHOD ]</span>
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold uppercase text-white tracking-wide leading-tight mb-4">
             ONE METHODICAL MOVE AT A TIME
