@@ -1,0 +1,103 @@
+{
+  "kilsby": {
+    "name": "Kilsby Williams",
+    "url": "https://kilsbywilliams.com/",
+    "finalUrl": "https://kilsbywilliams.com/",
+    "status": 200,
+    "ttfb": 1529,
+    "secHeaders": {
+      "hsts": true,
+      "csp": false,
+      "xfo": true,
+      "xcto": true,
+      "referrer": "strict-origin-when-cross-origin"
+    },
+    "title": "Home - Kilsby Williams",
+    "metaDesc": "Missing Meta Description",
+    "viewport": "width=device-width, initial-scale=1",
+    "formsCount": 1,
+    "phones": [
+      "01633810081",
+      "01633 810 081"
+    ],
+    "emails": [
+      "info@kilsbywilliams.com"
+    ],
+    "cms": "WordPress + Elementor"
+  },
+  "salisburys": {
+    "name": "Salisburys",
+    "url": "https://www.salisburys.com/",
+    "finalUrl": "https://www.salisburys.com/",
+    "status": 200,
+    "ttfb": 1894,
+    "secHeaders": {
+      "hsts": false,
+      "csp": true,
+      "xfo": true,
+      "xcto": false,
+      "referrer": "missing"
+    },
+    "title": "Accountants North Wales | Salisburys",
+    "metaDesc": "Salisburys Chartered Accountants North Wales are Tax &amp; Business Advisors covering audits, payroll, business start up and more.",
+    "viewport": "width=device-width, initial-scale=1.0, maximum-scale=5",
+    "formsCount": 1,
+    "phones": [
+      "062117410",
+      "0190046395528",
+      "0686803182694",
+      "01745 583 606",
+      "000019414508",
+      "0645745484",
+      "01745 583606"
+    ],
+    "emails": [],
+    "cms": "WordPress + Divi"
+  },
+  "fitzpatrick": {
+    "name": "Fitzpatrick & Kearney (Newry Independent Practice)",
+    "url": "https://fitzpatrickandkearney.com/",
+    "finalUrl": "https://fitzpatrickandkearney.com/",
+    "status": 200,
+    "ttfb": 412,
+    "secHeaders": {
+      "hsts": false,
+      "csp": false,
+      "xfo": false,
+      "xcto": false,
+      "referrer": "missing"
+    },
+    "title": "Fitzpatrick &amp; Kearney Accountants &#8211; Chartered Accountants",
+    "metaDesc": "Missing Meta Description",
+    "viewport": "width=device-width, initial-scale=1, maximum-scale=1",
+    "formsCount": 0,
+    "phones": [],
+    "emails": [
+      "info@fitzpatrickandkearney.com"
+    ],
+    "cms": "WordPress"
+  },
+  "fpm": {
+    "name": "FPM / AAB (Newry Office)",
+    "url": "https://fpmaab.com/",
+    "finalUrl": "https://aabgroup.com/",
+    "status": 200,
+    "ttfb": 264,
+    "secHeaders": {
+      "hsts": false,
+      "csp": false,
+      "xfo": false,
+      "xcto": false,
+      "referrer": "missing"
+    },
+    "title": "Audit, Accounting, &amp; Tax Solutions | AAB",
+    "metaDesc": "Explore top-tier Audit, Accounting, Tax, and Advisory services with AAB. Offering expert solutions from our Ireland offices to a global clientele.",
+    "viewport": "width=device-width, initial-scale=1, minimum-scale=1",
+    "formsCount": 3,
+    "phones": [],
+    "emails": [
+      "accountants@aabgroup.com"
+    ],
+    "cms": "WordPress"
+  }
+}

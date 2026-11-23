@@ -23,7 +23,7 @@ export function WhatsAppButton({
 
   const [footerVisible, setFooterVisible] = useState(false)
 
-  // 1. Exclude on portal/admin/booking routes matching MOBILE_AUDIT_FIXES
+  // 1. Exclude on portal/admin/booking routes and landing page matching benchmark spec
   const excludedPrefixes = [
     '/admin',
     '/audit',
@@ -38,7 +38,7 @@ export function WhatsAppButton({
     '/success',
     '/unauthorized'
   ]
-  const isExcluded = excludedPrefixes.some((prefix) => pathname?.startsWith(prefix))
+  const isExcluded = pathname === '/' || excludedPrefixes.some((prefix) => pathname?.startsWith(prefix))
 
   // 2. Hide when mobile navigation drawer is open (per MOBILE_AUDIT_FIXES spec)
   useEffect(() => {

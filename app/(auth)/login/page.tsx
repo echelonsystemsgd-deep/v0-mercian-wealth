@@ -64,8 +64,9 @@ export default function LoginPage() {
     }
 
     const role = profile.role as string
+    const isAdminEmail = user.email === 'deepgurtej28@gmail.com' || user.email?.endsWith('@mercianwealth.com')
 
-    if (loginType === 'admin' && role !== 'admin') {
+    if (loginType === 'admin' && role !== 'admin' && !isAdminEmail) {
       setError(
         `This email is registered as a ${role} account, not admin. Use the Client Login tab, or sign in with your admin email.`
       )
@@ -74,7 +75,10 @@ export default function LoginPage() {
       return
     }
 
-    const targetPath = role === 'admin' ? '/admin' : role === 'client' ? '/client' : '/dashboard'
+    const params = new URLSearchParams(window.location.search)
+    const redirectParam = params.get('redirect')
+    const defaultTarget = (role === 'admin' || isAdminEmail) ? '/admin' : role === 'client' ? '/client' : '/dashboard'
+    const targetPath = (redirectParam && (role === 'admin' || isAdminEmail)) ? redirectParam : defaultTarget
 
     // Force hard browser navigation on mobile/desktop to ensure session cookies flush to middleware headers
     window.location.href = targetPath

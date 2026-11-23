@@ -1,0 +1,383 @@
+{
+  "bkplus": {
+    "name": "BK Plus / Dickson Middleton",
+    "url": "https://bkplus.co.uk/?referrer=Dickson%20Middleton",
+    "finalUrl": "https://bkplus.co.uk/?referrer=Dickson%20Middleton",
+    "status": 200,
+    "ttfb": 3031,
+    "server": "nginx",
+    "title": "bk plus | Accountancy made clearer.",
+    "metaDesc": "bk plus are an accounting firm based in the UK specialising in accounting, auditing, tax and business advisory services.",
+    "viewport": "width=device-width, initial-scale=1, maximum-scale=1",
+    "formsCount": 8,
+    "formsDetails": [
+      {
+        "formIdx": 1,
+        "visibleInputs": 1,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 1
+      },
+      {
+        "formIdx": 2,
+        "visibleInputs": 1,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 1
+      },
+      {
+        "formIdx": 3,
+        "visibleInputs": 1,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 1
+      },
+      {
+        "formIdx": 4,
+        "visibleInputs": 1,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 1
+      },
+      {
+        "formIdx": 5,
+        "visibleInputs": 1,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 1
+      },
+      {
+        "formIdx": 6,
+        "visibleInputs": 5,
+        "textareas": 1,
+        "selects": 0,
+        "totalInteractive": 6
+      },
+      {
+        "formIdx": 7,
+        "visibleInputs": 2,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 2
+      },
+      {
+        "formIdx": 8,
+        "visibleInputs": 1,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 1
+      }
+    ],
+    "phones": [
+      "0867522612",
+      "0179172810284",
+      "097675467631",
+      "02433177364",
+      "0581059955978",
+      "051492030664",
+      "03822097218",
+      "0267173700136",
+      "0273297322339",
+      "0974022437",
+      "0378690796",
+      "0578027242995",
+      "0959050213162",
+      "0537533316",
+      "003501449"
+    ],
+    "emails": [
+      "hello@bkplus.co.uk",
+      "sarah.cooper@bkplus.co.uk"
+    ],
+    "cms": "WordPress"
+  },
+  "bkplusContact": {
+    "name": "BK Plus Contact",
+    "url": "https://bkplus.co.uk/contact-us/",
+    "finalUrl": "https://bkplus.co.uk/contact-us/",
+    "status": 404,
+    "ttfb": 593,
+    "server": "nginx",
+    "title": "Page not found | bk plus",
+    "metaDesc": "Missing Meta",
+    "viewport": "width=device-width, initial-scale=1, maximum-scale=1",
+    "formsCount": 7,
+    "formsDetails": [
+      {
+        "formIdx": 1,
+        "visibleInputs": 1,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 1
+      },
+      {
+        "formIdx": 2,
+        "visibleInputs": 1,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 1
+      },
+      {
+        "formIdx": 3,
+        "visibleInputs": 1,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 1
+      },
+      {
+        "formIdx": 4,
+        "visibleInputs": 1,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 1
+      },
+      {
+        "formIdx": 5,
+        "visibleInputs": 1,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 1
+      },
+      {
+        "formIdx": 6,
+        "visibleInputs": 1,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 1
+      },
+      {
+        "formIdx": 7,
+        "visibleInputs": 1,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 1
+      }
+    ],
+    "phones": [
+      "0867522612",
+      "0179172810284",
+      "097675467631",
+      "02433177364",
+      "0581059955978",
+      "051492030664",
+      "03822097218",
+      "0267173700136",
+      "0273297322339",
+      "0974022437",
+      "0378690796",
+      "0578027242995",
+      "0959050213162",
+      "0537533316",
+      "003501449"
+    ],
+    "emails": [
+      "sarah.cooper@bkplus.co.uk"
+    ],
+    "cms": "WordPress"
+  },
+  "gravitaOxford": {
+    "name": "Gravita Oxford (Formerly Critchleys)",
+    "url": "https://www.gravita.com/locations/oxford/",
+    "finalUrl": "https://www.gravita.com/offices/oxford/",
+    "status": 200,
+    "ttfb": 5078,
+    "server": "cloudflare",
+    "title": "Chartered Accountants in Oxford - Gravita",
+    "metaDesc": "Contact our Oxford office for a team of accounting, audit and tax experts to help with any query, regardless of its complexity.",
+    "viewport": "width=device-width, initial-scale=1",
+    "formsCount": 1,
+    "formsDetails": [
+      {
+        "formIdx": 1,
+        "visibleInputs": 2,
+        "textareas": 0,
+        "selects": 0,
+        "totalInteractive": 2
+      }
+    ],
+    "phones": [
+      "02073300000",
+      "026248141",
+      "009 509 293",
+      "011 509 354",
+      "029 509 428",
+      "031 509 489",
+      "001 509 215",
+      "021 509 350",
+      "041 509 485",
+      "051 509 620",
+      "049 509 563",
+      "052 509 624",
+      "059 509 698",
+      "071 509 759",
+      "01865 261100",
+      "06671372416",
+      "000420245837",
+      "020 7330 0000"
+    ],
+    "emails": [
+      "hello@gravita.com"
+    ],
+    "cms": "HubSpot CMS"
+  },
+  "wennTownsend": {
+    "name": "Wenn Townsend Oxford (Independent Practice)",
+    "url": "https://wenntownsend.co.uk/",
+    "finalUrl": "https://www.wenntownsend.co.uk/",
+    "status": 200,
+    "ttfb": 439,
+    "server": "nginx",
+    "title": "Wenn Townsend | Refreshingly clear accounting",
+    "metaDesc": "Chartered Accountants in Oxfordshire, Wenn Townsend provide expert audit, accountancy and tax services for all types of business, charities and individuals.",
+    "viewport": "width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no",
+    "formsCount": 0,
+    "formsDetails": [],
+    "phones": [
+      "0044186555990",
+      "01865 559900",
+      "0044123554870",
+      "01235 548700",
+      "0044128565977",
+      "01285 659778",
+      "0000839233398",
+      "0008697509766",
+      "000518798828",
+      "005773726"
+    ],
+    "emails": [
+      "Hello@wenntownsend.co.uk",
+      "abingdon@wenntownsend.co.uk",
+      "partners@wenntownsend.net",
+      "ljbaker@wenntownsend.co.uk",
+      "mlaws@wenntownsend.co.uk",
+      "hello@wenntownsend.co.uk"
+    ],
+    "cms": "WordPress"
+  },
+  "azets": {
+    "name": "Azets UK",
+    "url": "https://www.azets.com/en-uk",
+    "finalUrl": "https://www.azets.com/en-uk",
+    "status": 200,
+    "ttfb": 140,
+    "server": "Vercel",
+    "title": "Accountants and Business Advisory | United Kingdom | Azets",
+    "metaDesc": "Azets UK is a trusted accounting firm offering expert services, from small business accountants to audit and outsourcing. Find local accountants near you today!",
+    "viewport": "width=device-width, initial-scale=1",
+    "formsCount": 0,
+    "formsDetails": [],
+    "phones": [
+      "0994086464",
+      "00835779902",
+      "0931376644596",
+      "0510371855",
+      "0510433179"
+    ],
+    "emails": [
+      "info@azets.co.uk"
+    ],
+    "cms": "Next.js"
+  },
+  "azetsContact": {
+    "name": "Azets Contact",
+    "url": "https://www.azets.com/en-uk/contact-us",
+    "finalUrl": "https://www.azets.com/en-uk/contact-us",
+    "status": 200,
+    "ttfb": 110,
+    "server": "Vercel",
+    "title": "Contact Azets | United Kingdom | Azets",
+    "metaDesc": "Get in touch with Azets UK. Our expert accountants and advisors are ready to support your business with tailored financial and advisory services",
+    "viewport": "width=device-width, initial-scale=1",
+    "formsCount": 0,
+    "formsDetails": [],
+    "phones": [
+      "00835779902"
+    ],
+    "emails": [
+      "info@azets.co.uk"
+    ],
+    "cms": "Next.js"
+  },
+  "companies_house": {
+    "chBk": [
+      {
+        "title": "BK PLUS LIMITED",
+        "company_number": "09701168",
+        "status": "active",
+        "address": "Azzurri House Walsall Road, Aldridge, Walsall, England, WS9 0RB"
+      },
+      {
+        "title": "BRAINSTORM CORPORATION LIMITED",
+        "company_number": "13092444",
+        "status": "active",
+        "address": "12 Bracebridge Road, Sutton Coldfield, England, B74 2SL"
+      },
+      {
+        "title": "BK PLUS ASSOCIATES LTD",
+        "company_number": "17450835",
+        "status": "active",
+        "address": "4 Ellison Street, Sheffield, England, S3 7JF"
+      }
+    ],
+    "chCritchleys": [
+      {
+        "title": "GRAVITA OXFORD LLP",
+        "company_number": "OC354137",
+        "status": "active",
+        "address": "Park Central, 40-41 Park End Street, Oxford, Oxfordshire, United Kingdom, OX1 1JD"
+      },
+      {
+        "title": "CRICKET ACCOUNTANTS LTD",
+        "company_number": "03736947",
+        "status": "active",
+        "address": "50 Norman Avenue, Abingdon, England, OX14 2HL"
+      },
+      {
+        "title": "CRITCHLEYS TRAVEL LIMITED",
+        "company_number": "09938551",
+        "status": "active",
+        "address": "37 Milton Street, St. Helens, United Kingdom, WA9 4BQ"
+      }
+    ],
+    "chWenn": [
+      {
+        "title": "WENN TOWNSEND LLP",
+        "company_number": "OC455696",
+        "status": "active",
+        "address": "30 St. Giles, Oxford, Oxfordshire, England, OX1 3LE"
+      },
+      {
+        "title": "WT TEMP LIMITED",
+        "company_number": "07315665",
+        "status": "active",
+        "address": "30 St. Giles, Oxford, England, OX1 3LE"
+      },
+      {
+        "title": "WENN TOWNSEND LLP",
+        "company_number": "OC321444",
+        "status": "dissolved",
+        "address": "30 St Giles, Oxford, Oxfordshire, OX1 3LE"
+      }
+    ],
+    "chAzets": [
+      {
+        "title": "AZETS HOLDINGS LIMITED",
+        "company_number": "06365189",
+        "status": "active",
+        "address": "5th Floor 16 Great Queen Street, Covent Garden, London, United Kingdom, WC2B 5DG"
+      },
+      {
+        "title": "AZETS MILNE CRAIG HOLDINGS LIMITED",
+        "company_number": "SC539510",
+        "status": "active",
+        "address": "Titanium 1 Kings Inch Place, Renfrew, Scotland, PA4 8WF"
+      },
+      {
+        "title": "COGIDOCS HOLDINGS LIMITED",
+        "company_number": "11712188",
+        "status": "active",
+        "address": "5th Floor 16 Great Queen Street, Covent Garden, London, United Kingdom, WC2B 5DG"
+      }
+    ]
+  }
+}

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap');
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background: #090D16;
+    color: #F1F5F9;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    width: 1080px;
+    padding: 48px;
+    margin: 0 auto;
+    position: relative;
+    background-image: 
+      radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 85% 60%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 50% 90%, rgba(217, 119, 6, 0.08) 0%, transparent 40%);
+  }
+
+  .header {
+    text-align: center;
+    padding-bottom: 36px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 36px;
+  }
+
+  .tag-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .tag {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #94A3B8;
+    text-transform: uppercase;
+  }
+
+  .tag.active {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.4);
+    color: #34D399;
+  }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #FFFFFF;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    color: #94A3B8;
+  }
+
+  /* Split Callout Banner */
+  .banner {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.15));
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 20px;
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+
+  .banner-text h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 6px;
+  }
+
+  .banner-text p {
+    font-size: 14px;
+    color: #CBD5E1;
+  }
+
+  .banner-badge {
+    background: #10B981;
+    color: #042F2E;
+    font-weight: 800;
+    font-size: 20px;
+    padding: 12px 24px;
+    border-radius: 14px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Grid for Pricing */
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #E2E8F0;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .card {
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    backdrop-filter: blur(10px);
+  }
+
+  .card.featured {
+    border-color: rgba(59, 130, 246, 0.4);
+    background: rgba(30, 41, 59, 0.7);
+  }
+
+  .card-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #38BDF8;
+    margin-bottom: 8px;
+  }
+
+  .card-price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 6px;
+  }
+
+  .card-note {
+    font-size: 12px;
+    color: #64748B;
+    margin-bottom: 16px;
+  }
+
+  .card ul {
+    list-style: none;
+    font-size: 13px;
+    color: #CBD5E1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card ul li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .card ul li span {
+    color: #10B981;
+    font-weight: 700;
+  }
+
+  /* Retainer bar */
+  .retainer-box {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 36px;
+  }
+
+  .retainer-box .title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #F8FAFC;
+  }
+
+  .retainer-box .desc {
+    font-size: 13px;
+    color: #94A3B8;
+  }
+
+  .retainer-price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #F59E0B;
+  }
+
+  /* Process Flow */
+  .flow-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .flow-step {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 20px;
+    position: relative;
+  }
+
+  .step-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #10B981;
+    margin-bottom: 8px;
+    display: inline-block;
+  }
+
+  .step-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 6px;
+  }
+
+  .step-desc {
+    font-size: 12px;
+    color: #94A3B8;
+    line-height: 1.4;
+  }
+
+  /* Bottom Dual Cards */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+
+  .info-box {
+    background: rgba(30, 41, 59, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 24px;
+  }
+
+  .info-box h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .info-box p, .info-box li {
+    font-size: 13px;
+    color: #CBD5E1;
+    line-height: 1.5;
+  }
+
+  .info-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-note {
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #64748B;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .brand-badge {
+    color: #10B981;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="tag-container">
+      <span class="tag">AI Creative (Aman Phull)</span>
+      <span class="tag active">🤝 Partnership Framework</span>
+      <span class="tag">AI Automation (Mercian Wealth)</span>
+    </div>
+    <h1>Workflow, Pricing & Scoping Blueprint</h1>
+    <p class="subtitle">A clear, locked-in guide to closing deals, running delivery, and scaling revenue together.</p>
+  </div>
+
+  <!-- 50/50 Revenue Split Banner -->
+  <div class="banner">
+    <div class="banner-text">
+      <h2>The Core Model: 50/50 Profit Split</h2>
+      <p>We split 50/50 on all initial site builds <strong>+ 50/50 on every upsell closed</strong> (Automations, CRM, Custom Software).</p>
+    </div>
+    <div class="banner-badge">50 / 50 SPLIT</div>
+  </div>
+
+  <!-- Pricing Cards -->
+  <div class="section-title">
+    <span>💼</span> Client Pricing Tiers
+  </div>
+  <div class="cards-grid">
+    
+    <!-- Tier 1 -->
+    <div class="card">
+      <div>
+        <div class="card-label">Foot in the Door</div>
+        <div class="card-price">~£1,200</div>
+        <div class="card-note">Baseline: £595 • Split 50/50</div>
+        <ul>
+          <li><span>✓</span> 1 to 3 Page High-Converting Layout</li>
+          <li><span>✓</span> Direct WhatsApp Click-to-Chat CTA</li>
+          <li><span>✓</span> Single Lead Form + Client Dashboard</li>
+          <li><span>✓</span> Mobile & Speed Optimised</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Tier 2 -->
+    <div class="card featured">
+      <div>
+        <div class="card-label" style="color: #60A5FA;">Medium Business</div>
+        <div class="card-price">£1,500 – £5,000</div>
+        <div class="card-note">Multi-Page & Full Lead Flow</div>
+        <ul>
+          <li><span>✓</span> 5 to 8 Bespoke Authority Pages</li>
+          <li><span>✓</span> Automated Booking / Calendar Sync</li>
+          <li><span>✓</span> CRM Sync & Instant Lead Notifications</li>
+          <li><span>✓</span> On-Page SEO & Analytics Tracking</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Tier 3 -->
+    <div class="card">
+      <div>
+        <div class="card-label" style="color: #A78BFA;">High-End Software</div>
+        <div class="card-price">£5,000+</div>
+        <div class="card-note">Custom Web Apps & Portals</div>
+        <ul>
+          <li><span>✓</span> Client Login Portals & Dashboards</li>
+          <li><span>✓</span> Dynamic Quoting / Pricing Calculators</li>
+          <li><span>✓</span> Payment Gateways (Stripe/Cards)</li>
+          <li><span>✓</span> Bespoke Business Automation Software</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Retainer Box -->
+  <div class="retainer-box">
+    <div>
+      <div class="title">Monthly Maintenance & Hosting Retainer</div>
+      <div class="desc">Covers cloud hosting, SSL, database uptime, security patches, and support tickets. Scales with scope.</div>
+    </div>
+    <div class="retainer-price">Starts at £20 / mo</div>
+  </div>
+
+  <!-- 4 Step Process -->
+  <div class="section-title">
+    <span>⚡</span> The 4-Step Deal Flow
+  </div>
+  <div class="flow-container">
+    <div class="flow-step">
+      <div class="step-num">STEP 01</div>
+      <div class="step-title">Written Intake</div>
+      <div class="step-desc">Aman gathers prospect goals, required pages, reference sites, and features in writing.</div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">STEP 02</div>
+      <div class="step-title">Scope & Quote</div>
+      <div class="step-desc">Mercian reviews the tech requirements, sets the build timeline, and locks in the quote.</div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">STEP 03</div>
+      <div class="step-title">Contract & 50%</div>
+      <div class="step-desc">Formal contract & invoice sent from Mercian business account. 50% deposit collected before build starts.</div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">STEP 04</div>
+      <div class="step-title">Handover & Payout</div>
+      <div class="step-desc">Site completed. Final 50% balance cleared before live launch. 50% cut paid directly to Aman.</div>
+    </div>
+  </div>
+
+  <!-- Bottom Details -->
+  <div class="bottom-grid">
+    <div class="info-box">
+      <h3><span>✉️</span> Existing Domains & Gmail Migration</h3>
+      <ul>
+        <li>• <strong>Zero lost data:</strong> Businesses on personal @gmail.com migrate 100% of emails, contacts, and calendar to Google Workspace @domain.com.</li>
+        <li>• <strong>Auto-forwarding:</strong> Incoming mail to the old Gmail forwards straight to the new domain inbox so no leads are lost.</li>
+        <li>• <strong>Domain connection:</strong> 5-minute guided call, simple DNS guide, or fresh domain setup.</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <h3><span>🛡️</span> Standards & Rules</h3>
+      <ul>
+        <li>• <strong>Mandatory Credibility Badge:</strong> Every build features a discreet <em>"Built by Mercian Wealth Automation"</em> footer link.</li>
+        <li>• <strong>Everything in Writing:</strong> Prevents scope creep. Anything outside initial scope is billed as a 50/50 split upsell.</li>
+        <li>• <strong>Formal Protection:</strong> All contracts, invoices, and sign-offs run through official business accounts.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Mercian Wealth Automation × AI Creative • Built for seamless execution and scale.
+  </div>
+
+</body>
+</html>

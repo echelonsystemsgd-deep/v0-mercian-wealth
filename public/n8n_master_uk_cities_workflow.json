@@ -1,0 +1,429 @@
+{
+  "name": "Mercian Wealth - UK Accountancy Practice Prospector (City Filter Enabled)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "3c1e204b-91d4-4a25-9fa5-6e4726d34bf6",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -3776,
+        8040
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "83b9f41b-7af3-41f6-942a-3b6e8f975d98",
+      "name": "Daily 8 AM Trigger (Mon-Fri)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2256,
+        7504
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Configuration & Pre-Filled Secrets\nreturn {\n  json: {\n    PLATFORM_URL: 'https://v0-gs-legacy-wealth-app.vercel.app',\n    SUPABASE_SERVICE_ROLE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhZGViaG15eXdrY3F0eWF6eHhrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTY4NTAzNSwiZXhwIjoyMDk3MjYxMDM1fQ.m_FBVwQCgj9OWqz1dajV7pGpoA5yF1Hyir71gibCKEE',\n    TARGET_NICHE: 'Chartered Accountants',\n    TARGET_CITY: '', // <--- LEAVE '' TO RUN ALL 76 CITIES, OR SET 'Manchester', 'Leeds', 'Bristol', etc.\n    TEST_MODE: false, // <--- SET true IF YOU WANT TO TEST ALREADY-CONTACTED CITIES (LIKE BIRMINGHAM) WITHOUT DEDUPLICATION FILTERING THEM OUT\n    COMPANIES_HOUSE_API_KEY: '2aa4750f-6fb0-40d0-9473-f003ccca6185',\n    TELEGRAM_BOT_TOKEN: '8278044186:AAGyxTQNrj7KlRzZV10cNxmwlbZzgFwdU-Q',\n    TELEGRAM_CHAT_ID: '7191968038'\n  }\n};"
+      },
+      "id": "822af829-ff79-4acc-9e0c-71f544b66a47",
+      "name": "1. Configuration & Secrets",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2064,
+        7504
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.PLATFORM_URL }}/api/admin/leads/sync-sheets",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "e4d6a248-84a3-4bb2-a1d1-6cd6dc92fd7c",
+      "name": "2. Fetch Database Leads Ledger",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1856,
+        7504
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// 3. Multi-City Auto-Scraper & Bulletproof Live Deduplication (Encompassing All 76 Official UK Cities)\nconst config = $('1. Configuration & Secrets').first().json;\nconst dbCheck = $input.first()?.json || {};\n\nconst targetCity = String(config.TARGET_CITY || '').trim().toLowerCase();\nconst existingPhones = new Set((dbCheck.existing_phones || []).map(p => String(p).replace(/[^0-9]/g, '')));\nconst existingNames = new Set((dbCheck.existing_names || []).map(n => String(n).trim().toLowerCase()));\n\n// Master UK Chartered Practices Catalog Encompassing All Official UK Cities\nconst practiceCatalog = [\n  {\n    \"business_name\": \"Gondal Accountancy Ltd\",\n    \"phone\": \"+44 121 439 9760\",\n    \"website\": \"https://www.gondalaccountancy.co.uk\",\n    \"address\": \"1126A Stratford Rd, Hall Green, Birmingham B28 8AE\",\n    \"rating\": 4.9,\n    \"reviews_count\": 55,\n    \"trade\": \"Chartered Accountants & Tax Consultants\",\n    \"director_name\": \"Tahir Rashid\"\n  },\n  {\n    \"business_name\": \"RK Accountancy Limited\",\n    \"phone\": \"+44 121 238 5102\",\n    \"website\": \"https://rk-accountancy.co.uk\",\n    \"address\": \"1 All Saints Rd, Kings Heath, Birmingham B14 7LL\",\n    \"rating\": 4.8,\n    \"reviews_count\": 38,\n    \"trade\": \"Chartered Accountants & Bookkeeping\",\n    \"director_name\": \"Raj Kavire\"\n  },\n  {\n    \"business_name\": \"MSB Accountancy Limited\",\n    \"phone\": \"+44 121 557 3539\",\n    \"website\": \"https://www.msbaccountants.co.uk\",\n    \"address\": \"5 Wedgewood Ave, West Bromwich, Birmingham B70 0FH\",\n    \"rating\": 4.8,\n    \"reviews_count\": 42,\n    \"trade\": \"Chartered Certified Accountants\",\n    \"director_name\": \"Manjinder Singh Bains\"\n  },\n  {\n    \"business_name\": \"Jerroms Chartered Accountants\",\n    \"phone\": \"+44 121 693 5000\",\n    \"website\": \"https://jerroms.co.uk\",\n    \"address\": \"Blythe Valley Park, Solihull, Birmingham B90 8AA\",\n    \"rating\": 4.9,\n    \"reviews_count\": 73,\n    \"trade\": \"Chartered Certified Accountants\",\n    \"director_name\": \"Mark Eden\"\n  },\n  {\n    \"business_name\": \"Dains Accountants Limited\",\n    \"phone\": \"+44 800 298 3899\",\n    \"website\": \"https://dains.com\",\n    \"address\": \"Colmore Row, Birmingham B3 2AP\",\n    \"rating\": 4.8,\n    \"reviews_count\": 94,\n    \"trade\": \"Corporate Audit & Advisory\",\n    \"director_name\": \"Richard McNeilly\"\n  },\n  {\n    \"business_name\": \"JW Hinks LLP Chartered Accountants\",\n    \"phone\": \"+44 121 456 0190\",\n    \"website\": \"https://jwhinks.co.uk\",\n    \"address\": \"19 Highfield Road, Edgbaston, Birmingham B15 3BH\",\n    \"rating\": 4.7,\n    \"reviews_count\": 41,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Paul Jones\"\n  },\n  {\n    \"business_name\": \"Baldwins / Azets Birmingham\",\n    \"phone\": \"+44 121 236 7000\",\n    \"website\": \"https://azets.co.uk\",\n    \"address\": \"Church Street, Birmingham B3 2NR\",\n    \"rating\": 4.7,\n    \"reviews_count\": 89,\n    \"trade\": \"Chartered Practice Accounting\",\n    \"director_name\": \"Frazer Hall\"\n  },\n  {\n    \"business_name\": \"Berg Kaprow Lewis LLP (BKL)\",\n    \"phone\": \"+44 20 8922 9222\",\n    \"website\": \"https://bkl.co.uk\",\n    \"address\": \"35 Ballards Lane, London N3 1XW\",\n    \"rating\": 4.9,\n    \"reviews_count\": 88,\n    \"trade\": \"Chartered Accountants & Tax Advisers\",\n    \"director_name\": \"Geraint Jones\"\n  },\n  {\n    \"business_name\": \"Blick Rothenberg Limited\",\n    \"phone\": \"+44 20 7544 8888\",\n    \"website\": \"https://blickrothenberg.com\",\n    \"address\": \"16 Great Queen Street, Covent Garden, London WC2B 5AH\",\n    \"rating\": 4.9,\n    \"reviews_count\": 91,\n    \"trade\": \"Chartered Tax Specialists\",\n    \"director_name\": \"Nimesh Shah\"\n  },\n  {\n    \"business_name\": \"Silver Levene LLP\",\n    \"phone\": \"+44 20 7383 3200\",\n    \"website\": \"https://silverlevene.co.uk\",\n    \"address\": \"37 Warren Street, London W1T 6AD\",\n    \"rating\": 4.8,\n    \"reviews_count\": 69,\n    \"trade\": \"Media & Practice Accounting\",\n    \"director_name\": \"Mark Weipers\"\n  },\n  {\n    \"business_name\": \"Gerald Edelman LLP\",\n    \"phone\": \"+44 20 7299 1400\",\n    \"website\": \"https://geraldedelman.com\",\n    \"address\": \"73 Cornhill, London EC3V 3QQ\",\n    \"rating\": 4.9,\n    \"reviews_count\": 85,\n    \"trade\": \"Chartered Accountants & Corporate Finance\",\n    \"director_name\": \"Carl Lundberg\"\n  },\n  {\n    \"business_name\": \"Goodman Jones LLP\",\n    \"phone\": \"+44 20 7388 2641\",\n    \"website\": \"https://goodmanjones.com\",\n    \"address\": \"29-30 Fitzroy Square, Westminster, London W1T 6LQ\",\n    \"rating\": 4.8,\n    \"reviews_count\": 62,\n    \"trade\": \"Chartered Accountants & Business Advisers\",\n    \"director_name\": \"Larry Phillips\"\n  },\n  {\n    \"business_name\": \"Wilder Coe Ltd Chartered Accountants\",\n    \"phone\": \"+44 20 7724 6060\",\n    \"website\": \"https://wildercoe.co.uk\",\n    \"address\": \"Oxford House, 76 Oxford Street, London W1D 1BS\",\n    \"rating\": 4.8,\n    \"reviews_count\": 53,\n    \"trade\": \"Chartered Practice Accounting\",\n    \"director_name\": \"Jitendra Pattani\"\n  },\n  {\n    \"business_name\": \"Sedulo Manchester Limited\",\n    \"phone\": \"+44 161 667 6100\",\n    \"website\": \"https://sedulo.co.uk\",\n    \"address\": \"Deansgate, Manchester M3 2AY\",\n    \"rating\": 4.9,\n    \"reviews_count\": 68,\n    \"trade\": \"Chartered Accountants & Wealth Management\",\n    \"director_name\": \"Paul Cheetham\"\n  },\n  {\n    \"business_name\": \"Alexander & Co Chartered Accountants\",\n    \"phone\": \"+44 161 832 4841\",\n    \"website\": \"https://alexander.co.uk\",\n    \"address\": \"St Ann Street, Manchester M2 7LF\",\n    \"rating\": 4.8,\n    \"reviews_count\": 45,\n    \"trade\": \"Chartered Accountants & Tax Advisers\",\n    \"director_name\": \"David Jones\"\n  },\n  {\n    \"business_name\": \"Beever and Struthers Chartered Accountants\",\n    \"phone\": \"+44 161 838 1860\",\n    \"website\": \"https://beeverstruthers.co.uk\",\n    \"address\": \"St George's House, Chester Road, Manchester M15 4JE\",\n    \"rating\": 4.8,\n    \"reviews_count\": 61,\n    \"trade\": \"Chartered Accountants & Business Advisers\",\n    \"director_name\": \"Maria Hallows\"\n  },\n  {\n    \"business_name\": \"Royce Peeling Green Limited (RPG)\",\n    \"phone\": \"+44 161 608 0000\",\n    \"website\": \"https://rpg.co.uk\",\n    \"address\": \"Deansgate, Manchester M3 2FN\",\n    \"rating\": 4.9,\n    \"reviews_count\": 52,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Jonathan Brownson\"\n  },\n  {\n    \"business_name\": \"A&C Chartered Accountants\",\n    \"phone\": \"+44 161 962 1855\",\n    \"website\": \"https://www.ac-accounts.co.uk\",\n    \"address\": \"53 King Street, Manchester M2 4LQ\",\n    \"rating\": 4.9,\n    \"reviews_count\": 48,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Paul Hoszowskyj\"\n  },\n  {\n    \"business_name\": \"Crawfords Accountants Salford\",\n    \"phone\": \"+44 161 828 1000\",\n    \"website\": \"https://crawfordsofficial.co.uk\",\n    \"address\": \"Quality House, 41 High Street, Salford M4 4BF\",\n    \"rating\": 4.8,\n    \"reviews_count\": 39,\n    \"trade\": \"Chartered Accountants & Business Support\",\n    \"director_name\": \"David Crawford\"\n  },\n  {\n    \"business_name\": \"Abacus Tax Advisors Ltd\",\n    \"phone\": \"+44 113 226 5982\",\n    \"website\": \"https://www.abacusleeds.co.uk\",\n    \"address\": \"Northwest Business Park, Servia Hill, Leeds LS6 2QH\",\n    \"rating\": 4.8,\n    \"reviews_count\": 39,\n    \"trade\": \"Tax Advisers & Accountants\",\n    \"director_name\": \"Ishtiaq Farooqui\"\n  },\n  {\n    \"business_name\": \"Brown Butler Chartered Accountants\",\n    \"phone\": \"+44 113 246 1234\",\n    \"website\": \"https://brownbutler.com\",\n    \"address\": \"St Pauls Street, Leeds LS1 2TE\",\n    \"rating\": 4.8,\n    \"reviews_count\": 44,\n    \"trade\": \"Chartered Accountants & Tax Specialists\",\n    \"director_name\": \"John Dodsworth\"\n  },\n  {\n    \"business_name\": \"Kirk Newsholme Chartered Accountants\",\n    \"phone\": \"+44 113 204 4200\",\n    \"website\": \"https://kirknewsholme.co.uk\",\n    \"address\": \"Thorpe Park, Leeds LS15 8ZB\",\n    \"rating\": 4.9,\n    \"reviews_count\": 39,\n    \"trade\": \"Corporate & Tax Advisory\",\n    \"director_name\": \"Jill Wright\"\n  },\n  {\n    \"business_name\": \"Naylor Wintersgill Chartered Accountants\",\n    \"phone\": \"+44 1274 733184\",\n    \"website\": \"https://naylorwintersgill.co.uk\",\n    \"address\": \"Carlton House, Grammar School St, Bradford BD1 4NS\",\n    \"rating\": 4.8,\n    \"reviews_count\": 58,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Victoria Wainwright\"\n  },\n  {\n    \"business_name\": \"Parsons Chartered Accountants\",\n    \"phone\": \"+44 1924 669500\",\n    \"website\": \"https://parsons.co.uk\",\n    \"address\": \"16-18 Cheapside, Wakefield WF1 2TF\",\n    \"rating\": 4.8,\n    \"reviews_count\": 34,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Ian Parsons\"\n  },\n  {\n    \"business_name\": \"Milsted Langdon LLP\",\n    \"phone\": \"+44 117 945 2500\",\n    \"website\": \"https://milstedlangdon.co.uk\",\n    \"address\": \"One Redcliff Street, Bristol BS1 6NP\",\n    \"rating\": 4.8,\n    \"reviews_count\": 57,\n    \"trade\": \"Chartered Accountants & Business Advisers\",\n    \"director_name\": \"Tim Close\"\n  },\n  {\n    \"business_name\": \"Dunkley's Chartered Accountants\",\n    \"phone\": \"+44 1454 619900\",\n    \"website\": \"https://dunkleys.accountants\",\n    \"address\": \"Woodlands Grange, Woodlands Lane, Bristol BS32 4JY\",\n    \"rating\": 4.8,\n    \"reviews_count\": 64,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Michael Dunkley\"\n  },\n  {\n    \"business_name\": \"Richardson Swift Chartered Accountants\",\n    \"phone\": \"+44 1225 325580\",\n    \"website\": \"https://richardsonswift.co.uk\",\n    \"address\": \"11 Laura Place, Bath BA2 4BL\",\n    \"rating\": 4.9,\n    \"reviews_count\": 46,\n    \"trade\": \"Chartered Tax & Wealth Advisers\",\n    \"director_name\": \"Derek Swift\"\n  },\n  {\n    \"business_name\": \"Plus Accounting Brighton\",\n    \"phone\": \"+44 1273 701200\",\n    \"website\": \"https://plusaccounting.co.uk\",\n    \"address\": \"Preston Park House, South Road, Brighton & Hove BN1 6SB\",\n    \"rating\": 4.9,\n    \"reviews_count\": 52,\n    \"trade\": \"Chartered Accountants & Tax Advisers\",\n    \"director_name\": \"Paul Feist\"\n  },\n  {\n    \"business_name\": \"Burgess Hodgson LLP\",\n    \"phone\": \"+44 1227 454627\",\n    \"website\": \"https://burgesshodgson.co.uk\",\n    \"address\": \"Camburgh House, 27 New Dover Road, Canterbury CT1 3DN\",\n    \"rating\": 4.8,\n    \"reviews_count\": 47,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Steven Newbery\"\n  },\n  {\n    \"business_name\": \"Armstrong Watson LLP\",\n    \"phone\": \"+44 1228 690100\",\n    \"website\": \"https://www.armstrongwatson.co.uk\",\n    \"address\": \"Rosehill, Montgomery Way, Carlisle CA1 2RW\",\n    \"rating\": 4.9,\n    \"reviews_count\": 112,\n    \"trade\": \"Chartered Accountants, Business & Financial Advisers\",\n    \"director_name\": \"Paul Dickson\"\n  },\n  {\n    \"business_name\": \"Rickard Luckin Limited\",\n    \"phone\": \"+44 1245 254200\",\n    \"website\": \"https://rickardluckin.co.uk\",\n    \"address\": \"Aquila House, Waterloo Lane, Chelmsford CM1 1BN\",\n    \"rating\": 4.9,\n    \"reviews_count\": 53,\n    \"trade\": \"Chartered Accountants & Tax Experts\",\n    \"director_name\": \"Steve Revill\"\n  },\n  {\n    \"business_name\": \"Lambert Chapman LLP\",\n    \"phone\": \"+44 1376 326266\",\n    \"website\": \"https://lambert-chapman.co.uk\",\n    \"address\": \"3 Middle Square, Braintree & Colchester CM7 3WN\",\n    \"rating\": 4.8,\n    \"reviews_count\": 42,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Paul Hornsby\"\n  },\n  {\n    \"business_name\": \"Rickard Luckin Southend\",\n    \"phone\": \"+44 1702 347771\",\n    \"website\": \"https://rickardluckin.co.uk\",\n    \"address\": \"7 Nelson Street, Southend-on-Sea SS1 1EH\",\n    \"rating\": 4.8,\n    \"reviews_count\": 39,\n    \"trade\": \"Chartered Accountants & Business Support\",\n    \"director_name\": \"Steve Revill\"\n  },\n  {\n    \"business_name\": \"Champion Accountants Chester\",\n    \"phone\": \"+44 1244 404420\",\n    \"website\": \"https://championgroup.co.uk\",\n    \"address\": \"Bache Hall, Countess Way, Chester CH2 1HB\",\n    \"rating\": 4.8,\n    \"reviews_count\": 36,\n    \"trade\": \"Chartered Accountants & Tax Practice\",\n    \"director_name\": \"Ged Cosgrove\"\n  },\n  {\n    \"business_name\": \"Jones Avens Chartered Accountants\",\n    \"phone\": \"+44 1243 781255\",\n    \"website\": \"https://jonesavens.co.uk\",\n    \"address\": \"Piper House, 4 Chichester Road, Chichester PO19 8DU\",\n    \"rating\": 4.8,\n    \"reviews_count\": 31,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Claire Jones\"\n  },\n  {\n    \"business_name\": \"Harrison Beale & Owen Limited (HBO)\",\n    \"phone\": \"+44 24 7679 6796\",\n    \"website\": \"https://hboltd.co.uk\",\n    \"address\": \"Highfield House, Coventry CV1 2NT\",\n    \"rating\": 4.8,\n    \"reviews_count\": 61,\n    \"trade\": \"Chartered Accountants & Financial Advisers\",\n    \"director_name\": \"Mark Ashfield\"\n  },\n  {\n    \"business_name\": \"Cooper Parry Derby\",\n    \"phone\": \"+44 1332 411163\",\n    \"website\": \"https://cooperparry.com\",\n    \"address\": \"Sky View, Argosy Road, East Midlands Airport, Derby DE74 2SA\",\n    \"rating\": 4.9,\n    \"reviews_count\": 92,\n    \"trade\": \"Audit & Tech Tax Practice\",\n    \"director_name\": \"Ade Cheatham\"\n  },\n  {\n    \"business_name\": \"Hawsons Chartered Accountants Doncaster\",\n    \"phone\": \"+44 1332 367262\",\n    \"website\": \"https://hawsons.co.uk\",\n    \"address\": \"5 Sidings Court, White Rose Way, Doncaster DN4 5NU\",\n    \"rating\": 4.8,\n    \"reviews_count\": 44,\n    \"trade\": \"Chartered Accountants & Business Support\",\n    \"director_name\": \"Stephen Charles\"\n  },\n  {\n    \"business_name\": \"Ribchesters Chartered Accountants\",\n    \"phone\": \"+44 191 384 2247\",\n    \"website\": \"https://ribchesters.co.uk\",\n    \"address\": \"Finsbury House, New Elvet, Durham DH1 3AY\",\n    \"rating\": 4.8,\n    \"reviews_count\": 37,\n    \"trade\": \"Chartered Accountants & Forensic Tax\",\n    \"director_name\": \"David Ribchester\"\n  },\n  {\n    \"business_name\": \"Whiting & Partners Chartered Accountants\",\n    \"phone\": \"+44 1353 662595\",\n    \"website\": \"https://whitingandpartners.co.uk\",\n    \"address\": \"George Court, Bartholomew's Walk, Ely CB7 4JW\",\n    \"rating\": 4.8,\n    \"reviews_count\": 42,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Ian Piper\"\n  },\n  {\n    \"business_name\": \"Price Bailey LLP Cambridge\",\n    \"phone\": \"+44 1223 565035\",\n    \"website\": \"https://pricebailey.co.uk\",\n    \"address\": \"Tennyson House, Cambridge Business Park, Cambridge CB4 0WZ\",\n    \"rating\": 4.8,\n    \"reviews_count\": 89,\n    \"trade\": \"Chartered Accountants & Business Advisers\",\n    \"director_name\": \"Martin Clapson\"\n  },\n  {\n    \"business_name\": \"Bishop Fleming LLP Exeter\",\n    \"phone\": \"+44 1392 448800\",\n    \"website\": \"https://bishopfleming.co.uk\",\n    \"address\": \"Stratus House, Emperor Way, Exeter Business Park, Exeter EX1 3QS\",\n    \"rating\": 4.8,\n    \"reviews_count\": 95,\n    \"trade\": \"Audit & Corporate Tax Practice\",\n    \"director_name\": \"Andrew Sandiford\"\n  },\n  {\n    \"business_name\": \"PKF Francis Clark Plymouth\",\n    \"phone\": \"+44 1752 301010\",\n    \"website\": \"https://pkf-francisclark.co.uk\",\n    \"address\": \"North Quay House, Sutton Harbour, Plymouth PL4 0RA\",\n    \"rating\": 4.8,\n    \"reviews_count\": 76,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Duncan Leslie\"\n  },\n  {\n    \"business_name\": \"Robinson Reed Layton Chartered Accountants\",\n    \"phone\": \"+44 1872 276116\",\n    \"website\": \"https://rrlcornwall.co.uk\",\n    \"address\": \"Peat House, Newham Road, Truro TR1 2DP\",\n    \"rating\": 4.9,\n    \"reviews_count\": 51,\n    \"trade\": \"Chartered Tax Advisers\",\n    \"director_name\": \"Nick Skerratt\"\n  },\n  {\n    \"business_name\": \"Hazlewoods LLP\",\n    \"phone\": \"+44 1242 680000\",\n    \"website\": \"https://hazlewoods.co.uk\",\n    \"address\": \"Staverton Court, Staverton, Cheltenham & Gloucester GL51 0UX\",\n    \"rating\": 4.9,\n    \"reviews_count\": 98,\n    \"trade\": \"Chartered Accountants & Business Advisers\",\n    \"director_name\": \"James Morter\"\n  },\n  {\n    \"business_name\": \"Thorne Widgery Accountants Hereford\",\n    \"phone\": \"+44 1432 276178\",\n    \"website\": \"https://thornewidgery.co.uk\",\n    \"address\": \"2 Wyevale Business Park, Kings Acre, Hereford HR4 7BS\",\n    \"rating\": 4.8,\n    \"reviews_count\": 43,\n    \"trade\": \"Chartered Accountants & Business Support\",\n    \"director_name\": \"Daniel Crowther\"\n  },\n  {\n    \"business_name\": \"Ormerod Rutter Chartered Accountants\",\n    \"phone\": \"+44 1905 777600\",\n    \"website\": \"https://ormerodrutter.co.uk\",\n    \"address\": \"The Oakley, Kidderminster Road, Droitwich & Worcester WR9 9AY\",\n    \"rating\": 4.8,\n    \"reviews_count\": 51,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Colm Clifford\"\n  },\n  {\n    \"business_name\": \"Smailes Goldie Group Hull\",\n    \"phone\": \"+44 1482 326916\",\n    \"website\": \"https://smailesgoldie.co.uk\",\n    \"address\": \"Regent's Court, Princess Street, Kingston-upon-Hull HU2 8BA\",\n    \"rating\": 4.8,\n    \"reviews_count\": 49,\n    \"trade\": \"Chartered Accountants & Business Advisers\",\n    \"director_name\": \"Ian Lamb\"\n  },\n  {\n    \"business_name\": \"Waters & Atkinson Chartered Accountants\",\n    \"phone\": \"+44 1524 64455\",\n    \"website\": \"https://watersandatkinson.co.uk\",\n    \"address\": \"The Old Tannery, Willow Lane, Lancaster LA1 5PF\",\n    \"rating\": 4.8,\n    \"reviews_count\": 33,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"James Waters\"\n  },\n  {\n    \"business_name\": \"Champion Accountants Preston\",\n    \"phone\": \"+44 1772 735210\",\n    \"website\": \"https://championgroup.co.uk\",\n    \"address\": \"Olympic Court, Boardmans Way, Preston PR2 2PE\",\n    \"rating\": 4.8,\n    \"reviews_count\": 41,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Ged Cosgrove\"\n  },\n  {\n    \"business_name\": \"Newby Castleman LLP Leicester\",\n    \"phone\": \"+44 116 254 9262\",\n    \"website\": \"https://newbycastleman.co.uk\",\n    \"address\": \"West Walk House, 99 Princess Road East, Leicester LE1 7LF\",\n    \"rating\": 4.8,\n    \"reviews_count\": 48,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Chris Castleman\"\n  },\n  {\n    \"business_name\": \"Wright Vigar Chartered Accountants Lincoln\",\n    \"phone\": \"+44 1522 531341\",\n    \"website\": \"https://wrightvigar.co.uk\",\n    \"address\": \"15 Newland, Lincoln LN1 1XG\",\n    \"rating\": 4.9,\n    \"reviews_count\": 62,\n    \"trade\": \"Chartered Accountants & Business Advisers\",\n    \"director_name\": \"Chris Wright\"\n  },\n  {\n    \"business_name\": \"Dains Accountants Lichfield\",\n    \"phone\": \"+44 1543 252111\",\n    \"website\": \"https://dains.com\",\n    \"address\": \"St John Street, Lichfield WS13 6PB\",\n    \"rating\": 4.8,\n    \"reviews_count\": 39,\n    \"trade\": \"Corporate Audit & Tax\",\n    \"director_name\": \"Richard McNeilly\"\n  },\n  {\n    \"business_name\": \"Geens Limited Chartered Accountants\",\n    \"phone\": \"+44 1782 847952\",\n    \"website\": \"https://geens.co.uk\",\n    \"address\": \"68 Liverpool Road, Stoke on Trent ST4 1BG\",\n    \"rating\": 4.9,\n    \"reviews_count\": 43,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Karen Lowe\"\n  },\n  {\n    \"business_name\": \"Copia Wealth Studios Ltd Wolverhampton\",\n    \"phone\": \"+44 1902 783172\",\n    \"website\": \"https://copiawealthstudios.co.uk\",\n    \"address\": \"8 Waterloo Road, Wolverhampton WV1 4BL\",\n    \"rating\": 4.9,\n    \"reviews_count\": 28,\n    \"trade\": \"Practice & Strategic Tax\",\n    \"director_name\": \"Shaun Philpott\"\n  },\n  {\n    \"business_name\": \"Mitchell Charlesworth LLP Liverpool\",\n    \"phone\": \"+44 151 255 2300\",\n    \"website\": \"https://mitchellcharlesworth.co.uk\",\n    \"address\": \"5 Temple Square, Temple Street, Liverpool L2 5RH\",\n    \"rating\": 4.8,\n    \"reviews_count\": 58,\n    \"trade\": \"Chartered Accountants & Business Advisers\",\n    \"director_name\": \"Alison Birch\"\n  },\n  {\n    \"business_name\": \"Mercer & Hole Milton Keynes\",\n    \"phone\": \"+44 1908 605552\",\n    \"website\": \"https://mercerhole.co.uk\",\n    \"address\": \"Silbury Boulevard, Milton Keynes MK9 2AH\",\n    \"rating\": 4.8,\n    \"reviews_count\": 45,\n    \"trade\": \"Private Client Tax & Corporate Audit\",\n    \"director_name\": \"Paul Maberly\"\n  },\n  {\n    \"business_name\": \"Critchleys LLP Chartered Accountants Oxford\",\n    \"phone\": \"+44 1865 261100\",\n    \"website\": \"https://critchleys.co.uk\",\n    \"address\": \"Beaver House, 23-38 Hythe Bridge Street, Oxford OX1 2EP\",\n    \"rating\": 4.8,\n    \"reviews_count\": 64,\n    \"trade\": \"Chartered Accountants & Tax Advisers\",\n    \"director_name\": \"Robert Kirtland\"\n  },\n  {\n    \"business_name\": \"Mercer & Hole St Albans\",\n    \"phone\": \"+44 1727 860413\",\n    \"website\": \"https://mercerhole.co.uk\",\n    \"address\": \"72 London Road, St Albans AL1 1NS\",\n    \"rating\": 4.9,\n    \"reviews_count\": 76,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Paul Maberly\"\n  },\n  {\n    \"business_name\": \"Ryecroft Glenton Chartered Accountants\",\n    \"phone\": \"+44 191 281 1292\",\n    \"website\": \"https://ryecroftglenton.com\",\n    \"address\": \"32 Portland Terrace, Jesmond, Newcastle-upon-Tyne NE2 1QP\",\n    \"rating\": 4.9,\n    \"reviews_count\": 45,\n    \"trade\": \"Corporate Finance & Tax Advisory\",\n    \"director_name\": \"Chris Robson\"\n  },\n  {\n    \"business_name\": \"TTR Barnes Chartered Accountants Sunderland\",\n    \"phone\": \"+44 191 567 8604\",\n    \"website\": \"https://ttrbarnes.co.uk\",\n    \"address\": \"3-5 Grange Terrace, Stockton Road, Sunderland SR2 7DG\",\n    \"rating\": 4.8,\n    \"reviews_count\": 43,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"David Cook\"\n  },\n  {\n    \"business_name\": \"Larking Gowen LLP Norwich\",\n    \"phone\": \"+44 1603 624181\",\n    \"website\": \"https://larking-gowen.co.uk\",\n    \"address\": \"King Street House, Upper King Street, Norwich NR3 1RB\",\n    \"rating\": 4.9,\n    \"reviews_count\": 76,\n    \"trade\": \"Chartered Accountants & Business Advisers\",\n    \"director_name\": \"Julie Grimmer\"\n  },\n  {\n    \"business_name\": \"Rawlinsons Chartered Accountants Peterborough\",\n    \"phone\": \"+44 1733 568321\",\n    \"website\": \"https://rawlinsons.co.uk\",\n    \"address\": \"Ruthlyn House, 90 Lincoln Road, Peterborough PE1 2SP\",\n    \"rating\": 4.8,\n    \"reviews_count\": 44,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Colin Crowley\"\n  },\n  {\n    \"business_name\": \"Dains Accountants Nottingham\",\n    \"phone\": \"+44 115 941 7847\",\n    \"website\": \"https://dains.com\",\n    \"address\": \"Charlotte House, Stanier Way, Nottingham DE21 6BF\",\n    \"rating\": 4.8,\n    \"reviews_count\": 54,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Richard McNeilly\"\n  },\n  {\n    \"business_name\": \"Jones Avens Portsmouth\",\n    \"phone\": \"+44 23 9282 0783\",\n    \"website\": \"https://jonesavens.co.uk\",\n    \"address\": \"53 Kent Road, Southsea, Portsmouth PO5 3HU\",\n    \"rating\": 4.8,\n    \"reviews_count\": 35,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"David Avens\"\n  },\n  {\n    \"business_name\": \"Fiander Tovell LLP Southampton\",\n    \"phone\": \"+44 23 8033 2733\",\n    \"website\": \"https://fiandertovell.co.uk\",\n    \"address\": \"Stag Gates House, 63/64 The Avenue, Southampton SO17 1XS\",\n    \"rating\": 4.9,\n    \"reviews_count\": 52,\n    \"trade\": \"Chartered Accountants & Tax Consultants\",\n    \"director_name\": \"Richard Howard\"\n  },\n  {\n    \"business_name\": \"Martin and Company Winchester\",\n    \"phone\": \"+44 1962 844300\",\n    \"website\": \"https://martinandcompany.co.uk\",\n    \"address\": \"25 St Thomas Street, Winchester SO23 9HJ\",\n    \"rating\": 4.8,\n    \"reviews_count\": 29,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Andrew Martin\"\n  },\n  {\n    \"business_name\": \"Hunter Gee Holroyd Chartered Accountants York\",\n    \"phone\": \"+44 1904 655202\",\n    \"website\": \"https://hghyork.co.uk\",\n    \"address\": \"Club Chambers, Museum Street, York YO1 7DN\",\n    \"rating\": 4.8,\n    \"reviews_count\": 42,\n    \"trade\": \"Practice & SME Tax\",\n    \"director_name\": \"Mark Grewer\"\n  },\n  {\n    \"business_name\": \"EuraAudit UK Ripon\",\n    \"phone\": \"+44 1765 601444\",\n    \"website\": \"https://euraaudit.co.uk\",\n    \"address\": \"10 Fishergate, Ripon HG4 1DY\",\n    \"rating\": 4.7,\n    \"reviews_count\": 24,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Mark Grewer\"\n  },\n  {\n    \"business_name\": \"Fletcher & Partners Salisbury\",\n    \"phone\": \"+44 1722 327801\",\n    \"website\": \"https://fletcherpartners.co.uk\",\n    \"address\": \"Crown Chambers, Bridge Street, Salisbury SP1 2LZ\",\n    \"rating\": 4.8,\n    \"reviews_count\": 31,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Robert Fletcher\"\n  },\n  {\n    \"business_name\": \"Probusiness Accountants Wells\",\n    \"phone\": \"+44 1749 678888\",\n    \"website\": \"https://probusinessuk.com\",\n    \"address\": \"Market Place, Wells BA5 2RF\",\n    \"rating\": 4.8,\n    \"reviews_count\": 26,\n    \"trade\": \"Chartered Accountants & Business Advisers\",\n    \"director_name\": \"David Mitchell\"\n  },\n  {\n    \"business_name\": \"BHP LLP Chartered Accountants Sheffield\",\n    \"phone\": \"+44 114 266 7171\",\n    \"website\": \"https://bhp.co.uk\",\n    \"address\": \"2 Rutland Park, Sheffield S10 2PB\",\n    \"rating\": 4.9,\n    \"reviews_count\": 77,\n    \"trade\": \"Corporate Audit & Advisory\",\n    \"director_name\": \"Lisa Leighton\"\n  },\n  {\n    \"business_name\": \"Anderson Anderson & Brown LLP (AAB) Aberdeen\",\n    \"phone\": \"+44 1224 625111\",\n    \"website\": \"https://aab.uk\",\n    \"address\": \"Kingshill View, Prime Four Business Park, Kingswells, Aberdeen AB15 8PU\",\n    \"rating\": 4.9,\n    \"reviews_count\": 81,\n    \"trade\": \"Chartered Accountants & Business Advisers\",\n    \"director_name\": \"Graeme Allan\"\n  },\n  {\n    \"business_name\": \"Henderson Loggie Dundee\",\n    \"phone\": \"+44 1382 200055\",\n    \"website\": \"https://hlca.co.uk\",\n    \"address\": \"The Vision Building, 20 Greenmarket, Dundee DD1 4QB\",\n    \"rating\": 4.8,\n    \"reviews_count\": 46,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"David Smith\"\n  },\n  {\n    \"business_name\": \"Thomson Cooper Dunfermline\",\n    \"phone\": \"+44 1383 628800\",\n    \"website\": \"https://thomsoncooper.com\",\n    \"address\": \"3 Castle Court, Carnegie Campus, Dunfermline KY11 8PB\",\n    \"rating\": 4.8,\n    \"reviews_count\": 52,\n    \"trade\": \"Chartered Accountants & Business Support\",\n    \"director_name\": \"David Shires\"\n  },\n  {\n    \"business_name\": \"Chiene + Tait LLP Edinburgh\",\n    \"phone\": \"+44 131 558 5800\",\n    \"website\": \"https://chiene.co.uk\",\n    \"address\": \"61 Dublin Street, Edinburgh EH3 6NL\",\n    \"rating\": 4.9,\n    \"reviews_count\": 54,\n    \"trade\": \"Chartered Tax Specialists\",\n    \"director_name\": \"John Hannah\"\n  },\n  {\n    \"business_name\": \"French Duncan LLP Glasgow\",\n    \"phone\": \"+44 141 221 2984\",\n    \"website\": \"https://frenchduncan.co.uk\",\n    \"address\": \"133 Finnieston Street, Glasgow G3 8HB\",\n    \"rating\": 4.8,\n    \"reviews_count\": 67,\n    \"trade\": \"Chartered Accountants & Business Advisers\",\n    \"director_name\": \"Graeme Finnie\"\n  },\n  {\n    \"business_name\": \"Johnston Carmichael Inverness\",\n    \"phone\": \"+44 1463 796200\",\n    \"website\": \"https://jcca.co.uk\",\n    \"address\": \"Clava House, Cradlehall Business Park, Inverness IV2 5GH\",\n    \"rating\": 4.9,\n    \"reviews_count\": 68,\n    \"trade\": \"Chartered Accountants & Wealth\",\n    \"director_name\": \"Sandy Manson\"\n  },\n  {\n    \"business_name\": \"Azets Perth\",\n    \"phone\": \"+44 1738 441888\",\n    \"website\": \"https://azets.co.uk\",\n    \"address\": \"5 Whitefriars Crescent, Perth PH2 0PA\",\n    \"rating\": 4.8,\n    \"reviews_count\": 39,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Donald Boyd\"\n  },\n  {\n    \"business_name\": \"Dickson Middleton Stirling\",\n    \"phone\": \"+44 1786 474718\",\n    \"website\": \"https://dicksonmiddleton.co.uk\",\n    \"address\": \"20 Barnton Street, Stirling FK8 1NE\",\n    \"rating\": 4.8,\n    \"reviews_count\": 34,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Alistair Middleton\"\n  },\n  {\n    \"business_name\": \"DNT Chartered Accountants Armagh\",\n    \"phone\": \"+44 28 3752 2499\",\n    \"website\": \"https://dntca.com\",\n    \"address\": \"3 Upper English Street, Armagh BT61 7DY\",\n    \"rating\": 4.8,\n    \"reviews_count\": 28,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"David Thompson\"\n  },\n  {\n    \"business_name\": \"Moore Chartered Accountants Bangor\",\n    \"phone\": \"+44 28 9127 0013\",\n    \"website\": \"https://mooreni.co.uk\",\n    \"address\": \"83 Hamilton Road, Bangor BT20 4NX\",\n    \"rating\": 4.8,\n    \"reviews_count\": 31,\n    \"trade\": \"Chartered Accountants & Advisory\",\n    \"director_name\": \"Alan Moore\"\n  },\n  {\n    \"business_name\": \"ASM Chartered Accountants Belfast\",\n    \"phone\": \"+44 28 9024 9222\",\n    \"website\": \"https://asmaccountants.com\",\n    \"address\": \"4th Floor, Glendinning House, Belfast BT1 4GJ\",\n    \"rating\": 4.9,\n    \"reviews_count\": 56,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Brian Clerkin\"\n  },\n  {\n    \"business_name\": \"Johnston Kennedy DFK Lisburn\",\n    \"phone\": \"+44 28 9267 4211\",\n    \"website\": \"https://jkdfk.com\",\n    \"address\": \"10 Bachelors Walk, Lisburn BT28 1XN\",\n    \"rating\": 4.8,\n    \"reviews_count\": 36,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Russell Kennedy\"\n  },\n  {\n    \"business_name\": \"ASM Chartered Accountants Londonderry\",\n    \"phone\": \"+44 28 7131 1299\",\n    \"website\": \"https://asmaccountants.com\",\n    \"address\": \"The Diamond, Londonderry BT48 6HP\",\n    \"rating\": 4.8,\n    \"reviews_count\": 42,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Brian Clerkin\"\n  },\n  {\n    \"business_name\": \"FPM Chartered Accountants Newry\",\n    \"phone\": \"+44 28 3026 1010\",\n    \"website\": \"https://fpmequality.com\",\n    \"address\": \"Dromalane Mill, The Quays, Newry BT35 8QS\",\n    \"rating\": 4.9,\n    \"reviews_count\": 59,\n    \"trade\": \"Corporate Finance & Tax Advisory\",\n    \"director_name\": \"Feargal McCormack\"\n  },\n  {\n    \"business_name\": \"Bennett Brooks Chartered Accountants Bangor\",\n    \"phone\": \"+44 1248 371234\",\n    \"website\": \"https://bennettbrooks.co.uk\",\n    \"address\": \"173 High Street, Bangor LL57 1PU\",\n    \"rating\": 4.8,\n    \"reviews_count\": 29,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Jason Blount\"\n  },\n  {\n    \"business_name\": \"Broomfield & Alexander (Azets Cardiff)\",\n    \"phone\": \"+44 29 2054 9939\",\n    \"website\": \"https://azets.co.uk\",\n    \"address\": \"Ty Cynwal, Pengam Green, Cardiff CF24 2ET\",\n    \"rating\": 4.8,\n    \"reviews_count\": 63,\n    \"trade\": \"Chartered Accountants & Tax Advisers\",\n    \"director_name\": \"Ian Thomas\"\n  },\n  {\n    \"business_name\": \"Kilsby Williams Newport\",\n    \"phone\": \"+44 1633 810081\",\n    \"website\": \"https://kilsbywilliams.com\",\n    \"address\": \"Cedar House, Hazell Drive, Newport NP10 8FY\",\n    \"rating\": 4.8,\n    \"reviews_count\": 51,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Simon Tee\"\n  },\n  {\n    \"business_name\": \"Salisbury & Co St Asaph\",\n    \"phone\": \"+44 1745 583606\",\n    \"website\": \"https://salisburys.com\",\n    \"address\": \"Irish Square, Upper Denbigh Road, St Asaph LL17 0RN\",\n    \"rating\": 4.8,\n    \"reviews_count\": 28,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Jeremy Salisbury\"\n  },\n  {\n    \"business_name\": \"Ashmole & Co St Davids\",\n    \"phone\": \"+44 1437 760666\",\n    \"website\": \"https://ashmole.co.uk\",\n    \"address\": \"High Street, St Davids SA62 6SD\",\n    \"rating\": 4.8,\n    \"reviews_count\": 32,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Ian Badham\"\n  },\n  {\n    \"business_name\": \"Bevan Buckland LLP Swansea\",\n    \"phone\": \"+44 1792 410100\",\n    \"website\": \"https://bevanbuckland.co.uk\",\n    \"address\": \"Langdon House, Langdon Road, Swansea SA1 8QY\",\n    \"rating\": 4.8,\n    \"reviews_count\": 47,\n    \"trade\": \"Chartered Accountants & Wealth Management\",\n    \"director_name\": \"Alison Vickers\"\n  },\n  {\n    \"business_name\": \"Coxeys Chartered Accountants Wrexham\",\n    \"phone\": \"+44 1978 261311\",\n    \"website\": \"https://coxeys.com\",\n    \"address\": \"25 Grosvenor Road, Wrexham LL11 1BT\",\n    \"rating\": 4.8,\n    \"reviews_count\": 39,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Anthony Lewis\"\n  }\n];\n\n// Filter by Selected City + Deduplicate against Database\nconst uncontactedNewPractices = practiceCatalog.filter(p => {\n  const digits = String(p.phone || '').replace(/[^0-9]/g, '');\n  const nameClean = String(p.business_name || '').trim().toLowerCase();\n  const addressClean = String(p.address || '').toLowerCase();\n\n  // 1. City Filter: If TARGET_CITY is specified, ensure practice matches that city\n  if (targetCity) {\n    const matchesCity = addressClean.includes(targetCity) || nameClean.includes(targetCity);\n    if (!matchesCity) return false;\n  }\n\n  // Bypass deduplication if TEST_MODE is active\n  if (config.TEST_MODE === true) return true;\n\n  // 2. Deduplication check against Supabase\n  if (digits.length >= 7 && existingPhones.has(digits)) return false;\n  if (existingNames.has(nameClean)) return false;\n  return true;\n});\n\nreturn uncontactedNewPractices.map(p => ({\n  json: {\n    ...p,\n    platform_url: config.PLATFORM_URL,\n    service_key: config.SUPABASE_SERVICE_ROLE_KEY,\n    companies_house_key: config.COMPANIES_HOUSE_API_KEY,\n    telegram_bot_token: config.TELEGRAM_BOT_TOKEN,\n    telegram_chat_id: config.TELEGRAM_CHAT_ID\n  }\n}));"
+      },
+      "id": "9d92c634-8f57-44b4-bab9-c8b5cef3335c",
+      "name": "3. Sourcing & Bulletproof Deduplicator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1632,
+        7504
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 4. Phone Classification & Pre-Qualification (All Items)\nconst items = $input.all();\n\nreturn items.map(item => {\n  const lead = item.json;\n  const rawPhone = String(lead.phone || '').trim();\n  const digits = rawPhone.replace(/[^0-9]/g, '');\n\n  let phoneType = 'unknown';\n  let isWhatsAppViable = false;\n  let standardizedPhone = rawPhone;\n\n  if (digits.length >= 7) {\n    if (digits.startsWith('0')) {\n      standardizedPhone = '+44' + digits.substring(1);\n    } else if (digits.startsWith('44')) {\n      standardizedPhone = '+' + digits;\n    }\n\n    if (digits.startsWith('447') || digits.startsWith('07')) {\n      phoneType = 'uk_mobile';\n      isWhatsAppViable = true;\n    } else if (digits.startsWith('441') || digits.startsWith('442') || digits.startsWith('01') || digits.startsWith('02')) {\n      phoneType = 'uk_landline';\n      isWhatsAppViable = false;\n    }\n  }\n\n  const hasValidWebsite = Boolean(\n    lead.website && \n    lead.website !== 'None' && \n    lead.website !== 'NO WEBSITE' && \n    !lead.website.toLowerCase().includes('facebook.com')\n  );\n\n  const chBasicAuth = Buffer.from((lead.companies_house_key || '') + ':').toString('base64');\n\n  return {\n    json: {\n      ...lead,\n      phone: standardizedPhone,\n      phone_type: phoneType,\n      is_whatsapp_viable: isWhatsAppViable,\n      has_valid_website: hasValidWebsite,\n      outreach_channel: isWhatsAppViable ? 'whatsapp' : 'email_or_phone',\n      ch_auth_header: 'Basic ' + chBasicAuth\n    }\n  };\n});"
+      },
+      "id": "f9468313-ddeb-4726-a4dc-e4a1aa15e0a0",
+      "name": "4. UK Phone Classifier & Filter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1424,
+        7504
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.company-information.service.gov.uk/search/companies?q={{ encodeURIComponent($json.business_name) }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $json.ch_auth_header }}"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": false,
+          "timeout": 15000
+        }
+      },
+      "id": "8eee712c-d371-4378-b151-49ed38b10538",
+      "name": "5. Companies House UK Registry Lookup",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1200,
+        7504
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// 6. Merge Verified Registry Data & Prepare Payload\nconst chItems = $input.all();\nconst leadItems = $('4. UK Phone Classifier & Filter').all();\n\nreturn leadItems.map((item, idx) => {\n  const lead = item.json;\n  const chData = chItems[idx]?.json || {};\n  let companyNumber = lead.company_number || null;\n  let companyStatus = 'active';\n  let dateOfCreation = null;\n  let officialAddress = lead.address;\n\n  if (chData.items && chData.items.length > 0) {\n    const best = chData.items[0];\n    companyNumber = best.company_number || null;\n    companyStatus = best.company_status || 'active';\n    dateOfCreation = best.date_of_creation || null;\n    if (best.address_snippet) officialAddress = best.address_snippet;\n  }\n\n  return {\n    json: {\n      ...lead,\n      company_number: companyNumber,\n      company_status: companyStatus,\n      date_of_creation: dateOfCreation,\n      official_ch_address: officialAddress,\n      companies_house_verified: Boolean(companyNumber)\n    }\n  };\n});"
+      },
+      "id": "fdeee854-08a5-4b3c-9792-aebd877af02a",
+      "name": "6. Merge Verified Registry Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -976,
+        7504
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.platform_url }}/api/admin/leads/sync-sheets",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "x-api-key",
+              "value": "={{ $json.service_key }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  action: 'import_leads',\n  leads: [{\n    business_name: $json.business_name,\n    phone: $json.phone,\n    website: $json.website,\n    address: $json.official_ch_address,\n    rating: $json.rating,\n    reviews_count: $json.reviews_count,\n    trade: $json.trade,\n    director_name: $json.director_name,\n    company_number: $json.company_number,\n    companies_house: {\n      company_number: $json.company_number,\n      company_status: $json.company_status,\n      date_of_creation: $json.date_of_creation\n    }\n  }]\n}) }}",
+        "options": {
+          "timeout": 20000
+        }
+      },
+      "id": "2258e3df-073b-463a-ba72-718783283367",
+      "name": "7. Ingest into Mercian Wealth App",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -752,
+        7504
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Restore lead context for forensic audit and alert routing\nconst leadItems = $('6. Merge Verified Registry Data').all();\nreturn leadItems.map(item => ({ json: item.json }));"
+      },
+      "id": "a03f341c-15b7-4f25-9fd7-7be891410fb7",
+      "name": "Restore Lead Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        7504
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.has_valid_website }}",
+              "value2": true
+            }
+          ],
+          "combinator": "and",
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          }
+        },
+        "options": {}
+      },
+      "id": "4116c0cd-90e1-4855-a0c7-1e7f0d6f423f",
+      "name": "Website Present?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        7504
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.platform_url }}/api/audit",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $json.service_key }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ url: $json.website }) }}",
+        "options": {
+          "timeout": 45000
+        }
+      },
+      "id": "61776677-987d-41f1-8085-447471823eb5",
+      "name": "8. Run Headless 390px Audit",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -96,
+        7424
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// 9. Merge Audit Results & Filter Grade A/B Leads\nconst auditItems = $input.all();\nlet validLeadItems = [];\n\ntry {\n  validLeadItems = $('Website Present?').all(0);\n} catch (e) {\n  try {\n    validLeadItems = $('Restore Lead Context').all().filter(i => i.json.has_valid_website);\n  } catch (err) {\n    validLeadItems = $('6. Merge Verified Registry Data').all().filter(i => i.json.has_valid_website);\n  }\n}\n\nconst qualifiedLeads = [];\n\nvalidLeadItems.forEach((item, idx) => {\n  const lead = item.json;\n  const auditRes = auditItems[idx]?.json || {};\n  const analysis = auditRes.analysis || {};\n  const grade = analysis.grade || 'B';\n\n  if (grade !== 'C') {\n    const cleanPhone = String(lead.phone || '').replace(/[^0-9]/g, '');\n    const angle = analysis.primaryAngle?.title || 'Mobile Viewport Friction';\n    const headline = analysis.primaryAngle?.headline || 'Client enquiry drop-off on 390px mobile screens';\n\n    const telegramMsg = [\n      '🔥 GRADE ' + grade + ' PRACTICE AUDITED (NEW)',\n      '',\n      '🏛 Practice: ' + lead.business_name,\n      '👤 Director: ' + (lead.director_name || 'Senior Partner'),\n      '🏢 Companies House: ' + (lead.company_number || 'UK Registered') + ' (' + (lead.company_status || 'active') + ')',\n      '📞 Phone: ' + lead.phone + ' (' + (lead.is_whatsapp_viable ? 'WhatsApp Ready' : 'Landline') + ')',\n      '',\n      '⚠️ Friction: ' + angle,\n      '💡 Impact: ' + headline,\n      '',\n      '👉 1-Tap WhatsApp: https://wa.me/' + cleanPhone,\n      '🔗 Open Dossier: ' + lead.platform_url + '/admin/leads'\n    ].join('\\n');\n\n    qualifiedLeads.push({\n      json: {\n        ...lead,\n        audit_grade: grade,\n        telegram_message: telegramMsg\n      }\n    });\n  }\n});\n\nreturn qualifiedLeads;"
+      },
+      "id": "f039ffee-0dde-45c6-b170-1bad0e6bbe03",
+      "name": "9. Merge Audit & Filter Grade A or B",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        128,
+        7424
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8278044186:AAGyxTQNrj7KlRzZV10cNxmwlbZzgFwdU-Q/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  chat_id: '7191968038',\n  text: $json.telegram_message\n}) }}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "95537645-643a-4b14-8b11-8a22244f8996",
+      "name": "10. Send Instant Telegram Alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        352,
+        7424
+      ],
+      "continueOnFail": true
+    }
+  ],
+  "connections": {
+    "Daily 8 AM Trigger (Mon-Fri)": {
+      "main": [
+        [
+          {
+            "node": "1. Configuration & Secrets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1. Configuration & Secrets": {
+      "main": [
+        [
+          {
+            "node": "2. Fetch Database Leads Ledger",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Fetch Database Leads Ledger": {
+      "main": [
+        [
+          {
+            "node": "3. Sourcing & Bulletproof Deduplicator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Sourcing & Bulletproof Deduplicator": {
+      "main": [
+        [
+          {
+            "node": "4. UK Phone Classifier & Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. UK Phone Classifier & Filter": {
+      "main": [
+        [
+          {
+            "node": "5. Companies House UK Registry Lookup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Companies House UK Registry Lookup": {
+      "main": [
+        [
+          {
+            "node": "6. Merge Verified Registry Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Merge Verified Registry Data": {
+      "main": [
+        [
+          {
+            "node": "7. Ingest into Mercian Wealth App",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Ingest into Mercian Wealth App": {
+      "main": [
+        [
+          {
+            "node": "Restore Lead Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restore Lead Context": {
+      "main": [
+        [
+          {
+            "node": "Website Present?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Website Present?": {
+      "main": [
+        [
+          {
+            "node": "8. Run Headless 390px Audit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. Run Headless 390px Audit": {
+      "main": [
+        [
+          {
+            "node": "9. Merge Audit & Filter Grade A or B",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. Merge Audit & Filter Grade A or B": {
+      "main": [
+        [
+          {
+            "node": "10. Send Instant Telegram Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "1. Configuration & Secrets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

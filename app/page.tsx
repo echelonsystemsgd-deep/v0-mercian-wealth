@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#070709] text-white overflow-x-clip font-sans selection:bg-[#E2B857] selection:text-black relative">
+    <main className="min-h-screen bg-[#0d0908] text-white overflow-x-clip font-sans selection:bg-[#E08A68] selection:text-black relative">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

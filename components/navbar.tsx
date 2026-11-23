@@ -139,8 +139,10 @@ export function Navbar() {
     }
   }
 
+  const [audioActive, setAudioActive] = useState(false)
+
   const navLinks = [
-    { label: "Solutions", href: "/services" },
+    { label: "Software", href: "/services" },
     { label: "Work", href: "/portfolio" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
@@ -161,17 +163,22 @@ export function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           
-          {/* Brand Logo & Monogram */}
+          {/* Brand Logo & Chess Knight Monogram */}
           <Link 
             href="/" 
             className="flex items-center gap-2.5 group shrink-0 whitespace-nowrap cursor-pointer"
           >
-            <div className="relative h-8 w-8 rounded-lg overflow-hidden border border-[#E2B857]/40 shadow-md shrink-0">
-              <BrandLogo variant="watermark" alt="Mercian Wealth" fill className="object-cover transition-transform group-hover:scale-105 duration-300" priority />
+            <div className="relative h-7 w-7 flex items-center justify-center shrink-0 text-[#E08A68]">
+              <svg className="w-6 h-6" viewBox="0 0 45 45" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 10c1.5-3 5-4.5 7-2 1.5 2-.5 4-.5 5.5s1 2.5 3 2.5c2 0 4.5-1 4.5 2 0 3-4 6-6 8s-3.5 4-3.5 7h-9c0-3 1-5 2.5-7.5s3-4.5 1.5-9.5c-.8-2.5-3-4-2-6 1-2 1.5-1.5 2-.5z" fill="currentColor" fillOpacity="0.9" />
+                <path d="M12 36h21v3H12z" fill="currentColor" />
+                <path d="M15 32h15v4H15z" fill="currentColor" />
+                <circle cx="27" cy="14" r="1.5" fill="#120d0b" />
+              </svg>
             </div>
-            <span className="font-serif text-xs sm:text-sm font-bold tracking-widest text-white flex items-center gap-1.5 uppercase whitespace-nowrap">
+            <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-white flex items-center gap-1.5 uppercase whitespace-nowrap">
               <span>MERCIAN</span>
-              <span className="text-[#E2B857]">WEALTH</span>
+              <span className="text-[#E08A68]">WEALTH</span>
             </span>
           </Link>
 
@@ -186,7 +193,7 @@ export function Navbar() {
                   prefetch={true}
                   className={`py-1 transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                     isActive
-                      ? "text-[#E2B857] font-bold border-b border-[#E2B857]"
+                      ? "text-[#E08A68] font-bold border-b border-[#E08A68]"
                       : "text-zinc-400 hover:text-white"
                   }`}
                 >
@@ -196,33 +203,45 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Right-Side Telemetry & Action Pill */}
-          <div className="flex items-center gap-3 sm:gap-4">
+          {/* Right-Side Controls & Action Button */}
+          <div className="flex items-center gap-3 sm:gap-5">
             
-            {/* Live Monospace Telemetry */}
-            {mounted && (
-              <span className="hidden xl:inline-block font-mono text-[10px] text-zinc-500 uppercase tracking-widest">
-                [ UK // GMT {currentTime || "12:00:00"} ]
+            {/* Region Indicator */}
+            <span className="hidden md:inline-block font-mono text-[10px] text-zinc-400 uppercase tracking-widest">
+              UK
+            </span>
+
+            {/* Audio Toggle / Equalizer */}
+            <button 
+              onClick={() => setAudioActive(!audioActive)}
+              className="hidden md:inline-flex items-center gap-1.5 font-mono text-[10px] text-zinc-400 hover:text-white uppercase tracking-wider transition-colors cursor-pointer"
+              title="Toggle Audio"
+            >
+              <span className="flex items-end gap-0.5 h-3">
+                <span className={`w-0.5 bg-[#E08A68] rounded-full transition-all duration-300 ${audioActive ? 'h-3 animate-pulse' : 'h-1.5'}`} />
+                <span className={`w-0.5 bg-[#E08A68] rounded-full transition-all duration-300 ${audioActive ? 'h-2 animate-pulse delay-75' : 'h-2.5'}`} />
+                <span className={`w-0.5 bg-[#E08A68] rounded-full transition-all duration-300 ${audioActive ? 'h-3.5 animate-pulse delay-150' : 'h-1'}`} />
               </span>
-            )}
+              <span>AUDIO</span>
+            </button>
 
             {/* User Account / Login */}
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button 
-                    className="flex items-center justify-center h-8 w-8 rounded-full border border-[#E2B857]/40 bg-[#141418] text-[#E2B857] hover:text-white transition-all cursor-pointer outline-none"
+                    className="flex items-center justify-center h-8 w-8 rounded-full border border-[#E08A68]/40 bg-[#14100e] text-[#E08A68] hover:text-white transition-all cursor-pointer outline-none"
                     aria-label="User Portal Menu"
                   >
-                    <User size={13} className="text-[#E2B857]" />
+                    <User size={13} className="text-[#E08A68]" />
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 bg-[#0F0F13] border border-white/10 text-zinc-200">
-                  <DropdownMenuLabel className="text-xs font-mono text-[#E2B857] uppercase">Portal Access</DropdownMenuLabel>
+                <DropdownMenuContent align="end" className="w-48 bg-[#120d0b] border border-white/10 text-zinc-200">
+                  <DropdownMenuLabel className="text-xs font-mono text-[#E08A68] uppercase">Portal Access</DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-white/10" />
                   <DropdownMenuItem asChild className="cursor-pointer hover:bg-white/5">
-                    <Link href={profile?.role === 'admin' ? '/admin' : '/client'} className="flex items-center gap-2 text-xs">
-                      <LayoutDashboard size={14} className="text-[#E2B857]" />
+                    <Link href={(profile?.role === 'admin' || user?.email === 'deepgurtej28@gmail.com') ? '/admin' : '/client'} className="flex items-center gap-2 text-xs">
+                      <LayoutDashboard size={14} className="text-[#E08A68]" />
                       <span>Dashboard</span>
                     </Link>
                   </DropdownMenuItem>
@@ -236,18 +255,20 @@ export function Navbar() {
               <Link
                 href="/login"
                 rel="nofollow"
-                className="hidden xl:inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-white/10 bg-[#121216] text-zinc-400 hover:text-white hover:border-[#E2B857]/40 text-xs font-mono transition-all whitespace-nowrap"
+                aria-label="Operator Login"
+                className="hidden xl:inline-flex items-center justify-center h-7 w-7 rounded-full border border-white/10 hover:border-[#E08A68]/50 text-zinc-400 hover:text-white transition-all"
+                title="Portal Login"
               >
-                <span>Login</span>
+                <User size={12} />
               </Link>
             )}
 
-            {/* Chamfered Blueprint CTA */}
+            {/* Benchmark LET'S TALK ◆ Outline Button */}
             <Link
               href="/book"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 xl:px-4 xl:py-2 bg-[#E2B857] hover:bg-[#F0C96E] text-black font-mono font-bold text-[10px] xl:text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#E2B857]/20 whitespace-nowrap chamfered-sm"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded border border-[#E08A68]/60 hover:bg-[#E08A68] text-[#E08A68] hover:text-black font-mono font-medium text-[10px] xl:text-xs uppercase tracking-wider transition-all duration-200 shadow-md shadow-[#E08A68]/10 whitespace-nowrap"
             >
-              <span>REQUEST BLUEPRINT ◆</span>
+              <span>LET&apos;S TALK ◆</span>
             </Link>
 
             {/* Mobile Menu Hamburger */}

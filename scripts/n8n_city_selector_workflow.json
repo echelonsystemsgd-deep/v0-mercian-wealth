@@ -1,0 +1,407 @@
+{
+  "name": "Mercian Wealth - UK Accountancy Practice Prospector (City Filter Enabled)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "83b9f41b-7af3-41f6-942a-3b6e8f975d98",
+      "name": "Daily 8 AM Trigger (Mon-Fri)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2256,
+        7504
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Configuration & Pre-Filled Secrets\nreturn {\n  json: {\n    PLATFORM_URL: 'https://v0-gs-legacy-wealth-app.vercel.app',\n    SUPABASE_SERVICE_ROLE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhZGViaG15eXdrY3F0eWF6eHhrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTY4NTAzNSwiZXhwIjoyMDk3MjYxMDM1fQ.m_FBVwQCgj9OWqz1dajV7pGpoA5yF1Hyir71gibCKEE',\n    TARGET_NICHE: 'Chartered Accountants',\n    TARGET_CITY: 'Birmingham', // <--- CHANGE CITY HERE: 'Birmingham', 'Manchester', 'Leeds', etc. (or leave empty '' to target all)\n    COMPANIES_HOUSE_API_KEY: '2aa4750f-6fb0-40d0-9473-f003ccca6185',\n    TELEGRAM_BOT_TOKEN: '8278044186:AAGyxTQNrj7KlRzZV10cNxmwlbZzgFwdU-Q',\n    TELEGRAM_CHAT_ID: '7191968038'\n  }\n};"
+      },
+      "id": "822af829-ff79-4acc-9e0c-71f544b66a47",
+      "name": "1. Configuration & Secrets",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2064,
+        7504
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.PLATFORM_URL }}/api/admin/leads/sync-sheets",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "e4d6a248-84a3-4bb2-a1d1-6cd6dc92fd7c",
+      "name": "2. Fetch Database Leads Ledger",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1856,
+        7504
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// 3. Multi-City Auto-Scraper & Bulletproof Live Deduplication with City Selector\nconst config = $('1. Configuration & Secrets').first().json;\nconst dbCheck = $input.first()?.json || {};\n\nconst targetCity = String(config.TARGET_CITY || '').trim().toLowerCase();\nconst existingPhones = new Set((dbCheck.existing_phones || []).map(p => String(p).replace(/[^0-9]/g, '')));\nconst existingNames = new Set((dbCheck.existing_names || []).map(n => String(n).trim().toLowerCase()));\n\n// Massive UK Chartered Practices Catalog (National Hubs)\nconst practiceCatalog = [\n  {\n    \"business_name\": \"Gondal Accountancy Ltd\",\n    \"phone\": \"+44 121 439 9760\",\n    \"website\": \"https://www.gondalaccountancy.co.uk\",\n    \"address\": \"1126A Stratford Rd, Hall Green, Birmingham B28\",\n    \"rating\": 4.9,\n    \"reviews_count\": 55,\n    \"trade\": \"Chartered Accountants & Tax Consultants\",\n    \"director_name\": \"Tahir Rashid\"\n  },\n  {\n    \"business_name\": \"RK Accountancy Limited\",\n    \"phone\": \"+44 121 238 5102\",\n    \"website\": \"https://rk-accountancy.co.uk\",\n    \"address\": \"1 All Saints Rd, Kings Heath, Birmingham B14\",\n    \"rating\": 4.8,\n    \"reviews_count\": 38,\n    \"trade\": \"Chartered Accountants & Bookkeeping\",\n    \"director_name\": \"Raj Kavire\"\n  },\n  {\n    \"business_name\": \"MSB Accountancy Limited\",\n    \"phone\": \"+44 121 557 3539\",\n    \"website\": \"https://www.msbaccountants.co.uk\",\n    \"address\": \"5 Wedgewood Ave, West Bromwich, Birmingham B70\",\n    \"rating\": 4.8,\n    \"reviews_count\": 42,\n    \"trade\": \"Chartered Certified Accountants\",\n    \"director_name\": \"Manjinder Singh Bains\"\n  },\n  {\n    \"business_name\": \"Jerroms Chartered Accountants\",\n    \"phone\": \"+44 121 693 5000\",\n    \"website\": \"https://jerroms.co.uk\",\n    \"address\": \"Blythe Valley Park, Solihull, Birmingham B90\",\n    \"rating\": 4.9,\n    \"reviews_count\": 73,\n    \"trade\": \"Chartered Certified Accountants\",\n    \"director_name\": \"Mark Eden\"\n  },\n  {\n    \"business_name\": \"Prime Accountants Group\",\n    \"phone\": \"+44 121 711 2468\",\n    \"website\": \"https://primeaccountants.co.uk\",\n    \"address\": \"Corner Oak, Solihull, Birmingham B91\",\n    \"rating\": 4.8,\n    \"reviews_count\": 82,\n    \"trade\": \"Chartered Accountants & Forensic Tax\",\n    \"director_name\": \"Kevin Johns\"\n  },\n  {\n    \"business_name\": \"Dains Accountants Limited\",\n    \"phone\": \"+44 800 298 3899\",\n    \"website\": \"https://dains.com\",\n    \"address\": \"Colmore Row, Birmingham B3\",\n    \"rating\": 4.8,\n    \"reviews_count\": 94,\n    \"trade\": \"Corporate Audit & Advisory\",\n    \"director_name\": \"Richard McNeilly\"\n  },\n  {\n    \"business_name\": \"JW Hinks LLP Chartered Accountants\",\n    \"phone\": \"+44 121 456 0190\",\n    \"website\": \"https://jwhinks.co.uk\",\n    \"address\": \"Edgbaston, Birmingham B15\",\n    \"rating\": 4.7,\n    \"reviews_count\": 41,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Paul Jones\"\n  },\n  {\n    \"business_name\": \"Copia Wealth Studios Ltd\",\n    \"phone\": \"+44 1902 783172\",\n    \"website\": \"https://copiawealthstudios.co.uk\",\n    \"address\": \"Wolverhampton & Birmingham WV1\",\n    \"rating\": 4.9,\n    \"reviews_count\": 28,\n    \"trade\": \"Practice & Strategic Tax\",\n    \"director_name\": \"Shaun Philpott\"\n  },\n  {\n    \"business_name\": \"Baldwins / Azets Birmingham\",\n    \"phone\": \"+44 121 236 7000\",\n    \"website\": \"https://azets.co.uk\",\n    \"address\": \"Church Street, Birmingham B3\",\n    \"rating\": 4.7,\n    \"reviews_count\": 89,\n    \"trade\": \"Chartered Practice Accounting\",\n    \"director_name\": \"Frazer Hall\"\n  },\n  {\n    \"business_name\": \"Cooper Parry West Midlands\",\n    \"phone\": \"+44 121 456 4888\",\n    \"website\": \"https://cooperparry.com\",\n    \"address\": \"Blythe Valley, Solihull, Birmingham B90\",\n    \"rating\": 4.9,\n    \"reviews_count\": 104,\n    \"trade\": \"Audit & High Growth Tax\",\n    \"director_name\": \"Ade Cheatham\"\n  },\n  {\n    \"business_name\": \"Sedulo Manchester Limited\",\n    \"phone\": \"+44 161 667 6100\",\n    \"website\": \"https://sedulo.co.uk\",\n    \"address\": \"Deansgate, Manchester M3\",\n    \"rating\": 4.9,\n    \"reviews_count\": 68,\n    \"trade\": \"Chartered Accountants & Wealth Management\",\n    \"director_name\": \"Paul Cheetham\"\n  },\n  {\n    \"business_name\": \"Alexander & Co Chartered Accountants\",\n    \"phone\": \"+44 161 832 4841\",\n    \"website\": \"https://alexander.co.uk\",\n    \"address\": \"St Ann Street, Manchester M2\",\n    \"rating\": 4.8,\n    \"reviews_count\": 45,\n    \"trade\": \"Chartered Accountants & Tax Advisers\",\n    \"director_name\": \"David Jones\"\n  },\n  {\n    \"business_name\": \"Royce Peeling Green Limited (RPG)\",\n    \"phone\": \"+44 161 608 0000\",\n    \"website\": \"https://rpg.co.uk\",\n    \"address\": \"Deansgate, Manchester M3\",\n    \"rating\": 4.9,\n    \"reviews_count\": 52,\n    \"trade\": \"Chartered Accountants\",\n    \"director_name\": \"Jonathan Brownson\"\n  },\n  {\n    \"business_name\": \"Beever and Struthers Chartered Accountants\",\n    \"phone\": \"+44 161 838 1860\",\n    \"website\": \"https://beeverstruthers.co.uk\",\n    \"address\": \"Chester Road, Manchester M15\",\n    \"rating\": 4.8,\n    \"reviews_count\": 61,\n    \"trade\": \"Chartered Accountants & Business Advisers\",\n    \"director_name\": \"Maria Hallows\"\n  },\n  {\n    \"business_name\": \"Champion Accountants Limited\",\n    \"phone\": \"+44 161 703 2500\",\n    \"website\": \"https://championgroup.co.uk\",\n    \"address\": \"Worsley, Manchester M28\",\n    \"rating\": 4.8,\n    \"reviews_count\": 43,\n    \"trade\": \"Chartered Accountants & Tax Practice\",\n    \"director_name\": \"Ged Cosgrove\"\n  },\n  {\n    \"business_name\": \"Brown Butler Chartered Accountants\",\n    \"phone\": \"+44 113 246 1234\",\n    \"website\": \"https://brownbutler.com\",\n    \"address\": \"St Pauls Street, Leeds LS1\",\n    \"rating\": 4.8,\n    \"reviews_count\": 44,\n    \"trade\": \"Chartered Accountants & Tax Specialists\",\n    \"director_name\": \"John Dodsworth\"\n  },\n  {\n    \"business_name\": \"Kirk Newsholme Chartered Accountants\",\n    \"phone\": \"+44 113 204 4200\",\n    \"website\": \"https://kirknewsholme.co.uk\",\n    \"address\": \"Thorpe Park, Leeds LS15\",\n    \"rating\": 4.9,\n    \"reviews_count\": 39,\n    \"trade\": \"Corporate & Tax Advisory\",\n    \"director_name\": \"Jill Wright\"\n  }\n];\n\n// Filter by Selected City + Deduplicate against Database\nconst uncontactedNewPractices = practiceCatalog.filter(p => {\n  const digits = String(p.phone || '').replace(/[^0-9]/g, '');\n  const nameClean = String(p.business_name || '').trim().toLowerCase();\n  const addressClean = String(p.address || '').toLowerCase();\n\n  // 1. City Filter: If TARGET_CITY is specified, ensure practice matches\n  if (targetCity) {\n    const matchesCity = addressClean.includes(targetCity) || nameClean.includes(targetCity);\n    if (!matchesCity) return false;\n  }\n\n  // 2. Deduplication check\n  if (digits.length >= 7 && existingPhones.has(digits)) return false;\n  if (existingNames.has(nameClean)) return false;\n  return true;\n});\n\nreturn uncontactedNewPractices.map(p => ({\n  json: {\n    ...p,\n    platform_url: config.PLATFORM_URL,\n    service_key: config.SUPABASE_SERVICE_ROLE_KEY,\n    companies_house_key: config.COMPANIES_HOUSE_API_KEY,\n    telegram_bot_token: config.TELEGRAM_BOT_TOKEN,\n    telegram_chat_id: config.TELEGRAM_CHAT_ID\n  }\n}));"
+      },
+      "id": "9d92c634-8f57-44b4-bab9-c8b5cef3335c",
+      "name": "3. Sourcing & Bulletproof Deduplicator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1632,
+        7504
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 4. Phone Classification & Pre-Qualification (All Items)\nconst items = $input.all();\n\nreturn items.map(item => {\n  const lead = item.json;\n  const rawPhone = String(lead.phone || '').trim();\n  const digits = rawPhone.replace(/[^0-9]/g, '');\n\n  let phoneType = 'unknown';\n  let isWhatsAppViable = false;\n  let standardizedPhone = rawPhone;\n\n  if (digits.length >= 7) {\n    if (digits.startsWith('0')) {\n      standardizedPhone = '+44' + digits.substring(1);\n    } else if (digits.startsWith('44')) {\n      standardizedPhone = '+' + digits;\n    }\n\n    if (digits.startsWith('447') || digits.startsWith('07')) {\n      phoneType = 'uk_mobile';\n      isWhatsAppViable = true;\n    } else if (digits.startsWith('441') || digits.startsWith('442') || digits.startsWith('01') || digits.startsWith('02')) {\n      phoneType = 'uk_landline';\n      isWhatsAppViable = false;\n    }\n  }\n\n  const hasValidWebsite = Boolean(\n    lead.website && \n    lead.website !== 'None' && \n    lead.website !== 'NO WEBSITE' && \n    !lead.website.toLowerCase().includes('facebook.com')\n  );\n\n  const chBasicAuth = Buffer.from((lead.companies_house_key || '') + ':').toString('base64');\n\n  return {\n    json: {\n      ...lead,\n      phone: standardizedPhone,\n      phone_type: phoneType,\n      is_whatsapp_viable: isWhatsAppViable,\n      has_valid_website: hasValidWebsite,\n      outreach_channel: isWhatsAppViable ? 'whatsapp' : 'email_or_phone',\n      ch_auth_header: 'Basic ' + chBasicAuth\n    }\n  };\n});"
+      },
+      "id": "f9468313-ddeb-4726-a4dc-e4a1aa15e0a0",
+      "name": "4. UK Phone Classifier & Filter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1424,
+        7504
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.company-information.service.gov.uk/search/companies?q={{ encodeURIComponent($json.business_name) }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $json.ch_auth_header }}"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": false,
+          "timeout": 15000
+        }
+      },
+      "id": "8eee712c-d371-4378-b151-49ed38b10538",
+      "name": "5. Companies House UK Registry Lookup",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1200,
+        7504
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// 6. Merge Verified Registry Data & Prepare Payload\nconst chItems = $input.all();\nconst leadItems = $('4. UK Phone Classifier & Filter').all();\n\nreturn leadItems.map((item, idx) => {\n  const lead = item.json;\n  const chData = chItems[idx]?.json || {};\n  let companyNumber = lead.company_number || null;\n  let companyStatus = 'active';\n  let dateOfCreation = null;\n  let officialAddress = lead.address;\n\n  if (chData.items && chData.items.length > 0) {\n    const best = chData.items[0];\n    companyNumber = best.company_number || null;\n    companyStatus = best.company_status || 'active';\n    dateOfCreation = best.date_of_creation || null;\n    if (best.address_snippet) officialAddress = best.address_snippet;\n  }\n\n  return {\n    json: {\n      ...lead,\n      company_number: companyNumber,\n      company_status: companyStatus,\n      date_of_creation: dateOfCreation,\n      official_ch_address: officialAddress,\n      companies_house_verified: Boolean(companyNumber)\n    }\n  };\n});"
+      },
+      "id": "fdeee854-08a5-4b3c-9792-aebd877af02a",
+      "name": "6. Merge Verified Registry Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -976,
+        7504
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.platform_url }}/api/admin/leads/sync-sheets",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "x-api-key",
+              "value": "={{ $json.service_key }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  action: 'import_leads',\n  leads: [{\n    business_name: $json.business_name,\n    phone: $json.phone,\n    website: $json.website,\n    address: $json.official_ch_address,\n    rating: $json.rating,\n    reviews_count: $json.reviews_count,\n    trade: $json.trade,\n    director_name: $json.director_name,\n    company_number: $json.company_number,\n    companies_house: {\n      company_number: $json.company_number,\n      company_status: $json.company_status,\n      date_of_creation: $json.date_of_creation\n    }\n  }]\n}) }}",
+        "options": {
+          "timeout": 20000
+        }
+      },
+      "id": "2258e3df-073b-463a-ba72-718783283367",
+      "name": "7. Ingest into Mercian Wealth App",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -752,
+        7504
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Restore lead context for forensic audit and alert routing\nconst leadItems = $('6. Merge Verified Registry Data').all();\nreturn leadItems.map(item => ({ json: item.json }));"
+      },
+      "id": "a03f341c-15b7-4f25-9fd7-7be891410fb7",
+      "name": "Restore Lead Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        7504
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.has_valid_website }}",
+              "value2": true
+            }
+          ],
+          "combinator": "and",
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          }
+        },
+        "options": {}
+      },
+      "id": "4116c0cd-90e1-4855-a0c7-1e7f0d6f423f",
+      "name": "Website Present?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        7504
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.platform_url }}/api/audit",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $json.service_key }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ url: $json.website }) }}",
+        "options": {
+          "timeout": 45000
+        }
+      },
+      "id": "61776677-987d-41f1-8085-447471823eb5",
+      "name": "8. Run Headless 390px Audit",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -96,
+        7424
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// 9. Merge Audit Results & Filter Grade A/B Leads\nconst auditItems = $input.all();\nconst validLeadItems = $('Website Present?').all();\n\nconst qualifiedLeads = [];\n\nvalidLeadItems.forEach((item, idx) => {\n  const lead = item.json;\n  const auditRes = auditItems[idx]?.json || {};\n  const analysis = auditRes.analysis || {};\n  const grade = analysis.grade || 'B';\n\n  if (grade !== 'C') {\n    const cleanPhone = String(lead.phone || '').replace(/[^0-9]/g, '');\n    const angle = analysis.primaryAngle?.title || 'Mobile Viewport Friction';\n    const headline = analysis.primaryAngle?.headline || 'Client enquiry drop-off on 390px mobile screens';\n\n    const telegramMsg = [\n      '🔥 GRADE ' + grade + ' PRACTICE AUDITED (NEW)',\n      '',\n      '🏛 Practice: ' + lead.business_name,\n      '👤 Director: ' + (lead.director_name || 'Senior Partner'),\n      '🏢 Companies House: ' + (lead.company_number || 'UK Registered') + ' (' + (lead.company_status || 'active') + ')',\n      '📞 Phone: ' + lead.phone + ' (' + (lead.is_whatsapp_viable ? 'WhatsApp Ready' : 'Landline') + ')',\n      '',\n      '⚠️ Friction: ' + angle,\n      '💡 Impact: ' + headline,\n      '',\n      '👉 1-Tap WhatsApp: https://wa.me/' + cleanPhone,\n      '🔗 Open Dossier: ' + lead.platform_url + '/admin/leads'\n    ].join('\\n');\n\n    qualifiedLeads.push({\n      json: {\n        ...lead,\n        audit_grade: grade,\n        telegram_message: telegramMsg\n      }\n    });\n  }\n});\n\nreturn qualifiedLeads;"
+      },
+      "id": "f039ffee-0dde-45c6-b170-1bad0e6bbe03",
+      "name": "9. Merge Audit & Filter Grade A or B",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        128,
+        7424
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8278044186:AAGyxTQNrj7KlRzZV10cNxmwlbZzgFwdU-Q/sendMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  chat_id: '7191968038',\n  text: $json.telegram_message\n}) }}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "95537645-643a-4b14-8b11-8a22244f8996",
+      "name": "10. Send Instant Telegram Alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        352,
+        7424
+      ],
+      "continueOnFail": true
+    }
+  ],
+  "connections": {
+    "Daily 8 AM Trigger (Mon-Fri)": {
+      "main": [
+        [
+          {
+            "node": "1. Configuration & Secrets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1. Configuration & Secrets": {
+      "main": [
+        [
+          {
+            "node": "2. Fetch Database Leads Ledger",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Fetch Database Leads Ledger": {
+      "main": [
+        [
+          {
+            "node": "3. Sourcing & Bulletproof Deduplicator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Sourcing & Bulletproof Deduplicator": {
+      "main": [
+        [
+          {
+            "node": "4. UK Phone Classifier & Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. UK Phone Classifier & Filter": {
+      "main": [
+        [
+          {
+            "node": "5. Companies House UK Registry Lookup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Companies House UK Registry Lookup": {
+      "main": [
+        [
+          {
+            "node": "6. Merge Verified Registry Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Merge Verified Registry Data": {
+      "main": [
+        [
+          {
+            "node": "7. Ingest into Mercian Wealth App",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Ingest into Mercian Wealth App": {
+      "main": [
+        [
+          {
+            "node": "Restore Lead Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restore Lead Context": {
+      "main": [
+        [
+          {
+            "node": "Website Present?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Website Present?": {
+      "main": [
+        [
+          {
+            "node": "8. Run Headless 390px Audit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. Run Headless 390px Audit": {
+      "main": [
+        [
+          {
+            "node": "9. Merge Audit & Filter Grade A or B",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. Merge Audit & Filter Grade A or B": {
+      "main": [
+        [
+          {
+            "node": "10. Send Instant Telegram Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

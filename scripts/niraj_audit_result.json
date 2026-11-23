@@ -1,0 +1,372 @@
+{
+  "url": "https://www.niraj-jewellers.co.uk/",
+  "status": 200,
+  "ttfb": 284,
+  "server": "Vercel",
+  "caching": "public, max-age=0, must-revalidate",
+  "secHeaders": {
+    "hsts": true,
+    "csp": true,
+    "xfo": true,
+    "xcto": true,
+    "referrer": "strict-origin-when-cross-origin"
+  },
+  "title": "Niraj Jewellers Ltd | Bespoke Goldsmith &amp; Bullion Hayes London",
+  "metaDesc": "Bespoke 22ct/18ct bridal suites, certified diamond rings &amp; wholesale bullion by Niraj Jewellers Ltd. Handcrafted in our Hayes workshop since 1984. Visit our showroom or speak with our atelier team.",
+  "viewport": "width=device-width, initial-scale=1, maximum-scale=5",
+  "schemasCount": 2,
+  "schemas": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://www.niraj-jewellers.co.uk/#website",
+          "url": "https://www.niraj-jewellers.co.uk",
+          "name": "Niraj Jewellers Ltd London",
+          "description": "London's Bespoke Goldsmith Atelier & Direct Gold Wholesaler. Handcrafted 22ct/18ct bridal suites, certified diamond rings & live bullion rates.",
+          "publisher": {
+            "@id": "https://www.niraj-jewellers.co.uk/#jewelrystore"
+          },
+          "inLanguage": "en-GB",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.niraj-jewellers.co.uk/collections?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": [
+            "JewelryStore",
+            "LocalBusiness",
+            "Organization"
+          ],
+          "@id": "https://www.niraj-jewellers.co.uk/#jewelrystore",
+          "name": "Niraj Jewellers Ltd",
+          "legalName": "Niraj Jewellers Ltd",
+          "vatID": "GB 842 9617 32",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.niraj-jewellers.co.uk/NIRAJ_LOGO9.png",
+            "width": "512",
+            "height": "512"
+          },
+          "image": [
+            "https://www.niraj-jewellers.co.uk/og-image.jpg",
+            "https://www.niraj-jewellers.co.uk/NIRAJ_LOGO9.png"
+          ],
+          "telephone": "+447955565137",
+          "email": "nirajjewellersuk@gmail.com",
+          "url": "https://www.niraj-jewellers.co.uk",
+          "priceRange": "££££",
+          "paymentAccepted": [
+            "Cash",
+            "Credit Card",
+            "Debit Card",
+            "Bank Transfer"
+          ],
+          "currenciesAccepted": "GBP",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "136 Uxbridge Road",
+            "addressLocality": "Hayes",
+            "addressRegion": "Middlesex, Greater London",
+            "postalCode": "UB4 0JH",
+            "addressCountry": "GB"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 51.5229,
+            "longitude": -0.4228
+          },
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Monday",
+              "opens": "12:00",
+              "closes": "17:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+              ],
+              "opens": "11:00",
+              "closes": "17:00"
+            }
+          ],
+          "sameAs": [
+            "https://www.instagram.com/nirajjewellersltd",
+            "https://www.tiktok.com/@nirajjewellersltd"
+          ],
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "reviewCount": "48",
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "review": [
+            {
+              "@type": "Review",
+              "author": {
+                "@type": "Person",
+                "name": "Priya & Rajan Patel"
+              },
+              "datePublished": "2024-11-15",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5",
+                "bestRating": "5"
+              },
+              "reviewBody": "Niraj Jewellers is in a league of their own. We spent weeks in central London jewellery shops being quoted astronomical prices with zero transparency. The master goldsmith sat down with us in Hayes, weighed the gold in front of us, 3D CAD printed my dream choker, and delivered a 22ct masterpiece under budget."
+            },
+            {
+              "@type": "Review",
+              "author": {
+                "@type": "Person",
+                "name": "Devinder Singh"
+              },
+              "datePublished": "2024-10-20",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5",
+                "bestRating": "5"
+              },
+              "reviewBody": "My grandfather's signet ring needed sizing down and the claw needed rebuild. The goldsmith resized it right here in the Hayes workshop in 4 hours while I had lunch down the road. Immaculate finish and fair workshop pricing."
+            },
+            {
+              "@type": "Review",
+              "author": {
+                "@type": "Person",
+                "name": "Ananya & Tariq Sharma"
+              },
+              "datePublished": "2024-12-05",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5",
+                "bestRating": "5"
+              },
+              "reviewBody": "Cannot recommend Niraj Jewellers Ltd enough. We brought in an Instagram reference video and the atelier team hand-selected three GIA diamonds for us to view under the loupe. No pushy retail tactics. The ring is breathtaking."
+            }
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Goldsmith & Fine Jewellery Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Bespoke 22ct Bridal Suites & Polki",
+                  "description": "Custom 3D CAD design, direct precious metal casting, and handmade gemstone setting in 22ct and 18ct gold."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Same-Day In-House Ring Resizing & Repairs",
+                  "description": "Laser soldering, claw retipping, ultrasonic cleaning, and precious stone resetting performed at our Hayes workbench."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Wholesale Gold Bullion Trading (24ct & 22ct)",
+                  "description": "Live LBMA-indexed pricing for investment gold bars, sovereigns, and immediate cash scrap gold valuation."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "3D CAD Custom Ring Modeling & Prototyping",
+                  "description": "Micron-accurate CAD renders, 360° video previews, and high-resolution 3D resin finger-fitting models."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Ancestral Gold Melting & Direct Metal Credit",
+                  "description": "Electronic trade-scale weighing and induction refining of family gold toward new bespoke commissions."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I bring my own gold or scrap jewellery to exchange or melt down into a bespoke piece?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. We weigh and test your gold directly in front of you on calibrated, trade-approved electronic scales at 136 Uxbridge Road. Old family gold can be melted down and refined for your new bespoke bridal commission, or credited at live bullion spot market rates against brand-new 22ct or 18ct suites."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does payment and deposit work for bespoke commissions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We operate with complete financial transparency. We require a 30% initial deposit only after you have reviewed and formally approved the photorealistic 3D CAD render. The remaining 70% balance is settled upon your in-person inspection and London Assay Office hallmarking collection in our Hayes showroom."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "I live outside London or overseas. Can I commission a piece remotely?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. A significant portion of our bridal couples and bullion investors consult remotely via WhatsApp and HD video calls. We share 360° CAD renders, inspect loose GIA diamonds under digital loupes, and deliver nationwide across the UK via fully insured, tamper-evident Royal Mail Special Delivery Guaranteed by 1pm."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know the gold purity and diamonds are authentic?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Under the UK Hallmarking Act 1973, every single piece crafted by Niraj Jewellers Ltd is independently tested and stamped by the London Assay Office with the official Leopard's Head hallmark and legal fineness mark (916 for 22ct gold, 750 for 18ct gold, 950 for Platinum). All center diamonds are accompanied by official GIA or IGI certificates."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you expedite urgent commissions for an upcoming wedding or engagement?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Because all master goldsmith benches, laser welders, and casting crucibles are situated on-site inside our Hayes workshop (never shipped to third parties or abroad), we frequently accommodate rush deadlines of 5–7 working days upon consultation with our workshop team."
+          }
+        }
+      ]
+    }
+  ],
+  "cms": "Custom / Unknown",
+  "phones": [
+    "021778581",
+    "090723420",
+    "+447955565137",
+    "07955565137",
+    "+44 7955 565137",
+    "07955 565137"
+  ],
+  "emails": [
+    "nirajjewellersuk@gmail.com"
+  ],
+  "formsCount": 0,
+  "formDetails": [],
+  "subpagesCount": 10,
+  "subpagesSample": [
+    "/about",
+    "/collections",
+    "/articles",
+    "/showroom",
+    "/faqs",
+    "/contact",
+    "/repairs",
+    "/#faq",
+    "/privacy",
+    "/terms"
+  ],
+  "companies_house": {
+    "chResults": [
+      {
+        "title": "NIRAJ JEWELLERS LIMITED",
+        "company_number": "05074588",
+        "status": "active",
+        "date_of_creation": "2004-03-16",
+        "address": "136 Uxbridge Road, Hayes, Middlesex, UB4 0JH"
+      },
+      {
+        "title": "NIRAIVO HEALTH LTD",
+        "company_number": "17258755",
+        "status": "dissolved",
+        "date_of_creation": "2026-06-03",
+        "address": "4385, 17258755 - COMPANIES HOUSE DEFAULT ADDRESS, Cardiff, CF14 8LH"
+      },
+      {
+        "title": "NIRAJAH LTD",
+        "company_number": "14568147",
+        "status": "active",
+        "date_of_creation": "2023-01-03",
+        "address": "89 Caulfield Road, London, England, E6 2EL"
+      },
+      {
+        "title": "NIRAJ ALOK LTD",
+        "company_number": "13740666",
+        "status": "active",
+        "date_of_creation": "2021-11-12",
+        "address": "64 Burnt Ash Lane, Bromley, England, BR1 4DD"
+      },
+      {
+        "title": "NIRAJ AUTOS LTD",
+        "company_number": "15138047",
+        "status": "active",
+        "date_of_creation": "2023-09-14",
+        "address": "107-109 Lancaster Street, Leicester, United Kingdom, LE5 4GD"
+      }
+    ],
+    "officers": [
+      {
+        "name": "SUDERA, Kevin",
+        "officer_role": "secretary",
+        "appointed_on": "2019-05-28"
+      },
+      {
+        "name": "SUDERA, Kevin",
+        "officer_role": "director",
+        "appointed_on": "2019-05-28"
+      },
+      {
+        "name": "SUDERA, Sunita",
+        "officer_role": "director",
+        "appointed_on": "2005-06-01"
+      },
+      {
+        "name": "PRAYAG, Kaminie",
+        "officer_role": "secretary",
+        "appointed_on": "2005-02-09",
+        "resigned_on": "2005-06-01"
+      },
+      {
+        "name": "SUDERA, Balbir Singh",
+        "officer_role": "secretary",
+        "appointed_on": "2005-06-01",
+        "resigned_on": "2019-05-28"
+      },
+      {
+        "name": "BRIGHTON SECRETARY LTD",
+        "officer_role": "corporate-nominee-secretary",
+        "appointed_on": "2004-03-16",
+        "resigned_on": "2004-03-17"
+      },
+      {
+        "name": "PRAYAG, Sunil",
+        "officer_role": "director",
+        "appointed_on": "2005-02-09",
+        "resigned_on": "2005-06-01"
+      },
+      {
+        "name": "SUDERA, Balbir Singh",
+        "officer_role": "director",
+        "appointed_on": "2005-06-01",
+        "resigned_on": "2019-05-28"
+      },
+      {
+        "name": "BRIGHTON DIRECTOR LTD",
+        "officer_role": "corporate-nominee-director",
+        "appointed_on": "2004-03-16",
+        "resigned_on": "2004-03-17"
+      }
+    ]
+  }
+}

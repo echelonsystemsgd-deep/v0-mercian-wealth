@@ -77,16 +77,16 @@ export function ViewportHUD() {
   return (
     <div className="fixed inset-0 pointer-events-none z-30 select-none overflow-hidden" aria-hidden="true">
       {/* 4 Corner L-Brackets */}
-      <div className="absolute top-20 left-4 text-[#E2B857]/40 font-mono text-[10px] hidden xl:block">
-        ┌ <span className="opacity-60 text-[9px]">MW-01</span>
+      <div className="absolute top-20 left-4 text-[#E08A68]/30 font-mono text-[10px] hidden xl:block">
+        ┌
       </div>
-      <div className="absolute top-20 right-4 text-[#E2B857]/40 font-mono text-[10px] hidden xl:block">
-        <span className="opacity-60 text-[9px]">SYS-ARMED</span> ┐
+      <div className="absolute top-20 right-4 text-[#E08A68]/30 font-mono text-[10px] hidden xl:block">
+        ┐
       </div>
-      <div className="absolute bottom-5 left-4 text-[#E2B857]/40 font-mono text-[10px] hidden xl:block">
+      <div className="absolute bottom-5 left-4 text-[#E08A68]/30 font-mono text-[10px] hidden xl:block">
         └
       </div>
-      <div className="absolute bottom-5 right-4 text-[#E2B857]/40 font-mono text-[10px] hidden xl:block">
+      <div className="absolute bottom-5 right-4 text-[#E08A68]/30 font-mono text-[10px] hidden xl:block">
         ┘
       </div>
 
@@ -98,7 +98,7 @@ export function ViewportHUD() {
 
       {/* Bottom-Left Telemetry: ● SEC 01 / 08 · 000 % */}
       <div className="absolute bottom-3 sm:bottom-4 left-4 sm:left-10 flex items-center gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-[10px] text-zinc-400 tracking-wider">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#E2B857] animate-pulse" />
+        <span className="w-1.5 h-1.5 rounded-full bg-[#E08A68] animate-pulse" />
         <span className="text-zinc-200 font-semibold">SEC {currentSection} / 08</span>
         <span className="text-zinc-500">·</span>
         <span className="text-zinc-400">{formattedPercent} %</span>
@@ -108,13 +108,13 @@ export function ViewportHUD() {
       <div className="absolute bottom-3 sm:bottom-4 right-4 sm:right-10 flex items-center gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-[10px] text-zinc-400 tracking-wider">
         <span className="text-zinc-300">UK {ukTime || "12:00:00"}</span>
         <span className="text-zinc-500">·</span>
-        <span className="text-[#E2B857]">{fps} FPS</span>
+        <span className="text-[#E08A68]">{fps} FPS</span>
       </div>
 
       {/* Right Edge Thin Vertical Scroll Progress Rail */}
       <div className="absolute right-0 top-0 bottom-0 w-[2px] bg-white/[0.04] hidden md:block">
         <div
-          className="w-full bg-[#E2B857]/60 transition-all duration-100 origin-top"
+          className="w-full bg-[#E08A68]/60 transition-all duration-100 origin-top"
           style={{ height: `${scrollPercent}%` }}
         />
       </div>
