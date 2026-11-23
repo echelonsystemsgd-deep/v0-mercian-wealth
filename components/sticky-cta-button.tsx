@@ -113,21 +113,21 @@ export function StickyCTAButton() {
             </Link>
           </motion.div>
 
-          {/* Desktop Minimal Scroll-to-Top Button */}
+          {/* Desktop Minimal Scroll-to-Top Button (Stacked vertically above WhatsApp launcher to prevent occlusion) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.2 }}
-            className="hidden sm:flex fixed bottom-6 right-24 z-30 items-center pointer-events-auto"
+            className="hidden sm:flex fixed bottom-20 right-8 z-30 items-center pointer-events-auto"
           >
             <button
               onClick={scrollToTop}
-              className="w-10 h-10 rounded-full bg-[#141417]/90 backdrop-blur-md border border-white/10 hover:border-[#DAA640]/50 text-zinc-400 hover:text-[#DAA640] flex items-center justify-center transition-all hover:scale-105 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#DAA640]"
+              className="w-9 h-9 rounded-full bg-[#121216]/90 backdrop-blur-md border border-white/10 hover:border-[#E2B857]/50 text-zinc-400 hover:text-[#E2B857] flex items-center justify-center transition-all hover:scale-105 cursor-pointer outline-none shadow-lg"
               aria-label="Scroll to top"
               title="Scroll to top"
             >
-              <ChevronUp size={18} />
+              <ChevronUp size={16} />
             </button>
           </motion.div>
         </>

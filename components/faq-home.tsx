@@ -44,10 +44,11 @@ export function FAQHome() {
         
         {/* Section Header */}
         <div className="text-center mb-14">
-          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#DCAE53]">
-            {data.eyebrow}
-          </span>
-          <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white mt-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-3 chamfered-sm">
+            <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+            <span>[ SYSTEM SPECIFICATIONS &amp; GOVERNANCE ]</span>
+          </div>
+          <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold uppercase text-white mt-2 tracking-wide">
             {data.headline}
           </h2>
           <p className="font-sans text-sm text-slate-300 mt-4 max-w-lg mx-auto">

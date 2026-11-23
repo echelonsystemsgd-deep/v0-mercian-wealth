@@ -32,11 +32,11 @@ export function OfferMechanism() {
           transition={{ duration: 0.5 }}
           className="max-w-3xl mx-auto mb-12 sm:mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#111115] border border-[#DCAE53]/30 text-[#DCAE53] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-[#DCAE53]" />
-            <span>{data.eyebrow}</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-4 chamfered-sm">
+            <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+            <span>[ SEC 04 / 06 · {data.eyebrow} ]</span>
           </div>
-          <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight text-balance mb-4">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold uppercase text-white tracking-wide leading-tight text-balance mb-4">
             {data.headline}
           </h2>
           <p className="font-sans text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">

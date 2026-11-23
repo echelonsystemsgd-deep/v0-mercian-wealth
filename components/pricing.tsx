@@ -153,10 +153,11 @@ export function Pricing({ isHomepage = false, setupTiers: propSetupTiers }: Pric
         {/* Section Header (if isHomepage) */}
         {isHomepage && (
           <div className="text-center mb-10 lg:mb-12 max-w-3xl mx-auto">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#DAA640] font-mono">
-              {SITE_COPY.homepage.modelHint.eyebrow}
-            </span>
-            <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white mt-3 mb-3 leading-tight">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-4 chamfered-sm">
+              <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+              <span>[ SEC 06 / 06 · CAPITAL ALLOCATION &amp; RETAINERS ]</span>
+            </div>
+            <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold uppercase text-white mt-2 mb-3 leading-tight tracking-wide">
               {SITE_COPY.homepage.modelHint.headline}
             </h2>
             <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-300 max-w-xl mx-auto leading-relaxed">

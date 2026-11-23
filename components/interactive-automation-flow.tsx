@@ -86,12 +86,12 @@ export function InteractiveAutomationFlow() {
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#141417] border border-[#DAA640]/30 text-[#DAA640] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-4">
-            <Zap size={13} className="text-[#DAA640]" />
-            <span>Interactive Workflow Architecture</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-4 chamfered-sm">
+            <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+            <span>[ AUTONOMOUS REVENUE CHAIN SIMULATION ]</span>
           </div>
-          <h2 className="font-sans text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
-            How The Autonomous Revenue Chain Operates.
+          <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-bold uppercase text-white tracking-wide leading-tight mb-4">
+            How The Autonomous <em className="italic font-normal text-[#E2B857]">Revenue Chain</em> Operates.
           </h2>
           <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed">
             Tap through the 4 steps below to see how a lead travels from initial enquiry to a booked, qualified customer on your smartphone without anyone lifting a finger.

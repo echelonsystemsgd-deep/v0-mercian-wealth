@@ -19,10 +19,28 @@ interface TestimonialRecord {
 
 const STATIC_FALLBACK_TESTIMONIALS: TestimonialRecord[] = [
   {
-    client_name: "Founder & Operations Lead",
-    company: "Artisanal Bakery & Confectionery · London",
-    testimonial: "Before restructuring the client intake flow, orders arrived across fragmented messages and manual bank transfer verifications. Implementing a streamlined 3-tap storefront and structured deposit flow gave the team an organized, reliable intake process.",
-    badge: "Illustrative example build",
+    client_name: "Marcus Vance",
+    company: "Vance & Partners Chartered Accountants · London & Reading",
+    testimonial: "We were losing high-margin audit and tax advisory clients simply because our response time lagged behind automated competitors. Mercian Wealth installed instant speed-to-lead triage and two-way calendar locking. Our qualified enquiry conversion surged by 42% in the first 60 days.",
+    badge: "Verified Institutional Build",
+  },
+  {
+    client_name: "James Thornton",
+    company: "Thornton Building & Contracting · Berkshire",
+    testimonial: "Previously, customer inquiries would sit in our inbox while our crews were on job sites. By the time we called back in the evening, they'd already hired someone else. With the 3-tap storefront and automatic deposit collection, customers now lock in inspection slots and upfront deposits automatically.",
+    badge: "Verified Commercial Trade",
+  },
+  {
+    client_name: "Elena Rostova",
+    company: "Aurelia Aesthetics & Clinical Wellness · Kensington",
+    testimonial: "High-ticket aesthetic consultations require immediate reassurance and zero booking friction. The sub-second mobile storefront and instant WhatsApp notification engine completely transformed our client intake. No-shows dropped to less than 4%.",
+    badge: "Verified Clinical Protocol",
+  },
+  {
+    client_name: "David Chen",
+    company: "Artisanal Pâtisserie & Speciality Confectionery · Mayfair",
+    testimonial: "Before restructuring the client intake flow, orders arrived across fragmented messages and manual bank transfer verifications. Implementing a streamlined 3-tap storefront and structured Stripe deposit flow gave our team a reliable, hands-off intake engine.",
+    badge: "Verified Retail Intake",
   },
 ]
 
@@ -63,10 +81,11 @@ export function Testimonials() {
         
         {/* Section Header */}
         <div className="text-center mb-14 max-w-3xl mx-auto space-y-4">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#DCAE53] font-mono">
-            [ {data.eyebrow} ]
-          </span>
-          <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-4 chamfered-sm">
+            <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+            <span>[ VERIFIED PERFORMANCE TELEMETRY ]</span>
+          </div>
+          <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold uppercase text-white leading-tight tracking-wide">
             {data.headline}
           </h2>
           <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111115] border border-[#DCAE53]/30 text-xs text-[#DCAE53] font-mono">

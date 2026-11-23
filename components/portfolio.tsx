@@ -543,12 +543,12 @@ export function Portfolio({ limit }: { limit?: number }) {
           
           {/* Section Header */}
           <div className="text-center mb-12 sm:mb-14">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#141417] border border-[#DAA640]/30 text-[#DAA640] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-3">
-              <Sparkles size={13} className="text-[#DAA640]" />
-              <span>INTERACTIVE CLIENT PROTOTYPES</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-4 chamfered-sm">
+              <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+              <span>[ SEC 05 / 06 · LIVE ARCHITECTURE DEPLOYMENTS ]</span>
             </div>
-            <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4 tracking-tight">
-              Websites Engineered to Convert Visitors
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold uppercase text-white mb-4 tracking-wide">
+              Websites Engineered to <em className="italic font-normal text-[#E2B857]">Convert Visitors</em>
             </h2>
             <p className="text-zinc-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
               Every prototype is live, responsive, and ready for you to test. Hover over any card to stop the animation and launch the interactive sandbox.

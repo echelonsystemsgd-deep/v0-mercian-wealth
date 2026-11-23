@@ -52,10 +52,11 @@ export function Bottleneck() {
           transition={{ duration: 0.6 }}
           className="text-center mb-10 sm:mb-14 max-w-3xl mx-auto"
         >
-          <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.25em] text-[#DAA640]">
-            {data.eyebrow}
-          </span>
-          <h2 className="font-sans text-3xl sm:text-5xl font-extrabold text-white mt-4 leading-[1.15] text-balance">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-4 chamfered-sm">
+            <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+            <span>[ SEC 02-B · REVENUE LEAKAGE MATRIX ]</span>
+          </div>
+          <h2 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-white mt-2 leading-[1.15] text-balance">
             {data.headline}
           </h2>
           <p className="font-sans text-sm sm:text-base text-zinc-300 leading-relaxed mt-4 max-w-2xl mx-auto">

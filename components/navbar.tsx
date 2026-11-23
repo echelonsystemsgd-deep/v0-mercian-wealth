@@ -204,26 +204,26 @@ export function Navbar() {
             prefetch={true}
             className="flex items-center gap-2.5 sm:gap-3 group shrink-0 whitespace-nowrap cursor-pointer"
           >
-            <div className="relative h-8 w-8 sm:h-9 sm:w-9 rounded-lg overflow-hidden border border-[#DCAE53]/40 shadow-md shrink-0">
+            <div className="relative h-8 w-8 sm:h-9 sm:w-9 rounded-lg overflow-hidden border border-[#E2B857]/40 shadow-md shrink-0">
               <BrandLogo variant="watermark" alt="Mercian Wealth" fill className="object-cover transition-transform group-hover:scale-105 duration-300" priority />
             </div>
-            <span className="font-sans text-xs sm:text-sm font-extrabold tracking-tight text-white flex items-center gap-1 uppercase whitespace-nowrap">
-              <span>Mercian</span>
-              <span className="text-[#DCAE53]">Wealth</span>
+            <span className="font-serif text-xs sm:text-sm font-bold tracking-widest text-white flex items-center gap-1.5 uppercase whitespace-nowrap">
+              <span>MERCIAN</span>
+              <span className="text-[#E2B857]">WEALTH</span>
             </span>
           </Link>
 
           {/* Desktop Navigation Spaced Evenly on One Line (No Wrapping) */}
-          <nav className="hidden lg:flex items-center justify-center gap-1.5 xl:gap-2.5 flex-nowrap shrink-0">
+          <nav className="hidden lg:flex items-center justify-center gap-2 xl:gap-4 flex-nowrap shrink-0 font-mono text-[11px] uppercase tracking-wider">
             
             <Link
               href="/"
               onClick={handleHomeClick}
               prefetch={true}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all whitespace-nowrap shrink-0 cursor-pointer ${
+              className={`px-3 py-1.5 transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                 pathname === "/" 
-                  ? "text-[#DCAE53] bg-[#DCAE53]/10 font-bold" 
-                  : "text-slate-300 hover:text-white hover:bg-[#18181F]"
+                  ? "text-[#E2B857] font-bold border-b border-[#E2B857]" 
+                  : "text-zinc-400 hover:text-white"
               }`}
             >
               Home
@@ -237,14 +237,14 @@ export function Navbar() {
             >
               <Link
                 href="/services"
-                className={`flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-full transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                className={`flex items-center gap-1 px-3 py-1.5 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                   activeDropdown === "solutions" || pathname === "/services"
-                    ? "text-[#DCAE53] bg-[#DCAE53]/10 font-bold"
-                    : "text-slate-300 hover:text-white hover:bg-[#18181F]"
+                    ? "text-[#E2B857] font-bold border-b border-[#E2B857]"
+                    : "text-zinc-400 hover:text-white"
                 }`}
               >
                 <span className="whitespace-nowrap">Solutions</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 shrink-0 ${activeDropdown === "solutions" ? "rotate-180 text-[#DCAE53]" : "text-slate-400"}`} />
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 shrink-0 ${activeDropdown === "solutions" ? "rotate-180 text-[#E2B857]" : "text-zinc-400"}`} />
               </Link>
 
               <AnimatePresence>
@@ -429,21 +429,21 @@ export function Navbar() {
 
             <Link
               href="/pricing"
-              className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all whitespace-nowrap shrink-0 ${
+              className={`px-3 py-1.5 transition-all whitespace-nowrap shrink-0 ${
                 pathname === "/pricing" 
-                  ? "text-[#DCAE53] bg-[#DCAE53]/10 font-bold" 
-                  : "text-slate-300 hover:text-white hover:bg-[#18181F]"
+                  ? "text-[#E2B857] font-bold border-b border-[#E2B857]" 
+                  : "text-zinc-400 hover:text-white"
               }`}
             >
-              Pricing
+              Economics
             </Link>
 
             <Link
               href="/process"
-              className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all whitespace-nowrap shrink-0 ${
+              className={`px-3 py-1.5 transition-all whitespace-nowrap shrink-0 ${
                 pathname === "/process" 
-                  ? "text-[#DCAE53] bg-[#DCAE53]/10 font-bold" 
-                  : "text-slate-300 hover:text-white hover:bg-[#18181F]"
+                  ? "text-[#E2B857] font-bold border-b border-[#E2B857]" 
+                  : "text-zinc-400 hover:text-white"
               }`}
             >
               Protocol
@@ -451,22 +451,33 @@ export function Navbar() {
 
             <Link
               href="/practices"
-              className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 transition-all whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
                 pathname === "/practices" 
-                  ? "text-[#DCAE53] bg-[#DCAE53]/10 font-bold border border-[#DCAE53]/30" 
-                  : "text-slate-300 hover:text-white hover:bg-[#18181F]"
+                  ? "text-[#E2B857] font-bold border-b border-[#E2B857]" 
+                  : "text-zinc-400 hover:text-white"
               }`}
             >
-              <Landmark className="w-3 h-3 text-[#DCAE53]" />
+              <Landmark className="w-3 h-3 text-[#E2B857]" />
               <span>Practices</span>
             </Link>
 
             <Link
+              href="/about"
+              className={`px-3 py-1.5 transition-all whitespace-nowrap shrink-0 ${
+                pathname === "/about" 
+                  ? "text-[#E2B857] font-bold border-b border-[#E2B857]" 
+                  : "text-zinc-400 hover:text-white"
+              }`}
+            >
+              About
+            </Link>
+
+            <Link
               href="/contact"
-              className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all whitespace-nowrap shrink-0 ${
+              className={`px-3 py-1.5 transition-all whitespace-nowrap shrink-0 ${
                 pathname === "/contact" 
-                  ? "text-[#DCAE53] bg-[#DCAE53]/10 font-bold" 
-                  : "text-slate-300 hover:text-white hover:bg-[#18181F]"
+                  ? "text-[#E2B857] font-bold border-b border-[#E2B857]" 
+                  : "text-zinc-400 hover:text-white"
               }`}
             >
               Contact
@@ -514,13 +525,12 @@ export function Navbar() {
               </Link>
             )}
 
-            {/* Primary Gold Pill CTA — hide on xs screens to give header breathing room */}
+            {/* Primary Gold Chamfered CTA */}
             <Link
               href="/book"
-              className="hidden sm:inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-xs sm:text-sm transition-all shadow-lg shadow-[#DCAE53]/20 whitespace-nowrap group"
+              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 xl:px-4 xl:py-2 bg-[#E2B857] hover:bg-[#F0C96E] text-black font-mono font-bold text-[10px] xl:text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#E2B857]/20 whitespace-nowrap chamfered-sm"
             >
-              <span>Book a call</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              <span>REQUEST BLUEPRINT ◆</span>
             </Link>
 
             {/* Mobile Menu Hamburger Pill */}

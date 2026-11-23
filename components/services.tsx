@@ -23,7 +23,7 @@ export function Services({ limit }: { limit?: number }) {
   }))
 
   const displayServices = limit ? servicesList.slice(0, limit) : servicesList
-  const cardIds = ["storefronts", "builders", "whatsapp", "deposits", "reviews", "retainers"]
+  const cardIds = ["storefronts", "builders", "lead-capture", "deposits", "reviews", "retainers"]
 
   // Listen to ?solution= query param to automatically open or highlight target service
   useEffect(() => {
@@ -32,7 +32,7 @@ export function Services({ limit }: { limit?: number }) {
       const solution = params.get("solution")
       if (solution === "storefronts" || solution === "mobile" || solution === "web") setActiveService(0)
       else if (solution === "builders" || solution === "booking" || solution === "orders") setActiveService(1)
-      else if (solution === "whatsapp" || solution === "alerts") setActiveService(2)
+      else if (solution === "lead-capture" || solution === "whatsapp" || solution === "alerts") setActiveService(2)
       else if (solution === "deposits" || solution === "stripe" || solution === "checkout") setActiveService(3)
       else if (solution === "reviews" || solution === "google") setActiveService(4)
       else if (solution === "retainers" || solution === "optimization") setActiveService(5)
@@ -73,13 +73,14 @@ export function Services({ limit }: { limit?: number }) {
         
         {/* Section Header */}
         <div className="text-center mb-8 sm:mb-12">
-          <p className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#DCAE53] mb-2 sm:mb-3 font-mono">
-            [ Core Conversion &amp; Booking Infrastructure ]
-          </p>
-          <h2 className="font-sans text-xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-3">
-            High-Conversion Systems Built For Direct Cash Flow
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-3 chamfered-sm">
+            <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+            <span>[ CORE CONVERSION &amp; BOOKING INFRASTRUCTURE ]</span>
+          </div>
+          <h2 className="font-serif text-xl sm:text-3xl lg:text-4xl font-bold uppercase text-white mb-3 tracking-wide">
+            High-Conversion Systems Built For <em className="italic font-normal text-[#E2B857]">Direct Cash Flow</em>
           </h2>
-          <p className="text-slate-300 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+          <p className="text-zinc-300 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
             Sub-second mobile storefronts, 3-tap order builders, WhatsApp lead dispatch, and upfront deposit checkout systems engineered for UK local businesses.
           </p>
         </div>

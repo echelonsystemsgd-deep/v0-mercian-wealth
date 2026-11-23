@@ -349,27 +349,26 @@ export function FloatingAiConcierge() {
 
   return (
     <>
-      {/* Floating Trigger Button at Bottom Left (Desktop only to prevent mobile content collision) */}
+      {/* Floating Trigger Button at Bottom Left (HUD Aligned) */}
       <div
-        className={`hidden sm:block fixed sm:bottom-5 left-3 sm:left-5 z-30 font-sans transition-all duration-300 ease-in-out ${
+        className={`hidden lg:block fixed bottom-4 left-8 z-30 font-sans transition-all duration-300 ease-in-out ${
           footerVisible || isOpen
             ? "translate-y-20 opacity-0 pointer-events-none"
             : "translate-y-0 opacity-100 pointer-events-auto"
         }`}
       >
         <motion.button
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={() => setIsOpen(true)}
-          className="relative group px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full bg-[#111115] border border-slate-700 hover:border-[#DCAE53]/60 text-slate-200 hover:text-white shadow-2xl flex items-center gap-2 sm:gap-2.5 cursor-pointer transition-colors"
-          aria-label="Open Questions Assistant"
+          className="relative group px-3 py-1.5 bg-[#121216]/95 border border-[#E2B857]/40 hover:border-[#E2B857] text-zinc-300 hover:text-white shadow-xl flex items-center gap-2 cursor-pointer transition-all chamfered-sm backdrop-blur-md"
+          aria-label="Open AI Intelligence Desk"
         >
           <div className="relative flex items-center justify-center">
-            <MessageSquareText className="w-4 h-4 text-[#DCAE53]" />
-            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#DCAE53]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E2B857] animate-pulse" />
           </div>
-          <span className="font-mono text-[11px] sm:text-xs font-semibold tracking-wide">
-            <span className="hidden sm:inline">Questions? </span>Ask Assistant
+          <span className="font-mono text-[10px] uppercase font-bold tracking-widest text-[#E2B857]">
+            [ AI CONCIERGE · ARMED ]
           </span>
         </motion.button>
       </div>

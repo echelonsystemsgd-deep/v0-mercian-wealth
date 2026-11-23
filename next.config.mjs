@@ -51,6 +51,21 @@ const nextConfig = {
         destination: '/login',
         permanent: true,
       },
+      {
+        source: '/software',
+        destination: '/services',
+        permanent: true,
+      },
+      {
+        source: '/custom-software',
+        destination: '/services',
+        permanent: true,
+      },
+      {
+        source: '/work',
+        destination: '/portfolio',
+        permanent: true,
+      },
     ]
   },
   async headers() {
@@ -80,7 +95,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com https://assets.calendly.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.vercel-insights.com https://api.calendly.com; frame-src 'self' https://calendly.com; object-src 'none'; base-uri 'self'; form-action 'self';",
+            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://assets.calendly.com; img-src 'self' blob: data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.vercel-insights.com https://api.calendly.com https://*.sentry.io; frame-src 'self' https://calendly.com; object-src 'none'; base-uri 'self'; form-action 'self';",
           },
         ],
       },

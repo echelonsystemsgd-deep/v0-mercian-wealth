@@ -1,25 +1,15 @@
-"use client"
+import { redirect } from "next/navigation"
 
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { Loader2 } from "lucide-react"
-
-export default function QualifyPage() {
-  const router = useRouter()
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const searchParams = new URLSearchParams(window.location.search)
-      router.replace(`/book?${searchParams.toString()}`)
+export default async function QualifyPage(props: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
+  const searchParams = await props.searchParams
+  const q = new URLSearchParams()
+  for (const [k, v] of Object.entries(searchParams || {})) {
+    if (typeof v === "string") {
+      q.set(k, v)
     }
-  }, [router])
-
-  return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4">
-      <Loader2 className="animate-spin text-accent-gold" size={32} />
-      <p className="text-xs text-muted-foreground tracking-wider uppercase font-semibold">
-        Redirecting to booking portal...
-      </p>
-    </div>
-  )
+  }
+  const queryStr = q.toString()
+  redirect(queryStr ? `/book?${queryStr}` : "/book")
 }

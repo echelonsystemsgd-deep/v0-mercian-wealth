@@ -19,6 +19,8 @@ import dynamic from "next/dynamic"
 const ChapterTracker = dynamic(() => import("@/components/chapter-tracker").then((mod) => mod.ChapterTracker))
 const PrototypeRequestModal = dynamic(() => import("@/components/prototype-request-modal").then((mod) => mod.PrototypeRequestModal))
 const FloatingAiConcierge = dynamic(() => import("@/components/floating-ai-concierge").then((mod) => mod.FloatingAiConcierge))
+const ViewportHUD = dynamic(() => import("@/components/hud/viewport-hud").then((mod) => mod.ViewportHUD))
+const SpeedToLeadCalculator = dynamic(() => import("@/components/calculator/speed-to-lead-calculator").then((mod) => mod.SpeedToLeadCalculator))
 
 import { SITE_COPY } from "@/lib/site-copy"
 import type { Metadata } from "next"
@@ -81,6 +83,9 @@ export default async function Home() {
         }}
       />
       
+      {/* Global Viewport HUD & Telemetry */}
+      <ViewportHUD />
+
       {/* 1. Header Navigation */}
       <Navbar />
 
@@ -92,6 +97,9 @@ export default async function Home() {
 
       {/* 4. SYSTEM II · Revenue Haemorrhage (The 4 Leakage Categories) */}
       <Bottleneck />
+
+      {/* SYSTEM III · Speed-to-Lead & Capacity 3D Interactive Calculator */}
+      <SpeedToLeadCalculator />
 
       {/* Zero-Disruption Guarantee */}
       <ZeroDisruptionGuarantee />

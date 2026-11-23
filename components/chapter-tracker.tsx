@@ -13,10 +13,10 @@ interface Chapter {
 const chapters: Chapter[] = [
   { id: "what-changed", label: "I", title: "What Changed", selectors: ["#what-changed", "#chapter-divider-I"] },
   { id: "bottleneck", label: "II", title: "Leakage", selectors: ["#bottleneck", "#chapter-divider-II"] },
-  { id: "offer-mechanism", label: "III", title: "The Offer", selectors: ["#offer-mechanism", "#chapter-divider-III"] },
-  { id: "portfolio", label: "IV", title: "Websites", selectors: ["#portfolio", "#chapter-divider-IV"] },
-  { id: "proof-cases", label: "V", title: "Verified Proof", selectors: ["#proof-cases", "#chapter-divider-V"] },
-  { id: "architecture", label: "VI", title: "Operator", selectors: ["#architecture", "#chapter-divider-VI"] },
+  { id: "roi-calculator", label: "III", title: "Simulator", selectors: ["#roi-calculator", "#conto"] },
+  { id: "offer-mechanism", label: "IV", title: "The Offer", selectors: ["#offer-mechanism", "#chapter-divider-III"] },
+  { id: "portfolio", label: "V", title: "Websites", selectors: ["#portfolio", "#chapter-divider-IV"] },
+  { id: "proof-cases", label: "VI", title: "Verified Proof", selectors: ["#proof-cases", "#chapter-divider-V"] },
   { id: "pricing", label: "VII", title: "Retainers", selectors: ["#pricing", "#chapter-divider-VII"] },
   { id: "cta", label: "VIII", title: "Prototype", selectors: ["#cta", "#chapter-divider-VIII"] },
 ]
@@ -34,100 +34,52 @@ function getElement(selector: string): Element | null {
 }
 
 export function ChapterTracker() {
-  const [activeChapter, setActiveChapter] = useState<string>("bottleneck")
+  const [activeChapter, setActiveChapter] = useState<string>("what-changed")
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const isClickScrolling = useRef<boolean>(false)
 
   useEffect(() => {
-    let animationFrameId: number | null = null
-
     const checkActiveSection = () => {
       const scrollY = window.scrollY
-      setIsVisible(scrollY > 300)
+      setIsVisible(scrollY > 250)
 
       if (isClickScrolling.current) return
 
-      const viewportHeight = window.innerHeight
-
-      let maxOverlap = 0
-      let bestMatchId: string | null = null
-
       for (const ch of chapters) {
-        let minTop = Infinity
-        let maxBottom = -Infinity
-        let hasElements = false
-
         for (const selector of ch.selectors) {
           const el = getElement(selector)
           if (el) {
-            hasElements = true
             const rect = el.getBoundingClientRect()
-            if (rect.top < minTop) minTop = rect.top
-            if (rect.bottom > maxBottom) maxBottom = rect.bottom
-          }
-        }
-
-        if (hasElements) {
-          // Compute vertical pixel overlap of chapter group within visible window [0, viewportHeight]
-          const visibleTop = Math.max(0, minTop)
-          const visibleBottom = Math.min(viewportHeight, maxBottom)
-          const overlap = Math.max(0, visibleBottom - visibleTop)
-
-          if (overlap > maxOverlap) {
-            maxOverlap = overlap
-            bestMatchId = ch.id
+            if (rect.top <= window.innerHeight * 0.4 && rect.bottom >= window.innerHeight * 0.2) {
+              setActiveChapter(ch.id)
+              return
+            }
           }
         }
       }
-
-      if (bestMatchId && maxOverlap > 50) {
-        setActiveChapter(bestMatchId)
-      }
     }
 
-    const onScroll = () => {
-      if (animationFrameId !== null) {
-        cancelAnimationFrame(animationFrameId)
-      }
-      animationFrameId = requestAnimationFrame(checkActiveSection)
-    }
-
-    // Run check immediately on mount
+    window.addEventListener("scroll", checkActiveSection, { passive: true })
     checkActiveSection()
-
-    window.addEventListener("scroll", onScroll, { passive: true })
-    window.addEventListener("resize", onScroll, { passive: true })
-
-    return () => {
-      if (animationFrameId !== null) {
-        cancelAnimationFrame(animationFrameId)
-      }
-      window.removeEventListener("scroll", onScroll)
-      window.removeEventListener("resize", onScroll)
-    }
+    return () => window.removeEventListener("scroll", checkActiveSection)
   }, [])
 
-  const scrollToSection = (id: string) => {
-    const chapterObj = chapters.find((c) => c.id === id)
-    if (!chapterObj) return
+  const scrollToSection = (chapterId: string) => {
+    const chapter = chapters.find((c) => c.id === chapterId)
+    if (!chapter) return
 
     isClickScrolling.current = true
-    setActiveChapter(id)
+    setActiveChapter(chapterId)
 
-    let targetElement: Element | null = null
-    for (const selector of chapterObj.selectors) {
+    for (const selector of chapter.selectors) {
       const el = getElement(selector)
       if (el) {
-        targetElement = el
+        el.scrollIntoView({ behavior: "smooth", block: "start" })
+        setTimeout(() => {
+          isClickScrolling.current = false
+        }, 800)
         break
       }
-    }
-
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth", block: "start" })
-      setTimeout(() => {
-        isClickScrolling.current = false
-      }, 800)
     }
   }
 
@@ -135,61 +87,44 @@ export function ChapterTracker() {
     <AnimatePresence>
       {isVisible && (
         <motion.aside
-          initial={{ opacity: 0, x: 30, scale: 0.95 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          exit={{ opacity: 0, x: 30, scale: 0.95 }}
-          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col gap-2 p-3 rounded-2xl bg-[#111115]/90 border border-slate-800 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.6)] select-none"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 20 }}
+          transition={{ duration: 0.25 }}
+          /* Positioned at the extreme right edge (right-2) with ultra-slim width to prevent ANY collision with 1440px cards */
+          className="fixed right-2 top-1/2 -translate-y-1/2 z-40 hidden 2xl:flex flex-col items-center gap-1.5 p-1.5 rounded-full bg-[#0D0D12]/90 border border-white/10 backdrop-blur-xl shadow-2xl select-none"
+          aria-label="Section Navigation Rail"
         >
-          {/* Header Badge */}
-          <div className="flex flex-col items-center gap-1 border-b border-slate-800 pb-2.5 px-1">
-            <span className="text-[9px] font-mono text-[#DCAE53] font-bold uppercase tracking-[0.25em]">
-              SYSTEMS
+          {/* Header Indicator */}
+          <div className="pb-1 pt-1">
+            <span className="text-[8px] font-mono text-[#E2B857] font-bold tracking-widest block text-center">
+              SYS
             </span>
           </div>
 
-          {/* Chapter Buttons List */}
-          <div className="relative flex flex-col gap-1.5 pt-1">
+          {/* Chapter Nodes */}
+          <div className="flex flex-col gap-1 items-center">
             {chapters.map((ch) => {
               const isActive = activeChapter === ch.id
               return (
-                <button
-                  key={ch.id}
-                  onClick={() => scrollToSection(ch.id)}
-                  aria-label={`Jump to Chapter ${ch.label}: ${ch.title}`}
-                  className="relative group flex items-center gap-3 px-2.5 py-1.5 rounded-xl transition-colors duration-200 bg-transparent border-0 cursor-pointer text-left"
-                >
-                  {/* Active Animated Pill Background */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeChapterBg"
-                      className="absolute inset-0 rounded-xl bg-[#DCAE53]/15 border border-[#DCAE53]/40 shadow-[0_0_15px_rgba(220,174,83,0.15)]"
-                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                    />
-                  )}
-
-                  {/* Roman Numeral Node */}
-                  <span
-                    className={`relative z-10 font-mono text-[11px] font-bold w-6 h-6 rounded-full flex items-center justify-center border transition-all duration-300 ${
+                <div key={ch.id} className="relative group">
+                  <button
+                    onClick={() => scrollToSection(ch.id)}
+                    aria-label={`Jump to ${ch.title}`}
+                    className={`w-6 h-6 rounded-full flex items-center justify-center font-mono text-[9px] transition-all duration-200 cursor-pointer ${
                       isActive
-                        ? "border-[#DCAE53] bg-[#DCAE53] text-[#09090B] shadow-[0_0_10px_rgba(220,174,83,0.5)] scale-105"
-                        : "border-slate-700 text-slate-400 group-hover:border-slate-500 group-hover:text-slate-200 group-hover:scale-105"
+                        ? "bg-[#E2B857] text-black font-bold shadow-[0_0_10px_rgba(226,184,87,0.5)] scale-110"
+                        : "text-zinc-400 hover:text-white hover:bg-white/10"
                     }`}
                   >
                     {ch.label}
-                  </span>
+                  </button>
 
-                  {/* Chapter Title Label */}
-                  <span
-                    className={`relative z-10 text-[10px] font-sans font-semibold uppercase tracking-wider transition-all duration-300 whitespace-nowrap ${
-                      isActive
-                        ? "text-[#DCAE53] font-bold opacity-100 translate-x-0"
-                        : "text-slate-500 opacity-0 max-w-0 group-hover:max-w-[120px] group-hover:opacity-80 group-hover:text-slate-300 transition-all"
-                    }`}
-                  >
+                  {/* Left-floating Tooltip (safely away from cards) */}
+                  <div className="absolute right-full top-1/2 -translate-y-1/2 mr-2 px-2 py-0.5 rounded bg-[#181820] border border-white/10 text-[10px] font-mono text-zinc-200 whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-150 shadow-lg">
                     {ch.title}
-                  </span>
-                </button>
+                  </div>
+                </div>
               )
             })}
           </div>

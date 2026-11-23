@@ -66,7 +66,7 @@ export function WhatsAppButton({
         ([entry]) => {
           setFooterVisible(entry.isIntersecting)
         },
-        { rootMargin: "0px 0px 50px 0px", threshold: 0 }
+        { rootMargin: "0px 0px 180px 0px", threshold: 0 }
       )
 
       observer.observe(footer)
@@ -89,7 +89,7 @@ export function WhatsAppButton({
 
   return (
     <div
-      className={`hidden sm:flex fixed right-6 z-40 flex-col items-end gap-3 font-sans transition-all duration-300 ease-in-out pointer-events-auto bottom-6 print:hidden ${
+      className={`hidden sm:flex fixed right-4 sm:right-8 z-40 flex-col items-end gap-3 font-sans transition-all duration-300 ease-in-out pointer-events-auto bottom-4 print:hidden ${
         isHidden
           ? "translate-y-20 opacity-0 pointer-events-none"
           : "translate-y-0 opacity-100 pointer-events-auto"

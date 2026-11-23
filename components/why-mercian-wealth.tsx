@@ -129,10 +129,11 @@ export function WhyMercianWealth() {
             transition={{ duration: 0.5 }}
             className="space-y-4 sm:space-y-6 text-left"
           >
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#DCAE53]">
-              [ WHO IT&apos;S FOR ]
-            </span>
-            <h2 className="font-sans text-xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-2 chamfered-sm">
+              <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+              <span>[ OPERATOR PRINCIPLE · THE FOUNDER STANDARD ]</span>
+            </div>
+            <h2 className="font-serif text-xl sm:text-3xl lg:text-4xl font-bold uppercase text-white leading-tight tracking-wide">
               {data.headline}
             </h2>
             <p className="font-sans text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-xl font-normal">

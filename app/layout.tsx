@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Geist_Mono } from 'next/font/google'
+import { Inter, Geist_Mono, Cinzel } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { CalendlyInit } from '@/components/calendly-init'
 import './globals.css'
@@ -21,6 +21,12 @@ const inter = Inter({
 const geistMono = Geist_Mono({ 
   subsets: ["latin"],
   variable: '--font-geist-mono',
+  display: 'swap',
+});
+
+const cinzel = Cinzel({
+  subsets: ['latin'],
+  variable: '--font-cinzel',
   display: 'swap',
 });
 
@@ -189,7 +195,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${geistMono.variable} bg-[#09090B]`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${geistMono.variable} ${cinzel.variable} bg-[#09090B]`} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{

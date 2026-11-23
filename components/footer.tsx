@@ -27,13 +27,14 @@ export function Footer() {
   const quickLinks = [
     { name: "Home", href: "/" },
     { name: "Practice Infrastructure", href: "/practices" },
-    { name: "Services", href: "/services" },
-    { name: "Process", href: "/process" },
-    { name: "Portfolio", href: "/portfolio" },
-    { name: "Pricing", href: "/pricing" },
-    { name: "Cohort Status", href: "/cohort-status" },
-    { name: "Coverage", href: "/local" },
-    { name: "Contact", href: "/contact" },
+    { name: "Services & Systems", href: "/services" },
+    { name: "Agile Deployment Protocol", href: "/process" },
+    { name: "Interactive Portfolio", href: "/portfolio" },
+    { name: "Economics & Retainers", href: "/pricing" },
+    { name: "Verified Deployments", href: "/cohort-status" },
+    { name: "Field Sales Engine", href: "/local" },
+    { name: "Philosophy & About", href: "/about" },
+    { name: "Direct Contact Gateway", href: "/contact" },
   ]
 
   return (
@@ -138,24 +139,21 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 4: Book a Call Mini-CTA */}
+          {/* Column 4: Blueprint Mini-CTA */}
           <div className="space-y-4">
-            <h4 className="font-sans font-bold text-xs uppercase tracking-widest text-[#DCAE53]">
+            <h4 className="font-mono font-bold text-xs uppercase tracking-widest text-[#E2B857]">
               Start a Project
             </h4>
-            <p className="font-sans text-xs text-slate-300 leading-relaxed">
+            <p className="font-sans text-xs text-zinc-400 leading-relaxed">
               {data.ctaDescription}
             </p>
-            <Button 
-              asChild
-              variant="outline"
-              className="px-4 py-2 text-xs border-slate-800 bg-[#111115] text-slate-200 hover:bg-[#DCAE53] hover:text-[#09090B] transition-all rounded-lg"
+            <Link 
+              href="/book" 
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#E2B857] hover:bg-[#F0C96E] text-black font-mono font-bold text-xs uppercase tracking-wider transition-all chamfered-sm shadow-lg shadow-[#E2B857]/20"
             >
-              <Link href="/book" className="inline-flex items-center gap-2">
-                <span>{data.ctaButtonText}</span>
-                <ArrowRight size={12} />
-              </Link>
-            </Button>
+              <span>REQUEST BLUEPRINT ◆</span>
+              <ArrowRight size={12} />
+            </Link>
           </div>
 
         </div>

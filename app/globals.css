@@ -76,8 +76,8 @@
 
 @theme inline {
   --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
-  --font-serif: var(--font-inter), 'Inter', system-ui, sans-serif;
-  --font-display: var(--font-inter), 'Inter', system-ui, sans-serif;
+  --font-serif: var(--font-cinzel), 'Cinzel', Georgia, serif;
+  --font-display: var(--font-cinzel), 'Cinzel', Georgia, serif;
   --font-mono: var(--font-geist-mono), 'Geist Mono', monospace;
   
   --color-background: var(--background);
@@ -671,4 +671,46 @@ body.mobile-menu-open #whatsapp-widget {
   filter: blur(4px);
   opacity: 0.55;
   transition: filter 0.25s ease, opacity 0.25s ease;
+}
+
+/* HUD & High-End Editorial Presentation Styles */
+.chamfered {
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.chamfered-sm {
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F5D77F 45%, #D4AF37 75%, #AA7C11 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-glow {
+  box-shadow: 0 0 25px rgba(226, 184, 87, 0.22);
+}
+
+.gold-glow-lg {
+  box-shadow: 0 0 50px rgba(226, 184, 87, 0.35);
+}
+
+.obsidian-glass {
+  background: rgba(13, 13, 17, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 184, 87, 0.15);
+}
+
+.obsidian-card {
+  background: linear-gradient(180deg, rgba(20, 20, 26, 0.75) 0%, rgba(12, 12, 16, 0.85) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.obsidian-card:hover {
+  border-color: rgba(226, 184, 87, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(226, 184, 87, 0.1);
 }

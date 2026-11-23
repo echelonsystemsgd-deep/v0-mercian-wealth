@@ -113,12 +113,13 @@ export default function BookPage() {
           {/* ---- Left Column: Page Header & Trust signals ---- */}
           <div className="lg:sticky lg:top-24 space-y-8">
             <div className="space-y-4">
-              <p className="text-xs font-bold uppercase tracking-widest text-[#DCAE53] font-mono">
-                [ {data.clinicalEvaluationLabel} ]
-              </p>
-              <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-2 chamfered-sm">
+                <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+                <span>[ PROTOCOL STAGE 01 · 15-MIN BRIEF ]</span>
+              </div>
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold uppercase text-white leading-tight tracking-wide">
                 {data.headerTitle}{" "}
-                <span className="text-[#DCAE53]">{data.headerHighlight}</span>
+                <em className="italic font-normal text-[#E2B857]">{data.headerHighlight}</em>
               </h1>
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
                 {data.headerSubtitle}
@@ -185,7 +186,7 @@ export default function BookPage() {
             <p className="text-xs font-bold uppercase tracking-widest text-[#DCAE53] font-mono">
               [ DIRECT CONSULTATION AGENDA ]
             </p>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold uppercase text-white tracking-wide">
               What to expect in your 15-minute discovery session
             </h2>
             <p className="text-slate-300 text-sm leading-relaxed">

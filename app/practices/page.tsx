@@ -90,12 +90,12 @@ export default function PracticesPage() {
 
         {/* 1. HERO SECTION */}
         <section className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-8 sm:pt-12 pb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#DAA640]/30 bg-[#DAA640]/5 text-[#DAA640] text-xs font-semibold tracking-wider uppercase mb-6 font-mono">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>{data.hero.badge}</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-6 chamfered-sm">
+            <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+            <span>[ PRACTICE INFRASTRUCTURE · THE AI SEARCH ERA ]</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-[1.15]">
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-wide text-white max-w-4xl mx-auto leading-[1.12]">
             {data.hero.headline}
           </h1>
 
@@ -107,7 +107,7 @@ export default function PracticesPage() {
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <Link
               href={data.hero.primaryCtaHref}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#DAA640] hover:bg-[#c99535] text-black font-bold text-sm sm:text-base transition-all shadow-lg shadow-[#DAA640]/20 min-h-[48px]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#E2B857] hover:bg-[#F0C96E] text-black font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-xl shadow-[#E2B857]/20 min-h-[48px] chamfered gold-glow"
             >
               <span>{data.hero.primaryCtaText}</span>
               <ArrowRight className="w-4 h-4" />
@@ -115,17 +115,17 @@ export default function PracticesPage() {
 
             <a
               href={data.hero.secondaryCtaHref}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-white/20 hover:border-[#DAA640]/60 bg-white/5 hover:bg-white/10 text-white font-medium text-sm sm:text-base transition-all min-h-[48px]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-[#E2B857]/40 hover:border-[#E2B857] bg-[#121216] text-white font-mono text-xs uppercase tracking-wider transition-all min-h-[48px] chamfered-sm"
             >
-              <Search className="w-4 h-4 text-[#DAA640]" />
+              <Search className="w-4 h-4 text-[#E2B857]" />
               <span>{data.hero.secondaryCtaText}</span>
             </a>
 
             <a
               href={data.hero.tertiaryCtaHref}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-white/15 hover:border-[#DAA640]/50 bg-white/5 hover:bg-white/10 text-white font-medium text-sm sm:text-base transition-all min-h-[48px]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-white/10 hover:border-white/25 bg-[#121216] text-zinc-300 font-mono text-xs uppercase tracking-wider transition-all min-h-[48px] chamfered-sm"
             >
-              <Zap className="w-4 h-4 text-[#DAA640]" />
+              <Zap className="w-4 h-4 text-[#E2B857]" />
               <span>{data.hero.tertiaryCtaText}</span>
             </a>
           </div>

@@ -32,13 +32,19 @@ export function CTA() {
 
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 z-10 text-center flex flex-col items-center space-y-6">
         
+        {/* Telemetry HUD Badge */}
+        <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] chamfered-sm">
+          <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+          <span>[ INITIATE SYSTEM ONBOARDING ]</span>
+        </div>
+
         {/* Headline */}
         <motion.h2
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight text-balance max-w-4xl"
+          className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold uppercase text-white leading-tight text-balance max-w-4xl tracking-wide"
         >
           {data.headline}
         </motion.h2>
@@ -63,33 +69,33 @@ export function CTA() {
           className="w-full flex flex-col items-center gap-4 pt-2"
         >
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full">
-            {/* Primary Action: Test-Drive Live Demo */}
-            <Link
-              href="/preview/demo"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-sm sm:text-base font-bold bg-[#DCAE53] text-[#09090B] hover:bg-[#E5B85C] rounded-xl transition-all duration-200 shadow-lg shadow-[#DCAE53]/20 cursor-pointer"
-            >
-              <Sparkles size={16} className="text-black shrink-0" />
-              <span>{data.buttonText || "Test-Drive Live Demo"}</span>
-            </Link>
-
-            {/* Secondary Action: Book a call */}
+            {/* Primary Action: Request System Blueprint */}
             <Link
               href="/book"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 text-sm sm:text-base font-semibold text-white bg-[#141417] border border-white/10 hover:border-[#DCAE53]/50 hover:bg-[#1C1C22] rounded-xl transition-all duration-200 cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-xs sm:text-sm font-mono font-bold uppercase tracking-wider bg-[#E2B857] text-[#08080A] hover:bg-[#F0C96E] transition-all duration-200 shadow-xl shadow-[#E2B857]/20 cursor-pointer chamfered gold-glow"
             >
-              <span>{data.secondaryButtonText || "Book 15-Min Scoping Call"}</span>
-              <ArrowRight size={16} />
+              <span>REQUEST SYSTEM BLUEPRINT ◆</span>
+              <ArrowRight size={15} />
             </Link>
 
-            {/* WhatsApp */}
+            {/* Secondary Action: Test-Drive Live Demo */}
+            <Link
+              href="/preview/demo"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 text-xs sm:text-sm font-mono font-semibold uppercase tracking-wider text-[#E2B857] bg-[#121216] border border-[#E2B857]/40 hover:border-[#E2B857] hover:bg-[#1A1A22] transition-all duration-200 cursor-pointer chamfered-sm"
+            >
+              <Sparkles size={14} className="text-[#E2B857] shrink-0" />
+              <span>Test-Drive Architecture</span>
+            </Link>
+
+            {/* WhatsApp Direct Line */}
             <a
               href={SITE_COPY.navbar.whatsappHref}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 text-sm sm:text-base font-semibold text-[#DCAE53] bg-[#141417] border border-[#DCAE53]/40 hover:bg-[#1C1C22] hover:border-[#DCAE53] rounded-xl transition-all shadow-lg"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 text-xs sm:text-sm font-mono font-medium uppercase tracking-wider text-zinc-300 bg-[#121216] border border-white/10 hover:bg-[#1A1A22] hover:text-white transition-all chamfered-sm"
             >
-              <MessageSquare size={16} className="shrink-0 text-[#DCAE53]" />
-              <span>{data.whatsappButtonText}</span>
+              <MessageSquare size={14} className="shrink-0 text-[#E2B857]" />
+              <span>Direct WhatsApp</span>
             </a>
           </div>
 
