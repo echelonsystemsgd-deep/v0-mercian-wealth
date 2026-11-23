@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video Frame Inspector</title>
+  <style>
+    body { background: #111; color: #fff; font-family: monospace; padding: 20px; }
+    video { width: 100%; max-width: 1200px; border: 1px solid #444; }
+    .controls { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
+    button { padding: 8px 16px; background: #333; color: #fff; border: 1px solid #666; cursor: pointer; }
+    button:hover { background: #555; }
+    #time { font-size: 18px; margin: 10px 0; color: #e2b857; }
+  </style>
+</head>
+<body>
+  <h2>Benchmark Reference Video Frame Inspector</h2>
+  <div id="time">Time: 0.00s</div>
+  <video id="vid" controls muted preload="auto">
+    <source src="/WhatsApp Video 2026-11-23 at 14.29.43.mp4" type="video/mp4">
+  </video>
+  <div class="controls">
+    <button onclick="seekTo(0)">0s (Start/Hero)</button>
+    <button onclick="seekTo(3)">3s (Hero)</button>
+    <button onclick="seekTo(7)">7s (Scroll 1)</button>
+    <button onclick="seekTo(12)">12s (Approach)</button>
+    <button onclick="seekTo(18)">18s (Storefronts)</button>
+    <button onclick="seekTo(25)">25s (Automation)</button>
+    <button onclick="seekTo(32)">32s (Triage)</button>
+    <button onclick="seekTo(40)">40s (Work)</button>
+    <button onclick="seekTo(50)">50s (Method)</button>
+    <button onclick="seekTo(60)">60s (CTA)</button>
+  </div>
+  <script>
+    const vid = document.getElementById('vid');
+    const timeDisplay = document.getElementById('time');
+    vid.ontimeupdate = () => {
+      timeDisplay.innerText = 'Time: ' + vid.currentTime.toFixed(2) + 's / ' + vid.duration.toFixed(2) + 's';
+    };
+    function seekTo(s) {
+      vid.currentTime = s;
+      vid.pause();
+    }
+  </script>
+</body>
+</html>

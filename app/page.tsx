@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function Home() {
+export default function Home() {
   return (
     <main className="min-h-screen bg-[#070709] text-white overflow-x-clip font-sans selection:bg-[#E2B857] selection:text-black relative">
       <script
