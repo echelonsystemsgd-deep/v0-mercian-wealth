@@ -97,7 +97,7 @@ export function ViewportHUD() {
       <div className="absolute top-2/3 right-6 text-[#E2B857]/20 font-mono text-[11px] hidden lg:block">+</div>
 
       {/* Bottom-Left Telemetry: ● SEC 01 / 08 · 000 % */}
-      <div className="absolute bottom-4 left-6 sm:left-10 hidden sm:flex items-center gap-2 font-mono text-[10px] text-zinc-400 tracking-wider">
+      <div className="absolute bottom-3 sm:bottom-4 left-4 sm:left-10 flex items-center gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-[10px] text-zinc-400 tracking-wider">
         <span className="w-1.5 h-1.5 rounded-full bg-[#E2B857] animate-pulse" />
         <span className="text-zinc-200 font-semibold">SEC {currentSection} / 08</span>
         <span className="text-zinc-500">·</span>
@@ -105,7 +105,7 @@ export function ViewportHUD() {
       </div>
 
       {/* Bottom-Right Telemetry: UK 15:30:00 · 60 FPS */}
-      <div className="absolute bottom-4 right-6 sm:right-10 hidden sm:flex items-center gap-2 font-mono text-[10px] text-zinc-400 tracking-wider">
+      <div className="absolute bottom-3 sm:bottom-4 right-4 sm:right-10 flex items-center gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-[10px] text-zinc-400 tracking-wider">
         <span className="text-zinc-300">UK {ukTime || "12:00:00"}</span>
         <span className="text-zinc-500">·</span>
         <span className="text-[#E2B857]">{fps} FPS</span>

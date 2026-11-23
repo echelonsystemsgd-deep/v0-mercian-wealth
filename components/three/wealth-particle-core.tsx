@@ -23,13 +23,14 @@ export function WealthParticleCore() {
     const scene = new THREE.Scene()
     scene.fog = new THREE.FogExp2(0x070709, 0.035)
 
+    const isMobileInitial = window.innerWidth < 768
     const camera = new THREE.PerspectiveCamera(
-      52,
+      isMobileInitial ? 54 : 52,
       container.clientWidth / container.clientHeight,
       0.1,
       120
     )
-    camera.position.set(0, 0.2, 8.2)
+    camera.position.set(0, isMobileInitial ? 0.3 : 0.2, isMobileInitial ? 11.2 : 8.2)
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -323,24 +324,36 @@ export function WealthParticleCore() {
     mirrorSystem.scale.y = -1
     scene.add(mirrorSystem)
 
-    // 6. Interactive Mouse Tracking with Exact Ray/World Projection
-    const handleMouseMove = (e: MouseEvent) => {
+    // 6. Interactive Mouse & Touch Tracking with Inverted Camera Parallax
+    const updatePointer = (clientX: number, clientY: number) => {
       const rect = container.getBoundingClientRect()
-      const normX = ((e.clientX - rect.left) / rect.width) * 2 - 1
-      const normY = -(((e.clientY - rect.top) / rect.height) * 2 - 1)
+      const normX = ((clientX - rect.left) / rect.width) * 2 - 1
+      const normY = -(((clientY - rect.top) / rect.height) * 2 - 1)
       mouse.current.targetX = normX * 0.85
       mouse.current.targetY = normY * 0.55
 
-      // Accurate visible world plane projection at z = 0 (tan(26deg)*8.2 ~= 4.0 half-height)
+      // Accurate visible world plane projection at z = 0
       const aspect = container.clientWidth / container.clientHeight
-      const halfHeight = Math.tan(THREE.MathUtils.degToRad(26)) * 8.2
+      const halfHeight = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z
       const halfWidth = halfHeight * aspect
-      mouse.current.worldX = normX * halfWidth
-      mouse.current.worldY = normY * halfHeight + 0.2
+      mouse.current.worldX = camera.position.x + normX * halfWidth
+      mouse.current.worldY = camera.position.y + normY * halfHeight
       mouse.current.hasMoved = true
     }
 
+    const handleMouseMove = (e: MouseEvent) => {
+      updatePointer(e.clientX, e.clientY)
+    }
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches && e.touches.length > 0) {
+        updatePointer(e.touches[0].clientX, e.touches[0].clientY)
+      }
+    }
+
     window.addEventListener("mousemove", handleMouseMove, { passive: true })
+    window.addEventListener("touchmove", handleTouchMove, { passive: true })
+    window.addEventListener("touchstart", handleTouchMove, { passive: true })
 
     // 7. Scroll Progress Tracking
     const scrollState = {
@@ -375,71 +388,74 @@ export function WealthParticleCore() {
       // Smooth scroll lerp
       scrollState.progress += (scrollState.targetProgress - scrollState.progress) * 0.08
 
-      // Damped camera lerp (0.04 factor)
-      mouse.current.x += (mouse.current.targetX - mouse.current.x) * 0.04
-      mouse.current.y += (mouse.current.targetY - mouse.current.y) * 0.04
+      // Damped camera lerp (0.05 factor)
+      mouse.current.x += (mouse.current.targetX - mouse.current.x) * 0.05
+      mouse.current.y += (mouse.current.targetY - mouse.current.y) * 0.05
 
-      camera.position.x = mouse.current.x * 1.5
-      camera.position.y = 0.2 + mouse.current.y * 1.0
-      camera.lookAt(0, 0.1, 0)
+      // Camera parallax:
+      // When mouse moves LEFT (mouse.current.x < 0), camera moves slightly RIGHT (-mouse.current.x > 0),
+      // which shifts on-screen particles to the LEFT, directly following user's cursor!
+      const isMobileScreen = window.innerWidth < 768
+      const camParallaxX = isMobileScreen ? 0.25 : 0.65
+      const camParallaxY = isMobileScreen ? 0.2 : 0.45
+      const baseCamY = isMobileScreen ? 0.35 : 0.2
 
-      // Calculate Synchronized Active Stage & Target Buffer across 8 Sections:
-      // Section 1 (0.00 - 0.12): Crest centered -> gliding right (2.0)
-      // Section 2 (0.12 - 0.26): Crest at right
-      // Section 3 (0.26 - 0.40): Crest morphs to Browser Window
-      // Section 4 (0.40 - 0.54): Browser morphs to Gears
-      // Section 5 (0.54 - 0.68): Gears morph to Spark Star
-      // Section 6 (0.68 - 0.82): Spark morphs to Double-Ring Orbit
-      // Section 7 (0.82 - 0.90): Ring morphs to Crest on reflective floor
-      // Section 8 (0.90 - 1.00): Crest returns to full center (0.0) facing front
+      camera.position.x = -mouse.current.x * camParallaxX
+      camera.position.y = baseCamY - mouse.current.y * camParallaxY
+      camera.lookAt(0, isMobileScreen ? 0.25 : 0.1, 0)
+
+      // Calculate Synchronized Active Stage across 8 Sections:
+      // On mobile screens, keep particles centered (maxGliderX = 0) with vertical elevation
+      // so the 3D particles are never pushed offscreen!
       const p = scrollState.progress
+      const maxGliderX = isMobileScreen ? 0.0 : 2.0
       let targetBufA = stageCrest
       let targetBufB = stageCrest
       let stageLerp = 0
-      let targetPosX = 2.0
+      let targetPosX = maxGliderX
       let baseRotY = time * 0.14
 
       if (p < 0.12) {
         // SEC 01 Hero: Centered -> Glides to right
         targetBufA = stageCrest
         targetBufB = stageCrest
-        targetPosX = (p / 0.12) * 2.0
+        targetPosX = (p / 0.12) * maxGliderX
         stageLerp = 0
       } else if (p < 0.26) {
-        // SEC 02 Approach: Crest steady on right
+        // SEC 02 Approach: Crest steady
         targetBufA = stageCrest
         targetBufB = stageCrest
-        targetPosX = 2.0
+        targetPosX = maxGliderX
         stageLerp = 0
       } else if (p < 0.40) {
         // SEC 03 Storefronts: Crest -> Browser Window
         targetBufA = stageCrest
         targetBufB = stageBrowser
-        targetPosX = 2.0
+        targetPosX = maxGliderX
         stageLerp = (p - 0.26) / 0.14
       } else if (p < 0.54) {
         // SEC 04 Automation: Browser -> Gears
         targetBufA = stageBrowser
         targetBufB = stageGears
-        targetPosX = 2.0
+        targetPosX = maxGliderX
         stageLerp = (p - 0.40) / 0.14
       } else if (p < 0.68) {
         // SEC 05 Speed-to-Lead: Gears -> Spark Star
         targetBufA = stageGears
         targetBufB = stageSpark
-        targetPosX = 2.0
+        targetPosX = maxGliderX
         stageLerp = (p - 0.54) / 0.14
       } else if (p < 0.82) {
         // SEC 06 Selected Work: Spark -> Double-Ring Orbit
         targetBufA = stageSpark
         targetBufB = stageRing
-        targetPosX = 2.0 - ((p - 0.68) / 0.14) * 0.9
+        targetPosX = maxGliderX - ((p - 0.68) / 0.14) * (maxGliderX * 0.45)
         stageLerp = (p - 0.68) / 0.14
       } else if (p < 0.90) {
         // SEC 07 Method: Ring -> Crest
         targetBufA = stageRing
         targetBufB = stageCrest
-        targetPosX = 1.1 - ((p - 0.82) / 0.08) * 1.1
+        targetPosX = (maxGliderX * 0.55) - ((p - 0.82) / 0.08) * (maxGliderX * 0.55)
         stageLerp = (p - 0.82) / 0.08
       } else {
         // SEC 08 Closing CTA: Return to full center facing viewer
@@ -516,9 +532,12 @@ export function WealthParticleCore() {
       geometry.attributes.position.needsUpdate = true
 
       // Tilts and levitation of the 3D Particle Sculpture
-      particleSystem.rotation.y = baseRotY + mouse.current.x * 0.45
-      particleSystem.rotation.x = Math.sin(time * 0.25) * 0.08 + mouse.current.y * 0.35
-      particleSystem.position.y = 0.25 + Math.sin(time * 0.8) * 0.08
+      // When mouse moves LEFT, rotation.y rotates slightly LEFT to face cursor
+      // When mouse moves UP, rotation.x tilts upward to face cursor
+      const mobileElevation = isMobileScreen ? 0.35 : 0.0
+      particleSystem.rotation.y = baseRotY + mouse.current.x * 0.4
+      particleSystem.rotation.x = Math.sin(time * 0.25) * 0.08 - mouse.current.y * 0.25
+      particleSystem.position.y = 0.25 + mobileElevation + Math.sin(time * 0.8) * 0.08
 
       // Mirror reflection synchronizes rotation & position inverted
       mirrorSystem.rotation.y = particleSystem.rotation.y
@@ -546,7 +565,15 @@ export function WealthParticleCore() {
       if (!container) return
       const width = container.clientWidth
       const height = container.clientHeight
+      const isMobileNow = width < 768
       camera.aspect = width / height
+      if (isMobileNow) {
+        camera.position.z = 11.2
+        camera.fov = 54
+      } else {
+        camera.position.z = 8.2
+        camera.fov = 52
+      }
       camera.updateProjectionMatrix()
       renderer.setSize(width, height)
     }
@@ -556,6 +583,8 @@ export function WealthParticleCore() {
     // 10. Cleanup
     return () => {
       window.removeEventListener("mousemove", handleMouseMove)
+      window.removeEventListener("touchmove", handleTouchMove)
+      window.removeEventListener("touchstart", handleTouchMove)
       window.removeEventListener("scroll", handleScroll)
       window.removeEventListener("resize", handleResize)
       cancelAnimationFrame(animationFrameId)

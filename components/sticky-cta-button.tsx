@@ -86,51 +86,22 @@ export function StickyCTAButton() {
   return (
     <AnimatePresence>
       {isVisible && (
-        <>
-          {/* Mobile Unified Conversion Bar — Single persistent, non-overlapping bottom action sheet */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="sm:hidden fixed bottom-0 inset-x-0 z-[90] bg-[#0B0B0D]/95 backdrop-blur-xl border-t border-white/10 px-4 pt-2.5 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] flex items-center justify-between gap-3 card-depth pointer-events-auto"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.2 }}
+          className="fixed bottom-14 sm:bottom-24 right-4 sm:right-8 z-30 items-center pointer-events-auto"
+        >
+          <button
+            onClick={scrollToTop}
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#121216]/90 backdrop-blur-md border border-white/10 hover:border-[#E2B857]/50 text-zinc-400 hover:text-[#E2B857] flex items-center justify-center transition-all hover:scale-105 cursor-pointer outline-none shadow-lg"
+            aria-label="Scroll to top"
+            title="Scroll to top"
           >
-            <a
-              href="https://wa.me/447851055929?text=Hi%20Gurtej,%20I'd%20like%20to%20discuss%20a%20working%20prototype%20for%20my%20business."
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-              className="flex-1 min-h-[44px] py-2.5 px-3 rounded-xl bg-[#141417] border border-emerald-500/30 hover:border-emerald-500/60 text-emerald-400 font-semibold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2 active:scale-95 transition-transform"
-            >
-              <MessageSquare className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>WhatsApp</span>
-            </a>
-            <Link
-              href="/book"
-              className="flex-1 min-h-[44px] py-2.5 px-3 rounded-xl bg-[#DAA640] hover:bg-[#E5B85C] text-black font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-1.5 active:scale-95 transition-transform shadow-md shadow-[#DAA640]/20"
-            >
-              <span>Book Call</span>
-              <ArrowRight className="w-3.5 h-3.5 shrink-0" />
-            </Link>
-          </motion.div>
-
-          {/* Desktop Minimal Scroll-to-Top Button (Stacked vertically above WhatsApp launcher to prevent occlusion) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.2 }}
-            className="hidden sm:flex fixed bottom-26 right-8 z-30 items-center pointer-events-auto"
-          >
-            <button
-              onClick={scrollToTop}
-              className="w-9 h-9 rounded-full bg-[#121216]/90 backdrop-blur-md border border-white/10 hover:border-[#E2B857]/50 text-zinc-400 hover:text-[#E2B857] flex items-center justify-center transition-all hover:scale-105 cursor-pointer outline-none shadow-lg"
-              aria-label="Scroll to top"
-              title="Scroll to top"
-            >
-              <ChevronUp size={16} />
-            </button>
-          </motion.div>
-        </>
+            <ChevronUp size={15} />
+          </button>
+        </motion.div>
       )}
     </AnimatePresence>
   )

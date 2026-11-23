@@ -7,7 +7,7 @@ import { ArrowRight, Phone, Mail, ShieldCheck, CheckCircle2 } from "lucide-react
 // Section 02: Approach
 export function ApproachSection() {
   return (
-    <section id="approach" className="relative min-h-[90vh] flex items-center justify-start py-24 px-6 sm:px-12 lg:px-20 pointer-events-none">
+    <section id="approach" className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-start py-20 sm:py-24 px-5 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto">
         <div className="mb-4">
           <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#E2B857] uppercase">
@@ -15,7 +15,7 @@ export function ApproachSection() {
           </span>
         </div>
 
-        <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
+        <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
           <span className="text-[#E2B857]">FIRST THE WHY,</span><br />
           THEN THE CODE
         </h2>
@@ -32,7 +32,7 @@ export function ApproachSection() {
 export function StorefrontsSection() {
   const tags = ["SUB-400MS SPEED", "3-TAP INTAKE", "UPFRONT DEPOSITS", "3D EXPERIENCES"]
   return (
-    <section id="storefronts" className="relative min-h-[90vh] flex items-center justify-start py-24 px-6 sm:px-12 lg:px-20 pointer-events-none">
+    <section id="storefronts" className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-start py-20 sm:py-24 px-5 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto">
         <div className="mb-4">
           <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#E2B857] uppercase">
@@ -40,7 +40,7 @@ export function StorefrontsSection() {
           </span>
         </div>
 
-        <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
+        <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
           TURN VISITORS<br />
           <span className="text-[#E2B857]">INTO ENQUIRIES</span>
         </h2>
@@ -50,11 +50,11 @@ export function StorefrontsSection() {
         </p>
 
         {/* 4 Monospace Capability Tags */}
-        <div className="flex flex-wrap gap-2.5">
+        <div className="flex flex-wrap gap-2 sm:gap-2.5">
           {tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1.5 rounded-full bg-[#141418]/90 border border-white/10 text-zinc-300 font-mono text-[10px] tracking-wider uppercase backdrop-blur-sm"
+              className="px-3 py-1.5 rounded-full bg-[#141418]/90 border border-white/10 text-zinc-300 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase backdrop-blur-sm"
             >
               {tag}
             </span>
@@ -69,7 +69,7 @@ export function StorefrontsSection() {
 export function AutomationSection() {
   const tags = ["WHATSAPP DISPATCH", "CALENDAR SYNC", "CRM WEBHOOKS", "ZERO NO-SHOWS"]
   return (
-    <section id="automation" className="relative min-h-[90vh] flex items-center justify-start py-24 px-6 sm:px-12 lg:px-20 pointer-events-none">
+    <section id="automation" className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-start py-20 sm:py-24 px-5 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto">
         <div className="mb-4">
           <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#E2B857] uppercase">
@@ -77,7 +77,7 @@ export function AutomationSection() {
           </span>
         </div>
 
-        <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
+        <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
           REPETITIVE WORK,<br />
           <span className="text-[#E2B857]">DONE BY THE COMPUTER</span>
         </h2>
@@ -86,11 +86,11 @@ export function AutomationSection() {
           Leads that log themselves into your CRM, instant WhatsApp intake specs pushed to your smartphone in under 5 seconds, and automated follow-ups. Every week, hours handed back to you and your team.
         </p>
 
-        <div className="flex flex-wrap gap-2.5">
+        <div className="flex flex-wrap gap-2 sm:gap-2.5">
           {tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1.5 rounded-full bg-[#141418]/90 border border-white/10 text-zinc-300 font-mono text-[10px] tracking-wider uppercase backdrop-blur-sm"
+              className="px-3 py-1.5 rounded-full bg-[#141418]/90 border border-white/10 text-zinc-300 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase backdrop-blur-sm"
             >
               {tag}
             </span>
@@ -105,7 +105,7 @@ export function AutomationSection() {
 export function TriageSection() {
   const tags = ["<45S RESPONSE", "CLIENT TRIAGE", "STRIPE DEPOSIT", "REVENUE RETRIEVAL"]
   return (
-    <section id="systems" className="relative min-h-[90vh] flex items-center justify-start py-24 px-6 sm:px-12 lg:px-20 pointer-events-none">
+    <section id="systems" className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-start py-20 sm:py-24 px-5 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto">
         <div className="mb-4">
           <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#E2B857] uppercase">
@@ -113,7 +113,7 @@ export function TriageSection() {
           </span>
         </div>
 
-        <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
+        <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
           AN ASSISTANT THAT<br />
           <span className="text-[#E2B857]">KNOWS YOUR BUSINESS</span>
         </h2>
@@ -122,11 +122,11 @@ export function TriageSection() {
           Autonomous triage systems that qualify scope, reserve calendar slots, and collect deposits 24/7/365. Enquiries received outside office hours are confirmed in under 45 seconds while buyer intent is peak.
         </p>
 
-        <div className="flex flex-wrap gap-2.5">
+        <div className="flex flex-wrap gap-2 sm:gap-2.5">
           {tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1.5 rounded-full bg-[#141418]/90 border border-white/10 text-zinc-300 font-mono text-[10px] tracking-wider uppercase backdrop-blur-sm"
+              className="px-3 py-1.5 rounded-full bg-[#141418]/90 border border-white/10 text-zinc-300 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase backdrop-blur-sm"
             >
               {tag}
             </span>
@@ -146,7 +146,7 @@ export function WorkTeaserSection() {
   ]
 
   return (
-    <section id="work-teaser" className="relative min-h-[90vh] flex flex-col justify-center py-24 px-6 sm:px-12 lg:px-20 pointer-events-none">
+    <section id="work-teaser" className="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center py-20 sm:py-24 px-5 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto mb-10">
         <div className="mb-4">
           <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#E2B857] uppercase">
@@ -154,7 +154,7 @@ export function WorkTeaserSection() {
           </span>
         </div>
 
-        <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
+        <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
           TOOLS THAT<br />
           <span className="text-[#E2B857]">REALLY WORK</span>
         </h2>
@@ -165,17 +165,17 @@ export function WorkTeaserSection() {
       </div>
 
       {/* Floating Glass Showcase Cards */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl pointer-events-auto">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 max-w-5xl pointer-events-auto">
         {projects.map((proj) => (
           <Link
             key={proj.title}
             href="/portfolio"
-            className="p-6 rounded-2xl bg-[#0F0F13]/80 backdrop-blur-md border border-white/[0.08] hover:border-[#E2B857]/40 transition-all duration-300 shadow-xl group text-left"
+            className="p-5 sm:p-6 rounded-2xl bg-[#0F0F13]/80 backdrop-blur-md border border-white/[0.08] hover:border-[#E2B857]/40 transition-all duration-300 shadow-xl group text-left"
           >
             <span className="text-[10px] font-mono font-bold tracking-widest text-[#E2B857] uppercase block mb-2">
               {proj.cat}
             </span>
-            <h3 className="font-serif text-lg font-bold text-white uppercase group-hover:text-[#E2B857] transition-colors mb-2">
+            <h3 className="font-serif text-base sm:text-lg font-bold text-white uppercase group-hover:text-[#E2B857] transition-colors mb-2">
               {proj.title}
             </h3>
             <p className="text-xs text-zinc-400 leading-snug">
@@ -191,7 +191,7 @@ export function WorkTeaserSection() {
 // Section 08: Minimalist Closing CTA
 export function ClosingCTASection() {
   return (
-    <section id="cta" className="relative min-h-[85vh] flex items-center justify-center py-24 px-6 sm:px-12 lg:px-20 text-center overflow-hidden">
+    <section id="cta" className="relative min-h-[80vh] sm:min-h-[85vh] flex items-center justify-center py-20 sm:py-24 px-5 sm:px-12 lg:px-20 text-center overflow-hidden">
       <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
         
         <div className="mb-4">
@@ -200,7 +200,7 @@ export function ClosingCTASection() {
           </span>
         </div>
 
-        <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl font-bold uppercase tracking-tight text-white leading-tight mb-6">
+        <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tight text-white leading-tight mb-6">
           LET&apos;S <span className="text-[#E2B857]">TALK</span>
         </h2>
 
@@ -208,10 +208,10 @@ export function ClosingCTASection() {
           Tell us about your business and current intake process. We analyze your requirements and reply within one business day.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-8 w-full sm:w-auto">
           <Link
             href="/book"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-[#E2B857] hover:bg-[#F0C96E] text-black font-mono font-bold text-xs uppercase tracking-wider transition-all chamfered gold-glow shadow-xl shadow-[#E2B857]/20"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-[#E2B857] hover:bg-[#F0C96E] text-black font-mono font-bold text-xs uppercase tracking-wider transition-all chamfered gold-glow shadow-xl shadow-[#E2B857]/20"
           >
             <span>REQUEST SYSTEM BLUEPRINT ◆</span>
             <ArrowRight size={14} />
@@ -219,14 +219,14 @@ export function ClosingCTASection() {
 
           <a
             href="tel:+447851055929"
-            className="inline-flex items-center gap-2 px-6 py-4 bg-[#141418]/90 hover:bg-[#1E1E24] text-zinc-300 hover:text-white border border-white/10 font-mono text-xs uppercase tracking-wider transition-all chamfered-sm backdrop-blur-md"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 sm:py-4 bg-[#141418]/90 hover:bg-[#1E1E24] text-zinc-300 hover:text-white border border-white/10 font-mono text-xs uppercase tracking-wider transition-all chamfered-sm backdrop-blur-md"
           >
             <Phone size={13} className="text-[#E2B857]" />
             <span>+44 7851 055929</span>
           </a>
         </div>
 
-        <div className="flex items-center gap-2 text-[11px] font-mono text-zinc-500 uppercase tracking-widest">
+        <div className="flex items-center gap-2 text-[10px] sm:text-[11px] font-mono text-zinc-500 uppercase tracking-widest">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
           <span>Berkshire &amp; across the United Kingdom</span>
         </div>

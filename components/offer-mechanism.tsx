@@ -49,7 +49,7 @@ export function OfferMechanism() {
   ]
 
   return (
-    <section id="method" className="relative py-24 sm:py-32 bg-[#08080A] overflow-hidden">
+    <section id="method" className="relative py-20 sm:py-32 bg-[#08080A] overflow-hidden">
       {/* Ambient Radial Dark Gold Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#E2B857]/5 rounded-full blur-[160px] pointer-events-none z-0" />
 
@@ -61,13 +61,13 @@ export function OfferMechanism() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="max-w-3xl mb-14 sm:mb-20"
+          className="max-w-3xl mb-12 sm:mb-20"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-4 chamfered-sm">
             <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
             <span>[ SEC 07 / 08 · SYSTEM DEPLOYMENT METHOD ]</span>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold uppercase text-white tracking-wide leading-tight mb-4">
+          <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-bold uppercase text-white tracking-wide leading-tight mb-4">
             ONE METHODICAL MOVE AT A TIME
           </h2>
           <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-400 leading-relaxed max-w-2xl">
@@ -76,7 +76,7 @@ export function OfferMechanism() {
         </motion.div>
 
         {/* 2x2 Frosted-Glass Method Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8 mb-16">
           {stages.map((stage, idx) => (
             <motion.div
               key={stage.number}
@@ -84,7 +84,7 @@ export function OfferMechanism() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="p-7 sm:p-9 rounded-2xl bg-[#0F0F13]/70 backdrop-blur-md border border-white/[0.08] hover:border-[#E2B857]/40 transition-all duration-300 shadow-2xl flex flex-col justify-between space-y-6 group relative overflow-hidden"
+              className="p-5 sm:p-8 rounded-2xl bg-[#0F0F13]/70 backdrop-blur-md border border-white/[0.08] hover:border-[#E2B857]/40 transition-all duration-300 shadow-2xl flex flex-col justify-between space-y-5 group relative overflow-hidden"
             >
               {/* Subtle Step Number Watermark */}
               <div className="absolute top-4 right-6 font-mono text-5xl sm:text-6xl font-black text-white/[0.03] select-none pointer-events-none group-hover:text-[#E2B857]/10 transition-colors">
