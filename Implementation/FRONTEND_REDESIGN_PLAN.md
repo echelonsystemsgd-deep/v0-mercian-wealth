@@ -1,85 +1,92 @@
-# MERCIAN WEALTH AUTOMATION — FRONTEND ARCHITECTURAL REDESIGN PLAN
-## High-End Editorial 3D Interactive Design System & Implementation Blueprint
+# MERCIAN WEALTH: ARCHITECTURAL REDESIGN & IMPLEMENTATION SPECIFICATION
+
+> **CONFIDENTIALITY & ARCHITECTURAL DIRECTIVE:**
+> This specification documents the production transition of **Mercian Wealth** (`mercianwealth.com`) into a high-end editorial 3D interactive standard. All architecture, visual systems, and interaction models are tailored strictly to Mercian Wealth's brand sovereignty, obsidian-and-liquid-gold visual identity, and high-ticket client acquisition logic.
 
 ---
 
-### 1. EXECUTIVE VISION & BRAND IDENTITY
-Mercian Wealth Automation is transforming its frontend presentation to establish an institutional, high-end editorial standard. The interface seamlessly unifies military-grade technical precision with high-end luxury aesthetics, tailored specifically for UK local businesses, practices, and high-ticket service firms.
+## 1. Core Architecture & Navigation System
 
-#### Brand Matrix & Aesthetic Guardrails
-* **Identity:** Mercian Wealth Automation (Crest, Brand Mark, Executive Gold).
-* **Color Architecture:**
-  * **Obsidian Canvas:** `#080808` to `#0F0F12` deep dark-mode backdrop with subtle ambient gold floor glow.
-  * **Glassmorphic Obsidian Surfaces:** `rgba(17, 17, 21, 0.65)` with `backdrop-filter: blur(16px)` and subtle 1px border `rgba(255, 255, 255, 0.08)`.
-  * **Crisp Editorial White:** `#FFFFFF` with ultra-tight kerning for commanding display headers.
-  * **Muted Platinum / Slate:** `#A1A1AA` to `#D4D4D8` for scannable body and metric descriptions.
-  * **Signature Liquid Gold / Amber Accents:** `#E2B857`, `#D4AF37`, and metallic amber `#F59E0B` for glowing particle shaders, active slider tracks, HUD accents, and primary action buttons.
-* **Strict Constraints:**
-  * **Frontend Presentation Only:** Zero changes to backend APIs, database schemas, Supabase models, auth logic, or deployment configs.
-  * **Zero Route Breaking:** Preserve `/`, `/book`, `/preview/demo`, `/services`, `/practices`, and all form actions.
-  * **Zero UI Overlaps:** Eliminate the right-hand `SYSTEMS` vertical rail card overlap at desktop viewports and consolidate duplicate floating pills.
+### 1.1 Navigation Bar Architecture
+Eliminate all legacy mega-menus, multi-layer cards, and hover dropdowns that obscure page headlines. The global navigation is a clean, single-row, high-contrast bar:
 
----
-
-### 2. TYPOGRAPHY & HUD TELEMETRY SYSTEM
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│ [ SEC 01 / 06 · SYSTEM LATENCY: <45MS · STATUS: ARMED ]                │
-│                                                                        │
-│                      THE AUTONOMOUS WEALTH CORE                        │
-│             Where Speed-to-Lead Meets Institutional Rigor             │
-│                                                                        │
-│ +                                                                    + │
-│                                                                        │
-│ [ UK // GMT · 60 FPS ]                        [ SCROLL FOR BLUEPRINT ] │
-└────────────────────────────────────────────────────────────────────────┘
-```
-
-1. **Display Headings:** High-contrast editorial display serif uppercase (Cinzel / Playfair style) with expansive letter-spacing for primary section titles and italicized gold emphasis phrases (`<em>`).
-2. **Technical HUD Eyebrows & Metadata:** Monospace font (*Geist Mono*) in small uppercase (`10px`–`12px`) with brackets and telemetry indicators:
-   * `[ SEC 01 / 06 · SYSTEM LATENCY: <45MS · STATUS: ARMED ]`
-   * Nav telemetry indicator: `[ UK // GMT · 60 FPS ]`.
-3. **Body Text:** Crisp geometric sans-serif (*Inter* / *Geist Sans*) with comfortable line-height for effortless readability.
+- **Brand Anchor:** Geometric `[M]` Crest SVG / Image + `MERCIAN WEALTH` tracking to `/`.
+- **Primary Routes (Direct Single-Click Transitions):**
+  1. `About` (`/about`)
+  2. `Solutions` (`/services`)
+  3. `Work` (`/portfolio`)
+  4. `Economics` (`/pricing`)
+  5. `Contact` (`/contact`)
+- **HUD Telemetry & Action:**
+  - Real-time UK/GMT clock indicator (`[ UK // GMT HH:MM:SS · 60 FPS ]`).
+  - Chamfered liquid-gold button: `REQUEST BLUEPRINT ◆` (`/contact`).
 
 ---
 
-### 3. INTERACTIVE 3D WEBGL & PARTICLE ENGINE
+## 2. Persistent 3D WebGL Engine & Mercian `M` Crest
 
-#### 3.1 Hero Scene: "The Wealth Neural Core"
-* **Engine:** Three.js full-viewport background WebGL canvas.
-* **Particle Structure:** An instanced 3D metallic/gold neural node cluster (~8,000–10,000 particles) with continuous subtle Perlin noise displacement.
-* **Reflective Floor:** Dark reflective bottom plane with vertical ripple blur.
-* **Interactive Damping:** Mouse coordinate tracking with smooth camera `lerp` inertia (smoothing factor ~`0.05`).
+### 2.1 Centerpiece 3D Model: The Mercian `M` Crest
+Replaces generic particle clouds with a bespoke 3D geometric particle sculpture sampled directly from the official brand emblem:
+- **Geometry Composition:**
+  - **Upper Chevron ('M'):** Twin rising towers with a steep 45° center downward valley.
+  - **Lower Chevron ('W'):** Twin descending towers with a steep 45° center upward peak.
+  - **Waist Chamfers:** 45° inward diamond notches along the outer perimeter at $y = 0$.
+  - **Central Node:** Solid glowing spherical gold core anchored at $(0, 0, 0)$ with orbiting micro-particles.
+- **Particle Volumetrics:** ~8,500 instanced additive particles extruded along the $Z$ axis ($z \in [-0.35, +0.35]$).
+- **Color Gradients:** Liquid Gold (`#E2B857`), Radiant Amber (`#F59E0B`), and Platinum White edge vertices.
 
-#### 3.2 The "Speed-to-Lead & Capacity" 3D ROI Calculator
-* **User Controls:**
-  * Monthly Inbound Enquiries slider (`20` to `500`).
-  * Average Ticket / Project Value slider (`£500` to `£25,000`).
-  * Current Manual Response Delay slider (`0.5h` to `24h`).
-  * Leakage Vector Toggle Pills (After-Hours Drop-off, Manual Booking Friction, Unanswered WhatsApps).
-* **Dynamic 3D Particle Bar Chart:**
-  * Instanced vertical particle columns that scale in real time as the sliders change.
-  * Intense gold top caps (`#F59E0B`) with gold-to-transparent particle trails.
-* **Live Financial Readout:**
-  * *Estimated Annual Revenue Leaked* (High-contrast gold serif headline).
-  * *Recaptured Capital with Mercian Autonomous Triage*.
-  * Action Button: Chamfered gold pill `[ REQUEST SYSTEM BLUEPRINT ↗ ]`.
-
----
-
-### 4. CINEMATIC SECTION ARCHITECTURE & SCROLL PACING
-
-* **Global HUD Layer:** Fixed corner brackets (`tl`, `tr`, `bl`, `br`), hairline crosshairs (`+`), live section indicator `SEC 01 / 06 · XX%`, live UK clock and FPS counter.
-* **Section 01 (Hero):** 3D Interactive Gold Core + Majestic Editorial Headline + Monospace Telemetry HUD + Dual CTAs (`View Systems` / `Calculate Revenue Leak`).
-* **Section 02 (The Contrast):** "Manual Operations vs. Autonomous Infrastructure" (clean comparative glassmorphic cards).
-* **Section 03 (The Interactive 3D Calculator):** The dynamic gold particle calculator displaying financial ROI and recaptured capital.
-* **Section 04 (The Systems Showcase):** 3D tiltable glass cards featuring Mercian Wealth’s core software modules (Instant Speed-to-Lead Triage, Automated Client Onboarding, Retainer & Job Timer).
-* **Section 05 (Frictionless Intake / Booking):** A streamlined, single-screen project brief selector + live calendar booking interface without multi-step gating.
+### 2.2 Atmospheric Horizon & Planar Water Reflection
+- **Nocturnal Obsidian Horizon:** Gradient canvas from `#08080a` to `#14120e`.
+- **Distant Silhouette:** Low-poly dark mountain ridges on the horizon.
+- **Planar Water Surface:** Real-time reflection plane across the lower 30% of the viewport mirroring the 3D crest with animated sinusoidal wave ripples.
+- **Mouse Dynamics:** Smooth cursor-following pitch and yaw rotation and camera orbit with damped inertia (`lerp = 0.04`).
+- **Scroll Synchronization:**
+  - `Hero`: Centered levitation over the water mirror.
+  - `Approach`: Smoothly glides to the right.
+  - `Solutions`: Morphs into technical wireframes.
+  - `Closing CTA`: Returns to full center.
 
 ---
 
-### 5. BUG REMEDIATION & DESKTOP ERGONOMICS
-* **Fixing Desktop Overlaps:** Replace the bulky floating right-rail `ChapterTracker` with an integrated HUD scroll track (`scaleY` progress fill) positioned strictly in the outer margin so it never collides with cards or content at 1440px resolution.
-* **Consolidating Floating Pills:** Merge duplicate floating WhatsApp and concierge pills into a singular, clean, non-intrusive bottom HUD element.
-* **Mobile & Low-Power Optimization:** Auto-throttle particle count on mobile screens (`<768px`) and cap `devicePixelRatio` at `2` for sustained 60 FPS performance.
+## 3. Business Logic & Method Grid (Stage 4 Correction)
+
+### 3.1 Eliminating Agency Domain Liability
+Stage 4 explicitly secures client asset ownership while protecting agency margins:
+
+1. **01 DISCOVERY & RECONNAISSANCE:**
+   - Forensic speed, Core Web Vitals, and conversion rate audit.
+   - Bottleneck mapping of manual intake and booking drop-offs.
+   - Architecture specification.
+2. **02 BESPOKE SYSTEM ARCHITECTURE:**
+   - Sub-second Next.js storefronts (<400ms TTFB).
+   - 3-tap interactive qualification and booking funnels.
+   - Custom CRM webhooks.
+3. **03 PRODUCTION BUILD & INTEGRATION:**
+   - Instant WhatsApp lead notifications (<5s).
+   - Upfront Stripe / Apple Pay deposit locks (eliminating no-shows).
+   - Zero-leak WebGL and asset optimization.
+4. **04 LAUNCH, ASSET SOVEREIGNTY & AUTONOMOUS SCALE:**
+   - **Client Asset Sovereignty:** Domains, DNS, and cloud accounts are configured directly in the client's registrar and cloud infrastructure (the client owns 100% of their digital assets, avoiding permanent agency renewal costs).
+   - 24/7 automated uptime monitoring and speed SLA.
+   - Ongoing performance optimization and lead-conversion retainers.
+
+---
+
+## 4. Subpage Blueprint & 3D Integration
+
+| Route | Content Focus | 3D Interactive Canvas Role |
+| :--- | :--- | :--- |
+| **`/` (Home)** | Editorial hero, architectural philosophy, 3 capability pillars, 4-stage method grid, closing CTA. | **3D Mercian `M` Crest** hovering over reflective water; mouse orbit parallax. |
+| **`/about`** | "One Principal, Zero Agency Overhead", direct engineer-to-client accountability, engineering principles bento. | **3D Concentric Crest / Helix** reacting to mouse rotation. |
+| **`/services`** | 4 Capability pillars (Storefronts, Builders, WhatsApp dispatch, Deposit locks) with technical telemetry. | **3D Wireframe Browser & Node Network** responding to cursor movement. |
+| **`/portfolio`** | Verified client case studies (Vance & Partners, Thornton Building, Aurelia Aesthetics, Artisanal Pâtisserie). | **3D Orbital Gallery Carousel** with drag/scroll interaction. |
+| **`/pricing`** | "Stop Paying A Tax On Manual Operations", Speed-to-Lead ROI Simulator (`#calculator`), retainer tiers. | **3D Dynamic Particle Bar Chart & Ascending Coin Stacks**. |
+| **`/contact`** | Single-screen split: facts table on left, frosted-glass brief form on right with HUD corner brackets. | **3D Mercian `M` Crest glowing through the frosted glass form**. |
+
+---
+
+## 5. Execution Steps
+1. Re-engineer `components/three/wealth-particle-core.tsx` to generate the procedural 3D Mercian `M` Crest, mountain silhouettes, and real-time planar water reflection plane.
+2. Update `components/navbar.tsx` to remove the mega-dropdown and establish the clean 6-item navigation bar.
+3. Update `components/offer-mechanism.tsx` and `components/process.tsx` to incorporate the refined 4-stage method grid with Stage 4 client domain ownership.
+4. Run full Next.js production build and conduct visual inspection via browser tools across desktop and mobile.

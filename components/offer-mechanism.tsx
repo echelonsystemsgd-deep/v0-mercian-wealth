@@ -1,28 +1,59 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, CheckCircle2, Sparkles, Smartphone, ShieldCheck, Zap, Layers } from "lucide-react"
-import { SITE_COPY } from "@/lib/site-copy"
-import { SectionDivider } from "@/components/section-divider"
+import { CheckCircle2, ArrowRight, ShieldCheck, Zap, Server, Globe } from "lucide-react"
+import Link from "next/link"
 
 export function OfferMechanism() {
-  const data = SITE_COPY.homepage.offerMechanism
-
-  const triggerModal = () => {
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new CustomEvent("open-prototype-modal"))
-    }
-  }
+  const stages = [
+    {
+      number: "01",
+      title: "DISCOVERY & AUDIT",
+      tagline: "Forensic analysis of current operations",
+      deliverables: [
+        "Core Web Vitals & mobile latency benchmark (<400ms target)",
+        "Intake drop-off & manual record chasing friction audit",
+        "Bespoke system architecture specification",
+      ],
+    },
+    {
+      number: "02",
+      title: "ARCHITECTURE & PROTOTYPE",
+      tagline: "Phone-tested before commercial commitment",
+      deliverables: [
+        "Interactive 3-tap booking & customer intake builder",
+        "Test directly on your personal smartphone within 48h",
+        "Zero obligation proof before any production agreement",
+      ],
+    },
+    {
+      number: "03",
+      title: "PRODUCTION BUILD",
+      tagline: "Engineering sub-second speed & automation",
+      deliverables: [
+        "Instant WhatsApp alert dispatch (<5 seconds to partner)",
+        "Stripe & Apple Pay upfront deposit lock (0 no-shows)",
+        "Zero-leak WebGL & Three.js interactive graphics layer",
+      ],
+    },
+    {
+      number: "04",
+      title: "LAUNCH & ASSET SOVEREIGNTY",
+      tagline: "100% client-owned infrastructure with zero lock-in",
+      deliverables: [
+        "Domain & cloud accounts configured directly in your registrar",
+        "You retain 100% permanent ownership of code, assets & data",
+        "Continuous 24/7 automated uptime monitoring & SLA retainers",
+      ],
+    },
+  ]
 
   return (
-    <section id="offer-mechanism" className="relative py-16 sm:py-24 bg-[#09090B] overflow-hidden">
-      {/* Chapter Marker */}
-      <SectionDivider chapter="III" title="THE OFFER PROTOCOL" />
+    <section id="method" className="relative py-24 sm:py-32 bg-[#08080A] overflow-hidden">
+      {/* Ambient Radial Dark Gold Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#E2B857]/5 rounded-full blur-[160px] pointer-events-none z-0" />
 
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-[#DCAE53]/5 rounded-full blur-[160px] pointer-events-none z-0" />
-
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 z-10 text-center">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10">
         
         {/* Section Header */}
         <motion.div
@@ -30,90 +61,87 @@ export function OfferMechanism() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="max-w-3xl mx-auto mb-12 sm:mb-16"
+          className="max-w-3xl mb-14 sm:mb-20"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-4 chamfered-sm">
             <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
-            <span>[ SEC 04 / 06 · {data.eyebrow} ]</span>
+            <span>[ SEC 04 / 06 · SYSTEM DEPLOYMENT METHOD ]</span>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold uppercase text-white tracking-wide leading-tight text-balance mb-4">
-            {data.headline}
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold uppercase text-white tracking-wide leading-tight mb-4">
+            ONE METHODICAL MOVE AT A TIME
           </h2>
-          <p className="font-sans text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
-            {data.subheadline}
+          <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-400 leading-relaxed max-w-2xl">
+            From initial friction analysis to client-owned production deployment. Zero speculative slide decks, zero endless agency retainers.
           </p>
         </motion.div>
 
-        {/* 3-Step Protocol Cards with Visual Weight */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mb-12 text-left">
-          {data.steps.map((step, idx) => (
+        {/* 2x2 Frosted-Glass Method Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16">
+          {stages.map((stage, idx) => (
             <motion.div
-              key={idx}
+              key={stage.number}
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.12 }}
-              className="p-6 sm:p-7 rounded-2xl bg-[#111115] border border-slate-800 hover:border-[#DCAE53]/50 transition-all duration-300 shadow-xl flex flex-col justify-between space-y-6 relative overflow-hidden group"
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="p-7 sm:p-9 rounded-2xl bg-[#0F0F13]/70 backdrop-blur-md border border-white/[0.08] hover:border-[#E2B857]/40 transition-all duration-300 shadow-2xl flex flex-col justify-between space-y-6 group relative overflow-hidden"
             >
               {/* Subtle Step Number Watermark */}
-              <div className="absolute top-3 right-4 font-mono text-4xl sm:text-5xl font-black text-slate-800/40 select-none pointer-events-none group-hover:text-[#DCAE53]/10 transition-colors">
-                {step.stepNumber}
+              <div className="absolute top-4 right-6 font-mono text-5xl sm:text-6xl font-black text-white/[0.03] select-none pointer-events-none group-hover:text-[#E2B857]/10 transition-colors">
+                {stage.number}
               </div>
 
-              <div className="space-y-4">
-                <div className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[#DCAE53] font-bold bg-[#18181F] px-2.5 py-1 rounded-md border border-[#DCAE53]/20">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#DCAE53]" />
-                  <span>{step.metric}</span>
+              <div className="space-y-3 relative z-10">
+                <div className="inline-flex items-center gap-2 font-mono text-[11px] text-[#E2B857] font-bold tracking-widest uppercase">
+                  <span>STAGE {stage.number}</span>
                 </div>
 
-                <h3 className="text-base sm:text-lg font-bold text-white leading-snug">
-                  {step.title}
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-white uppercase tracking-wide">
+                  {stage.title}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
-                  {step.description}
+                <p className="font-sans text-xs sm:text-sm text-zinc-400">
+                  {stage.tagline}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-emerald-400">
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  <span>Stage Verified</span>
-                </span>
-                <span className="text-slate-500">Step {step.stepNumber}</span>
+              {/* Hairline-Separated Deliverables */}
+              <div className="pt-4 border-t border-white/[0.08] space-y-2.5 relative z-10 font-mono text-xs text-zinc-300">
+                {stage.deliverables.map((item, i) => (
+                  <div key={i} className="flex items-start gap-2.5">
+                    <span className="text-[#E2B857] shrink-0 mt-0.5">◆</span>
+                    <span className="leading-snug">{item}</span>
+                  </div>
+                ))}
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Prototype Showcase & Action Callout */}
+        {/* Bottom Verification Banner */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-[#111115] via-[#16161c] to-[#111115] border border-[#DCAE53]/30 shadow-2xl max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-left"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="p-6 sm:p-8 rounded-2xl bg-[#121216]/80 border border-[#E2B857]/30 flex flex-col sm:flex-row items-center justify-between gap-6"
         >
-          <div className="space-y-2 max-w-xl">
-            <div className="flex items-center gap-2 text-[#DCAE53] text-xs font-mono font-bold uppercase">
-              <Smartphone className="w-4 h-4" />
-              <span>Free Custom Working Prototype</span>
+          <div className="space-y-1.5 text-left">
+            <div className="flex items-center gap-2 text-[#E2B857] text-xs font-mono font-bold uppercase tracking-wider">
+              <ShieldCheck className="w-4 h-4" />
+              <span>Full Asset Sovereignty Guarantee</span>
             </div>
-            <h4 className="text-lg sm:text-xl font-bold text-white">
-              See what an instant response system changes for your business.
-            </h4>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              No slide decks. We configure your business name, services, and live booking logic into a functioning demo you can test directly on your phone.
+            <p className="font-sans text-xs sm:text-sm text-zinc-400 max-w-xl">
+              You own 100% of your domain, codebase, customer database, and payment gateway from day one. We never charge ongoing hostage fees for what you own.
             </p>
           </div>
 
-          <button
-            onClick={triggerModal}
-            className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-[#DCAE53] text-[#09090B] font-bold text-xs sm:text-sm hover:bg-[#E5B85C] transition-all shadow-lg shadow-[#DCAE53]/20 cursor-pointer"
+          <Link
+            href="/book"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-[#E2B857] hover:bg-[#F0C96E] text-black font-mono font-bold text-xs uppercase tracking-wider transition-all chamfered-sm shadow-lg shadow-[#E2B857]/20 whitespace-nowrap shrink-0"
           >
-            <span>{data.ctaText}</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+            <span>REQUEST SYSTEM BLUEPRINT ◆</span>
+          </Link>
         </motion.div>
 
       </div>
