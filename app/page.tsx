@@ -10,19 +10,17 @@ import {
 } from "@/components/cerbo-style-homepage"
 import { OfferMechanism } from "@/components/offer-mechanism"
 import { Footer } from "@/components/footer"
-import dynamic from "next/dynamic"
-
-const ViewportHUD = dynamic(() => import("@/components/hud/viewport-hud").then((mod) => mod.ViewportHUD))
-const WealthParticleCore = dynamic(() => import("@/components/three/wealth-particle-core").then((mod) => mod.WealthParticleCore))
+import { ViewportHUD } from "@/components/hud/viewport-hud"
+import { WealthParticleCore } from "@/components/three/wealth-particle-core"
 
 import { SITE_COPY } from "@/lib/site-copy"
 import type { Metadata } from "next"
 
-export const revalidate = 60
+export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
-  title: SITE_COPY.metadata.home.title,
-  description: SITE_COPY.metadata.home.description,
+  title: "Websites, automation, client acquisition — Mercian Wealth",
+  description: "Sub-second digital storefronts, intake builders, and automated speed-to-lead pipelines for high-performing UK practices.",
   alternates: {
     canonical: "https://mercianwealth.com",
   },

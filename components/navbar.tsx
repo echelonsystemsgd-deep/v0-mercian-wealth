@@ -140,10 +140,9 @@ export function Navbar() {
   }
 
   const navLinks = [
-    { label: "About", href: "/about" },
     { label: "Solutions", href: "/services" },
     { label: "Work", href: "/portfolio" },
-    { label: "Economics", href: "/pricing" },
+    { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ]
 
@@ -319,11 +318,9 @@ export function Navbar() {
                 {/* Nav Links */}
                 <div className="flex-1 overflow-y-auto px-4 py-6 space-y-2">
                   {[
-                    { name: "Home", href: "/", icon: Sparkles },
-                    { name: "About", href: "/about", icon: Info },
                     { name: "Solutions", href: "/services", icon: Cpu },
                     { name: "Work", href: "/portfolio", icon: Layers },
-                    { name: "Economics", href: "/pricing", icon: CreditCard },
+                    { name: "About", href: "/about", icon: Info },
                     { name: "Contact", href: "/contact", icon: Mail },
                   ].map((item) => {
                     const Icon = item.icon
