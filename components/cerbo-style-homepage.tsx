@@ -8,7 +8,7 @@ import { ArrowRight, Phone } from "lucide-react"
 // SECTION 02: THE VISION / APPROACH
 export function ApproachSection() {
   return (
-    <section id="vision" className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-start pt-24 pb-32 sm:pb-36 px-6 sm:px-12 lg:px-20 pointer-events-none">
+    <section id="vision" className="relative min-h-[75vh] sm:min-h-screen flex items-center justify-start py-16 sm:py-24 sm:pb-36 px-5 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -51,7 +51,7 @@ export function ApproachSection() {
 export function StorefrontsSection() {
   const tags = ["BESPOKE PLATFORMS", "CONVERSION ARCHITECTURE", "CREDIBILITY SIGNALS", "SEAMLESS INTAKE"]
   return (
-    <section id="conversion" className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-start pt-24 pb-32 sm:pb-36 px-6 sm:px-12 lg:px-20 pointer-events-none">
+    <section id="conversion" className="relative min-h-[75vh] sm:min-h-screen flex items-center justify-start py-16 sm:py-24 sm:pb-36 px-5 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -92,12 +92,12 @@ export function StorefrontsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-wrap gap-2 sm:gap-2.5"
+          className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-2.5"
         >
           {tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1.5 bg-[#0a0614]/90 border border-white/15 hover:border-[#d4af37]/50 text-zinc-300 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase backdrop-blur-sm transition-colors"
+              className="px-3 py-2 sm:py-1.5 bg-[#0a0614]/90 border border-white/15 hover:border-[#d4af37]/50 text-zinc-300 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase backdrop-blur-sm transition-colors text-center flex items-center justify-center"
             >
               [ {tag} ]
             </span>
@@ -112,7 +112,7 @@ export function StorefrontsSection() {
 export function AutomationSection() {
   const tags = ["INTAKE BUILDERS", "WHATSAPP DISPATCH", "CALENDAR SYNC", "CRM WEBHOOKS"]
   return (
-    <section id="automation" className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-start pt-24 pb-32 sm:pb-36 px-6 sm:px-12 lg:px-20 pointer-events-none">
+    <section id="automation" className="relative min-h-[75vh] sm:min-h-screen flex items-center justify-start py-16 sm:py-24 sm:pb-36 px-5 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -153,12 +153,12 @@ export function AutomationSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-wrap gap-2 sm:gap-2.5"
+          className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-2.5"
         >
           {tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1.5 bg-[#0a0614]/90 border border-white/15 hover:border-[#d4af37]/50 text-zinc-300 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase backdrop-blur-sm transition-colors"
+              className="px-3 py-2 sm:py-1.5 bg-[#0a0614]/90 border border-white/15 hover:border-[#d4af37]/50 text-zinc-300 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase backdrop-blur-sm transition-colors text-center flex items-center justify-center"
             >
               [ {tag} ]
             </span>
@@ -173,7 +173,7 @@ export function AutomationSection() {
 export function TriageSection() {
   const tags = ["SUB-45S RESPONSE", "ENQUIRY TRIAGE", "PROCESS ROUTING", "24/7 AVAILABILITY"]
   return (
-    <section id="systems" className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-start pt-24 pb-32 sm:pb-36 px-6 sm:px-12 lg:px-20 pointer-events-none">
+    <section id="systems" className="relative min-h-[75vh] sm:min-h-screen flex items-center justify-start py-16 sm:py-24 sm:pb-36 px-5 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -214,12 +214,12 @@ export function TriageSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-wrap gap-2 sm:gap-2.5"
+          className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-2.5"
         >
           {tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1.5 bg-[#0a0614]/90 border border-white/15 hover:border-[#d4af37]/50 text-zinc-300 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase backdrop-blur-sm transition-colors"
+              className="px-3 py-2 sm:py-1.5 bg-[#0a0614]/90 border border-white/15 hover:border-[#d4af37]/50 text-zinc-300 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase backdrop-blur-sm transition-colors text-center flex items-center justify-center"
             >
               [ {tag} ]
             </span>
@@ -254,7 +254,7 @@ export function WorkTeaserSection() {
   ]
 
   return (
-    <section id="work-teaser" className="relative min-h-[92vh] sm:min-h-screen flex flex-col justify-center pt-24 pb-32 sm:pb-36 px-6 sm:px-12 lg:px-20 pointer-events-none">
+    <section id="work-teaser" className="relative min-h-[75vh] sm:min-h-screen flex flex-col justify-center py-16 sm:py-24 sm:pb-36 px-5 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto mb-10">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -352,7 +352,7 @@ export function WorkTeaserSection() {
 // SECTION 08: 06 — LET'S TALK (CLOSING HERO-ECHO CTA)
 export function ClosingCTASection() {
   return (
-    <section id="cta" className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center pt-24 pb-32 sm:pb-36 px-6 sm:px-12 lg:px-20 text-center overflow-hidden">
+    <section id="cta" className="relative min-h-[75vh] sm:min-h-screen flex items-center justify-center py-16 sm:py-24 sm:pb-36 px-5 sm:px-12 lg:px-20 text-center overflow-hidden">
       <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
         
         <motion.div

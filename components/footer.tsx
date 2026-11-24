@@ -6,7 +6,7 @@ import { Phone, Mail } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer id="site-footer" className="relative bg-[#030206] border-t border-white/[0.08] text-zinc-400 pt-12 pb-28 sm:pb-32 px-6 sm:px-12 lg:px-20 z-10">
+    <footer id="site-footer" className="relative bg-[#030206] border-t border-white/[0.08] text-zinc-400 pt-12 pb-[max(5.5rem,calc(env(safe-area-inset-bottom)+4.5rem))] sm:pb-32 px-5 sm:px-12 lg:px-20 z-10">
       <div className="max-w-7xl mx-auto flex flex-col space-y-8">
         
         {/* Top Row: Logo, Minimal Links, Direct Contact */}
@@ -42,12 +42,12 @@ export function Footer() {
         </div>
 
         {/* Bottom Row: Legal & Sovereignty */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[10px] text-zinc-500">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[10px] text-zinc-500 text-center sm:text-left">
           <span>&copy; {new Date().getFullYear()} Mercian Wealth. All rights reserved. United Kingdom.</span>
-          <div className="flex items-center gap-4">
-            <Link href="/privacy" className="hover:text-zinc-300 transition-colors">Privacy</Link>
-            <Link href="/terms" className="hover:text-zinc-300 transition-colors">Terms</Link>
-            <Link href="/login" rel="nofollow" className="hover:text-zinc-300 transition-colors">Client Portal</Link>
+          <div className="flex items-center justify-center gap-5 sm:gap-4">
+            <Link href="/privacy" className="hover:text-zinc-300 transition-colors py-1">Privacy</Link>
+            <Link href="/terms" className="hover:text-zinc-300 transition-colors py-1">Terms</Link>
+            <Link href="/login" rel="nofollow" className="hover:text-zinc-300 transition-colors py-1">Client Portal</Link>
           </div>
         </div>
 

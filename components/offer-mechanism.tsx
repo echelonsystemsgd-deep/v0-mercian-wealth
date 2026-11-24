@@ -47,7 +47,7 @@ export function OfferMechanism() {
   ]
 
   return (
-    <section id="method" className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center pt-24 pb-32 sm:pb-36 px-6 sm:px-12 lg:px-20 pointer-events-none">
+    <section id="method" className="relative min-h-[75vh] sm:min-h-screen flex items-center justify-center py-16 sm:py-24 sm:pb-36 px-5 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-7xl mx-auto pointer-events-auto w-full">
         
         {/* Section Header */}
@@ -56,7 +56,7 @@ export function OfferMechanism() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="max-w-2xl text-left mb-12 sm:mb-16"
+          className="max-w-2xl text-left mb-10 sm:mb-16"
         >
           <div className="mb-4">
             <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#d4af37] uppercase">
@@ -83,10 +83,10 @@ export function OfferMechanism() {
               className="p-5 sm:p-6 bg-[#0a0614]/85 border border-white/10 hover:border-[#d4af37]/45 transition-all duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between"
             >
               <div>
-                <span className="font-mono text-xs font-bold text-[#d4af37] tracking-widest uppercase block mb-3">
-                  {stage.number} — {stage.title}
+                <span className="font-mono text-[10px] sm:text-xs font-bold text-[#d4af37] tracking-widest uppercase block mb-2">
+                  PHASE {stage.number}
                 </span>
-                <h3 className="font-serif text-base sm:text-lg font-bold text-white uppercase tracking-wide mb-2">
+                <h3 className="font-serif text-lg sm:text-xl font-bold text-white uppercase tracking-wide mb-2">
                   {stage.title}
                 </h3>
                 <p className="font-sans text-xs text-zinc-400 mb-6 leading-relaxed">

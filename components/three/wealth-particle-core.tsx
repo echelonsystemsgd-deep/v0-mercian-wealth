@@ -31,7 +31,7 @@ export function WealthParticleCore() {
       0.1,
       120
     )
-    camera.position.set(0, isMobileInitial ? 0.35 : 0.15, isMobileInitial ? 10.8 : 8.2)
+    camera.position.set(0, isMobileInitial ? 0.65 : 0.15, isMobileInitial ? 11.2 : 8.2)
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -427,29 +427,29 @@ export function WealthParticleCore() {
     const particleTexture = new THREE.CanvasTexture(particleCanvas)
 
     const material = new THREE.PointsMaterial({
-      size: isMobile ? 0.082 : 0.062,
+      size: isMobile ? 0.052 : 0.062,
       vertexColors: true,
       map: particleTexture,
       transparent: true,
-      opacity: 0.96,
+      opacity: isMobile ? 0.72 : 0.96,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     })
 
     const particleSystem = new THREE.Points(geometry, material)
     const heroPosX = isMobile ? 0.0 : 1.75
-    particleSystem.position.set(heroPosX, 0.15, 0)
+    particleSystem.position.set(heroPosX, isMobile ? 0.95 : 0.15, 0)
     scene.add(particleSystem)
 
     // 4. Subtle Inverted Glow Reflection (Placed strictly BELOW the lowest crest tip at y = -2.25)
     const reflectionLevel = -2.25
     const mirrorGeometry = geometry.clone()
     const mirrorMaterial = new THREE.PointsMaterial({
-      size: isMobile ? 0.065 : 0.048,
+      size: isMobile ? 0.038 : 0.048,
       vertexColors: true,
       map: particleTexture,
       transparent: true,
-      opacity: 0.28,
+      opacity: isMobile ? 0.18 : 0.28,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     })
@@ -524,13 +524,13 @@ export function WealthParticleCore() {
 
       // Natural camera parallax
       const isMobileScreen = window.innerWidth < 768
-      const mouseParallaxX = mouse.current.x * (isMobileScreen ? 0.08 : 0.22)
-      const mouseParallaxY = mouse.current.y * (isMobileScreen ? 0.06 : 0.16)
-      const baseCamY = isMobileScreen ? 0.35 : 0.15
+      const mouseParallaxX = mouse.current.x * (isMobileScreen ? 0.05 : 0.22)
+      const mouseParallaxY = mouse.current.y * (isMobileScreen ? 0.04 : 0.16)
+      const baseCamY = isMobileScreen ? 0.65 : 0.15
 
       camera.position.x = mouseParallaxX * 0.4
       camera.position.y = baseCamY + mouseParallaxY * 0.3
-      camera.lookAt(isMobileScreen ? 0.0 : 0.45, isMobileScreen ? 0.2 : 0.05, 0)
+      camera.lookAt(isMobileScreen ? 0.0 : 0.45, isMobileScreen ? 0.65 : 0.05, 0)
 
       // Calculate Synchronized Active Stage across the 8 Cerbo Sections with Hold-Then-Morph:
       // SEC 01 Hero: 0.00 - 0.10 (MW Crest, right-anchored on desktop, center on mobile)
@@ -700,10 +700,30 @@ export function WealthParticleCore() {
       geometry.attributes.position.needsUpdate = true
 
       // Tilts and levitation of the 3D Particle Sculpture
-      const mobileElevation = isMobileScreen ? 0.3 : 0.0
-      particleSystem.rotation.y = baseRotY + mouse.current.x * 0.32
-      particleSystem.rotation.x = Math.sin(time * 0.25) * 0.05 - mouse.current.y * 0.2
+      const mobileElevation = isMobileScreen ? 0.95 : 0.0
+      particleSystem.rotation.y = baseRotY + mouse.current.x * (isMobileScreen ? 0.15 : 0.32)
+      particleSystem.rotation.x = Math.sin(time * 0.25) * 0.05 - mouse.current.y * (isMobileScreen ? 0.1 : 0.2)
       particleSystem.position.y = 0.15 + mobileElevation + Math.sin(time * 0.8) * 0.06 + mouseParallaxY * 0.35
+
+      // Dynamic opacity attenuation on mobile during dense card sections
+      if (isMobileScreen) {
+        if (p >= 0.62 && p <= 0.88) {
+          material.opacity = 0.20
+          mirrorMaterial.opacity = 0.05
+        } else {
+          material.opacity = 0.72
+          mirrorMaterial.opacity = 0.18
+        }
+      } else {
+        material.opacity = 0.96
+        mirrorMaterial.opacity = 0.28
+      }
+
+      // Soften reflection near the very bottom to avoid hard edge against footer
+      if (p > 0.96) {
+        const fadeP = 1.0 - Math.min((p - 0.96) / 0.04, 1.0)
+        mirrorMaterial.opacity *= fadeP
+      }
 
       // Mirror reflection synchronizes rotation & position inverted
       mirrorSystem.rotation.y = particleSystem.rotation.y
@@ -734,10 +754,10 @@ export function WealthParticleCore() {
       const isMobileNow = width < 768
       camera.aspect = width / height
       if (isMobileNow) {
-        camera.position.z = 10.8
+        camera.position.set(0, 0.65, 11.2)
         camera.fov = 52
       } else {
-        camera.position.z = 8.2
+        camera.position.set(0, 0.15, 8.2)
         camera.fov = 48
       }
       camera.updateProjectionMatrix()

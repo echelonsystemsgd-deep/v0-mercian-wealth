@@ -96,16 +96,26 @@ export function ViewportHUD() {
       <div className="absolute top-1/3 right-6 text-[#d4af37]/20 font-mono text-[11px] hidden lg:block">+</div>
       <div className="absolute top-2/3 right-6 text-[#d4af37]/20 font-mono text-[11px] hidden lg:block">+</div>
 
-      {/* Bottom-Left Telemetry: ● SEC 01 / 08 · 000 % */}
-      <div className="absolute bottom-3 sm:bottom-4 left-4 sm:left-10 flex items-center gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-[10px] text-zinc-400 tracking-wider">
+      {/* Mobile Sleek Floating HUD Pill (Respects iOS Safe Area, Single Line, No Overlap) */}
+      <div className="md:hidden fixed bottom-[max(14px,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 z-30 pointer-events-none flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0a0614]/90 border border-white/15 backdrop-blur-md font-mono text-[9px] tracking-wider shadow-lg whitespace-nowrap shrink-0">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-pulse shrink-0" />
+        <span className="text-zinc-200 font-semibold whitespace-nowrap">SEC {currentSection}/08</span>
+        <span className="text-zinc-600">·</span>
+        <span className="text-zinc-400 whitespace-nowrap">{formattedPercent}%</span>
+        <span className="text-zinc-600">·</span>
+        <span className="text-[#d4af37] whitespace-nowrap">{fps} FPS</span>
+      </div>
+
+      {/* Desktop Bottom-Left Telemetry: ● SEC 01 / 08 · 000 % */}
+      <div className="hidden md:flex absolute bottom-4 left-6 lg:left-10 items-center gap-2 font-mono text-[10px] text-zinc-400 tracking-wider">
         <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-pulse" />
         <span className="text-zinc-200 font-semibold">SEC {currentSection} / 08</span>
         <span className="text-zinc-500">·</span>
         <span className="text-zinc-400">{formattedPercent} %</span>
       </div>
 
-      {/* Bottom-Right Telemetry: UK 15:30:00 · 60 FPS */}
-      <div className="absolute bottom-3 sm:bottom-4 right-4 sm:right-10 flex items-center gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-[10px] text-zinc-400 tracking-wider">
+      {/* Desktop Bottom-Right Telemetry: UK 15:30:00 · 60 FPS */}
+      <div className="hidden md:flex absolute bottom-4 right-6 lg:right-10 items-center gap-2 font-mono text-[10px] text-zinc-400 tracking-wider">
         <span className="text-zinc-300">UK {ukTime || "12:00:00"}</span>
         <span className="text-zinc-500">·</span>
         <span className="text-[#d4af37]">{fps} FPS</span>

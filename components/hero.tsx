@@ -6,7 +6,7 @@ import { ArrowRight, Phone } from "lucide-react"
 
 export function Hero() {
   return (
-    <section id="home" className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-start pt-24 sm:pt-28 pb-12 sm:pb-16 px-6 sm:px-12 lg:px-20 overflow-hidden pointer-events-none">
+    <section id="home" className="relative min-h-[75vh] sm:min-h-screen flex items-center justify-start pt-20 sm:pt-28 pb-12 sm:pb-16 px-5 sm:px-12 lg:px-20 overflow-hidden pointer-events-none">
       
       {/* Left-Aligned Editorial Headline Container */}
       <div className="relative z-10 max-w-lg lg:max-w-xl text-left pointer-events-auto">
@@ -28,10 +28,10 @@ export function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white leading-[1.04] mb-6 select-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]"
+          className="font-serif text-[27px] sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-5 select-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]"
         >
           <span className="text-[#d4af37]">BESPOKE WEBSITES.</span><br />
-          BUILT TO MOVE YOUR<br />
+          <span>BUILT TO MOVE YOUR</span><br />
           <span className="text-zinc-200">BUSINESS FORWARD.</span>
         </motion.h1>
 
@@ -50,7 +50,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4"
+          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto"
         >
           <a
             href="#vision"
@@ -71,7 +71,7 @@ export function Hero() {
       </div>
 
       {/* Bottom-Right SCROLL Indicator */}
-      <div className="absolute bottom-8 right-8 sm:right-12 z-10 pointer-events-none font-mono text-[10px] tracking-[0.25em] text-zinc-400 uppercase select-none flex items-center gap-2">
+      <div className="absolute bottom-8 right-8 sm:right-12 z-10 pointer-events-none font-mono text-[10px] tracking-[0.25em] text-zinc-400 uppercase select-none hidden sm:flex items-center gap-2">
         <span className="border border-white/10 px-2.5 py-1 rounded bg-[#080d1a]/70 backdrop-blur-sm text-[#d4af37]">SCROLL</span>
       </div>
 
