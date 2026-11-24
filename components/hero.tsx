@@ -53,7 +53,7 @@ export function Hero() {
           className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4"
         >
           <a
-            href="#problem"
+            href="#vision"
             className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 bg-[#d4af37] hover:bg-[#e5c158] text-black font-mono font-bold text-xs uppercase tracking-wider transition-all chamfered shadow-lg shadow-[#d4af37]/20"
           >
             <span>Explore Our Approach</span>

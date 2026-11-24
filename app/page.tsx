@@ -1,15 +1,14 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
-import { ProblemSection } from "@/components/home/problem-section"
-import { ServicesSection } from "@/components/home/services-section"
-import { WhyBespokeSection } from "@/components/home/why-bespoke-section"
-import { ExperienceDemoSection } from "@/components/home/experience-demo-section"
-import { AutomationSection } from "@/components/home/automation-section"
-import { PortfolioSection } from "@/components/home/portfolio-section"
-import { ComparisonSection } from "@/components/home/comparison-section"
-import { ProcessSection } from "@/components/home/process-section"
-import { FAQSection } from "@/components/home/faq-section"
-import { FinalContactSection } from "@/components/home/final-contact-section"
+import { 
+  ApproachSection, 
+  StorefrontsSection, 
+  AutomationSection, 
+  TriageSection, 
+  WorkTeaserSection, 
+  ClosingCTASection 
+} from "@/components/cerbo-style-homepage"
+import { OfferMechanism } from "@/components/offer-mechanism"
 import { Footer } from "@/components/footer"
 import { ViewportHUD } from "@/components/hud/viewport-hud"
 import { WealthParticleCore } from "@/components/three/wealth-particle-core"
@@ -67,49 +66,40 @@ export default function Home() {
         }}
       />
 
-      {/* Persistent Full-Viewport 3D WebGL Canvas (Navy, Black & Gold) */}
+      {/* Persistent Full-Viewport 3D WebGL Canvas (Navy, Black & Gold with Real-Time Morphing) */}
       <WealthParticleCore />
 
-      {/* Global Viewport HUD & Telemetry (11 Stages) */}
+      {/* Global Viewport HUD & Telemetry (8 Cerbo-Structured Sections) */}
       <ViewportHUD />
 
       {/* Persistent Minimalist Single-Row Navigation */}
       <Navbar />
 
-      {/* 11 Unified Conversion-Driven Sections */}
+      {/* 8 Unified Conversion-Driven Sections Matching Cerbo Structure */}
       <div className="relative z-10">
         {/* SEC 01 · Hero */}
         <Hero />
 
-        {/* SEC 02 · The Perspective / Problem */}
-        <ProblemSection />
+        {/* SEC 02 · The Vision / Approach */}
+        <ApproachSection />
 
-        {/* SEC 03 · What We Do */}
-        <ServicesSection />
+        {/* SEC 03 · 01 — Websites and Experiences (3D Wireframe Browser Window) */}
+        <StorefrontsSection />
 
-        {/* SEC 04 · Why a Bespoke Website? */}
-        <WhyBespokeSection />
-
-        {/* SEC 05 · Visual Demonstration */}
-        <ExperienceDemoSection />
-
-        {/* SEC 06 · Digital Automation */}
+        {/* SEC 04 · 02 — Automation (Interlocking Kinetic Gears) */}
         <AutomationSection />
 
-        {/* SEC 07 · Selected Deployments / Portfolio */}
-        <PortfolioSection />
+        {/* SEC 05 · 03 — Intelligence & AI (Trio of 4-Pointed AI Stars) */}
+        <TriageSection />
 
-        {/* SEC 08 · The Comparison (Two Paths) */}
-        <ComparisonSection />
+        {/* SEC 06 · 04 — Selected Deployments (3-Column Showcase + Central Vortex) */}
+        <WorkTeaserSection />
 
-        {/* SEC 09 · Our Method / Process */}
-        <ProcessSection />
+        {/* SEC 07 · 05 — Method (4-Phase Horizon Grid + 3D Architectural Lattice) */}
+        <OfferMechanism />
 
-        {/* SEC 10 · Frequently Asked Questions */}
-        <FAQSection />
-
-        {/* SEC 11 · Final Contact */}
-        <FinalContactSection />
+        {/* SEC 08 · 06 — Let's Talk (Closing Hero-Echo CTA + Centered MW Crest) */}
+        <ClosingCTASection />
       </div>
 
       {/* Sophisticated Luxury Footer */}

@@ -47,7 +47,7 @@ export function ViewportHUD() {
     }
   }, [])
 
-  // 2. Scroll percentage & 11-section tracking
+  // 2. Scroll percentage & 8-section tracking
   useEffect(() => {
     const handleScroll = () => {
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight
@@ -56,18 +56,15 @@ export function ViewportHUD() {
       const pct = Math.min(Math.max(Math.round((currentScroll / totalScroll) * 100), 0), 100)
       setScrollPercent(pct)
 
-      // 11 Sections Thresholds
-      if (pct < 9) setCurrentSection("01")
-      else if (pct < 18) setCurrentSection("02")
-      else if (pct < 27) setCurrentSection("03")
-      else if (pct < 36) setCurrentSection("04")
-      else if (pct < 45) setCurrentSection("05")
-      else if (pct < 54) setCurrentSection("06")
-      else if (pct < 63) setCurrentSection("07")
-      else if (pct < 72) setCurrentSection("08")
-      else if (pct < 81) setCurrentSection("09")
-      else if (pct < 90) setCurrentSection("10")
-      else setCurrentSection("11")
+      // 8 Cerbo Sections Thresholds
+      if (pct < 12) setCurrentSection("01")
+      else if (pct < 24) setCurrentSection("02")
+      else if (pct < 38) setCurrentSection("03")
+      else if (pct < 52) setCurrentSection("04")
+      else if (pct < 66) setCurrentSection("05")
+      else if (pct < 78) setCurrentSection("06")
+      else if (pct < 88) setCurrentSection("07")
+      else setCurrentSection("08")
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
@@ -99,10 +96,10 @@ export function ViewportHUD() {
       <div className="absolute top-1/3 right-6 text-[#d4af37]/20 font-mono text-[11px] hidden lg:block">+</div>
       <div className="absolute top-2/3 right-6 text-[#d4af37]/20 font-mono text-[11px] hidden lg:block">+</div>
 
-      {/* Bottom-Left Telemetry: ● SEC 01 / 11 · 000 % */}
+      {/* Bottom-Left Telemetry: ● SEC 01 / 08 · 000 % */}
       <div className="absolute bottom-3 sm:bottom-4 left-4 sm:left-10 flex items-center gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-[10px] text-zinc-400 tracking-wider">
         <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-pulse" />
-        <span className="text-zinc-200 font-semibold">SEC {currentSection} / 11</span>
+        <span className="text-zinc-200 font-semibold">SEC {currentSection} / 08</span>
         <span className="text-zinc-500">·</span>
         <span className="text-zinc-400">{formattedPercent} %</span>
       </div>

@@ -6,8 +6,8 @@ export function OfferMechanism() {
   const stages = [
     {
       number: "01",
-      title: "Discover",
-      tagline: "Understanding your business, target market and strategic objectives.",
+      title: "Listen",
+      tagline: "First discovery consultation. Reviewing operational workflows, commercial friction, and key growth objectives.",
       deliverables: [
         "Commercial friction analysis",
         "Target client intake profile",
@@ -17,7 +17,7 @@ export function OfferMechanism() {
     {
       number: "02",
       title: "Plan",
-      tagline: "Architecting the conversion flow, user journey and system integration map.",
+      tagline: "Architecting the conversion flow, user journey, custom typography, and complete integration map.",
       deliverables: [
         "Visual & interactive prototyping",
         "Conversion architecture roadmap",
@@ -27,28 +27,28 @@ export function OfferMechanism() {
     {
       number: "03",
       title: "Build",
-      tagline: "Engineering the bespoke WebGL experience, intake builders and automation pipes.",
+      tagline: "Engineering bespoke Three.js WebGL experiences, sub-400ms storefronts, and automated dispatch pipelines.",
       deliverables: [
         "Sub-second production build",
         "Instant dispatch automation",
-        "Responsive multi-device QA",
+        "Multi-device rigorous testing",
       ],
     },
     {
       number: "04",
-      title: "Launch",
-      tagline: "Deploying the validated digital platform with complete client infrastructure ownership.",
+      title: "After Launch",
+      tagline: "Going live on your own infrastructure with complete code ownership, executive training, and ongoing support.",
       deliverables: [
-        "100% client infrastructure ownership",
+        "100% direct code ownership",
         "Production domain & cloud release",
-        "Zero vendor lock-in",
+        "Ongoing optimization & support",
       ],
     },
   ]
 
   return (
-    <section id="approach" className="relative py-24 sm:py-32 px-6 sm:px-12 lg:px-20 pointer-events-none">
-      <div className="relative z-10 max-w-7xl mx-auto pointer-events-auto">
+    <section id="method" className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center pt-24 pb-32 sm:pb-36 px-6 sm:px-12 lg:px-20 pointer-events-none">
+      <div className="relative z-10 max-w-7xl mx-auto pointer-events-auto w-full">
         
         {/* Section Header */}
         <motion.div
@@ -59,15 +59,15 @@ export function OfferMechanism() {
           className="max-w-2xl text-left mb-12 sm:mb-16"
         >
           <div className="mb-4">
-            <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#E08A68] uppercase">
-              + OUR APPROACH
+            <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#d4af37] uppercase">
+              + METHOD
             </span>
           </div>
           <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-4">
-            <span className="text-[#E08A68]">ONE MOVE</span> AT A TIME.
+            <span className="text-[#d4af37]">ONE MOVE</span> AT A TIME.
           </h2>
           <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-300 leading-relaxed max-w-xl">
-            Every project follows a considered process, from understanding the objective to designing, building and launching the finished experience.
+            Four clear phases and a single dedicated director, from initial consultation until full deployment and live operational support.
           </p>
         </motion.div>
 
@@ -80,10 +80,10 @@ export function OfferMechanism() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: idx * 0.08 }}
-              className="p-5 sm:p-6 bg-[#120d0b]/85 border border-white/10 hover:border-[#E08A68]/45 transition-all duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between"
+              className="p-5 sm:p-6 bg-[#0a0614]/85 border border-white/10 hover:border-[#d4af37]/45 transition-all duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between"
             >
               <div>
-                <span className="font-mono text-xs font-bold text-[#E08A68] tracking-widest uppercase block mb-3">
+                <span className="font-mono text-xs font-bold text-[#d4af37] tracking-widest uppercase block mb-3">
                   {stage.number} — {stage.title}
                 </span>
                 <h3 className="font-serif text-base sm:text-lg font-bold text-white uppercase tracking-wide mb-2">
@@ -97,7 +97,7 @@ export function OfferMechanism() {
               <div className="space-y-2 border-t border-white/10 pt-4">
                 {stage.deliverables.map((d, i) => (
                   <div key={i} className="flex items-start gap-2 text-[11px] text-zinc-300 leading-snug">
-                    <span className="text-[#E08A68] mt-0.5">◆</span>
+                    <span className="text-[#d4af37] mt-0.5">◆</span>
                     <span>{d}</span>
                   </div>
                 ))}
