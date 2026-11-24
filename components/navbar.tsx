@@ -18,6 +18,7 @@ import {
   Info
 } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { BrandLogo } from "@/components/brand-logo"
 import { usePathname, useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
@@ -139,10 +140,8 @@ export function Navbar() {
     }
   }
 
-  const [audioActive, setAudioActive] = useState(false)
-
   const navLinks = [
-    { label: "Software", href: "/services" },
+    { label: "Solutions", href: "/services" },
     { label: "Work", href: "/portfolio" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
@@ -163,18 +162,13 @@ export function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           
-          {/* Brand Logo & Chess Knight Monogram */}
+          {/* Brand Logo & Authentic Crest */}
           <Link 
             href="/" 
             className="flex items-center gap-2.5 group shrink-0 whitespace-nowrap cursor-pointer"
           >
-            <div className="relative h-7 w-7 flex items-center justify-center shrink-0 text-[#d4af37]">
-              <svg className="w-6 h-6" viewBox="0 0 45 45" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 10c1.5-3 5-4.5 7-2 1.5 2-.5 4-.5 5.5s1 2.5 3 2.5c2 0 4.5-1 4.5 2 0 3-4 6-6 8s-3.5 4-3.5 7h-9c0-3 1-5 2.5-7.5s3-4.5 1.5-9.5c-.8-2.5-3-4-2-6 1-2 1.5-1.5 2-.5z" fill="currentColor" fillOpacity="0.9" />
-                <path d="M12 36h21v3H12z" fill="currentColor" />
-                <path d="M15 32h15v4H15z" fill="currentColor" />
-                <circle cx="27" cy="14" r="1.5" fill="#060a14" />
-              </svg>
+            <div className="relative h-7 w-7 rounded overflow-hidden shrink-0 border border-[#d4af37]/40 shadow-sm bg-[#0a0614]">
+              <Image src="/NewLogo.png" alt="Mercian Wealth" fill className="object-cover" priority />
             </div>
             <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-white flex items-center gap-1.5 uppercase whitespace-nowrap">
               <span>MERCIAN</span>
@@ -204,26 +198,12 @@ export function Navbar() {
           </nav>
 
           {/* Right-Side Controls & Action Button */}
-          <div className="flex items-center gap-3 sm:gap-5">
+          <div className="flex items-center gap-3 sm:gap-4">
             
             {/* Region Indicator */}
             <span className="hidden md:inline-block font-mono text-[10px] text-zinc-400 uppercase tracking-widest">
               UK
             </span>
-
-            {/* Audio Toggle / Equalizer */}
-            <button 
-              onClick={() => setAudioActive(!audioActive)}
-              className="hidden md:inline-flex items-center gap-1.5 font-mono text-[10px] text-zinc-400 hover:text-white uppercase tracking-wider transition-colors cursor-pointer"
-              title="Toggle Audio"
-            >
-              <span className="flex items-end gap-0.5 h-3">
-                <span className={`w-0.5 bg-[#d4af37] rounded-full transition-all duration-300 ${audioActive ? 'h-3 animate-pulse' : 'h-1.5'}`} />
-                <span className={`w-0.5 bg-[#d4af37] rounded-full transition-all duration-300 ${audioActive ? 'h-2 animate-pulse delay-75' : 'h-2.5'}`} />
-                <span className={`w-0.5 bg-[#d4af37] rounded-full transition-all duration-300 ${audioActive ? 'h-3.5 animate-pulse delay-150' : 'h-1'}`} />
-              </span>
-              <span>AUDIO</span>
-            </button>
 
             {/* User Account / Login */}
             {user ? (
@@ -277,7 +257,7 @@ export function Navbar() {
               className="lg:hidden min-h-[40px] flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#141418] text-zinc-300 hover:text-white border border-white/10 text-xs font-semibold transition-all cursor-pointer shadow-md"
               aria-label="Toggle Navigation Menu"
             >
-              {isMobileMenuOpen ? <X className="w-4 h-4 text-[#E2B857]" /> : <Menu className="w-4 h-4 text-[#E2B857]" />}
+              {isMobileMenuOpen ? <X className="w-4 h-4 text-[#d4af37]" /> : <Menu className="w-4 h-4 text-[#d4af37]" />}
               <span className="text-[11px] font-mono uppercase tracking-wider">{isMobileMenuOpen ? "Close" : "Menu"}</span>
             </button>
 
@@ -319,11 +299,11 @@ export function Navbar() {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="flex items-center gap-2.5"
                   >
-                    <div className="relative h-7 w-7 rounded-lg overflow-hidden border border-[#E2B857]/40 shadow-md shrink-0">
+                    <div className="relative h-7 w-7 rounded-lg overflow-hidden border border-[#d4af37]/40 shadow-md shrink-0">
                       <BrandLogo variant="watermark" alt="Mercian Wealth" fill className="object-cover" priority />
                     </div>
                     <span className="font-serif text-xs font-bold tracking-widest text-white uppercase">
-                      <span>MERCIAN</span> <span className="text-[#E2B857]">WEALTH</span>
+                      <span>MERCIAN</span> <span className="text-[#d4af37]">WEALTH</span>
                     </span>
                   </Link>
 
@@ -373,7 +353,7 @@ export function Navbar() {
                   <Link
                     href="/book"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="w-full py-3 px-4 bg-[#E2B857] hover:bg-[#F0C96E] text-black font-mono font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2 transition-all chamfered-sm shadow-lg shadow-[#E2B857]/20"
+                    className="w-full py-3 px-4 bg-[#d4af37] hover:bg-[#fff5d8] text-black font-mono font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2 transition-all chamfered-sm shadow-lg shadow-[#d4af37]/20"
                   >
                     <span>REQUEST BLUEPRINT ◆</span>
                   </Link>

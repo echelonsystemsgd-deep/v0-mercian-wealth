@@ -8,35 +8,35 @@ export const metadata: Metadata = {
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="min-h-screen bg-[#09090B] flex items-center justify-center p-4 relative overflow-y-auto">
-      {/* Background */}
+    <main className="min-h-screen bg-[#030206] flex items-center justify-center p-4 relative overflow-y-auto">
+      {/* Background Royal Purple Atmosphere */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] rounded-full bg-[#DCAE53]/5 blur-[160px]" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-[#DCAE53]/3 blur-[120px]" />
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#DCAE53]/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#DCAE53]/10 to-transparent" />
+        <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] rounded-full bg-[#7c3aed]/12 blur-[160px]" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-[#d4af37]/6 blur-[120px]" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d4af37]/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#7c3aed]/20 to-transparent" />
       </div>
 
       <div className="relative z-10 w-full max-w-md space-y-8">
         {/* Logo Header */}
         <div className="flex flex-col items-center gap-3">
           <Link href="/" className="group flex flex-col items-center gap-3 cursor-pointer" aria-label="Back to Homepage">
-            <div className="relative h-16 w-16 transition-transform group-hover:scale-105 duration-300 rounded-2xl bg-[#111115] p-2 shadow-xl border border-slate-800 flex items-center justify-center overflow-hidden">
+            <div className="relative h-16 w-16 transition-transform group-hover:scale-105 duration-300 rounded-2xl bg-[#0a0614] p-1 shadow-xl border border-[#d4af37]/40 flex items-center justify-center overflow-hidden">
               <BrandLogo
                 variant="logo"
                 alt="Mercian Wealth"
                 fill
-                className="object-contain rounded-xl"
+                className="object-cover rounded-xl"
                 priority
               />
             </div>
             <div className="text-center space-y-1">
-              <p className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-[#DCAE53]">
+              <p className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-[#d4af37]">
                 SECURE GATEWAY
               </p>
-              <h1 className="font-sans text-xl font-extrabold text-white flex items-center justify-center gap-1.5">
+              <h1 className="font-serif text-xl font-extrabold text-white flex items-center justify-center gap-1.5 uppercase tracking-wider">
                 <span className="text-white">Mercian</span>
-                <span className="text-[#DCAE53]">Wealth</span>
+                <span className="text-[#d4af37]">Wealth</span>
               </h1>
             </div>
           </Link>

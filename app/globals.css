@@ -5,13 +5,14 @@
 
 :root {
   /* Design Tokens - Motion.dev Obsidian Black & Motion Gold Suite */
-  --color-bg-primary: #050505;      /* Obsidian Matte Black Primary Canvas */
-  --color-bg-secondary: #0B0B0D;    /* Carbon Zinc Card / Section Surface */
-  --color-bg-tertiary: #141417;     /* Elevated Card / Modal / Input Surface */
-  --color-accent-purple: #DAA640;   /* Backward-compatible alias mapped to Canonical Gold */
-  --color-accent-purple-glow: rgba(218, 166, 64, 0.12); /* Ambient Gold Glow */
-  --color-accent-gold: #DAA640;     /* Motion Electric Gold */
-  --color-accent-gold-muted: rgba(218, 166, 64, 0.25); /* Muted Gold Border */
+  --color-bg-primary: #030206;      /* Obsidian Black Primary Canvas */
+  --color-bg-secondary: #0a0614;    /* Deep Midnight Purple Section Surface */
+  --color-bg-tertiary: #130a24;     /* Elevated Royal Purple Card Surface */
+  --color-accent-purple: #7c3aed;   /* Rich Violet Accent */
+  --color-accent-purple-glow: rgba(124, 58, 237, 0.18); /* Ambient Violet Glow */
+  --color-accent-amethyst: #b794f6; /* Soft Amethyst Accent */
+  --color-accent-gold: #d4af37;     /* Champagne Gold */
+  --color-accent-gold-muted: rgba(212, 175, 55, 0.25); /* Muted Gold Border */
   --color-accent-sage: #10B981;     /* Semantic Success Emerald */
   --color-accent-sage-muted: #059669;
   --color-accent-sage-glow: rgba(16, 185, 129, 0.15);

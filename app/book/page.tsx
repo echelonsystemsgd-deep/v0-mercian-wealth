@@ -70,35 +70,35 @@ export default function BookPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#09090B] relative overflow-hidden text-slate-100">
+    <main className="min-h-screen bg-[#030206] relative overflow-hidden text-slate-100">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(reserveSchema) }}
       />
       {/* Background Decor */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#DCAE53]/30 to-transparent" />
-        <div className="absolute -top-40 left-1/4 w-[500px] h-[500px] rounded-full bg-[#DCAE53]/5 blur-[140px]" />
-        <div className="absolute top-1/2 right-0 w-[400px] h-[400px] rounded-full bg-[#DCAE53]/3 blur-[120px]" />
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-[#DCAE53]/20 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d4af37]/30 to-transparent" />
+        <div className="absolute -top-40 left-1/4 w-[500px] h-[500px] rounded-full bg-[#7c3aed]/10 blur-[140px]" />
+        <div className="absolute top-1/2 right-0 w-[400px] h-[400px] rounded-full bg-[#d4af37]/6 blur-[120px]" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-[#d4af37]/20 to-transparent" />
       </div>
 
       {/* Top Nav Bar */}
-      <header className="relative z-10 border-b border-slate-800 bg-[#09090B]/90 backdrop-blur-md">
+      <header className="relative z-10 border-b border-white/10 bg-[#030206]/90 backdrop-blur-md">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 min-h-16 flex items-center justify-between py-4">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative h-10 w-10 sm:h-11 sm:w-11 rounded-xl overflow-hidden border border-slate-800 shadow-md">
+            <div className="relative h-10 w-10 sm:h-11 sm:w-11 rounded-xl overflow-hidden border border-white/15 shadow-md bg-[#0a0614]">
               <BrandLogo variant="logo" alt="Mercian Wealth" fill className="object-cover transition-transform group-hover:scale-105 duration-300" priority />
             </div>
-            <span className="font-sans text-lg font-extrabold tracking-tight text-white flex items-center gap-1.5 hidden sm:flex">
+            <span className="font-mono text-sm font-bold tracking-widest text-white flex items-center gap-1.5 hidden sm:flex uppercase">
               <span>Mercian</span>
-              <span className="text-[#DCAE53]">Wealth</span>
+              <span className="text-[#d4af37]">Wealth</span>
             </span>
           </Link>
 
           <Link
             href="/"
-            className="flex items-center gap-1.5 text-sm text-slate-300 hover:text-[#DCAE53] transition-colors font-medium"
+            className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-slate-300 hover:text-[#d4af37] transition-colors"
           >
             <ArrowLeft size={15} />
             Back to Home
@@ -113,13 +113,13 @@ export default function BookPage() {
           {/* ---- Left Column: Page Header & Trust signals ---- */}
           <div className="lg:sticky lg:top-24 space-y-8">
             <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-2 chamfered-sm">
-                <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#090514] border border-[#d4af37]/40 text-[#d4af37] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-2 chamfered-sm shadow-lg shadow-[#7c3aed]/10">
+                <span className="w-1.5 h-1.5 bg-[#b794f6] animate-pulse" />
                 <span>[ PROTOCOL STAGE 01 · 15-MIN BRIEF ]</span>
               </div>
               <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold uppercase text-white leading-tight tracking-wide">
                 {data.headerTitle}{" "}
-                <em className="italic font-normal text-[#E2B857]">{data.headerHighlight}</em>
+                <span className="font-serif font-bold text-[#d4af37]">{data.headerHighlight}</span>
               </h1>
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
                 {data.headerSubtitle}
@@ -195,47 +195,47 @@ export default function BookPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl bg-[#111115] border border-slate-800 space-y-3">
+            <div className="p-6 rounded-2xl bg-[#0a0614] border border-white/10 hover:border-[#d4af37]/40 transition-all space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono text-[#DCAE53] font-bold">Phase 01</span>
-                <span className="text-[11px] font-mono text-slate-400">Minutes 0–4</span>
+                <span className="text-xs font-mono text-[#d4af37] font-bold">Phase 01</span>
+                <span className="text-[11px] font-mono text-zinc-400">Minutes 0–4</span>
               </div>
-              <h3 className="text-base font-bold text-white">Current Pipeline &amp; Friction Audit</h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
+              <h3 className="text-base font-bold text-white">Current Pipeline &amp; Friction Review</h3>
+              <p className="text-xs text-zinc-300 leading-relaxed">
                 We review how prospective clients discover and contact your business today. We identify the exact points where visitors bounce—such as slow contact forms, unformatted mobile menus, or phone calls missed while on-site.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#111115] border border-slate-800 space-y-3">
+            <div className="p-6 rounded-2xl bg-[#0a0614] border border-white/10 hover:border-[#d4af37]/40 transition-all space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono text-[#DCAE53] font-bold">Phase 02</span>
-                <span className="text-[11px] font-mono text-slate-400">Minutes 4–9</span>
+                <span className="text-xs font-mono text-[#d4af37] font-bold">Phase 02</span>
+                <span className="text-[11px] font-mono text-zinc-400">Minutes 4–9</span>
               </div>
               <h3 className="text-base font-bold text-white">Live Prototype Demonstration</h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
+              <p className="text-xs text-zinc-300 leading-relaxed">
                 We walk you through an interactive mobile prototype tailored to your exact industry. You will test how a 3-tap order builder lets high-intent buyers configure their requirement and submit instant deposits within seconds.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#111115] border border-slate-800 space-y-3">
+            <div className="p-6 rounded-2xl bg-[#0a0614] border border-white/10 hover:border-[#d4af37]/40 transition-all space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono text-[#DCAE53] font-bold">Phase 03</span>
-                <span className="text-[11px] font-mono text-slate-400">Minutes 9–12</span>
+                <span className="text-xs font-mono text-[#d4af37] font-bold">Phase 03</span>
+                <span className="text-[11px] font-mono text-zinc-400">Minutes 9–12</span>
               </div>
               <h3 className="text-base font-bold text-white">Automations &amp; Revenue Stack</h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
+              <p className="text-xs text-zinc-300 leading-relaxed">
                 We demonstrate how instant WhatsApp routing pings your phone the moment an order arrives, how automated Google review triggers collect 5-star feedback, and how upfront Stripe deposits completely eliminate customer no-shows.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#111115] border border-slate-800 space-y-3">
+            <div className="p-6 rounded-2xl bg-[#0a0614] border border-white/10 hover:border-[#d4af37]/40 transition-all space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono text-[#DCAE53] font-bold">Phase 04</span>
-                <span className="text-[11px] font-mono text-slate-400">Minutes 12–15</span>
+                <span className="text-xs font-mono text-[#d4af37] font-bold">Phase 04</span>
+                <span className="text-[11px] font-mono text-zinc-400">Minutes 12–15</span>
               </div>
               <h3 className="text-base font-bold text-white">7-Day Deployment &amp; Commercial Fit</h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                If the solution aligns with your commercial targets, we schedule your 7-day build cohort. If it is not a fit, you walk away with our full architectural audit and recommendations with zero obligation.
+              <p className="text-xs text-zinc-300 leading-relaxed">
+                If the solution aligns with your commercial targets, we schedule your 7-day build cohort. If it is not a fit, you walk away with our full architectural blueprint and recommendations with zero obligation.
               </p>
             </div>
           </div>

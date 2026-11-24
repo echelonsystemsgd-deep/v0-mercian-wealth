@@ -26,20 +26,20 @@ export function EditorialInsight({ data, className = "" }: EditorialInsightProps
   if (!data) return null
 
   return (
-    <section className={`relative py-12 sm:py-16 bg-[#0B0B0E] border-y border-white/5 overflow-hidden ${className}`}>
+    <section className={`relative py-12 sm:py-16 bg-[#030206] border-y border-white/10 overflow-hidden ${className}`}>
       {/* Background Decor */}
-      <div className="absolute top-0 right-1/4 w-80 h-80 rounded-full bg-[#DAA640]/5 blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-80 h-80 rounded-full bg-emerald-500/5 blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-80 h-80 rounded-full bg-[#7c3aed]/10 blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-80 h-80 rounded-full bg-[#d4af37]/5 blur-[100px] pointer-events-none" />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 z-10">
         
         {/* Header Block */}
         <div className="max-w-3xl mx-auto text-center space-y-2.5 mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DAA640]/10 border border-[#DAA640]/30 text-[10px] sm:text-xs font-mono font-bold text-[#DAA640] uppercase tracking-wider">
-            <Sparkles size={12} className="text-[#DAA640]" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0a0614] border border-[#d4af37]/40 text-[10px] sm:text-xs font-mono font-bold text-[#d4af37] uppercase tracking-wider">
+            <Sparkles size={12} className="text-[#d4af37]" />
             <span>[ {data.eyebrow} ]</span>
           </div>
-          <h3 className="font-sans text-xl sm:text-2xl lg:text-3xl font-extrabold text-white leading-tight">
+          <h3 className="font-serif text-xl sm:text-2xl lg:text-3xl font-extrabold text-white uppercase tracking-wide leading-tight">
             {data.headline}
           </h3>
           <p className="font-sans text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-2xl mx-auto">
@@ -56,14 +56,14 @@ export function EditorialInsight({ data, className = "" }: EditorialInsightProps
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-20px" }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="p-5 sm:p-6 rounded-xl sm:rounded-2xl bg-[#111115] border border-white/10 hover:border-[#DAA640]/40 transition-all duration-300 flex flex-col justify-between shadow-lg group"
+              className="p-5 sm:p-6 rounded-xl sm:rounded-2xl bg-[#0a0614] border border-white/10 hover:border-[#d4af37]/40 transition-all duration-300 flex flex-col justify-between shadow-xl group"
             >
               <div className="space-y-3">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#18181F] border border-white/10 text-[#DAA640] font-mono text-xs font-bold tracking-tight">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#130a24] border border-white/10 text-[#d4af37] font-mono text-xs font-bold tracking-tight">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                   <span>{item.metric}</span>
                 </div>
-                <h4 className="font-sans text-sm sm:text-base font-bold text-white group-hover:text-[#DAA640] transition-colors leading-snug">
+                <h4 className="font-serif text-sm sm:text-base font-bold text-white group-hover:text-[#d4af37] transition-colors leading-snug uppercase">
                   {item.title}
                 </h4>
                 <p className="font-sans text-xs text-zinc-400 leading-relaxed">

@@ -309,14 +309,14 @@ export function WealthParticleCore() {
       mouse.current.x += (mouse.current.targetX - mouse.current.x) * 0.05
       mouse.current.y += (mouse.current.targetY - mouse.current.y) * 0.05
 
-      // Natural camera parallax
+      // Natural camera & element parallax (moving left moves left, moving right moves right)
       const isMobileScreen = window.innerWidth < 768
-      const camParallaxX = isMobileScreen ? 0.2 : 0.55
-      const camParallaxY = isMobileScreen ? 0.18 : 0.38
+      const mouseParallaxX = mouse.current.x * (isMobileScreen ? 0.08 : 0.22)
+      const mouseParallaxY = mouse.current.y * (isMobileScreen ? 0.06 : 0.16)
       const baseCamY = isMobileScreen ? 0.35 : 0.15
 
-      camera.position.x = -mouse.current.x * camParallaxX
-      camera.position.y = baseCamY - mouse.current.y * camParallaxY
+      camera.position.x = mouseParallaxX * 0.4
+      camera.position.y = baseCamY + mouseParallaxY * 0.3
       camera.lookAt(isMobileScreen ? 0.0 : 0.45, isMobileScreen ? 0.2 : 0.05, 0)
 
       // Calculate Synchronized Active Stage across 11 Sections
@@ -385,7 +385,8 @@ export function WealthParticleCore() {
         baseRotY = 0.0
       }
 
-      particleSystem.position.x += (targetPosX - particleSystem.position.x) * 0.06
+      const baseTargetX = targetPosX + mouseParallaxX
+      particleSystem.position.x += (baseTargetX - particleSystem.position.x) * 0.06
       mirrorSystem.position.x = particleSystem.position.x
 
       // Particle Position Interpolation + Cursor Proximity Repulsion
@@ -450,7 +451,7 @@ export function WealthParticleCore() {
       const mobileElevation = isMobileScreen ? 0.3 : 0.0
       particleSystem.rotation.y = baseRotY + mouse.current.x * 0.32
       particleSystem.rotation.x = Math.sin(time * 0.25) * 0.05 - mouse.current.y * 0.2
-      particleSystem.position.y = 0.05 + mobileElevation + Math.sin(time * 0.8) * 0.06
+      particleSystem.position.y = 0.05 + mobileElevation + Math.sin(time * 0.8) * 0.06 + mouseParallaxY * 0.35
 
       // Mirror reflection synchronizes rotation & position inverted
       mirrorSystem.rotation.y = particleSystem.rotation.y
@@ -518,20 +519,33 @@ export function WealthParticleCore() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden"
-      style={{
-        background: `
-          radial-gradient(ellipse 90% 80% at 65% 35%, rgba(68, 22, 110, 0.42) 0%, rgba(35, 12, 60, 0.48) 32%, rgba(14, 6, 26, 0.94) 70%, #030206 100%)
-        `,
-        opacity: 0.98
-      }}
+      className="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden bg-[#030206]"
       aria-hidden="true"
     >
-      {/* Textured Ethereal Violet Silk Mist Overlay matching NewLogo.png */}
+      {/* Textured Ethereal Royal Purple Velvet Atmosphere extracted directly from authentic NewLogo.png */}
+      <div 
+        className="absolute inset-0 pointer-events-none bg-cover bg-center transition-opacity duration-1000 opacity-70"
+        style={{
+          backgroundImage: "url('/mercian-purple-atmosphere.webp')",
+          backgroundPosition: "center 30%",
+        }}
+      />
+
+      {/* Atmospheric Radial Gradient Blend */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `
+            radial-gradient(ellipse 90% 75% at 65% 35%, rgba(68, 22, 110, 0.35) 0%, rgba(35, 12, 60, 0.40) 35%, rgba(14, 6, 26, 0.85) 70%, #030206 100%)
+          `
+        }}
+      />
+
+      {/* Soft Amethyst Silk Mist Overlay */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-30 mix-blend-screen bg-cover bg-center"
         style={{
-          backgroundImage: "radial-gradient(circle at 60% 40%, rgba(139, 92, 246, 0.28) 0%, rgba(76, 29, 149, 0.15) 45%, transparent 75%)"
+          backgroundImage: "radial-gradient(circle at 60% 40%, rgba(139, 92, 246, 0.30) 0%, rgba(76, 29, 149, 0.15) 50%, transparent 80%)"
         }}
       />
 

@@ -40,7 +40,7 @@ export default function AboutPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#08080A] text-white selection:bg-[#E2B857] selection:text-black">
+    <div className="min-h-screen bg-[#030206] text-white selection:bg-[#d4af37] selection:text-black">
       <Navbar />
 
       <PageHeader
@@ -51,14 +51,17 @@ export default function AboutPage() {
 
       {/* Philosophy Statement */}
       <section className="relative py-16 sm:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="obsidian-card p-8 sm:p-12 rounded-2xl border border-white/10 space-y-6 relative overflow-hidden">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] chamfered-sm">
-            <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+        <div className="p-8 sm:p-12 rounded-2xl bg-[#0a0614] border border-white/10 space-y-6 relative overflow-hidden shadow-2xl">
+          {/* Subtle Royal Purple Glow */}
+          <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-[#7c3aed]/10 blur-[100px] pointer-events-none" />
+
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#130a24] border border-[#d4af37]/40 text-[#d4af37] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] chamfered-sm shadow-md">
+            <span className="w-1.5 h-1.5 bg-[#b794f6] animate-pulse" />
             <span>[ THE INSTITUTIONAL STANDARD ]</span>
           </div>
 
           <h2 className="font-serif text-2xl sm:text-4xl font-bold uppercase text-white tracking-wide leading-tight">
-            Stop Paying A Tax On Your Own <em className="italic font-normal text-[#E2B857]">Growth</em>
+            Stop Paying A Tax On Your Own <em className="italic font-normal text-[#d4af37]">Growth</em>
           </h2>
 
           <p className="font-sans text-sm sm:text-base text-zinc-300 leading-relaxed">
@@ -74,7 +77,7 @@ export default function AboutPage() {
       {/* 4 Core Engineering Principles */}
       <section className="py-16 sm:py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#E2B857] font-mono">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#d4af37] font-mono">
             [ ARCHITECTURAL FOUNDATIONS ]
           </span>
           <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold uppercase text-white mt-2 tracking-wide">
@@ -84,9 +87,9 @@ export default function AboutPage() {
 
         <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
           {principles.map((p) => (
-            <div key={p.number} className="obsidian-card p-6 sm:p-8 rounded-2xl border border-white/10 hover:border-[#E2B857]/40 transition-all flex flex-col justify-between space-y-4">
+            <div key={p.number} className="p-6 sm:p-8 rounded-2xl bg-[#0a0614] border border-white/10 hover:border-[#d4af37]/40 transition-all flex flex-col justify-between space-y-4 shadow-xl">
               <div className="space-y-3">
-                <span className="font-mono text-2xl sm:text-3xl font-bold text-[#E2B857]">
+                <span className="font-mono text-2xl sm:text-3xl font-bold text-[#d4af37]">
                   {p.number}
                 </span>
                 <h3 className="font-sans text-lg sm:text-xl font-bold text-white">

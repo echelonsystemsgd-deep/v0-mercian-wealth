@@ -134,12 +134,12 @@ export function ContactForm() {
   return (
     <div className="w-full max-w-xl mx-auto relative">
       {/* Contact Form Container (Always Visible) */}
-      <div className="rounded-3xl p-6 sm:p-8 md:p-10 border border-slate-800 bg-[#111115] shadow-2xl space-y-6">
+      <div className="rounded-3xl p-6 sm:p-8 md:p-10 border border-white/10 bg-[#0a0614] shadow-2xl space-y-6">
         <form onSubmit={handleSubmit} className="space-y-5" noValidate>
           {/* Full Name */}
           <div className="space-y-1.5">
             <label htmlFor="fullName" className="text-xs sm:text-sm font-semibold text-white flex items-center gap-2">
-              <User size={14} className="text-[#DCAE53]" /> Full Name *
+              <User size={14} className="text-[#d4af37]" /> Full Name *
             </label>
             <input
               id="fullName"
@@ -148,8 +148,8 @@ export function ContactForm() {
               placeholder="e.g. Sarah Mitchell"
               value={formData.fullName}
               onChange={(e) => updateField("fullName", e.target.value)}
-              className={`w-full bg-[#18181F] border rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] focus:border-[#DCAE53] transition-all ${
-                errors.fullName ? "border-red-500/60" : "border-slate-800 hover:border-slate-700"
+              className={`w-full bg-[#130a24] border rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-zinc-500 outline-none focus:ring-1 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all ${
+                errors.fullName ? "border-red-500/60" : "border-white/10 hover:border-white/20"
               }`}
             />
             {errors.fullName && <p className="text-xs text-red-400 mt-1">{errors.fullName}</p>}
@@ -158,7 +158,7 @@ export function ContactForm() {
           {/* Email Address */}
           <div className="space-y-1.5">
             <label htmlFor="email" className="text-xs sm:text-sm font-semibold text-white flex items-center gap-2">
-              <Mail size={14} className="text-[#DCAE53]" /> Email Address *
+              <Mail size={14} className="text-[#d4af37]" /> Email Address *
             </label>
             <input
               id="email"
@@ -168,8 +168,8 @@ export function ContactForm() {
               placeholder="e.g. director@yourbusiness.co.uk"
               value={formData.email}
               onChange={(e) => updateField("email", e.target.value)}
-              className={`w-full bg-[#18181F] border rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] focus:border-[#DCAE53] transition-all ${
-                errors.email ? "border-red-500/60" : "border-slate-800 hover:border-slate-700"
+              className={`w-full bg-[#130a24] border rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-zinc-500 outline-none focus:ring-1 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all ${
+                errors.email ? "border-red-500/60" : "border-white/10 hover:border-white/20"
               }`}
             />
             {errors.email && <p className="text-xs text-red-400 mt-1">{errors.email}</p>}
@@ -179,7 +179,7 @@ export function ContactForm() {
           <div className="grid sm:grid-cols-2 gap-5">
             <div className="space-y-1.5">
               <label htmlFor="companyName" className="text-xs sm:text-sm font-semibold text-white flex items-center gap-2">
-                <Building2 size={14} className="text-[#DCAE53]" /> Company / Brand
+                <Building2 size={14} className="text-[#d4af37]" /> Company / Brand
               </label>
               <input
                 id="companyName"
@@ -188,18 +188,18 @@ export function ContactForm() {
                 placeholder="e.g. Your Business Name"
                 value={formData.companyName}
                 onChange={(e) => updateField("companyName", e.target.value)}
-                className="w-full bg-[#18181F] border border-slate-800 hover:border-slate-700 rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] focus:border-[#DCAE53] transition-all"
+                className="w-full bg-[#130a24] border border-white/10 hover:border-white/20 rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-zinc-500 outline-none focus:ring-1 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all"
               />
             </div>
 
             <div className="space-y-1.5">
               <label htmlFor="phone" className="text-xs sm:text-sm font-semibold text-white flex items-center gap-2">
-                <Phone size={14} className="text-[#DCAE53]" /> Phone Number
+                <Phone size={14} className="text-[#d4af37]" /> Phone Number
               </label>
-              <div className={`flex items-center bg-[#18181F] border rounded-xl overflow-hidden focus-within:ring-1 focus-within:ring-[#DCAE53] focus-within:border-[#DCAE53] transition-all ${
-                errors.phone ? "border-red-500/60" : "border-slate-800 hover:border-slate-700"
+              <div className={`flex items-center bg-[#130a24] border rounded-xl overflow-hidden focus-within:ring-1 focus-within:ring-[#d4af37] focus-within:border-[#d4af37] transition-all ${
+                errors.phone ? "border-red-500/60" : "border-white/10 hover:border-white/20"
               }`}>
-                <div className="bg-[#111115] text-[#DCAE53] font-mono font-semibold text-xs px-3.5 py-3 border-r border-slate-800 select-none shrink-0 flex items-center gap-1">
+                <div className="bg-[#0a0614] text-[#d4af37] font-mono font-semibold text-xs px-3.5 py-3 border-r border-white/10 select-none shrink-0 flex items-center gap-1">
                   <span className="text-xs">🇬🇧</span>
                   <span>+44</span>
                 </div>
@@ -215,13 +215,13 @@ export function ContactForm() {
                     if (val.startsWith('0')) val = val.slice(1)
                     updateField("phone", val)
                   }}
-                  className="w-full bg-transparent px-4 py-3 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none"
+                  className="w-full bg-transparent px-4 py-3 text-base sm:text-sm text-white placeholder:text-zinc-500 outline-none"
                 />
               </div>
               {errors.phone ? (
                 <p className="text-xs text-red-400 mt-1">{errors.phone}</p>
               ) : (
-                <p className="text-[10px] text-slate-400 leading-snug mt-1">
+                <p className="text-[10px] text-zinc-400 leading-snug mt-1 font-mono">
                   Mercian Wealth operates exclusively with United Kingdom based businesses.
                 </p>
               )}
@@ -231,16 +231,16 @@ export function ContactForm() {
           {/* Message */}
           <div className="space-y-1.5">
             <label htmlFor="message" className="text-xs sm:text-sm font-semibold text-white flex items-center gap-2">
-              <MessageSquare size={14} className="text-[#DCAE53]" /> How can we help? *
+              <MessageSquare size={14} className="text-[#d4af37]" /> How can we help? *
             </label>
             <textarea
               id="message"
               rows={4}
-              placeholder="Tell us about your business, current booking process, and what you would like to automate."
+              placeholder="Tell us about your business, current website or infrastructure, and what you would like to achieve."
               value={formData.message}
               onChange={(e) => updateField("message", e.target.value)}
-              className={`w-full bg-[#18181F] border rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] focus:border-[#DCAE53] transition-all resize-none ${
-                errors.message ? "border-red-500/60" : "border-slate-800 hover:border-slate-700"
+              className={`w-full bg-[#130a24] border rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-zinc-500 outline-none focus:ring-1 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all resize-none ${
+                errors.message ? "border-red-500/60" : "border-white/10 hover:border-white/20"
               }`}
             />
             {errors.message && <p className="text-xs text-red-400 mt-1">{errors.message}</p>}
@@ -257,7 +257,7 @@ export function ContactForm() {
             type="submit"
             size="lg"
             disabled={isSubmitting}
-            className="w-full py-6 text-sm font-bold bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] rounded-xl border-0 shadow-lg transition-all"
+            className="w-full py-6 text-xs sm:text-sm font-mono font-bold uppercase tracking-wider bg-[#d4af37] hover:bg-[#fff5d8] text-black rounded-xl border-0 shadow-lg shadow-[#d4af37]/20 transition-all cursor-pointer"
           >
             {isSubmitting ? (
               <span className="flex items-center justify-center gap-2">
@@ -266,7 +266,7 @@ export function ContactForm() {
               </span>
             ) : (
               <span className="flex items-center justify-center gap-2">
-                Book your free 15 minute audit
+                Initiate Conversation ◆
                 <ArrowRight size={16} />
               </span>
             )}
@@ -292,36 +292,36 @@ export function ContactForm() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-md bg-[#111115] border border-slate-800 rounded-2xl p-8 sm:p-10 shadow-2xl text-center space-y-6 z-10 text-white"
+              className="relative w-full max-w-md bg-[#0a0614] border border-[#d4af37]/30 rounded-2xl p-8 sm:p-10 shadow-2xl text-center space-y-6 z-10 text-white"
             >
               {/* Top gold line decoration */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#DCAE53] to-transparent" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#d4af37] to-transparent" />
 
               {/* Close Icon Button */}
               <button
                 onClick={() => setSubmitted(false)}
-                className="absolute top-4 right-4 text-slate-400 hover:text-white p-2 rounded-full hover:bg-white/5 transition-colors"
+                className="absolute top-4 right-4 text-zinc-400 hover:text-white p-2 rounded-full hover:bg-white/5 transition-colors cursor-pointer"
                 aria-label="Close"
               >
                 <X size={18} />
               </button>
 
-              <div className="mx-auto h-16 w-16 rounded-full bg-[#DCAE53]/10 border border-[#DCAE53]/25 flex items-center justify-center text-[#DCAE53]">
+              <div className="mx-auto h-16 w-16 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/25 flex items-center justify-center text-[#d4af37]">
                 <ShieldCheck size={28} />
               </div>
 
               <div className="space-y-2">
-                <span className="text-[10px] uppercase tracking-[0.25em] text-[#DCAE53] font-extrabold">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-[#d4af37] font-mono font-extrabold">
                   Transmission Secure
                 </span>
-                <h3 className="font-sans text-xl sm:text-2xl font-bold text-white">
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-white uppercase">
                   Message Securely Logged
                 </h3>
               </div>
 
-              <div className="text-xs text-gray-300 leading-relaxed border-t border-slate-800 pt-5 space-y-4">
+              <div className="text-xs text-zinc-300 leading-relaxed border-t border-white/10 pt-5 space-y-4 font-sans">
                 <p>
-                  Your enquiry details have been encrypted and routed directly to our automation team.
+                  Your enquiry details have been encrypted and routed directly to our engineering team.
                 </p>
                 <p>
                   We assess every business enquiry and reply via WhatsApp or direct email within <strong>a few business hours</strong>.
@@ -339,7 +339,7 @@ export function ContactForm() {
                     message: "",
                   })
                 }}
-                className="w-full py-3.5 bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold rounded-lg text-xs uppercase tracking-wider transition-all duration-300"
+                className="w-full py-3.5 bg-[#d4af37] hover:bg-[#fff5d8] text-black font-mono font-bold rounded-lg text-xs uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-lg shadow-[#d4af37]/20"
               >
                 Return to Site
               </button>

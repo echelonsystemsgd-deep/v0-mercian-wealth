@@ -68,17 +68,17 @@ export function Services({ limit }: { limit?: number }) {
   }, [activeService])
 
   return (
-    <section id="services" className="relative py-12 sm:py-20 lg:py-24 overflow-hidden bg-[#09090B] border-t border-slate-800/80">
+    <section id="services" className="relative py-12 sm:py-20 lg:py-24 overflow-hidden bg-[#030206] border-t border-white/10">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10">
         
         {/* Section Header */}
         <div className="text-center mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-3 chamfered-sm">
-            <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#0a0614] border border-[#d4af37]/40 text-[#d4af37] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-3 chamfered-sm">
+            <span className="w-1.5 h-1.5 bg-[#b794f6] animate-pulse" />
             <span>[ CORE CONVERSION &amp; BOOKING INFRASTRUCTURE ]</span>
           </div>
           <h2 className="font-serif text-xl sm:text-3xl lg:text-4xl font-bold uppercase text-white mb-3 tracking-wide">
-            High-Conversion Systems Built For <em className="italic font-normal text-[#E2B857]">Direct Cash Flow</em>
+            High-Conversion Systems Built For <em className="italic font-normal text-[#d4af37]">Direct Cash Flow</em>
           </h2>
           <p className="text-zinc-300 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
             Sub-second mobile storefronts, 3-tap order builders, WhatsApp lead dispatch, and upfront deposit checkout systems engineered for UK local businesses.
@@ -99,39 +99,39 @@ export function Services({ limit }: { limit?: number }) {
                 transition={{ duration: 0.5, delay: index * 0.08 }}
                 className="w-full scroll-mt-28"
               >
-                <Card className="h-full bg-[#111115] border border-slate-800 hover:border-[#DCAE53]/60 hover:shadow-[0_0_25px_rgba(220,174,83,0.15)] transition-all duration-300 rounded-xl sm:rounded-2xl group flex flex-col justify-between">
+                <Card className="h-full bg-[#0a0614] border border-white/10 hover:border-[#d4af37]/40 hover:shadow-[0_0_25px_rgba(212,175,55,0.15)] transition-all duration-300 rounded-xl sm:rounded-2xl group flex flex-col justify-between">
                   <CardContent className="p-4 sm:p-6 flex flex-col justify-between h-full space-y-4 sm:space-y-6">
                     <div className="space-y-3 sm:space-y-4 text-left">
                       {/* Gold icon */}
-                      <div className="inline-flex items-center justify-center p-2.5 sm:p-3 border border-slate-800 bg-[#18181F] text-[#DCAE53] rounded-xl group-hover:scale-105 transition-transform">
+                      <div className="inline-flex items-center justify-center p-2.5 sm:p-3 border border-white/10 bg-[#130a24] text-[#d4af37] rounded-xl group-hover:scale-105 transition-transform">
                         <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.5]" />
                       </div>
                       
                       {/* Title */}
-                      <h3 className="font-sans font-bold text-base sm:text-lg text-white">
+                      <h3 className="font-serif font-bold text-base sm:text-lg text-white uppercase tracking-wide">
                         {service.title}
                       </h3>
                       
                       {/* Description */}
-                      <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed min-h-[44px]">
+                      <p className="font-sans text-xs sm:text-sm text-zinc-300 leading-relaxed min-h-[44px]">
                         {service.description}
                       </p>
                     </div>
 
-                    <div className="space-y-3 sm:space-y-4 pt-3 sm:pt-4 border-t border-slate-800/80 text-left">
+                    <div className="space-y-3 sm:space-y-4 pt-3 sm:pt-4 border-t border-white/10 text-left">
                       {/* Outcome Badge */}
-                      <div className="bg-[#18181F] p-2.5 sm:p-3 rounded-xl border border-slate-800">
-                        <span className="text-[9px] sm:text-[10px] font-mono uppercase text-slate-400 block mb-0.5 sm:mb-1">Target Commercial SLA</span>
+                      <div className="bg-[#130a24] p-2.5 sm:p-3 rounded-xl border border-white/10">
+                        <span className="text-[9px] sm:text-[10px] font-mono uppercase text-zinc-400 block mb-0.5 sm:mb-1">Target Commercial SLA</span>
                         <span className="text-xs font-bold text-emerald-400 font-mono">{service.outcome}</span>
                       </div>
 
                       {/* Interactive Inspect Button */}
                       <button
                         onClick={() => setActiveService(index)}
-                        className="w-full inline-flex items-center justify-center gap-2 py-2 sm:py-2.5 px-4 rounded-xl bg-[#18181F] hover:bg-[#22222c] border border-slate-700 hover:border-[#DCAE53]/50 text-xs font-bold text-slate-200 hover:text-white transition-all cursor-pointer"
+                        className="w-full inline-flex items-center justify-center gap-2 py-2 sm:py-2.5 px-4 rounded-xl bg-[#130a24] hover:bg-[#1a0f30] border border-white/10 hover:border-[#d4af37]/50 text-xs font-mono uppercase tracking-wider text-zinc-200 hover:text-white transition-all cursor-pointer"
                       >
                         <span>Inspect Architecture</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-[#DCAE53]" />
+                        <ArrowRight className="w-3.5 h-3.5 text-[#d4af37]" />
                       </button>
                     </div>
                   </CardContent>
@@ -152,11 +152,11 @@ export function Services({ limit }: { limit?: number }) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="relative w-full max-w-2xl bg-[#111115] border border-[#DCAE53]/40 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl overflow-y-auto overscroll-contain touch-pan-y max-h-[90vh] text-left"
+              className="relative w-full max-w-2xl bg-[#0a0614] border border-[#d4af37]/40 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl overflow-y-auto overscroll-contain touch-pan-y max-h-[90vh] text-left"
             >
               <button
                 onClick={() => setActiveService(null)}
-                className="absolute top-5 right-5 p-2 rounded-full bg-[#18181F] text-slate-400 hover:text-white border border-slate-800 transition-colors cursor-pointer"
+                className="absolute top-5 right-5 p-2 rounded-full bg-[#130a24] text-zinc-400 hover:text-white border border-white/10 transition-colors cursor-pointer"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
@@ -164,10 +164,10 @@ export function Services({ limit }: { limit?: number }) {
 
               <div className="space-y-6">
                 <div>
-                  <span className="font-mono text-xs font-bold text-[#DCAE53] uppercase tracking-wider block mb-1">
+                  <span className="font-mono text-xs font-bold text-[#d4af37] uppercase tracking-wider block mb-1">
                     [ Architecture Specification ]
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+                  <h3 className="text-2xl sm:text-3xl font-serif font-extrabold text-white uppercase tracking-wide">
                     {servicesList[activeService].title}
                   </h3>
                   <p className="text-xs sm:text-sm font-mono text-emerald-400 mt-1">
@@ -175,22 +175,22 @@ export function Services({ limit }: { limit?: number }) {
                   </p>
                 </div>
 
-                <p className="text-slate-300 text-sm leading-relaxed">
+                <p className="text-zinc-300 text-sm leading-relaxed">
                   {servicesList[activeService].overview}
                 </p>
 
-                <div className="space-y-3 pt-2 border-t border-slate-800">
+                <div className="space-y-3 pt-2 border-t border-white/10">
                   <h4 className="font-bold text-white text-xs font-mono uppercase tracking-wider">
                     Core Technical Deliverables
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {servicesList[activeService].features.map((f, idx) => (
-                      <div key={idx} className="p-3 rounded-xl bg-[#18181F] border border-slate-800 space-y-1">
+                      <div key={idx} className="p-3 rounded-xl bg-[#130a24] border border-white/10 space-y-1">
                         <div className="flex items-center gap-1.5 text-xs font-bold text-white">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#DCAE53] shrink-0" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
                           <span>{f.name}</span>
                         </div>
-                        <p className="text-[11px] text-slate-400 leading-normal pl-5">
+                        <p className="text-[11px] text-zinc-400 leading-normal pl-5">
                           {f.description}
                         </p>
                       </div>
@@ -198,18 +198,18 @@ export function Services({ limit }: { limit?: number }) {
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-slate-800 flex flex-col sm:flex-row gap-3">
+                <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row gap-3">
                   <Link
                     href="/book"
                     onClick={() => setActiveService(null)}
-                    className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-sm transition-all shadow-lg cursor-pointer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-[#d4af37] hover:bg-[#fff5d8] text-black font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#d4af37]/20 cursor-pointer"
                   >
-                    <span>Book a Discovery Call</span>
+                    <span>Request Discovery Consultation ◆</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <button
                     onClick={() => setActiveService(null)}
-                    className="py-3 px-6 rounded-xl bg-[#18181F] text-slate-300 hover:text-white border border-slate-800 text-sm font-semibold transition-colors cursor-pointer"
+                    className="py-3 px-6 rounded-xl bg-[#130a24] text-zinc-300 hover:text-white border border-white/10 text-xs font-mono uppercase tracking-wider font-semibold transition-colors cursor-pointer"
                   >
                     Close
                   </button>

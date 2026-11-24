@@ -66,6 +66,11 @@ const nextConfig = {
         destination: '/portfolio',
         permanent: true,
       },
+      {
+        source: '/pricing',
+        destination: '/book',
+        permanent: true,
+      },
     ]
   },
   async headers() {

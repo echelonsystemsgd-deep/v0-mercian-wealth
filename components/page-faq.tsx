@@ -30,12 +30,12 @@ export function PageFAQ({ data, id = "faq", className = "" }: PageFAQProps) {
   }
 
   return (
-    <section id={id} className={`relative py-16 sm:py-20 lg:py-24 overflow-hidden bg-[#09090B] border-t border-slate-800/80 ${className}`}>
-      {/* Background Subtle Radial Glow */}
+    <section id={id} className={`relative py-16 sm:py-20 lg:py-24 overflow-hidden bg-[#030206] border-t border-white/10 ${className}`}>
+      {/* Background Subtle Royal Purple Glow */}
       <div 
         className="absolute inset-0 pointer-events-none z-0"
         style={{
-          background: "radial-gradient(circle at 70% 80%, rgba(218, 166, 64, 0.04) 0%, rgba(9, 9, 11, 0) 60%)"
+          background: "radial-gradient(circle at 70% 80%, rgba(124, 58, 237, 0.08) 0%, rgba(3, 2, 6, 0) 65%)"
         }}
       />
 
@@ -63,15 +63,15 @@ export function PageFAQ({ data, id = "faq", className = "" }: PageFAQProps) {
         {/* Section Header */}
         <div className="text-center mb-10 sm:mb-12">
           {data.eyebrow && (
-            <span className="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#DAA640]">
+            <span className="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#d4af37]">
               [ {data.eyebrow} ]
             </span>
           )}
-          <h2 className="font-sans text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mt-2 sm:mt-3 leading-tight">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mt-2 sm:mt-3 uppercase tracking-wide leading-tight">
             {data.headline}
           </h2>
           {data.description && (
-            <p className="font-sans text-xs sm:text-sm text-slate-300 mt-3 max-w-lg mx-auto leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm text-zinc-300 mt-3 max-w-lg mx-auto leading-relaxed">
               {data.description}
             </p>
           )}
@@ -85,7 +85,7 @@ export function PageFAQ({ data, id = "faq", className = "" }: PageFAQProps) {
               <div 
                 key={index} 
                 className={`border rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden ${
-                  isOpen ? "border-[#DAA640] bg-[#111115] shadow-xl" : "border-slate-800 bg-[#111115]/60 hover:border-slate-700"
+                  isOpen ? "border-[#d4af37]/60 bg-[#0a0614] shadow-xl shadow-[#d4af37]/10" : "border-white/10 bg-[#0a0614]/60 hover:border-white/20"
                 }`}
               >
                 {/* Header Toggle */}
@@ -95,15 +95,15 @@ export function PageFAQ({ data, id = "faq", className = "" }: PageFAQProps) {
                   aria-expanded={isOpen}
                 >
                   <div className="flex items-center gap-3 pr-3">
-                    <HelpCircle size={16} className={`shrink-0 ${isOpen ? "text-[#DAA640]" : "text-slate-400"}`} />
-                    <span className="font-sans font-bold text-xs sm:text-sm md:text-base text-white hover:text-[#DAA640] transition-colors duration-200">
+                    <HelpCircle size={16} className={`shrink-0 ${isOpen ? "text-[#d4af37]" : "text-zinc-400"}`} />
+                    <span className="font-serif font-bold text-xs sm:text-sm md:text-base text-white hover:text-[#d4af37] transition-colors duration-200 uppercase">
                       {faq.question}
                     </span>
                   </div>
                   <motion.div
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.2 }}
-                    className="text-[#DAA640] shrink-0 ml-2"
+                    className="text-[#d4af37] shrink-0 ml-2"
                   >
                     <ChevronDown size={18} />
                   </motion.div>
@@ -119,8 +119,8 @@ export function PageFAQ({ data, id = "faq", className = "" }: PageFAQProps) {
                       transition={{ duration: 0.25, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 border-t border-slate-800">
-                        <p className="font-sans text-xs sm:text-sm text-slate-200 leading-relaxed pt-3 sm:pt-4">
+                      <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 border-t border-white/10">
+                        <p className="font-sans text-xs sm:text-sm text-zinc-200 leading-relaxed pt-3 sm:pt-4">
                           {faq.answer}
                         </p>
                       </div>

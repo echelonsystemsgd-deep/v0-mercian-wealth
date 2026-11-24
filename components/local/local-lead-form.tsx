@@ -74,7 +74,7 @@ export function LocalLeadForm() {
             Claim Your Local Setup Slot
           </h2>
           <p className="text-sm sm:text-base text-text-secondary">
-            Fill in your details below. We'll audit your local search presence and call/WhatsApp you within 12 hours with a live preview.
+            Fill in your details below. We'll review your local digital presence and call/WhatsApp you within 12 hours with a live preview.
           </p>
         </div>
 
@@ -244,7 +244,7 @@ export function LocalLeadForm() {
                 ) : (
                   <>
                     <Send size={18} />
-                    <span>Submit & Request Free Digital Audit</span>
+                    <span>Submit & Request Consultation ◆</span>
                   </>
                 )}
               </button>

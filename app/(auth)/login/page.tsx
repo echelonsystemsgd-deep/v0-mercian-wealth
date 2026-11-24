@@ -85,19 +85,19 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="bg-[#111115] rounded-2xl border border-slate-800 p-8 space-y-6 shadow-2xl">
+    <div className="bg-[#0a0614] rounded-2xl border border-white/10 p-8 space-y-6 shadow-2xl">
       {/* Portal Tab Switcher */}
-      <div className="grid grid-cols-2 gap-1.5 bg-[#18181F] p-1 rounded-xl border border-slate-800">
+      <div className="grid grid-cols-2 gap-1.5 bg-[#130a24] p-1 rounded-xl border border-white/10 font-mono text-xs uppercase tracking-wider">
         <button
           type="button"
           onClick={() => {
             setLoginType('client')
             setError(null)
           }}
-          className={`py-2 px-3 text-xs font-bold rounded-lg transition-all ${
+          className={`py-2 px-3 text-xs font-bold rounded-lg transition-all cursor-pointer ${
             loginType === 'client'
-              ? 'bg-[#DCAE53] text-[#09090B] shadow-md'
-              : 'text-slate-400 hover:text-white'
+              ? 'bg-[#d4af37] text-black shadow-md'
+              : 'text-zinc-400 hover:text-white'
           }`}
         >
           Client Login
@@ -108,10 +108,10 @@ export default function LoginPage() {
             setLoginType('admin')
             setError(null)
           }}
-          className={`py-2 px-3 text-xs font-bold rounded-lg transition-all ${
+          className={`py-2 px-3 text-xs font-bold rounded-lg transition-all cursor-pointer ${
             loginType === 'admin'
-              ? 'bg-[#DCAE53] text-[#09090B] shadow-md'
-              : 'text-slate-400 hover:text-white'
+              ? 'bg-[#d4af37] text-black shadow-md'
+              : 'text-zinc-400 hover:text-white'
           }`}
         >
           Staff / Admin
@@ -119,10 +119,10 @@ export default function LoginPage() {
       </div>
 
       <div className="space-y-1.5 text-center">
-        <h2 className="font-sans text-2xl font-bold text-white">
+        <h2 className="font-serif text-2xl font-bold text-white uppercase tracking-wide">
           {loginType === 'client' ? 'Welcome Back' : 'Executive Access'}
         </h2>
-        <p className="text-sm text-slate-400">
+        <p className="text-xs sm:text-sm text-zinc-400 font-sans">
           {loginType === 'client'
             ? 'Sign in to your client automation portal'
             : 'Sign in to your administrative dashboard'}
@@ -132,8 +132,8 @@ export default function LoginPage() {
       <form onSubmit={handleLogin} className="space-y-5">
         {/* Email */}
         <div className="space-y-1.5">
-          <label htmlFor="email" className="text-sm font-medium text-slate-200 flex items-center gap-2">
-            <Mail size={13} className="text-[#DCAE53]" /> Email Address
+          <label htmlFor="email" className="text-xs sm:text-sm font-medium text-zinc-200 flex items-center gap-2">
+            <Mail size={13} className="text-[#d4af37]" /> Email Address
           </label>
           <input
             id="email"
@@ -143,14 +143,14 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder={loginType === 'client' ? 'you@example.com' : 'admin@mercianwealth.com'}
-            className="w-full bg-[#18181F] border border-slate-800 hover:border-slate-700 focus:border-[#DCAE53] rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] transition-all"
+            className="w-full bg-[#130a24] border border-white/10 hover:border-white/20 focus:border-[#d4af37] rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-500 outline-none focus:ring-1 focus:ring-[#d4af37] transition-all"
           />
         </div>
 
         {/* Password */}
         <div className="space-y-1.5">
-          <label htmlFor="password" className="text-sm font-medium text-slate-200 flex items-center gap-2">
-            <Lock size={13} className="text-[#DCAE53]" /> Password
+          <label htmlFor="password" className="text-xs sm:text-sm font-medium text-zinc-200 flex items-center gap-2">
+            <Lock size={13} className="text-[#d4af37]" /> Password
           </label>
           <div className="relative">
             <input
@@ -161,12 +161,12 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••••••"
-              className="w-full bg-[#18181F] border border-slate-800 hover:border-slate-700 focus:border-[#DCAE53] rounded-xl px-4 py-3 pr-12 text-sm text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-[#DCAE53] transition-all"
+              className="w-full bg-[#130a24] border border-white/10 hover:border-white/20 focus:border-[#d4af37] rounded-xl px-4 py-3 pr-12 text-sm text-white placeholder:text-zinc-500 outline-none focus:ring-1 focus:ring-[#d4af37] transition-all"
             />
             <button
               type="button"
               onClick={() => setShowPassword((v) => !v)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#DCAE53] transition-colors p-1"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-[#d4af37] transition-colors p-1 cursor-pointer"
               aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
               {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -176,7 +176,7 @@ export default function LoginPage() {
 
         {/* Error */}
         {error && (
-          <div ref={errorRef} className="bg-red-500/10 border border-red-500/25 rounded-xl px-4 py-3 text-sm text-red-400">
+          <div ref={errorRef} className="bg-red-500/10 border border-red-500/25 rounded-xl px-4 py-3 text-xs sm:text-sm text-red-400">
             {error}
           </div>
         )}
@@ -186,7 +186,7 @@ export default function LoginPage() {
           type="submit"
           disabled={loading}
           id="login-submit"
-          className="w-full bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold text-sm py-3.5 rounded-xl shadow-lg transition-all duration-300 disabled:opacity-60 flex items-center justify-center gap-2 cursor-pointer"
+          className="w-full bg-[#d4af37] hover:bg-[#fff5d8] text-black font-mono font-bold text-xs sm:text-sm py-3.5 rounded-xl shadow-lg shadow-[#d4af37]/20 transition-all duration-300 disabled:opacity-60 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
         >
           {loading ? (
             <>
@@ -194,25 +194,24 @@ export default function LoginPage() {
               Signing In…
             </>
           ) : (
-            loginType === 'client' ? 'Sign In to Client Portal' : 'Sign In to Admin Portal'
+            loginType === 'client' ? 'Sign In to Client Portal ◆' : 'Sign In to Admin Portal ◆'
           )}
         </button>
 
         {/* Links Section */}
-        <div className="flex flex-col gap-4 text-center border-t border-slate-800 pt-4 mt-2">
+        <div className="flex flex-col gap-4 text-center border-t border-white/10 pt-4 mt-2 font-mono">
           <div className="text-center">
             <Link
               href="/forgot-password"
-              className="text-xs text-slate-400 hover:text-[#DCAE53] transition-colors underline underline-offset-2"
+              className="text-xs text-zinc-400 hover:text-[#d4af37] transition-colors underline underline-offset-2"
             >
               Forgot your password?
             </Link>
           </div>
 
-
           <Link
             href="/"
-            className="text-xs text-slate-400 hover:text-[#DCAE53] transition-colors flex items-center justify-center gap-1.5"
+            className="text-xs text-zinc-400 hover:text-[#d4af37] transition-colors flex items-center justify-center gap-1.5"
           >
             ← Back to Homepage
           </Link>

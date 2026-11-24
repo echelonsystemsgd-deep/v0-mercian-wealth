@@ -295,7 +295,7 @@ function PrototypePreviewModal({ item, onClose }: { item: PortfolioItem; onClose
                 <h4 className="font-sans text-sm font-bold text-white leading-tight">
                   {item.title}
                 </h4>
-                <p className="text-[10px] uppercase tracking-wider text-[#DCAE53] font-semibold leading-none mt-0.5 font-mono">
+                <p className="text-[10px] uppercase tracking-wider text-[#d4af37] font-semibold leading-none mt-0.5 font-mono">
                   {item.domain || item.category}
                 </p>
               </div>
@@ -333,9 +333,9 @@ function PrototypePreviewModal({ item, onClose }: { item: PortfolioItem; onClose
             {item.href ? (
               <>
                 {loading && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#09090B] z-20 transition-opacity duration-300">
-                    <Loader2 className="w-8 h-8 text-[#DCAE53] animate-spin" />
-                    <p className="text-xs text-muted-foreground font-mono">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#0a0614] z-20 transition-opacity duration-300">
+                    <Loader2 className="w-8 h-8 text-[#d4af37] animate-spin" />
+                    <p className="text-xs text-zinc-400 font-mono">
                       Initializing secure interactive sandbox viewport...
                     </p>
                   </div>
@@ -351,7 +351,7 @@ function PrototypePreviewModal({ item, onClose }: { item: PortfolioItem; onClose
               <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center space-y-4">
                 <h3 className="text-xl font-serif font-bold text-white">{item.title}</h3>
                 <p className="text-xs text-muted-foreground">{item.category}</p>
-                <Button onClick={onClose} className="bg-[#DCAE53] text-[#09090B] font-bold">
+                <Button onClick={onClose} className="bg-[#d4af37] hover:bg-[#fff5d8] text-black font-bold">
                   Return to Portfolio
                 </Button>
               </div>
@@ -535,20 +535,20 @@ export function Portfolio({ limit }: { limit?: number }) {
 
   return (
     <>
-      <section id="portfolio" className="relative py-20 lg:py-28 overflow-hidden bg-[#050505] border-t border-white/10">
-        {/* Ambient background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#DAA640]/5 rounded-full blur-[140px] pointer-events-none z-0" />
+      <section id="portfolio" className="relative py-20 lg:py-28 overflow-hidden bg-[#030206] border-t border-white/10">
+        {/* Ambient background royal purple glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#7c3aed]/8 rounded-full blur-[140px] pointer-events-none z-0" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10">
           
           {/* Section Header */}
           <div className="text-center mb-12 sm:mb-14">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#121216] border border-[#E2B857]/40 text-[#E2B857] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-4 chamfered-sm">
-              <span className="w-1.5 h-1.5 bg-[#E2B857] animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#0a0614] border border-[#d4af37]/40 text-[#d4af37] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-4 chamfered-sm">
+              <span className="w-1.5 h-1.5 bg-[#b794f6] animate-pulse" />
               <span>[ SEC 05 / 06 · LIVE ARCHITECTURE DEPLOYMENTS ]</span>
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold uppercase text-white mb-4 tracking-wide">
-              Websites Engineered to <em className="italic font-normal text-[#E2B857]">Convert Visitors</em>
+              Websites Engineered to <em className="italic font-normal text-[#d4af37]">Convert Visitors</em>
             </h2>
             <p className="text-zinc-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
               Every prototype is live, responsive, and ready for you to test. Hover over any card to stop the animation and launch the interactive sandbox.
@@ -559,7 +559,7 @@ export function Portfolio({ limit }: { limit?: number }) {
               <button
                 type="button"
                 onClick={() => setIsPaused((prev) => !prev)}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141417] border border-white/10 hover:border-[#DAA640]/50 text-zinc-300 hover:text-white transition-all text-xs font-mono cursor-pointer min-h-[36px]"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#130a24] border border-white/10 hover:border-[#d4af37]/50 text-zinc-300 hover:text-white transition-all text-xs font-mono cursor-pointer min-h-[36px]"
                 title={isPaused ? "Resume auto-scroll" : "Pause auto-scroll"}
               >
                 {isPaused ? (
@@ -685,12 +685,12 @@ export function Portfolio({ limit }: { limit?: number }) {
                     <div className="translate-y-3 group-hover:translate-y-0 transition-transform duration-300 space-y-3 max-w-lg">
                       <div className="flex items-center justify-center gap-2 flex-wrap">
                         {item.isFeatured && (
-                          <span className="text-[9px] font-bold uppercase tracking-wider text-[#DAA640] bg-[#DAA640]/15 border border-[#DAA640]/40 px-2.5 py-0.5 rounded-full font-mono flex items-center gap-1">
-                            <Star size={9} className="fill-[#DAA640] text-[#DAA640]" />
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-[#d4af37] bg-[#d4af37]/15 border border-[#d4af37]/40 px-2.5 py-0.5 rounded-full font-mono flex items-center gap-1">
+                            <Star size={9} className="fill-[#d4af37] text-[#d4af37]" />
                             Featured Showcase
                           </span>
                         )}
-                        <p className="text-xs uppercase tracking-widest text-[#DCAE53] font-semibold font-mono">
+                        <p className="text-xs uppercase tracking-widest text-[#d4af37] font-semibold font-mono">
                           {item.category}
                         </p>
                         <span className="text-[9px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-0.5 rounded-full font-mono">
@@ -698,12 +698,12 @@ export function Portfolio({ limit }: { limit?: number }) {
                         </span>
                       </div>
 
-                      <h3 className="font-sans text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                      <h3 className="font-serif text-xl sm:text-2xl font-extrabold text-white uppercase tracking-wide leading-tight">
                         {item.title}
                       </h3>
 
                       {item.metric && (
-                        <p className="text-xs font-mono font-bold text-[#DCAE53] uppercase tracking-wider bg-[#DCAE53]/10 border border-[#DCAE53]/25 px-3 py-1 rounded-lg inline-block">
+                        <p className="text-xs font-mono font-bold text-[#d4af37] uppercase tracking-wider bg-[#d4af37]/10 border border-[#d4af37]/25 px-3 py-1 rounded-lg inline-block">
                           Feature: {item.metric}
                         </p>
                       )}
@@ -717,10 +717,10 @@ export function Portfolio({ limit }: { limit?: number }) {
                               window.open(item.href, "_blank", "noopener,noreferrer")
                             }
                           }}
-                          className="bg-[#DCAE53] hover:bg-[#E5B85C] text-[#09090B] font-bold px-5 py-2 rounded-xl transition-all cursor-pointer shadow-lg shadow-[#DCAE53]/20"
+                          className="bg-[#d4af37] hover:bg-[#fff5d8] text-black font-mono font-bold text-xs uppercase px-5 py-2 rounded-xl transition-all cursor-pointer shadow-lg shadow-[#d4af37]/20"
                         >
                           <span className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
-                            Launch Live Sandbox
+                            Launch Live Sandbox ◆
                             <ArrowRight size={14} />
                           </span>
                         </Button>
@@ -729,19 +729,19 @@ export function Portfolio({ limit }: { limit?: number }) {
                   </div>
 
                   {/* Mobile Bottom Bar — Always visible on small touch screens */}
-                  <div className="absolute bottom-0 left-0 right-0 z-20 flex md:hidden items-center justify-between px-3.5 py-2.5 bg-[#09090B]/95 border-t border-slate-800 backdrop-blur-md">
+                  <div className="absolute bottom-0 left-0 right-0 z-20 flex md:hidden items-center justify-between px-3.5 py-2.5 bg-[#0a0614]/95 border-t border-white/10 backdrop-blur-md">
                     <div className="min-w-0 flex-1 pr-2">
-                      <p className="text-[9px] uppercase tracking-widest text-[#DCAE53] font-semibold leading-none truncate font-mono mb-0.5">
+                      <p className="text-[9px] uppercase tracking-widest text-[#d4af37] font-semibold leading-none truncate font-mono mb-0.5">
                         {item.category}
                       </p>
-                      <h3 className="font-sans text-xs font-bold text-white truncate">
+                      <h3 className="font-serif text-xs font-bold text-white uppercase truncate">
                         {item.title}
                       </h3>
                     </div>
 
                     <button
                       type="button"
-                      className="shrink-0 flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-[#09090B] bg-[#DCAE53] hover:bg-[#E5B85C] px-3 py-1.5 rounded-lg active:scale-95 transition-transform cursor-pointer font-sans"
+                      className="shrink-0 flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-wider text-black bg-[#d4af37] hover:bg-[#fff5d8] px-3 py-1.5 rounded-lg active:scale-95 transition-transform cursor-pointer"
                       onClick={(e) => {
                         e.stopPropagation()
                         if (item.href) {
@@ -749,7 +749,7 @@ export function Portfolio({ limit }: { limit?: number }) {
                         }
                       }}
                     >
-                      <span>Test Sandbox</span>
+                      <span>Test Sandbox ◆</span>
                       <ArrowRight size={12} />
                     </button>
                   </div>
@@ -766,10 +766,10 @@ export function Portfolio({ limit }: { limit?: number }) {
               asChild
               size="lg"
               variant="outline"
-              className="px-8 py-6 text-xs sm:text-sm font-bold tracking-wider uppercase bg-[#111115] border-slate-800 text-white hover:border-[#DCAE53] hover:text-[#DCAE53] transition-all rounded-xl"
+              className="px-8 py-6 text-xs sm:text-sm font-mono font-bold tracking-wider uppercase bg-[#0a0614] border-white/10 text-white hover:border-[#d4af37] hover:text-[#d4af37] transition-all rounded-xl cursor-pointer"
             >
               <Link href="/portfolio" className="flex items-center gap-2">
-                View Full Interactive Showcase
+                View Full Interactive Showcase ◆
                 <ArrowRight size={16} />
               </Link>
             </Button>

@@ -37,7 +37,7 @@ function WordmarkLogo({ className }: { className?: string }) {
       <span style={{ color: "#FFFFFF", fontSize: "inherit" }}>Mercian</span>
       <span
         style={{
-          color: "#DCAE53",
+          color: "#d4af37",
           fontSize: "inherit",
           fontWeight: 800,
         }}
@@ -61,11 +61,11 @@ function WordmarkLogo({ className }: { className?: string }) {
 
 function ModernBrandBadge({ className }: { className?: string }) {
   return (
-    <div className={`h-full w-full rounded-lg bg-[#111115] border border-[#DCAE53]/40 flex items-center justify-center gap-2 px-3 py-1.5 shadow-lg shadow-black/50 ${className || ""}`}>
+    <div className={`h-full w-full rounded-lg bg-[#0a0614] border border-[#d4af37]/40 flex items-center justify-center gap-2 px-3 py-1.5 shadow-lg shadow-black/50 ${className || ""}`}>
       {/* Geometric Bowtie / Hourglass MW Icon */}
-      <svg className="w-5 h-5 text-[#DCAE53] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+      <svg className="w-5 h-5 text-[#d4af37] shrink-0" viewBox="0 0 24 24" fill="currentColor">
         <path d="M4 4h16l-8 7.5L4 4zm0 16h16l-8-7.5L4 20z" opacity="0.9" />
-        <circle cx="12" cy="11.5" r="1.5" fill="#DCAE53" />
+        <circle cx="12" cy="11.5" r="1.5" fill="#d4af37" />
       </svg>
       <span className="font-sans font-extrabold text-xs tracking-widest text-white uppercase">Mercian Wealth Automation</span>
     </div>
