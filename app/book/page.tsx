@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: 'Mercian Wealth',
     images: [
       {
-        url: '/Logo2.jpeg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Mercian Wealth | Book a 15-Minute Operational Discovery Call',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: SITE_COPY.metadata.book.title,
     description: SITE_COPY.metadata.book.description,
-    images: ['/Logo2.jpeg'],
+    images: ['/og-image.jpg'],
     creator: '@mercianwealth',
   },
 }

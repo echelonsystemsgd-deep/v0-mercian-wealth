@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "Mercian Wealth",
     images: [
       {
-        url: "/NewLogo.png",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Mercian Wealth | Bespoke Digital Experiences & High-Performance Websites",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Bespoke Websites. Built to Move Your Business Forward — Mercian Wealth",
     description: "Bespoke digital experiences designed around your business, strengthening your online presence and turning visitors into meaningful enquiries.",
-    images: ["/NewLogo.png"],
+    images: ["/og-image.jpg"],
     creator: "@mercianwealth",
   },
 }

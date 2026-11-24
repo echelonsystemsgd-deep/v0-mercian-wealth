@@ -157,7 +157,7 @@ export function ClientSidebar() {
           <div className="flex items-center gap-3">
             <div className="relative h-9 w-9 shrink-0 rounded-lg overflow-hidden border border-slate-800">
               <Image
-                src="/Logo1.jpeg"
+                src="/NewLogo.png"
                 alt="Mercian Wealth"
                 fill
                 className="object-cover"

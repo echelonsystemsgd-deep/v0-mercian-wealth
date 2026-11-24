@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: 'Mercian Wealth',
     images: [
       {
-        url: '/Logo2.jpeg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Mercian Wealth | 7-Day Storefront Deployment Protocol',
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: SITE_COPY.metadata.process.title,
     description: SITE_COPY.metadata.process.description,
-    images: ['/Logo2.jpeg'],
+    images: ['/og-image.jpg'],
     creator: '@mercianwealth',
   },
 }

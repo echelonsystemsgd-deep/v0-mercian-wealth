@@ -87,7 +87,7 @@ export function PortalHub() {
           <div className="absolute left-0 w-1 h-5 bg-[#DCAE53] rounded-r-md transition-all scale-0 group-hover:scale-100" />
           <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-slate-800 transition-all duration-300 group-hover:border-[#DCAE53]">
             <Image
-              src="/Logo1.jpeg"
+              src="/NewLogo.png"
               alt="Mercian Wealth"
               fill
               className="object-cover"

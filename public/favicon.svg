@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="128" fill="#030206"/>
+  <!-- Ambient Velvet Purple Glow -->
+  <circle cx="256" cy="256" r="200" fill="#7c3aed" opacity="0.22" filter="blur(30px)"/>
+  <!-- Geometric MW Emblem in Champagne Gold -->
+  <g fill="#d4af37">
+    <!-- Top M Wings -->
+    <path d="M140 100 L256 220 L372 100 L372 240 L348 240 L348 155 L256 250 L164 155 L164 240 L140 240 Z" />
+    <!-- Bottom Inverted W Wings -->
+    <path d="M140 412 L256 292 L372 412 L372 272 L348 272 L348 357 L256 262 L164 357 L164 272 L140 272 Z" />
+    <!-- Center Disc -->
+    <circle cx="256" cy="256" r="26" />
+  </g>
+</svg>

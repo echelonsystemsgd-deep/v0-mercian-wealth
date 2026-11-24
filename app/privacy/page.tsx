@@ -4,8 +4,17 @@ import { PageHeader } from "@/components/page-header"
 import { Database, Cpu, Share2, Lock, Sparkles, CheckCircle2 } from "lucide-react"
 
 export const metadata = {
-  title: "Privacy Policy",
-  description: "Our privacy policy outlines how we handle and protect your personal information.",
+  title: "Privacy Policy · Mercian Wealth",
+  description: "Our privacy policy outlines how Mercian Wealth handles, processes, and protects your enterprise and personal data under UK GDPR standards.",
+  alternates: {
+    canonical: "https://mercianwealth.com/privacy",
+  },
+  openGraph: {
+    title: "Privacy Policy · Mercian Wealth",
+    description: "Our privacy policy outlines how Mercian Wealth handles, processes, and protects your enterprise and personal data under UK GDPR standards.",
+    url: "https://mercianwealth.com/privacy",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+  },
 }
 
 export default function PrivacyPage() {

@@ -22,39 +22,35 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: '--font-geist-mono',
   display: 'swap',
-});
+})
 
 const cinzel = Cinzel({
   subsets: ['latin'],
   variable: '--font-cinzel',
   display: 'swap',
-});
+})
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mercianwealth.com'),
+  metadataBase: new URL('https://mercianwealth.com'),
   title: {
-    default: SITE_COPY.metadata.layout.defaultTitle,
-    template: SITE_COPY.metadata.layout.titleTemplate,
+    default: 'Mercian Wealth · Bespoke Websites & High-Performance Architecture',
+    template: '%s · Mercian Wealth',
   },
-  description: SITE_COPY.metadata.layout.description,
-  applicationName: 'Mercian Wealth Automation',
+  description: 'We create bespoke digital experiences designed around your business, strengthening your online presence and turning visitors into meaningful enquiries.',
+  applicationName: 'Mercian Wealth',
   keywords: [
+    "bespoke website design UK",
+    "high-performance web architecture",
+    "Three.js particle websites",
+    "conversion-focused web design",
     "mobile storefronts UK",
-    "3-tap booking builder",
-    "WhatsApp lead capture UK",
-    "upfront deposit collection",
-    "local business websites UK",
-    "accounting practice client intake",
-    "accountant deadline chasing automation",
-    "automated Google review systems",
-    "trade contractor quote engines",
-    "bakery order builder UK",
-    "local SEO structured schema",
-    "speed to lead automation"
+    "practice infrastructure UK",
+    "speed to lead automation",
+    "Mercian Wealth"
   ],
-  authors: [{ name: 'Mercian Wealth Automation' }],
-  creator: 'Mercian Wealth Automation',
-  publisher: 'Mercian Wealth Automation',
+  authors: [{ name: 'Mercian Wealth' }],
+  creator: 'Mercian Wealth',
+  publisher: 'Mercian Wealth',
   formatDetection: {
     email: false,
     address: false,
@@ -64,16 +60,16 @@ export const metadata: Metadata = {
     canonical: 'https://mercianwealth.com',
   },
   openGraph: {
-    title: SITE_COPY.metadata.layout.defaultTitle,
-    description: SITE_COPY.metadata.layout.description,
+    title: 'Mercian Wealth · Bespoke Websites & High-Performance Architecture',
+    description: 'We create bespoke digital experiences designed around your business, strengthening your online presence and turning visitors into meaningful enquiries.',
     url: 'https://mercianwealth.com',
-    siteName: 'Mercian Wealth Automation',
+    siteName: 'Mercian Wealth',
     images: [
       {
-        url: '/Logo2.jpeg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Mercian Wealth Automation | Mobile Storefronts & Practice Infrastructure for UK Businesses & Accountants',
+        alt: 'Mercian Wealth · Bespoke Websites & High-Performance Digital Architecture',
       },
     ],
     locale: 'en_GB',
@@ -81,9 +77,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: SITE_COPY.metadata.layout.defaultTitle,
-    description: SITE_COPY.metadata.layout.description,
-    images: ['/Logo2.jpeg'],
+    title: 'Mercian Wealth · Bespoke Websites & High-Performance Architecture',
+    description: 'We create bespoke digital experiences designed around your business, strengthening your online presence and turning visitors into meaningful enquiries.',
+    images: ['/og-image.jpg'],
     creator: '@mercianwealth',
   },
   robots: {
@@ -99,13 +95,17 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/Logo1.jpeg', type: 'image/jpeg' },
-      { url: '/favicon.ico' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
     ],
-    shortcut: '/Logo1.jpeg',
-    apple: '/Logo1.jpeg',
+    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
-  // DNS prefetch for Calendly embed (reduces first-load delay by ~150–200 ms)
+  manifest: '/site.webmanifest',
   other: {
     'preconnect-calendly': 'https://calendly.com',
     'preconnect-calendly-assets': 'https://assets.calendly.com',
@@ -116,33 +116,34 @@ export const viewport = {
   width: 'device-width',
   initialScale: 1,
   minimumScale: 1,
-  // Do NOT set maximumScale or userScalable — browser default allows pinch-zoom
   viewportFit: 'cover',
-  themeColor: '#09090B',
+  themeColor: '#030206',
 }
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': ['ProfessionalService', 'Organization'],
+      '@type': ['ProfessionalService', 'Organization', 'LocalBusiness'],
       '@id': 'https://mercianwealth.com/#organization',
-      name: 'Mercian Wealth Automation',
-      legalName: 'Mercian Wealth Automation',
+      name: 'Mercian Wealth',
+      legalName: 'Mercian Wealth Ltd',
       url: 'https://mercianwealth.com',
       logo: {
         '@type': 'ImageObject',
         '@id': 'https://mercianwealth.com/#logo',
-        url: 'https://mercianwealth.com/Logo2.jpeg',
-        caption: 'Mercian Wealth Automation',
+        url: 'https://mercianwealth.com/NewLogo.png',
+        caption: 'Mercian Wealth',
       },
-      image: 'https://mercianwealth.com/Logo2.jpeg',
+      image: 'https://mercianwealth.com/og-image.jpg',
       telephone: '+447851055929',
-      ...(process.env.CONTACT_EMAIL ? { email: process.env.CONTACT_EMAIL } : {}),
+      email: 'info@mercianwealth.com',
+      priceRange: '££££',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Reading',
         addressRegion: 'Berkshire',
+        postalCode: 'RG1',
         addressCountry: 'GB',
       },
       geo: {
@@ -154,35 +155,64 @@ const jsonLd = {
         '@type': 'Country',
         name: 'United Kingdom',
       },
-      openingHoursSpecification: {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: [
-          'Monday',
-          'Tuesday',
-          'Wednesday',
-          'Thursday',
-          'Friday',
-          'Saturday',
-          'Sunday'
-        ],
-        opens: '00:00',
-        closes: '23:59'
-      },
-      description: 'Sub-second mobile storefronts, 3-tap order and booking builders, instant client intake systems, pre-approved deadline chasing engines, and upfront deposit checkout systems for UK local businesses and accounting practices.',
-      disambiguatingDescription: 'Mercian Wealth Automation is a digital engineering provider delivering mobile storefronts, 3-tap booking builders, instant client intake, and automated deadline chasing infrastructure for UK commercial businesses and accounting practices. Mercian Wealth is not a wealth management or financial advisory firm.',
+      openingHoursSpecification: [
+        {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+          opens: '08:30',
+          closes: '18:00',
+        },
+      ],
+      description: 'Bespoke digital experiences, interactive WebGL particle systems, and high-converting website architecture engineered for commercial enterprises across the United Kingdom.',
+      disambiguatingDescription: 'Mercian Wealth is a bespoke website design, engineering, and digital architecture studio based in Berkshire, UK.',
       sameAs: [
         'https://wa.me/447851055929',
-        'https://www.instagram.com/mercianwealth/',
-        ...(process.env.LINKEDIN_URL ? [process.env.LINKEDIN_URL] : [])
-      ]
+        'https://www.instagram.com/mercianwealth/'
+      ],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Digital Architecture & Web Engineering Services',
+        itemListElement: [
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Bespoke Website Design & Development',
+              description: 'Custom, high-performance websites engineered for authority, speed, and conversion.'
+            }
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Interactive 3D & WebGL Experiences',
+              description: 'Cinematic particle engines, scroll-driven narratives, and bespoke WebGL interactions.'
+            }
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Digital Conversion Infrastructure',
+              description: 'Sub-second mobile performance, instant lead routing, and friction-free intake architecture.'
+            }
+          }
+        ]
+      }
     },
     {
       '@type': 'WebSite',
       '@id': 'https://mercianwealth.com/#website',
       url: 'https://mercianwealth.com',
       name: 'Mercian Wealth',
+      alternateName: 'Mercian Wealth Architecture',
       publisher: {
         '@id': 'https://mercianwealth.com/#organization'
+      },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: 'https://mercianwealth.com/?s={search_term_string}',
+        'query-input': 'required name=search_term_string'
       }
     }
   ]
@@ -194,7 +224,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${geistMono.variable} ${cinzel.variable} bg-[#09090B]`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${geistMono.variable} ${cinzel.variable} bg-[#030206]`} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -231,11 +261,11 @@ export default function RootLayout({
           href="https://assets.calendly.com/assets/external/widget.css"
         />
       </head>
-      <body className="font-sans antialiased bg-[#09090B] text-white">
-          <ExtensionErrorHandler />
-          {children}
-          <StickyCTAButton />
-          <ScrollToTop />
+      <body className="font-sans antialiased bg-[#030206] text-white">
+        <ExtensionErrorHandler />
+        {children}
+        <StickyCTAButton />
+        <ScrollToTop />
         <Toaster position="top-right" theme="dark" richColors closeButton />
         <Watermark position="center" opacity={0.15} />
         <TabRetention />

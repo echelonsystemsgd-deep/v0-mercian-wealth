@@ -213,35 +213,23 @@ export function WealthParticleCore() {
 
     const particleSystem = new THREE.Points(geometry, material)
     const heroPosX = isMobile ? 0.0 : 1.7
-    particleSystem.position.set(heroPosX, 0.05, 0)
+    particleSystem.position.set(heroPosX, 0.15, 0)
     scene.add(particleSystem)
 
-    // 4. Sleek Obsidian Reflective Surface with Subtle Purple Sheen (NO mountains, NO grass!)
-    const waterLevel = -1.35
-    const floorGeometry = new THREE.PlaneGeometry(50, 30, 32, 32)
-    const floorMaterial = new THREE.MeshBasicMaterial({
-      color: 0x030206, // Deepest obsidian purple floor
-      transparent: true,
-      opacity: 0.95,
-    })
-    const waterPlane = new THREE.Mesh(floorGeometry, floorMaterial)
-    waterPlane.rotation.x = -Math.PI / 2
-    waterPlane.position.y = waterLevel
-    scene.add(waterPlane)
-
-    // Mirror Inverted Reflection System (Luminous Upside-Down Specular Floor Reflection)
+    // 4. Subtle Inverted Glow Reflection (Placed strictly BELOW the lowest crest tip at y = -2.25, with ZERO black obscuring planes)
+    const reflectionLevel = -2.25
     const mirrorGeometry = geometry.clone()
     const mirrorMaterial = new THREE.PointsMaterial({
-      size: isMobile ? 0.076 : 0.056,
+      size: isMobile ? 0.065 : 0.048,
       vertexColors: true,
       map: particleTexture,
       transparent: true,
-      opacity: 0.65,
+      opacity: 0.28,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     })
     const mirrorSystem = new THREE.Points(mirrorGeometry, mirrorMaterial)
-    mirrorSystem.position.set(particleSystem.position.x, waterLevel * 2 - particleSystem.position.y, 0)
+    mirrorSystem.position.set(particleSystem.position.x, reflectionLevel * 2 - particleSystem.position.y, 0)
     mirrorSystem.scale.y = -1
     scene.add(mirrorSystem)
 
@@ -451,12 +439,12 @@ export function WealthParticleCore() {
       const mobileElevation = isMobileScreen ? 0.3 : 0.0
       particleSystem.rotation.y = baseRotY + mouse.current.x * 0.32
       particleSystem.rotation.x = Math.sin(time * 0.25) * 0.05 - mouse.current.y * 0.2
-      particleSystem.position.y = 0.05 + mobileElevation + Math.sin(time * 0.8) * 0.06 + mouseParallaxY * 0.35
+      particleSystem.position.y = 0.15 + mobileElevation + Math.sin(time * 0.8) * 0.06 + mouseParallaxY * 0.35
 
       // Mirror reflection synchronizes rotation & position inverted
       mirrorSystem.rotation.y = particleSystem.rotation.y
       mirrorSystem.rotation.x = -particleSystem.rotation.x
-      mirrorSystem.position.y = waterLevel * 2 - particleSystem.position.y
+      mirrorSystem.position.y = reflectionLevel * 2 - particleSystem.position.y
 
       // Sinusoidal wave ripple on reflection points
       const mirrorPos = mirrorGeometry.attributes.position as THREE.BufferAttribute
@@ -507,10 +495,8 @@ export function WealthParticleCore() {
       }
       geometry.dispose()
       mirrorGeometry.dispose()
-      floorGeometry.dispose()
       material.dispose()
       mirrorMaterial.dispose()
-      floorMaterial.dispose()
       particleTexture.dispose()
       renderer.dispose()
     }

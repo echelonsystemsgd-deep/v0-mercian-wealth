@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     siteName: 'Mercian Wealth',
     images: [
       {
-        url: '/Logo2.jpeg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Mercian Wealth | Direct WhatsApp & Engineering Gateway',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: SITE_COPY.metadata.contact.title,
     description: SITE_COPY.metadata.contact.description,
-    images: ['/Logo2.jpeg'],
+    images: ['/og-image.jpg'],
     creator: '@mercianwealth',
   },
 }
@@ -57,7 +57,7 @@ export default function ContactPage() {
       "url": "https://mercianwealth.com",
       "telephone": "+447851055929",
       "email": process.env.CONTACT_EMAIL || "",
-      "image": "https://mercianwealth.com/Logo2.jpeg",
+      "image": "https://mercianwealth.com/NewLogo.png",
       "disambiguatingDescription": "Mercian Wealth provides practice infrastructure, client acquisition engineering, and speed-to-lead automation for UK accountancy firms and professional service practices.",
       "address": {
         "@type": "PostalAddress",

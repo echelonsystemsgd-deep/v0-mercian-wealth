@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: 'Mercian Wealth',
     images: [
       {
-        url: '/Logo2.jpeg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Mercian Wealth | Local Business Order Engine Demo',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Order Engine Interactive Demo · Mercian Wealth",
     description: "Interactive 3-tap order builder, instant WhatsApp alerts, and Google review automation live demo for local businesses.",
-    images: ['/Logo2.jpeg'],
+    images: ['/og-image.jpg'],
     creator: '@mercianwealth',
   },
 }

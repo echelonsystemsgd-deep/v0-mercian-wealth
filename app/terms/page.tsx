@@ -4,8 +4,17 @@ import { PageHeader } from "@/components/page-header"
 import { Scale, FileText, Award, ShieldAlert, Sparkles, CheckCircle2 } from "lucide-react"
 
 export const metadata = {
-  title: "Terms of Service",
-  description: "Read our Terms of Service to understand your rights and obligations when using our solutions.",
+  title: "Terms of Service · Mercian Wealth",
+  description: "Read our Terms of Service to understand your rights, intellectual property ownership, and operational parameters when deploying Mercian Wealth solutions.",
+  alternates: {
+    canonical: "https://mercianwealth.com/terms",
+  },
+  openGraph: {
+    title: "Terms of Service · Mercian Wealth",
+    description: "Read our Terms of Service to understand your rights, intellectual property ownership, and operational parameters when deploying Mercian Wealth solutions.",
+    url: "https://mercianwealth.com/terms",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+  },
 }
 
 export default function TermsPage() {
