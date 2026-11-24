@@ -1,55 +1,53 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, CheckCircle2 } from "lucide-react"
-import Link from "next/link"
 
 export function OfferMechanism() {
   const stages = [
     {
       number: "01",
-      title: "DISCOVERY & AUDIT",
-      tagline: "Forensic analysis of current operations",
+      title: "Discover",
+      tagline: "Understanding your business, target market and strategic objectives.",
       deliverables: [
-        "Core Web Vitals benchmark (<400ms target)",
-        "Intake drop-off & manual friction audit",
-        "Bespoke system architecture specification",
+        "Commercial friction analysis",
+        "Target client intake profile",
+        "Experience specification",
       ],
     },
     {
       number: "02",
-      title: "ARCHITECTURE & PROTOTYPE",
-      tagline: "Phone-tested before commercial commitment",
+      title: "Plan",
+      tagline: "Architecting the conversion flow, user journey and system integration map.",
       deliverables: [
-        "Interactive 3-tap booking & intake prototype",
-        "Test directly on your personal phone in 48h",
-        "Zero obligation proof before production",
+        "Visual & interactive prototyping",
+        "Conversion architecture roadmap",
+        "System integration schema",
       ],
     },
     {
       number: "03",
-      title: "PRODUCTION BUILD",
-      tagline: "Engineering sub-second speed & automation",
+      title: "Build",
+      tagline: "Engineering the bespoke WebGL experience, intake builders and automation pipes.",
       deliverables: [
-        "Instant WhatsApp alert dispatch (<5 seconds)",
-        "Stripe upfront deposit lock (0 no-shows)",
-        "Zero-leak WebGL interactive graphics layer",
+        "Sub-second production build",
+        "Instant dispatch automation",
+        "Responsive multi-device QA",
       ],
     },
     {
       number: "04",
-      title: "CLIENT SOVEREIGNTY",
-      tagline: "100% client-owned infrastructure",
+      title: "Launch",
+      tagline: "Deploying the validated digital platform with complete client infrastructure ownership.",
       deliverables: [
-        "Domain & cloud accounts configured in your registrar",
-        "Permanent 100% ownership of code & assets",
-        "Zero platform lock-in, zero hostage agency fees",
+        "100% client infrastructure ownership",
+        "Production domain & cloud release",
+        "Zero vendor lock-in",
       ],
     },
   ]
 
   return (
-    <section id="method" className="relative py-24 sm:py-32 px-6 sm:px-12 lg:px-20 pointer-events-none">
+    <section id="approach" className="relative py-24 sm:py-32 px-6 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-7xl mx-auto pointer-events-auto">
         
         {/* Section Header */}
@@ -62,18 +60,18 @@ export function OfferMechanism() {
         >
           <div className="mb-4">
             <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#E08A68] uppercase">
-              + METHOD
+              + OUR APPROACH
             </span>
           </div>
           <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-4">
-            <span className="text-[#E08A68]">ONE MOVE</span> AT A TIME
+            <span className="text-[#E08A68]">ONE MOVE</span> AT A TIME.
           </h2>
           <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-300 leading-relaxed max-w-xl">
-            From initial friction analysis to client-owned production deployment. Zero speculative slide decks, zero endless agency retainers.
+            Every project follows a considered process, from understanding the objective to designing, building and launching the finished experience.
           </p>
         </motion.div>
 
-        {/* Single 4-Column Horizontal Row */}
+        {/* Restrained 4-Stage Horizontal Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {stages.map((stage, idx) => (
             <motion.div
@@ -86,7 +84,7 @@ export function OfferMechanism() {
             >
               <div>
                 <span className="font-mono text-xs font-bold text-[#E08A68] tracking-widest uppercase block mb-3">
-                  STAGE {stage.number}
+                  {stage.number} — {stage.title}
                 </span>
                 <h3 className="font-serif text-base sm:text-lg font-bold text-white uppercase tracking-wide mb-2">
                   {stage.title}

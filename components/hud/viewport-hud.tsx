@@ -47,7 +47,7 @@ export function ViewportHUD() {
     }
   }, [])
 
-  // 2. Scroll percentage & 8-section tracking
+  // 2. Scroll percentage & 11-section tracking
   useEffect(() => {
     const handleScroll = () => {
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight
@@ -56,15 +56,18 @@ export function ViewportHUD() {
       const pct = Math.min(Math.max(Math.round((currentScroll / totalScroll) * 100), 0), 100)
       setScrollPercent(pct)
 
-      // 8 Sections Thresholds
-      if (pct < 12) setCurrentSection("01")
-      else if (pct < 25) setCurrentSection("02")
-      else if (pct < 38) setCurrentSection("03")
-      else if (pct < 51) setCurrentSection("04")
-      else if (pct < 64) setCurrentSection("05")
-      else if (pct < 77) setCurrentSection("06")
-      else if (pct < 90) setCurrentSection("07")
-      else setCurrentSection("08")
+      // 11 Sections Thresholds
+      if (pct < 9) setCurrentSection("01")
+      else if (pct < 18) setCurrentSection("02")
+      else if (pct < 27) setCurrentSection("03")
+      else if (pct < 36) setCurrentSection("04")
+      else if (pct < 45) setCurrentSection("05")
+      else if (pct < 54) setCurrentSection("06")
+      else if (pct < 63) setCurrentSection("07")
+      else if (pct < 72) setCurrentSection("08")
+      else if (pct < 81) setCurrentSection("09")
+      else if (pct < 90) setCurrentSection("10")
+      else setCurrentSection("11")
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
@@ -76,30 +79,30 @@ export function ViewportHUD() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-30 select-none overflow-hidden" aria-hidden="true">
-      {/* 4 Corner L-Brackets */}
-      <div className="absolute top-20 left-4 text-[#E08A68]/30 font-mono text-[10px] hidden xl:block">
+      {/* 4 Corner L-Brackets in Refined Gold */}
+      <div className="absolute top-20 left-4 text-[#d4af37]/30 font-mono text-[10px] hidden xl:block">
         ┌
       </div>
-      <div className="absolute top-20 right-4 text-[#E08A68]/30 font-mono text-[10px] hidden xl:block">
+      <div className="absolute top-20 right-4 text-[#d4af37]/30 font-mono text-[10px] hidden xl:block">
         ┐
       </div>
-      <div className="absolute bottom-5 left-4 text-[#E08A68]/30 font-mono text-[10px] hidden xl:block">
+      <div className="absolute bottom-5 left-4 text-[#d4af37]/30 font-mono text-[10px] hidden xl:block">
         └
       </div>
-      <div className="absolute bottom-5 right-4 text-[#E08A68]/30 font-mono text-[10px] hidden xl:block">
+      <div className="absolute bottom-5 right-4 text-[#d4af37]/30 font-mono text-[10px] hidden xl:block">
         ┘
       </div>
 
       {/* Crosshair Hairline Reticles */}
-      <div className="absolute top-1/3 left-6 text-[#E2B857]/20 font-mono text-[11px] hidden lg:block">+</div>
-      <div className="absolute top-2/3 left-6 text-[#E2B857]/20 font-mono text-[11px] hidden lg:block">+</div>
-      <div className="absolute top-1/3 right-6 text-[#E2B857]/20 font-mono text-[11px] hidden lg:block">+</div>
-      <div className="absolute top-2/3 right-6 text-[#E2B857]/20 font-mono text-[11px] hidden lg:block">+</div>
+      <div className="absolute top-1/3 left-6 text-[#d4af37]/20 font-mono text-[11px] hidden lg:block">+</div>
+      <div className="absolute top-2/3 left-6 text-[#d4af37]/20 font-mono text-[11px] hidden lg:block">+</div>
+      <div className="absolute top-1/3 right-6 text-[#d4af37]/20 font-mono text-[11px] hidden lg:block">+</div>
+      <div className="absolute top-2/3 right-6 text-[#d4af37]/20 font-mono text-[11px] hidden lg:block">+</div>
 
-      {/* Bottom-Left Telemetry: ● SEC 01 / 08 · 000 % */}
+      {/* Bottom-Left Telemetry: ● SEC 01 / 11 · 000 % */}
       <div className="absolute bottom-3 sm:bottom-4 left-4 sm:left-10 flex items-center gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-[10px] text-zinc-400 tracking-wider">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#E08A68] animate-pulse" />
-        <span className="text-zinc-200 font-semibold">SEC {currentSection} / 08</span>
+        <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-pulse" />
+        <span className="text-zinc-200 font-semibold">SEC {currentSection} / 11</span>
         <span className="text-zinc-500">·</span>
         <span className="text-zinc-400">{formattedPercent} %</span>
       </div>
@@ -108,13 +111,13 @@ export function ViewportHUD() {
       <div className="absolute bottom-3 sm:bottom-4 right-4 sm:right-10 flex items-center gap-1.5 sm:gap-2 font-mono text-[9px] sm:text-[10px] text-zinc-400 tracking-wider">
         <span className="text-zinc-300">UK {ukTime || "12:00:00"}</span>
         <span className="text-zinc-500">·</span>
-        <span className="text-[#E08A68]">{fps} FPS</span>
+        <span className="text-[#d4af37]">{fps} FPS</span>
       </div>
 
       {/* Right Edge Thin Vertical Scroll Progress Rail */}
       <div className="absolute right-0 top-0 bottom-0 w-[2px] bg-white/[0.04] hidden md:block">
         <div
-          className="w-full bg-[#E08A68]/60 transition-all duration-100 origin-top"
+          className="w-full bg-[#d4af37]/60 transition-all duration-100 origin-top"
           style={{ height: `${scrollPercent}%` }}
         />
       </div>

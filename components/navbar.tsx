@@ -168,17 +168,17 @@ export function Navbar() {
             href="/" 
             className="flex items-center gap-2.5 group shrink-0 whitespace-nowrap cursor-pointer"
           >
-            <div className="relative h-7 w-7 flex items-center justify-center shrink-0 text-[#E08A68]">
+            <div className="relative h-7 w-7 flex items-center justify-center shrink-0 text-[#d4af37]">
               <svg className="w-6 h-6" viewBox="0 0 45 45" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 10c1.5-3 5-4.5 7-2 1.5 2-.5 4-.5 5.5s1 2.5 3 2.5c2 0 4.5-1 4.5 2 0 3-4 6-6 8s-3.5 4-3.5 7h-9c0-3 1-5 2.5-7.5s3-4.5 1.5-9.5c-.8-2.5-3-4-2-6 1-2 1.5-1.5 2-.5z" fill="currentColor" fillOpacity="0.9" />
                 <path d="M12 36h21v3H12z" fill="currentColor" />
                 <path d="M15 32h15v4H15z" fill="currentColor" />
-                <circle cx="27" cy="14" r="1.5" fill="#120d0b" />
+                <circle cx="27" cy="14" r="1.5" fill="#060a14" />
               </svg>
             </div>
             <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-white flex items-center gap-1.5 uppercase whitespace-nowrap">
               <span>MERCIAN</span>
-              <span className="text-[#E08A68]">WEALTH</span>
+              <span className="text-[#d4af37]">WEALTH</span>
             </span>
           </Link>
 
@@ -193,7 +193,7 @@ export function Navbar() {
                   prefetch={true}
                   className={`py-1 transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                     isActive
-                      ? "text-[#E08A68] font-bold border-b border-[#E08A68]"
+                      ? "text-[#d4af37] font-bold border-b border-[#d4af37]"
                       : "text-zinc-400 hover:text-white"
                   }`}
                 >
@@ -218,9 +218,9 @@ export function Navbar() {
               title="Toggle Audio"
             >
               <span className="flex items-end gap-0.5 h-3">
-                <span className={`w-0.5 bg-[#E08A68] rounded-full transition-all duration-300 ${audioActive ? 'h-3 animate-pulse' : 'h-1.5'}`} />
-                <span className={`w-0.5 bg-[#E08A68] rounded-full transition-all duration-300 ${audioActive ? 'h-2 animate-pulse delay-75' : 'h-2.5'}`} />
-                <span className={`w-0.5 bg-[#E08A68] rounded-full transition-all duration-300 ${audioActive ? 'h-3.5 animate-pulse delay-150' : 'h-1'}`} />
+                <span className={`w-0.5 bg-[#d4af37] rounded-full transition-all duration-300 ${audioActive ? 'h-3 animate-pulse' : 'h-1.5'}`} />
+                <span className={`w-0.5 bg-[#d4af37] rounded-full transition-all duration-300 ${audioActive ? 'h-2 animate-pulse delay-75' : 'h-2.5'}`} />
+                <span className={`w-0.5 bg-[#d4af37] rounded-full transition-all duration-300 ${audioActive ? 'h-3.5 animate-pulse delay-150' : 'h-1'}`} />
               </span>
               <span>AUDIO</span>
             </button>
@@ -230,18 +230,19 @@ export function Navbar() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button 
-                    className="flex items-center justify-center h-8 w-8 rounded-full border border-[#E08A68]/40 bg-[#14100e] text-[#E08A68] hover:text-white transition-all cursor-pointer outline-none"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded border border-[#d4af37]/40 bg-[#0a1122] text-[#d4af37] hover:text-white transition-all cursor-pointer outline-none"
                     aria-label="User Portal Menu"
                   >
-                    <User size={13} className="text-[#E08A68]" />
+                    <User size={13} className="text-[#d4af37]" />
+                    <span className="font-mono text-xs uppercase tracking-wider">Account</span>
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 bg-[#120d0b] border border-white/10 text-zinc-200">
-                  <DropdownMenuLabel className="text-xs font-mono text-[#E08A68] uppercase">Portal Access</DropdownMenuLabel>
+                <DropdownMenuContent align="end" className="w-48 bg-[#060a14] border border-white/10 text-zinc-200">
+                  <DropdownMenuLabel className="text-xs font-mono text-[#d4af37] uppercase">Portal Access</DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-white/10" />
                   <DropdownMenuItem asChild className="cursor-pointer hover:bg-white/5">
                     <Link href={(profile?.role === 'admin' || user?.email === 'deepgurtej28@gmail.com') ? '/admin' : '/client'} className="flex items-center gap-2 text-xs">
-                      <LayoutDashboard size={14} className="text-[#E08A68]" />
+                      <LayoutDashboard size={14} className="text-[#d4af37]" />
                       <span>Dashboard</span>
                     </Link>
                   </DropdownMenuItem>
@@ -254,19 +255,18 @@ export function Navbar() {
             ) : (
               <Link
                 href="/login"
-                rel="nofollow"
-                aria-label="Operator Login"
-                className="hidden xl:inline-flex items-center justify-center h-7 w-7 rounded-full border border-white/10 hover:border-[#E08A68]/50 text-zinc-400 hover:text-white transition-all"
-                title="Portal Login"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-white/15 hover:border-[#b794f6]/60 text-zinc-300 hover:text-white font-mono text-[11px] uppercase tracking-wider transition-all backdrop-blur-sm"
+                title="Client & Operator Login"
               >
-                <User size={12} />
+                <User size={12} className="text-[#b794f6]" />
+                <span>Login</span>
               </Link>
             )}
 
             {/* Benchmark LET'S TALK ◆ Outline Button */}
             <Link
               href="/book"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded border border-[#E08A68]/60 hover:bg-[#E08A68] text-[#E08A68] hover:text-black font-mono font-medium text-[10px] xl:text-xs uppercase tracking-wider transition-all duration-200 shadow-md shadow-[#E08A68]/10 whitespace-nowrap"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded border border-[#d4af37]/60 hover:bg-[#d4af37] text-[#d4af37] hover:text-black font-mono font-medium text-[10px] xl:text-xs uppercase tracking-wider transition-all duration-200 shadow-md shadow-[#d4af37]/10 whitespace-nowrap"
             >
               <span>LET&apos;S TALK ◆</span>
             </Link>
@@ -343,6 +343,7 @@ export function Navbar() {
                     { name: "Work", href: "/portfolio", icon: Layers },
                     { name: "About", href: "/about", icon: Info },
                     { name: "Contact", href: "/contact", icon: Mail },
+                    { name: "Client Login", href: "/login", icon: User },
                   ].map((item) => {
                     const Icon = item.icon
                     const isActive = pathname === item.href
@@ -353,12 +354,12 @@ export function Navbar() {
                         onClick={() => setIsMobileMenuOpen(false)}
                         className={`flex items-center justify-between px-3.5 py-3 rounded-xl transition-all cursor-pointer ${
                           isActive
-                            ? "bg-[#E2B857]/15 text-[#E2B857] font-bold border border-[#E2B857]/30"
+                            ? "bg-[#d4af37]/15 text-[#d4af37] font-bold border border-[#d4af37]/30"
                             : "text-zinc-300 hover:bg-white/5 hover:text-white border border-transparent"
                         }`}
                       >
                         <div className="flex items-center gap-3">
-                          <Icon className="w-4 h-4 text-[#E2B857]" />
+                          <Icon className="w-4 h-4 text-[#d4af37]" />
                           <span className="text-sm font-semibold tracking-wide font-mono uppercase text-xs">{item.name}</span>
                         </div>
                         <ChevronRight className="w-4 h-4 text-zinc-500" />

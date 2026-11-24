@@ -14,7 +14,7 @@ export function Footer() {
           
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="relative h-6 w-6 flex items-center justify-center shrink-0 text-[#E08A68]">
+            <div className="relative h-6 w-6 flex items-center justify-center shrink-0 text-[#d4af37]">
               <svg className="w-5 h-5" viewBox="0 0 45 45" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 10c1.5-3 5-4.5 7-2 1.5 2-.5 4-.5 5.5s1 2.5 3 2.5c2 0 4.5-1 4.5 2 0 3-4 6-6 8s-3.5 4-3.5 7h-9c0-3 1-5 2.5-7.5s3-4.5 1.5-9.5c-.8-2.5-3-4-2-6 1-2 1.5-1.5 2-.5z" fill="currentColor" fillOpacity="0.9" />
                 <path d="M12 36h21v3H12z" fill="currentColor" />
@@ -22,7 +22,7 @@ export function Footer() {
               </svg>
             </div>
             <span className="font-mono text-xs font-bold tracking-widest text-white uppercase">
-              <span>MERCIAN</span> <span className="text-[#E08A68]">WEALTH</span>
+              <span>MERCIAN</span> <span className="text-[#d4af37]">WEALTH</span>
             </span>
           </Link>
 

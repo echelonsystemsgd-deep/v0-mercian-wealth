@@ -3,51 +3,51 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Phone, ExternalLink } from "lucide-react"
+import { ArrowRight, Phone } from "lucide-react"
 
-// Section 02: Approach
+// SECTION 02: THE VISION
 export function ApproachSection() {
   return (
-    <section id="approach" className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-start py-20 sm:py-24 px-6 sm:px-12 lg:px-20 pointer-events-none">
+    <section id="vision" className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-start py-20 sm:py-24 px-6 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto">
         <div className="mb-4">
           <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#E08A68] uppercase">
-            + APPROACH
+            + THE VISION
           </span>
         </div>
 
         <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
-          <span className="text-[#E08A68]">FIRST</span> THE WHY,<br />
-          THEN THE CODE
+          <span className="text-[#E08A68]">FIRST</span> THE VISION.<br />
+          THEN THE EXECUTION.
         </h2>
 
         <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-300 max-w-lg leading-relaxed font-normal">
-          Before writing a single line of code, we analyze how your firm operates: what you sell, who to, and where valuable billable hours leak. Then we engineer the architecture and automation to solve that—never the other way around.
+          Every successful digital experience starts with understanding the business, its direction and the people it needs to reach.
         </p>
       </div>
     </section>
   )
 }
 
-// Section 03: 01 Bespoke Storefronts & Platforms
+// SECTION 03: CONVERSION
 export function StorefrontsSection() {
-  const tags = ["BUSINESS WEBSITES", "LANDING PAGES", "STOREFRONTS", "3D EXPERIENCES"]
+  const tags = ["BESPOKE PLATFORMS", "CONVERSION ARCHITECTURE", "CREDIBILITY SIGNALS", "SEAMLESS INTAKE"]
   return (
-    <section id="storefronts" className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-start py-20 sm:py-24 px-6 sm:px-12 lg:px-20 pointer-events-none">
+    <section id="conversion" className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-start py-20 sm:py-24 px-6 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto">
         <div className="mb-4">
           <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#E08A68] uppercase">
-            + 01 — WEBSITES AND EXPERIENCES
+            + 01 — CONVERSION
           </span>
         </div>
 
         <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
           TURN VISITORS<br />
-          <span className="text-[#E08A68]">INTO ENQUIRIES</span>
+          <span className="text-[#E08A68]">INTO ENQUIRIES.</span>
         </h2>
 
         <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-300 max-w-lg leading-relaxed font-normal mb-8">
-          From high-converting landing pages to bespoke 3D storefronts, we engineer architecture, copy, design, and deployment. Fast on phones, clear at a glance, easy to find, and engineered so qualified visitors get in touch.
+          Your website should do more than look impressive. It should communicate value, establish credibility and make it easy for customers to take the next step.
         </p>
 
         {/* Sharp Rectangular Capability Tags */}
@@ -66,7 +66,7 @@ export function StorefrontsSection() {
   )
 }
 
-// Section 04: 02 Workflow Automation
+// SECTION 04: AUTOMATION
 export function AutomationSection() {
   const tags = ["INTAKE BUILDERS", "WHATSAPP DISPATCH", "CALENDAR SYNC", "CRM WEBHOOKS"]
   return (
@@ -74,17 +74,17 @@ export function AutomationSection() {
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto">
         <div className="mb-4">
           <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#E08A68] uppercase">
-            + 02 — WORKFLOW AUTOMATION
+            + 02 — AUTOMATION
           </span>
         </div>
 
         <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
-          REPETITIVE WORK,<br />
-          <span className="text-[#E08A68]">DONE</span> BY THE COMPUTER
+          REPETITIVE WORK.<br />
+          <span className="text-[#E08A68]">DONE BY</span> THE SYSTEM.
         </h2>
 
         <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-300 max-w-lg leading-relaxed font-normal mb-8">
-          Leads that log themselves into your CRM, instant WhatsApp intake specs pushed to your smartphone in under 5 seconds, and automated follow-ups. Every week, hours handed back to you and your team.
+          Connect the right processes, reduce unnecessary administration and give your business more room to operate efficiently.
         </p>
 
         {/* Sharp Rectangular Capability Tags */}
@@ -103,25 +103,25 @@ export function AutomationSection() {
   )
 }
 
-// Section 05: 03 Speed-to-Lead & Autonomous Triage
+// SECTION 05: INTELLIGENCE
 export function TriageSection() {
-  const tags = ["<45S RESPONSE", "CLIENT TRIAGE", "STRIPE DEPOSIT", "ZERO NO-SHOWS"]
+  const tags = ["SUB-45S RESPONSE", "ENQUIRY TRIAGE", "PROCESS ROUTING", "24/7 AVAILABILITY"]
   return (
     <section id="systems" className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-start py-20 sm:py-24 px-6 sm:px-12 lg:px-20 pointer-events-none">
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto">
         <div className="mb-4">
           <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#E08A68] uppercase">
-            + 03 — SPEED-TO-LEAD PIPELINES
+            + 03 — INTELLIGENCE
           </span>
         </div>
 
         <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
-          AN ASSISTANT<br />
-          <span className="text-[#E08A68]">THAT KNOWS</span> YOUR BUSINESS
+          TECHNOLOGY THAT<br />
+          <span className="text-[#E08A68]">UNDERSTANDS</span> YOUR BUSINESS.
         </h2>
 
         <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-300 max-w-lg leading-relaxed font-normal mb-8">
-          Autonomous triage systems that qualify scope, reserve calendar slots, and collect deposits 24/7/365. Enquiries received outside office hours are confirmed in under 45 seconds while buyer intent is peak.
+          Thoughtful integrations and intelligent systems support better customer experiences, faster responses and more connected operations.
         </p>
 
         {/* Sharp Rectangular Capability Tags */}
@@ -140,25 +140,25 @@ export function TriageSection() {
   )
 }
 
-// Section 06: Selected Work Showcase
+// SECTION 06: TOOLS THAT WORK
 export function WorkTeaserSection() {
   const projects = [
     { 
       title: "VANCE & PARTNERS", 
       cat: "ACCOUNTANCY & TAX", 
-      desc: "Sub-second intake triage and automated MTD onboarding.",
+      desc: "Sub-second intake triage and automated client onboarding.",
       image: "/mercian-storefront-executive.jpg"
     },
     { 
       title: "THORNTON BUILDING", 
       cat: "COMMERCIAL FIT-OUT", 
-      desc: "3-tap bespoke quote estimator with upfront deposit locks.",
+      desc: "3-tap bespoke quote estimator with upfront commitment locks.",
       image: "/vanguard-construction-preview-real.jpg"
     },
     { 
       title: "AURELIA CLINIC", 
       cat: "AESTHETICS & HEALTH", 
-      desc: "WhatsApp integrated appointment booking with 0% no-shows.",
+      desc: "Integrated appointment booking with automated enquiry routing.",
       image: "/aurelia-supplement-preview-real.jpg"
     },
   ]
@@ -168,21 +168,21 @@ export function WorkTeaserSection() {
       <div className="relative z-10 max-w-xl lg:max-w-2xl text-left pointer-events-auto mb-10">
         <div className="mb-4">
           <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#E08A68] uppercase">
-            + SELECTED DEPLOYMENTS
+            + 04 — CONNECTIVITY
           </span>
         </div>
 
         <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white leading-[1.08] mb-6">
-          TOOLS THAT<br />
-          <span className="text-[#E08A68]">REALLY</span> WORK
+          THE RIGHT TOOLS.<br />
+          <span className="text-[#E08A68]">ONE CONNECTED</span> EXPERIENCE.
         </h2>
 
         <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-300 max-w-lg leading-relaxed font-normal">
-          Bespoke digital platforms in daily commercial use across the UK. Fast, secure, and engineered to convert visitors into retainers.
+          Websites, customer journeys and supporting systems should work together rather than operate in isolation.
         </p>
       </div>
 
-      {/* Sharp-Edged Showcase Cards */}
+      {/* Restrained Showcase Cards */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 max-w-5xl pointer-events-auto mb-10">
         {projects.map((proj) => (
           <Link
@@ -214,13 +214,13 @@ export function WorkTeaserSection() {
         ))}
       </div>
 
-      {/* Bordered Button: SEE ALL THE WORK */}
+      {/* Bordered Action Link */}
       <div className="relative z-10 text-left pointer-events-auto">
         <Link
           href="/portfolio"
           className="inline-flex items-center gap-2 px-5 py-3 border border-white/20 hover:border-[#E08A68] text-white hover:text-[#E08A68] font-mono text-xs uppercase tracking-wider transition-all bg-[#120d0b]/80 backdrop-blur-sm"
         >
-          <span>SEE ALL THE WORK</span>
+          <span>Explore Selected Deployments</span>
           <ArrowRight size={13} />
         </Link>
       </div>
@@ -228,7 +228,7 @@ export function WorkTeaserSection() {
   )
 }
 
-// Section 08: Minimalist Closing CTA
+// SECTION 08: LET'S TALK
 export function ClosingCTASection() {
   return (
     <section id="cta" className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center py-20 sm:py-28 px-6 sm:px-12 lg:px-20 text-center overflow-hidden">
@@ -241,11 +241,11 @@ export function ClosingCTASection() {
         </div>
 
         <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tight text-white leading-tight mb-6">
-          <span className="text-[#E08A68]">LET&apos;S TALK</span>
+          <span className="text-[#E08A68]">LET&apos;S TALK.</span>
         </h2>
 
         <p className="font-sans text-xs sm:text-sm md:text-base text-zinc-300 max-w-md leading-relaxed font-normal mb-8">
-          Tell us about your business and current intake process. We analyze your requirements and reply within one business day.
+          Have a project in mind? Let&apos;s explore what the right digital experience could make possible for your business.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-8 w-full sm:w-auto">
@@ -253,7 +253,7 @@ export function ClosingCTASection() {
             href="/book"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-[#E08A68] hover:bg-[#F09A78] text-black font-mono font-bold text-xs uppercase tracking-wider transition-all chamfered shadow-xl shadow-[#E08A68]/20"
           >
-            <span>REQUEST SYSTEM BLUEPRINT ◆</span>
+            <span>Start a Conversation</span>
             <ArrowRight size={14} />
           </Link>
 
@@ -266,8 +266,8 @@ export function ClosingCTASection() {
           </a>
         </div>
 
-        <div className="flex items-center gap-2 text-[10px] sm:text-[11px] font-mono text-zinc-500 uppercase tracking-widest">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded bg-[#120d0b]/90 border border-white/10 text-[10px] sm:text-[11px] font-mono text-zinc-300 uppercase tracking-widest backdrop-blur-md shadow-lg">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           <span>Berkshire &amp; across the United Kingdom</span>
         </div>
 
